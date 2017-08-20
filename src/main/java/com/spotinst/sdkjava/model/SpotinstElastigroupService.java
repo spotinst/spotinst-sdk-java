@@ -21,14 +21,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupService.class);
 
-    private static Map<String, String> buildHeaders(String authToken) {
-        Map<String, String> retVal = new HashMap<String, String>();
-        retVal.put("Authorization", "Bearer " + authToken);
-        retVal.put("Content-Type", "application/json");
-
-        return retVal;
-    }
-
     static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken) throws SpotinstHttpException {
 
         // Init retVal
