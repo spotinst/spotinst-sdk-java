@@ -3,6 +3,7 @@ package com.spotinst.sdkjava;
 
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
+import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
 import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
 
 /**
@@ -23,6 +24,11 @@ public class SpotinstClient {
     public static SpotinstSubscriptionClient getSubscriptionClient(String authToken) {
         SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken);
         return spotinstSubscriptionClient;
+    }
+
+    public static SpotinstSpectrumClient getSpectrumClient(String authToken) {
+        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken);
+        return spotinstSpectrumClient;
     }
 
     //endregion
