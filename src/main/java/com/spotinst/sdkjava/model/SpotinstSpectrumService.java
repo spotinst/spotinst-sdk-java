@@ -29,7 +29,6 @@ class SpotinstSpectrumService extends BaseSpotinstService {
 
         // Write to json
         String body = dataRequest.toJson();
-        System.out.println(body);
 
         // Build URI
         String uri = String.format("%s/spectrum/metricData", apiEndpoint);

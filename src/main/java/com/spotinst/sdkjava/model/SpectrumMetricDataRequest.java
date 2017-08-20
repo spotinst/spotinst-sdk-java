@@ -4,12 +4,13 @@ import com.spotinst.sdkjava.client.rest.JsonMapper;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class SpectrumMetricDataRequest {
   //region Members
-  private List<SpectrumMetricData> metricData;
+  private List<SpectrumMetricData> metricData = new LinkedList<>();
   //endregion
 
   //region Private Constructor
@@ -25,6 +26,10 @@ public class SpectrumMetricDataRequest {
 
   public void setMetricData(List<SpectrumMetricData> metricData) {
     this.metricData = metricData;
+  }
+
+  public void addMetricData(SpectrumMetricData metricData) {
+    this.metricData.add(metricData);
   }
   //endregion
 
@@ -63,6 +68,11 @@ public class SpectrumMetricDataRequest {
 
     public SpectrumMetricDataRequest.Builder setMetricData(SpectrumMetricData... spectrumMetricData) {
       return setMetricData(Arrays.asList(spectrumMetricData));
+    }
+
+    public SpectrumMetricDataRequest.Builder addMetricData(SpectrumMetricData spectrumMetricData) {
+      spectrumMetricDataRequest.addMetricData(spectrumMetricData);
+      return this;
     }
 
     public SpectrumMetricDataRequest build() {
