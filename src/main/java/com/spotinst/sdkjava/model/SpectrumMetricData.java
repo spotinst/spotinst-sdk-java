@@ -3,14 +3,15 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SpectrumMetricData {
 
   private String namespace;
-  private List<ScalingDimension> dimensions;
-  private List<SpectrumMetric> metrics;
+  private List<ScalingDimension> dimensions = new LinkedList<>();
+  private List<SpectrumMetric> metrics = new LinkedList<>();
 
   private SpectrumMetricData() {
   }
@@ -66,6 +67,11 @@ public class SpectrumMetricData {
       return setDimensions(Arrays.asList(dimensions));
     }
 
+    public Builder addDimension(ScalingDimension dimension) {
+      spectrumMetricData.dimensions.add(dimension);
+      return this;
+    }
+
     public Builder setMetrics(final List<SpectrumMetric> metrics) {
       spectrumMetricData.setMetrics(metrics);
       return this;
@@ -73,6 +79,11 @@ public class SpectrumMetricData {
 
     public Builder setMetrics(SpectrumMetric... metrics) {
       return setMetrics(Arrays.asList(metrics));
+    }
+
+    public Builder addMetric(SpectrumMetric metric) {
+      spectrumMetricData.metrics.add(metric);
+      return this;
     }
 
     public SpectrumMetricData build() {
