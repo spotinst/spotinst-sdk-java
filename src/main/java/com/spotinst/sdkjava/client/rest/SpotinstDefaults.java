@@ -14,4 +14,6 @@ public class SpotinstDefaults {
     public static final Integer MAX_CONNECTIONS_PER_ROUTE = 1024;
     public static final Integer KEEP_ALIVE_IN_MILLIS = 0;
     public static final Integer RETRIES = 0;
+    //TODO: enforce on all REST calls
+    public static final int HTTP_PAYLOAD_THRESHOLD_IN_BYTES = (int) (50 * 1000 * 0.95); // almost 50kB
 }

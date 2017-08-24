@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
 import java.util.Map;
 
 class SpotinstSpectrumService extends BaseSpotinstService {
@@ -27,16 +28,20 @@ class SpotinstSpectrumService extends BaseSpotinstService {
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
 
-        // Write to json
-        String body = dataRequest.toJson();
-
         // Build URI
         String uri = String.format("%s/spectrum/metricData", apiEndpoint);
 
-        // Send the request
-        RestResponse response = RestClient.sendPost(uri, body, headers, null);
+        // Write to json
+        Collection<String> requestsBody = dataRequest.toJsonParts();
+
+        RestResponse response = null;
+        for (String body : requestsBody) {
+            // Send the request
+            response = RestClient.sendPost(uri, body, headers, null);
+        }
 
         // Handle the response.
+        //TODO: which response should be returned?
         SpectrumApiResponse apiResponse = getCastedResponse(response, SpectrumApiResponse.class);
 
         if (apiResponse.getResponse().getCount() > 0) {
