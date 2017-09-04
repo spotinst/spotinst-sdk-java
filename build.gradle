@@ -27,7 +27,7 @@ task createPom << {
             artifactId 'spotinst-sdk-java'
             version '1.0.10'
         }
-    }.writeTo("spotinst-sdk-java-" + version + ".pom")
+    }.writeTo("pom.xml")
 }
 
 task buildZip(type: Zip) {
