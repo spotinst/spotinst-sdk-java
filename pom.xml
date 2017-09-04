@@ -5,6 +5,27 @@
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
   <version>1.0.10</version>
+  <packaging>jar</packaging>
+  <name>spotinst-sdk-java</name>
+  <description>A Spotinst Java SDK</description>
+  <url>https://www.spotinst.com</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://www.github.com/spotinst/spotinst-sdk-java </url>
+  </scm>
+  <developers>
+    <developer>
+      <organization>Spotinst</organization>
+      <email>service@spotinst.com</email>
+    </developer>
+  </developers>
   <dependencies>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
