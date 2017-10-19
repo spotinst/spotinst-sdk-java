@@ -11,12 +11,14 @@ class SpotinstRepoManager {
     private ISpotinstElastigroupRepo spotinstElastigroupRepo;
     private ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
     private ISpotinstSubscriptionRepo spotinstSubscriptionRepo;
+    private ISpotinstSpectrumRepo spotinstSpectrumRepo;
 
     //region Constructor
     private SpotinstRepoManager() {
         this.spotinstElastigroupRepo = new SpotinstElastigroupRepo();
         this.spotinstElastigroupActiveInstanceRepo = new SpotinstElastigroupActiveInstanceRepo();
         this.spotinstSubscriptionRepo = new SpotinstSubscriptionRepo();
+        this.spotinstSpectrumRepo = new SpotinstSpectrumRepo();
     }
     //endregion
 
@@ -52,6 +54,13 @@ class SpotinstRepoManager {
         this.spotinstSubscriptionRepo = spotinstSubscriptionRepo;
     }
 
+    public ISpotinstSpectrumRepo getSpotinstSpectrumRepo() {
+        return this.spotinstSpectrumRepo;
+    }
+
+    public void setSpotinstSpectrumRepo(ISpotinstSpectrumRepo spotinstSpectrumRepo) {
+        this.spotinstSpectrumRepo = spotinstSpectrumRepo;
+    }
     //endregion
 
 }

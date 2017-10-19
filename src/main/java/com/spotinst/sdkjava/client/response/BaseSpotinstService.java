@@ -8,6 +8,9 @@ import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by aharontwizer on 8/24/15.
  */
@@ -38,6 +41,14 @@ public class BaseSpotinstService {
                 throw new SpotinstHttpException(message);
             }
         }
+
+        return retVal;
+    }
+
+    protected static Map<String, String> buildHeaders(String authToken) {
+        Map<String, String> retVal = new HashMap<String, String>();
+        retVal.put("Authorization", "Bearer " + authToken);
+        retVal.put("Content-Type", "application/json");
 
         return retVal;
     }

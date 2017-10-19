@@ -19,14 +19,6 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstSubscriptionService.class);
 
-    private static Map<String, String> buildHeaders(String authToken) {
-        Map<String, String> retVal = new HashMap<String, String>();
-        retVal.put("Authorization", "Bearer " + authToken);
-        retVal.put("Content-Type", "application/json");
-
-        return retVal;
-    }
-
     static ApiSubscription createSubscription(ApiSubscription subscriptionToCreate, String authToken) throws SpotinstHttpException {
 
         // Init retVal
