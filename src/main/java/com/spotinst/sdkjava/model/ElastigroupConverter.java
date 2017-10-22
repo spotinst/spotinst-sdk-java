@@ -34,9 +34,6 @@ class ElastigroupConverter {
             if (src.isComputeSet()) {
                 apiGroup.setCompute(toDal(src.getCompute()));
             }
-            if (src.isRegionSet()) {
-                apiGroup.setRegion(src.getRegion());
-            }
         }
 
         return apiGroup;
