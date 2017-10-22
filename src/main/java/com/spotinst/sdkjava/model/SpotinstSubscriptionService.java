@@ -52,7 +52,7 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiSubscription getSubscription(String subscriptionId, String authToken) throws SpotinstHttpException {
+    public static ApiSubscription getSubscription(String subscriptionId, String authToken, String account) throws SpotinstHttpException {
 
         // Init retVal
         ApiSubscription retVal = null;
@@ -66,6 +66,12 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
 
         // Build query params
         Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId",account);
+        }
+
 
         //Build URI
         String uri = String.format("%s/events/subscription/" + subscriptionId, apiEndpoint);
@@ -83,7 +89,7 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteSubscription(String subscriptionId, String authToken) throws SpotinstHttpException {
+    public static Boolean deleteSubscription(String subscriptionId, String authToken, String account) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -97,6 +103,11 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
 
         // Build query params
         Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId",account);
+        }
 
         //Build URI
         String uri = String.format("%s/events/subscription/" + subscriptionId, apiEndpoint);

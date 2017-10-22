@@ -8,12 +8,12 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
  */
 class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
-    public RepoGenericResponse<Elastigroup> create(Elastigroup elastigroupToCreate, String authToken) {
+    public RepoGenericResponse<Elastigroup> create(Elastigroup elastigroupToCreate, String authToken, String account) {
         RepoGenericResponse<Elastigroup> retVal;
 
         try {
             ApiElastigroup apiElastigroupToCreate = ElastigroupConverter.toDal(elastigroupToCreate);
-            ApiElastigroup apiCreatedElastigroup = SpotinstElastigroupService.createElastigroup(apiElastigroupToCreate, authToken);
+            ApiElastigroup apiCreatedElastigroup = SpotinstElastigroupService.createElastigroup(apiElastigroupToCreate, authToken, account);
             Elastigroup createdElastigroup = ElastigroupConverter.toBl(apiCreatedElastigroup);
             retVal = new RepoGenericResponse<>(createdElastigroup);
         } catch (SpotinstHttpException ex) {
@@ -24,11 +24,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken) {
+    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = SpotinstElastigroupService.deleteElastigroup(identifier, authToken);
+            Boolean updated = SpotinstElastigroupService.deleteElastigroup(identifier, authToken, account);
             retVal = new RepoGenericResponse<>(updated);
 
         } catch (SpotinstHttpException e) {
@@ -39,13 +39,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> detachInstances(String elastigroupId, ElastigroupDetachInstancesRequest detachRequest, String authToken) {
+    public RepoGenericResponse<Boolean> detachInstances(String elastigroupId, ElastigroupDetachInstancesRequest detachRequest, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
             ApiDetachInstancesRequest apiDetachRequest =
                     ApiDetachInstancesRequestConverter.toDal(detachRequest);
-            SpotinstElastigroupService.detachInstances(elastigroupId, apiDetachRequest, authToken);
+            SpotinstElastigroupService.detachInstances(elastigroupId, apiDetachRequest, authToken, account);
             retVal = new RepoGenericResponse<>(new Boolean(true));
         } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
@@ -55,13 +55,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> update(String elastigroupId, Elastigroup groupUpdate, String authToken) {
+    public RepoGenericResponse<Boolean> update(String elastigroupId, Elastigroup groupUpdate, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         ApiElastigroup apiElastigroup = ElastigroupConverter.toDal(groupUpdate);
 
         try {
-            Boolean success = SpotinstElastigroupService.updateGroup(elastigroupId, apiElastigroup, authToken);
+            Boolean success = SpotinstElastigroupService.updateGroup(elastigroupId, apiElastigroup, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
@@ -71,11 +71,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Elastigroup> get(String elastigroupId, String authToken) {
+    public RepoGenericResponse<Elastigroup> get(String elastigroupId, String authToken,String account) {
         RepoGenericResponse<Elastigroup> retVal;
 
         try {
-            ApiElastigroup apiElastigroup = SpotinstElastigroupService.getGroup(elastigroupId, authToken);
+            ApiElastigroup apiElastigroup = SpotinstElastigroupService.getGroup(elastigroupId, authToken, account);
             Elastigroup elastigroup = ElastigroupConverter.toBl(apiElastigroup);
             retVal = new RepoGenericResponse<>(elastigroup);
         } catch (SpotinstHttpException e) {
@@ -86,11 +86,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupScalingResponse> scaleUp(ElastigroupScalingRequest scalingRequest, String authToken) {
+    public RepoGenericResponse<ElastigroupScalingResponse> scaleUp(ElastigroupScalingRequest scalingRequest, String authToken, String account) {
         RepoGenericResponse<ElastigroupScalingResponse> retVal;
 
         try {
-            ApiElastigroupScalingResponse apiElastigroupScalingResponse = SpotinstElastigroupService.scaleGroupUp(scalingRequest, authToken);
+            ApiElastigroupScalingResponse apiElastigroupScalingResponse = SpotinstElastigroupService.scaleGroupUp(scalingRequest, authToken, account);
             // Convert
             ElastigroupScalingResponse elastigroupScalingResponse = ApiElastigroupScalingResponseConverter.dalToBl(apiElastigroupScalingResponse);
             retVal = new RepoGenericResponse<>(elastigroupScalingResponse);

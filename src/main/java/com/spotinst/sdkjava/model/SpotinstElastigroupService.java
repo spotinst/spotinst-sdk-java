@@ -21,14 +21,22 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupService.class);
 
-    static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken) throws SpotinstHttpException {
+    static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
+                                            String account) throws SpotinstHttpException {
 
         // Init retVal
         ApiElastigroup retVal = null;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
@@ -42,7 +50,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group", apiEndpoint);
 
         // Send the request
-        RestResponse response = RestClient.sendPost(uri, body, headers, null);
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
         ElastigroupApiResponse elastigroupApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
@@ -54,28 +62,31 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteElastigroup(String elastigroupId, String authToken) throws SpotinstHttpException {
+    public static Boolean deleteElastigroup(String elastigroupId, String authToken,
+                                            String account) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
-
-        // Build query params
-        Map<String, String> queryParams = new HashMap<>();
 
         //Build URI
         String uri = String.format("%s/aws/ec2/group/" + elastigroupId, apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient
-                .sendDelete(uri,
-                        null, headers, queryParams);
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
 
         // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
@@ -86,13 +97,22 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean detachInstances(String elastigroupId, ApiDetachInstancesRequest apiDetachInstancesRequest, String authToken) throws SpotinstHttpException {
+    public static Boolean detachInstances(String elastigroupId, ApiDetachInstancesRequest apiDetachInstancesRequest,
+                                          String authToken, String account) throws SpotinstHttpException {
         // Init retVal
         Boolean retVal = false;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
@@ -104,7 +124,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String body = JsonMapper.toJson(apiDetachInstancesRequest);
 
         // Send the request
-        RestResponse response = RestClient.sendPut(uri, body, headers, null);
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
@@ -115,15 +135,21 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiElastigroupActiveInstance> getGroupActiveInstances(String elastigroupId, String authToken) throws SpotinstHttpException {
+    public static List<ApiElastigroupActiveInstance> getGroupActiveInstances(String elastigroupId, String authToken,
+                                                                             String account) throws SpotinstHttpException {
         // Init retVal
         List<ApiElastigroupActiveInstance> retVal = new LinkedList<>();
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -135,22 +161,30 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupActiveInstanceApiResponse groupActiveInstanceResponse = getCastedResponse(response, ElastigroupActiveInstanceApiResponse.class);
+        ElastigroupActiveInstanceApiResponse groupActiveInstanceResponse =
+                getCastedResponse(response, ElastigroupActiveInstanceApiResponse.class);
         if (groupActiveInstanceResponse.getResponse().getItems().size() > 0) {
             retVal = groupActiveInstanceResponse.getResponse().getItems();
         }
 
         return retVal;
     }
-    public static ApiElastigroup getGroup(String elastigroupId, String authToken) throws SpotinstHttpException {
+
+    public static ApiElastigroup getGroup(String elastigroupId, String authToken,
+                                          String account) throws SpotinstHttpException {
         // Init retVal
         ApiElastigroup retVal = new ApiElastigroup();
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -171,17 +205,23 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateGroup(String elastigroupId, ApiElastigroup apiElastigroup, String authToken) throws SpotinstHttpException {
+    public static Boolean updateGroup(String elastigroupId, ApiElastigroup apiElastigroup, String authToken,
+                                      String account) throws SpotinstHttpException {
 
         //Init retVal
         Boolean retVal = null;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         // Build query params
         Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
@@ -206,18 +246,24 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiElastigroupScalingResponse scaleGroupUp(ElastigroupScalingRequest scalingRequest, String authToken) throws SpotinstHttpException {
+    public static ApiElastigroupScalingResponse scaleGroupUp(ElastigroupScalingRequest scalingRequest, String authToken,
+                                                             String account) throws SpotinstHttpException {
 
         //Init retVal
         ApiElastigroupScalingResponse retVal = null;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         // Build query params
         Map<String, String> queryParams = new HashMap<String, String>();
         queryParams.put("adjustment", scalingRequest.getAdjustment().toString());
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
 
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
@@ -229,7 +275,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
         // Handle the response.
-        ApiElastigroupScalingResponseResponse scalingResponse = getCastedResponse(response, ApiElastigroupScalingResponseResponse.class);
+        ApiElastigroupScalingResponseResponse scalingResponse =
+                getCastedResponse(response, ApiElastigroupScalingResponseResponse.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
             retVal = scalingResponse.getResponse().getItems().get(0);
         }

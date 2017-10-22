@@ -12,8 +12,14 @@ import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
 public class SpotinstClient {
 
     //region Methods
+    @Deprecated
     public static SpotinstElastigroupClient getElastigroupClient(String authToken) {
-        SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken);
+        SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, null);
+        return spotinstElastigroupClient;
+    }
+
+    public static SpotinstElastigroupClient getElastigroupClient(String authToken, String account) {
+        SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, account);
         return spotinstElastigroupClient;
     }
 
@@ -21,13 +27,25 @@ public class SpotinstClient {
         SpotinstHttpContext.getInstance().getConfiguration().setEndpoint(newEndpoint);
     }
 
+    @Deprecated
     public static SpotinstSubscriptionClient getSubscriptionClient(String authToken) {
-        SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken);
+        SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken, null);
         return spotinstSubscriptionClient;
     }
 
+    public static SpotinstSubscriptionClient getSubscriptionClient(String authToken, String account) {
+        SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken, account);
+        return spotinstSubscriptionClient;
+    }
+
+    @Deprecated
     public static SpotinstSpectrumClient getSpectrumClient(String authToken) {
-        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken);
+        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken, null);
+        return spotinstSpectrumClient;
+    }
+
+    public static SpotinstSpectrumClient getSpectrumClient(String authToken, String account) {
+        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken, account);
         return spotinstSpectrumClient;
     }
 

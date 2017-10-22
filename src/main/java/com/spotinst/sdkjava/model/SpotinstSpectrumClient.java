@@ -13,15 +13,17 @@ public class SpotinstSpectrumClient {
 
   //region Members
   private String authToken;
+  private String account;
   private ISpotinstSpectrumRepo spotinstSpectrumRepo;
 
-  public SpotinstSpectrumClient(String authToken) {
-    this.authToken = authToken;
-    this.spotinstSpectrumRepo = SpotinstRepoManager.getInstance().getSpotinstSpectrumRepo();
-  }
+    public SpotinstSpectrumClient(String authToken,String account) {
+        this.authToken = authToken;
+        this.account = account;
+        this.spotinstSpectrumRepo = SpotinstRepoManager.getInstance().getSpotinstSpectrumRepo();
+    }
 
   public void publishMetricData(SpectrumMetricDataRequest spectrumMetricDataRequest) {
-    RepoGenericResponse<SpectrumMetricDataRequest> creationResponse = spotinstSpectrumRepo.create(spectrumMetricDataRequest, authToken);
+    RepoGenericResponse<SpectrumMetricDataRequest> creationResponse = spotinstSpectrumRepo.create(spectrumMetricDataRequest, authToken, account);
     if (!creationResponse.isRequestSucceed()) {
       List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
       HttpError httpException = httpExceptions.get(0);

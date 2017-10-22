@@ -14,14 +14,16 @@ public class SpotinstElastigroupClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupClient.class);
     //region Members
     private String authToken;
+    private String account;
     private ISpotinstElastigroupRepo spotinstElastigroupRepo;
     private ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
     //endregion
 
     //region Constructor
 
-    public SpotinstElastigroupClient(String authToken) {
+    public SpotinstElastigroupClient(String authToken, String account) {
         this.authToken = authToken;
+        this.account = account;
         this.spotinstElastigroupRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepo();
         this.spotinstElastigroupActiveInstanceRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupActiveInstanceRepo();
     }
@@ -34,7 +36,7 @@ public class SpotinstElastigroupClient {
         Elastigroup retVal = null;
 
         Elastigroup elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
-        RepoGenericResponse<Elastigroup> creationResponse = spotinstElastigroupRepo.create(elastigroupToCreate, authToken);
+        RepoGenericResponse<Elastigroup> creationResponse = spotinstElastigroupRepo.create(elastigroupToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {
@@ -51,7 +53,7 @@ public class SpotinstElastigroupClient {
         Boolean retVal = null;
 
         Elastigroup elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
-        RepoGenericResponse<Boolean> updateResponse = spotinstElastigroupRepo.update(elastigroupId, elastigroupToUpdate, authToken);
+        RepoGenericResponse<Boolean> updateResponse = spotinstElastigroupRepo.update(elastigroupId, elastigroupToUpdate, authToken,account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         } else {
@@ -67,7 +69,7 @@ public class SpotinstElastigroupClient {
 
         Boolean retVal = null;
         String elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
-        RepoGenericResponse<Boolean> elastigroupDeletionResponse = spotinstElastigroupRepo.delete(elastigroupToDeleteId, authToken);
+        RepoGenericResponse<Boolean> elastigroupDeletionResponse = spotinstElastigroupRepo.delete(elastigroupToDeleteId, authToken, account);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
         } else {
@@ -85,7 +87,7 @@ public class SpotinstElastigroupClient {
         Boolean retVal = null;
 
         if (detachRequest.getInstancesToDetach().size() > 0) {
-            RepoGenericResponse<Boolean> detachResponse = spotinstElastigroupRepo.detachInstances(elastigroupId, detachRequest, authToken);
+            RepoGenericResponse<Boolean> detachResponse = spotinstElastigroupRepo.detachInstances(elastigroupId, detachRequest, authToken, account);
             if (detachResponse.isRequestSucceed()) {
                 retVal = detachResponse.getValue();
             } else {
@@ -110,7 +112,7 @@ public class SpotinstElastigroupClient {
 
         ActiveInstanceFilter filter = new ActiveInstanceFilter();
         filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<List<ElastigroupActiveInstance>> instancesResponse = spotinstElastigroupActiveInstanceRepo.getAll(filter, authToken);
+        RepoGenericResponse<List<ElastigroupActiveInstance>> instancesResponse = spotinstElastigroupActiveInstanceRepo.getAll(filter, authToken,account);
         if (instancesResponse.isRequestSucceed()) {
             retVal = instancesResponse.getValue();
         } else {
@@ -129,7 +131,7 @@ public class SpotinstElastigroupClient {
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
 
-        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse = spotinstElastigroupRepo.get(elastigroupId, authToken);
+        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse = spotinstElastigroupRepo.get(elastigroupId, authToken,account);
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupRepoGenericResponse.getValue();
         } else {
@@ -150,7 +152,7 @@ public class SpotinstElastigroupClient {
 
         ActiveInstanceFilter filter = new ActiveInstanceFilter();
         filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse = spotinstElastigroupRepo.scaleUp(elastigroupScalingRequest, authToken);
+        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse = spotinstElastigroupRepo.scaleUp(elastigroupScalingRequest, authToken, account);
         if (elastigroupScalingResponse.isRequestSucceed()) {
             retVal = elastigroupScalingResponse.getValue();
         } else {

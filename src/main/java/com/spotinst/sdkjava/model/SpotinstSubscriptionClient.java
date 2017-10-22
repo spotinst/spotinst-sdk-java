@@ -14,10 +14,12 @@ public class SpotinstSubscriptionClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstSubscriptionClient.class);
     //region Members
     private String authToken;
+    private String account;
     private ISpotinstSubscriptionRepo spotinstSubscriptionRepo;
 
-    public SpotinstSubscriptionClient(String authToken) {
+    public SpotinstSubscriptionClient(String authToken, String account) {
         this.authToken = authToken;
+        this.account = account;
         this.spotinstSubscriptionRepo = SpotinstRepoManager.getInstance().getSpotinstSubscriptionRepo();
     }
 
@@ -26,7 +28,7 @@ public class SpotinstSubscriptionClient {
         Subscription retVal = null;
 
         Subscription subscriptionToCreate = subscriptionCreationRequest.getSubscription();
-        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.create(subscriptionToCreate, authToken);
+        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.create(subscriptionToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {
@@ -42,7 +44,7 @@ public class SpotinstSubscriptionClient {
 
         Subscription retVal = null;
         String subscriptionId = subscriptionGetRequest.getSubscriptionId();
-        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.get(subscriptionId, authToken);
+        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.get(subscriptionId, authToken,account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {
@@ -60,7 +62,7 @@ public class SpotinstSubscriptionClient {
 
         String subscriptionId = subscriptionDeletionRequest.getSubscriptionId();
 
-        RepoGenericResponse<Boolean> subscriptionDeletionResponse = spotinstSubscriptionRepo.delete(subscriptionId, authToken);
+        RepoGenericResponse<Boolean> subscriptionDeletionResponse = spotinstSubscriptionRepo.delete(subscriptionId, authToken, account);
         if (subscriptionDeletionResponse.isRequestSucceed()) {
             retVal = subscriptionDeletionResponse.getValue();
         } else {

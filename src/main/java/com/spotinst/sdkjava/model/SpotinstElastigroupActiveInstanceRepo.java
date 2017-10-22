@@ -11,12 +11,12 @@ import java.util.List;
  */
 class SpotinstElastigroupActiveInstanceRepo implements ISpotinstElastigroupActiveInstanceRepo {
     @Override
-    public RepoGenericResponse<List<ElastigroupActiveInstance>> getAll(ActiveInstanceFilter filter, String authToken) {
+    public RepoGenericResponse<List<ElastigroupActiveInstance>> getAll(ActiveInstanceFilter filter, String authToken, String account) {
         RepoGenericResponse<List<ElastigroupActiveInstance>> retVal;
 
         try {
             List<ElastigroupActiveInstance> elastigroupActiveInstances = new LinkedList<>();
-            List<ApiElastigroupActiveInstance> apiElastigroupActiveInstances = SpotinstElastigroupService.getGroupActiveInstances(filter.getElastigroupId(),authToken);
+            List<ApiElastigroupActiveInstance> apiElastigroupActiveInstances = SpotinstElastigroupService.getGroupActiveInstances(filter.getElastigroupId(),authToken,account);
             for (ApiElastigroupActiveInstance apiElastigroupActiveInstance : apiElastigroupActiveInstances) {
 
                 ElastigroupActiveInstance elastigroupActiveInstance = ApiElastigroupActiveInstanceConverter.dalToBl(apiElastigroupActiveInstance);
