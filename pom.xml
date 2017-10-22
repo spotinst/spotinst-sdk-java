@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
-  <version>1.0.12-SNAPSHOT</version>
+  <version>1.0.11</version>
   <packaging>jar</packaging>
   <name>spotinst-sdk-java</name>
   <description>A Spotinst Java SDK</description>
@@ -76,16 +76,16 @@
   </properties>
   <distributionManagement>
     <!-- Repository for snapshots -->
-    <repository>
-      <id>sonatype-nexus-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-    <!-- Repository for releases -->
     <!--<repository>-->
-      <!--<id>nexus-releases</id>-->
-      <!--<name>Nexus Release Repository</name>-->
-      <!--<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+      <!--<id>sonatype-nexus-snapshots</id>-->
+      <!--<url>https://oss.sonatype.org/content/repositories/snapshots</url>-->
     <!--</repository>-->
+    <!-- Repository for releases -->
+    <repository>
+      <id>nexus-releases</id>
+      <name>Nexus Release Repository</name>
+      <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
   <build>
     <plugins>

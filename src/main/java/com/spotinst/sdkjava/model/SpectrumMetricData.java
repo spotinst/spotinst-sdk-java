@@ -10,7 +10,7 @@ import java.util.List;
 public class SpectrumMetricData {
 
   private String namespace;
-  private List<ScalingDimension> dimensions = new LinkedList<>();
+  private List<SpectrumMetricDimension> dimensions = new LinkedList<>();
   private List<SpectrumMetric> metrics = new LinkedList<>();
 
   private SpectrumMetricData() {
@@ -24,11 +24,11 @@ public class SpectrumMetricData {
     this.namespace = namespace;
   }
 
-  public List<ScalingDimension> getDimensions() {
+  public List<SpectrumMetricDimension> getDimensions() {
     return this.dimensions;
   }
 
-  void setDimensions(List<ScalingDimension> dimensions) {
+  void setDimensions(List<SpectrumMetricDimension> dimensions) {
     this.dimensions = dimensions;
   }
 
@@ -58,16 +58,16 @@ public class SpectrumMetricData {
       return this;
     }
 
-    public Builder setDimensions(final List<ScalingDimension> dimensions) {
+    public Builder setDimensions(final List<SpectrumMetricDimension> dimensions) {
       spectrumMetricData.setDimensions(dimensions);
       return this;
     }
 
-    public Builder setDimensions(ScalingDimension... dimensions) {
+    public Builder setDimensions(SpectrumMetricDimension... dimensions) {
       return setDimensions(Arrays.asList(dimensions));
     }
 
-    public Builder addDimension(ScalingDimension dimension) {
+    public Builder addDimension(SpectrumMetricDimension dimension) {
       spectrumMetricData.dimensions.add(dimension);
       return this;
     }
