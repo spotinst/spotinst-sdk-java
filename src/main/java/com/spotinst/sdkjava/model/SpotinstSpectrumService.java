@@ -16,10 +16,10 @@ class SpotinstSpectrumService extends BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstSpectrumService.class);
 
-    static SpectrumMetricDataRequest publishMetricData(SpectrumMetricDataRequest dataRequest, String authToken) throws SpotinstHttpException {
+    static Boolean publishMetricData(SpectrumMetricDataRequest dataRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        SpectrumMetricDataRequest retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -41,11 +41,10 @@ class SpotinstSpectrumService extends BaseSpotinstService {
         }
 
         // Handle the response.
-        //TODO: which response should be returned?
         SpectrumApiResponse apiResponse = getCastedResponse(response, SpectrumApiResponse.class);
 
-        if (apiResponse.getResponse().getCount() > 0) {
-            retVal = apiResponse.getResponse().getItems().get(0);
+        if (apiResponse.getResponse().getStatus().getCode() == 200) {
+            retVal = true;
         }
 
         return retVal;

@@ -9,8 +9,12 @@ class SpotinstSpectrumRepo implements ISpotinstSpectrumRepo {
   public RepoGenericResponse<SpectrumMetricDataRequest> create(SpectrumMetricDataRequest metricDataRequest, String authToken) {
     RepoGenericResponse<SpectrumMetricDataRequest> retVal;
     try {
-      SpectrumMetricDataRequest publishMetricData = SpotinstSpectrumService.publishMetricData(metricDataRequest, authToken);
-      retVal = new RepoGenericResponse<>(publishMetricData);
+      Boolean result = SpotinstSpectrumService.publishMetricData(metricDataRequest, authToken);
+      if (result) {
+        retVal = new RepoGenericResponse<>(true);
+      } else {
+        retVal = new RepoGenericResponse<>(false);
+      }
     } catch (SpotinstHttpException ex) {
       retVal = ExceptionHelper.handleHttpException(ex);
     }
