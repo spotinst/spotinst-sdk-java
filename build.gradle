@@ -1,5 +1,5 @@
 group 'com.spotinst'
-version '1.0.11'
+version '1.0.12'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -41,7 +41,7 @@ task createPom << {
         project {
             groupId 'com.spotinst'
             artifactId 'spotinst-sdk-java'
-            version '1.0.11'
+            version '1.0.12'
         }
     }.writeTo("pom.xml")
 }
@@ -70,5 +70,5 @@ build.dependsOn buildZip
 shadowJar {
     baseName = 'spotinst-sdk-java'
     classifier = 'fatJar'
-    version = '1.0.11'
+    version = '1.0.12'
 }
