@@ -9,4 +9,7 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, Void, String
 
     RepoGenericResponse<ElastigroupScalingResponse> scaleUp(ElastigroupScalingRequest scalingRequest, String authToken,
                                                             String account);
+
+    RepoGenericResponse<ElastigroupScalingResponse> scaleDown(ElastigroupScalingRequest scalingRequest, String authToken,
+                                                            String account);
 }

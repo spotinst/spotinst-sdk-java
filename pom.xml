@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
-  <version>1.0.11</version>
+  <version>1.0.14</version>
   <packaging>jar</packaging>
   <name>spotinst-sdk-java</name>
   <description>A Spotinst Java SDK</description>
@@ -67,6 +67,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-module-junit4</artifactId>
+      <version>1.7.4</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -161,6 +167,14 @@
         </executions>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>./</directory>
+        <includes>
+          <include>gradle.properties</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
   <parent>
     <groupId>org.sonatype.oss</groupId>
