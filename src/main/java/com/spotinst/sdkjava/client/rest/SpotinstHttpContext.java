@@ -1,9 +1,11 @@
 package com.spotinst.sdkjava.client.rest;
 
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 
 
 /**
@@ -20,8 +22,10 @@ public class SpotinstHttpContext {
     //region Constructors
     private SpotinstHttpContext()    {
         this.configuration = new SpotinstHttpConfig();
-        this.httpClient = getNewClient();
-        this.httpsClient = getNewClient();
+        this.httpClient = HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom()
+                        .setCookieSpec(CookieSpecs.STANDARD).build()).build();
+        this.httpsClient = HttpClients.custom().setDefaultRequestConfig(RequestConfig.custom()
+                .setCookieSpec(CookieSpecs.STANDARD).build()).build();
     }
 
     private CloseableHttpClient getNewClient() {

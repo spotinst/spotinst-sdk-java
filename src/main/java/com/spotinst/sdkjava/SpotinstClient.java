@@ -6,6 +6,8 @@ import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
 import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
 import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
 
+import java.io.File;
+
 /**
  * Created by talzur on 12/01/2017.
  */

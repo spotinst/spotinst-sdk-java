@@ -7,6 +7,7 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
  * Created by talzur on 11/01/2017.
  */
 class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
+
     @Override
     public RepoGenericResponse<Elastigroup> create(Elastigroup elastigroupToCreate, String authToken, String account) {
         RepoGenericResponse<Elastigroup> retVal;
@@ -85,12 +86,46 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
+    /**
+     * This function is used to scale up an Elastigroup. It is called from the SpotinstElastigroupClient.scaleUp() function
+     * It sends the request to SpotinstElastigroupService.scaleGroupUp() then formats the response to get a Scaling Response
+     *
+     * @param scalingRequest ElastigroupScalingRequest object that is sent from SpotinstElastigroupClient
+     * @param authToken User Spotinst API token
+     * @param account User Spotinst account ID
+     * @return elastigroupScalingResponse
+     */
     @Override
     public RepoGenericResponse<ElastigroupScalingResponse> scaleUp(ElastigroupScalingRequest scalingRequest, String authToken, String account) {
         RepoGenericResponse<ElastigroupScalingResponse> retVal;
 
         try {
             ApiElastigroupScalingResponse apiElastigroupScalingResponse = SpotinstElastigroupService.scaleGroupUp(scalingRequest, authToken, account);
+            // Convert
+            ElastigroupScalingResponse elastigroupScalingResponse = ApiElastigroupScalingResponseConverter.dalToBl(apiElastigroupScalingResponse);
+            retVal = new RepoGenericResponse<>(elastigroupScalingResponse);
+        } catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    /**
+     * This function is used to scale down an Elastigroup. It is called from the SpotinstElastigroupClient.scaleDown() function
+     * It sends the request to SpotinstElastigroupService.scaleGroupDown() then formats the response to get a Scaling Response
+     *
+     * @param scalingRequest ElastigroupScalingRequest object that is sent from SpotinstElastigroupClient
+     * @param authToken User Spotinst API token
+     * @param account User Spotinst account ID
+     * @return elastigroupScalingResponse
+     */
+    @Override
+    public RepoGenericResponse<ElastigroupScalingResponse> scaleDown(ElastigroupScalingRequest scalingRequest, String authToken, String account) {
+        RepoGenericResponse<ElastigroupScalingResponse> retVal;
+
+        try {
+            ApiElastigroupScalingResponse apiElastigroupScalingResponse = SpotinstElastigroupService.scaleGroupDown(scalingRequest, authToken, account);
             // Convert
             ElastigroupScalingResponse elastigroupScalingResponse = ApiElastigroupScalingResponseConverter.dalToBl(apiElastigroupScalingResponse);
             retVal = new RepoGenericResponse<>(elastigroupScalingResponse);

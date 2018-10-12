@@ -1,24 +1,48 @@
+version = project.property("theVersion")
+
 group 'com.spotinst'
-version '1.0.14'
+version version
 
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'jacoco'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
+
+    maven { url "http://repo1.maven.org/maven2/" }
+}
+sourceSets {
+    main {
+        java {
+            srcDirs= ["src/main/java"]
+        }
+        resources {
+            srcDirs= ["src/main/resources"]
+        }
+    }
 }
 
 dependencies {
-    compile('org.apache.httpcomponents:httpclient:4.4.1',
+    compile('org.apache.httpcomponents:httpclient:4.5.2',
             'com.fasterxml.jackson.core:jackson-core:2.8.5',
             'com.fasterxml.jackson.core:jackson-databind:2.8.5',
             'org.slf4j:slf4j-api:1.7.22',
             'org.slf4j:slf4j-simple:1.7.22',
-            'org.apache.commons:commons-lang3:3.5')
-    testCompile(group: 'junit', name: 'junit', version: '4.11')
+            'org.apache.commons:commons-lang3:3.5',
+            'org.apache.logging.log4j:log4j-core:2.7',
+            'org.apache.logging.log4j:log4j-api:2.7')
+    testCompile(
+            'junit:junit:4.12',
+            'org.mockito:mockito-all:1.10.19',
+            'org.powermock:powermock-module-junit4:1.6.6',
+            'org.powermock:powermock-api-mockito:1.6.6'
+    )
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -31,9 +55,22 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.getDestinationDir()
 }
 
+task fatJar(type: Jar) {
+    classifier = 'all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task versionTxt() {
+    doLast {
+        new File("$projectDir/src/main/resources/version.txt").text = """Version:$version """
+    }
+}
+
 artifacts {
     archives sourcesJar
     archives javadocJar
+    archives fatJar
 }
 
 task createPom << {
@@ -41,7 +78,7 @@ task createPom << {
         project {
             groupId 'com.spotinst'
             artifactId 'spotinst-sdk-java'
-            version '1.0.14'
+            version version
         }
     }.writeTo("pom.xml")
 }
@@ -53,6 +90,17 @@ task buildZip(type: Zip) {
         from configurations.runtime
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+
 
 buildscript {
     repositories {
@@ -70,5 +118,5 @@ build.dependsOn buildZip
 shadowJar {
     baseName = 'spotinst-sdk-java'
     classifier = 'fatJar'
-    version = '1.0.14'
+    version = version
 }
