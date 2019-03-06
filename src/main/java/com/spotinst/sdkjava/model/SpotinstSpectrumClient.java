@@ -16,11 +16,11 @@ public class SpotinstSpectrumClient {
   private String account;
   private ISpotinstSpectrumRepo spotinstSpectrumRepo;
 
-    public SpotinstSpectrumClient(String authToken,String account) {
-        this.authToken = authToken;
-        this.account = account;
-        this.spotinstSpectrumRepo = SpotinstRepoManager.getInstance().getSpotinstSpectrumRepo();
-    }
+  public SpotinstSpectrumClient(String authToken,String account) {
+    this.authToken = authToken;
+    this.account = account;
+    this.spotinstSpectrumRepo = SpotinstRepoManager.getInstance().getSpotinstSpectrumRepo();
+  }
 
   public void publishMetricData(SpectrumMetricDataRequest spectrumMetricDataRequest) {
     RepoGenericResponse<SpectrumMetricDataRequest> creationResponse = spotinstSpectrumRepo.create(spectrumMetricDataRequest, authToken, account);

@@ -5,8 +5,7 @@ import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
 import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
 import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
-
-import java.io.File;
+import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -49,6 +48,11 @@ public class SpotinstClient {
     public static SpotinstSpectrumClient getSpectrumClient(String authToken, String account) {
         SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken, account);
         return spotinstSpectrumClient;
+    }
+
+    public static SpotinstMrScalerAwsClient getMrScalerAwsClient(String authToken, String account){
+        SpotinstMrScalerAwsClient spotinstMrScalerAwsClient = new SpotinstMrScalerAwsClient(authToken, account);
+        return spotinstMrScalerAwsClient;
     }
 
     //endregion

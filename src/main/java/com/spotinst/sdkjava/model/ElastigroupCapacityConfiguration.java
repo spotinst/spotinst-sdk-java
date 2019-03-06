@@ -16,6 +16,7 @@ public class ElastigroupCapacityConfiguration {
     private Integer minimum;
     private Integer maximum;
     private Integer target;
+    private String unit;
     //endregion
 
     //region Constructor
@@ -62,6 +63,13 @@ public class ElastigroupCapacityConfiguration {
         this.target = target;
     }
 
+    public String getUnit(){ return unit; }
+
+    public void setUnit(String unit){
+        isSet.add("unit");
+        this.unit = unit;
+    }
+
     //endregion
 
     //endregion
@@ -93,6 +101,10 @@ public class ElastigroupCapacityConfiguration {
             capacity.setTarget(target);
             return this;
         }
+        public Builder setUnit(final String unit){
+            capacity.setUnit(unit);
+            return this;
+        }
 
         public ElastigroupCapacityConfiguration build() {
             // TODO : Validations
@@ -121,5 +133,9 @@ public class ElastigroupCapacityConfiguration {
         return isSet.contains("target");
     }
 
+    @JsonIgnore
+    public boolean isUnitSet() {
+        return isSet.contains("unit");
+    }
     //endregion
 }
