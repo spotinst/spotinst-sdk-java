@@ -49,6 +49,7 @@ public class BaseSpotinstService {
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             // Desarialize the response.
+            System.out.println(JsonMapper.toJson(response.getBody()));
             retVal = JsonMapper.fromJson(response.getBody(), contentClass);
             if (retVal == null) {// Couldn't read the json.
                 throw new SpotinstHttpException("Can't parse response to class : " + contentClass.toString());
