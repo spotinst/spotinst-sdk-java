@@ -14,7 +14,9 @@ public class ElastigroupActiveInstance {
     private String spotInstanceRequestId;
     private AwsInstanceTypeEnum instanceType;
     private String product;
+    private String groupId;
     private String availabilityZone;
+    private String privateIp;
     private AwsInstanceLifecycleEnum lifeCycle;
     private String status;
     private Date createdAt;
@@ -57,12 +59,28 @@ public class ElastigroupActiveInstance {
         this.product = product;
     }
 
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
     public String getAvailabilityZone() {
         return availabilityZone;
     }
 
     public void setAvailabilityZone(String availabilityZone) {
         this.availabilityZone = availabilityZone;
+    }
+
+    public String getPrivateIp() {
+        return privateIp;
+    }
+
+    public void setPrivateIp(String privateIp) {
+        this.privateIp = privateIp;
     }
 
     public String getStatus() {
