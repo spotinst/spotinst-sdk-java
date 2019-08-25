@@ -6,6 +6,7 @@ package com.spotinst.sdkjava.model;
 public class ElastigroupNewSpotRequest {
     //region Members
     private String spotInstanceRequestId;
+    private String instanceId;
     private String availabilityZone;
     private String instanceType;
     //endregion
@@ -18,6 +19,14 @@ public class ElastigroupNewSpotRequest {
 
     public void setSpotInstanceRequestId(String spotInstanceRequestId) {
         this.spotInstanceRequestId = spotInstanceRequestId;
+    }
+
+    public String getInstanceId() {
+        return instanceId;
+    }
+
+    public void setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
     }
 
     public String getAvailabilityZone() {
