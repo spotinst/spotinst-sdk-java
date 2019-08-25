@@ -1,4 +1,5 @@
 version = project.property("theVersion")
+nexusURL = project.property("nexusURL")
 
 group 'com.spotinst'
 version version
@@ -6,6 +7,7 @@ version version
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -26,6 +28,21 @@ sourceSets {
             srcDirs= ["src/main/resources"]
         }
     }
+}
+
+publishing {
+       publications {
+               maven(MavenPublication) {
+                       from components.java
+                       artifact sourcesJar
+                       artifact javadocJar
+               }
+       }
+       repositories {
+               maven {
+                       url nexusURL
+               }
+       }
 }
 
 dependencies {
