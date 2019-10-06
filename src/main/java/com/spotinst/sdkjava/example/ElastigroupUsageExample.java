@@ -236,6 +236,9 @@ public class ElastigroupUsageExample {
         ElastigroupCapacityConfiguration         capacity        =
                 capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
+        //build group third party integration ECS
+
+
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup         elastigroup        =

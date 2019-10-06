@@ -27,6 +27,8 @@ class ApiElastigroup implements IPartialUpdateEntity {
     private ApiGroupCompute compute;
     private Date createdAt;
     private Date updatedAt;
+    private ApiThirdPartiesIntegration thirdPartiesIntegration;
+
     //endregion
 
     //region Constructor
@@ -38,6 +40,14 @@ class ApiElastigroup implements IPartialUpdateEntity {
 
     //region Getters & Setters
 
+    public ApiThirdPartiesIntegration getThirdPartiesIntegration() {
+        return thirdPartiesIntegration;
+    }
+
+    public void setThirdPartiesIntegration(ApiThirdPartiesIntegration thirdPartiesIntegration) {
+        isSet.add("thirdPartiesIntegration");
+        this.thirdPartiesIntegration = thirdPartiesIntegration;
+    }
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -120,6 +130,12 @@ class ApiElastigroup implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
+
+    // Is thirdPartiesIntegration Set boolean method
+    @JsonIgnore
+    public boolean isThirdPartiesIntegrationSet() {
+        return isSet.contains("thirdPartiesIntegration");
+    }
 
     // Is id Set boolean method
     @JsonIgnore

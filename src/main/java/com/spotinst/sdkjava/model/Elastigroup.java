@@ -13,17 +13,18 @@ import java.util.Set;
 public class Elastigroup {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String id;
-    private String name;
-    private String description;
-    private String region;
-    private ElastigroupCapacityConfiguration capacity;
-    private ElastigroupStrategyConfiguration strategy;
-    private ElastigroupComputeConfiguration compute;
-    private ElastigroupScalingConfiguration scaling;
-    private Date createdAt;
-    private Date updatedAt;
+    private Set<String>                                     isSet;
+    private String                                          id;
+    private String                                          name;
+    private String                                          description;
+    private String                                          region;
+    private ElastigroupCapacityConfiguration                capacity;
+    private ElastigroupStrategyConfiguration                strategy;
+    private ElastigroupComputeConfiguration                 compute;
+    private ElastigroupScalingConfiguration                 scaling;
+    private ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration;
+    private Date                                            createdAt;
+    private Date                                            updatedAt;
     //endregion
 
     //region Constructor
@@ -34,7 +35,14 @@ public class Elastigroup {
     //endregion
 
     //region Getters & Setters
+    public ElastigroupThirdPartiesIntegrationConfiguration getThirdPartiesIntegration() {
+        return thirdPartiesIntegration;
+    }
 
+    public void setThirdPartiesIntegration(ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
+        isSet.add("thirdPartiesIntegration");
+        this.thirdPartiesIntegration = thirdPartiesIntegration;
+    }
 
     public Set<String> getIsSet() {
         return isSet;
@@ -158,6 +166,11 @@ public class Elastigroup {
             return this;
         }
 
+        public Builder setThirdPartiesIntegration(final ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
+            elastigroup.setThirdPartiesIntegration(thirdPartiesIntegration);
+            return this;
+        }
+
         public Builder setName(final String name) {
             elastigroup.setName(name);
             return this;
@@ -202,6 +215,12 @@ public class Elastigroup {
     //endregion
 
     //region isSet methods
+
+    // Is thirdPartiesIntegration Set boolean method
+    @JsonIgnore
+    public boolean isThirdPartiesIntegrationSet() {
+        return isSet.contains("thirdPartiesIntegration");
+    }
 
     // Is id Set boolean method
     @JsonIgnore

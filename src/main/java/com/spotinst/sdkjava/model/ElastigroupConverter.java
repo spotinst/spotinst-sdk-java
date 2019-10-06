@@ -34,11 +34,85 @@ class ElastigroupConverter {
             if (src.isComputeSet()) {
                 apiGroup.setCompute(toDal(src.getCompute()));
             }
+            if(src.isThirdPartiesIntegrationSet()){
+                apiGroup.setThirdPartiesIntegration(toDal(src.getThirdPartiesIntegration()));
+            }
         }
 
         return apiGroup;
     }
 
+    private static ApiThirdPartiesIntegration toDal(
+            ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
+        ApiThirdPartiesIntegration retVal = null;
+
+        if (thirdPartiesIntegration != null) {
+            retVal = new ApiThirdPartiesIntegration();
+            if (thirdPartiesIntegration.isEcsSet()) {
+                retVal.setEcs(toDal(thirdPartiesIntegration.getEcs()));
+            }
+        }
+
+        return retVal;
+    }
+
+
+    private static ApiEcs toDal( ElastigroupEcsSpecification ecs) {
+        ApiEcs retVal = null;
+        if(ecs != null) {
+            retVal = new ApiEcs();
+            if(ecs.isAutoScaleSet()){
+                retVal.setAutoScale(toDal(ecs.getAutoScale()));
+            }
+            if(ecs.isClusterNameSet()){
+                retVal.setClusterName(ecs.getClusterName());
+            }
+        }
+        return retVal;
+
+
+    }
+
+    private static ApiAutoScale toDal(ElastigroupAutoScaleSpecification autoScale) {
+        ApiAutoScale retVal = null;
+        if(autoScale != null){
+            retVal = new ApiAutoScale();
+            if(autoScale.isCooldownSet()) {
+                retVal.setCooldown(autoScale.getCooldown());
+            }
+            if(autoScale.isDownSet()){
+                retVal.setDown(toDal(autoScale.getDown());
+            }
+            if(autoScale.isHeadroomSet()){
+                retVal.setHeadroom(toDal(autoScale.getHeadroom()));
+            }
+            if(autoScale.isIsAutoConfigSet()){
+                retVal.setIsAutoConfig(autoScale.getAutoConfig());
+            }
+            if(autoScale.isIsEnabledSet()){
+                retVal.setIsEnabled(autoScale.getEnabled());
+            }
+            if(autoScale.isShouldScaleDownNonServiceTasksSet()){
+                retVal.setShouldScaleDownNonServiceTasks(autoScale.getShouldScaleDownNonServiceTasks());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiDown toDal(ElastigroupDownSpecification down) {
+        ApiDown retVal = null;
+
+        if (down != null){
+            retVal = new ApiDown();
+            if(down.isEvaluationPeriodsSet()) {
+                retVal.setEvaluationPeriods(down.getEvaluationPeriods());
+            }
+        }
+        return retVal;
+
+    }
+    private static
+    ////
     private static ApiGroupCompute toDal(ElastigroupComputeConfiguration compute) {
         ApiGroupCompute optCompute = null;
 
@@ -475,6 +549,23 @@ class ElastigroupConverter {
         }
 
         return blCompute;
+    }
+
+    private static ElastigroupThirdPartiesIntegrationConfiguration toBl(ApiThirdPartiesIntegration thirdPartiesIntegration){
+        ElastigroupThirdPartiesIntegrationConfiguration retval = null;
+
+        if (thirdPartiesIntegration != null){
+            ElastigroupThirdPartiesIntegrationConfiguration.Builder blThirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
+
+            if (thirdPartiesIntegration.isEcsSet()){
+
+                blThirdPartiesIntegrationBuilder.setEcs(toBl(thirdPartiesIntegration.getEcs()));
+            }
+
+            retval=  blThirdPartiesIntegrationBuilder.build();
+        }
+
+        return retval;
     }
 
     private static ElastigroupEbsVolumePool toBl(ApiVolumePool volumePool) {
