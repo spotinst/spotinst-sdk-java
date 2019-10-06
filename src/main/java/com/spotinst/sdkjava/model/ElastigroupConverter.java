@@ -35,7 +35,8 @@ class ElastigroupConverter {
                 apiGroup.setCompute(toDal(src.getCompute()));
             }
             if(src.isThirdPartiesIntegrationSet()){
-                apiGroup.setThirdPartiesIntegration(toDal(src.getThirdPartiesIntegration()));
+                ApiThirdPartiesIntegration apiThirdPartiesIntegration = toDal(src.getThirdPartiesIntegration());
+                apiGroup.setThirdPartiesIntegration(apiThirdPartiesIntegration);
             }
         }
 
