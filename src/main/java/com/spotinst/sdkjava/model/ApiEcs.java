@@ -14,7 +14,7 @@ class ApiEcs {
     @JsonIgnore
     private Set<String>                       isSet;
     private String                            clusterName;
-    private ElastigroupAutoScaleSpecification autoScale;
+    private ApiAutoScale                      autoScale;
     //endregion
 
     //region Constructor
@@ -39,11 +39,11 @@ class ApiEcs {
         this.clusterName = clusterName;
     }
 
-    public ElastigroupAutoScaleSpecification getAutoScale() {
+    public ApiAutoScale getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(ElastigroupAutoScaleSpecification autoScale) {
+    public void setAutoScale(ApiAutoScale autoScale) {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }

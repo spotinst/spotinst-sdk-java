@@ -42,6 +42,7 @@ class ElastigroupConverter {
         return apiGroup;
     }
 
+
     private static ApiThirdPartiesIntegration toDal(
             ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
         ApiThirdPartiesIntegration retVal = null;
@@ -81,7 +82,7 @@ class ElastigroupConverter {
                 retVal.setCooldown(autoScale.getCooldown());
             }
             if(autoScale.isDownSet()){
-                retVal.setDown(toDal(autoScale.getDown());
+                retVal.setDown(toDal(autoScale.getDown()));
             }
             if(autoScale.isHeadroomSet()){
                 retVal.setHeadroom(toDal(autoScale.getHeadroom()));
@@ -111,7 +112,22 @@ class ElastigroupConverter {
         return retVal;
 
     }
-    private static
+    private static ApiHeadroom toDal(ElastigroupHeadroomSpecification headroom){
+        ApiHeadroom retVal = null;
+        if (headroom != null){
+            retVal = new ApiHeadroom();
+            if(headroom.isCpuPerUnitSet()){
+                retVal.setCpuPerUnit(headroom.getCpuPerUnit());
+            }
+            if(headroom.isMemoryPerUnitSet()){
+                retVal.setMemoryPerUnit(headroom.getMemoryPerUnit());
+            }
+            if(headroom.isNumOfUnitsSet()){
+                retVal.setNumOfUnits(headroom.getNumOfUnits());
+            }
+        }
+        return retVal;
+    }
     ////
     private static ApiGroupCompute toDal(ElastigroupComputeConfiguration compute) {
         ApiGroupCompute optCompute = null;
@@ -503,6 +519,98 @@ class ElastigroupConverter {
 
         return elastigroup;
     }
+    private static ElastigroupThirdPartiesIntegrationConfiguration toBl (ApiThirdPartiesIntegration apiThirdPartiesIntegration){
+        ElastigroupThirdPartiesIntegrationConfiguration blThirdPartiesIntegration = null;
+
+        if(apiThirdPartiesIntegration != null) {
+            ElastigroupThirdPartiesIntegrationConfiguration.Builder blThirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
+
+            if (apiThirdPartiesIntegration.isEcsSet()) {
+                blThirdPartiesIntegrationBuilder.setEcs(toBl(apiThirdPartiesIntegration.getEcs()));
+            }
+            blThirdPartiesIntegration = blThirdPartiesIntegrationBuilder.build();
+        }
+        return blThirdPartiesIntegration;
+    }
+
+    private static ElastigroupEcsSpecification toBl (ApiEcs apiEcs){
+        ElastigroupEcsSpecification blEcs = null;
+
+        if(apiEcs != null){
+            ElastigroupEcsSpecification.Builder blEcsBuilder =ElastigroupEcsSpecification.Builder.get();
+
+            if(apiEcs.isClusterNameSet()){
+                blEcsBuilder.setClusterName(apiEcs.getClusterName());
+            }
+            if(apiEcs.isAutoScaleSet()){
+                blEcsBuilder.setAutoScale(toBl(apiEcs.getAutoScale()));
+            }
+            blEcs = blEcsBuilder.build();
+        }
+        return blEcs;
+    }
+    private static ElastigroupAutoScaleSpecification toBl (ApiAutoScale apiAutoScale){
+        ElastigroupAutoScaleSpecification blAutoScale = null;
+
+        if(apiAutoScale != null){
+            ElastigroupAutoScaleSpecification.Builder blAutoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
+
+            if(apiAutoScale.isShouldScaleDownNonServiceTasksSet()){
+                blAutoScaleBuilder.setShouldScaleDownNonServiceTasks(apiAutoScale.getShouldScaleDownNonServiceTasks());
+            }
+            if(apiAutoScale.isIsEnabledSet()){
+                blAutoScaleBuilder.setIsEnabled(apiAutoScale.getEnabled());
+            }
+            if(apiAutoScale.isIsAutoConfigSet()){
+                blAutoScaleBuilder.setIsAutoConfig(apiAutoScale.getAutoConfig());
+            }
+            if(apiAutoScale.isHeadroomSet()){
+                blAutoScaleBuilder.setHeadroom(toBl(apiAutoScale.getHeadroom()));
+            }
+            if(apiAutoScale.isDownSet()){
+                blAutoScaleBuilder.setDown(toBl(apiAutoScale.getDown()));
+            }
+            if(apiAutoScale.isCooldownSet()){
+                blAutoScaleBuilder.setCooldown(apiAutoScale.getCooldown());
+            }
+            blAutoScale = blAutoScaleBuilder.build();
+        }
+        return blAutoScale;
+    }
+
+    private static ElastigroupHeadroomSpecification toBl (ApiHeadroom apiHeadroom){
+        ElastigroupHeadroomSpecification blHeadroom = null;
+
+        if(apiHeadroom != null){
+            ElastigroupHeadroomSpecification.Builder blHeadroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
+
+            if(apiHeadroom.isCpuPerUnitSet()){
+                blHeadroomBuilder.setCpuPerUnit(apiHeadroom.getCpuPerUnit());
+            }
+            if(apiHeadroom.isMemoryPerUnitSet()){
+                blHeadroomBuilder.setMemoryPerUnit(apiHeadroom.getMemoryPerUnit());
+            }
+            if(apiHeadroom.isNumOfUnitsSet()){
+                blHeadroomBuilder.setNumOfUnits(apiHeadroom.getMemoryPerUnit());
+            }
+            blHeadroom = blHeadroomBuilder.build();
+        }
+        return blHeadroom;
+    }
+
+    private static ElastigroupDownSpecification toBl(ApiDown apidown){
+        ElastigroupDownSpecification blDown = null;
+
+        if (apidown != null){
+            ElastigroupDownSpecification.Builder blDownBuilder = ElastigroupDownSpecification.Builder.get();
+
+            if(apidown.isEvaluationPeriodsSet()){
+                blDownBuilder.setEvaluationPeriods(apidown.getEvaluationPeriods());
+            }
+            blDown = blDownBuilder.build();
+        }
+        return blDown;
+    }
 
     private static ElastigroupComputeConfiguration toBl(ApiGroupCompute compute) {
         ElastigroupComputeConfiguration blCompute = null;
@@ -550,24 +658,6 @@ class ElastigroupConverter {
 
         return blCompute;
     }
-
-    private static ElastigroupThirdPartiesIntegrationConfiguration toBl(ApiThirdPartiesIntegration thirdPartiesIntegration){
-        ElastigroupThirdPartiesIntegrationConfiguration retval = null;
-
-        if (thirdPartiesIntegration != null){
-            ElastigroupThirdPartiesIntegrationConfiguration.Builder blThirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
-
-            if (thirdPartiesIntegration.isEcsSet()){
-
-                blThirdPartiesIntegrationBuilder.setEcs(toBl(thirdPartiesIntegration.getEcs()));
-            }
-
-            retval=  blThirdPartiesIntegrationBuilder.build();
-        }
-
-        return retval;
-    }
-
     private static ElastigroupEbsVolumePool toBl(ApiVolumePool volumePool) {
         ElastigroupEbsVolumePool retVal = null;
 

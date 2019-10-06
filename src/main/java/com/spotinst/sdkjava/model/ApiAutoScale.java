@@ -15,8 +15,8 @@ public class ApiAutoScale {
     private Set<String>                      isSet;
     private Boolean                          isEnabled;
     private Integer                          cooldown;
-    private ElastigroupDownSpecification     Down;
-    private ElastigroupHeadroomSpecification headroom;
+    private ApiDown                          down;
+    private ApiHeadroom                      headroom;
     private Boolean                          isAutoConfig;
     private Boolean                          shouldScaleDownNonServiceTasks;
     //endregion
@@ -47,20 +47,20 @@ public class ApiAutoScale {
         return cooldown;
     }
 
-    public ElastigroupDownSpecification getDown() {
-        return Down;
+    public ApiDown getDown() {
+        return down;
     }
 
-    public void setDown(ElastigroupDownSpecification down) {
-        isSet.add("Down");
-        this.Down = Down;
+    public void setDown(ApiDown down) {
+        isSet.add("down");
+        this.down = down;
     }
 
-    public ElastigroupHeadroomSpecification getHeadroom() {
+    public ApiHeadroom getHeadroom() {
         return headroom;
     }
 
-    public void setHeadroom(ElastigroupHeadroomSpecification headroom) {
+    public void setHeadroom(ApiHeadroom headroom) {
         isSet.add("headroom");
         this.headroom = headroom;
     }
@@ -100,7 +100,7 @@ public class ApiAutoScale {
 
     // Is Down Set boolean method
     @JsonIgnore
-    public boolean isDownSet() {return isSet.contains("Down");}
+    public boolean isDownSet() {return isSet.contains("down");}
 
     // Is Down Set boolean method
     @JsonIgnore

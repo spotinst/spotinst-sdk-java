@@ -14,7 +14,7 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                 isSet;
-    private ElastigroupEcsSpecification ecs;
+    private ApiEcs                      ecs;
     //endregion
 
     //region Constructor
@@ -32,11 +32,11 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ElastigroupEcsSpecification getEcs() {
+    public ApiEcs getEcs() {
         return ecs;
     }
 
-    public void setEcs(ElastigroupEcsSpecification ecs) {
+    public void setEcs(ApiEcs ecs) {
         isSet.add("ecs");
         this.ecs = ecs;
     }
