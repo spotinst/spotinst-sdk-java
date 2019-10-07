@@ -3,54 +3,52 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
+public class ApiOptimizeImages {
     //region Members
+    // Partial Update support
     @JsonIgnore
     private Set<String> isSet;
-    private ApiEcs      ecs;
+    private Boolean     shouldOptimizeEcsAmi;
+    // private timeWindow timeWindow
     //endregion
 
     //region Constructor
-
-    public ApiThirdPartiesIntegration() {
+    public ApiOptimizeImages() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
 
     public void setIsSet(Set<String> isSet) {
+        isSet.add("isSet");
         this.isSet = isSet;
     }
 
-    public ApiEcs getEcs() {
-        return ecs;
+    public Boolean getShouldOptimizeEcsAmi() {
+        return shouldOptimizeEcsAmi;
     }
 
-    public void setEcs(ApiEcs ecs) {
-        isSet.add("ecs");
-        this.ecs = ecs;
+    public void setShouldOptimizeEcsAmi(Boolean shouldOptimizeEcsAmi) {
+        isSet.add("shouldOptimizeEcsAmi");
+        this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
 
     //endregion
     //region isSet methods
-    // Is deviceName Set boolean method
+    // Is optimizeImages Set boolean method
     @JsonIgnore
-    public boolean isEcsSet() {
-        return isSet.contains("ecs");
+    public boolean isShouldOptimizeEcsAmiSet() {
+        return isSet.contains("shouldOptimizeEcsAmi");
     }
-
-    //endregion
 
 }

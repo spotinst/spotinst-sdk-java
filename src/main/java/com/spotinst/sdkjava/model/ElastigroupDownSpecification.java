@@ -9,7 +9,8 @@ public class ElastigroupDownSpecification {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private Integer evaluationPeriods;
+    private Integer     evaluationPeriods;
+    private Integer     maxScaleDownPercentage;
     //endregion
 
     //region Constructor
@@ -37,13 +38,23 @@ public class ElastigroupDownSpecification {
         isSet.add("evaluationPeriods");
         this.evaluationPeriods = evaluationPeriods;
     }
+
+    public Integer getMaxScaleDownPercentage() {
+        return maxScaleDownPercentage;
+    }
+
+    public void setMaxScaleDownPercentage(Integer maxScaleDownPercentage) {
+        isSet.add("maxScaleDownPercentage");
+        this.maxScaleDownPercentage = maxScaleDownPercentage;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
-        private ElastigroupDownSpecification Down;
+        private ElastigroupDownSpecification down;
 
         private Builder() {
-            this.Down = new ElastigroupDownSpecification();
+            this.down = new ElastigroupDownSpecification();
         }
 
         public static Builder get() {
@@ -51,21 +62,34 @@ public class ElastigroupDownSpecification {
             return builder;
         }
 
-        public Builder setEvaluationPeriods (final Integer evaluationPeriods){
-            Down.setEvaluationPeriods(evaluationPeriods);
+        public Builder setEvaluationPeriods(final Integer evaluationPeriods) {
+            down.setEvaluationPeriods(evaluationPeriods);
+            return this;
+        }
+
+        public Builder setMaxScaleDownPercentage(final Integer maxScaleDownPercentage) {
+            down.setMaxScaleDownPercentage(maxScaleDownPercentage);
             return this;
         }
 
         public ElastigroupDownSpecification build() {
-            return Down;
+            return down;
         }
     }
-       //endregion
+    //endregion
 
     //region isSet methods
     // Is evaluationPeriods Set boolean method
     @JsonIgnore
-    public boolean isEvaluationPeriodsSet() { return isSet.contains("evaluationPeriods");}
+    public boolean isEvaluationPeriodsSet() {
+        return isSet.contains("evaluationPeriods");
+    }
+
+    // Is maxScaleDownPercentage Set boolean method
+    @JsonIgnore
+    public boolean isMaxScaleDownPercentageSet() {
+        return isSet.contains("maxScaleDownPercentage");
+    }
 
     //endregion
 

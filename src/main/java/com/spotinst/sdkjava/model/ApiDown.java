@@ -14,10 +14,13 @@ public class ApiDown {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     evaluationPeriods;
+    private Integer     maxScaleDownPercentage;
     //endregion
 
     //region Constructor
-    public ApiDown() {isSet = new HashSet<>();}
+    public ApiDown() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
@@ -37,11 +40,28 @@ public class ApiDown {
         isSet.add("evaluationPeriods");
         this.evaluationPeriods = evaluationPeriods;
     }
+
+    public Integer getMaxScaleDownPercentage() {
+        return maxScaleDownPercentage;
+    }
+
+    public void setMaxScaleDownPercentage(Integer maxScaleDownPercentage) {
+        isSet.add("maxScaleDownPercentage");
+        this.maxScaleDownPercentage = maxScaleDownPercentage;
+    }
+
     //endregion
     //region isSet methods
     // Is evaluationPeriods Set boolean method
     @JsonIgnore
-    public boolean isEvaluationPeriodsSet() { return isSet.contains("evaluationPeriods");}
+    public boolean isEvaluationPeriodsSet() {
+        return isSet.contains("evaluationPeriods");
+    }
 
+    // Is maxScaleDownPercentage Set boolean method
+    @JsonIgnore
+    public boolean isMaxScaleDownPercentageSet() {
+        return isSet.contains("maxScaleDownPercentage");
+    }
     //endregion
 }

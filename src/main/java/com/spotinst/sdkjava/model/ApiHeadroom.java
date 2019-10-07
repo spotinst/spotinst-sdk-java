@@ -19,7 +19,9 @@ public class ApiHeadroom {
     //endregion
 
     //region Constructor
-    public ApiHeadroom() {isSet = new HashSet<>();}
+    public ApiHeadroom() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
@@ -63,15 +65,21 @@ public class ApiHeadroom {
     //region isSet methods
     // Is cpuPerUnit Set boolean method
     @JsonIgnore
-    public boolean isCpuPerUnitSet() {return isSet.contains("cpuPerUnit");}
+    public boolean isCpuPerUnitSet() {
+        return isSet.contains("cpuPerUnit");
+    }
 
     // Is memoryPerUnit Set boolean method
     @JsonIgnore
-    public boolean isMemoryPerUnitSet() {return isSet.contains("memoryPerUnit");}
+    public boolean isMemoryPerUnitSet() {
+        return isSet.contains("memoryPerUnit");
+    }
 
     // Is numOfUnits Set boolean method
     @JsonIgnore
-    public boolean isNumOfUnitsSet() {return isSet.contains("numOfUnits");}
+    public boolean isNumOfUnitsSet() {
+        return isSet.contains("numOfUnits");
+    }
 
     //endregion
 }

@@ -3,18 +3,20 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ElastigroupAutoScaleSpecification {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private Boolean                          isEnabled;
-    private Integer                          cooldown;
-    private ElastigroupDownSpecification     down;
-    private ElastigroupHeadroomSpecification headroom;
-    private Boolean                          isAutoConfig;
-    private Boolean                          shouldScaleDownNonServiceTasks;
+    private Set<String>                              isSet;
+    private Boolean                                  isEnabled;
+    private Integer                                  cooldown;
+    private ElastigroupDownSpecification             down;
+    private ElastigroupHeadroomSpecification         headroom;
+    private Boolean                                  isAutoConfig;
+    private Boolean                                  shouldScaleDownNonServiceTasks;
+    private List<ElastigroupAttributesSpecification> attributes;
     //endregion
 
     //region Constructor
@@ -87,6 +89,15 @@ public class ElastigroupAutoScaleSpecification {
         this.shouldScaleDownNonServiceTasks = shouldScaleDownNonServiceTasks;
     }
 
+    public List<ElastigroupAttributesSpecification> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<ElastigroupAttributesSpecification> attributes) {
+        isSet.add("attributes");
+        this.attributes = attributes;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
@@ -131,7 +142,12 @@ public class ElastigroupAutoScaleSpecification {
             return this;
         }
 
-        public ElastigroupAutoScaleSpecification build(){
+        public Builder setAttributes(final List<ElastigroupAttributesSpecification> attributes) {
+            AutoScale.setAttributes(attributes);
+            return this;
+        }
+
+        public ElastigroupAutoScaleSpecification build() {
             return AutoScale;
         }
     }
@@ -140,27 +156,45 @@ public class ElastigroupAutoScaleSpecification {
     //region isSet methods
     // Is isEnabled Set boolean method
     @JsonIgnore
-    public boolean isIsEnabledSet() {return isSet.contains("isEnabled");}
+    public boolean isIsEnabledSet() {
+        return isSet.contains("isEnabled");
+    }
 
     // Is cooldown Set boolean method
     @JsonIgnore
-    public boolean isCooldownSet() {return isSet.contains("cooldown");}
+    public boolean isCooldownSet() {
+        return isSet.contains("cooldown");
+    }
 
     // Is Down Set boolean method
     @JsonIgnore
-    public boolean isDownSet() {return isSet.contains("down");}
+    public boolean isDownSet() {
+        return isSet.contains("down");
+    }
 
     // Is Down Set boolean method
     @JsonIgnore
-    public boolean isHeadroomSet() {return isSet.contains("headroom");}
+    public boolean isHeadroomSet() {
+        return isSet.contains("headroom");
+    }
 
     // Is isAutoConfig Set boolean method
     @JsonIgnore
-    public boolean isIsAutoConfigSet() {return isSet.contains("isAutoConfig");}
+    public boolean isIsAutoConfigSet() {
+        return isSet.contains("isAutoConfig");
+    }
 
     // Is shouldScaleDownNonServiceTasks Set boolean method
     @JsonIgnore
-    public boolean isShouldScaleDownNonServiceTasksSet() {return isSet.contains("shouldScaleDownNonServiceTasks");}
+    public boolean isShouldScaleDownNonServiceTasksSet() {
+        return isSet.contains("shouldScaleDownNonServiceTasks");
+    }
+
+    // Is attributes Set boolean method
+    @JsonIgnore
+    public boolean isAttributesSet() {
+        return isSet.contains("attributes");
+    }
 
     //endregion
 

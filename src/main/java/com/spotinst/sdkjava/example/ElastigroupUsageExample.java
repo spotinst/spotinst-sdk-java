@@ -239,16 +239,20 @@ public class ElastigroupUsageExample {
 
         //build down
         ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
-        ElastigroupDownSpecification down        =  downBuilder.setEvaluationPeriods(2).build();
+        ElastigroupDownSpecification down        =  downBuilder.setEvaluationPeriods(2).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
         ElastigroupHeadroomSpecification headRoom = headroomBuilder.setCpuPerUnit(0).setNumOfUnits(0).setMemoryPerUnit(0).build();
         //build autoscale
         ElastigroupAutoScaleSpecification.Builder autoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
         ElastigroupAutoScaleSpecification autoscale = autoScaleBuilder.setCooldown(300).setDown(down).setHeadroom(headRoom).setIsAutoConfig(true).setIsEnabled(true).setShouldScaleDownNonServiceTasks(true).build();
+        //build optimizeImages
+        ElastigroupOptimizeImages.Builder optimizeImagesBuilder = ElastigroupOptimizeImages.Builder.get();
+        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).build();
+        ///todo need to add timewindow
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
-        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").build();
+        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).build();
 
         //build group third party integration ECS
         ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();

@@ -34,7 +34,7 @@ class ElastigroupConverter {
             if (src.isComputeSet()) {
                 apiGroup.setCompute(toDal(src.getCompute()));
             }
-            if(src.isThirdPartiesIntegrationSet()){
+            if (src.isThirdPartiesIntegrationSet()) {
                 ApiThirdPartiesIntegration apiThirdPartiesIntegration = toDal(src.getThirdPartiesIntegration());
                 apiGroup.setThirdPartiesIntegration(apiThirdPartiesIntegration);
             }
@@ -42,7 +42,6 @@ class ElastigroupConverter {
 
         return apiGroup;
     }
-
 
     private static ApiThirdPartiesIntegration toDal(
             ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
@@ -58,44 +57,78 @@ class ElastigroupConverter {
         return retVal;
     }
 
-
-    private static ApiEcs toDal( ElastigroupEcsSpecification ecs) {
+    private static ApiEcs toDal(ElastigroupEcsSpecification ecs) {
         ApiEcs retVal = null;
-        if(ecs != null) {
+        if (ecs != null) {
             retVal = new ApiEcs();
-            if(ecs.isAutoScaleSet()){
+            if (ecs.isAutoScaleSet()) {
                 retVal.setAutoScale(toDal(ecs.getAutoScale()));
             }
-            if(ecs.isClusterNameSet()){
+            if (ecs.isClusterNameSet()) {
                 retVal.setClusterName(ecs.getClusterName());
+            }
+            if (ecs.isOptimizeImagesSet()) {
+                retVal.setOptimizeImages(toDal(ecs.getOptimizeImages()));
             }
         }
         return retVal;
 
+    }
 
+    private static ApiAttributes toDal(ElastigroupAttributesSpecification attributes) {
+        ApiAttributes retVal = null;
+        if (attributes != null) {
+            retVal = new ApiAttributes();
+            if (attributes.isKeySet() && attributes.isValueSet()) {
+                retVal.setKey(attributes.getKey());
+                retVal.setValue(attributes.getValue());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiOptimizeImages toDal(ElastigroupOptimizeImages optimizeImages) {
+        ApiOptimizeImages retVal = null;
+        if (optimizeImages != null) {
+            retVal = new ApiOptimizeImages();
+            if (optimizeImages.isShouldOptimizeEcsAmiSet()) {
+                retVal.setShouldOptimizeEcsAmi(optimizeImages.getShouldOptimizeEcsAmi());
+            }
+            /////todo timewindow
+
+        }
+        return retVal;
     }
 
     private static ApiAutoScale toDal(ElastigroupAutoScaleSpecification autoScale) {
         ApiAutoScale retVal = null;
-        if(autoScale != null){
+        if (autoScale != null) {
             retVal = new ApiAutoScale();
-            if(autoScale.isCooldownSet()) {
+            if (autoScale.isCooldownSet()) {
                 retVal.setCooldown(autoScale.getCooldown());
             }
-            if(autoScale.isDownSet()){
+            if (autoScale.isDownSet()) {
                 retVal.setDown(toDal(autoScale.getDown()));
             }
-            if(autoScale.isHeadroomSet()){
+            if (autoScale.isHeadroomSet()) {
                 retVal.setHeadroom(toDal(autoScale.getHeadroom()));
             }
-            if(autoScale.isIsAutoConfigSet()){
+            if (autoScale.isIsAutoConfigSet()) {
                 retVal.setIsAutoConfig(autoScale.getAutoConfig());
             }
-            if(autoScale.isIsEnabledSet()){
+            if (autoScale.isIsEnabledSet()) {
                 retVal.setIsEnabled(autoScale.getEnabled());
             }
-            if(autoScale.isShouldScaleDownNonServiceTasksSet()){
+            if (autoScale.isShouldScaleDownNonServiceTasksSet()) {
                 retVal.setShouldScaleDownNonServiceTasks(autoScale.getShouldScaleDownNonServiceTasks());
+            }
+            if (autoScale.isAttributesSet()) {
+                if (autoScale.getAttributes() != null) {
+                    List<ApiAttributes> attributesList =
+                            autoScale.getAttributes().stream().map(ElastigroupConverter::toDal)
+                                     .collect(Collectors.toList());
+                    retVal.setAttributes(attributesList);
+                }
             }
         }
         return retVal;
@@ -104,31 +137,36 @@ class ElastigroupConverter {
     private static ApiDown toDal(ElastigroupDownSpecification down) {
         ApiDown retVal = null;
 
-        if (down != null){
+        if (down != null) {
             retVal = new ApiDown();
-            if(down.isEvaluationPeriodsSet()) {
+            if (down.isEvaluationPeriodsSet()) {
                 retVal.setEvaluationPeriods(down.getEvaluationPeriods());
+            }
+            if (down.isMaxScaleDownPercentageSet()) {
+                retVal.setMaxScaleDownPercentage(down.getMaxScaleDownPercentage());
             }
         }
         return retVal;
 
     }
-    private static ApiHeadroom toDal(ElastigroupHeadroomSpecification headroom){
+
+    private static ApiHeadroom toDal(ElastigroupHeadroomSpecification headroom) {
         ApiHeadroom retVal = null;
-        if (headroom != null){
+        if (headroom != null) {
             retVal = new ApiHeadroom();
-            if(headroom.isCpuPerUnitSet()){
+            if (headroom.isCpuPerUnitSet()) {
                 retVal.setCpuPerUnit(headroom.getCpuPerUnit());
             }
-            if(headroom.isMemoryPerUnitSet()){
+            if (headroom.isMemoryPerUnitSet()) {
                 retVal.setMemoryPerUnit(headroom.getMemoryPerUnit());
             }
-            if(headroom.isNumOfUnitsSet()){
+            if (headroom.isNumOfUnitsSet()) {
                 retVal.setNumOfUnits(headroom.getNumOfUnits());
             }
         }
         return retVal;
     }
+
     ////
     private static ApiGroupCompute toDal(ElastigroupComputeConfiguration compute) {
         ApiGroupCompute optCompute = null;
@@ -143,7 +181,7 @@ class ElastigroupConverter {
                 if (compute.getAvailabilityZones() != null) {
                     List<ApiPlacement> optPlacements =
                             compute.getAvailabilityZones().stream().map(ElastigroupConverter::toDal)
-                                    .collect(Collectors.toList());
+                                   .collect(Collectors.toList());
                     optCompute.setAvailabilityZones(optPlacements);
                 }
             }
@@ -164,7 +202,7 @@ class ElastigroupConverter {
                 if (compute.getEbsVolumePool() != null) {
                     List<ApiVolumePool> optVolumePool =
                             compute.getEbsVolumePool().stream().map(ElastigroupConverter::toDal)
-                                    .collect(Collectors.toList());
+                                   .collect(Collectors.toList());
                     optCompute.setEbsVolumePool(optVolumePool);
                 }
             }
@@ -259,7 +297,7 @@ class ElastigroupConverter {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<ApiBlockDevice> optimizerBDM =
                             launchSpecification.getBlockDeviceMappings().stream().map(ElastigroupConverter::toDal)
-                                    .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
                     retVal.setBlockDeviceMappings(optimizerBDM);
                 }
             }
@@ -268,16 +306,15 @@ class ElastigroupConverter {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterface> optimizerNIC =
                             launchSpecification.getNetworkInterfaces().stream().map(ElastigroupConverter::toDal)
-                                    .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
                     retVal.setNetworkInterfaces(optimizerNIC);
                 }
             }
 
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
-                    List<ApiTag> optimizerTags =
-                            launchSpecification.getTags().stream().map(ElastigroupConverter::toDal)
-                                    .collect(Collectors.toList());
+                    List<ApiTag> optimizerTags = launchSpecification.getTags().stream().map(ElastigroupConverter::toDal)
+                                                                    .collect(Collectors.toList());
                     retVal.setTags(optimizerTags);
                 }
             }
@@ -515,16 +552,22 @@ class ElastigroupConverter {
             if (apiElastigroup.isComputeSet()) {
                 elastigroupBuilder.setCompute(toBl(apiElastigroup.getCompute()));
             }
+            if (apiElastigroup.isThirdPartiesIntegrationSet()) {
+                elastigroupBuilder.setThirdPartiesIntegration(toBl(apiElastigroup.getThirdPartiesIntegration()));
+            }
             elastigroup = elastigroupBuilder.build();
         }
 
         return elastigroup;
     }
-    private static ElastigroupThirdPartiesIntegrationConfiguration toBl (ApiThirdPartiesIntegration apiThirdPartiesIntegration){
+
+    private static ElastigroupThirdPartiesIntegrationConfiguration toBl(
+            ApiThirdPartiesIntegration apiThirdPartiesIntegration) {
         ElastigroupThirdPartiesIntegrationConfiguration blThirdPartiesIntegration = null;
 
-        if(apiThirdPartiesIntegration != null) {
-            ElastigroupThirdPartiesIntegrationConfiguration.Builder blThirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
+        if (apiThirdPartiesIntegration != null) {
+            ElastigroupThirdPartiesIntegrationConfiguration.Builder blThirdPartiesIntegrationBuilder =
+                    ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
 
             if (apiThirdPartiesIntegration.isEcsSet()) {
                 blThirdPartiesIntegrationBuilder.setEcs(toBl(apiThirdPartiesIntegration.getEcs()));
@@ -534,64 +577,108 @@ class ElastigroupConverter {
         return blThirdPartiesIntegration;
     }
 
-    private static ElastigroupEcsSpecification toBl (ApiEcs apiEcs){
+    private static ElastigroupOptimizeImages toBl(ApiOptimizeImages apiOptimizeImages) {
+        ElastigroupOptimizeImages blOptimizeImages = null;
+
+        if (apiOptimizeImages != null) {
+            ElastigroupOptimizeImages.Builder blOptimizeImagesBuilder = ElastigroupOptimizeImages.Builder.get();
+            if (apiOptimizeImages.isShouldOptimizeEcsAmiSet()) {
+                blOptimizeImagesBuilder.setShouldOptimizeEcsAmi(apiOptimizeImages.getShouldOptimizeEcsAmi());
+            }
+            /////todo timewin
+            blOptimizeImages = blOptimizeImagesBuilder.build();
+        }
+        return blOptimizeImages;
+    }
+
+    private static ElastigroupEcsSpecification toBl(ApiEcs apiEcs) {
         ElastigroupEcsSpecification blEcs = null;
 
-        if(apiEcs != null){
-            ElastigroupEcsSpecification.Builder blEcsBuilder =ElastigroupEcsSpecification.Builder.get();
+        if (apiEcs != null) {
+            ElastigroupEcsSpecification.Builder blEcsBuilder = ElastigroupEcsSpecification.Builder.get();
 
-            if(apiEcs.isClusterNameSet()){
+            if (apiEcs.isClusterNameSet()) {
                 blEcsBuilder.setClusterName(apiEcs.getClusterName());
             }
-            if(apiEcs.isAutoScaleSet()){
+            if (apiEcs.isAutoScaleSet()) {
                 blEcsBuilder.setAutoScale(toBl(apiEcs.getAutoScale()));
+            }
+            if (apiEcs.isOptimizeImagesSet()) {
+                blEcsBuilder.setOptimizeImages(toBl(apiEcs.getOptimizeImages()));
             }
             blEcs = blEcsBuilder.build();
         }
         return blEcs;
     }
-    private static ElastigroupAutoScaleSpecification toBl (ApiAutoScale apiAutoScale){
+
+    private static ElastigroupAttributesSpecification toBl(ApiAttributes apiAttributes) {
+        ElastigroupAttributesSpecification blAttributes = null;
+
+        if (apiAttributes != null) {
+            ElastigroupAttributesSpecification.Builder blAttributesBuilder =
+                    ElastigroupAttributesSpecification.Builder.get();
+
+            if (apiAttributes.isKeySet() && apiAttributes.isValueSet()) {
+                blAttributesBuilder.setkey(apiAttributes.getKey());
+                blAttributesBuilder.setValue(apiAttributes.getValue());
+            }
+            blAttributes = blAttributesBuilder.build();
+        }
+        return blAttributes;
+    }
+
+    private static ElastigroupAutoScaleSpecification toBl(ApiAutoScale apiAutoScale) {
         ElastigroupAutoScaleSpecification blAutoScale = null;
 
-        if(apiAutoScale != null){
-            ElastigroupAutoScaleSpecification.Builder blAutoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
+        if (apiAutoScale != null) {
+            ElastigroupAutoScaleSpecification.Builder blAutoScaleBuilder =
+                    ElastigroupAutoScaleSpecification.Builder.get();
 
-            if(apiAutoScale.isShouldScaleDownNonServiceTasksSet()){
+            if (apiAutoScale.isShouldScaleDownNonServiceTasksSet()) {
                 blAutoScaleBuilder.setShouldScaleDownNonServiceTasks(apiAutoScale.getShouldScaleDownNonServiceTasks());
             }
-            if(apiAutoScale.isIsEnabledSet()){
+            if (apiAutoScale.isIsEnabledSet()) {
                 blAutoScaleBuilder.setIsEnabled(apiAutoScale.getEnabled());
             }
-            if(apiAutoScale.isIsAutoConfigSet()){
+            if (apiAutoScale.isIsAutoConfigSet()) {
                 blAutoScaleBuilder.setIsAutoConfig(apiAutoScale.getAutoConfig());
             }
-            if(apiAutoScale.isHeadroomSet()){
+            if (apiAutoScale.isHeadroomSet()) {
                 blAutoScaleBuilder.setHeadroom(toBl(apiAutoScale.getHeadroom()));
             }
-            if(apiAutoScale.isDownSet()){
+            if (apiAutoScale.isDownSet()) {
                 blAutoScaleBuilder.setDown(toBl(apiAutoScale.getDown()));
             }
-            if(apiAutoScale.isCooldownSet()){
+            if (apiAutoScale.isCooldownSet()) {
                 blAutoScaleBuilder.setCooldown(apiAutoScale.getCooldown());
             }
+            //            if(apiAutoScale.isAttributesSet()){
+            //                if(apiAutoScale.getAttributes() != null){
+            //                    List<ElastigroupAttributesSpecification> attributesSpecificationList =
+            //                            apiAutoScale.getAttributes().stream().map(ElastigroupConverter::toBl)
+            //                                        .collect(Collectors.toList());
+            //                    apiAutoScale.setAttributes(attributesSpecificationList);
+            //
+            //                }
+            //            } ///todo
             blAutoScale = blAutoScaleBuilder.build();
         }
         return blAutoScale;
     }
 
-    private static ElastigroupHeadroomSpecification toBl (ApiHeadroom apiHeadroom){
+    private static ElastigroupHeadroomSpecification toBl(ApiHeadroom apiHeadroom) {
         ElastigroupHeadroomSpecification blHeadroom = null;
 
-        if(apiHeadroom != null){
+        if (apiHeadroom != null) {
             ElastigroupHeadroomSpecification.Builder blHeadroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
 
-            if(apiHeadroom.isCpuPerUnitSet()){
+            if (apiHeadroom.isCpuPerUnitSet()) {
                 blHeadroomBuilder.setCpuPerUnit(apiHeadroom.getCpuPerUnit());
             }
-            if(apiHeadroom.isMemoryPerUnitSet()){
+            if (apiHeadroom.isMemoryPerUnitSet()) {
                 blHeadroomBuilder.setMemoryPerUnit(apiHeadroom.getMemoryPerUnit());
             }
-            if(apiHeadroom.isNumOfUnitsSet()){
+            if (apiHeadroom.isNumOfUnitsSet()) {
                 blHeadroomBuilder.setNumOfUnits(apiHeadroom.getMemoryPerUnit());
             }
             blHeadroom = blHeadroomBuilder.build();
@@ -599,14 +686,17 @@ class ElastigroupConverter {
         return blHeadroom;
     }
 
-    private static ElastigroupDownSpecification toBl(ApiDown apidown){
+    private static ElastigroupDownSpecification toBl(ApiDown apidown) {
         ElastigroupDownSpecification blDown = null;
 
-        if (apidown != null){
+        if (apidown != null) {
             ElastigroupDownSpecification.Builder blDownBuilder = ElastigroupDownSpecification.Builder.get();
 
-            if(apidown.isEvaluationPeriodsSet()){
+            if (apidown.isEvaluationPeriodsSet()) {
                 blDownBuilder.setEvaluationPeriods(apidown.getEvaluationPeriods());
+            }
+            if (apidown.isMaxScaleDownPercentageSet()) {
+                blDownBuilder.setMaxScaleDownPercentage(apidown.getMaxScaleDownPercentage());
             }
             blDown = blDownBuilder.build();
         }
@@ -625,9 +715,8 @@ class ElastigroupConverter {
 
             if (compute.isAvailabilityZonesSet()) {
                 if (compute.getAvailabilityZones() != null) {
-                    List<Placement> placements =
-                            compute.getAvailabilityZones().stream().map(ElastigroupConverter::toBl)
-                                    .collect(Collectors.toList());
+                    List<Placement> placements = compute.getAvailabilityZones().stream().map(ElastigroupConverter::toBl)
+                                                        .collect(Collectors.toList());
                     blComputeBuilder.setAvailabilityZones(placements);
                 }
             }
@@ -649,7 +738,7 @@ class ElastigroupConverter {
                 if (compute.getEbsVolumePool() != null) {
                     List<ElastigroupEbsVolumePool> blVolumePool =
                             compute.getEbsVolumePool().stream().map(ElastigroupConverter::toBl)
-                                    .collect(Collectors.toList());
+                                   .collect(Collectors.toList());
                     blComputeBuilder.setEbsVolumePools(blVolumePool);
                 }
             }
@@ -659,6 +748,7 @@ class ElastigroupConverter {
 
         return blCompute;
     }
+
     private static ElastigroupEbsVolumePool toBl(ApiVolumePool volumePool) {
         ElastigroupEbsVolumePool retVal = null;
 
@@ -749,7 +839,7 @@ class ElastigroupConverter {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<BlockDeviceMapping> blBDM =
                             launchSpecification.getBlockDeviceMappings().stream().map(ElastigroupConverter::toBl)
-                                    .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
                     retValBuilder.setBlockDeviceMappings(blBDM);
                 }
             }
@@ -758,16 +848,15 @@ class ElastigroupConverter {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<NetworkInterface> blNIC =
                             launchSpecification.getNetworkInterfaces().stream().map(ElastigroupConverter::toBl)
-                                    .collect(Collectors.toList());
+                                               .collect(Collectors.toList());
                     retValBuilder.setNetworkInterfaces(blNIC);
                 }
             }
 
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
-                    List<Tag> tags =
-                            launchSpecification.getTags().stream().map(ElastigroupConverter::toBl)
-                                    .collect(Collectors.toList());
+                    List<Tag> tags = launchSpecification.getTags().stream().map(ElastigroupConverter::toBl)
+                                                        .collect(Collectors.toList());
                     retValBuilder.setTags(tags);
                 }
             }
@@ -950,7 +1039,8 @@ class ElastigroupConverter {
             }
 
             if (strategy.isAvailabilityVsCostSet()) {
-                retValBuilder.setElastigroupOrientation(ElastigroupOrientationEnum.fromName(strategy.getAvailabilityVsCost()));
+                retValBuilder.setElastigroupOrientation(
+                        ElastigroupOrientationEnum.fromName(strategy.getAvailabilityVsCost()));
             }
 
             if (strategy.isDrainingTimeoutSet()) {

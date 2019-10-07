@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,17 +13,20 @@ import java.util.Set;
 public class ApiAutoScale {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private Boolean                          isEnabled;
-    private Integer                          cooldown;
-    private ApiDown                          down;
-    private ApiHeadroom                      headroom;
-    private Boolean                          isAutoConfig;
-    private Boolean                          shouldScaleDownNonServiceTasks;
+    private Set<String>         isSet;
+    private Boolean             isEnabled;
+    private Integer             cooldown;
+    private ApiDown             down;
+    private ApiHeadroom         headroom;
+    private Boolean             isAutoConfig;
+    private Boolean             shouldScaleDownNonServiceTasks;
+    private List<ApiAttributes> attributes;
     //endregion
 
     //region Constructor
-    public ApiAutoScale() {isSet = new HashSet<>();}
+    public ApiAutoScale() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
@@ -88,31 +92,57 @@ public class ApiAutoScale {
         this.shouldScaleDownNonServiceTasks = shouldScaleDownNonServiceTasks;
     }
 
+    public List<ApiAttributes> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<ApiAttributes> attributes) {
+        isSet.add("attributes");
+        this.attributes = attributes;
+    }
+
     //endregion
     //region isSet methods
     // Is isEnabled Set boolean method
     @JsonIgnore
-    public boolean isIsEnabledSet() {return isSet.contains("isEnabled");}
+    public boolean isIsEnabledSet() {
+        return isSet.contains("isEnabled");
+    }
 
     // Is cooldown Set boolean method
     @JsonIgnore
-    public boolean isCooldownSet() {return isSet.contains("cooldown");}
+    public boolean isCooldownSet() {
+        return isSet.contains("cooldown");
+    }
 
     // Is Down Set boolean method
     @JsonIgnore
-    public boolean isDownSet() {return isSet.contains("down");}
+    public boolean isDownSet() {
+        return isSet.contains("down");
+    }
 
     // Is Down Set boolean method
     @JsonIgnore
-    public boolean isHeadroomSet() {return isSet.contains("headroom");}
+    public boolean isHeadroomSet() {
+        return isSet.contains("headroom");
+    }
 
     // Is isAutoConfig Set boolean method
     @JsonIgnore
-    public boolean isIsAutoConfigSet() {return isSet.contains("isAutoConfig");}
+    public boolean isIsAutoConfigSet() {
+        return isSet.contains("isAutoConfig");
+    }
 
     // Is shouldScaleDownNonServiceTasks Set boolean method
     @JsonIgnore
-    public boolean isShouldScaleDownNonServiceTasksSet() {return isSet.contains("shouldScaleDownNonServiceTasks");}
+    public boolean isShouldScaleDownNonServiceTasksSet() {
+        return isSet.contains("shouldScaleDownNonServiceTasks");
+    }
 
+    // Is attributes Set boolean method
+    @JsonIgnore
+    public boolean isAttributesSet() {
+        return isSet.contains("attributes");
+    }
     //endregion
 }

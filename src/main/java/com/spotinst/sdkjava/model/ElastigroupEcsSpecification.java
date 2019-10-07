@@ -11,6 +11,7 @@ public class ElastigroupEcsSpecification {
     private Set<String>                       isSet;
     private String                            clusterName;
     private ElastigroupAutoScaleSpecification autoScale;
+    private ElastigroupOptimizeImages         optimizeImages;
     //endregion
 
     //region Constructor
@@ -26,6 +27,7 @@ public class ElastigroupEcsSpecification {
     }
 
     public void setIsSet(Set<String> isSet) {
+        isSet.add("isSet");
         this.isSet = isSet;
     }
 
@@ -46,6 +48,16 @@ public class ElastigroupEcsSpecification {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
+
+    public ElastigroupOptimizeImages getOptimizeImages() {
+        return optimizeImages;
+    }
+
+    public void setOptimizeImages(ElastigroupOptimizeImages optimizeImages) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImages;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
@@ -70,25 +82,36 @@ public class ElastigroupEcsSpecification {
             return this;
         }
 
+        public Builder setOptimizeImages(final ElastigroupOptimizeImages optimizeImages) {
+            ecs.setOptimizeImages(optimizeImages);
+            return this;
+        }
+
         public ElastigroupEcsSpecification build() {
             return ecs;
         }
     }
-        //endregion
+    //endregion
 
-        //region isSet methods
-        // Is product Set boolean method
-        @JsonIgnore
-        public boolean isAutoScaleSet() {
-            return isSet.contains("autoScale");
-        }
+    //region isSet methods
+    // Is autoScale Set boolean method
+    @JsonIgnore
+    public boolean isAutoScaleSet() {
+        return isSet.contains("autoScale");
+    }
 
-        // Is product Set boolean method
-        @JsonIgnore
-        public boolean isClusterNameSet() {
-            return isSet.contains("clusterName");
-        }
+    // Is clusterName Set boolean method
+    @JsonIgnore
+    public boolean isClusterNameSet() {
+        return isSet.contains("clusterName");
+    }
+
+    // Is optimizeImages Set boolean method
+    @JsonIgnore
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
+    }
 
     //endregion
 
-    }
+}

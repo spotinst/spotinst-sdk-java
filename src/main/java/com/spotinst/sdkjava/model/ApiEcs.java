@@ -12,13 +12,16 @@ import java.util.Set;
 class ApiEcs {
     //region Members
     @JsonIgnore
-    private Set<String>                       isSet;
-    private String                            clusterName;
-    private ApiAutoScale                      autoScale;
+    private Set<String>       isSet;
+    private String            clusterName;
+    private ApiAutoScale      autoScale;
+    private ApiOptimizeImages optimizeImages;
     //endregion
 
     //region Constructor
-    public ApiEcs(){isSet = new HashSet<>();}
+    public ApiEcs() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
@@ -26,7 +29,9 @@ class ApiEcs {
         return isSet;
     }
 
+    //TODO Sali remove from all places
     public void setIsSet(Set<String> isSet) {
+        isSet.add("isSet");
         this.isSet = isSet;
     }
 
@@ -47,17 +52,33 @@ class ApiEcs {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
+
+    public ApiOptimizeImages getOptimizeImages() {
+        return optimizeImages;
+    }
+
+    public void setOptimizeImages(ApiOptimizeImages optimizeImages) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImages;
+    }
+
     //endregion
-    // Is product Set boolean method
+    // Is autoScale Set boolean method
     @JsonIgnore
     public boolean isAutoScaleSet() {
         return isSet.contains("autoScale");
     }
 
-    // Is product Set boolean method
+    // Is clusterName Set boolean method
     @JsonIgnore
     public boolean isClusterNameSet() {
         return isSet.contains("clusterName");
+    }
+
+    // Is optimizeImages Set boolean method
+    @JsonIgnore
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
     }
 
     //endregion

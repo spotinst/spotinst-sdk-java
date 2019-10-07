@@ -18,17 +18,16 @@ import java.util.Set;
 class ApiElastigroup implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String id;
-    private String name;
-    private String description;
-    private ApiCapacity capacity;
-    private ApiStrategy strategy;
-    private ApiGroupCompute compute;
-    private Date createdAt;
-    private Date updatedAt;
+    private Set<String>                isSet;
+    private String                     id;
+    private String                     name;
+    private String                     description;
+    private ApiCapacity                capacity;
+    private ApiStrategy                strategy;
+    private ApiGroupCompute            compute;
+    private Date                       createdAt;
+    private Date                       updatedAt;
     private ApiThirdPartiesIntegration thirdPartiesIntegration;
-
     //endregion
 
     //region Constructor
@@ -48,6 +47,7 @@ class ApiElastigroup implements IPartialUpdateEntity {
         isSet.add("thirdPartiesIntegration");
         this.thirdPartiesIntegration = thirdPartiesIntegration;
     }
+
     public Set<String> getIsSet() {
         return isSet;
     }
