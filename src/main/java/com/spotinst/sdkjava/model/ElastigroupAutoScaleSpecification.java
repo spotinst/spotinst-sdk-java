@@ -37,7 +37,7 @@ public class ElastigroupAutoScaleSpecification {
         return isEnabled;
     }
 
-    public void setIsEnabled(Boolean enabled) {
+    public void setIsEnabled(Boolean isEnabled) {
         isSet.add("isEnabled");
         this.isEnabled = isEnabled;
     }
@@ -52,7 +52,7 @@ public class ElastigroupAutoScaleSpecification {
 
     public void setDown(ElastigroupDownSpecification down) {
         isSet.add("down");
-        this.down = this.down;
+        this.down = down;
     }
 
     public ElastigroupHeadroomSpecification getHeadroom() {
@@ -73,7 +73,7 @@ public class ElastigroupAutoScaleSpecification {
         return isAutoConfig;
     }
 
-    public void setIsAutoConfig(Boolean autoConfig) {
+    public void setIsAutoConfig(Boolean isAutoConfig) {
         isSet.add("isAutoConfig");
         this.isAutoConfig = isAutoConfig;
     }

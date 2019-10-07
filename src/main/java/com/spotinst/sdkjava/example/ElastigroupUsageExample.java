@@ -236,9 +236,25 @@ public class ElastigroupUsageExample {
         ElastigroupCapacityConfiguration         capacity        =
                 capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
+
+        //build down
+        ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
+        ElastigroupDownSpecification down        =  downBuilder.setEvaluationPeriods(2).build();
+        //build headroom
+        ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
+        ElastigroupHeadroomSpecification headRoom = headroomBuilder.setCpuPerUnit(0).setNumOfUnits(0).setMemoryPerUnit(0).build();
+        //build autoscale
+        ElastigroupAutoScaleSpecification.Builder autoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
+        ElastigroupAutoScaleSpecification autoscale = autoScaleBuilder.setCooldown(300).setDown(down).setHeadroom(headRoom).setIsAutoConfig(true).setIsEnabled(true).setShouldScaleDownNonServiceTasks(true).build();
+        //build ecs
+        ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
+        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").build();
+
         //build group third party integration ECS
+        ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
 
-
+        ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
+                thirdPartiesIntegrationBuilder.setEcs(ecs).build();
 
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();

@@ -78,12 +78,12 @@ public class ElastigroupHeadroomSpecification {
         }
 
         public Builder setMemoryPerUnit(final Integer memoryPerUnit) {
-            headroom.setCpuPerUnit(memoryPerUnit);
+            headroom.setMemoryPerUnit(memoryPerUnit);
             return this;
         }
 
         public Builder setNumOfUnits(final Integer numOfUnits) {
-            headroom.setCpuPerUnit(numOfUnits);
+            headroom.setNumOfUnits(numOfUnits);
             return this;
         }
 
