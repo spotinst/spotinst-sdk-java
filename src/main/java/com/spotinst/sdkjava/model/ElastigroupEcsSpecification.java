@@ -27,7 +27,6 @@ public class ElastigroupEcsSpecification {
     }
 
     public void setIsSet(Set<String> isSet) {
-        isSet.add("isSet");
         this.isSet = isSet;
     }
 

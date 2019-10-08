@@ -11,7 +11,7 @@ public class ElastigroupOptimizeImages {
     @JsonIgnore
     private Set<String> isSet;
     private Boolean shouldOptimizeEcsAmi;
-   // private timeWindow timeWindow     //TODO Sali
+    private ElastigroupPerFormAtSpecification performAt;
     //endregion
     //region Constructors
     private  ElastigroupOptimizeImages(){isSet = new HashSet<>();}
@@ -21,7 +21,6 @@ public class ElastigroupOptimizeImages {
     }
 
     public void setIsSet(Set<String> isSet) {
-        isSet.add("isSet");
         this.isSet = isSet;
     }
 
@@ -33,7 +32,14 @@ public class ElastigroupOptimizeImages {
         isSet.add("shouldOptimizeEcsAmi");
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
+    public ElastigroupPerFormAtSpecification getPerformAt() {
+        return performAt;
+    }
 
+    public void setPerformAt(ElastigroupPerFormAtSpecification performAt) {
+        isSet.add("performAt");
+        this.performAt = performAt;
+    }
     //endregion
     //region Builder class
     public static class Builder {
@@ -49,6 +55,10 @@ public class ElastigroupOptimizeImages {
             optimizeImages.setShouldOptimizeEcsAmi(shouldOptimizeEcsAmi);
             return this;
         }
+        public Builder setPerformAt (final ElastigroupPerFormAtSpecification performAt) {
+            optimizeImages.setPerformAt(performAt);
+            return this;
+        }
 
         public ElastigroupOptimizeImages build(){return optimizeImages;}
     }
@@ -58,6 +68,12 @@ public class ElastigroupOptimizeImages {
     @JsonIgnore
     public boolean isShouldOptimizeEcsAmiSet() {
         return isSet.contains("shouldOptimizeEcsAmi");
+    }
+
+    // Is performAt Set boolean method
+    @JsonIgnore
+    public boolean isPerformAtSet() {
+        return isSet.contains("performAt");
     }
 
 }

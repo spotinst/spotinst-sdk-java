@@ -29,9 +29,7 @@ class ApiEcs {
         return isSet;
     }
 
-    //TODO Sali remove from all places
     public void setIsSet(Set<String> isSet) {
-        isSet.add("isSet");
         this.isSet = isSet;
     }
 

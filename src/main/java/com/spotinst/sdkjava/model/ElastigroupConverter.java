@@ -87,6 +87,17 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    private static ApiPerFormAt toDal(ElastigroupPerFormAtSpecification perFormAt){
+        ApiPerFormAt retVal = null;
+        if(perFormAt != null){
+            retVal = new ApiPerFormAt();
+            if(perFormAt.isTimeWindowSet()){
+                retVal.setTimeWindow(perFormAt.getTimeWindow());
+            }
+        }
+        return retVal;
+    }
+
     private static ApiOptimizeImages toDal(ElastigroupOptimizeImages optimizeImages) {
         ApiOptimizeImages retVal = null;
         if (optimizeImages != null) {
@@ -94,8 +105,9 @@ class ElastigroupConverter {
             if (optimizeImages.isShouldOptimizeEcsAmiSet()) {
                 retVal.setShouldOptimizeEcsAmi(optimizeImages.getShouldOptimizeEcsAmi());
             }
-            /////todo timewindow
-
+            if(optimizeImages.isPerformAtSet()){
+                retVal.setPerformAt(toDal(optimizeImages.getPerformAt()));
+            }
         }
         return retVal;
     }
@@ -166,8 +178,6 @@ class ElastigroupConverter {
         }
         return retVal;
     }
-
-    ////
     private static ApiGroupCompute toDal(ElastigroupComputeConfiguration compute) {
         ApiGroupCompute optCompute = null;
 
@@ -577,6 +587,19 @@ class ElastigroupConverter {
         return blThirdPartiesIntegration;
     }
 
+    private static ElastigroupPerFormAtSpecification toBl(ApiPerFormAt apiPerFormAt){
+        ElastigroupPerFormAtSpecification blPerFormAt = null;
+
+        if(apiPerFormAt != null){
+            ElastigroupPerFormAtSpecification.Builder blPerFormAtBuilder =ElastigroupPerFormAtSpecification.Builder.get();
+            if(apiPerFormAt.isTimeWindowSet()){
+                blPerFormAtBuilder.setTimeWindow(apiPerFormAt.getTimeWindow());
+            }
+            blPerFormAt = blPerFormAtBuilder.build();
+        }
+        return  blPerFormAt;
+    }
+
     private static ElastigroupOptimizeImages toBl(ApiOptimizeImages apiOptimizeImages) {
         ElastigroupOptimizeImages blOptimizeImages = null;
 
@@ -585,7 +608,9 @@ class ElastigroupConverter {
             if (apiOptimizeImages.isShouldOptimizeEcsAmiSet()) {
                 blOptimizeImagesBuilder.setShouldOptimizeEcsAmi(apiOptimizeImages.getShouldOptimizeEcsAmi());
             }
-            /////todo timewin
+            if (apiOptimizeImages.isPerformAtSet()){
+                blOptimizeImagesBuilder.setPerformAt(toBl(apiOptimizeImages.getPerformAt()));
+            }
             blOptimizeImages = blOptimizeImagesBuilder.build();
         }
         return blOptimizeImages;

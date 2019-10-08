@@ -15,6 +15,7 @@ public class ApiOptimizeImages {
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldOptimizeEcsAmi;
+    private ApiPerFormAt performAt;
     // private timeWindow timeWindow
     //endregion
 
@@ -30,7 +31,6 @@ public class ApiOptimizeImages {
     }
 
     public void setIsSet(Set<String> isSet) {
-        isSet.add("isSet");
         this.isSet = isSet;
     }
 
@@ -42,13 +42,26 @@ public class ApiOptimizeImages {
         isSet.add("shouldOptimizeEcsAmi");
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
+    public ApiPerFormAt getPerformAt() {
+        return performAt;
+    }
 
+    public void setPerformAt(ApiPerFormAt performAt) {
+        isSet.add("performAt");
+        this.performAt = performAt;
+    }
     //endregion
     //region isSet methods
     // Is optimizeImages Set boolean method
     @JsonIgnore
     public boolean isShouldOptimizeEcsAmiSet() {
         return isSet.contains("shouldOptimizeEcsAmi");
+    }
+
+    // Is performAt Set boolean method
+    @JsonIgnore
+    public boolean isPerformAtSet() {
+        return isSet.contains("performAt");
     }
 
 }
