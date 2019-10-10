@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.client.rest.RestResponse;
 import com.spotinst.sdkjava.exception.SpotinstHttpErrorsException;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.logging.log4j.core.util.IOUtils;
@@ -21,7 +22,7 @@ public class BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseSpotinstService.class);
 
-    private static final String FILE_PATH  = "version.txt";
+    private static final String FILE_PATH  = "gradle.properties";
     private static       String SPOTINST_SDK_JAVA_USER_AGENT = "spotinst-sdk-java";
 
 
@@ -34,9 +35,9 @@ public class BaseSpotinstService {
             InputStream is = classloader.getResourceAsStream(FILE_PATH);
 
             String theString = IOUtils.toString(new InputStreamReader(is));
-            String[] arrOfStr = theString.split(":");
+            String[] arrOfStr = theString.split("=");
 
-            String version = arrOfStr[1];
+            String version = StringUtils.chomp(arrOfStr[1]);
             SPOTINST_SDK_JAVA_USER_AGENT = String.format(userAgentFormat, SPOTINST_SDK_JAVA_USER_AGENT, version);
 
         } catch (IOException e) {

@@ -21,9 +21,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupService.class);
 
-    static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
+    public static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
                                             String account) throws SpotinstHttpException {
-
         // Init retVal
         ApiElastigroup retVal = null;
 
