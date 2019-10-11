@@ -3,13 +3,14 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiHeadroom {
+public class ApiHeadroom implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;

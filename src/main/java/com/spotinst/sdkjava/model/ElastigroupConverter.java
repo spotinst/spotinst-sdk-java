@@ -677,6 +677,13 @@ class ElastigroupConverter {
             if (apiAutoScale.isCooldownSet()) {
                 blAutoScaleBuilder.setCooldown(apiAutoScale.getCooldown());
             }
+            if(apiAutoScale.isAttributesSet()){
+                if(apiAutoScale.getAttributes() != null){
+                    List<ElastigroupAttributesSpecification>  attributesSpecificationList = apiAutoScale
+                            .getAttributes().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    blAutoScaleBuilder.setAttributes(attributesSpecificationList);
+                }
+            }
             //            if(apiAutoScale.isAttributesSet()){
             //                if(apiAutoScale.getAttributes() != null){
             //                    List<ElastigroupAttributesSpecification> attributesSpecificationList =

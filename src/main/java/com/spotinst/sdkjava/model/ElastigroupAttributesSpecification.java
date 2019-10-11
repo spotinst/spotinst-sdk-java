@@ -31,9 +31,9 @@ public class ElastigroupAttributesSpecification {
         return key;
     }
 
-    public void setKey(String Key) {
-        isSet.add("key");
-        this.key = key;
+    public void setKey (String Key) {
+        isSet.add("Key");
+        this.key = Key;
     }
 
     public String getValue() {
@@ -42,7 +42,7 @@ public class ElastigroupAttributesSpecification {
 
     public void setValue(String Value) {
         isSet.add("Value");
-        this.value = value;
+        this.value = Value;
     }
 
     //endregion
@@ -97,13 +97,13 @@ public class ElastigroupAttributesSpecification {
     // Is key Set boolean method
     @JsonIgnore
     public boolean isKeySet() {
-        return isSet.contains("key");
+        return isSet.contains("Key");
     }
 
     // Is value Set boolean method
     @JsonIgnore
     public boolean isValueSet() {
-        return isSet.contains("value");
+        return isSet.contains("Value");
     }
 
     //endregion
