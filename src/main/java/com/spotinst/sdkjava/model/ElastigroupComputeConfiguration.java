@@ -18,7 +18,7 @@ public class ElastigroupComputeConfiguration {
     private ElastigroupLaunchSpecification launchSpecification;
     private ElastigroupInstanceTypes instanceTypes;
     private List<Placement> availabilityZones;
-    private List<String> elasticIps;   ///
+    private List<String> elasticIps;
     private List<ElastigroupEbsVolumePool> ebsVolumePool;
     //endregion
 

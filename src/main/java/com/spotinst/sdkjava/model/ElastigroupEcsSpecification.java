@@ -12,6 +12,8 @@ public class ElastigroupEcsSpecification {
     private String                            clusterName;
     private ElastigroupAutoScaleSpecification autoScale;
     private ElastigroupOptimizeImages         optimizeImages;
+    private ElastigroupEcsBatch batch;
+    //todo sali - add batch
     //endregion
 
     //region Constructor
@@ -57,6 +59,14 @@ public class ElastigroupEcsSpecification {
         this.optimizeImages = optimizeImages;
     }
 
+    public ElastigroupEcsBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(ElastigroupEcsBatch batch) {
+        isSet.add("batch");
+        this.batch = batch;
+    }
     //endregion
     //region Builder class
     public static class Builder {
@@ -69,6 +79,11 @@ public class ElastigroupEcsSpecification {
         public static Builder get() {
             Builder builder = new Builder();
             return builder;
+        }
+
+        public Builder setBatch (final ElastigroupEcsBatch batch ){
+            ecs.setBatch(batch);
+            return this;
         }
 
         public Builder setClusterName(final String clusterName) {
@@ -109,6 +124,12 @@ public class ElastigroupEcsSpecification {
     @JsonIgnore
     public boolean isOptimizeImagesSet() {
         return isSet.contains("optimizeImages");
+    }
+
+    // Is batch Set boolean method
+    @JsonIgnore
+    public boolean isBatchSet() {
+        return isSet.contains("batch");
     }
 
     //endregion

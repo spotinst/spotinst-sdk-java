@@ -10,13 +10,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiEcs implements IPartialUpdateEntity {
+public class ApiEcs implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>       isSet;
     private String            clusterName;
     private ApiAutoScale      autoScale;
     private ApiOptimizeImages optimizeImages;
+    private ApiBatch apiBatch;
     //endregion
 
     //region Constructor
@@ -60,7 +61,14 @@ class ApiEcs implements IPartialUpdateEntity {
         isSet.add("optimizeImages");
         this.optimizeImages = optimizeImages;
     }
+    public ApiBatch getApiBatch() {
+        return apiBatch;
+    }
 
+    public void setApiBatch(ApiBatch apiBatch) {
+        isSet.add("apiBatch");
+        this.apiBatch = apiBatch;
+    }
     //endregion
     // Is autoScale Set boolean method
     @JsonIgnore
@@ -78,6 +86,12 @@ class ApiEcs implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isOptimizeImagesSet() {
         return isSet.contains("optimizeImages");
+    }
+
+    // Is batch Set boolean method
+    @JsonIgnore
+    public boolean isApiBatchSet() {
+        return isSet.contains("apiBatch");
     }
 
     //endregion

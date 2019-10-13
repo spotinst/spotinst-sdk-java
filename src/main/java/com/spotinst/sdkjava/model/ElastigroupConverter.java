@@ -70,20 +70,39 @@ class ElastigroupConverter {
             if (ecs.isOptimizeImagesSet()) {
                 retVal.setOptimizeImages(toDal(ecs.getOptimizeImages()));
             }
+            if (ecs.isBatchSet()){
+                retVal. setApiBatch(toDal(ecs.getBatch()));
+            }
         }
         return retVal;
 
+    }
+
+    private static ApiBatch toDal ( ElastigroupEcsBatch ecsBatch){
+        ApiBatch retVal = null;
+        if(ecsBatch != null){
+            retVal = new ApiBatch();
+            if(ecsBatch.isJobQueueNamesSet()){
+                if(ecsBatch.getJobQueueNames() != null){
+                    retVal.setJobQueueNames(new LinkedList<> (ecsBatch.getJobQueueNames()));
+                }
+            }
+        }
+        return retVal;
     }
 
     private static ApiAttributes toDal(ElastigroupAttributesSpecification attributes) {
         ApiAttributes retVal = null;
         if (attributes != null) {
             retVal = new ApiAttributes();
-            if (attributes.isKeySet() && attributes.isValueSet()) {
-                retVal.setKey(attributes.getKey());
+            if (attributes.isKeySet()) {
+                retVal.setValue(attributes.getValue());
+            }
+            if(attributes.isValueSet()){
                 retVal.setValue(attributes.getValue());
             }
         }
+
         return retVal;
     }
 
@@ -95,7 +114,6 @@ class ElastigroupConverter {
                 retVal.setShouldOptimizeEcsAmi(optimizeImages.getShouldOptimizeEcsAmi());
             }
             if (optimizeImages.isTimeWindowSet()) {
-                //                retVal.setTimeWindow(optimizeImages.getTimeWindow());
                 if (optimizeImages.getTimeWindows() != null) {
                     retVal.setTimeWindows(new LinkedList<>(optimizeImages.getTimeWindows()));
                 }
@@ -621,9 +639,27 @@ class ElastigroupConverter {
             if (apiEcs.isOptimizeImagesSet()) {
                 blEcsBuilder.setOptimizeImages(toBl(apiEcs.getOptimizeImages()));
             }
+            if(apiEcs.isApiBatchSet()){
+                blEcsBuilder.setBatch(toBl(apiEcs.getApiBatch()));
+            }
             blEcs = blEcsBuilder.build();
         }
         return blEcs;
+    }
+    private static ElastigroupEcsBatch toBl(ApiBatch apiBatch){
+        ElastigroupEcsBatch retVal = null;
+
+        if(apiBatch != null) {
+            ElastigroupEcsBatch.Builder blEcsBuilder  =
+                    ElastigroupEcsBatch.Builder.get();
+            if(apiBatch.isJobQueueNamesSet()){
+                if(apiBatch.getJobQueueNames() != null) {
+                    retVal.setJobQueueNames(new LinkedList<>(apiBatch.getJobQueueNames()));
+                }
+            }
+            retVal = blEcsBuilder.build();
+        }
+        return retVal;
     }
 
     private static ElastigroupAttributesSpecification toBl(ApiAttributes apiAttributes) {
@@ -633,8 +669,11 @@ class ElastigroupConverter {
             ElastigroupAttributesSpecification.Builder blAttributesBuilder =
                     ElastigroupAttributesSpecification.Builder.get();
 
-            if (apiAttributes.isKeySet() && apiAttributes.isValueSet()) {
+            //todo sali - can be null- done
+            if (apiAttributes.isKeySet() ) {
                 blAttributesBuilder.setkey(apiAttributes.getKey());
+            }
+            if(apiAttributes.isValueSet()){
                 blAttributesBuilder.setValue(apiAttributes.getValue());
             }
             blAttributes = blAttributesBuilder.build();
@@ -675,15 +714,6 @@ class ElastigroupConverter {
                     blAutoScaleBuilder.setAttributes(attributesSpecificationList);
                 }
             }
-            //            if(apiAutoScale.isAttributesSet()){
-            //                if(apiAutoScale.getAttributes() != null){
-            //                    List<ElastigroupAttributesSpecification> attributesSpecificationList =
-            //                            apiAutoScale.getAttributes().stream().map(ElastigroupConverter::toBl)
-            //                                        .collect(Collectors.toList());
-            //                    apiAutoScale.setAttributes(attributesSpecificationList);
-            //
-            //                }
-            //            } ///todo
             blAutoScale = blAutoScaleBuilder.build();
         }
         return blAutoScale;
@@ -702,7 +732,7 @@ class ElastigroupConverter {
                 blHeadroomBuilder.setMemoryPerUnit(apiHeadroom.getMemoryPerUnit());
             }
             if (apiHeadroom.isNumOfUnitsSet()) {
-                blHeadroomBuilder.setNumOfUnits(apiHeadroom.getMemoryPerUnit());
+                blHeadroomBuilder.setNumOfUnits(apiHeadroom.getNumOfUnits());
             }
             blHeadroom = blHeadroomBuilder.build();
         }

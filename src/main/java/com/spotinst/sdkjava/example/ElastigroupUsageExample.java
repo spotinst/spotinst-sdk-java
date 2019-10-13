@@ -12,10 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
-     private final static String auth_token = "your-token";  // need to cahnge the token!
-
+    private final static String auth_token = "your-token";
      private final static String act_id     = "your-account-id";
-
     private final static String key_pair_name = "some-key-pair-name";
 
     public static void main(String[] args) throws IOException {
@@ -248,10 +246,14 @@ public class ElastigroupUsageExample {
         //build attributes
         ElastigroupAttributesSpecification.Builder attributesBuilder = ElastigroupAttributesSpecification.Builder.get();
         ElastigroupAttributesSpecification attributesSpecification = attributesBuilder.setkey("sali_key").setValue("sali_val").build();
+        ElastigroupAttributesSpecification.Builder attributesBuilder2 = ElastigroupAttributesSpecification.Builder.get();
+        ElastigroupAttributesSpecification attributesSpecification2 = attributesBuilder2.setkey("almog_key").setValue("almog_val").build();
+
         //build autoscale
         ElastigroupAutoScaleSpecification.Builder autoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
         List<ElastigroupAttributesSpecification>  attributesList = new ArrayList<>();
         attributesList.add(attributesSpecification);
+        attributesList.add(attributesSpecification2);
         ElastigroupAutoScaleSpecification autoscale = autoScaleBuilder.setCooldown(300).setDown(down)
                                                                       .setHeadroom(headRoom).setIsAutoConfig(true).setIsEnabled(true)
                                                                       .setShouldScaleDownNonServiceTasks(true).setAttributes(attributesList).build();
@@ -262,20 +264,24 @@ public class ElastigroupUsageExample {
         timeWindow.add("Mon:12:00-Tue:12:00");
         timeWindow.add("Fri:12:00-Sat:12:00");
         ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt("timeWindow").setTimeWindow(timeWindow).build();
+        // build batch
+        ElastigroupEcsBatch.Builder ecsBatchBuilder = ElastigroupEcsBatch.Builder.get();
+        List<String> batchList = new ArrayList<>();
+        batchList.add("abc");
+        ElastigroupEcsBatch batch = ecsBatchBuilder.setJobQueueNames(batchList).build();
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
-        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).build();
+        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).setBatch(batch).build();
         //build group third party integration ECS
         ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
 
         ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
                 thirdPartiesIntegrationBuilder.setEcs(ecs).build();
-//                thirdPartiesIntegrationBuilder.build();
 
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup         elastigroup        =
-                elastigroupBuilder.setName("SpotinstTestGroup_sali_test").setDescription("descriptive-information")
+                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute).setThirdPartiesIntegration(thirdPartiesIntegration).build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
@@ -297,7 +303,7 @@ public class ElastigroupUsageExample {
         //Create group update
         ElastigroupCapacityConfiguration.Builder updateCapacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
         ElastigroupCapacityConfiguration         updateCapacity        =
-                updateCapacityBuilder.setMinimum(0).setTarget(0).setMaximum(5).build();
+                updateCapacityBuilder.setMinimum(0).setTarget(3).setMaximum(5).build();
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();

@@ -6,27 +6,29 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-//todo sali - is there no other 3rd party?
-class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
+public class ApiBatch implements IPartialUpdateEntity {
     //region Members
-    @JsonIgnore
-    private Set<String> isSet;
-    private ApiEcs      ecs;
+    private Set<String>  isSet;
+    private List<String> jobQueueNames;
     //endregion
 
-    //region Constructor
-
-    public ApiThirdPartiesIntegration() {
+    public ApiBatch()  {
         isSet = new HashSet<>();
     }
-    //endregion
+    //region Setters&Getters
+    public List<String> getJobQueueNames() {
+        return jobQueueNames;
+    }
 
-    //region Getters & Setters
-
+    public void setJobQueueNames(List<String> jobQueueNames) {
+        isSet.add("jobQueueNames");
+        this.jobQueueNames = jobQueueNames;
+    }
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -34,24 +36,13 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
-    public ApiEcs getEcs() {
-        return ecs;
-    }
-
-    public void setEcs(ApiEcs ecs) {
-        isSet.add("ecs");
-        this.ecs = ecs;
-    }
-
     //endregion
-    //region isSet methods
-    // Is deviceName Set boolean method
-    @JsonIgnore
-    public boolean isEcsSet() {
-        return isSet.contains("ecs");
-    }
 
+    //region Methods
+    @JsonIgnore
+    public boolean isJobQueueNamesSet() {
+        return isSet.contains("jobQueueNames");
+    }
     //endregion
 
 }
