@@ -96,11 +96,8 @@ class ElastigroupConverter {
             }
             if (optimizeImages.isTimeWindowSet()) {
                 //                retVal.setTimeWindow(optimizeImages.getTimeWindow());
-                if (optimizeImages.getTimeWindow() != null) {
-                    //                    List<String> timeWindowList =
-                    //                                 optimizeImages.getTimeWindow().stream().map(ElastigroupConverter::toDal)
-                    //                            .collect(Collectors.toList());
-                    retVal.setTimeWindow(new LinkedList<>(optimizeImages.getTimeWindow()));
+                if (optimizeImages.getTimeWindows() != null) {
+                    retVal.setTimeWindows(new LinkedList<>(optimizeImages.getTimeWindows()));
                 }
             }
             if (optimizeImages.isPerformAtSet()) {
@@ -597,8 +594,8 @@ class ElastigroupConverter {
                 blOptimizeImagesBuilder.setShouldOptimizeEcsAmi(apiOptimizeImages.getShouldOptimizeEcsAmi());
             }
             if (apiOptimizeImages.isTimeWindowSet()) {
-                if (apiOptimizeImages.getTimeWindow() != null) {
-                    blOptimizeImagesBuilder.setTimeWindow(new LinkedList<>(apiOptimizeImages.getTimeWindow()));
+                if (apiOptimizeImages.getTimeWindows() != null) {
+                    blOptimizeImagesBuilder.setTimeWindow(new LinkedList<>(apiOptimizeImages.getTimeWindows()));
                 }
             }
             if (apiOptimizeImages.isPerformAtSet()) {

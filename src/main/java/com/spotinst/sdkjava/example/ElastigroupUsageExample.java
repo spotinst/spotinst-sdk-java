@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token = "your-token";  // need to cahnge the token!
+     private final static String auth_token = "your-token";  // need to cahnge the token!
 
-    private final static String act_id     = "your-account-id";
+     private final static String act_id     = "your-account-id";
 
     private final static String key_pair_name = "some-key-pair-name";
 
@@ -261,7 +261,7 @@ public class ElastigroupUsageExample {
         List<String> timeWindow = new ArrayList<>();
         timeWindow.add("Mon:12:00-Tue:12:00");
         timeWindow.add("Fri:12:00-Sat:12:00");
-        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt("timeWindow").build();
+        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt("timeWindow").setTimeWindow(timeWindow).build();
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
         ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).build();

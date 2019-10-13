@@ -18,7 +18,7 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     private Set<String>  isSet;
     private Boolean      shouldOptimizeEcsAmi;
     private String       performAt;
-    private List<String> timeWindow;
+    private List<String> timeWindows;
     //endregion
 
     //region Constructor
@@ -53,13 +53,13 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
         this.performAt = performAt;
     }
 
-    public List<String> getTimeWindow() {
-        return timeWindow;
+    public List<String> getTimeWindows() {
+        return timeWindows;
     }
 
-    public void setTimeWindow(List<String> timeWindow) {
-        isSet.add("timeWindow");
-        this.timeWindow = timeWindow;
+    public void setTimeWindows(List<String> timeWindows) {
+        isSet.add("timeWindows");
+        this.timeWindows = timeWindows;
     }
     //endregion
     //region isSet methods
@@ -78,7 +78,7 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     // Is timeWindow Set boolean method
     @JsonIgnore
     public boolean isTimeWindowSet() {
-        return isSet.contains("timeWindow");
+        return isSet.contains("timeWindows");
     }
 
 }
