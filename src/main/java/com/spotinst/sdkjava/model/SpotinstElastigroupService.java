@@ -23,7 +23,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     public static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
                                             String account) throws SpotinstHttpException {
-
         // Init retVal
         ApiElastigroup retVal = null;
 

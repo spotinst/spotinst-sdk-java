@@ -27,3 +27,6 @@ logs/
 
 # Java class files
 *.class
+
+# Maven
+settings.xml
