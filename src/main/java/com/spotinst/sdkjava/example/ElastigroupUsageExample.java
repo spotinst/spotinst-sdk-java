@@ -12,14 +12,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
-   // private final static String auth_token = "your-token";
-    private final static String auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcG90aW5zdCIsImV4cCI6MTgyNDM3NjIxNCwidWlkIjotMSwicm9sZSI6Miwib2lkIjo2MDYwNzk4NjIyNjEsImlhdCI6MTUwOTAxNjIxNH0.ptsB3-cUeIVflzeJnSfJDV2YeDXrPfooJbisFcuGVx0";
+    private final static String auth_token = "your-token";  // need to cahnge the token!
 
-   // private final static String act_id     = "your-account-id";
-    private final static String act_id     = "act-92d45673";
+    private final static String act_id     = "your-account-id";
 
-   // private final static String key_pair_name = "some-key-pair-name";
-    private final static String key_pair_name = "sali-test";
+    private final static String key_pair_name = "some-key-pair-name";
 
     public static void main(String[] args) throws IOException {
 
@@ -258,16 +255,13 @@ public class ElastigroupUsageExample {
         ElastigroupAutoScaleSpecification autoscale = autoScaleBuilder.setCooldown(300).setDown(down)
                                                                       .setHeadroom(headRoom).setIsAutoConfig(true).setIsEnabled(true)
                                                                       .setShouldScaleDownNonServiceTasks(true).setAttributes(attributesList).build();
-        //build performat
-        ElastigroupPerFormAtSpecification.Builder perFormAtBuilder = ElastigroupPerFormAtSpecification.Builder.get();
-        List<String> timeWindow = new ArrayList<>();
-        timeWindow.add("Mon:12:00-Tue:12:00");
-        timeWindow.add("Fri:12:00-Sat:12:00");
-        ElastigroupPerFormAtSpecification perFormAtSpecification = perFormAtBuilder.setTimeWindow(timeWindow).build();
 
         //build optimizeImages
         ElastigroupOptimizeImages.Builder optimizeImagesBuilder = ElastigroupOptimizeImages.Builder.get();
-        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt(perFormAtSpecification).build();
+        List<String> timeWindow = new ArrayList<>();
+        timeWindow.add("Mon:12:00-Tue:12:00");
+        timeWindow.add("Fri:12:00-Sat:12:00");
+        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt("timeWindow").build();
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
         ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).build();

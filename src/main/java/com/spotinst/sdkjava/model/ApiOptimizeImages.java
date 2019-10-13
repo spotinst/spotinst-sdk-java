@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,10 +15,10 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     //region Members
     // Partial Update support
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     shouldOptimizeEcsAmi;
-    private ApiPerFormAt performAt;
-    // private timeWindow timeWindow
+    private Set<String>  isSet;
+    private Boolean      shouldOptimizeEcsAmi;
+    private String       performAt;
+    private List<String> timeWindow;
     //endregion
 
     //region Constructor
@@ -43,13 +44,22 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
         isSet.add("shouldOptimizeEcsAmi");
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
-    public ApiPerFormAt getPerformAt() {
+    public String getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(ApiPerFormAt performAt) {
+    public void setPerformAt(String performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
+    }
+
+    public List<String> getTimeWindow() {
+        return timeWindow;
+    }
+
+    public void setTimeWindow(List<String> timeWindow) {
+        isSet.add("timeWindow");
+        this.timeWindow = timeWindow;
     }
     //endregion
     //region isSet methods
@@ -63,6 +73,12 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isPerformAtSet() {
         return isSet.contains("performAt");
+    }
+
+    // Is timeWindow Set boolean method
+    @JsonIgnore
+    public boolean isTimeWindowSet() {
+        return isSet.contains("timeWindow");
     }
 
 }

@@ -87,17 +87,6 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiPerFormAt toDal(ElastigroupPerFormAtSpecification perFormAt){
-        ApiPerFormAt retVal = null;
-        if(perFormAt != null){
-            retVal = new ApiPerFormAt();
-            if(perFormAt.isTimeWindowSet()){
-                retVal.setTimeWindow(perFormAt.getTimeWindow());
-            }
-        }
-        return retVal;
-    }
-
     private static ApiOptimizeImages toDal(ElastigroupOptimizeImages optimizeImages) {
         ApiOptimizeImages retVal = null;
         if (optimizeImages != null) {
@@ -105,9 +94,19 @@ class ElastigroupConverter {
             if (optimizeImages.isShouldOptimizeEcsAmiSet()) {
                 retVal.setShouldOptimizeEcsAmi(optimizeImages.getShouldOptimizeEcsAmi());
             }
-            if(optimizeImages.isPerformAtSet()){
-                retVal.setPerformAt(toDal(optimizeImages.getPerformAt()));
+            if (optimizeImages.isTimeWindowSet()) {
+                //                retVal.setTimeWindow(optimizeImages.getTimeWindow());
+                if (optimizeImages.getTimeWindow() != null) {
+                    //                    List<String> timeWindowList =
+                    //                                 optimizeImages.getTimeWindow().stream().map(ElastigroupConverter::toDal)
+                    //                            .collect(Collectors.toList());
+                    retVal.setTimeWindow(new LinkedList<>(optimizeImages.getTimeWindow()));
+                }
             }
+            if (optimizeImages.isPerformAtSet()) {
+                retVal.setPerformAt(optimizeImages.getPerformAt());
+            }
+
         }
         return retVal;
     }
@@ -178,6 +177,7 @@ class ElastigroupConverter {
         }
         return retVal;
     }
+
     private static ApiGroupCompute toDal(ElastigroupComputeConfiguration compute) {
         ApiGroupCompute optCompute = null;
 
@@ -587,18 +587,6 @@ class ElastigroupConverter {
         return blThirdPartiesIntegration;
     }
 
-    private static ElastigroupPerFormAtSpecification toBl(ApiPerFormAt apiPerFormAt){
-        ElastigroupPerFormAtSpecification blPerFormAt = null;
-
-        if(apiPerFormAt != null){
-            ElastigroupPerFormAtSpecification.Builder blPerFormAtBuilder =ElastigroupPerFormAtSpecification.Builder.get();
-            if(apiPerFormAt.isTimeWindowSet()){
-                blPerFormAtBuilder.setTimeWindow(apiPerFormAt.getTimeWindow());
-            }
-            blPerFormAt = blPerFormAtBuilder.build();
-        }
-        return  blPerFormAt;
-    }
 
     private static ElastigroupOptimizeImages toBl(ApiOptimizeImages apiOptimizeImages) {
         ElastigroupOptimizeImages blOptimizeImages = null;
@@ -608,8 +596,13 @@ class ElastigroupConverter {
             if (apiOptimizeImages.isShouldOptimizeEcsAmiSet()) {
                 blOptimizeImagesBuilder.setShouldOptimizeEcsAmi(apiOptimizeImages.getShouldOptimizeEcsAmi());
             }
-            if (apiOptimizeImages.isPerformAtSet()){
-                blOptimizeImagesBuilder.setPerformAt(toBl(apiOptimizeImages.getPerformAt()));
+            if (apiOptimizeImages.isTimeWindowSet()) {
+                if (apiOptimizeImages.getTimeWindow() != null) {
+                    blOptimizeImagesBuilder.setTimeWindow(new LinkedList<>(apiOptimizeImages.getTimeWindow()));
+                }
+            }
+            if (apiOptimizeImages.isPerformAtSet()) {
+                blOptimizeImagesBuilder.setPerformAt(apiOptimizeImages.getPerformAt());
             }
             blOptimizeImages = blOptimizeImagesBuilder.build();
         }
@@ -677,10 +670,11 @@ class ElastigroupConverter {
             if (apiAutoScale.isCooldownSet()) {
                 blAutoScaleBuilder.setCooldown(apiAutoScale.getCooldown());
             }
-            if(apiAutoScale.isAttributesSet()){
-                if(apiAutoScale.getAttributes() != null){
-                    List<ElastigroupAttributesSpecification>  attributesSpecificationList = apiAutoScale
-                            .getAttributes().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+            if (apiAutoScale.isAttributesSet()) {
+                if (apiAutoScale.getAttributes() != null) {
+                    List<ElastigroupAttributesSpecification> attributesSpecificationList =
+                            apiAutoScale.getAttributes().stream().map(ElastigroupConverter::toBl)
+                                        .collect(Collectors.toList());
                     blAutoScaleBuilder.setAttributes(attributesSpecificationList);
                 }
             }
