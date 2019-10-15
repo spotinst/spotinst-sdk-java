@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
+import com.spotinst.sdkjava.enums.EmrSchedulingTaskTypeEnum;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,9 +40,82 @@ class ElastigroupConverter {
                 ApiThirdPartiesIntegration apiThirdPartiesIntegration = toDal(src.getThirdPartiesIntegration());
                 apiGroup.setThirdPartiesIntegration(apiThirdPartiesIntegration);
             }
+            if (src.isSchedulingSet()) {
+                apiGroup.setScheduling(toDal(src.getScheduling()));
+            }
         }
 
         return apiGroup;
+    }
+
+    private static ApiScheduling toDal(ElastigroupSchedulingConfiguration schedulingConfiguration) {
+        ApiScheduling retVal = null;
+        if (schedulingConfiguration != null) {
+            retVal = new ApiScheduling();
+            if (schedulingConfiguration.isTasksSet()) {
+                if (schedulingConfiguration.getTasks() != null) {
+                    List<ApiScheduledTask> taskList =
+                    schedulingConfiguration.getTasks().stream().map(ElastigroupConverter::toDal).collect(
+                            Collectors.toList());
+                    retVal.setTasks(taskList);
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiScheduledTask toDal(tasksConfiguration tasksConfiguration) {
+        ApiScheduledTask retVal = null;
+        if (tasksConfiguration != null) {
+            retVal = new ApiScheduledTask();
+            if (tasksConfiguration.isIsEnabledSet()) {
+                retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
+            }
+            if (tasksConfiguration.isFrequencySet()) {
+                retVal.setFrequency(tasksConfiguration.getFrequency().getName());
+            }
+            if (tasksConfiguration.isStartTimeSet()) {
+                retVal.setStartTime(tasksConfiguration.getStartTime());
+            }
+            if (tasksConfiguration.isCronExpressionSet()) {
+                retVal.setCronExpression(tasksConfiguration.getCronExpression());
+            }
+            if (tasksConfiguration.isTaskTypeSet()) {
+                retVal.setTaskType(tasksConfiguration.getTaskType().getName());
+            }
+            if (tasksConfiguration.isScaleTargetCapacitySet()) {
+                retVal.setScaleTargetCapacity(tasksConfiguration.getScaleTargetCapacity());
+            }
+            if (tasksConfiguration.isScaleMinCapacitySet()) {
+                retVal.setScaleMinCapacity(tasksConfiguration.getScaleMinCapacity());
+            }
+            if (tasksConfiguration.isScaleMaxCapacitySet()) {
+                retVal.setScaleMaxCapacity(tasksConfiguration.getScaleMaxCapacity());
+            }
+            if(tasksConfiguration.isBatchSizePercentageSet()){
+                retVal.setBatchSizePercentage(tasksConfiguration.getBatchSizePercentage());
+            }
+            if(tasksConfiguration.isgracePeriodSet()){
+                retVal.setGracePeriod(tasksConfiguration.getGracePeriod());
+            }
+            if(tasksConfiguration.isAdjustmentSet()){
+                retVal.setAdjustment(tasksConfiguration.getAdjustment());
+            }
+            if(tasksConfiguration.isAdjustmentPercentageSet()){
+                retVal.setAdjustmentPercentage(tasksConfiguration.getAdjustmentPercentage());
+            }
+            if(tasksConfiguration.isTargetCapacitySet()){
+                retVal.setTargetCapacity(tasksConfiguration.getTargetCapacity());
+            }
+            if(tasksConfiguration.isMinCapacitySet()){
+                retVal.setMinCapacity(tasksConfiguration.getMinCapacity());
+            }
+            if(tasksConfiguration.isMaxCapacitySet()){
+                retVal.setMaxCapacity(tasksConfiguration.getMaxCapacity());
+            }
+        }
+
+        return retVal;
     }
 
     private static ApiThirdPartiesIntegration toDal(
@@ -70,7 +145,7 @@ class ElastigroupConverter {
             if (ecs.isOptimizeImagesSet()) {
                 retVal.setOptimizeImages(toDal(ecs.getOptimizeImages()));
             }
-            if (ecs.isBatchSet()){
+            if (ecs.isBatchSet()) {
                 retVal.setBatch(toDal(ecs.getBatch()));
             }
         }
@@ -78,13 +153,13 @@ class ElastigroupConverter {
 
     }
 
-    private static ApiBatch toDal ( ElastigroupEcsBatch ecsBatch){
+    private static ApiBatch toDal(ElastigroupEcsBatch ecsBatch) {
         ApiBatch retVal = null;
-        if(ecsBatch != null){
+        if (ecsBatch != null) {
             retVal = new ApiBatch();
-            if(ecsBatch.isJobQueueNamesSet()){
-                if(ecsBatch.getJobQueueNames() != null){
-                    retVal.setJobQueueNames(new LinkedList<> (ecsBatch.getJobQueueNames()));
+            if (ecsBatch.isJobQueueNamesSet()) {
+                if (ecsBatch.getJobQueueNames() != null) {
+                    retVal.setJobQueueNames(new LinkedList<>(ecsBatch.getJobQueueNames()));
                 }
             }
         }
@@ -98,7 +173,7 @@ class ElastigroupConverter {
             if (attributes.isKeySet()) {
                 retVal.setKey(attributes.getKey());
             }
-            if(attributes.isValueSet()){
+            if (attributes.isValueSet()) {
                 retVal.setValue(attributes.getValue());
             }
         }
@@ -583,12 +658,88 @@ class ElastigroupConverter {
             if (apiElastigroup.isThirdPartiesIntegrationSet()) {
                 elastigroupBuilder.setThirdPartiesIntegration(toBl(apiElastigroup.getThirdPartiesIntegration()));
             }
+            if(apiElastigroup.isSchedulingSet()){
+                elastigroupBuilder.setScheduling(toBl(apiElastigroup.getScheduling()));
+            }
             elastigroup = elastigroupBuilder.build();
         }
 
         return elastigroup;
     }
 
+    private static ElastigroupSchedulingConfiguration toBl(
+            ApiScheduling apiScheduling){
+        ElastigroupSchedulingConfiguration blSchedulingConfiguration = null;
+
+        if(apiScheduling != null){
+            ElastigroupSchedulingConfiguration.Builder blSchedulingConfigurationBuilder =
+                    ElastigroupSchedulingConfiguration.Builder.get();
+            if(apiScheduling.isTasksSet()){
+                if(apiScheduling.getTasks() != null){
+                    List<tasksConfiguration>  tasksConfigurationList = apiScheduling.getTasks().stream()
+                                              .map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    blSchedulingConfigurationBuilder.setTasks(tasksConfigurationList);
+                }
+            }
+            blSchedulingConfiguration = blSchedulingConfigurationBuilder.build();
+        }
+        return blSchedulingConfiguration;
+    }
+    private static tasksConfiguration toBl(ApiScheduledTask apiScheduledTask){
+        tasksConfiguration bLTasks = null;
+
+        if(apiScheduledTask != null){
+            tasksConfiguration.Builder blTasksBuilder = tasksConfiguration.Builder.get();
+            if(apiScheduledTask.isIsEnabledSet()){
+                blTasksBuilder.setIsEnabled(apiScheduledTask.getIsEnabled());
+            }
+            if(apiScheduledTask.isFrequencySet()){
+                blTasksBuilder.setFrequency(RecurrenceFrequencyEnum.fromName(apiScheduledTask.getFrequency()));
+            }
+            if(apiScheduledTask.isStartTimeSet()){
+                blTasksBuilder.setStartTime(apiScheduledTask.getStartTime());
+            }
+            if(apiScheduledTask.isCronExpressionSet()){
+                blTasksBuilder.setCronExpression(apiScheduledTask.getCronExpression());
+            }
+            if(apiScheduledTask.isTaskTypeSet()){
+                blTasksBuilder.setTaskType(EmrSchedulingTaskTypeEnum.fromName(apiScheduledTask.getTaskType()));
+            }
+            if(apiScheduledTask.isScaleTargetCapacitySet()){
+                blTasksBuilder.setScaleTargetCapacity(apiScheduledTask.getScaleTargetCapacity());
+            }
+            if(apiScheduledTask.isScaleMinCapacitySet()){
+                blTasksBuilder.setScaleMinCapacity(apiScheduledTask.getScaleMinCapacity());
+            }
+            if(apiScheduledTask.isScaleMaxCapacitySet()){
+                blTasksBuilder.setScaleMaxCapacity(apiScheduledTask.getScaleMaxCapacity());
+            }
+            if(apiScheduledTask.isBatchSizePercentageSet()){
+                blTasksBuilder.setBatchSizePercentage(apiScheduledTask.getBatchSizePercentage());
+            }
+            if(apiScheduledTask.isgracePeriodSet()){
+                blTasksBuilder.setGracePeriod(apiScheduledTask.getGracePeriod());
+            }
+            if(apiScheduledTask.isAdjustmentSet()){
+                blTasksBuilder.setAdjustment(apiScheduledTask.getAdjustment());
+            }
+            if(apiScheduledTask.isAdjustmentPercentageSet()){
+                blTasksBuilder.setAdjustmentPercentage(apiScheduledTask.getAdjustmentPercentage());
+            }
+            if(apiScheduledTask.isTargetCapacitySet()){
+                blTasksBuilder.setTargetCapacity(apiScheduledTask.getTargetCapacity());
+            }
+            if(apiScheduledTask.isMinCapacitySet()){
+                blTasksBuilder.setMinCapacity(apiScheduledTask.getMinCapacity());
+            }
+            if(apiScheduledTask.isMaxCapacitySet()){
+                blTasksBuilder.setMaxCapacity(apiScheduledTask.getMaxCapacity());
+            }
+
+                bLTasks = blTasksBuilder.build();
+        }
+        return bLTasks;
+    }
     private static ElastigroupThirdPartiesIntegrationConfiguration toBl(
             ApiThirdPartiesIntegration apiThirdPartiesIntegration) {
         ElastigroupThirdPartiesIntegrationConfiguration blThirdPartiesIntegration = null;
@@ -620,7 +771,8 @@ class ElastigroupConverter {
                 }
             }
             if (apiOptimizeImages.isPerformAtSet()) {
-                blOptimizeImagesBuilder.setPerformAt(MaintenanceWindowTypeEnum.fromName(apiOptimizeImages.getPerformAt()));
+                blOptimizeImagesBuilder
+                        .setPerformAt(MaintenanceWindowTypeEnum.fromName(apiOptimizeImages.getPerformAt()));
             }
             blOptimizeImages = blOptimizeImagesBuilder.build();
         }
@@ -642,21 +794,21 @@ class ElastigroupConverter {
             if (apiEcs.isOptimizeImagesSet()) {
                 blEcsBuilder.setOptimizeImages(toBl(apiEcs.getOptimizeImages()));
             }
-            if(apiEcs.isApiBatchSet()){
+            if (apiEcs.isApiBatchSet()) {
                 blEcsBuilder.setBatch(toBl(apiEcs.getBatch()));
             }
             blEcs = blEcsBuilder.build();
         }
         return blEcs;
     }
-    private static ElastigroupEcsBatch toBl(ApiBatch apiBatch){
+
+    private static ElastigroupEcsBatch toBl(ApiBatch apiBatch) {
         ElastigroupEcsBatch retVal = null;
 
-        if(apiBatch != null) {
-            ElastigroupEcsBatch.Builder blEcsBuilder  =
-                    ElastigroupEcsBatch.Builder.get();
-            if(apiBatch.isJobQueueNamesSet()){
-                if(apiBatch.getJobQueueNames() != null) {
+        if (apiBatch != null) {
+            ElastigroupEcsBatch.Builder blEcsBuilder = ElastigroupEcsBatch.Builder.get();
+            if (apiBatch.isJobQueueNamesSet()) {
+                if (apiBatch.getJobQueueNames() != null) {
                     retVal.setJobQueueNames(new LinkedList<>(apiBatch.getJobQueueNames()));
                 }
             }
@@ -672,10 +824,10 @@ class ElastigroupConverter {
             ElastigroupAttributesSpecification.Builder blAttributesBuilder =
                     ElastigroupAttributesSpecification.Builder.get();
 
-            if (apiAttributes.isKeySet() ) {
+            if (apiAttributes.isKeySet()) {
                 blAttributesBuilder.setkey(apiAttributes.getKey());
             }
-            if(apiAttributes.isValueSet()){
+            if (apiAttributes.isValueSet()) {
                 blAttributesBuilder.setValue(apiAttributes.getValue());
             }
             blAttributes = blAttributesBuilder.build();

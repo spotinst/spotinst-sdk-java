@@ -23,8 +23,9 @@ public class Elastigroup {
     private ElastigroupComputeConfiguration                 compute;
     private ElastigroupScalingConfiguration                 scaling;
     private ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration;
-    private Date                                            createdAt;
-    private Date                                            updatedAt;
+    private ElastigroupSchedulingConfiguration scheduling;
+    private Date                               createdAt;
+    private Date                               updatedAt;
     //endregion
 
     //region Constructor
@@ -141,7 +142,14 @@ public class Elastigroup {
         isSet.add("scaling");
         this.scaling = scaling;
     }
+    public ElastigroupSchedulingConfiguration getScheduling() {
+        return scheduling;
+    }
 
+    public void setScheduling(ElastigroupSchedulingConfiguration scheduling) {
+        isSet.add("scheduling");
+        this.scheduling = scheduling;
+    }
     //endregion
 
     //region Builder class
@@ -168,6 +176,11 @@ public class Elastigroup {
 
         public Builder setThirdPartiesIntegration(final ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration) {
             elastigroup.setThirdPartiesIntegration(thirdPartiesIntegration);
+            return this;
+        }
+
+        public Builder setScheduling(final ElastigroupSchedulingConfiguration scheduling){
+            elastigroup.setScheduling(scheduling);
             return this;
         }
 
@@ -290,6 +303,11 @@ public class Elastigroup {
         return isSet.contains("updatedAt");
     }
 
+    // Is scheduling Set boolean method
+    @JsonIgnore
+    public boolean isSchedulingSet() {
+        return isSet.contains("scheduling");
+    }
 
     //endregion
 }

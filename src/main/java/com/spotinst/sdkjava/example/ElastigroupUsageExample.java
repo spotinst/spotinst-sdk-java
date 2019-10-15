@@ -68,10 +68,10 @@ public class ElastigroupUsageExample {
     }
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
-        ElastigroupScalingRequest.Builder scalingRequestBuilder      = ElastigroupScalingRequest.Builder.get();
-        ElastigroupScalingRequest         scalingRequest             =
+        ElastigroupScalingRequest.Builder scalingRequestBuilder = ElastigroupScalingRequest.Builder.get();
+        ElastigroupScalingRequest scalingRequest =
                 scalingRequestBuilder.setElastigroupId(elastigroupId).setAdjustment(1).build();
-        ElastigroupScalingResponse        elastigroupScalingResponse = elastigroupClient.scaleGroupUp(scalingRequest);
+        ElastigroupScalingResponse elastigroupScalingResponse = elastigroupClient.scaleGroupUp(scalingRequest);
         System.out.println(elastigroupScalingResponse.getNewInstances());
         System.out.println(elastigroupScalingResponse.getNewSpotRequests());
     }
@@ -86,7 +86,7 @@ public class ElastigroupUsageExample {
                                    .setResourceId(elastigroupId).setEventType(eventType).build();
 
         SubscriptionCreationRequest.Builder subCreationRequestBuilder = SubscriptionCreationRequest.Builder.get();
-        SubscriptionCreationRequest         subCreationRequest        =
+        SubscriptionCreationRequest subCreationRequest =
                 subCreationRequestBuilder.setSubscription(terminationSub).build();
 
         // Print Subscription creation request
@@ -107,8 +107,7 @@ public class ElastigroupUsageExample {
                                            String createdSubscriptionId) {
         // Delete Retrieved event
         SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest         subDelRequest =
-                subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
+        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
         Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
         if (deletionSuccess) {
@@ -122,7 +121,7 @@ public class ElastigroupUsageExample {
     private static void getSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
         // Get Subscription
         SubscriptionGetRequest.Builder subscriptionGetRequestBuilder = SubscriptionGetRequest.Builder.get();
-        SubscriptionGetRequest         subGetRequest                 =
+        SubscriptionGetRequest subGetRequest =
                 subscriptionGetRequestBuilder.setSubscriptionId(createdSubscriptionId).build();
 
         Subscription subscriptionEvent = subscriptionClient.getSubscriptionEvent(subGetRequest);
@@ -149,7 +148,7 @@ public class ElastigroupUsageExample {
         // Create detach request
         ElastigroupDetachInstancesRequest.Builder elastigroupDetachInstancesRequestBuilder =
                 ElastigroupDetachInstancesRequest.Builder.get();
-        ElastigroupDetachInstancesRequest         detachRequest                            =
+        ElastigroupDetachInstancesRequest detachRequest =
                 elastigroupDetachInstancesRequestBuilder.setInstancesToDetach(activeInstanceIds)
                                                         .setShouldTerminateInstances(true)
                                                         .setShouldDecrementTargetCapacity(true).setDrainingTimeout(0)
@@ -168,7 +167,7 @@ public class ElastigroupUsageExample {
     private static List<String> getActiveInstances(SpotinstElastigroupClient client, String elastigroupId) {
         ElastigroupGetActiveInstancesRequest.Builder getActiveInstancesBuilder =
                 ElastigroupGetActiveInstancesRequest.Builder.get();
-        ElastigroupGetActiveInstancesRequest         getActiveInstancesRequest =
+        ElastigroupGetActiveInstancesRequest getActiveInstancesRequest =
                 getActiveInstancesBuilder.setElastigroupId(elastigroupId).build();
 
         List<ElastigroupActiveInstance> activeInstances = client.getActiveInstances(getActiveInstancesRequest);
@@ -205,8 +204,7 @@ public class ElastigroupUsageExample {
         Placement.Builder placementBuilder = Placement.Builder.get();
         List<String>      subnetIds        = new ArrayList<>();
         subnetIds.add("subnet-03b7ed5b");
-        Placement            placement  =
-                placementBuilder.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
+        Placement placement = placementBuilder.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
         ArrayList<Placement> placements = new ArrayList<>();
         placements.add(placement);
 
@@ -220,7 +218,7 @@ public class ElastigroupUsageExample {
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration         compute        =
+        ElastigroupComputeConfiguration compute =
                 computeBuilder.setInstanceTypes(instanceTypes).setProduct("Linux/UNIX")
                               .setLaunchSpecification(launchSpec).setAvailabilityZones(placements).build();
 
@@ -233,59 +231,95 @@ public class ElastigroupUsageExample {
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration         capacity        =
-                capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
+        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
 
         //build down
         ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
-        ElastigroupDownSpecification down        =  downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
+        ElastigroupDownSpecification         down        =
+                downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
-        ElastigroupHeadroomSpecification headRoom = headroomBuilder.setCpuPerUnit(1).setNumOfUnits(2).setMemoryPerUnit(3).build();
+        ElastigroupHeadroomSpecification         headRoom        =
+                headroomBuilder.setCpuPerUnit(1).setNumOfUnits(2).setMemoryPerUnit(3).build();
         //build attributes
-        ElastigroupAttributesSpecification.Builder attributesBuilder = ElastigroupAttributesSpecification.Builder.get();
-        ElastigroupAttributesSpecification attributesSpecification = attributesBuilder.setkey("sali_key").setValue("sali_val").build();
-        ElastigroupAttributesSpecification.Builder attributesBuilder2 = ElastigroupAttributesSpecification.Builder.get();
-        ElastigroupAttributesSpecification attributesSpecification2 = attributesBuilder2.setkey("almog_key").setValue("almog_val").build();
+        ElastigroupAttributesSpecification.Builder attributesBuilder        =
+                ElastigroupAttributesSpecification.Builder.get();
+        ElastigroupAttributesSpecification         attributesSpecification  =
+                attributesBuilder.setkey("sali_key").setValue("sali_val").build();
+        ElastigroupAttributesSpecification.Builder attributesBuilder2       =
+                ElastigroupAttributesSpecification.Builder.get();
+        ElastigroupAttributesSpecification         attributesSpecification2 =
+                attributesBuilder2.setkey("almog_key").setValue("almog_val").build();
 
         //build autoscale
         ElastigroupAutoScaleSpecification.Builder autoScaleBuilder = ElastigroupAutoScaleSpecification.Builder.get();
-        List<ElastigroupAttributesSpecification>  attributesList = new ArrayList<>();
+        List<ElastigroupAttributesSpecification>  attributesList   = new ArrayList<>();
         attributesList.add(attributesSpecification);
         attributesList.add(attributesSpecification2);
-        ElastigroupAutoScaleSpecification autoscale = autoScaleBuilder.setCooldown(300).setDown(down)
-                                                                      .setHeadroom(headRoom).setIsAutoConfig(true).setIsEnabled(true)
-                                                                      .setShouldScaleDownNonServiceTasks(true).setAttributes(attributesList).build();
+        ElastigroupAutoScaleSpecification autoscale =
+                autoScaleBuilder.setCooldown(300).setDown(down).setHeadroom(headRoom).setIsAutoConfig(true)
+                                .setIsEnabled(true).setShouldScaleDownNonServiceTasks(true)
+                                .setAttributes(attributesList).build();
 
         //build optimizeImages
         ElastigroupOptimizeImages.Builder optimizeImagesBuilder = ElastigroupOptimizeImages.Builder.get();
-        List<String> timeWindow = new ArrayList<>();
+        List<String>                      timeWindow            = new ArrayList<>();
         timeWindow.add("Mon:12:00-Tue:12:00");
         timeWindow.add("Fri:12:00-Sat:12:00");
-        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt(MaintenanceWindowTypeEnum.TIME_WINDOW).setTimeWindow(timeWindow).build();
+        ElastigroupOptimizeImages optimizeImages =
+                optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt(MaintenanceWindowTypeEnum.TIME_WINDOW)
+                                     .setTimeWindow(timeWindow).build();
         // build batch
         ElastigroupEcsBatch.Builder ecsBatchBuilder = ElastigroupEcsBatch.Builder.get();
-        List<String> batchList = new ArrayList<>();
+        List<String>                batchList       = new ArrayList<>();
         batchList.add("abc");
         ElastigroupEcsBatch batch = ecsBatchBuilder.setJobQueueNames(batchList).build();
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
-        ElastigroupEcsSpecification ecs = ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages).setBatch(batch).build();
+        ElastigroupEcsSpecification         ecs        =
+                ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages)
+                          .setBatch(batch).build();
         //build group third party integration ECS
-        ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder = ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
-
+        ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder =
+                ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
         ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
                 thirdPartiesIntegrationBuilder.setEcs(ecs).build();
+        //build task todo add start time - setStartTime("2018-05-18T02:00:00Z")
+        tasksConfiguration.Builder tasksBuilder = tasksConfiguration.Builder.get();
+        List<tasksConfiguration>  tasksList = new ArrayList<>();
+                //todo sali "taskType" must be one of [backup_ami, scale, roll, scaleUp, percentageScaleUp, scaleDown, percentageScaleDown, statefulUpdateCapacity, statefulRecycle]
 
+
+        //Frequency and cronExpression cannot be defined together on the same scheduled task.
+        tasksConfiguration task1 =
+                tasksBuilder.setIsEnabled(true).setCronExpression("sali").setTaskType("backup_ami").setScaleTargetCapacity(0)
+                            .setScaleMinCapacity(0).setScaleMaxCapacity(2).setBatchSizePercentage(20).setGracePeriod(500)
+                            .setAdjustment(5).setAdjustmentPercentage(6).setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
+
+        tasksList.add(task1);
+
+        tasksConfiguration.Builder tasksBuilder2 = tasksConfiguration.Builder.get();
+        tasksConfiguration task2 =
+                tasksBuilder2.setIsEnabled(true).setFrequency(RecurrenceFrequencyEnum.DAILY).setTaskType("backup_ami").setScaleTargetCapacity(0)
+                            .setScaleMinCapacity(0).setScaleMaxCapacity(2).setBatchSizePercentage(20).setGracePeriod(500)
+                            .setAdjustment(5).setAdjustmentPercentage(6).setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
+
+
+        tasksList.add(task2);
+        //build scheduling
+        ElastigroupSchedulingConfiguration.Builder schedulingBuilder = ElastigroupSchedulingConfiguration.Builder.get();
+        ElastigroupSchedulingConfiguration scheduling = schedulingBuilder.setTasks(tasksList).build();
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
-        Elastigroup         elastigroup        =
-                elastigroupBuilder.setName("sali_SpotinstTestGroup333").setDescription("descriptive-information")
-                                  .setStrategy(strategy).setCapacity(capacity).setCompute(compute).setThirdPartiesIntegration(thirdPartiesIntegration).build();
+        Elastigroup elastigroup =
+                elastigroupBuilder.setName("sali_SpotinstTestGroup333222").setDescription("descriptive-information")
+                                  .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
+                                  .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
+                                  .build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
-        ElastigroupCreationRequest         creationRequest                   =
+        ElastigroupCreationRequest creationRequest =
                 elastigroupCreationRequestBuilder.setElastigroup(elastigroup).build();
 
         // Convert elastigroup to API object json
@@ -302,17 +336,17 @@ public class ElastigroupUsageExample {
     private static void updateGroup(SpotinstElastigroupClient client, String elastigroupId) {
         //Create group update
         ElastigroupCapacityConfiguration.Builder updateCapacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration         updateCapacity        =
+        ElastigroupCapacityConfiguration updateCapacity =
                 updateCapacityBuilder.setMinimum(0).setTarget(3).setMaximum(5).build();
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
-        Elastigroup         elastigroupUpdate        =
+        Elastigroup elastigroupUpdate =
                 updateElastigroupBuilder.setCapacity(updateCapacity).setName("SpotinstTestGroupU1").build();
 
         // Build elastigroup update request
         ElastigroupUpdateRequest.Builder elastigroupUpdateRequestBuilder = ElastigroupUpdateRequest.Builder.get();
-        ElastigroupUpdateRequest         updateRequest                   =
+        ElastigroupUpdateRequest updateRequest =
                 elastigroupUpdateRequestBuilder.setElastigroup(elastigroupUpdate).build();
 
         // Convert elastigroup update to API object json

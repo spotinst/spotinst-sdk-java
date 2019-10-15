@@ -1,0 +1,73 @@
+package com.spotinst.sdkjava.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ElastigroupSchedulingConfiguration {
+    //region Members
+    @JsonIgnore
+    private Set<String>              isSet;
+    private List<tasksConfiguration> tasks;
+    //endregion
+
+    //region Constructor
+
+    private ElastigroupSchedulingConfiguration() {
+        isSet = new HashSet<>();
+    }
+    //endregion
+
+    //region Getters & Setters
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public List<tasksConfiguration> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<tasksConfiguration> tasks) {
+        isSet.add("tasks");
+        this.tasks = tasks;
+    }
+
+    //endregion
+    //region Builder class
+    public static class Builder {
+        private ElastigroupSchedulingConfiguration scheduling;
+
+        private Builder() {
+            this.scheduling = new ElastigroupSchedulingConfiguration();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setTasks(final List<tasksConfiguration> tasks) {
+            scheduling.setTasks(tasks);
+            return this;
+        }
+
+        public ElastigroupSchedulingConfiguration build() {
+            return scheduling;
+        }
+    }
+    //endregion
+
+    //region isSet methods
+    @JsonIgnore
+    public boolean isTasksSet() {
+        return isSet.contains("tasks");
+    }
+    //endregion
+}
