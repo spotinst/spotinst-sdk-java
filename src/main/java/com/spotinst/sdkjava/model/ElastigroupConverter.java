@@ -119,8 +119,17 @@ class ElastigroupConverter {
                 }
             }
             if (optimizeImages.isPerformAtSet()) {
-                retVal.setPerformAt(optimizeImages.getPerformAt());
+                MaintenanceWindowTypeEnum performAt = null;
+
+                if (optimizeImages.getPerformAt() != null) {
+                    performAt = MaintenanceWindowTypeEnum.fromName(optimizeImages.getPerformAt());
+                }
+
+                optimizeImages.setPerformAt(performAt);
             }
+            //if (optimizeImages.isPerformAtSet()) {
+              //  retVal.setPerformAt(optimizeImages.getPerformAt());
+           // }
 
         }
         return retVal;

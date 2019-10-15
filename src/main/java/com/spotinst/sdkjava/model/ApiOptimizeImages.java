@@ -17,8 +17,8 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
     private Boolean                   shouldOptimizeEcsAmi;
-    private MaintenanceWindowTypeEnum performAt;  //todo sali - convert to enum
-    private List<String>              timeWindows;
+    private String       performAt;  //todo sali - convert to enum
+    private List<String> timeWindows;
     //endregion
 
     //region Constructor
@@ -44,15 +44,15 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
         isSet.add("shouldOptimizeEcsAmi");
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
-
-    public MaintenanceWindowTypeEnum getPerformAt() {
+    public String getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(MaintenanceWindowTypeEnum performAt) {
+    public void setPerformAt(String performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
     }
+
 
     public List<String> getTimeWindows() {
         return timeWindows;

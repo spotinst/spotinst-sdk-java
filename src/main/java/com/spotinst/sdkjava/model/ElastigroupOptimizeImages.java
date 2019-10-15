@@ -12,8 +12,8 @@ public class ElastigroupOptimizeImages {
     @JsonIgnore
     private Set<String>  isSet;
     private Boolean      shouldOptimizeEcsAmi;
-    private String       performAt;
-    private List<String> timeWindows;
+    private MaintenanceWindowTypeEnum performAt;
+    private List<String>              timeWindows;
 
     //endregion
     //region Constructors
@@ -39,11 +39,11 @@ public class ElastigroupOptimizeImages {
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
 
-    public String getPerformAt() {
+    public MaintenanceWindowTypeEnum getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(String performAt) {
+    public void setPerformAt(MaintenanceWindowTypeEnum performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
     }
@@ -76,7 +76,7 @@ public class ElastigroupOptimizeImages {
             return this;
         }
 
-        public Builder setPerformAt(final String performAt) {
+        public Builder setPerformAt(final MaintenanceWindowTypeEnum performAt) {
             optimizeImages.setPerformAt(performAt);
             return this;
         }
