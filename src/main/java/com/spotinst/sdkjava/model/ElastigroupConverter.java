@@ -71,7 +71,7 @@ class ElastigroupConverter {
                 retVal.setOptimizeImages(toDal(ecs.getOptimizeImages()));
             }
             if (ecs.isBatchSet()){
-                retVal. setApiBatch(toDal(ecs.getBatch()));
+                retVal.setBatch(toDal(ecs.getBatch()));
             }
         }
         return retVal;
@@ -96,7 +96,7 @@ class ElastigroupConverter {
         if (attributes != null) {
             retVal = new ApiAttributes();
             if (attributes.isKeySet()) {
-                retVal.setValue(attributes.getValue());
+                retVal.setKey(attributes.getKey());
             }
             if(attributes.isValueSet()){
                 retVal.setValue(attributes.getValue());
@@ -119,17 +119,11 @@ class ElastigroupConverter {
                 }
             }
             if (optimizeImages.isPerformAtSet()) {
-                MaintenanceWindowTypeEnum performAt = null;
-
                 if (optimizeImages.getPerformAt() != null) {
-                    performAt = MaintenanceWindowTypeEnum.fromName(optimizeImages.getPerformAt());
+                    retVal.setPerformAt(optimizeImages.getPerformAt().getName());
                 }
 
-                optimizeImages.setPerformAt(performAt);
             }
-            //if (optimizeImages.isPerformAtSet()) {
-              //  retVal.setPerformAt(optimizeImages.getPerformAt());
-           // }
 
         }
         return retVal;
@@ -626,7 +620,7 @@ class ElastigroupConverter {
                 }
             }
             if (apiOptimizeImages.isPerformAtSet()) {
-                blOptimizeImagesBuilder.setPerformAt(apiOptimizeImages.getPerformAt());
+                blOptimizeImagesBuilder.setPerformAt(MaintenanceWindowTypeEnum.fromName(apiOptimizeImages.getPerformAt()));
             }
             blOptimizeImages = blOptimizeImagesBuilder.build();
         }
@@ -649,7 +643,7 @@ class ElastigroupConverter {
                 blEcsBuilder.setOptimizeImages(toBl(apiEcs.getOptimizeImages()));
             }
             if(apiEcs.isApiBatchSet()){
-                blEcsBuilder.setBatch(toBl(apiEcs.getApiBatch()));
+                blEcsBuilder.setBatch(toBl(apiEcs.getBatch()));
             }
             blEcs = blEcsBuilder.build();
         }
@@ -678,7 +672,6 @@ class ElastigroupConverter {
             ElastigroupAttributesSpecification.Builder blAttributesBuilder =
                     ElastigroupAttributesSpecification.Builder.get();
 
-            //todo sali - can be null- done
             if (apiAttributes.isKeySet() ) {
                 blAttributesBuilder.setkey(apiAttributes.getKey());
             }
@@ -701,10 +694,10 @@ class ElastigroupConverter {
                 blAutoScaleBuilder.setShouldScaleDownNonServiceTasks(apiAutoScale.getShouldScaleDownNonServiceTasks());
             }
             if (apiAutoScale.isIsEnabledSet()) {
-                blAutoScaleBuilder.setIsEnabled(apiAutoScale.getEnabled());
+                blAutoScaleBuilder.setIsEnabled(apiAutoScale.getIsEnabled());
             }
             if (apiAutoScale.isIsAutoConfigSet()) {
-                blAutoScaleBuilder.setIsAutoConfig(apiAutoScale.getAutoConfig());
+                blAutoScaleBuilder.setIsAutoConfig(apiAutoScale.getIsAutoConfig());
             }
             if (apiAutoScale.isHeadroomSet()) {
                 blAutoScaleBuilder.setHeadroom(toBl(apiAutoScale.getHeadroom()));

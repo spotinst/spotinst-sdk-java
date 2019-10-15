@@ -39,11 +39,11 @@ public class ApiAutoScale implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Boolean getEnabled() {
+    public Boolean getIsEnabled() {
         return isEnabled;
     }
 
-    public void setIsEnabled(Boolean enabled) {
+    public void setIsEnabled(Boolean isEnabled) {
         isSet.add("isEnabled");
         this.isEnabled = isEnabled;
     }
@@ -75,11 +75,11 @@ public class ApiAutoScale implements IPartialUpdateEntity {
         this.cooldown = cooldown;
     }
 
-    public Boolean getAutoConfig() {
+    public Boolean getIsAutoConfig() {
         return isAutoConfig;
     }
 
-    public void setIsAutoConfig(Boolean autoConfig) {
+    public void setIsAutoConfig(Boolean isAutoConfig) {
         isSet.add("isAutoConfig");
         this.isAutoConfig = isAutoConfig;
     }

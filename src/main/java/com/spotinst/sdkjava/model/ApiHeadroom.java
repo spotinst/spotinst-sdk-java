@@ -53,7 +53,6 @@ public class ApiHeadroom implements IPartialUpdateEntity {
         this.memoryPerUnit = memoryPerUnit;
     }
 
-    //todo sali - why no one use - done
     public Integer getNumOfUnits() {
         return numOfUnits;
     }

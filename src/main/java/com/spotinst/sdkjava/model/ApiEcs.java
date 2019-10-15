@@ -17,7 +17,7 @@ public class ApiEcs implements IPartialUpdateEntity {
     private String            clusterName;
     private ApiAutoScale      autoScale;
     private ApiOptimizeImages optimizeImages;
-    private ApiBatch apiBatch;
+    private ApiBatch          batch;
     //endregion
 
     //region Constructor
@@ -61,14 +61,16 @@ public class ApiEcs implements IPartialUpdateEntity {
         isSet.add("optimizeImages");
         this.optimizeImages = optimizeImages;
     }
-    public ApiBatch getApiBatch() {
-        return apiBatch;
+
+    public ApiBatch getBatch() {
+        return batch;
     }
 
-    public void setApiBatch(ApiBatch apiBatch) {
-        isSet.add("apiBatch");
-        this.apiBatch = apiBatch;
+    public void setBatch(ApiBatch batch) {
+        isSet.add("batch");
+        this.batch = batch;
     }
+
     //endregion
     // Is autoScale Set boolean method
     @JsonIgnore
@@ -91,7 +93,7 @@ public class ApiEcs implements IPartialUpdateEntity {
     // Is batch Set boolean method
     @JsonIgnore
     public boolean isApiBatchSet() {
-        return isSet.contains("apiBatch");
+        return isSet.contains("batch");
     }
 
     //endregion

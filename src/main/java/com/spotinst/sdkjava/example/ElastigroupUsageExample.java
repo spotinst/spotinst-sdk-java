@@ -242,7 +242,7 @@ public class ElastigroupUsageExample {
         ElastigroupDownSpecification down        =  downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
-        ElastigroupHeadroomSpecification headRoom = headroomBuilder.setCpuPerUnit(0).setNumOfUnits(0).setMemoryPerUnit(0).build();
+        ElastigroupHeadroomSpecification headRoom = headroomBuilder.setCpuPerUnit(1).setNumOfUnits(2).setMemoryPerUnit(3).build();
         //build attributes
         ElastigroupAttributesSpecification.Builder attributesBuilder = ElastigroupAttributesSpecification.Builder.get();
         ElastigroupAttributesSpecification attributesSpecification = attributesBuilder.setkey("sali_key").setValue("sali_val").build();
@@ -263,7 +263,7 @@ public class ElastigroupUsageExample {
         List<String> timeWindow = new ArrayList<>();
         timeWindow.add("Mon:12:00-Tue:12:00");
         timeWindow.add("Fri:12:00-Sat:12:00");
-        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt("timeWindow").setTimeWindow(timeWindow).build();
+        ElastigroupOptimizeImages optimizeImages = optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt(MaintenanceWindowTypeEnum.TIME_WINDOW).setTimeWindow(timeWindow).build();
         // build batch
         ElastigroupEcsBatch.Builder ecsBatchBuilder = ElastigroupEcsBatch.Builder.get();
         List<String> batchList = new ArrayList<>();
@@ -281,7 +281,7 @@ public class ElastigroupUsageExample {
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup         elastigroup        =
-                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
+                elastigroupBuilder.setName("sali_SpotinstTestGroup333").setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute).setThirdPartiesIntegration(thirdPartiesIntegration).build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();

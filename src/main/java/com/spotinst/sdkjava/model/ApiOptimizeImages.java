@@ -15,9 +15,9 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
     //region Members
     // Partial Update support
     @JsonIgnore
-    private Set<String>               isSet;
-    private Boolean                   shouldOptimizeEcsAmi;
-    private String       performAt;  //todo sali - convert to enum
+    private Set<String>  isSet;
+    private Boolean      shouldOptimizeEcsAmi;
+    private String       performAt;
     private List<String> timeWindows;
     //endregion
 
@@ -44,6 +44,7 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
         isSet.add("shouldOptimizeEcsAmi");
         this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
     }
+
     public String getPerformAt() {
         return performAt;
     }
@@ -52,7 +53,6 @@ public class ApiOptimizeImages implements IPartialUpdateEntity {
         isSet.add("performAt");
         this.performAt = performAt;
     }
-
 
     public List<String> getTimeWindows() {
         return timeWindows;

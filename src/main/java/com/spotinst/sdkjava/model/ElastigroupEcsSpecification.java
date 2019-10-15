@@ -13,7 +13,6 @@ public class ElastigroupEcsSpecification {
     private ElastigroupAutoScaleSpecification autoScale;
     private ElastigroupOptimizeImages         optimizeImages;
     private ElastigroupEcsBatch batch;
-    //todo sali - add batch
     //endregion
 
     //region Constructor

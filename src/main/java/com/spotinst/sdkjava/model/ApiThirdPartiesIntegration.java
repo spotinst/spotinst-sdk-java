@@ -10,7 +10,6 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-//todo sali - is there no other 3rd party?
 class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
