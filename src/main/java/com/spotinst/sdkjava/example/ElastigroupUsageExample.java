@@ -281,7 +281,7 @@ public class ElastigroupUsageExample {
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup         elastigroup        =
-                elastigroupBuilder.setName("sali_SpotinstTestGroup333").setDescription("descriptive-information")
+                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute).setThirdPartiesIntegration(thirdPartiesIntegration).build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
