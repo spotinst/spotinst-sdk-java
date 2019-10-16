@@ -47,13 +47,13 @@ class ElastigroupConverter {
         return apiGroup;
     }
 
-    private static ApiScheduling toDal(ElastigroupSchedulingConfiguration schedulingConfiguration) {
-        ApiScheduling retVal = null;
+    private static ApiElastigroupScheduling toDal(ElastigroupSchedulingConfiguration schedulingConfiguration) {
+        ApiElastigroupScheduling retVal = null;
         if (schedulingConfiguration != null) {
-            retVal = new ApiScheduling();
+            retVal = new ApiElastigroupScheduling();
             if (schedulingConfiguration.isTasksSet()) {
                 if (schedulingConfiguration.getTasks() != null) {
-                    List<ApiScheduledTask> taskList =
+                    List<ApiElastigroupScheduledTask> taskList =
                     schedulingConfiguration.getTasks().stream().map(ElastigroupConverter::toDal).collect(
                             Collectors.toList());
                     retVal.setTasks(taskList);
@@ -63,10 +63,10 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiScheduledTask toDal(TasksConfiguration tasksConfiguration) {
-        ApiScheduledTask retVal = null;
+    private static ApiElastigroupScheduledTask toDal(TasksConfiguration tasksConfiguration) {
+        ApiElastigroupScheduledTask retVal = null;
         if (tasksConfiguration != null) {
-            retVal = new ApiScheduledTask();
+            retVal = new ApiElastigroupScheduledTask();
             if (tasksConfiguration.isIsEnabledSet()) {
                 retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
             }
@@ -667,7 +667,7 @@ class ElastigroupConverter {
     }
 
     private static ElastigroupSchedulingConfiguration toBl(
-            ApiScheduling apiScheduling){
+            ApiElastigroupScheduling apiScheduling){
         ElastigroupSchedulingConfiguration blSchedulingConfiguration = null;
 
         if(apiScheduling != null){
@@ -684,7 +684,7 @@ class ElastigroupConverter {
         }
         return blSchedulingConfiguration;
     }
-    private static TasksConfiguration toBl(ApiScheduledTask apiScheduledTask){
+    private static TasksConfiguration toBl(ApiElastigroupScheduledTask apiScheduledTask){
         TasksConfiguration bLTasks = null;
 
         if(apiScheduledTask != null){

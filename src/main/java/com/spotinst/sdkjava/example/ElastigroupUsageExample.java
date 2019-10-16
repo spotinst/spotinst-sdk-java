@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token = "your-token";
-     private final static String act_id     = "your-account-id";
+    private final static String auth_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcG90aW5zdCIsImV4cCI6MTgyNDM3NjIxNCwidWlkIjotMSwicm9sZSI6Miwib2lkIjo2MDYwNzk4NjIyNjEsImlhdCI6MTUwOTAxNjIxNH0.ptsB3-cUeIVflzeJnSfJDV2YeDXrPfooJbisFcuGVx0";
+     private final static String act_id     = "act-d8a8bdb6";
     private final static String key_pair_name = "some-key-pair-name";
 
     public static void main(String[] args) throws IOException {
@@ -340,7 +340,7 @@ public class ElastigroupUsageExample {
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup elastigroup =
-                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
+                elastigroupBuilder.setName("sali_SpotinstTestGroup11111").setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                                   .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
                                   .build();

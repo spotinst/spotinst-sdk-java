@@ -11,16 +11,17 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiScheduling implements IPartialUpdateEntity {
+//todo sali - change names to ApiGroupScheduling (group when needed like core)
+public class ApiElastigroupScheduling implements IPartialUpdateEntity { //todo change name
     //region Members
     @JsonIgnore
-    private Set<String>            isSet;
-    private List<ApiScheduledTask> tasks;
+    private Set<String>                       isSet;
+    private List<ApiElastigroupScheduledTask> tasks;
 
     //endregion
 
     //region Constructor
-    public ApiScheduling() {
+    public ApiElastigroupScheduling() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -34,11 +35,11 @@ public class ApiScheduling implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiScheduledTask> getTasks() {
+    public List<ApiElastigroupScheduledTask> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<ApiScheduledTask> tasks) {
+    public void setTasks(List<ApiElastigroupScheduledTask> tasks) {
         isSet.add("tasks");
         this.tasks = tasks;
     }

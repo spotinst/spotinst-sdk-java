@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-///todo change the enum! tp a correct one
 public enum SchedulingTaskTypeEnum {
     BACKUP_AMI("backup_ami"),
     SCALE("scale"),

@@ -23,9 +23,9 @@ public class Elastigroup {
     private ElastigroupComputeConfiguration                 compute;
     private ElastigroupScalingConfiguration                 scaling;
     private ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration;
-    private ElastigroupSchedulingConfiguration scheduling;
-    private Date                               createdAt;
-    private Date                               updatedAt;
+    private ElastigroupSchedulingConfiguration              scheduling;
+    private Date                                            createdAt;
+    private Date                                            updatedAt;
     //endregion
 
     //region Constructor

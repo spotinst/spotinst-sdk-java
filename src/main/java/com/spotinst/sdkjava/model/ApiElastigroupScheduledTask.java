@@ -12,7 +12,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiScheduledTask implements IPartialUpdateEntity {
+public class ApiElastigroupScheduledTask implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -35,7 +35,7 @@ public class ApiScheduledTask implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-    public ApiScheduledTask() {
+    public ApiElastigroupScheduledTask() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -52,9 +52,9 @@ public class ApiScheduledTask implements IPartialUpdateEntity {
         return isEnabled;
     }
 
-    public void setIsEnabled(Boolean enabled) {
-        isSet.add("enabled");
-        isEnabled = enabled;
+    public void setIsEnabled(Boolean isEnabled) {
+        isSet.add("isEnabled"); //todo sali - change to isEnable and check that works
+         this.isEnabled = isEnabled;
     }
 
     public String getFrequency() {

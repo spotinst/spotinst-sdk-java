@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 
@@ -14,7 +13,6 @@ public class TasksConfiguration {
     private Set<String>             isSet;
     private Boolean                 isEnabled;
     private RecurrenceFrequencyEnum frequency;
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date                    startTime;
     private String                  cronExpression;
     private SchedulingTaskTypeEnum  taskType;

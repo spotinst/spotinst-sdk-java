@@ -28,7 +28,7 @@ class ApiElastigroup implements IPartialUpdateEntity {
     private Date                       createdAt;
     private Date                       updatedAt;
     private ApiThirdPartiesIntegration thirdPartiesIntegration;
-    private ApiScheduling              scheduling;
+    private ApiElastigroupScheduling   scheduling; //todo sali - change (change isSet as well)
     //endregion
 
     //region Constructor
@@ -129,14 +129,15 @@ class ApiElastigroup implements IPartialUpdateEntity {
         this.updatedAt = updatedAt;
     }
 
-    public ApiScheduling getScheduling() {
+    public ApiElastigroupScheduling getScheduling() {
         return scheduling;
     }
 
-    public void setScheduling(ApiScheduling scheduling) {
+    public void setScheduling(ApiElastigroupScheduling scheduling) {
         isSet.add("scheduling");
         this.scheduling = scheduling;
     }
+
     //endregion
 
     //region isSet methods
