@@ -2,12 +2,18 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
+import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 import com.spotinst.sdkjava.enums.SubscriptionEventTypeEnum;
 import com.spotinst.sdkjava.enums.SubscriptionProtocolEnum;
 import com.spotinst.sdkjava.model.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -240,16 +246,15 @@ public class ElastigroupUsageExample {
                 downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
-        ElastigroupHeadroomSpecification         headRoom        =
+        ElastigroupHeadroomSpecification headRoom =
                 headroomBuilder.setCpuPerUnit(1).setNumOfUnits(2).setMemoryPerUnit(3).build();
         //build attributes
-        ElastigroupAttributesSpecification.Builder attributesBuilder        =
-                ElastigroupAttributesSpecification.Builder.get();
-        ElastigroupAttributesSpecification         attributesSpecification  =
+        ElastigroupAttributesSpecification.Builder attributesBuilder = ElastigroupAttributesSpecification.Builder.get();
+        ElastigroupAttributesSpecification attributesSpecification =
                 attributesBuilder.setkey("sali_key").setValue("sali_val").build();
-        ElastigroupAttributesSpecification.Builder attributesBuilder2       =
+        ElastigroupAttributesSpecification.Builder attributesBuilder2 =
                 ElastigroupAttributesSpecification.Builder.get();
-        ElastigroupAttributesSpecification         attributesSpecification2 =
+        ElastigroupAttributesSpecification attributesSpecification2 =
                 attributesBuilder2.setkey("almog_key").setValue("almog_val").build();
 
         //build autoscale
@@ -277,7 +282,7 @@ public class ElastigroupUsageExample {
         ElastigroupEcsBatch batch = ecsBatchBuilder.setJobQueueNames(batchList).build();
         //build ecs
         ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
-        ElastigroupEcsSpecification         ecs        =
+        ElastigroupEcsSpecification ecs =
                 ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages)
                           .setBatch(batch).build();
         //build group third party integration ECS
@@ -285,35 +290,57 @@ public class ElastigroupUsageExample {
                 ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
         ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
                 thirdPartiesIntegrationBuilder.setEcs(ecs).build();
-        //build task todo add start time - setStartTime("2018-05-18T02:00:00Z")
-        tasksConfiguration.Builder tasksBuilder = tasksConfiguration.Builder.get();
-        List<tasksConfiguration>  tasksList = new ArrayList<>();
-                //todo sali "taskType" must be one of [backup_ami, scale, roll, scaleUp, percentageScaleUp, scaleDown, percentageScaleDown, statefulUpdateCapacity, statefulRecycle]
+        //build task
+        TasksConfiguration.Builder tasksBuilder = TasksConfiguration.Builder.get();
+        List<TasksConfiguration>   tasksList    = new ArrayList<>();
 
 
         //Frequency and cronExpression cannot be defined together on the same scheduled task.
-        tasksConfiguration task1 =
-                tasksBuilder.setIsEnabled(true).setCronExpression("sali").setTaskType("backup_ami").setScaleTargetCapacity(0)
-                            .setScaleMinCapacity(0).setScaleMaxCapacity(2).setBatchSizePercentage(20).setGracePeriod(500)
-                            .setAdjustment(5).setAdjustmentPercentage(6).setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
+        TasksConfiguration task1 =
+                tasksBuilder.setIsEnabled(true).setCronExpression("sali").setTaskType(SchedulingTaskTypeEnum.BACKUP_AMI)
+                            .setScaleTargetCapacity(1).setScaleMinCapacity(0).setScaleMaxCapacity(2)
+                            .setBatchSizePercentage(20).setGracePeriod(500).setAdjustment(5).setAdjustmentPercentage(6)
+                            .setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
 
         tasksList.add(task1);
 
-        tasksConfiguration.Builder tasksBuilder2 = tasksConfiguration.Builder.get();
-        tasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(true).setFrequency(RecurrenceFrequencyEnum.DAILY).setTaskType("backup_ami").setScaleTargetCapacity(0)
-                            .setScaleMinCapacity(0).setScaleMaxCapacity(2).setBatchSizePercentage(20).setGracePeriod(500)
-                            .setAdjustment(5).setAdjustmentPercentage(6).setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
+        TasksConfiguration.Builder tasksBuilder2 = TasksConfiguration.Builder.get();
+        TasksConfiguration task2 = tasksBuilder2.setIsEnabled(true).setFrequency(RecurrenceFrequencyEnum.DAILY)
+                                                .setTaskType(SchedulingTaskTypeEnum.ROLL).setScaleTargetCapacity(0)
+                                                .setScaleMinCapacity(0).setScaleMaxCapacity(2)
+                                                .setBatchSizePercentage(20).setGracePeriod(500).setAdjustment(5)
+                                                .setAdjustmentPercentage(6).setTargetCapacity(8).setMinCapacity(7)
+                                                .setMaxCapacity(9).build();
 
 
         tasksList.add(task2);
+        SimpleDateFormat formatter    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        String           dateInString = "2020-05-18T02:00:00Z";
+        Date             date         = null;
+        try {
+            date = formatter.parse(dateInString);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        TasksConfiguration.Builder tasksBuilder3 = TasksConfiguration.Builder.get();
+        TasksConfiguration task3 =
+                tasksBuilder3.setIsEnabled(true).setStartTime(date).setTaskType(SchedulingTaskTypeEnum.ROLL)
+                             .setScaleTargetCapacity(0).setScaleMinCapacity(0).setScaleMaxCapacity(2)
+                             .setBatchSizePercentage(20).setGracePeriod(500).setAdjustment(5).setAdjustmentPercentage(6)
+                             .setTargetCapacity(8).setMinCapacity(7).setMaxCapacity(9).build();
+
+
+        tasksList.add(task3);
         //build scheduling
         ElastigroupSchedulingConfiguration.Builder schedulingBuilder = ElastigroupSchedulingConfiguration.Builder.get();
-        ElastigroupSchedulingConfiguration scheduling = schedulingBuilder.setTasks(tasksList).build();
+        ElastigroupSchedulingConfiguration         scheduling        = schedulingBuilder.setTasks(tasksList).build();
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup elastigroup =
-                elastigroupBuilder.setName("sali_SpotinstTestGroup333222").setDescription("descriptive-information")
+                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                                   .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
                                   .build();

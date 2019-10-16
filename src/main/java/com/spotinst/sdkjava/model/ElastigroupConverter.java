@@ -2,8 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
-import com.spotinst.sdkjava.enums.EmrSchedulingTaskTypeEnum;
-import org.omg.CORBA.PRIVATE_MEMBER;
+import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -64,7 +63,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiScheduledTask toDal(tasksConfiguration tasksConfiguration) {
+    private static ApiScheduledTask toDal(TasksConfiguration tasksConfiguration) {
         ApiScheduledTask retVal = null;
         if (tasksConfiguration != null) {
             retVal = new ApiScheduledTask();
@@ -676,8 +675,8 @@ class ElastigroupConverter {
                     ElastigroupSchedulingConfiguration.Builder.get();
             if(apiScheduling.isTasksSet()){
                 if(apiScheduling.getTasks() != null){
-                    List<tasksConfiguration>  tasksConfigurationList = apiScheduling.getTasks().stream()
-                                              .map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    List<TasksConfiguration>  tasksConfigurationList = apiScheduling.getTasks().stream()
+                                                                                    .map(ElastigroupConverter::toBl).collect(Collectors.toList());
                     blSchedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
@@ -685,11 +684,11 @@ class ElastigroupConverter {
         }
         return blSchedulingConfiguration;
     }
-    private static tasksConfiguration toBl(ApiScheduledTask apiScheduledTask){
-        tasksConfiguration bLTasks = null;
+    private static TasksConfiguration toBl(ApiScheduledTask apiScheduledTask){
+        TasksConfiguration bLTasks = null;
 
         if(apiScheduledTask != null){
-            tasksConfiguration.Builder blTasksBuilder = tasksConfiguration.Builder.get();
+            TasksConfiguration.Builder blTasksBuilder = TasksConfiguration.Builder.get();
             if(apiScheduledTask.isIsEnabledSet()){
                 blTasksBuilder.setIsEnabled(apiScheduledTask.getIsEnabled());
             }
@@ -703,7 +702,7 @@ class ElastigroupConverter {
                 blTasksBuilder.setCronExpression(apiScheduledTask.getCronExpression());
             }
             if(apiScheduledTask.isTaskTypeSet()){
-                blTasksBuilder.setTaskType(EmrSchedulingTaskTypeEnum.fromName(apiScheduledTask.getTaskType()));
+                blTasksBuilder.setTaskType(SchedulingTaskTypeEnum.fromName(apiScheduledTask.getTaskType()));
             }
             if(apiScheduledTask.isScaleTargetCapacitySet()){
                 blTasksBuilder.setScaleTargetCapacity(apiScheduledTask.getScaleTargetCapacity());

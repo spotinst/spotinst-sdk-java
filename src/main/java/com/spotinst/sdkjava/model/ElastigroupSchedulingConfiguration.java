@@ -10,7 +10,7 @@ public class ElastigroupSchedulingConfiguration {
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
-    private List<tasksConfiguration> tasks;
+    private List<TasksConfiguration> tasks;
     //endregion
 
     //region Constructor
@@ -30,11 +30,11 @@ public class ElastigroupSchedulingConfiguration {
         this.isSet = isSet;
     }
 
-    public List<tasksConfiguration> getTasks() {
+    public List<TasksConfiguration> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<tasksConfiguration> tasks) {
+    public void setTasks(List<TasksConfiguration> tasks) {
         isSet.add("tasks");
         this.tasks = tasks;
     }
@@ -53,7 +53,7 @@ public class ElastigroupSchedulingConfiguration {
             return builder;
         }
 
-        public Builder setTasks(final List<tasksConfiguration> tasks) {
+        public Builder setTasks(final List<TasksConfiguration> tasks) {
             scheduling.setTasks(tasks);
             return this;
         }

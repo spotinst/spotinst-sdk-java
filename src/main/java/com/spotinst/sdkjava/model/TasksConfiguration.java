@@ -2,36 +2,36 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.EmrSchedulingTaskTypeEnum;
+import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class tasksConfiguration {
+public class TasksConfiguration {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     isEnabled;
-    private RecurrenceFrequencyEnum      frequency;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
-    private Date        startTime;
-    private String      cronExpression;
-    private EmrSchedulingTaskTypeEnum      taskType;
-    private Integer     scaleTargetCapacity;
-    private Integer     scaleMinCapacity;
-    private Integer     scaleMaxCapacity;
-    private Integer     batchSizePercentage;
-    private Integer     gracePeriod;
-    private Integer     adjustment;
-    private Integer     adjustmentPercentage;
-    private Integer     targetCapacity;
-    private Integer     minCapacity;
-    private Integer     maxCapacity;
+    private Set<String>             isSet;
+    private Boolean                 isEnabled;
+    private RecurrenceFrequencyEnum frequency;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    private Date                    startTime;
+    private String                  cronExpression;
+    private SchedulingTaskTypeEnum  taskType;
+    private Integer                 scaleTargetCapacity;
+    private Integer                 scaleMinCapacity;
+    private Integer                 scaleMaxCapacity;
+    private Integer                 batchSizePercentage;
+    private Integer                 gracePeriod;
+    private Integer                 adjustment;
+    private Integer                 adjustmentPercentage;
+    private Integer                 targetCapacity;
+    private Integer                 minCapacity;
+    private Integer                 maxCapacity;
     //endregion
 
     //region Constructor
-    private tasksConfiguration() {
+    private TasksConfiguration() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -82,11 +82,11 @@ public class tasksConfiguration {
         this.cronExpression = cronExpression;
     }
 
-    public EmrSchedulingTaskTypeEnum getTaskType() {
+    public SchedulingTaskTypeEnum getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(EmrSchedulingTaskTypeEnum taskType) {
+    public void setTaskType(SchedulingTaskTypeEnum taskType) {
         isSet.add("taskType");
 
         this.taskType = taskType;
@@ -185,10 +185,10 @@ public class tasksConfiguration {
     //endregion
     //region Builder class
     public static class Builder {
-        private tasksConfiguration tasks;
+        private TasksConfiguration tasks;
 
         private Builder() {
-            this.tasks = new tasksConfiguration();
+            this.tasks = new TasksConfiguration();
         }
 
         public static Builder get() {
@@ -216,7 +216,7 @@ public class tasksConfiguration {
             return this;
         }
 
-        public Builder setTaskType(final EmrSchedulingTaskTypeEnum taskType) {
+        public Builder setTaskType(final SchedulingTaskTypeEnum taskType) {
             tasks.setTaskType(taskType);
             return this;
         }
@@ -271,7 +271,7 @@ public class tasksConfiguration {
             return this;
         }
 
-        public tasksConfiguration build() {
+        public TasksConfiguration build() {
             return tasks;
         }
 

@@ -28,7 +28,7 @@ class ApiElastigroup implements IPartialUpdateEntity {
     private Date                       createdAt;
     private Date                       updatedAt;
     private ApiThirdPartiesIntegration thirdPartiesIntegration;
-    private ApiScheduling scheduling;
+    private ApiScheduling              scheduling;
     //endregion
 
     //region Constructor
