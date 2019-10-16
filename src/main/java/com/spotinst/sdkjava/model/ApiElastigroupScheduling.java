@@ -11,8 +11,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-//todo sali - change names to ApiGroupScheduling (group when needed like core)
-public class ApiElastigroupScheduling implements IPartialUpdateEntity { //todo change name
+public class ApiElastigroupScheduling implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                       isSet;

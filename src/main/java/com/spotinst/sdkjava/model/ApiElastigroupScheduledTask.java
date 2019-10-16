@@ -53,7 +53,7 @@ public class ApiElastigroupScheduledTask implements IPartialUpdateEntity {
     }
 
     public void setIsEnabled(Boolean isEnabled) {
-        isSet.add("isEnabled"); //todo sali - change to isEnable and check that works
+        isSet.add("isEnabled");
          this.isEnabled = isEnabled;
     }
 
