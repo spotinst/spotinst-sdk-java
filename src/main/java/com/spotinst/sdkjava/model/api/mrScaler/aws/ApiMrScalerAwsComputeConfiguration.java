@@ -32,7 +32,7 @@ public class ApiMrScalerAwsComputeConfiguration {
     // endregion
 
     //region Constructor
-    private ApiMrScalerAwsComputeConfiguration() {  isSet = new HashSet<>(); }
+    public ApiMrScalerAwsComputeConfiguration() {  isSet = new HashSet<>(); }
     // endregion
 
     // region methods

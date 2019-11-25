@@ -40,8 +40,8 @@ public class BaseSpotinstService {
             String version = StringUtils.chomp(arrOfStr[1]);
             SPOTINST_SDK_JAVA_USER_AGENT = String.format(userAgentFormat, SPOTINST_SDK_JAVA_USER_AGENT, version);
 
-        } catch (IOException e) {
-            LOGGER.error("Cannot determine spotinst-sdk-java version", e);
+        } catch (IOException ex) {
+            LOGGER.error("Cannot determine spotinst-sdk-java version", ex);
         }
     }
 

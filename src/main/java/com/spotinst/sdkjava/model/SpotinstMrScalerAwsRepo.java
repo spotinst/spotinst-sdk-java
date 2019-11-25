@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
@@ -15,9 +14,9 @@ public class SpotinstMrScalerAwsRepo implements ISpotinstMrScalerAwsRepo {
         RepoGenericResponse<ApiMrScalerAws> retVal;
 
         try {
-            BlMrScalerAws blMrScalerToCreate = MrScalerAwsConverter.toBl(mrScalerToCreate);
-            BlMrScalerAws blCreatedMrScaler = SpotinstMrScalerAwsService.createMrScaler(blMrScalerToCreate, authToken, account);
-            ApiMrScalerAws createdMrScaler = MrScalerAwsConverter.toApi(blCreatedMrScaler);
+            BlMrScalerAws      blMrScalerToCreate = MrScalerAwsConverter.toBl(mrScalerToCreate);
+            BlMrScalerAws      blCreatedMrScaler  = SpotinstMrScalerAwsService.createMrScaler(blMrScalerToCreate, authToken, account);
+            ApiMrScalerAws     createdMrScaler    = MrScalerAwsConverter.toApi(blCreatedMrScaler);
             retVal = new RepoGenericResponse<>(createdMrScaler);
         } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
