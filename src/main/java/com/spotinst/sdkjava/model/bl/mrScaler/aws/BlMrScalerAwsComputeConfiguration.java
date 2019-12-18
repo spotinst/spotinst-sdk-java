@@ -1,13 +1,12 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.model.AvailabilityZone;
 import com.spotinst.sdkjava.model.Tag;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BlMrScalerAwsComputeConfiguration {
     //region Members
     private Integer ebsRootVolumeSize;

@@ -401,7 +401,7 @@ public class MrScalerAwsConverter {
                     blWrap.setSourceClusterId(apiStrategy.getWrap().getSourceClusterId());
                 }
 
-                blStrategy.setWrap(blWrap);
+                blStrategy.setWrapping(blWrap);
             }
 
             if (apiStrategy.isProvisioningTimeoutSet()) {
@@ -979,11 +979,11 @@ public class MrScalerAwsConverter {
                 apiStrategy.setNew(apiNew);
             }
 
-            if (blStrategy.getWrap() != null) {
+            if (blStrategy.getWrapping() != null) {
                 ApiMrScalerAwsWrapStrategy apiWrap = new ApiMrScalerAwsWrapStrategy();
 
-                if (blStrategy.getWrap().getSourceClusterId() != null) {
-                    apiWrap.setSourceClusterId(blStrategy.getWrap().getSourceClusterId());
+                if (blStrategy.getWrapping().getSourceClusterId() != null) {
+                    apiWrap.setSourceClusterId(blStrategy.getWrapping().getSourceClusterId());
                 }
 
                 apiStrategy.setWrap(apiWrap);

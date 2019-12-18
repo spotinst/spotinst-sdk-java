@@ -1,15 +1,13 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.HashSet;
-import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BlMrScalerAwsStrategyConfiguration {
     // region Members
-    private BlMrScalerAwsCloneStrategy clone;
-    private BlMrScalerAwsNewStrategy newing;
-    private BlMrScalerAwsWrapStrategy wrap;
+    private BlMrScalerAwsCloneStrategy       clone;
+    private BlMrScalerAwsNewStrategy         newing;
+    private BlMrScalerAwsWrapStrategy        wrapping;
     private BlMrScalerAwsProvisioningTimeout provisioningTimeout;
     // endregion
 
@@ -35,10 +33,10 @@ public class BlMrScalerAwsStrategyConfiguration {
     // endregion
 
     // region Wrap
-    public BlMrScalerAwsWrapStrategy getWrap() { return wrap; }
+    public BlMrScalerAwsWrapStrategy getWrapping() { return wrapping; }
 
-    public void setWrap(BlMrScalerAwsWrapStrategy wrap){
-        this.wrap = wrap;
+    public void setWrapping(BlMrScalerAwsWrapStrategy wrapping){
+        this.wrapping = wrapping;
     }
     // endregion
 
