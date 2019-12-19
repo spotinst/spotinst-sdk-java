@@ -1,10 +1,9 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.HashSet;
-import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BlMrScalerAwsEbsBlockDeviceConfig {
     //region Members
     private Integer volumesPerInstance;

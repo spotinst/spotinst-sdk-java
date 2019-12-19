@@ -1,10 +1,9 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BlMrScalerAwsFile {
     //region Members
     private BlMrScalerAwsFileParams file;
