@@ -44,7 +44,7 @@ public class MrScalerAwsUsageExample {
         List<ApiMrScalerAwsTask>   tasks       = new ArrayList<>();
         ApiMrScalerAwsTask.Builder taskBuilder = ApiMrScalerAwsTask.Builder.get();
         ApiMrScalerAwsTask task = taskBuilder.setCronExpression("cron").setInstanceGroupType("instnace").setIsEnabled(true)
-                           .setMaxCapacity(0).setMinCapacity(0).setTargetCapacity(0).setTaskType("type").build();
+                                             .setMaxCapacity(0).setMinCapacity(0).setTargetCapacity(0).setTaskType("type").build();
         tasks.add(task);
 
         ApiMrScalerAwsSchedulingConfiguration.Builder schedulingBuilder =
@@ -85,28 +85,9 @@ public class MrScalerAwsUsageExample {
         uppolicies.add(scaleuppolicy);
 
 
-        List<ApiMrScalerAwsScalingPolicy> downpolicies = new ArrayList<>();
-
-        ApiMrScalerAwsScalingPolicy.Builder policyBuilder2 = ApiMrScalerAwsScalingPolicy.Builder.get();
-
-        ApiMrScalerAwsScalingPolicy scaledownpolicy = policyBuilder2.setAction(scalingAction).setCooldown(300)
-
-                                                                    .setDimensions(dimList)
-                                                                    .setMetricName("test")
-
-                                                                    .setNamespace("AWS")
-                                                                    .setOperator("gte").setPeriod(300)
-                                                                    .setEvaluationPeriods(1)
-
-                                                                    .setPolicyName("scaleUpPolicy")
-                                                                    .setStatistic("average").setUnit("percent")
-                                                                    .setThreshold(90).build();
-
-        downpolicies.add(scaledownpolicy);
-
         List<ApiMrScalerAwsScalingPolicy> downPolicies = new ArrayList<>();
-        ApiMrScalerAwsScalingPolicy.Builder policyBuilder2 = ApiMrScalerAwsScalingPolicy.Builder.get();
-        ApiMrScalerAwsScalingPolicy scaleDownPolicy = policyBuilder2.setAction(scalingAction).setCooldown(300)
+        ApiMrScalerAwsScalingPolicy.Builder policyBuilder3 = ApiMrScalerAwsScalingPolicy.Builder.get();
+        ApiMrScalerAwsScalingPolicy scaleDownPolicy = policyBuilder3.setAction(scalingAction).setCooldown(300)
                                                                     .setDimensions(dimList).setMetricName("YARNMemoryAvailablePercentage")
                                                                     .setNamespace("AWS/ElasticMapReduce").setOperator("gte").setPeriod(300).setEvaluationPeriods(1)
                                                                     .setPolicyName("scaleuppolicy").setStatistic("average").setUnit("percent").setThreshold(90).build();
@@ -114,7 +95,7 @@ public class MrScalerAwsUsageExample {
 
         ApiMrScalerAwsScalingConfiguration.Builder scalingBuilder = ApiMrScalerAwsScalingConfiguration.Builder.get();
 
-        ApiMrScalerAwsScalingConfiguration scaling = scalingBuilder.setDown(downpolicies).setUp(uppolicies).build();
+        ApiMrScalerAwsScalingConfiguration scaling = scalingBuilder.setDown(downPolicies).setUp(uppolicies).build();
 
         System.out.println("End Building Scaling Params");
         System.out.println(JsonMapper.toJson(scaling));
