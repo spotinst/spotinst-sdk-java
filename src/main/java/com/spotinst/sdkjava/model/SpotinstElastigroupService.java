@@ -6,8 +6,6 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import org.apache.http.HttpStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -19,10 +17,8 @@ import java.util.Map;
  */
 class SpotinstElastigroupService extends BaseSpotinstService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupService.class);
-
     public static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
-                                            String account) throws SpotinstHttpException {
+                                                   String account) throws SpotinstHttpException {
         // Init retVal
         ApiElastigroup retVal = null;
 
@@ -206,6 +202,67 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static List<ApiElastigroup> getAllGroups(GroupFilter filter, String authToken,
+                                                    String account) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiElastigroup> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if (filter != null) {
+            if (filter.getMaxCreatedAt() != null) {
+                queryParams.put("maxCreatedAt", filter.getMaxCreatedAt());
+            }
+
+            if (filter.getMinCreatedAt() != null) {
+                queryParams.put("minCreatedAt", filter.getMinCreatedAt());
+            }
+
+            if (filter.getActiveFrom() != null) {
+                queryParams.put("activeFrom", filter.getActiveFrom());
+            }
+
+            if (filter.getActiveTo() != null) {
+                queryParams.put("activeTo", filter.getActiveTo());
+            }
+
+            if (filter.getIncludeDeleted() != null) {
+                queryParams.put("includeDeleted", filter.getIncludeDeleted().toString());
+            }
+
+            if (filter.getName() != null) {
+                queryParams.put("name", filter.getName());
+            }
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse allElastigroupsResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+
+        if (allElastigroupsResponse.getResponse().getCount() > 0) {
+            retVal = allElastigroupsResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
     public static Boolean updateGroup(String elastigroupId, ApiElastigroup apiElastigroup, String authToken,
                                       String account) throws SpotinstHttpException {
 
@@ -253,8 +310,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
      * are returned unformatted
      *
      * @param scalingRequest ElastigroupScalingRequest Object send from SpotinstElastigroupRepo
-     * @param authToken User Spotinst API token
-     * @param account User Spotinst account ID
+     * @param authToken      User Spotinst API token
+     * @param account        User Spotinst account ID
      * @return ApiElastigroupScalingResponse
      * @throws SpotinstHttpException
      */
@@ -304,13 +361,14 @@ class SpotinstElastigroupService extends BaseSpotinstService {
      * are returned unformatted
      *
      * @param scalingRequest ElastigroupScalingRequest Object send from SpotinstElastigroupRepo
-     * @param authToken User Spotinst API token
-     * @param account User Spotinst account ID
+     * @param authToken      User Spotinst API token
+     * @param account        User Spotinst account ID
      * @return ApiElastigroupScalingResponse
      * @throws SpotinstHttpException
      */
-    public static ApiElastigroupScalingResponse scaleGroupDown(ElastigroupScalingRequest scalingRequest, String authToken,
-                                                             String account) throws SpotinstHttpException {
+    public static ApiElastigroupScalingResponse scaleGroupDown(ElastigroupScalingRequest scalingRequest,
+                                                               String authToken,
+                                                               String account) throws SpotinstHttpException {
 
         //Init retVal
         ApiElastigroupScalingResponse retVal = null;
@@ -335,7 +393,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/scale/down", apiEndpoint, scalingRequest.getElastigroupId());
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri,null, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
         // Handle the response.
         ApiElastigroupScalingResponseResponse scalingResponse =

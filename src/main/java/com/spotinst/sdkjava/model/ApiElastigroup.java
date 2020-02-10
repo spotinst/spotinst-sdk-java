@@ -22,6 +22,7 @@ class ApiElastigroup implements IPartialUpdateEntity {
     private String                     id;
     private String                     name;
     private String                     description;
+    private String                     region;
     private ApiCapacity                capacity;
     private ApiStrategy                strategy;
     private ApiGroupCompute            compute;
@@ -82,6 +83,15 @@ class ApiElastigroup implements IPartialUpdateEntity {
     public void setDescription(String description) {
         isSet.add("description");
         this.description = description;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        isSet.add("region");
+        this.region = region;
     }
 
     public ApiCapacity getCapacity() {

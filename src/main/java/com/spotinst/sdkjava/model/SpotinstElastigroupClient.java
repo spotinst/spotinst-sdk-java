@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,29 +12,31 @@ import java.util.List;
  * Created by talzur on 11/01/2017.
  */
 public class SpotinstElastigroupClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupClient.class);
+    private static final Logger                                 LOGGER =
+            LoggerFactory.getLogger(SpotinstElastigroupClient.class);
     //region Members
-    private String authToken;
-    private String account;
-    private ISpotinstElastigroupRepo spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
+    private              String                                 authToken;
+    private              String                                 account;
+    private              ISpotinstElastigroupRepo               spotinstElastigroupRepo;
+    private              ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
     //endregion
 
-    public ISpotinstElastigroupRepo getSpotinstElastigroupRepo(){
+    public ISpotinstElastigroupRepo getSpotinstElastigroupRepo() {
         return this.spotinstElastigroupRepo;
     }
 
-    public void setSpotinstElastigroupRepo(){
+    public void setSpotinstElastigroupRepo() {
         this.spotinstElastigroupRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepo();
     }
 
 
-    public ISpotinstElastigroupActiveInstanceRepo getSpotinstElastigroupActiveInstanceRepo(){
+    public ISpotinstElastigroupActiveInstanceRepo getSpotinstElastigroupActiveInstanceRepo() {
         return this.spotinstElastigroupActiveInstanceRepo;
     }
 
-    public void setSpotinstElastigroupActiveInstanceRepo(){
-        this.spotinstElastigroupActiveInstanceRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupActiveInstanceRepo();
+    public void setSpotinstElastigroupActiveInstanceRepo() {
+        this.spotinstElastigroupActiveInstanceRepo =
+                SpotinstRepoManager.getInstance().getSpotinstElastigroupActiveInstanceRepo();
     }
 
     //region Constructor
@@ -50,18 +53,22 @@ public class SpotinstElastigroupClient {
 
     //region Methods
     public Elastigroup createElastigroup(ElastigroupCreationRequest elastigroupCreationRequest) {
-        
+
         Elastigroup retVal = null;
 
         Elastigroup elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
 
-        RepoGenericResponse<Elastigroup> creationResponse = getSpotinstElastigroupRepo().create(elastigroupToCreate, authToken, account);
+        RepoGenericResponse<Elastigroup> creationResponse =
+                getSpotinstElastigroupRepo().create(elastigroupToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to create elastigroup. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create elastigroup. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
@@ -72,13 +79,17 @@ public class SpotinstElastigroupClient {
         Boolean retVal = null;
 
         Elastigroup elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
-        RepoGenericResponse<Boolean> updateResponse = getSpotinstElastigroupRepo().update(elastigroupId, elastigroupToUpdate, authToken,account);
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstElastigroupRepo().update(elastigroupId, elastigroupToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to update elastigroup. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update elastigroup. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
@@ -86,15 +97,19 @@ public class SpotinstElastigroupClient {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
-        Boolean retVal = null;
-        String elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
-        RepoGenericResponse<Boolean> elastigroupDeletionResponse = getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account);
+        Boolean retVal                = null;
+        String  elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        RepoGenericResponse<Boolean> elastigroupDeletionResponse =
+                getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = elastigroupDeletionResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to delete elastigroup. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete elastigroup. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -106,16 +121,21 @@ public class SpotinstElastigroupClient {
         Boolean retVal = null;
 
         if (detachRequest.getInstancesToDetach().size() > 0) {
-            RepoGenericResponse<Boolean> detachResponse = getSpotinstElastigroupRepo().detachInstances(elastigroupId, detachRequest, authToken, account);
+            RepoGenericResponse<Boolean> detachResponse =
+                    getSpotinstElastigroupRepo().detachInstances(elastigroupId, detachRequest, authToken, account);
             if (detachResponse.isRequestSucceed()) {
                 retVal = detachResponse.getValue();
-            } else {
+            }
+            else {
                 List<HttpError> httpExceptions = detachResponse.getHttpExceptions();
-                HttpError httpException = httpExceptions.get(0);
-                LOGGER.error(String.format("Error encountered while attempting to detach instances. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+                HttpError       httpException  = httpExceptions.get(0);
+                LOGGER.error(
+                        String.format("Error encountered while attempting to detach instances. Code: %s. Message: %s.",
+                                      httpException.getCode(), httpException.getMessage()));
                 throw new SpotinstHttpException(httpException.getMessage());
             }
-        } else {
+        }
+        else {
             LOGGER.error("No instances to detach.");
         }
 
@@ -123,7 +143,8 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public List<ElastigroupActiveInstance> getActiveInstances(ElastigroupGetActiveInstancesRequest elastigroupGetActiveInstancesRequest) {
+    public List<ElastigroupActiveInstance> getActiveInstances(
+            ElastigroupGetActiveInstancesRequest elastigroupGetActiveInstancesRequest) {
 
         List<ElastigroupActiveInstance> retVal = null;
 
@@ -131,13 +152,56 @@ public class SpotinstElastigroupClient {
 
         ActiveInstanceFilter filter = new ActiveInstanceFilter();
         filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<List<ElastigroupActiveInstance>> instancesResponse = getSpotinstElastigroupActiveInstanceRepo().getAll(filter, authToken,account);
+        RepoGenericResponse<List<ElastigroupActiveInstance>> instancesResponse =
+                getSpotinstElastigroupActiveInstanceRepo().getAll(filter, authToken, account);
         if (instancesResponse.isRequestSucceed()) {
             retVal = instancesResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = instancesResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get active instances. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get active instances. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /**
+     * Describe all the Elastigroups in your account and their full JSON
+     * <p>
+     * This route accepts a combination of parameters in the request object:
+     * either “minCreatedAt” and “maxCreatedAt or “activeFrom” and “activeTo”.
+     * A combination of the two types together is not supported.
+     *
+     * @param elastigroupGetAllRequest
+     * @return List<Elastigroup> which correspond to the given filters
+     */
+    public List<Elastigroup> getAllElastigroups(ElastigroupGetAllRequest elastigroupGetAllRequest) {
+        List<Elastigroup> retVal;
+
+        GroupFilter filter = new GroupFilter();
+
+        filter.setMaxCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMaxCreatedAt()));
+        filter.setMinCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMinCreatedAt()));
+        filter.setActiveFrom(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveFrom()));
+        filter.setActiveTo(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveTo()));
+        filter.setName(elastigroupGetAllRequest.getName());
+        filter.setIncludeDeleted(elastigroupGetAllRequest.getIncludeDeleted());
+
+        RepoGenericResponse<List<Elastigroup>> elastigroupsRepoGenericResponse =
+                getSpotinstElastigroupRepo().getAll(filter, authToken, account);
+        if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupsRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupsRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all elastigroups. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -150,13 +214,16 @@ public class SpotinstElastigroupClient {
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
 
-        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse = getSpotinstElastigroupRepo().get(elastigroupId, authToken,account);
+        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().get(elastigroupId, authToken, account);
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupRepoGenericResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get elastigroup. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get elastigroup. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -164,7 +231,7 @@ public class SpotinstElastigroupClient {
     }
 
     /**
-     * This function is used to scale up an Elastigroup by takingin an ElastigroupScalingRequest that is sent by the user and sending it to
+     * This function is used to scale up an Elastigroup by taking an ElastigroupScalingRequest that is sent by the user and sending it to
      * ISpotinstElastigroupRepo.scaleUp().
      *
      * @param elastigroupScalingRequest ElastigroupScalingRequest object that can be converted to a JSON to send as a request
@@ -178,24 +245,26 @@ public class SpotinstElastigroupClient {
 
         ActiveInstanceFilter filter = new ActiveInstanceFilter();
         filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse = getSpotinstElastigroupRepo().scaleUp(elastigroupScalingRequest, authToken, account);
+        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse =
+                getSpotinstElastigroupRepo().scaleUp(elastigroupScalingRequest, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
             retVal = elastigroupScalingResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to scale group up. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group up. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return retVal;
     }
 
-
     /**
      * This function is used to scale down an Elastigroup by takingin an ElastigroupScalingRequest that is sent by the user and sending it to
-     * ISpotinstElastigroupRepo.scaleDown(). 
+     * ISpotinstElastigroupRepo.scaleDown().
      *
      * @param elastigroupScalingRequest ElastigroupScalingRequest object that can be converted to a JSON to send as a request
      * @return ElastigroupScalingResponse Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
@@ -207,20 +276,20 @@ public class SpotinstElastigroupClient {
 
         ActiveInstanceFilter filter = new ActiveInstanceFilter();
         filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse = getSpotinstElastigroupRepo().scaleDown(elastigroupScalingRequest, authToken, account);
+        RepoGenericResponse<ElastigroupScalingResponse> elastigroupScalingResponse =
+                getSpotinstElastigroupRepo().scaleDown(elastigroupScalingRequest, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
             retVal = elastigroupScalingResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to scale group down. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group down. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
-
-
     //endregion
 }

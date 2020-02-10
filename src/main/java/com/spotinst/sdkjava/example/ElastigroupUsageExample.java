@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,8 @@ public class ElastigroupUsageExample {
     private final static String act_id     = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
+    private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestGroup";
+
     public static void main(String[] args) throws IOException {
 
         // Get elastigroup service client
@@ -29,6 +32,10 @@ public class ElastigroupUsageExample {
 
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
+
+        // Get all Elastigroups
+        getAllElastigroupsFilteredByDate(elastigroupClient);
+        getAllElastigroupsFilteredByName(elastigroupClient);
 
         // Get subscription service client
         SpotinstSubscriptionClient subscriptionClient = SpotinstClient.getSubscriptionClient(auth_token, act_id);
@@ -71,7 +78,10 @@ public class ElastigroupUsageExample {
 
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
-    }
+
+        // Get Deleted Elastigroup
+        getAllElastigroupsIncludeDeleted(elastigroupClient);
+}
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
         ElastigroupScalingRequest.Builder scalingRequestBuilder = ElastigroupScalingRequest.Builder.get();
@@ -168,6 +178,35 @@ public class ElastigroupUsageExample {
         if (succesfulDetachment) {
             System.out.println(String.format("Successfully detached instances from %s", elastigroupId));
         }
+    }
+
+
+    private static List<Elastigroup> getAllElastigroupsFilteredByName(SpotinstElastigroupClient client) {
+
+        ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
+        ElastigroupGetAllRequest requestByName = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).build();
+
+        return client.getAllElastigroups(requestByName);
+    }
+
+    private static List<Elastigroup> getAllElastigroupsFilteredByDate(SpotinstElastigroupClient client) {
+        Date activeTo = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        Date activeFrom = calendar.getTime();
+
+        ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
+        ElastigroupGetAllRequest requestByDates = requestBuilder.setActiveFrom(activeFrom).setActiveTo(activeTo).build();
+
+        return client.getAllElastigroups(requestByDates);
+    }
+
+    private static List<Elastigroup> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClient client) {
+
+        ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
+        ElastigroupGetAllRequest requestByName = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).setIncludeDeleted(true).build();
+
+        return client.getAllElastigroups(requestByName);
     }
 
     private static List<String> getActiveInstances(SpotinstElastigroupClient client, String elastigroupId) {
@@ -340,7 +379,7 @@ public class ElastigroupUsageExample {
         // Build elastigroup
         Elastigroup.Builder elastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup elastigroup =
-                elastigroupBuilder.setName("SpotinstTestGroup").setDescription("descriptive-information")
+                elastigroupBuilder.setName(SPOTINST_TEST_GROUP_NAME).setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                                   .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
                                   .build();

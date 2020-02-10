@@ -54,8 +54,8 @@ class ElastigroupConverter {
             if (schedulingConfiguration.isTasksSet()) {
                 if (schedulingConfiguration.getTasks() != null) {
                     List<ApiElastigroupScheduledTask> taskList =
-                    schedulingConfiguration.getTasks().stream().map(ElastigroupConverter::toDal).collect(
-                            Collectors.toList());
+                            schedulingConfiguration.getTasks().stream().map(ElastigroupConverter::toDal)
+                                                   .collect(Collectors.toList());
                     retVal.setTasks(taskList);
                 }
             }
@@ -91,25 +91,25 @@ class ElastigroupConverter {
             if (tasksConfiguration.isScaleMaxCapacitySet()) {
                 retVal.setScaleMaxCapacity(tasksConfiguration.getScaleMaxCapacity());
             }
-            if(tasksConfiguration.isBatchSizePercentageSet()){
+            if (tasksConfiguration.isBatchSizePercentageSet()) {
                 retVal.setBatchSizePercentage(tasksConfiguration.getBatchSizePercentage());
             }
-            if(tasksConfiguration.isgracePeriodSet()){
+            if (tasksConfiguration.isgracePeriodSet()) {
                 retVal.setGracePeriod(tasksConfiguration.getGracePeriod());
             }
-            if(tasksConfiguration.isAdjustmentSet()){
+            if (tasksConfiguration.isAdjustmentSet()) {
                 retVal.setAdjustment(tasksConfiguration.getAdjustment());
             }
-            if(tasksConfiguration.isAdjustmentPercentageSet()){
+            if (tasksConfiguration.isAdjustmentPercentageSet()) {
                 retVal.setAdjustmentPercentage(tasksConfiguration.getAdjustmentPercentage());
             }
-            if(tasksConfiguration.isTargetCapacitySet()){
+            if (tasksConfiguration.isTargetCapacitySet()) {
                 retVal.setTargetCapacity(tasksConfiguration.getTargetCapacity());
             }
-            if(tasksConfiguration.isMinCapacitySet()){
+            if (tasksConfiguration.isMinCapacitySet()) {
                 retVal.setMinCapacity(tasksConfiguration.getMinCapacity());
             }
-            if(tasksConfiguration.isMaxCapacitySet()){
+            if (tasksConfiguration.isMaxCapacitySet()) {
                 retVal.setMaxCapacity(tasksConfiguration.getMaxCapacity());
             }
         }
@@ -644,6 +644,10 @@ class ElastigroupConverter {
                 elastigroupBuilder.setDescription(apiElastigroup.getDescription());
             }
 
+            if (apiElastigroup.isRegionSet()) {
+                elastigroupBuilder.setRegion(apiElastigroup.getRegion());
+            }
+
             if (apiElastigroup.isCapacitySet()) {
                 elastigroupBuilder.setCapacity(toBl(apiElastigroup.getCapacity()));
             }
@@ -657,26 +661,31 @@ class ElastigroupConverter {
             if (apiElastigroup.isThirdPartiesIntegrationSet()) {
                 elastigroupBuilder.setThirdPartiesIntegration(toBl(apiElastigroup.getThirdPartiesIntegration()));
             }
-            if(apiElastigroup.isSchedulingSet()){
+            if (apiElastigroup.isSchedulingSet()) {
                 elastigroupBuilder.setScheduling(toBl(apiElastigroup.getScheduling()));
             }
             elastigroup = elastigroupBuilder.build();
+
+            // createdAt is not taken from builder since it cannot be set when creating/updating an Elastigroup
+            if (apiElastigroup.isCreatedAtSet()) {
+                elastigroup.setCreatedAt(apiElastigroup.getCreatedAt());
+            }
         }
 
         return elastigroup;
     }
 
-    private static ElastigroupSchedulingConfiguration toBl(
-            ApiElastigroupScheduling apiScheduling){
+    private static ElastigroupSchedulingConfiguration toBl(ApiElastigroupScheduling apiScheduling) {
         ElastigroupSchedulingConfiguration blSchedulingConfiguration = null;
 
-        if(apiScheduling != null){
+        if (apiScheduling != null) {
             ElastigroupSchedulingConfiguration.Builder blSchedulingConfigurationBuilder =
                     ElastigroupSchedulingConfiguration.Builder.get();
-            if(apiScheduling.isTasksSet()){
-                if(apiScheduling.getTasks() != null){
-                    List<TasksConfiguration>  tasksConfigurationList = apiScheduling.getTasks().stream()
-                                                                                    .map(ElastigroupConverter::toBl).collect(Collectors.toList());
+            if (apiScheduling.isTasksSet()) {
+                if (apiScheduling.getTasks() != null) {
+                    List<TasksConfiguration> tasksConfigurationList =
+                            apiScheduling.getTasks().stream().map(ElastigroupConverter::toBl)
+                                         .collect(Collectors.toList());
                     blSchedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
@@ -684,61 +693,63 @@ class ElastigroupConverter {
         }
         return blSchedulingConfiguration;
     }
-    private static TasksConfiguration toBl(ApiElastigroupScheduledTask apiScheduledTask){
+
+    private static TasksConfiguration toBl(ApiElastigroupScheduledTask apiScheduledTask) {
         TasksConfiguration bLTasks = null;
 
-        if(apiScheduledTask != null){
+        if (apiScheduledTask != null) {
             TasksConfiguration.Builder blTasksBuilder = TasksConfiguration.Builder.get();
-            if(apiScheduledTask.isIsEnabledSet()){
+            if (apiScheduledTask.isIsEnabledSet()) {
                 blTasksBuilder.setIsEnabled(apiScheduledTask.getIsEnabled());
             }
-            if(apiScheduledTask.isFrequencySet()){
+            if (apiScheduledTask.isFrequencySet()) {
                 blTasksBuilder.setFrequency(RecurrenceFrequencyEnum.fromName(apiScheduledTask.getFrequency()));
             }
-            if(apiScheduledTask.isStartTimeSet()){
+            if (apiScheduledTask.isStartTimeSet()) {
                 blTasksBuilder.setStartTime(apiScheduledTask.getStartTime());
             }
-            if(apiScheduledTask.isCronExpressionSet()){
+            if (apiScheduledTask.isCronExpressionSet()) {
                 blTasksBuilder.setCronExpression(apiScheduledTask.getCronExpression());
             }
-            if(apiScheduledTask.isTaskTypeSet()){
+            if (apiScheduledTask.isTaskTypeSet()) {
                 blTasksBuilder.setTaskType(SchedulingTaskTypeEnum.fromName(apiScheduledTask.getTaskType()));
             }
-            if(apiScheduledTask.isScaleTargetCapacitySet()){
+            if (apiScheduledTask.isScaleTargetCapacitySet()) {
                 blTasksBuilder.setScaleTargetCapacity(apiScheduledTask.getScaleTargetCapacity());
             }
-            if(apiScheduledTask.isScaleMinCapacitySet()){
+            if (apiScheduledTask.isScaleMinCapacitySet()) {
                 blTasksBuilder.setScaleMinCapacity(apiScheduledTask.getScaleMinCapacity());
             }
-            if(apiScheduledTask.isScaleMaxCapacitySet()){
+            if (apiScheduledTask.isScaleMaxCapacitySet()) {
                 blTasksBuilder.setScaleMaxCapacity(apiScheduledTask.getScaleMaxCapacity());
             }
-            if(apiScheduledTask.isBatchSizePercentageSet()){
+            if (apiScheduledTask.isBatchSizePercentageSet()) {
                 blTasksBuilder.setBatchSizePercentage(apiScheduledTask.getBatchSizePercentage());
             }
-            if(apiScheduledTask.isgracePeriodSet()){
+            if (apiScheduledTask.isgracePeriodSet()) {
                 blTasksBuilder.setGracePeriod(apiScheduledTask.getGracePeriod());
             }
-            if(apiScheduledTask.isAdjustmentSet()){
+            if (apiScheduledTask.isAdjustmentSet()) {
                 blTasksBuilder.setAdjustment(apiScheduledTask.getAdjustment());
             }
-            if(apiScheduledTask.isAdjustmentPercentageSet()){
+            if (apiScheduledTask.isAdjustmentPercentageSet()) {
                 blTasksBuilder.setAdjustmentPercentage(apiScheduledTask.getAdjustmentPercentage());
             }
-            if(apiScheduledTask.isTargetCapacitySet()){
+            if (apiScheduledTask.isTargetCapacitySet()) {
                 blTasksBuilder.setTargetCapacity(apiScheduledTask.getTargetCapacity());
             }
-            if(apiScheduledTask.isMinCapacitySet()){
+            if (apiScheduledTask.isMinCapacitySet()) {
                 blTasksBuilder.setMinCapacity(apiScheduledTask.getMinCapacity());
             }
-            if(apiScheduledTask.isMaxCapacitySet()){
+            if (apiScheduledTask.isMaxCapacitySet()) {
                 blTasksBuilder.setMaxCapacity(apiScheduledTask.getMaxCapacity());
             }
 
-                bLTasks = blTasksBuilder.build();
+            bLTasks = blTasksBuilder.build();
         }
         return bLTasks;
     }
+
     private static ElastigroupThirdPartiesIntegrationConfiguration toBl(
             ApiThirdPartiesIntegration apiThirdPartiesIntegration) {
         ElastigroupThirdPartiesIntegrationConfiguration blThirdPartiesIntegration = null;
@@ -808,7 +819,7 @@ class ElastigroupConverter {
             ElastigroupEcsBatch.Builder blEcsBuilder = ElastigroupEcsBatch.Builder.get();
             if (apiBatch.isJobQueueNamesSet()) {
                 if (apiBatch.getJobQueueNames() != null) {
-                    retVal.setJobQueueNames(new LinkedList<>(apiBatch.getJobQueueNames()));
+                    blEcsBuilder.setJobQueueNames(new LinkedList<>(apiBatch.getJobQueueNames()));
                 }
             }
             retVal = blEcsBuilder.build();
