@@ -1,9 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
@@ -11,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiElastigroupScheduledTask implements IPartialUpdateEntity {
     //region Members
@@ -48,13 +46,14 @@ public class ApiElastigroupScheduledTask implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
+
     public Boolean getIsEnabled() {
         return isEnabled;
     }
 
     public void setIsEnabled(Boolean isEnabled) {
         isSet.add("isEnabled");
-         this.isEnabled = isEnabled;
+        this.isEnabled = isEnabled;
     }
 
     public String getFrequency() {
@@ -182,6 +181,7 @@ public class ApiElastigroupScheduledTask implements IPartialUpdateEntity {
         isSet.add("maxCapacity");
         this.maxCapacity = maxCapacity;
     }
+
     //endregion
     //region isSet methods
     @JsonIgnore

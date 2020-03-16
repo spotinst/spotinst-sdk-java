@@ -12,19 +12,20 @@ import java.util.Set;
 public class ElastigroupLaunchSpecification {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String healthCheckType;
-    private Integer healthCheckGracePeriod;
-    private List<String> securityGroupIds;
-    private Boolean detailedMonitoring;
-    private Boolean ebsOptimized;
-    private String imageId;
-    private String keyPair;
-    private String userData;
-    private IamRole iamRole;
-    private List<NetworkInterface> networkInterfaces;
-    private List<Tag> tags;
+    private Set<String>              isSet;
+    private String                   healthCheckType;
+    private Integer                  healthCheckGracePeriod;
+    private List<String>             securityGroupIds;
+    private Boolean                  detailedMonitoring;
+    private Boolean                  ebsOptimized;
+    private String                   imageId;
+    private String                   keyPair;
+    private String                   userData;
+    private IamRole                  iamRole;
+    private List<NetworkInterface>   networkInterfaces;
+    private List<Tag>                tags;
     private List<BlockDeviceMapping> blockDeviceMappings;
+    private LoadBalancersConfig      loadBalancersConfig;
     //endregion
 
     //region Constructor
@@ -152,6 +153,15 @@ public class ElastigroupLaunchSpecification {
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
+    public LoadBalancersConfig getLoadBalancersConfig() {
+        return loadBalancersConfig;
+    }
+
+    public void setLoadBalancersConfig(LoadBalancersConfig loadBalancersConfig) {
+        isSet.add("loadBalancersConfig");
+        this.loadBalancersConfig = loadBalancersConfig;
+    }
+
     //endregion
 
     //region Builder class
@@ -227,12 +237,17 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
+        public Builder setLoadBalancersConfig(final LoadBalancersConfig loadBalancersConfig) {
+            launchSpecification.setLoadBalancersConfig(loadBalancersConfig);
+            return this;
+        }
+
         public ElastigroupLaunchSpecification build() {
             // TODO : Validations
             return launchSpecification;
         }
     }
-//endregion
+    //endregion
     //region isSet methods
 
     // Is healthCheckType Set boolean method
@@ -316,6 +331,12 @@ public class ElastigroupLaunchSpecification {
     public boolean isBlockDeviceMappingsSet() {
         return isSet.contains("blockDeviceMappings");
     }
+    //endregion
 
+    // Is loadBalancers Set boolean method
+    @JsonIgnore
+    public boolean isLoadBalancersConfigSet() {
+        return isSet.contains("loadBalancersConfig");
+    }
     //endregion
 }

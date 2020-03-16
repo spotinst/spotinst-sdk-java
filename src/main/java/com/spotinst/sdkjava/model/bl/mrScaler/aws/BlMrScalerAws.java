@@ -1,47 +1,52 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAws {
     //region Members
-    private String id;
-    private String clusterId;
-    private String name;
-    private String description;
-    private String region;
-    private BlMrScalerAwsStrategyConfiguration strategy;
-    private BlMrScalerAwsComputeConfiguration compute;
-    private BlMrScalerAwsScalingConfiguration scaling;
-    private BlMrScalerAwsScalingConfiguration coreScaling;
-    private BlMrScalerAwsClusterConfiguration cluster;
+    private String                               id;
+    private String                               clusterId;
+    private String                               name;
+    private String                               description;
+    private String                               region;
+    private BlMrScalerAwsStrategyConfiguration   strategy;
+    private BlMrScalerAwsComputeConfiguration    compute;
+    private BlMrScalerAwsScalingConfiguration    scaling;
+    private BlMrScalerAwsScalingConfiguration    coreScaling;
+    private BlMrScalerAwsClusterConfiguration    cluster;
     private BlMrScalerAwsSchedulingConfiguration scheduling;
-    private Date createdAt;
-    private Date updatedAt;
+    private Date                                 createdAt;
+    private Date                                 updatedAt;
     // endregion
 
     //region Constructor
-    public BlMrScalerAws() { }
+    public BlMrScalerAws() {
+    }
     // endregion
 
     //region getters and setters
     // region ID
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public void setId(String id){
+    public void setId(String id) {
         this.id = id;
     }
     // endregion
 
     // region clusterId
-    public String getClusterId(){ return clusterId;}
+    public String getClusterId() {
+        return clusterId;
+    }
 
-    public void setClusterId(String clusterId){
+    public void setClusterId(String clusterId) {
         this.clusterId = clusterId;
     }
     // endregion

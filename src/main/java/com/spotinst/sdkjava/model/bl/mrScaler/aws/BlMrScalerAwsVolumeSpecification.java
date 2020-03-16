@@ -1,24 +1,27 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAwsVolumeSpecification {
     //region Members
-    private String volumeType;
+    private String  volumeType;
     private Integer sizeInGB;
     private Integer iops;
     // endregion
 
     //region Constructor
-    public BlMrScalerAwsVolumeSpecification() { }
+    public BlMrScalerAwsVolumeSpecification() {
+    }
     // endregion
 
     // region methods
     // region volumeType
-    public String getVolumeType(){ return volumeType; }
+    public String getVolumeType() {
+        return volumeType;
+    }
 
     public void setVolumeType(String volumeType) {
         this.volumeType = volumeType;
@@ -26,7 +29,9 @@ public class BlMrScalerAwsVolumeSpecification {
     // endregion
 
     // region sizeInGB
-    public Integer getSizeInGB(){ return sizeInGB; }
+    public Integer getSizeInGB() {
+        return sizeInGB;
+    }
 
     public void setSizeInGB(Integer sizeInGB) {
         this.sizeInGB = sizeInGB;
@@ -34,7 +39,9 @@ public class BlMrScalerAwsVolumeSpecification {
     // endregion
 
     // region iops
-    public Integer getIops(){ return iops; }
+    public Integer getIops() {
+        return iops;
+    }
 
     public void setIops(Integer iops) {
         this.iops = iops;

@@ -13,14 +13,15 @@ import java.util.Set;
  * Created by aharontwizer on 8/24/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiCapacity implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private Integer minimum;
-    private Integer maximum;
-    private Integer target;
+    private Integer     minimum;
+    private Integer     maximum;
+    private Integer     target;
     //endregion
 
 

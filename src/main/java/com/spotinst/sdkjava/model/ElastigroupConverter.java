@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
+import com.spotinst.sdkjava.enums.ScalingActionTypeEnum;
 import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 
 import java.util.LinkedList;
@@ -25,6 +26,9 @@ class ElastigroupConverter {
             }
             if (src.isDescriptionSet()) {
                 apiGroup.setDescription(src.getDescription());
+            }
+            if (src.isScalingSet()) {
+                apiGroup.setScaling(toDal(src.getScaling()));
             }
             if (src.isCapacitySet()) {
                 apiGroup.setCapacity(toDal(src.getCapacity()));
@@ -404,6 +408,12 @@ class ElastigroupConverter {
                 }
             }
 
+            if (launchSpecification.isLoadBalancersConfigSet()) {
+                if (launchSpecification.getLoadBalancersConfig() != null) {
+                    retVal.setLoadBalancersConfig(toDal(launchSpecification.getLoadBalancersConfig()));
+                }
+            }
+
             if (launchSpecification.isNetworkInterfacesSet()) {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterface> optimizerNIC =
@@ -487,6 +497,43 @@ class ElastigroupConverter {
 
             if (blockDeviceMapping.isEbsDeviceSet()) {
                 retVal.setEbs(toDal(blockDeviceMapping.getEbsDevice()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiLoadBalancersConfig toDal(LoadBalancersConfig loadBalancersConfig) {
+        ApiLoadBalancersConfig retVal           = new ApiLoadBalancersConfig();
+        List<ApiLoadBalancer>  apiLoadBalancers = null;
+
+        List<LoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
+
+        if (loadBalancers != null) {
+            apiLoadBalancers = loadBalancers.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+        }
+
+        retVal.setLoadBalancers(apiLoadBalancers);
+
+        return retVal;
+    }
+
+    private static ApiLoadBalancer toDal(LoadBalancer loadBalancer) {
+        ApiLoadBalancer retVal = null;
+
+        if (loadBalancer != null) {
+            retVal = new ApiLoadBalancer();
+
+            if (loadBalancer.isNameSet()) {
+                retVal.setName(loadBalancer.getName());
+            }
+
+            if (loadBalancer.isArnSet()) {
+                retVal.setArn(loadBalancer.getArn());
+            }
+
+            if (loadBalancer.isTypeSet() && loadBalancer.getType() != null) {
+                retVal.setType(loadBalancer.getType().getName());
             }
         }
 
@@ -624,6 +671,166 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    private static ApiScaling toDal(ElastigroupScalingConfiguration scaling) {
+        ApiScaling retVal = null;
+
+        if (scaling != null) {
+            retVal = new ApiScaling();
+
+            if (scaling.isUpSet()) {
+                List<ApiScalingPolicy> apiUpScalingPolicies = null;
+
+                if (scaling.getUp() != null) {
+                    List<ScalingPolicy> up = scaling.getUp();
+                    apiUpScalingPolicies =
+                            up.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                }
+
+                retVal.setUp(apiUpScalingPolicies);
+            }
+
+            if (scaling.isDownSet()) {
+                List<ApiScalingPolicy> apiDownScalingPolicies = null;
+
+                if (scaling.getDown() != null) {
+                    List<ScalingPolicy> down = scaling.getDown();
+                    apiDownScalingPolicies =
+                            down.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                }
+
+                retVal.setDown(apiDownScalingPolicies);
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiScalingPolicy toDal(ScalingPolicy scalingPolicy) {
+        ApiScalingPolicy retVal = null;
+
+        if (scalingPolicy != null) {
+            retVal = new ApiScalingPolicy();
+
+            if (scalingPolicy.isPolicyNameSet()) {
+                retVal.setPolicyName(scalingPolicy.getPolicyName());
+            }
+
+            if (scalingPolicy.isMetricNameSet()) {
+                retVal.setMetricName(scalingPolicy.getMetricName());
+            }
+
+            if (scalingPolicy.isStatisticSet()) {
+                retVal.setStatistic(scalingPolicy.getStatistic());
+            }
+
+            if (scalingPolicy.isExtendedStatisticSet()) {
+                retVal.setExtendedStatistic(scalingPolicy.getExtendedStatistic());
+            }
+
+            if (scalingPolicy.isUnitSet()) {
+                retVal.setUnit(scalingPolicy.getUnit());
+            }
+
+            if (scalingPolicy.isThresholdSet()) {
+                retVal.setThreshold(scalingPolicy.getThreshold());
+            }
+
+            if (scalingPolicy.isNamespaceSet()) {
+                retVal.setNamespace(scalingPolicy.getNamespace());
+            }
+
+            if (scalingPolicy.isPeriodSet()) {
+                retVal.setPeriod(scalingPolicy.getPeriod());
+            }
+
+            if (scalingPolicy.isEvaluationPeriodsSet()) {
+                retVal.setEvaluationPeriods(scalingPolicy.getEvaluationPeriods());
+            }
+
+            if (scalingPolicy.isCooldownSet()) {
+                retVal.setCooldown(scalingPolicy.getCooldown());
+            }
+
+            if (scalingPolicy.isDimensionsSet()) {
+                List<ScalingDimension> dimensions = scalingPolicy.getDimensions();
+
+                if (dimensions != null) {
+                    List<ApiScalingDimension> optimizerScalingDimensions =
+                            dimensions.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setDimensions(optimizerScalingDimensions);
+                }
+            }
+
+            if (scalingPolicy.isActionSet()) {
+                retVal.setAction(toDal(scalingPolicy.getAction()));
+            }
+
+            if (scalingPolicy.isOperatorSet()) {
+                retVal.setOperator(scalingPolicy.getOperator());
+            }
+
+            if (scalingPolicy.isIsEnabledSet()) {
+                retVal.setIsEnabled(scalingPolicy.getIsEnabled());
+            }
+        }
+
+        return retVal;
+    }
+
+
+    private static ApiScalingDimension toDal(ScalingDimension scalingDimension) {
+        ApiScalingDimension retVal = null;
+
+        if (scalingDimension != null) {
+            retVal = new ApiScalingDimension();
+
+            if (scalingDimension.isNameSet()) {
+                retVal.setName(scalingDimension.getName());
+            }
+
+            if (scalingDimension.isValueSet()) {
+                retVal.setValue(scalingDimension.getValue());
+            }
+        }
+
+        return retVal;
+    }
+
+
+    private static ApiScalingAction toDal(ScalingAction scalingAction) {
+        ApiScalingAction retVal = null;
+
+        if (scalingAction != null) {
+            retVal = new ApiScalingAction();
+
+            if (scalingAction.isTypeSet() && scalingAction.getType() != null) {
+                retVal.setType(scalingAction.getType().getName());
+            }
+
+            if (scalingAction.isAdjustmentSet()) {
+                retVal.setAdjustment(scalingAction.getAdjustment());
+            }
+
+            if (scalingAction.isMinTargetCapacitySet()) {
+                retVal.setMinTargetCapacity(scalingAction.getMinTargetCapacity());
+            }
+
+            if (scalingAction.isTargetSet()) {
+                retVal.setTarget(scalingAction.getTarget());
+            }
+
+            if (scalingAction.isMinimumSet()) {
+                retVal.setMinimum(scalingAction.getMinimum());
+            }
+
+            if (scalingAction.isMaximumSet()) {
+                retVal.setMaximum(scalingAction.getMaximum());
+            }
+        }
+
+        return retVal;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -650,6 +857,10 @@ class ElastigroupConverter {
 
             if (apiElastigroup.isCapacitySet()) {
                 elastigroupBuilder.setCapacity(toBl(apiElastigroup.getCapacity()));
+            }
+
+            if (apiElastigroup.isScalingSet()) {
+                elastigroupBuilder.setScaling(toBl(apiElastigroup.getScaling()));
             }
 
             if (apiElastigroup.isStrategySet()) {
@@ -1061,6 +1272,12 @@ class ElastigroupConverter {
                 }
             }
 
+            if (launchSpecification.isLoadBalancersConfigSet()) {
+                if (launchSpecification.getLoadBalancersConfig() != null) {
+                    retValBuilder.setLoadBalancersConfig(toBl(launchSpecification.getLoadBalancersConfig()));
+                }
+            }
+
             if (launchSpecification.isNetworkInterfacesSet()) {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<NetworkInterface> blNIC =
@@ -1156,6 +1373,26 @@ class ElastigroupConverter {
             if (blockDevice.isEbsSet()) {
                 retValBuilder.setEbsDevice(toBl(blockDevice.getEbs()));
             }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static LoadBalancer toBl(ApiLoadBalancer loadBalancer) {
+        LoadBalancer retVal = null;
+
+        if (loadBalancer != null) {
+            LoadBalancer.Builder retValBuilder = LoadBalancer.Builder.get();
+
+            if (loadBalancer.isNameSet()) {
+                retValBuilder.setName(loadBalancer.getName());
+            }
+
+            if (loadBalancer.isArnSet()) {
+                retValBuilder.setArn(loadBalancer.getArn());
+            }
+
             retVal = retValBuilder.build();
         }
 
@@ -1299,6 +1536,185 @@ class ElastigroupConverter {
 
             retVal = retValBuilder.build();
 
+        }
+
+        return retVal;
+    }
+
+
+    private static ElastigroupScalingConfiguration toBl(ApiScaling scaling) {
+        ElastigroupScalingConfiguration retVal = null;
+
+        if (scaling != null) {
+            ElastigroupScalingConfiguration.Builder retValBuilder = ElastigroupScalingConfiguration.Builder.get();
+
+            if (scaling.isUpSet()) {
+                if (scaling.getUp() != null) {
+                    List<ApiScalingPolicy> apiScalingPolicies = scaling.getUp();
+                    List<ScalingPolicy> scalingPolicies =
+                            apiScalingPolicies.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setUp(scalingPolicies);
+                }
+            }
+
+            if (scaling.isDownSet()) {
+                if (scaling.getDown() != null) {
+                    List<ApiScalingPolicy> apiScalingPolicies = scaling.getDown();
+                    List<ScalingPolicy> scalingPolicies =
+                            apiScalingPolicies.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setDown(scalingPolicies);
+                }
+            }
+
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static LoadBalancersConfig toBl(ApiLoadBalancersConfig loadBalancersConfig) {
+        LoadBalancersConfig retVal = null;
+
+        if (loadBalancersConfig != null) {
+            LoadBalancersConfig.Builder retValBuilder = LoadBalancersConfig.Builder.get();
+            List<ApiLoadBalancer>       loadBalancers = loadBalancersConfig.getLoadBalancers();
+
+            if (loadBalancersConfig.isLoadBalancersSet() && loadBalancers != null) {
+                List<LoadBalancer> blLoadBalancers =
+                        loadBalancers.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setLoadBalancers(blLoadBalancers);
+            }
+
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ScalingPolicy toBl(ApiScalingPolicy scalingPolicy) {
+        ScalingPolicy retVal = null;
+
+        if (scalingPolicy != null) {
+            ScalingPolicy.Builder retValBuilder = ScalingPolicy.Builder.get();
+
+            if (scalingPolicy.isPolicyNameSet()) {
+                retValBuilder.setPolicyName(scalingPolicy.getPolicyName());
+            }
+
+            if (scalingPolicy.isMetricNameSet()) {
+                retValBuilder.setMetricName(scalingPolicy.getMetricName());
+            }
+
+            if (scalingPolicy.isStatisticSet()) {
+                retValBuilder.setStatistic(scalingPolicy.getStatistic());
+            }
+
+            if (scalingPolicy.isExtendedStatisticSet()) {
+                retValBuilder.setExtendedStatistic(scalingPolicy.getExtendedStatistic());
+            }
+
+            if (scalingPolicy.isUnitSet()) {
+                retValBuilder.setUnit(scalingPolicy.getUnit());
+            }
+
+            if (scalingPolicy.isThresholdSet()) {
+                retValBuilder.setThreshold(scalingPolicy.getThreshold());
+            }
+
+            if (scalingPolicy.isNamespaceSet()) {
+                retValBuilder.setNamespace(scalingPolicy.getNamespace());
+            }
+
+            if (scalingPolicy.isPeriodSet()) {
+                retValBuilder.setPeriod(scalingPolicy.getPeriod());
+            }
+
+            if (scalingPolicy.isEvaluationPeriodsSet()) {
+                retValBuilder.setEvaluationPeriods(scalingPolicy.getEvaluationPeriods());
+            }
+
+            if (scalingPolicy.isCooldownSet()) {
+                retValBuilder.setCooldown(scalingPolicy.getCooldown());
+            }
+
+            if (scalingPolicy.isDimensionsSet()) {
+                if (scalingPolicy.getDimensions() != null) {
+                    List<ApiScalingDimension> apiDimensions = scalingPolicy.getDimensions();
+                    List<ScalingDimension> dimensions =
+                            apiDimensions.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setDimensions(dimensions);
+                }
+            }
+
+            if (scalingPolicy.isActionSet()) {
+                retValBuilder.setAction(toBl(scalingPolicy.getAction()));
+            }
+
+            if (scalingPolicy.isOperatorSet()) {
+                retValBuilder.setOperator(scalingPolicy.getOperator());
+            }
+
+            if (scalingPolicy.isIsEnabledSet()) {
+                retValBuilder.setIsEnabled(scalingPolicy.getIsEnabled());
+            }
+
+            retVal = retValBuilder.build();
+
+        }
+
+        return retVal;
+    }
+
+    private static ScalingDimension toBl(ApiScalingDimension scalingDimension) {
+        ScalingDimension retVal = null;
+
+        if (scalingDimension != null) {
+            retVal = new ScalingDimension();
+
+            if (scalingDimension.isNameSet()) {
+                retVal.setName(scalingDimension.getName());
+            }
+
+            if (scalingDimension.isValueSet()) {
+                retVal.setValue(scalingDimension.getValue());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ScalingAction toBl(ApiScalingAction scalingAction) {
+        ScalingAction retVal = null;
+
+        if (scalingAction != null) {
+            retVal = new ScalingAction();
+
+            if (scalingAction.isTypeSet()) {
+                if (scalingAction.getType() != null) {
+                    ScalingActionTypeEnum actionTypeEnum = ScalingActionTypeEnum.fromName(scalingAction.getType());
+                    retVal.setType(actionTypeEnum);
+                }
+            }
+
+            if (scalingAction.isAdjustmentSet()) {
+                retVal.setAdjustment(scalingAction.getAdjustment());
+            }
+
+            if (scalingAction.isMinTargetCapacitySet()) {
+                retVal.setMinTargetCapacity(scalingAction.getMinTargetCapacity());
+            }
+
+            if (scalingAction.isTargetSet()) {
+                retVal.setTarget(scalingAction.getTarget());
+            }
+
+            if (scalingAction.isMinimumSet()) {
+                retVal.setMinimum(scalingAction.getMinimum());
+            }
+
+            if (scalingAction.isMaximumSet()) {
+                retVal.setMaximum(scalingAction.getMaximum());
+            }
         }
 
         return retVal;

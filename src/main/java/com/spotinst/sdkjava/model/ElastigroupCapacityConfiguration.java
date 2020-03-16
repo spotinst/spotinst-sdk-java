@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,14 +11,16 @@ import java.util.Set;
 /**
  * Created by aharontwizer on 8/24/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElastigroupCapacityConfiguration {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private Integer minimum;
-    private Integer maximum;
-    private Integer target;
-    private String unit;
+    private Integer     minimum;
+    private Integer     maximum;
+    private Integer     target;
+    private String      unit;
     //endregion
 
     //region Constructor
@@ -63,9 +67,11 @@ public class ElastigroupCapacityConfiguration {
         this.target = target;
     }
 
-    public String getUnit(){ return unit; }
+    public String getUnit() {
+        return unit;
+    }
 
-    public void setUnit(String unit){
+    public void setUnit(String unit) {
         isSet.add("unit");
         this.unit = unit;
     }
@@ -82,7 +88,7 @@ public class ElastigroupCapacityConfiguration {
             this.capacity = new ElastigroupCapacityConfiguration();
         }
 
-        public static Builder get(){
+        public static Builder get() {
             Builder builder = new Builder();
             return builder;
         }
@@ -101,7 +107,8 @@ public class ElastigroupCapacityConfiguration {
             capacity.setTarget(target);
             return this;
         }
-        public Builder setUnit(final String unit){
+
+        public Builder setUnit(final String unit) {
             capacity.setUnit(unit);
             return this;
         }

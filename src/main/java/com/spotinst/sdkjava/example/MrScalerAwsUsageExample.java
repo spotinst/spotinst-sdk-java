@@ -132,7 +132,7 @@ public class MrScalerAwsUsageExample {
         appList.add(application);
 
         AvailabilityZone.Builder azBuilder = AvailabilityZone.Builder.get();
-        AvailabilityZone         az        = azBuilder.setName("us-west-2b").setSubnetId("subnet-1ba25052").build();
+        AvailabilityZone         az        = azBuilder.setName("us-west-2b").setSubnetId("subnet-01972f2531cb1ca4b").build();
 
         List<AvailabilityZone> availabilityZones = new ArrayList<>();
         availabilityZones.add(az);

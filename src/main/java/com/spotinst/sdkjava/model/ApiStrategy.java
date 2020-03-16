@@ -13,16 +13,17 @@ import java.util.Set;
  * Created by aharontwizer on 8/26/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiStrategy implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private Integer risk;
-    private Integer onDemandCount;
-    private String availabilityVsCost;
-    private Integer drainingTimeout;
-    private Boolean utilizeReservedInstances;
-    private Boolean fallbackToOd;
+    private Integer     risk;
+    private Integer     onDemandCount;
+    private String      availabilityVsCost;
+    private Integer     drainingTimeout;
+    private Boolean     utilizeReservedInstances;
+    private Boolean     fallbackToOd;
 
     //region Constructor
 

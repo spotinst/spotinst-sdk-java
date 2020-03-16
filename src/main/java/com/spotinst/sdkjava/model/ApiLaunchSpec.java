@@ -14,23 +14,25 @@ import java.util.Set;
  * Created by aharontwizer on 8/26/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiLaunchSpec implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String healthCheckType;
-    private Integer healthCheckGracePeriod;
-    private List<String> securityGroupIds;
-    private Boolean monitoring;
-    private Boolean ebsOptimized;
-    private String imageId;
-    private ApiIamRole iamRole;
-    private String keyPair;
-    private String userData;
-    private List<ApiBlockDevice> blockDeviceMappings;
+    private Set<String>               isSet;
+    private String                    healthCheckType;
+    private Integer                   healthCheckGracePeriod;
+    private List<String>              securityGroupIds;
+    private Boolean                   monitoring;
+    private Boolean                   ebsOptimized;
+    private String                    imageId;
+    private ApiIamRole                iamRole;
+    private String                    keyPair;
+    private String                    userData;
+    private List<ApiBlockDevice>      blockDeviceMappings;
     private List<ApiNetworkInterface> networkInterfaces;
-    private List<ApiTag> tags;
+    private List<ApiTag>              tags;
+    private ApiLoadBalancersConfig    loadBalancersConfig;
     //endregion
 
     //region Constructor
@@ -157,6 +159,14 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         this.tags = tags;
     }
 
+    public ApiLoadBalancersConfig getLoadBalancersConfig() {
+        return loadBalancersConfig;
+    }
+
+    public void setLoadBalancersConfig(ApiLoadBalancersConfig loadBalancersConfig) {
+        isSet.add("loadBalancersConfig");
+        this.loadBalancersConfig = loadBalancersConfig;
+    }
     //endregion
 
     //region isSet methods
@@ -242,6 +252,9 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         return isSet.contains("tags");
     }
 
-
+    @JsonIgnore
+    public boolean isLoadBalancersConfigSet() {
+        return isSet.contains("loadBalancersConfig");
+    }
     //endregion
 }

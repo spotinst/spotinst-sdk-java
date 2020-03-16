@@ -1,23 +1,27 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAwsInstancegroups {
     //region Members
     private BlMrScalerAwsMasterGroup masterGroup;
-    private BlMrScalerAwsCoreGroup coreGroup;
-    private BlMrScalerAwsTaskGroup taskGroup;
+    private BlMrScalerAwsCoreGroup   coreGroup;
+    private BlMrScalerAwsTaskGroup   taskGroup;
     // endregion
 
     //region Constructor
-    public BlMrScalerAwsInstancegroups() { }
+    public BlMrScalerAwsInstancegroups() {
+    }
     // endregion
 
     // region methods
     // region masterGroup
-    public BlMrScalerAwsMasterGroup getMasterGroup(){ return masterGroup; }
+    public BlMrScalerAwsMasterGroup getMasterGroup() {
+        return masterGroup;
+    }
 
     public void setMasterGroup(BlMrScalerAwsMasterGroup masterGroup) {
         this.masterGroup = masterGroup;
@@ -25,7 +29,9 @@ public class BlMrScalerAwsInstancegroups {
     // endregion
 
     // region coreGroup
-    public BlMrScalerAwsCoreGroup getCoreGroup(){ return coreGroup; }
+    public BlMrScalerAwsCoreGroup getCoreGroup() {
+        return coreGroup;
+    }
 
     public void setCoreGroup(BlMrScalerAwsCoreGroup coreGroup) {
         this.coreGroup = coreGroup;
@@ -33,7 +39,9 @@ public class BlMrScalerAwsInstancegroups {
     // endregion
 
     // region taskGroup
-    public BlMrScalerAwsTaskGroup getTaskGroup(){ return taskGroup; }
+    public BlMrScalerAwsTaskGroup getTaskGroup() {
+        return taskGroup;
+    }
 
     public void setTaskGroup(BlMrScalerAwsTaskGroup taskGroup) {
         this.taskGroup = taskGroup;

@@ -9,10 +9,11 @@ import java.util.List;
  * Created by talzur on 26/01/2017.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class ApiElastigroupScalingResponse {
     //region Members
     private List<ApiNewSpotRequest> newSpotRequests;
-    private List<ApiNewInstance> newInstances;
+    private List<ApiNewInstance>    newInstances;
     //endregion
     //region Getter an Setter methods
 

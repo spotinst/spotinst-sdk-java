@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -9,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * Created by aharontwizer on 8/24/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class ApiSubscription {
     //region Members
     private String id;

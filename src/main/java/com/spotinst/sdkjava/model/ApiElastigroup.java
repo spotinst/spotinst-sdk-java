@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.Set;
  * @since: 06/12/2016
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiElastigroup implements IPartialUpdateEntity {
     //region Members
@@ -24,6 +26,7 @@ class ApiElastigroup implements IPartialUpdateEntity {
     private String                     description;
     private String                     region;
     private ApiCapacity                capacity;
+    private ApiScaling                 scaling;
     private ApiStrategy                strategy;
     private ApiGroupCompute            compute;
     private Date                       createdAt;
@@ -101,6 +104,15 @@ class ApiElastigroup implements IPartialUpdateEntity {
     public void setCapacity(ApiCapacity capacity) {
         isSet.add("capacity");
         this.capacity = capacity;
+    }
+
+    public ApiScaling getScaling() {
+        return scaling;
+    }
+
+    public void setScaling(ApiScaling scaling) {
+        isSet.add("scaling");
+        this.scaling = scaling;
     }
 
     public ApiStrategy getStrategy() {
@@ -185,6 +197,10 @@ class ApiElastigroup implements IPartialUpdateEntity {
         return isSet.contains("capacity");
     }
 
+    @JsonIgnore
+    public boolean isScalingSet() {
+        return isSet.contains("scaling");
+    }
 
     // Is strategy Set boolean method
     @JsonIgnore

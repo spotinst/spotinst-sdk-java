@@ -14,12 +14,13 @@ import java.util.Set;
  * Created by ohadmuchnik on 12/07/2016.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiVolumePool implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String deviceName;
+    private Set<String>  isSet;
+    private String       deviceName;
     private List<String> volumeIds;
     //endregion
 

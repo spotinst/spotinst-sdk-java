@@ -176,8 +176,8 @@ public class SpotinstElastigroupClient {
      * either “minCreatedAt” and “maxCreatedAt or “activeFrom” and “activeTo”.
      * A combination of the two types together is not supported.
      *
-     * @param elastigroupGetAllRequest
-     * @return List<Elastigroup> which correspond to the given filters
+     * @param elastigroupGetAllRequest - a request that defines which elastigroups to fetch
+     * @return List of Elastigroups which correspond to the given filters
      */
     public List<Elastigroup> getAllElastigroups(ElastigroupGetAllRequest elastigroupGetAllRequest) {
         List<Elastigroup> retVal;

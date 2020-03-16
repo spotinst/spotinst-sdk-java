@@ -3,7 +3,9 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by aharontwizer on 8/27/15.
@@ -14,30 +16,24 @@ public class ScalingPolicy {
     //region Members
     // Partial Update support
     @JsonIgnore
-    private Set<String> isSet;
-    private String policyName;
-    private String metricName;
-    private String statistic;
-    private String unit;
-    private Float threshold;
-    private String namespace;
-    private Integer period;
-    private Integer evaluationPeriods;
-    private Integer cooldown;
+    private Set<String>            isSet = new HashSet<>();
+    private String                 policyName;
+    private String                 metricName;
+    private String                 statistic;
+    private String                 extendedStatistic;
+    private String                 unit;
+    private Float                  threshold;
+    private String                 namespace;
+    private Integer                period;
+    private Integer                evaluationPeriods;
+    private Integer                cooldown;
     private List<ScalingDimension> dimensions;
-    private ScalingAction action;
-    //endregion
-
-    //region Constructor
-
-    private ScalingPolicy() {
-        isSet = new HashSet<>();
-    }
+    private String                 operator;
+    private ScalingAction          action;
+    private Boolean                isEnabled;
     //endregion
 
     //region Getters & Setters
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -66,6 +62,15 @@ public class ScalingPolicy {
     private void setStatistic(String statistics) {
         isSet.add("statistic");
         this.statistic = statistics;
+    }
+
+    public String getExtendedStatistic() {
+        return extendedStatistic;
+    }
+
+    private void setExtendedStatistic(String extendedStatistic) {
+        isSet.add("extendedStatistic");
+        this.extendedStatistic = extendedStatistic;
     }
     //endregion
 
@@ -134,8 +139,10 @@ public class ScalingPolicy {
         isSet.add("cooldown");
         this.cooldown = cooldown;
     }
+    //endregion
 
 
+    //region Policy Name
     public String getPolicyName() {
         return policyName;
     }
@@ -143,6 +150,18 @@ public class ScalingPolicy {
     private void setPolicyName(String policyName) {
         isSet.add("policyName");
         this.policyName = policyName;
+    }
+    //endregion
+
+    //region is Enabled
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean enabled) {
+        isSet.add("isEnabled");
+        isEnabled = enabled;
     }
     //endregion
 
@@ -159,6 +178,18 @@ public class ScalingPolicy {
     //endregion
 
 
+    //region operator
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        isSet.add("operator");
+        this.operator = operator;
+    }
+    //endregion
+
+
     //region action
     public ScalingAction getAction() {
         return action;
@@ -168,23 +199,61 @@ public class ScalingPolicy {
         isSet.add("action");
         this.action = action;
     }
+    //endregion
+    //endregion
+
+    //region equals and hashCode
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ScalingPolicy that = (ScalingPolicy) o;
 
-        if (!policyName.equals(that.policyName)) return false;
-        if (!metricName.equals(that.metricName)) return false;
-        if (!statistic.equals(that.statistic)) return false;
-        if (!unit.equals(that.unit)) return false;
-        if (!threshold.equals(that.threshold)) return false;
-        if (!namespace.equals(that.namespace)) return false;
-        if (!period.equals(that.period)) return false;
-        if (!evaluationPeriods.equals(that.evaluationPeriods)) return false;
-        if (!cooldown.equals(that.cooldown)) return false;
-        if (!dimensions.equals(that.dimensions)) return false;
+        if (!policyName.equals(that.policyName)) {
+            return false;
+        }
+        if (!metricName.equals(that.metricName)) {
+            return false;
+        }
+        if (!statistic.equals(that.statistic)) {
+            return false;
+        }
+        if (!extendedStatistic.equals(that.extendedStatistic)) {
+            return false;
+        }
+        if (!unit.equals(that.unit)) {
+            return false;
+        }
+        if (!threshold.equals(that.threshold)) {
+            return false;
+        }
+        if (!namespace.equals(that.namespace)) {
+            return false;
+        }
+        if (!period.equals(that.period)) {
+            return false;
+        }
+        if (!evaluationPeriods.equals(that.evaluationPeriods)) {
+            return false;
+        }
+        if (!cooldown.equals(that.cooldown)) {
+            return false;
+        }
+        if (!dimensions.equals(that.dimensions)) {
+            return false;
+        }
+        if (!isEnabled.equals(that.isEnabled)) {
+            return false;
+        }
+
+        if (!operator.equals(that.operator)) {
+            return false;
+        }
         return action.equals(that.action);
 
     }
@@ -194,6 +263,7 @@ public class ScalingPolicy {
         int result = policyName.hashCode();
         result = 31 * result + metricName.hashCode();
         result = 31 * result + statistic.hashCode();
+        result = 31 * result + extendedStatistic.hashCode();
         result = 31 * result + unit.hashCode();
         result = 31 * result + threshold.hashCode();
         result = 31 * result + namespace.hashCode();
@@ -202,10 +272,10 @@ public class ScalingPolicy {
         result = 31 * result + cooldown.hashCode();
         result = 31 * result + dimensions.hashCode();
         result = 31 * result + action.hashCode();
+        result = 31 * result + operator.hashCode();
+        result = 31 * result + isEnabled.hashCode();
         return result;
     }
-    //endregion
-
     //endregion
 
     //region Builder class
@@ -216,7 +286,7 @@ public class ScalingPolicy {
             this.scalingPolicy = new ScalingPolicy();
         }
 
-        public static Builder get(){
+        public static Builder get() {
             Builder builder = new Builder();
             return builder;
         }
@@ -233,6 +303,11 @@ public class ScalingPolicy {
 
         public Builder setStatistic(final String statistic) {
             scalingPolicy.setStatistic(statistic);
+            return this;
+        }
+
+        public Builder setExtendedStatistic(final String extendedStatistic) {
+            scalingPolicy.setExtendedStatistic(extendedStatistic);
             return this;
         }
 
@@ -271,6 +346,16 @@ public class ScalingPolicy {
             return this;
         }
 
+        public Builder setOperator(final String operator) {
+            scalingPolicy.setOperator(operator);
+            return this;
+        }
+
+        public Builder setIsEnabled(final Boolean isEnabled) {
+            scalingPolicy.setIsEnabled(isEnabled);
+            return this;
+        }
+
         public Builder setEvaluationPeriods(final Integer evaluationPeriods) {
             scalingPolicy.setEvaluationPeriods(evaluationPeriods);
             return this;
@@ -304,6 +389,11 @@ public class ScalingPolicy {
         return isSet.contains("statistic");
     }
 
+    // Is extended statistic Set boolean method
+    @JsonIgnore
+    public boolean isExtendedStatisticSet() {
+        return isSet.contains("extendedStatistic");
+    }
 
     // Is unit Set boolean method
     @JsonIgnore
@@ -359,6 +449,17 @@ public class ScalingPolicy {
         return isSet.contains("action");
     }
 
+    // Is operator Set boolean method
+    @JsonIgnore
+    public boolean isOperatorSet() {
+        return isSet.contains("operator");
+    }
+
+    // Is operator Set boolean method
+    @JsonIgnore
+    public boolean isIsEnabledSet() {
+        return isSet.contains("isEnabled");
+    }
     //endregion
 
 

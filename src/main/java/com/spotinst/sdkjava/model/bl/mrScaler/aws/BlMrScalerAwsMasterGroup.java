@@ -1,26 +1,31 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAwsMasterGroup {
     //region Members
-    private List<String> instanceTypes;
-    private Integer target;
-    private String lifeCycle;
-    private BlMrScalerAwsFile configurations;
+    private List<String>                  instanceTypes;
+    private Integer                       target;
+    private String                        lifeCycle;
+    private BlMrScalerAwsFile             configurations;
     private BlMrScalerAwsEbsConfiguration ebsConfiguration;
     // endregion
 
     //region Constructor
-    public BlMrScalerAwsMasterGroup() { }
+    public BlMrScalerAwsMasterGroup() {
+    }
     // endregion
 
     // region methods
     // region instanceTypes
-    public List<String> getInstanceTypes(){ return instanceTypes; }
+    public List<String> getInstanceTypes() {
+        return instanceTypes;
+    }
 
     public void setInstanceTypes(List<String> instanceTypes) {
         this.instanceTypes = instanceTypes;
@@ -28,7 +33,9 @@ public class BlMrScalerAwsMasterGroup {
     // endregion
 
     // region target
-    public Integer getTarget(){ return target; }
+    public Integer getTarget() {
+        return target;
+    }
 
     public void setTarget(Integer target) {
         this.target = target;
@@ -36,7 +43,9 @@ public class BlMrScalerAwsMasterGroup {
     // endregion
 
     // region lifeCycle
-    public String getLifeCycle(){ return lifeCycle; }
+    public String getLifeCycle() {
+        return lifeCycle;
+    }
 
     public void setLifeCycle(String lifeCycle) {
         this.lifeCycle = lifeCycle;
@@ -44,7 +53,9 @@ public class BlMrScalerAwsMasterGroup {
     // endregion
 
     // region instanceTypes
-    public BlMrScalerAwsFile getConfigurations(){ return configurations; }
+    public BlMrScalerAwsFile getConfigurations() {
+        return configurations;
+    }
 
     public void setConfigurations(BlMrScalerAwsFile configurations) {
         this.configurations = configurations;
@@ -52,7 +63,9 @@ public class BlMrScalerAwsMasterGroup {
     // endregion
 
     // region ebsConfiguration
-    public BlMrScalerAwsEbsConfiguration getEbsConfiguration(){ return ebsConfiguration; }
+    public BlMrScalerAwsEbsConfiguration getEbsConfiguration() {
+        return ebsConfiguration;
+    }
 
     public void setEbsConfiguration(BlMrScalerAwsEbsConfiguration ebsConfiguration) {
         this.ebsConfiguration = ebsConfiguration;

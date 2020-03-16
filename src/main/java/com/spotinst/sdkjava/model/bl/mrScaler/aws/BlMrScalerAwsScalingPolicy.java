@@ -1,167 +1,172 @@
 package com.spotinst.sdkjava.model.bl.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAwsScalingPolicy {
     //region Members
-    private String policyName;
-    private String namespace;
-    private String metricName;
+    private String                               policyName;
+    private String                               namespace;
+    private String                               metricName;
     private List<BlMrScalerAwsScalingDimenation> dimensions;
-    private String statistic;
-    private String unit;
-    private Integer threshold;
-    private Integer adjustment;
-    private Integer minTargetCapacity;
-    private Integer period;
-    private Integer evaluationPeriods;
-    private Integer cooldown;
-    private BlMrScalerAwsScalingAction action;
-    private String operator;
+    private String                               statistic;
+    private String                               unit;
+    private Integer                              threshold;
+    private Integer                              adjustment;
+    private Integer                              minTargetCapacity;
+    private Integer                              period;
+    private Integer                              evaluationPeriods;
+    private Integer                              cooldown;
+    private BlMrScalerAwsScalingAction           action;
+    private String                               operator;
     // endregion
 
     //region Constructor
-    public BlMrScalerAwsScalingPolicy() { }
+    public BlMrScalerAwsScalingPolicy() {
+    }
     // endregion
 
     //region getters and setters
     // region policyName
-    public String getPolicyName(){
+    public String getPolicyName() {
         return policyName;
     }
 
-    public void setPolicyName(String policyName){
+    public void setPolicyName(String policyName) {
         this.policyName = policyName;
     }
     // endregion
 
     // region namespace
-    public String getNamespace(){
+    public String getNamespace() {
         return namespace;
     }
 
-    public void setNamespace(String namespace){
+    public void setNamespace(String namespace) {
         this.namespace = namespace;
     }
     // endregion
 
     // region metricName
-    public String getMetricName(){
+    public String getMetricName() {
         return metricName;
     }
 
-    public void setMetricName(String metricName){
+    public void setMetricName(String metricName) {
         this.metricName = metricName;
     }
     // endregion
 
     // region dimensions
-    public List<BlMrScalerAwsScalingDimenation> getDimensions(){
+    public List<BlMrScalerAwsScalingDimenation> getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(List<BlMrScalerAwsScalingDimenation> dimensions){
+    public void setDimensions(List<BlMrScalerAwsScalingDimenation> dimensions) {
         this.dimensions = dimensions;
     }
     // endregion
 
     // region statistic
-    public String getStatistic(){
+    public String getStatistic() {
         return statistic;
     }
 
-    public void setStatistic(String statistic){
+    public void setStatistic(String statistic) {
         this.statistic = statistic;
     }
     // endregion
 
     // region unit
-    public String getUnit(){
+    public String getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit){
+    public void setUnit(String unit) {
         this.unit = unit;
     }
     // endregion
 
     // region threshold
-    public Integer getThreshold(){
+    public Integer getThreshold() {
         return threshold;
     }
 
-    public void setThreshold(Integer threshold){
+    public void setThreshold(Integer threshold) {
         this.threshold = threshold;
     }
     // endregion
 
     // region adjustment
-    public Integer getAdjustment(){
+    public Integer getAdjustment() {
         return adjustment;
     }
 
-    public void setAdjustment(Integer adjustment){
+    public void setAdjustment(Integer adjustment) {
         this.adjustment = adjustment;
     }
     // endregion
 
     // region minTargetCapacity
-    public Integer getMinTargetCapacity(){ return minTargetCapacity; }
+    public Integer getMinTargetCapacity() {
+        return minTargetCapacity;
+    }
 
-    public void setMinTargetCapacity(Integer minTargetCapacity){
+    public void setMinTargetCapacity(Integer minTargetCapacity) {
         this.minTargetCapacity = minTargetCapacity;
     }
     // endregion
 
     // region period
-    public Integer getPeriod(){
+    public Integer getPeriod() {
         return period;
     }
 
-    public void setPeriod(Integer period){
+    public void setPeriod(Integer period) {
         this.period = period;
     }
     // endregion
 
     // region evaluationPeriods
-    public Integer getEvaluationPeriods(){
+    public Integer getEvaluationPeriods() {
         return evaluationPeriods;
     }
 
-    public void setEvaluationPeriods(Integer evaluationPeriods){
+    public void setEvaluationPeriods(Integer evaluationPeriods) {
         this.evaluationPeriods = evaluationPeriods;
     }
     // endregion
 
     // region cooldown
-    public Integer getCooldown(){
+    public Integer getCooldown() {
         return cooldown;
     }
 
-    public void setCooldown(Integer cooldown){
+    public void setCooldown(Integer cooldown) {
         this.cooldown = cooldown;
     }
     // endregion
 
     // region action
-    public BlMrScalerAwsScalingAction getAction(){
+    public BlMrScalerAwsScalingAction getAction() {
         return action;
     }
 
-    public void setAction(BlMrScalerAwsScalingAction action){
+    public void setAction(BlMrScalerAwsScalingAction action) {
         this.action = action;
     }
     // endregion
 
     // region operator
-    public String getOperator(){
+    public String getOperator() {
         return operator;
     }
 
-    public void setOperator(String operator){
+    public void setOperator(String operator) {
         this.operator = operator;
     }
     // endregion

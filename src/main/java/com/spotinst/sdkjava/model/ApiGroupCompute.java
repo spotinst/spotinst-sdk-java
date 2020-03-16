@@ -14,16 +14,17 @@ import java.util.Set;
  * Created by aharontwizer on 8/26/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiGroupCompute implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private ApiInstanceTypes instanceTypes;
-    private List<ApiPlacement> availabilityZones;
-    private String product;
-    private ApiLaunchSpec launchSpecification;
-    private List<String> elasticIps;
+    private Set<String>         isSet;
+    private ApiInstanceTypes    instanceTypes;
+    private List<ApiPlacement>  availabilityZones;
+    private String              product;
+    private ApiLaunchSpec       launchSpecification;
+    private List<String>        elasticIps;
     private List<ApiVolumePool> ebsVolumePool;
     //endregion
 

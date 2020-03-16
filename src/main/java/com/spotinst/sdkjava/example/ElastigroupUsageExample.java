@@ -1,21 +1,13 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
-import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
-import com.spotinst.sdkjava.enums.SubscriptionEventTypeEnum;
-import com.spotinst.sdkjava.enums.SubscriptionProtocolEnum;
+import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
@@ -23,10 +15,9 @@ public class ElastigroupUsageExample {
     private final static String act_id     = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
-    private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestGroup";
+    private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
     public static void main(String[] args) throws IOException {
-
         // Get elastigroup service client
         SpotinstElastigroupClient elastigroupClient = SpotinstClient.getElastigroupClient(auth_token, act_id);
 
@@ -57,6 +48,9 @@ public class ElastigroupUsageExample {
         // Update group
         updateGroup(elastigroupClient, elastigroupId);
 
+        // Detach Load Balancer
+        detachLoadBalancer(elastigroupClient, elastigroupId);
+
         // Scale Up
         scaleUpGroup(elastigroupClient, elastigroupId);
 
@@ -81,7 +75,7 @@ public class ElastigroupUsageExample {
 
         // Get Deleted Elastigroup
         getAllElastigroupsIncludeDeleted(elastigroupClient);
-}
+    }
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
         ElastigroupScalingRequest.Builder scalingRequestBuilder = ElastigroupScalingRequest.Builder.get();
@@ -246,20 +240,33 @@ public class ElastigroupUsageExample {
                 instanceTypesBuilder.setOnDemandType("c3.large").setSpotTypes(spotTypes).build();
 
         // Build group availability Zones
-        Placement.Builder placementBuilder = Placement.Builder.get();
-        List<String>      subnetIds        = new ArrayList<>();
-        subnetIds.add("subnet-03b7ed5b");
-        Placement placement = placementBuilder.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
         ArrayList<Placement> placements = new ArrayList<>();
+        Placement.Builder placementBuilder1 = Placement.Builder.get();
+        Placement.Builder placementBuilder2 = Placement.Builder.get();
+        List<String>      subnetIds        = new ArrayList<>();
+        subnetIds.add("subnet-020cf6648937b2272");
+        Placement placement = placementBuilder1.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
         placements.add(placement);
-
+        List<String> subnets2 = new LinkedList<>();
+        subnets2.add("subnet-01972f2531cb1ca4b");
+        Placement placement2 = placementBuilder2.setAvailabilityZoneName("us-west-2b").setSubnetIds(subnets2).build();
+        placements.add(placement2);
         // Build group launch spec
+
+        //Build Load Balancer Config
+        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
+        LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
+        LoadBalancer                loadBalancer              =
+                lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
+        LoadBalancersConfig loadBalancersConfig =
+                loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         List<String>                           securityGroupIds  = new ArrayList<>();
-        securityGroupIds.add("sg-5750fb2f");
+        securityGroupIds.add("sg-060d199c638390fa1");
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
-                                 .setKeyPair(key_pair_name).setDetailedMonitoring(true).build();
+                                 .setKeyPair(key_pair_name).setDetailedMonitoring(true)
+                                 .setLoadBalancersConfig(loadBalancersConfig).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
@@ -276,7 +283,7 @@ public class ElastigroupUsageExample {
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
+        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
 
 
         //build down
@@ -425,4 +432,35 @@ public class ElastigroupUsageExample {
         }
     }
 
+    private static void detachLoadBalancer(SpotinstElastigroupClient client, String elastigroupId) {
+        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
+        LoadBalancersConfig loadBalancersConfig =
+                loadBalancerConfigBuilder.setLoadBalancers(null).build();
+        ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
+        ElastigroupLaunchSpecification launchSpec =
+                launchSpecBuilder.setLoadBalancersConfig(loadBalancersConfig).build();
+
+        // Build group compute
+        ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
+        ElastigroupComputeConfiguration         compute        =
+                computeBuilder.setLaunchSpecification(launchSpec).build();
+
+        // Build elastigroup update
+        Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
+        Elastigroup elastigroupUpdate = updateElastigroupBuilder.setCompute(compute).build();
+
+        // Build elastigroup update request
+        ElastigroupUpdateRequest.Builder elastigroupUpdateRequestBuilder = ElastigroupUpdateRequest.Builder.get();
+        ElastigroupUpdateRequest updateRequest =
+                elastigroupUpdateRequestBuilder.setElastigroup(elastigroupUpdate).build();
+
+        // Convert elastigroup update to API object json
+        System.out.println(updateRequest.toJson());
+
+        // Update elastigroup
+        Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
+        if (updateSuccess) {
+            System.out.println("Group successfully detached its Load Balancer.");
+        }
+    }
 }

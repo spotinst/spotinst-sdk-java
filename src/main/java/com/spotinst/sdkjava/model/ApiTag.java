@@ -13,13 +13,14 @@ import java.util.Set;
  * Created by aharontwizer on 8/26/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiTag implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String tagKey;
-    private String tagValue;
+    private String      tagKey;
+    private String      tagValue;
     //endregion
 
     //region Constructors

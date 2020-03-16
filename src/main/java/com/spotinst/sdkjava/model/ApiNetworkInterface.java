@@ -13,17 +13,18 @@ import java.util.Set;
  * Created by aharontwizer on 8/26/15.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiNetworkInterface implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String description;
-    private Integer deviceIndex;
-    private Integer secondaryPrivateIpAddressCount;
-    private Boolean associatePublicIpAddress;
-    private Boolean deleteOnTermination;
-    private String networkInterfaceId;
+    private String      description;
+    private Integer     deviceIndex;
+    private Integer     secondaryPrivateIpAddressCount;
+    private Boolean     associatePublicIpAddress;
+    private Boolean     deleteOnTermination;
+    private String      networkInterfaceId;
     //endregion
 
     //region Constructor

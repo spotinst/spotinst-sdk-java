@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
  * Created by talzur on 12/12/2016.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class ApiElastigroupActiveInstance {
     //region Members
     private String instanceId;
@@ -16,7 +18,7 @@ class ApiElastigroupActiveInstance {
     private String product;
     private String availabilityZone;
     private String status;
-    private Date createdAt;
+    private Date   createdAt;
     //endregion
 
     //region Getter and setter methods

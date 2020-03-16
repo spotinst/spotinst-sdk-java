@@ -28,7 +28,6 @@ public class JsonMapper {
         // Set the filters.
         jsonMapper.setFilterProvider(filters);
 
-        jsonMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
     public static <T> T fromJson(String content, Class<T> contentClass) {

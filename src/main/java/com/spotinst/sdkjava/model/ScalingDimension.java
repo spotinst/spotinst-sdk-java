@@ -14,16 +14,9 @@ public class ScalingDimension {
 
     // Partial Update support
     @JsonIgnore
-    private Set<String> isSet;
-    private String name;
-    private String value;
-
-    //region Constructor
-
-    private ScalingDimension() {
-        isSet = new HashSet<>();
-    }
-    //endregion
+    private Set<String> isSet = new HashSet<>();
+    private String      name;
+    private String      value;
 
 
     public Set<String> getIsSet() {
@@ -47,19 +40,25 @@ public class ScalingDimension {
         return value;
     }
 
-    private void setValue(String value) {
+    public void setValue(String value) {
         isSet.add("value");
         this.value = value;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ScalingDimension that = (ScalingDimension) o;
 
-        if (!name.equals(that.name)) return false;
+        if (!name.equals(that.name)) {
+            return false;
+        }
         return !(value != null ? !value.equals(that.value) : that.value != null);
 
     }
@@ -70,6 +69,7 @@ public class ScalingDimension {
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
+
     //region Builder class
     public static class Builder {
         private ScalingDimension dimension;
@@ -78,7 +78,7 @@ public class ScalingDimension {
             this.dimension = new ScalingDimension();
         }
 
-        public static Builder get(){
+        public static Builder get() {
             Builder builder = new Builder();
             return builder;
         }
@@ -98,7 +98,7 @@ public class ScalingDimension {
             return dimension;
         }
     }
-//endregion
+    //endregion
 
     //region isSet methods
     // Is name Set boolean method

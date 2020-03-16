@@ -1,11 +1,13 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Created by talzur on 26/01/2017.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiNewSpotRequest {
     //region Members
     private String spotInstanceRequestId;
