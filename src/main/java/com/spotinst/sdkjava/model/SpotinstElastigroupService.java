@@ -304,6 +304,49 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+
+    public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiElastigroup, String authToken,
+                                         String account) throws SpotinstHttpException {
+
+        //Init retVal
+        ApiElastigroup retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/clone", apiEndpoint, sourceElastigroupId);
+
+        // Write to json
+        Map<String, ApiElastigroup> groupRequest = new HashMap<>();
+        groupRequest.put("group", apiElastigroup);
+        String body = JsonMapper.toJson(groupRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse cloneResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+
+        if (cloneResponse.getResponse().getCount() > 0) {
+            retVal = cloneResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
     /**
      * This function is the final step to scaling up your elastigroup. It takes in a scaling ElastigroupScalingRequest
      * object and build the queryParams, headers and uri to send as a Put request using the Module RestClient. The results

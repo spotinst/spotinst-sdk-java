@@ -666,6 +666,10 @@ class ElastigroupConverter {
                 retVal.setTarget(capacity.getTarget());
             }
 
+            if (capacity.isUnitSet()) {
+                retVal.setUnit(capacity.getUnit());
+            }
+
         }
 
         return retVal;
@@ -1534,8 +1538,11 @@ class ElastigroupConverter {
                 retValBuilder.setTarget(capacity.getTarget());
             }
 
-            retVal = retValBuilder.build();
+            if (capacity.isUnitSet()) {
+                retValBuilder.setUnit(capacity.getUnit());
+            }
 
+            retVal = retValBuilder.build();
         }
 
         return retVal;

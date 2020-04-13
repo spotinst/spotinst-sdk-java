@@ -22,8 +22,8 @@ class ApiCapacity implements IPartialUpdateEntity {
     private Integer     minimum;
     private Integer     maximum;
     private Integer     target;
+    private String      unit;
     //endregion
-
 
     //region Constructor
 
@@ -35,8 +35,6 @@ class ApiCapacity implements IPartialUpdateEntity {
     //endregion
 
     //region Getters & Setters
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -78,10 +76,19 @@ class ApiCapacity implements IPartialUpdateEntity {
         isSet.add("target");
         this.target = target;
     }
-
     //endregion
 
+    //region Unit
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        isSet.add("unit");
+        this.unit = unit;
+    }
     //endregion
+
     //region isset methods
     // Is minimum Set boolean method
     @JsonIgnore
@@ -100,6 +107,12 @@ class ApiCapacity implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isTargetSet() {
         return isSet.contains("target");
+    }
+
+    // Is unit Set boolean method
+    @JsonIgnore
+    public boolean isUnitSet() {
+        return isSet.contains("unit");
     }
 
     //endregion
