@@ -5,14 +5,15 @@ package com.spotinst.sdkjava.model;
  */
 class SpotinstRepoManager {
 
-    private static SpotinstRepoManager instance = new SpotinstRepoManager();
+    private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
     //endregion
     //region Members
-    private ISpotinstElastigroupRepo spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
-    private ISpotinstSubscriptionRepo spotinstSubscriptionRepo;
-    private ISpotinstSpectrumRepo spotinstSpectrumRepo;
-    private ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo;
+    private        ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
+    private        ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
+    private        ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
+    private        ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
+    private        ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
+    private        ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
 
     //region Constructor
     private SpotinstRepoManager() {
@@ -21,6 +22,7 @@ class SpotinstRepoManager {
         this.spotinstSubscriptionRepo = new SpotinstSubscriptionRepo();
         this.spotinstSpectrumRepo = new SpotinstSpectrumRepo();
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
+        this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
     }
     //endregion
 
@@ -68,6 +70,15 @@ class SpotinstRepoManager {
 
     public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo){
         this.spotinstMrScalerAwsRepo = spotinstMrScalerAwsRepo;
+    }
+
+    public ISpotinstElastigroupInstanceHealthinessRepo getSpotinstInstanceHealthinessRepo() {
+        return spotinstInstanceHealthinessRepo;
+    }
+
+    public void setSpotinstInstanceHealthinessRepo(
+            ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo) {
+        this.spotinstInstanceHealthinessRepo = spotinstInstanceHealthinessRepo;
     }
     //endregion
 

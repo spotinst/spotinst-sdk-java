@@ -12,13 +12,14 @@ import java.util.List;
  * Created by talzur on 11/01/2017.
  */
 public class SpotinstElastigroupClient {
-    private static final Logger                                 LOGGER =
+    private static final Logger                                      LOGGER =
             LoggerFactory.getLogger(SpotinstElastigroupClient.class);
     //region Members
-    private              String                                 authToken;
-    private              String                                 account;
-    private              ISpotinstElastigroupRepo               spotinstElastigroupRepo;
-    private              ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo;
+    private              String                                      authToken;
+    private              String                                      account;
+    private              ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
+    private              ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
+    private              ISpotinstElastigroupInstanceHealthinessRepo spotinstElastigroupInstanceHealthinessRepo;
     //endregion
 
     public ISpotinstElastigroupRepo getSpotinstElastigroupRepo() {
@@ -29,7 +30,6 @@ public class SpotinstElastigroupClient {
         this.spotinstElastigroupRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepo();
     }
 
-
     public ISpotinstElastigroupActiveInstanceRepo getSpotinstElastigroupActiveInstanceRepo() {
         return this.spotinstElastigroupActiveInstanceRepo;
     }
@@ -39,6 +39,14 @@ public class SpotinstElastigroupClient {
                 SpotinstRepoManager.getInstance().getSpotinstElastigroupActiveInstanceRepo();
     }
 
+    public ISpotinstElastigroupInstanceHealthinessRepo getSpotinstElastigroupInstanceHealthinessRepo() {
+        return this.spotinstElastigroupInstanceHealthinessRepo;
+    }
+
+    public void setInstanceHealthinessRepo() {
+        this.spotinstElastigroupInstanceHealthinessRepo =
+                SpotinstRepoManager.getInstance().getSpotinstInstanceHealthinessRepo();
+    }
     //region Constructor
 
     public SpotinstElastigroupClient(String authToken, String account) {
@@ -47,6 +55,7 @@ public class SpotinstElastigroupClient {
 
         setSpotinstElastigroupRepo();
         setSpotinstElastigroupActiveInstanceRepo();
+        setInstanceHealthinessRepo();
     }
 
     //endregion
@@ -183,6 +192,30 @@ public class SpotinstElastigroupClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to get active instances. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupInstanceHealthiness> getInstanceHealthiness(
+            ElastigroupGetInstanceHealthinessRequest elastigroupGetInstanceHealthinessRequest) {
+
+        List<ElastigroupInstanceHealthiness> retVal;
+
+        String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
+
+        RepoGenericResponse<List<ElastigroupInstanceHealthiness>> instancesHealthinessResponse =
+                getSpotinstElastigroupInstanceHealthinessRepo().getAll(elastigroupId, authToken, account);
+        if (instancesHealthinessResponse.isRequestSucceed()) {
+            retVal = instancesHealthinessResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = instancesHealthinessResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get instance healthiness of elastigroup. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

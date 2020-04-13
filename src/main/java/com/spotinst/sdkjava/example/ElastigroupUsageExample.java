@@ -64,6 +64,9 @@ public class ElastigroupUsageExample {
         System.out.println("Sleeping... waiting for provisioning 45 seconds.");
         sleep(100);
 
+        // Get instance healthiness
+        getInstanceHealthiness(elastigroupClient, elastigroupId);
+
         // Retrieve active instances
         List<String> activeInstanceIds = getActiveInstances(elastigroupClient, elastigroupId);
 
@@ -81,6 +84,45 @@ public class ElastigroupUsageExample {
 
         // Get Deleted Elastigroup
         getAllElastigroupsIncludeDeleted(elastigroupClient);
+    }
+
+    private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+        ElastigroupGetInstanceHealthinessRequest.Builder instanceHealthinessRequestBuilder =
+                ElastigroupGetInstanceHealthinessRequest.Builder.get();
+
+        ElastigroupGetInstanceHealthinessRequest instanceHealthinessRequest =
+                instanceHealthinessRequestBuilder.setElastigroupId(elastigroupId).build();
+        List<ElastigroupInstanceHealthiness> elastigroupInstanceHealthinesses =
+                elastigroupClient.getInstanceHealthiness(instanceHealthinessRequest);
+
+        List<String> healthyInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                   instance.getHealthStatus() ==
+                                                                                                   InstanceHealthStatusEnum.HEALTHY)
+                                                                          .map(ElastigroupInstanceHealthiness::getInstanceId)
+                                                                          .collect(Collectors.toList());
+
+        List<String> unhealthyInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                     instance.getHealthStatus() ==
+                                                                                                     InstanceHealthStatusEnum.UNHEALTHY)
+                                                                            .map(ElastigroupInstanceHealthiness::getInstanceId)
+                                                                            .collect(Collectors.toList());
+
+        List<String> insufficientDataInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                            instance.getHealthStatus() ==
+                                                                                                            InstanceHealthStatusEnum.INSUFFICIENT_DATA)
+                                                                                   .map(ElastigroupInstanceHealthiness::getInstanceId)
+                                                                                   .collect(Collectors.toList());
+
+        List<String> unknownHealthInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                         instance.getHealthStatus() ==
+                                                                                                         InstanceHealthStatusEnum.UNKNOWN)
+                                                                                .map(ElastigroupInstanceHealthiness::getInstanceId)
+                                                                                .collect(Collectors.toList());
+
+        System.out.println(String.format("%s Healthy instances: %s", healthyInstanceIds.size(), healthyInstanceIds));
+        System.out.println(String.format("%s Unhealthy instances: %s", unhealthyInstanceIds.size(), unhealthyInstanceIds));
+        System.out.println(String.format("%s Instances with insufficient healthiness data: %s", insufficientDataInstanceIds.size(), insufficientDataInstanceIds));
+        System.out.println(String.format("%s Instances with unknown health: %s", unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
     }
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -184,19 +226,20 @@ public class ElastigroupUsageExample {
     private static List<Elastigroup> getAllElastigroupsFilteredByName(SpotinstElastigroupClient client) {
 
         ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
-        ElastigroupGetAllRequest requestByName = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).build();
+        ElastigroupGetAllRequest         requestByName  = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).build();
 
         return client.getAllElastigroups(requestByName);
     }
 
     private static List<Elastigroup> getAllElastigroupsFilteredByDate(SpotinstElastigroupClient client) {
-        Date activeTo = new Date();
+        Date     activeTo = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
         Date activeFrom = calendar.getTime();
 
         ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
-        ElastigroupGetAllRequest requestByDates = requestBuilder.setActiveFrom(activeFrom).setActiveTo(activeTo).build();
+        ElastigroupGetAllRequest requestByDates =
+                requestBuilder.setActiveFrom(activeFrom).setActiveTo(activeTo).build();
 
         return client.getAllElastigroups(requestByDates);
     }
@@ -204,7 +247,8 @@ public class ElastigroupUsageExample {
     private static List<Elastigroup> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClient client) {
 
         ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
-        ElastigroupGetAllRequest requestByName = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).setIncludeDeleted(true).build();
+        ElastigroupGetAllRequest requestByName =
+                requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).setIncludeDeleted(true).build();
 
         return client.getAllElastigroups(requestByName);
     }

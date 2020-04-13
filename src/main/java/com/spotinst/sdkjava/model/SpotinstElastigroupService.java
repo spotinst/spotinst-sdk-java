@@ -167,6 +167,42 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static List<ApiInstanceHealthiness> getInstanceHealthiness(String elastigroupId, String authToken,
+                                                                      String account) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiInstanceHealthiness> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/instanceHealthiness", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupInstanceHealthinessApiResponse groupInstanceHealthinessResponse =
+                getCastedResponse(response, ElastigroupInstanceHealthinessApiResponse.class);
+
+        if (groupInstanceHealthinessResponse.getResponse().getItems().size() > 0) {
+            retVal = groupInstanceHealthinessResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
     public static ApiElastigroup getGroup(String elastigroupId, String authToken,
                                           String account) throws SpotinstHttpException {
         // Init retVal
@@ -306,7 +342,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
 
     public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiElastigroup, String authToken,
-                                         String account) throws SpotinstHttpException {
+                                            String account) throws SpotinstHttpException {
 
         //Init retVal
         ApiElastigroup retVal = null;
