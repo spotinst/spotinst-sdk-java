@@ -95,6 +95,27 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Elastigroup cloneElastigroup(ElastigroupCloneRequest elastigroupCloneRequest, String elastigroupId) {
+
+        Elastigroup retVal = null;
+
+        Elastigroup elastigroupToClone = elastigroupCloneRequest.getElastigroup();
+        RepoGenericResponse<Elastigroup> cloneResponse =
+                getSpotinstElastigroupRepo().clone(elastigroupId, elastigroupToClone, authToken, account);
+        if (cloneResponse.isRequestSucceed()) {
+            retVal = cloneResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = cloneResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to clone elastigroup. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
         Boolean retVal                = null;

@@ -174,4 +174,23 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
 
+    @Override
+    public RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupUpdate, String authToken,
+                                                  String account) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        ApiElastigroup apiElastigroup = ElastigroupConverter.toDal(groupUpdate);
+
+        try {
+            ApiElastigroup apiClonedElastigroup =
+                    SpotinstElastigroupService.cloneGroup(sourceElastigroupId, apiElastigroup, authToken, account);
+            Elastigroup    clonedElastigroup    = ElastigroupConverter.toBl(apiClonedElastigroup);
+            retVal = new RepoGenericResponse<>(clonedElastigroup);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
 }

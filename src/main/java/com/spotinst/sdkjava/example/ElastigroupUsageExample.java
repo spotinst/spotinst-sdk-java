@@ -24,6 +24,12 @@ public class ElastigroupUsageExample {
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
 
+        // Clone group
+        String clonedElastigroupId = cloneGroup(elastigroupClient, elastigroupId);
+
+        // Delete Clone
+        deleteElastigroup(elastigroupClient, clonedElastigroupId);
+
         // Get all Elastigroups
         getAllElastigroupsFilteredByDate(elastigroupClient);
         getAllElastigroupsFilteredByName(elastigroupClient);
@@ -404,6 +410,31 @@ public class ElastigroupUsageExample {
 
         // Get elastigroup Id
         return createdElastigroup.getId();
+    }
+
+    private static String cloneGroup(SpotinstElastigroupClient client, String elastigroupIdToClone) {
+        String retVal;
+
+        // Build elastigroup clone
+        Elastigroup.Builder cloneElastigroupBuilder = Elastigroup.Builder.get();
+        Elastigroup elastigroupModifications =
+                cloneElastigroupBuilder.setName("Cloned Elastigroup").build();
+
+        // Build elastigroup clone request
+        ElastigroupCloneRequest.Builder elastigroupCloneRequestBuilder = ElastigroupCloneRequest.Builder.get();
+        ElastigroupCloneRequest cloneRequest =
+                elastigroupCloneRequestBuilder.setElastigroup(elastigroupModifications).build();
+
+        // Convert elastigroup clone to API object json
+        System.out.println(cloneRequest.toJson());
+
+        // Clone elastigroup
+        Elastigroup clonedElastigroup = client.cloneElastigroup(cloneRequest, elastigroupIdToClone);
+        System.out.println("Group successfully cloned.");
+
+        retVal = clonedElastigroup.getId();
+
+        return retVal;
     }
 
     private static void updateGroup(SpotinstElastigroupClient client, String elastigroupId) {
