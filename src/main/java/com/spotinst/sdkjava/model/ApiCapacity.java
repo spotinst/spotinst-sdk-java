@@ -114,6 +114,5 @@ class ApiCapacity implements IPartialUpdateEntity {
     public boolean isUnitSet() {
         return isSet.contains("unit");
     }
-
     //endregion
 }

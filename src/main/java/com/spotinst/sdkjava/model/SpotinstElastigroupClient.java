@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -105,23 +106,20 @@ public class SpotinstElastigroupClient {
     }
 
     public Elastigroup cloneElastigroup(ElastigroupCloneRequest elastigroupCloneRequest, String elastigroupId) {
-
         Elastigroup retVal = null;
 
-        Elastigroup elastigroupToClone = elastigroupCloneRequest.getElastigroup();
+        Elastigroup elastigroupModifications = elastigroupCloneRequest.getElastigroup();
         RepoGenericResponse<Elastigroup> cloneResponse =
-                getSpotinstElastigroupRepo().clone(elastigroupId, elastigroupToClone, authToken, account);
+                getSpotinstElastigroupRepo().clone(elastigroupId, elastigroupModifications, authToken, account);
+
         if (cloneResponse.isRequestSucceed()) {
             retVal = cloneResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = cloneResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to clone elastigroup. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
+            String errorMessage = "Error encountered while attempting to clone elastigroup";
+            handleFailure(cloneResponse, errorMessage);
         }
+
         return retVal;
     }
 
@@ -201,23 +199,19 @@ public class SpotinstElastigroupClient {
 
     public List<ElastigroupInstanceHealthiness> getInstanceHealthiness(
             ElastigroupGetInstanceHealthinessRequest elastigroupGetInstanceHealthinessRequest) {
-
-        List<ElastigroupInstanceHealthiness> retVal;
+        List<ElastigroupInstanceHealthiness> retVal = new LinkedList<>();
 
         String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
 
         RepoGenericResponse<List<ElastigroupInstanceHealthiness>> instancesHealthinessResponse =
                 getSpotinstElastigroupInstanceHealthinessRepo().getAll(elastigroupId, authToken, account);
+
         if (instancesHealthinessResponse.isRequestSucceed()) {
             retVal = instancesHealthinessResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = instancesHealthinessResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to get instance healthiness of elastigroup. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
+            String errorMessage = "Error encountered while attempting to get instance healthiness of elastigroup";
+            handleFailure(instancesHealthinessResponse, errorMessage);
         }
 
         return retVal;
@@ -344,6 +338,13 @@ public class SpotinstElastigroupClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
+    }
+
+
+    private <T> void handleFailure(RepoGenericResponse<T> response, String errorMessage) {
+        List<HttpError> httpExceptions = response.getHttpExceptions();
+        LOGGER.error(String.format("%s. Errors: %s", errorMessage, httpExceptions));
+        throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
     }
     //endregion
 }

@@ -170,7 +170,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     public static List<ApiInstanceHealthiness> getInstanceHealthiness(String elastigroupId, String authToken,
                                                                       String account) throws SpotinstHttpException {
         // Init retVal
-        List<ApiInstanceHealthiness> retVal = new LinkedList<>();
+        List<ApiInstanceHealthiness> retVal;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -196,9 +196,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         ElastigroupInstanceHealthinessApiResponse groupInstanceHealthinessResponse =
                 getCastedResponse(response, ElastigroupInstanceHealthinessApiResponse.class);
 
-        if (groupInstanceHealthinessResponse.getResponse().getItems().size() > 0) {
-            retVal = groupInstanceHealthinessResponse.getResponse().getItems();
-        }
+        retVal = groupInstanceHealthinessResponse.getResponse().getItems();
 
         return retVal;
     }
@@ -341,18 +339,17 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
 
-    public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiElastigroup, String authToken,
+    public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiGroupModifications, String authToken,
                                             String account) throws SpotinstHttpException {
-
         //Init retVal
-        ApiElastigroup retVal = null;
+        ApiElastigroup retVal;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -367,7 +364,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Write to json
         Map<String, ApiElastigroup> groupRequest = new HashMap<>();
-        groupRequest.put("group", apiElastigroup);
+        groupRequest.put("group", apiGroupModifications);
         String body = JsonMapper.toJson(groupRequest);
 
         // Send the request.
@@ -376,9 +373,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         // Handle the response.
         ElastigroupApiResponse cloneResponse = getCastedResponse(response, ElastigroupApiResponse.class);
 
-        if (cloneResponse.getResponse().getCount() > 0) {
-            retVal = cloneResponse.getResponse().getItems().get(0);
-        }
+        retVal = cloneResponse.getResponse().getItems().get(0);
 
         return retVal;
     }

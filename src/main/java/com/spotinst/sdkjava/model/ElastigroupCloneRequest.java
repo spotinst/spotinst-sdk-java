@@ -17,14 +17,11 @@ public class ElastigroupCloneRequest {
     //endregion
 
     //region Private Constructor
-
     private ElastigroupCloneRequest() {
     }
-
     //endregion
 
     //region Getters & Setters
-
     public Elastigroup getElastigroup() {
         return elastigroup;
     }
@@ -32,8 +29,8 @@ public class ElastigroupCloneRequest {
     public void setElastigroup(Elastigroup elastigroup) {
         this.elastigroup = elastigroup;
     }
-
     //endregion
+
     public static class Builder {
         private ElastigroupCloneRequest elastigroupCreationRequest;
 
@@ -68,5 +65,4 @@ public class ElastigroupCloneRequest {
         return elastigroupJson;
     }
     //endregion
-
 }

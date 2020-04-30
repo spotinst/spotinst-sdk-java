@@ -22,7 +22,7 @@ public enum InstanceHealthStatusEnum {
     }
 
     private final        String name;
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(InstanceHealthStatusEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InstanceHealthStatusEnum.class);
 
     public static InstanceHealthStatusEnum fromName(String name)
     {

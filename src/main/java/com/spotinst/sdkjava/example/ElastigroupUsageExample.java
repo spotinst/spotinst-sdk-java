@@ -474,10 +474,9 @@ public class ElastigroupUsageExample {
 
         // Clone elastigroup
         Elastigroup clonedElastigroup = client.cloneElastigroup(cloneRequest, elastigroupIdToClone);
-        System.out.println("Group successfully cloned.");
-
         retVal = clonedElastigroup.getId();
 
+        System.out.println(String.format("Group successfully cloned - new group id: %s", retVal));
         return retVal;
     }
 

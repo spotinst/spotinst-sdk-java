@@ -1,5 +1,7 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.exception.SpotinstValidationException;
+
 /**
  * Created by yossi.elman on 13/04/2020.
  */
@@ -12,11 +14,9 @@ public class ElastigroupGetInstanceHealthinessRequest {
 
     private ElastigroupGetInstanceHealthinessRequest() {
     }
-
     //endregion
 
     //region Getter and Setter methods
-
     public String getElastigroupId() {
         return elastigroupId;
     }
@@ -36,7 +36,8 @@ public class ElastigroupGetInstanceHealthinessRequest {
         }
 
         public static ElastigroupGetInstanceHealthinessRequest.Builder get() {
-            ElastigroupGetInstanceHealthinessRequest.Builder builder = new ElastigroupGetInstanceHealthinessRequest.Builder();
+            ElastigroupGetInstanceHealthinessRequest.Builder builder =
+                    new ElastigroupGetInstanceHealthinessRequest.Builder();
             return builder;
         }
 
@@ -46,11 +47,14 @@ public class ElastigroupGetInstanceHealthinessRequest {
         }
 
         public ElastigroupGetInstanceHealthinessRequest build() {
-            // TODO : Validations
+
+            if (elastigroupInstanceHealthinessRequest.getElastigroupId() == null) {
+                throw new SpotinstValidationException("Invalid Request - group id must be specified");
+            }
+
             return elastigroupInstanceHealthinessRequest;
         }
 
     }
     //endregion
-
 }

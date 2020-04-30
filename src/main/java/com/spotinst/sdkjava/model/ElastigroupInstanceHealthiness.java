@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
 
 /**
@@ -12,7 +13,7 @@ public class ElastigroupInstanceHealthiness {
     private String                   spotRequestId;
     private String                   groupId;
     private String                   availabilityZone;
-    private String                   lifeCycle;
+    private AwsInstanceLifecycleEnum lifeCycle;
     private InstanceHealthStatusEnum healthStatus;
     //endregion
 
@@ -49,11 +50,11 @@ public class ElastigroupInstanceHealthiness {
         this.availabilityZone = availabilityZone;
     }
 
-    public String getLifeCycle() {
+    public AwsInstanceLifecycleEnum getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(String lifeCycle) {
+    public void setLifeCycle(AwsInstanceLifecycleEnum lifeCycle) {
         this.lifeCycle = lifeCycle;
     }
 

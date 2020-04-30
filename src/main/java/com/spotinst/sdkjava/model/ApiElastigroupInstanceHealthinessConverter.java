@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 
+import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
 
 /**
@@ -15,7 +16,12 @@ class ApiElastigroupInstanceHealthinessConverter {
         retVal.setSpotRequestId(apiInstanceHealthiness.getSpotRequestId());
         retVal.setGroupId(apiInstanceHealthiness.getGroupId());
         retVal.setAvailabilityZone(apiInstanceHealthiness.getAvailabilityZone());
-        retVal.setLifeCycle(apiInstanceHealthiness.getLifeCycle());
+
+        if (apiInstanceHealthiness.getLifeCycle() != null) {
+            AwsInstanceLifecycleEnum instanceHealthStatusEnum =
+                    AwsInstanceLifecycleEnum.fromName(apiInstanceHealthiness.getLifeCycle());
+            retVal.setLifeCycle(instanceHealthStatusEnum);
+        }
 
         if (apiInstanceHealthiness.getHealthStatus() != null) {
             InstanceHealthStatusEnum instanceHealthStatusEnum =

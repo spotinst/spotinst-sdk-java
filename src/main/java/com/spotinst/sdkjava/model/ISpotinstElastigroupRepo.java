@@ -13,6 +13,6 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<ElastigroupScalingResponse> scaleDown(ElastigroupScalingRequest scalingRequest,
                                                               String authToken, String account);
 
-    RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupUpdate, String authToken,
+    RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                            String account);
 }

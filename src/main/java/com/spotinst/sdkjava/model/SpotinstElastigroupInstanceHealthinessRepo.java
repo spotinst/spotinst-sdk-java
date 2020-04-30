@@ -26,7 +26,6 @@ public class SpotinstElastigroupInstanceHealthinessRepo implements ISpotinstElas
                                             .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(instanceHealthinesses);
-
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);

@@ -669,7 +669,6 @@ class ElastigroupConverter {
             if (capacity.isUnitSet()) {
                 retVal.setUnit(capacity.getUnit());
             }
-
         }
 
         return retVal;

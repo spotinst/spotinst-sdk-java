@@ -28,7 +28,7 @@ public enum AwsInstanceLifecycleEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create instance market type enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create instance life cycle enum for: " + name + ", but we don't support such type ");
         }
         return retVal;
     }
