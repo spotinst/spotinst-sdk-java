@@ -7,6 +7,9 @@ import java.net.URI;
 
 /**
  * Created by aharontwizer on 8/9/15.
+ *
+ * Based on Stack Overflow article.
+ * Ref: https://stackoverflow.com/a/3820549/11325676
  */
 @NotThreadSafe
 public class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
