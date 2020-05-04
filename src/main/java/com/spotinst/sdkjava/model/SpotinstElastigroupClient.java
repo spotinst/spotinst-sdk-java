@@ -1,5 +1,7 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.client.http.UserAgentConfig;
+import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.utils.TimeUtils;
@@ -51,12 +53,21 @@ public class SpotinstElastigroupClient {
     //region Constructor
 
     public SpotinstElastigroupClient(String authToken, String account) {
+        new SpotinstElastigroupClient(authToken, account, null);
+    }
+
+    public SpotinstElastigroupClient(String authToken, String account, List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
         this.account = account;
 
         setSpotinstElastigroupRepo();
         setSpotinstElastigroupActiveInstanceRepo();
         setInstanceHealthinessRepo();
+
+        if (userAgentConfigurations != null) {
+            LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
+            BaseSpotinstService.addCustomUserAgents(userAgentConfigurations);
+        }
     }
 
     //endregion

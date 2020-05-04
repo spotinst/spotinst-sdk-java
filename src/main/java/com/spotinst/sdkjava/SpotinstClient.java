@@ -1,11 +1,14 @@
 package com.spotinst.sdkjava;
 
 
+import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
+import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
 import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
 import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
-import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
+
+import java.util.List;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -21,6 +24,13 @@ public class SpotinstClient {
 
     public static SpotinstElastigroupClient getElastigroupClient(String authToken, String account) {
         SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, account);
+        return spotinstElastigroupClient;
+    }
+
+    public static SpotinstElastigroupClient getElastigroupClient(String authToken, String account,
+                                                                 List<UserAgentConfig> userAgentConfigurations) {
+        SpotinstElastigroupClient spotinstElastigroupClient =
+                new SpotinstElastigroupClient(authToken, account, userAgentConfigurations);
         return spotinstElastigroupClient;
     }
 
@@ -50,7 +60,7 @@ public class SpotinstClient {
         return spotinstSpectrumClient;
     }
 
-    public static SpotinstMrScalerAwsClient getMrScalerAwsClient(String authToken, String account){
+    public static SpotinstMrScalerAwsClient getMrScalerAwsClient(String authToken, String account) {
         SpotinstMrScalerAwsClient spotinstMrScalerAwsClient = new SpotinstMrScalerAwsClient(authToken, account);
         return spotinstMrScalerAwsClient;
     }
