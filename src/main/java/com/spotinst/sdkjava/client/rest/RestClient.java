@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.client.rest;
 
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.client.http.HttpDeleteWithBody;
+import com.spotinst.sdkjava.client.http.DeleteRequestWithBody;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
@@ -128,7 +128,7 @@ public class RestClient {
         String encodedUrl = UrlEncoder.encode(url);
 
         // Build the post request
-        HttpDeleteWithBody deleteRequest = new HttpDeleteWithBody(encodedUrl);
+        DeleteRequestWithBody deleteRequest = new DeleteRequestWithBody(encodedUrl);
 
         // Build the request body
         if (body != null) {
