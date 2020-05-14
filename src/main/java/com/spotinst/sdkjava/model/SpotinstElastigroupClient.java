@@ -51,9 +51,8 @@ public class SpotinstElastigroupClient {
                 SpotinstRepoManager.getInstance().getSpotinstInstanceHealthinessRepo();
     }
     //region Constructor
-
     public SpotinstElastigroupClient(String authToken, String account) {
-        new SpotinstElastigroupClient(authToken, account, null);
+        this(authToken, account, null);
     }
 
     public SpotinstElastigroupClient(String authToken, String account, List<UserAgentConfig> userAgentConfigurations) {
