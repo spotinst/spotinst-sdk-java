@@ -138,7 +138,7 @@ public class RestClient {
             } catch (UnsupportedEncodingException e) {
 
                 // TODO - Handle.
-                LOGGER.error("Exception when building put body", e);
+                LOGGER.error("Exception when building delete body", e);
             }
             deleteRequest.setEntity(entity);
         }

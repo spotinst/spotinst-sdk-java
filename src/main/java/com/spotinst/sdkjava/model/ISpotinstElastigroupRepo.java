@@ -15,4 +15,10 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                            String account);
+
+    RepoGenericResponse<Boolean> enterStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                           String account);
+
+    RepoGenericResponse<Boolean> exitStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                                  String account);
 }

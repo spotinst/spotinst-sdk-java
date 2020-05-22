@@ -24,6 +24,12 @@ public class ElastigroupUsageExample {
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
 
+        // Enter Group Standby
+        enterGroupStandby(elastigroupClient, elastigroupId);
+
+        // Exit Group Standby
+        exitGroupStandby(elastigroupClient, elastigroupId);
+
         // Clone group
         String clonedElastigroupId = cloneGroup(elastigroupClient, elastigroupId);
 
@@ -222,7 +228,6 @@ public class ElastigroupUsageExample {
         }
     }
 
-
     private static List<Elastigroup> getAllElastigroupsFilteredByName(SpotinstElastigroupClient client) {
 
         ElastigroupGetAllRequest.Builder requestBuilder = ElastigroupGetAllRequest.Builder.get();
@@ -411,7 +416,7 @@ public class ElastigroupUsageExample {
 
         tasksList.add(task2);
         SimpleDateFormat formatter    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        String           dateInString = "2020-05-18T02:00:00Z";
+        String           dateInString = "2021-05-18T02:00:00Z";
         Date             date         = null;
         try {
             date = formatter.parse(dateInString);
@@ -535,6 +540,34 @@ public class ElastigroupUsageExample {
         Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
         if (updateSuccess) {
             System.out.println("Group successfully detached its Load Balancer.");
+        }
+    }
+
+    private static void enterGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
+
+        // Build standby elastigroup request
+        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
+        ElastigroupStandbyRequest postRequest = elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+
+        // enter group standby
+        Boolean updateSuccess = client.enterGroupStandby(postRequest);
+
+        if (updateSuccess) {
+            System.out.println("Group successfully entered standby mode.");
+        }
+    }
+
+    private static void exitGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
+
+        // Build standby elastigroup request
+        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
+        ElastigroupStandbyRequest deleteRequest = elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+
+        // exit group standby
+        Boolean updateSuccess = client.exitGroupStandby(deleteRequest);
+
+        if (updateSuccess) {
+            System.out.println("Group successfully exited standby mode.");
         }
     }
 }

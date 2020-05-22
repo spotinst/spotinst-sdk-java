@@ -133,6 +133,46 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> elastigroupStandbyResponse =
+                getSpotinstElastigroupRepo().enterStandby(elastigroupStandbyRequest, authToken, account);
+        if (elastigroupStandbyResponse.isRequestSucceed()) {
+            retVal = elastigroupStandbyResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> elastigroupStandbyResponse =
+                getSpotinstElastigroupRepo().exitStandby(elastigroupStandbyRequest, authToken, account);
+        if (elastigroupStandbyResponse.isRequestSucceed()) {
+            retVal = elastigroupStandbyResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
         Boolean retVal                = null;
@@ -349,7 +389,6 @@ public class SpotinstElastigroupClient {
         }
         return retVal;
     }
-
 
     private <T> void handleFailure(RepoGenericResponse<T> response, String errorMessage) {
         List<HttpError> httpExceptions = response.getHttpExceptions();

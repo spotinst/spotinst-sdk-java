@@ -378,6 +378,76 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean enterGroupStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                            String account) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, standbyRequest.getElastigroupId());
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse updateResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean exitGroupStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                            String account) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, standbyRequest.getElastigroupId());
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse updateResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
     /**
      * This function is the final step to scaling up your elastigroup. It takes in a scaling ElastigroupScalingRequest
      * object and build the queryParams, headers and uri to send as a Put request using the Module RestClient. The results

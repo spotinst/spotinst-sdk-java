@@ -97,7 +97,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
-
     @Override
     public RepoGenericResponse<List<Elastigroup>> getAll(GroupFilter filter, String authToken, String account) {
         RepoGenericResponse<List<Elastigroup>> retVal;
@@ -173,7 +172,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
-
     @Override
     public RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                                   String account) {
@@ -185,6 +183,38 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     SpotinstElastigroupService.cloneGroup(sourceElastigroupId, apiGroupModifications, authToken, account);
             Elastigroup clonedElastigroup = ElastigroupConverter.toBl(apiClonedElastigroup);
             retVal = new RepoGenericResponse<>(clonedElastigroup);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> enterStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                                    String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupService.enterGroupStandby(standbyRequest, authToken, account);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> exitStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+                                                         String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupService.exitGroupStandby(standbyRequest, authToken, account);
+            retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
