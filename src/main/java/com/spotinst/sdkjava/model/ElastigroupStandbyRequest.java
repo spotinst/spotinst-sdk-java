@@ -1,5 +1,7 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.exception.SpotinstValidationException;
+
 /**
  * Created by Adiv.s. on 18/05/2020.
  */
@@ -42,6 +44,11 @@ public class ElastigroupStandbyRequest {
         }
 
         public ElastigroupStandbyRequest build() {
+            if (elastigroupStandbyRequest.getElastigroupId() == null) {
+                throw new SpotinstValidationException(
+                        "Invalid Request - elastigroupId must be set");
+            }
+
             return elastigroupStandbyRequest;
         }
     }

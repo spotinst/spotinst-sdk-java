@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.utils.TimeUtils;
@@ -135,9 +136,10 @@ public class SpotinstElastigroupClient {
 
     public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
+        String groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().enterStandby(elastigroupStandbyRequest, authToken, account);
+                getSpotinstElastigroupRepo().enterStandby(groupId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -155,9 +157,10 @@ public class SpotinstElastigroupClient {
 
     public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
+        String groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().exitStandby(elastigroupStandbyRequest, authToken, account);
+                getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -390,6 +393,80 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public SuspendedProcesses suspendProcess(ElastigroupSuspendProcessesRequest suspendProcessesRequest) {
+        SuspendedProcesses retVal;
+
+        String elastigroupId = suspendProcessesRequest.getElastigroupId();
+        List<ProcessSuspension> suspensions = suspendProcessesRequest.getSuspensions();
+
+        RepoGenericResponse<SuspendedProcesses> suspendProcessesResponse =
+                getSpotinstElastigroupRepo().suspendProcesses(elastigroupId, suspensions, authToken, account);
+
+        if (suspendProcessesResponse.isRequestSucceed()) {
+            retVal = suspendProcessesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = suspendProcessesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public SuspendedProcesses removeSuspensions(ElastigroupRemoveSuspensionsRequest request) {
+
+        SuspendedProcesses retVal;
+
+        String                elastigroupId = request.getElastigroupId();
+        List<ProcessNameEnum> processNames   = request.getProcesses();
+
+        RepoGenericResponse<SuspendedProcesses> removeSuspensionsResponse =
+                getSpotinstElastigroupRepo().removeSuspensions(elastigroupId, processNames, authToken, account);
+
+        if (removeSuspensionsResponse.isRequestSucceed()) {
+            retVal = removeSuspensionsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = removeSuspensionsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to remove process suspensions. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public SuspendedProcesses getSuspendedProcesses(ElastigroupGetSuspensionsRequest request) {
+
+        SuspendedProcesses retVal;
+
+        String elastigroupId = request.getElastigroupId();
+
+        RepoGenericResponse<SuspendedProcesses> suspendedProcessesResponse =
+                getSpotinstElastigroupRepo().getSuspendedProcesses(elastigroupId, authToken, account);
+
+        if (suspendedProcessesResponse.isRequestSucceed()) {
+            retVal = suspendedProcessesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = suspendedProcessesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get process suspensions. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+    //endregion
+
+
+    //Private Methods
     private <T> void handleFailure(RepoGenericResponse<T> response, String errorMessage) {
         List<HttpError> httpExceptions = response.getHttpExceptions();
         LOGGER.error(String.format("%s. Errors: %s", errorMessage, httpExceptions));

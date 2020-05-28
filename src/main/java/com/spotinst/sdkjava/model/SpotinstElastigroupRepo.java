@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 
@@ -173,14 +174,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
-                                                  String account) {
+    public RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications,
+                                                  String authToken, String account) {
         RepoGenericResponse<Elastigroup> retVal;
-        ApiElastigroup apiGroupModifications = ElastigroupConverter.toDal(groupModifications);
+        ApiElastigroup                   apiGroupModifications = ElastigroupConverter.toDal(groupModifications);
 
         try {
-            ApiElastigroup apiClonedElastigroup =
-                    SpotinstElastigroupService.cloneGroup(sourceElastigroupId, apiGroupModifications, authToken, account);
+            ApiElastigroup apiClonedElastigroup = SpotinstElastigroupService
+                    .cloneGroup(sourceElastigroupId, apiGroupModifications, authToken, account);
             Elastigroup clonedElastigroup = ElastigroupConverter.toBl(apiClonedElastigroup);
             retVal = new RepoGenericResponse<>(clonedElastigroup);
         }
@@ -192,12 +193,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> enterStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
-                                                    String account) {
+    public RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.enterGroupStandby(standbyRequest, authToken, account);
+            Boolean success = SpotinstElastigroupService.enterGroupStandby(groupId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -208,16 +208,83 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> exitStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
-                                                         String account) {
+    public RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.exitGroupStandby(standbyRequest, authToken, account);
+            Boolean success = SpotinstElastigroupService.exitGroupStandby(groupId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId,
+                                                                    List<ProcessSuspension> suspensions,
+                                                                    String authToken, String account) {
+        RepoGenericResponse<SuspendedProcesses> retVal;
+        ApiSuspendProcessesRequest              request = new ApiSuspendProcessesRequest();
+
+        List<ApiProcessSuspension> apiSuspensions =
+                suspensions.stream().map(ApiProcessSuspensionConverter::toDal).collect(Collectors.toList());
+        request.setSuspensions(apiSuspensions);
+
+        try {
+            ApiSuspendedProcesses apiResponse =
+                    SpotinstElastigroupService.suspendProcesses(groupId, request, authToken, account);
+            SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(suspendedProcesses);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<SuspendedProcesses> removeSuspensions(String elastigroupId,
+                                                                     List<ProcessNameEnum> processes,
+                                                                     String authToken, String account) {
+        RepoGenericResponse<SuspendedProcesses> retVal;
+        ApiRemoveSuspensionsRequest             request = new ApiRemoveSuspensionsRequest();
+
+        List<String> processNames = processes.stream().map(ProcessNameEnum::getName).collect(Collectors.toList());
+        request.setProcesses(processNames);
+
+        try {
+            ApiSuspendedProcesses apiResponse =
+                    SpotinstElastigroupService.removeSuspensions(elastigroupId, request, authToken, account);
+            SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(suspendedProcesses);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<SuspendedProcesses> getSuspendedProcesses(String elastigroupId, String authToken,
+                                                                         String account) {
+        RepoGenericResponse<SuspendedProcesses> retVal;
+
+        try {
+            ApiSuspendedProcesses apiResponse =
+                    SpotinstElastigroupService.getSuspendedProcesses(elastigroupId, authToken, account);
+            SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(suspendedProcesses);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
         }
 
         return retVal;

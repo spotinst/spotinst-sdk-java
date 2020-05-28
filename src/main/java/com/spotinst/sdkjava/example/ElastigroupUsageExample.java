@@ -85,6 +85,24 @@ public class ElastigroupUsageExample {
         // Delete subscription (Terminate)
         deleteSubscription(subscriptionClient, createdTerminateSubscriptionId);
 
+        // Suspend AUTO_HEALING process
+        SuspendedProcesses activeSuspensions = suspendProcess(elastigroupClient, elastigroupId, ProcessNameEnum.AUTO_HEALING);
+
+        List<ProcessNameEnum> activeSuspensionNames =
+                activeSuspensions.getSuspensions().stream().map(ProcessSuspensionResult::getName).collect(Collectors.toList());
+
+        // Remove all active suspensions
+        removeSuspendedProcesses(elastigroupClient, activeSuspensions.getGroupId(), activeSuspensionNames);
+
+        // Enter Group Standby
+        enterGroupStandby(elastigroupClient, elastigroupId);
+
+        // List suspended processes
+        getSuspendedProcesses(elastigroupClient, elastigroupId);
+
+        // Exit Group Standby
+        exitGroupStandby(elastigroupClient, elastigroupId);
+
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
 
@@ -569,5 +587,56 @@ public class ElastigroupUsageExample {
         if (updateSuccess) {
             System.out.println("Group successfully exited standby mode.");
         }
+    }
+
+    private static SuspendedProcesses getSuspendedProcesses(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+        SuspendedProcesses retVal;
+
+        ElastigroupGetSuspensionsRequest.Builder requestBuilder = ElastigroupGetSuspensionsRequest.Builder.get();
+
+        ElastigroupGetSuspensionsRequest request = requestBuilder.setElastigroupId(elastigroupId).build();
+
+        retVal = elastigroupClient.getSuspendedProcesses(request);
+
+        List<String> suspendedProcesses =
+                retVal.getSuspensions().stream().filter(p -> p.getName() != null).map(p -> p.getName().getName())
+                      .collect(Collectors.toList());
+
+        System.out.println(String.format("Suspended processes: %s", suspendedProcesses));
+
+        return retVal;
+    }
+
+    private static SuspendedProcesses removeSuspendedProcesses(SpotinstElastigroupClient elastigroupClient,
+                                                               String groupId, List<ProcessNameEnum> processNames) {
+        SuspendedProcesses retVal;
+
+        ElastigroupRemoveSuspensionsRequest.Builder requestBuilder = ElastigroupRemoveSuspensionsRequest.Builder.get();
+
+        ElastigroupRemoveSuspensionsRequest request =
+                requestBuilder.setElastigroupId(groupId).setProcesses(processNames).build();
+
+        retVal = elastigroupClient.removeSuspensions(request);
+
+        System.out.println(String.format("Remaining suspended processes: %s", retVal.getProcesses()));
+
+        return retVal;
+    }
+
+    private static SuspendedProcesses suspendProcess(SpotinstElastigroupClient elastigroupClient, String elastigroupId,
+                                                     ProcessNameEnum processName) {
+        SuspendedProcesses retVal;
+
+        ElastigroupSuspendProcessesRequest.Builder requestBuilder = ElastigroupSuspendProcessesRequest.Builder.get();
+
+        ProcessSuspension.Builder suspensionBuilder = ProcessSuspension.Builder.get();
+        ProcessSuspension suspension = suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
+        List<ProcessSuspension> suspensions = Collections.singletonList(suspension);
+        ElastigroupSuspendProcessesRequest request =
+                requestBuilder.setElastigroupId(elastigroupId).setSuspensions(suspensions).build();
+
+        retVal = elastigroupClient.suspendProcess(request);
+
+        return retVal;
     }
 }

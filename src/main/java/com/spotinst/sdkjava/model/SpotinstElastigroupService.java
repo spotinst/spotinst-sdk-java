@@ -339,8 +339,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
 
-    public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiGroupModifications, String authToken,
-                                            String account) throws SpotinstHttpException {
+    public static ApiElastigroup cloneGroup(String sourceElastigroupId, ApiElastigroup apiGroupModifications,
+                                            String authToken, String account) throws SpotinstHttpException {
         //Init retVal
         ApiElastigroup retVal;
 
@@ -378,7 +378,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean enterGroupStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
+    public static Boolean enterGroupStandby(String groupId, String authToken,
                                             String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
@@ -399,7 +399,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, standbyRequest.getElastigroupId());
+        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, groupId);
 
         // Send the request.
         RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
@@ -413,8 +413,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean exitGroupStandby(ElastigroupStandbyRequest standbyRequest, String authToken,
-                                            String account) throws SpotinstHttpException {
+    public static Boolean exitGroupStandby(String groupId, String authToken,
+                                           String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
 
@@ -423,7 +423,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -434,7 +434,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, standbyRequest.getElastigroupId());
+        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, groupId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
@@ -550,4 +550,123 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static ApiSuspendedProcesses suspendProcesses(String groupId, ApiSuspendProcessesRequest request,
+                                                         String authToken, String account) {
+        ApiSuspendedProcesses retVal;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/suspension", apiEndpoint, groupId);
+
+        // Write to json
+        String body = JsonMapper.toJson(request);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupSuspendedProcessesApiResponse castedResponse =
+                getCastedResponse(response, ElastigroupSuspendedProcessesApiResponse.class);
+
+        retVal = castedResponse.getResponse().getItems().get(0);
+
+        return retVal;
+    }
+
+    public static ApiSuspendedProcesses removeSuspensions(String groupId, ApiRemoveSuspensionsRequest request,
+                                                          String authToken, String account) {
+        ApiSuspendedProcesses retVal;
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/suspension", apiEndpoint, groupId);
+
+        // Write to json
+        String body = JsonMapper.toJson(request);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupSuspendedProcessesApiResponse castedResponse =
+                getCastedResponse(response, ElastigroupSuspendedProcessesApiResponse.class);
+
+        //When no remaining suspensions, items will be null
+        if (castedResponse.getResponse().getCount() > 0) {
+            retVal = castedResponse.getResponse().getItems().get(0);
+        }
+        else {
+            retVal = new ApiSuspendedProcesses(groupId);
+        }
+
+        return retVal;
+    }
+
+    public static ApiSuspendedProcesses getSuspendedProcesses(String elastigroupId, String authToken, String account) {
+        ApiSuspendedProcesses retVal;
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/suspension", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupSuspendedProcessesApiResponse castedResponse =
+                getCastedResponse(response, ElastigroupSuspendedProcessesApiResponse.class);
+
+        //When no remaining suspensions, items will be null
+        if (castedResponse.getResponse().getCount() > 0) {
+            retVal = castedResponse.getResponse().getItems().get(0);
+        }
+        else {
+            retVal = new ApiSuspendedProcesses(elastigroupId);
+        }
+
+        return retVal;
+    }
 }
