@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BlMrScalerAwsStrategyConfiguration {
     // region Members
-    private BlMrScalerAwsCloneStrategy       clone;
+    private BlMrScalerAwsCloneStrategy       cloning;
     private BlMrScalerAwsNewStrategy         newing;
     private BlMrScalerAwsWrapStrategy        wrapping;
     private BlMrScalerAwsProvisioningTimeout provisioningTimeout;
@@ -20,12 +20,12 @@ public class BlMrScalerAwsStrategyConfiguration {
 
     // region getters and setters
     // region Clone
-    public BlMrScalerAwsCloneStrategy getClone() {
-        return clone;
+    public BlMrScalerAwsCloneStrategy getCloning() {
+        return cloning;
     }
 
-    public void setClone(BlMrScalerAwsCloneStrategy clone) {
-        this.clone = clone;
+    public void setCloning(BlMrScalerAwsCloneStrategy cloning) {
+        this.cloning = cloning;
     }
     // endregion
 
