@@ -378,7 +378,7 @@ public class MrScalerAwsConverter {
                     blClone.setIncludeSteps(apiStrategy.getClone().getIncludeSteps());
                 }
 
-                blStrategy.setClone(blClone);
+                blStrategy.setCloning(blClone);
             }
 
             if (apiStrategy.isNewSet()) {
@@ -950,17 +950,17 @@ public class MrScalerAwsConverter {
         if (blStrategy != null) {
             apiStrategy = new ApiMrScalerAwsStrategyConfiguration();
 
-            if (blStrategy.getClone() != null) {
+            if (blStrategy.getCloning() != null) {
                 ApiMrScalerAwsCloneStrategy apiClone = new ApiMrScalerAwsCloneStrategy();
 
-                if (blStrategy.getClone().getOriginClusterId() != null) {
-                    apiClone.setOriginClusterId(blStrategy.getClone().getOriginClusterId());
+                if (blStrategy.getCloning().getOriginClusterId() != null) {
+                    apiClone.setOriginClusterId(blStrategy.getCloning().getOriginClusterId());
                 }
-                if (blStrategy.getClone().getNumberOfRetries() != null) {
-                    apiClone.setNumberOfRetries(blStrategy.getClone().getNumberOfRetries());
+                if (blStrategy.getCloning().getNumberOfRetries() != null) {
+                    apiClone.setNumberOfRetries(blStrategy.getCloning().getNumberOfRetries());
                 }
-                if (blStrategy.getClone().getIncludeSteps() != null) {
-                    apiClone.setIncludeSteps(blStrategy.getClone().getIncludeSteps());
+                if (blStrategy.getCloning().getIncludeSteps() != null) {
+                    apiClone.setIncludeSteps(blStrategy.getCloning().getIncludeSteps());
                 }
 
                 apiStrategy.setClone(apiClone);
