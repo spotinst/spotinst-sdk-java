@@ -368,7 +368,7 @@ public class MrScalerAwsConverter {
             if (apiStrategy.isCloneSet()) {
                 BlMrScalerAwsCloneStrategy blClone = null;
 
-                if(apiStrategy.getClone() != null) {
+                if (apiStrategy.getClone() != null) {
                     blClone = new BlMrScalerAwsCloneStrategy();
 
                     if (apiStrategy.getClone().isOriginClusterIdSet()) {
@@ -388,7 +388,7 @@ public class MrScalerAwsConverter {
             if (apiStrategy.isNewSet()) {
                 BlMrScalerAwsNewStrategy blNew = null;
 
-                if(apiStrategy.getNew() != null) {
+                if (apiStrategy.getNew() != null) {
                     blNew = new BlMrScalerAwsNewStrategy();
 
                     if (apiStrategy.getNew().isReleaseLabelSet()) {
@@ -405,7 +405,7 @@ public class MrScalerAwsConverter {
             if (apiStrategy.isWrapSet()) {
                 BlMrScalerAwsWrapStrategy blWrap = null;
 
-                if(apiStrategy.getWrap() != null) {
+                if (apiStrategy.getWrap() != null) {
                     blWrap = new BlMrScalerAwsWrapStrategy();
 
                     if (apiStrategy.getWrap().isSourceClusterIdSet()) {
@@ -419,7 +419,7 @@ public class MrScalerAwsConverter {
             if (apiStrategy.isProvisioningTimeoutSet()) {
                 BlMrScalerAwsProvisioningTimeout blProTimeout = null;
 
-                if(apiStrategy.getProvisioningTimeout() != null) {
+                if (apiStrategy.getProvisioningTimeout() != null) {
                     blProTimeout = new BlMrScalerAwsProvisioningTimeout();
 
                     if (apiStrategy.getProvisioningTimeout().isTimeoutSet()) {
