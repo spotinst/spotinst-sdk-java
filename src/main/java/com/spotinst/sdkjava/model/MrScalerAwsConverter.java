@@ -366,52 +366,68 @@ public class MrScalerAwsConverter {
             blStrategy = new BlMrScalerAwsStrategyConfiguration();
 
             if (apiStrategy.isCloneSet()) {
-                BlMrScalerAwsCloneStrategy blClone = new BlMrScalerAwsCloneStrategy();
+                BlMrScalerAwsCloneStrategy blClone = null;
 
-                if (apiStrategy.getClone().isOriginClusterIdSet()) {
-                    blClone.setOriginClusterId(apiStrategy.getClone().getOriginClusterId());
-                }
-                if (apiStrategy.getClone().isNumberOfRetriesSet()) {
-                    blClone.setNumberOfRetries(apiStrategy.getClone().getNumberOfRetries());
-                }
-                if (apiStrategy.getClone().isIncludeStepsSet()) {
-                    blClone.setIncludeSteps(apiStrategy.getClone().getIncludeSteps());
+                if(apiStrategy.getClone() != null) {
+                    blClone = new BlMrScalerAwsCloneStrategy();
+
+                    if (apiStrategy.getClone().isOriginClusterIdSet()) {
+                        blClone.setOriginClusterId(apiStrategy.getClone().getOriginClusterId());
+                    }
+                    if (apiStrategy.getClone().isNumberOfRetriesSet()) {
+                        blClone.setNumberOfRetries(apiStrategy.getClone().getNumberOfRetries());
+                    }
+                    if (apiStrategy.getClone().isIncludeStepsSet()) {
+                        blClone.setIncludeSteps(apiStrategy.getClone().getIncludeSteps());
+                    }
                 }
 
                 blStrategy.setCloning(blClone);
             }
 
             if (apiStrategy.isNewSet()) {
-                BlMrScalerAwsNewStrategy blNew = new BlMrScalerAwsNewStrategy();
+                BlMrScalerAwsNewStrategy blNew = null;
 
-                if (apiStrategy.getNew().isReleaseLabelSet()) {
-                    blNew.setReleaseLabel(apiStrategy.getNew().getReleaseLabel());
-                }
-                if (apiStrategy.getNew().isNumberOfRetriesSet()) {
-                    blNew.setNumberOfRetries(apiStrategy.getNew().getNumberOfRetries());
+                if(apiStrategy.getNew() != null) {
+                    blNew = new BlMrScalerAwsNewStrategy();
+
+                    if (apiStrategy.getNew().isReleaseLabelSet()) {
+                        blNew.setReleaseLabel(apiStrategy.getNew().getReleaseLabel());
+                    }
+                    if (apiStrategy.getNew().isNumberOfRetriesSet()) {
+                        blNew.setNumberOfRetries(apiStrategy.getNew().getNumberOfRetries());
+                    }
                 }
 
                 blStrategy.setNew(blNew);
             }
 
             if (apiStrategy.isWrapSet()) {
-                BlMrScalerAwsWrapStrategy blWrap = new BlMrScalerAwsWrapStrategy();
+                BlMrScalerAwsWrapStrategy blWrap = null;
 
-                if (apiStrategy.getWrap().isSourceClusterIdSet()) {
-                    blWrap.setSourceClusterId(apiStrategy.getWrap().getSourceClusterId());
+                if(apiStrategy.getWrap() != null) {
+                    blWrap = new BlMrScalerAwsWrapStrategy();
+
+                    if (apiStrategy.getWrap().isSourceClusterIdSet()) {
+                        blWrap.setSourceClusterId(apiStrategy.getWrap().getSourceClusterId());
+                    }
                 }
 
                 blStrategy.setWrapping(blWrap);
             }
 
             if (apiStrategy.isProvisioningTimeoutSet()) {
-                BlMrScalerAwsProvisioningTimeout blProTimeout = new BlMrScalerAwsProvisioningTimeout();
+                BlMrScalerAwsProvisioningTimeout blProTimeout = null;
 
-                if (apiStrategy.getProvisioningTimeout().isTimeoutSet()) {
-                    blProTimeout.setTimeout(apiStrategy.getProvisioningTimeout().getTimeout());
-                }
-                if (apiStrategy.getProvisioningTimeout().isTimeoutActionSet()) {
-                    blProTimeout.setTimeoutAction(apiStrategy.getProvisioningTimeout().getTimeoutAction());
+                if(apiStrategy.getProvisioningTimeout() != null) {
+                    blProTimeout = new BlMrScalerAwsProvisioningTimeout();
+
+                    if (apiStrategy.getProvisioningTimeout().isTimeoutSet()) {
+                        blProTimeout.setTimeout(apiStrategy.getProvisioningTimeout().getTimeout());
+                    }
+                    if (apiStrategy.getProvisioningTimeout().isTimeoutActionSet()) {
+                        blProTimeout.setTimeoutAction(apiStrategy.getProvisioningTimeout().getTimeoutAction());
+                    }
                 }
 
                 blStrategy.setProvisioningTimeout(blProTimeout);
