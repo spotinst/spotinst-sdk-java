@@ -2,9 +2,10 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.OceanKuberenetes.aws.ApiOceanCluster;
-import com.spotinst.sdkjava.model.bl.OceanKubernetes.aws.OceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.ApiOceanCluster;
+import com.spotinst.sdkjava.model.bl.ocean.OceanCluster;
 
+//todo lihi rename to Spot
 public class SpotinstOceanClusterRepo implements ISpotinstOceanClusterRepo {
 
     @Override
@@ -66,8 +67,8 @@ public class SpotinstOceanClusterRepo implements ISpotinstOceanClusterRepo {
 
         try {
             ApiOceanCluster apiOceanCluster = SpotinstOceanClusterService.getOcean(clusterId, authToken, account);
-            OceanCluster    elastigroup    = OceanConverter.toBl(apiOceanCluster);
-            retVal = new RepoGenericResponse<>(elastigroup);
+            OceanCluster    oceanCluster    = OceanConverter.toBl(apiOceanCluster);
+            retVal = new RepoGenericResponse<>(oceanCluster);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

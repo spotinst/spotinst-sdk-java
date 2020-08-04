@@ -16,7 +16,6 @@ class SpotinstRepoManager {
     private        ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private        ISpotinstOceanClusterRepo                   spotinstOceanClusterRepo;
 
-
     //region Constructor
     private SpotinstRepoManager() {
         this.spotinstElastigroupRepo = new SpotinstElastigroupRepo();

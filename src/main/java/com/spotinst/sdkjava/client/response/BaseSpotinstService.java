@@ -99,7 +99,6 @@ public class BaseSpotinstService {
         retVal.put("Content-Type", "application/json");
         retVal.put(HttpHeaders.USER_AGENT, getUserAgent());
 
-
         return retVal;
     }
 }

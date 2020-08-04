@@ -4,14 +4,16 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.OceanKuberenetes.aws.ApiOceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.ApiOceanCluster;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
 
+//todo lihi - rename to Spot
 public class SpotinstOceanClusterService extends BaseSpotinstService {
 
+    //todo lihi - specify that this is creating ocean k8s
     public static ApiOceanCluster createCluster(ApiOceanCluster clusterToCreate, String authToken,
                                                 String account) throws SpotinstHttpException {
         // Init retVal
@@ -31,7 +33,6 @@ public class SpotinstOceanClusterService extends BaseSpotinstService {
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
 
-
         // Write to json
         Map<String, ApiOceanCluster> clusterRequest = new HashMap<>();
         clusterRequest.put("cluster", clusterToCreate);
@@ -44,17 +45,17 @@ public class SpotinstOceanClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        ClusterApiResponse ClusterApiResponse = getCastedResponse(response, ClusterApiResponse.class);
+        ClusterApiResponse clusterApiResponse = getCastedResponse(response, ClusterApiResponse.class);
 
 
-        if (ClusterApiResponse.getResponse().getCount() > 0) {
-            retVal = ClusterApiResponse.getResponse().getItems().get(0);
+        if (clusterApiResponse.getResponse().getCount() > 0) {
+            retVal = clusterApiResponse.getResponse().getItems().get(0);
         }
 
         return retVal;
     }
 
-    public static Boolean deleteCluster(String ClusterId, String authToken,
+    public static Boolean deleteCluster(String clusterId, String authToken,
                                         String account) throws SpotinstHttpException {
 
         // Init retVal
@@ -75,7 +76,7 @@ public class SpotinstOceanClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        String uri = String.format("%s/ocean/aws/k8s/cluster/%s" + ClusterId, apiEndpoint);
+        String uri = String.format("%s/ocean/aws/k8s/cluster/%s" + clusterId, apiEndpoint);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);

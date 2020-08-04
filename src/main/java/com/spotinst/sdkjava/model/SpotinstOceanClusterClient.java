@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.OceanKubernetes.aws.*;
+import com.spotinst.sdkjava.model.bl.ocean.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +54,7 @@ public class SpotinstOceanClusterClient {
     }
 
     public Boolean updateCluster(ClusterUpdateRequest clusterUpdateRequest, String clusterId) {
-        Boolean retVal = null;
+        Boolean retVal;
 
         OceanCluster clusterToUpdate = clusterUpdateRequest.getCluster();
         RepoGenericResponse<Boolean> updateResponse =
@@ -76,6 +76,7 @@ public class SpotinstOceanClusterClient {
         Boolean retVal;
         String clusterToDeleteId = clusterDeletionRequest.getClusterId();
         RepoGenericResponse<Boolean> clusterDeletionResponse = getSpotinstOceanClusterRepo().delete(clusterToDeleteId, authToken, account);
+
         if (clusterDeletionResponse.isRequestSucceed()) {
             retVal = clusterDeletionResponse.getValue();
         } else {
@@ -88,16 +89,20 @@ public class SpotinstOceanClusterClient {
         return retVal;
     }
 
-    public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest){
-        OceanCluster retVal;
-        String clusterToGet = oceanClusterGetRequest.getClusterId();
-        RepoGenericResponse<OceanCluster> mrScalerGetRes = getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
-        if (mrScalerGetRes.isRequestSucceed()){
+    public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest) {
+        OceanCluster                      retVal;
+        String                            clusterToGet   = oceanClusterGetRequest.getClusterId();
+        //todo lihi - change mrScaler
+        RepoGenericResponse<OceanCluster> mrScalerGetRes =
+                getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
+        if (mrScalerGetRes.isRequestSucceed()) {
             retVal = mrScalerGetRes.getValue();
-        }else{
+        }
+        else {
             List<HttpError> httpExceptions = mrScalerGetRes.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get cluster. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 

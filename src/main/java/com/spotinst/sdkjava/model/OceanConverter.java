@@ -1,7 +1,9 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.api.OceanKuberenetes.aws.*;
+import com.spotinst.sdkjava.model.api.ocean.*;
 import com.spotinst.sdkjava.model.bl.OceanKubernetes.aws.*;
+import com.spotinst.sdkjava.model.bl.ocean.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -101,7 +103,8 @@ public class OceanConverter {
         return retval;
     }
 
-    private static ApiClusterResourceLimitsSpecification toDal(ClusterResourceLimitsSpecification resourceLimitsSpecification) {
+    private static ApiClusterResourceLimitsSpecification toDal(
+            ClusterResourceLimitsSpecification resourceLimitsSpecification) {
         ApiClusterResourceLimitsSpecification retVal = null;
 
         if (resourceLimitsSpecification != null) {
