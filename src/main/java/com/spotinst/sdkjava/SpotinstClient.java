@@ -3,10 +3,7 @@ package com.spotinst.sdkjava;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
-import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
-import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
-import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
-import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
+import com.spotinst.sdkjava.model.*;
 
 import java.util.List;
 
@@ -63,6 +60,11 @@ public class SpotinstClient {
     public static SpotinstMrScalerAwsClient getMrScalerAwsClient(String authToken, String account) {
         SpotinstMrScalerAwsClient spotinstMrScalerAwsClient = new SpotinstMrScalerAwsClient(authToken, account);
         return spotinstMrScalerAwsClient;
+    }
+
+    public static SpotinstOceanClusterClient getOceanClusterClient(String authToken, String account) {
+        SpotinstOceanClusterClient spotinstOceanClusterClient = new SpotinstOceanClusterClient(authToken, account);
+        return spotinstOceanClusterClient;
     }
 
     //endregion
