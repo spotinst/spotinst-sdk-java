@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OceanClusterUsageExample {
-    private final static String auth_token = "33016d3ae3388f8c85015813155481aeafaac718cc76d1d527fb605bf83a5015";
-    private final static String act_id     = "act-7c46c6df";
-    private final static String controllerClusterId = "testSdkCluster_2";
+    private final static String auth_token = "your token";
+    private final static String act_id     = "your Id";
+    private final static String controllerClusterId = "testSdkClusterid";
 
 
     public static void main(String[] args) throws IOException {
