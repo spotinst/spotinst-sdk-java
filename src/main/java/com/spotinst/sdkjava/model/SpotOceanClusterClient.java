@@ -92,13 +92,13 @@ public class SpotOceanClusterClient {
     public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest) {
         OceanCluster                      retVal;
         String                            clusterToGet   = oceanClusterGetRequest.getClusterId();
-        RepoGenericResponse<OceanCluster> ClusterRes =
+        RepoGenericResponse<OceanCluster> clusterRes =
                 getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
-        if (ClusterRes.isRequestSucceed()) {
-            retVal = ClusterRes.getValue();
+        if (clusterRes.isRequestSucceed()) {
+            retVal = clusterRes.getValue();
         }
         else {
-            List<HttpError> httpExceptions = ClusterRes.getHttpExceptions();
+            List<HttpError> httpExceptions = clusterRes.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
                                        httpException.getCode(), httpException.getMessage()));

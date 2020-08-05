@@ -10,6 +10,15 @@ import java.util.stream.Collectors;
 
 public class OceanConverter {
     //region BL -> DAL
+
+    //todo lihi - something like that in a separate converter
+
+    //    public static ApiOceanK8sCluster toDal(OceanK8sCluster src) {
+    //        ApiOceanCluster apiOcean = super.toDal(src);
+    //        apiOcean.setAutoScaler(src.);
+    //
+    //    }
+
     public static ApiOceanCluster toDal(OceanCluster src) {
         ApiOceanCluster apiCluster = null;
 
@@ -25,7 +34,7 @@ public class OceanConverter {
             if (src.isRegionSet()) {
                 apiCluster.setRegion(src.getRegion());
             }
-            if (src.iscontrollerClusterIdSet()) {
+            if (src.isControllerClusterIdSet()) {
                 apiCluster.setControllerClusterId(src.getControllerClusterId());
             }
             if (src.isAutoScalerSet()) {
@@ -49,7 +58,7 @@ public class OceanConverter {
     }
 
     private static ApiClusterCapacityConfiguration toDal(ClusterCapacityConfiguration capacity) {
-        ApiClusterCapacityConfiguration retVal=null;
+        ApiClusterCapacityConfiguration retVal = null;
 
         if (capacity != null) {
             retVal = new ApiClusterCapacityConfiguration();
@@ -71,29 +80,30 @@ public class OceanConverter {
     }
 
     private static ApiClusterAutoScalerConfiguration toDal(ClusterAutoScalerConfiguration autoScaler) {
-        ApiClusterAutoScalerConfiguration retval =null;
-        if(autoScaler != null){
+        ApiClusterAutoScalerConfiguration retval = null;
+
+        if (autoScaler != null) {
             retval = new ApiClusterAutoScalerConfiguration();
 
-            if(autoScaler.isIsEnabledSet()){
+            if (autoScaler.isIsEnabledSet()) {
                 retval.setIsEnabled(autoScaler.getIsEnabled());
             }
-            if(autoScaler.isCooldownSet()){
+            if (autoScaler.isCooldownSet()) {
                 retval.setCooldown(autoScaler.getCooldown());
             }
-            if(autoScaler.isResourceLimits()){
+            if (autoScaler.isResourceLimits()) {
                 retval.setResourceLimits(toDal(autoScaler.getResourceLimits()));
             }
-            if(autoScaler.isDownSet()){
+            if (autoScaler.isDownSet()) {
                 retval.setDown(toDal(autoScaler.getDown()));
             }
-            if(autoScaler.isHeadroomSet()){
+            if (autoScaler.isHeadroomSet()) {
                 retval.setHeadroom(toDal(autoScaler.getHeadroom()));
             }
-            if(autoScaler.isIsAutoConfigSet()){
+            if (autoScaler.isIsAutoConfigSet()) {
                 retval.setIsAutoConfig(autoScaler.getIsAutoConfig());
             }
-            if(autoScaler.isAutoHeadroomPercentageSet()){
+            if (autoScaler.isAutoHeadroomPercentageSet()) {
                 retval.setAutoHeadroomPercentage(autoScaler.getAutoHeadroomPrecentage());
             }
         }
@@ -158,28 +168,33 @@ public class OceanConverter {
 
     private static ApiClusterSchedulingConfiguration toDal(ClusterSchedulingConfiguration scheduling) {
         ApiClusterSchedulingConfiguration retVal = null;
+
         if (scheduling != null) {
             retVal = new ApiClusterSchedulingConfiguration();
+
             if (scheduling.isTasksSet()) {
                 if (scheduling.getTasks() != null) {
                     List<ApiClusterTasksSpecification> taskList =
                             scheduling.getTasks().stream().map(OceanConverter::toDal).collect(Collectors.toList());
                     retVal.setTasks(taskList);
                 }
-                if (scheduling.isShutdownHoursSet()){
-                    if(scheduling.getShutdownHours() != null){
+                if (scheduling.isShutdownHoursSet()) {
+                    if (scheduling.getShutdownHours() != null) {
                         retVal.setShutdownHours(toDal(scheduling.getShutdownHours()));
                     }
                 }
             }
         }
+
         return retVal;
     }
 
     private static ApiClusterTasksSpecification toDal(ClusterTasksSpecification tasksSpecification) {
         ApiClusterTasksSpecification retVal = null;
+
         if (tasksSpecification != null) {
             retVal = new ApiClusterTasksSpecification();
+
             if (tasksSpecification.isIsEnabledSet()) {
                 retVal.setIsEnabled(tasksSpecification.getIsEnabled());
             }
@@ -190,14 +205,17 @@ public class OceanConverter {
                 retVal.setTaskType(tasksSpecification.getTaskType());
             }
         }
+
         return retVal;
     }
 
-    private static ApiClusterShutdownHoursSpecification toDal(ClusterShutdownHoursSpecification shutdownHoursSpecification) {
+    private static ApiClusterShutdownHoursSpecification toDal(
+            ClusterShutdownHoursSpecification shutdownHoursSpecification) {
         ApiClusterShutdownHoursSpecification retVal = null;
 
         if (shutdownHoursSpecification != null) {
             retVal = new ApiClusterShutdownHoursSpecification();
+
             if (shutdownHoursSpecification.isIsEnabledSet()) {
                 retVal.setEnabled(shutdownHoursSpecification.getEnabled());
             }
@@ -205,6 +223,7 @@ public class OceanConverter {
                 retVal.setTimeWindows(shutdownHoursSpecification.getTimeWindows());
             }
         }
+
         return retVal;
 
     }
@@ -232,7 +251,7 @@ public class OceanConverter {
         if (compute != null) {
             retVal = new ApiClusterComputeConfiguration();
 
-            if(compute.isSubnetIdsSet()){
+            if (compute.isSubnetIdsSet()) {
                 retVal.setSubnetIds(compute.getSubnetIds());
             }
             if (compute.isInstanceTypesSet()) {
@@ -243,7 +262,7 @@ public class OceanConverter {
             }
         }
 
-        return retVal ;
+        return retVal;
     }
 
     private static ApiClusterInstanceTypes toDal(ClusterInstanceTypes instanceTypes) {
@@ -252,7 +271,7 @@ public class OceanConverter {
         if (instanceTypes != null) {
             retVal = new ApiClusterInstanceTypes();
 
-            if(instanceTypes.isBlacklistSet()){
+            if (instanceTypes.isBlacklistSet()) {
                 retVal.setBlacklist(instanceTypes.getBlacklist());
             }
             if (instanceTypes.isWhitelistSet()) {
@@ -260,15 +279,16 @@ public class OceanConverter {
             }
         }
 
-        return retVal ;
+        return retVal;
     }
+
     private static ApiClusterLaunchSpecification toDal(ClusterLaunchSpecification launchSpecification) {
         ApiClusterLaunchSpecification retVal = null;
 
         if (launchSpecification != null) {
             retVal = new ApiClusterLaunchSpecification();
 
-            if(launchSpecification.isImageIdSet()){
+            if (launchSpecification.isImageIdSet()) {
                 retVal.setImageId(launchSpecification.getImageId());
             }
             if (launchSpecification.isUserDataSet()) {
@@ -284,6 +304,7 @@ public class OceanConverter {
                 retVal.setKeyPair(launchSpecification.getKeyPair());
             }
             if (launchSpecification.isTagsSet()) {
+                //todo lihi - tags can be null
                 List<ApiTag> tagList =
                         launchSpecification.getTags().stream().map(OceanConverter::toDal).collect(Collectors.toList());
                 retVal.setTags(tagList);
@@ -302,11 +323,12 @@ public class OceanConverter {
             }
         }
 
-        return retVal ;
+        return retVal;
     }
 
     private static ApiTag toDal(Tag tag) {
         ApiTag retVal = null;
+
         if (tag != null) {
             if (tag.isTagKeySet() && tag.isTagValueSet()) {
                 retVal = new ApiTag(tag.getTagKey(), tag.getTagValue());
@@ -318,9 +340,11 @@ public class OceanConverter {
 
     private static ApiClusterIamInstanceProfileSpec toDal(ClusterIamInstanceProfileSpec iamInstanceProfileSpec) {
         ApiClusterIamInstanceProfileSpec retVal = null;
+
         if (iamInstanceProfileSpec != null) {
             retVal = new ApiClusterIamInstanceProfileSpec();
-            if (iamInstanceProfileSpec.isArnSet()){
+
+            if (iamInstanceProfileSpec.isArnSet()) {
                 retVal.setArn(iamInstanceProfileSpec.getArn());
             }
         }
@@ -359,13 +383,14 @@ public class OceanConverter {
 
         if (src != null) {
             OceanCluster.Builder clusterBuilder = OceanCluster.Builder.get();
+
             if (src.isIdSet()) {
                 clusterBuilder.setId(src.getId());
             }
             if (src.isNameSet()) {
                 clusterBuilder.setName(src.getName());
             }
-            if (src.iscontrollerClusterIdSet()) {
+            if (src.isControllerClusterIdSet()) {
                 clusterBuilder.setControllerClusterId(src.getControllerClusterId());
             }
             if (src.isRegionSet()) {
@@ -389,6 +414,8 @@ public class OceanConverter {
 
             cluster = clusterBuilder.build();
 
+            //todo lihi - what about updatedat? check if we return it in the api
+
             if (src.isCreatedAtSet()) {
                 cluster.setCreatedAt(src.getCreatedAt());
             }
@@ -397,29 +424,30 @@ public class OceanConverter {
     }
 
     private static ClusterAutoScalerConfiguration toBl(ApiClusterAutoScalerConfiguration apiAutoScaler) {
-        ClusterAutoScalerConfiguration retVal =null;
-        if(apiAutoScaler != null){
+        ClusterAutoScalerConfiguration retVal = null;
+
+        if (apiAutoScaler != null) {
             ClusterAutoScalerConfiguration.Builder autoScalerBuilder = ClusterAutoScalerConfiguration.Builder.get();
 
-            if(apiAutoScaler.isIsEnabledSet()){
+            if (apiAutoScaler.isIsEnabledSet()) {
                 autoScalerBuilder.setIsEnabled(apiAutoScaler.getIsEnabled());
             }
-            if(apiAutoScaler.isCooldownSet()){
+            if (apiAutoScaler.isCooldownSet()) {
                 autoScalerBuilder.setCooldown(apiAutoScaler.getCooldown());
             }
-            if(apiAutoScaler.isResourceLimits()){
+            if (apiAutoScaler.isResourceLimits()) {
                 autoScalerBuilder.setResourceLimits(toBl(apiAutoScaler.getResourceLimits()));
             }
-            if(apiAutoScaler.isDownSet()){
+            if (apiAutoScaler.isDownSet()) {
                 autoScalerBuilder.setDown(toBl(apiAutoScaler.getDown()));
             }
-            if(apiAutoScaler.isHeadroomSet()){
+            if (apiAutoScaler.isHeadroomSet()) {
                 autoScalerBuilder.setHeadroom(toBl(apiAutoScaler.getHeadroom()));
             }
-            if(apiAutoScaler.isIsAutoConfigSet()){
+            if (apiAutoScaler.isIsAutoConfigSet()) {
                 autoScalerBuilder.setIsAutoConfig(apiAutoScaler.getIsAutoConfig());
             }
-            if(apiAutoScaler.isAutoHeadroomPercentageSet()){
+            if (apiAutoScaler.isAutoHeadroomPercentageSet()) {
                 autoScalerBuilder.setAutoHeadroomPercentage(apiAutoScaler.getAutoHeadroomPrecentage());
             }
 
@@ -429,11 +457,13 @@ public class OceanConverter {
         return retVal;
     }
 
-    private static ClusterResourceLimitsSpecification toBl(ApiClusterResourceLimitsSpecification apiResourceLimitsSpecification) {
+    private static ClusterResourceLimitsSpecification toBl(
+            ApiClusterResourceLimitsSpecification apiResourceLimitsSpecification) {
         ClusterResourceLimitsSpecification retVal = null;
 
         if (apiResourceLimitsSpecification != null) {
-            ClusterResourceLimitsSpecification.Builder apiResourceLimitsBuilder = ClusterResourceLimitsSpecification.Builder.get();
+            ClusterResourceLimitsSpecification.Builder apiResourceLimitsBuilder =
+                    ClusterResourceLimitsSpecification.Builder.get();
 
             if (apiResourceLimitsSpecification.isMaxMemoryGibSet()) {
                 apiResourceLimitsBuilder.setMaxMemoryGib(apiResourceLimitsSpecification.getMaxMemoryGib());
@@ -496,8 +526,7 @@ public class OceanConverter {
             if (apiScheduling.isTasksSet()) {
                 if (apiScheduling.getTasks() != null) {
                     List<ClusterTasksSpecification> tasksConfigurationList =
-                            apiScheduling.getTasks().stream().map(OceanConverter::toBl)
-                                         .collect(Collectors.toList());
+                            apiScheduling.getTasks().stream().map(OceanConverter::toBl).collect(Collectors.toList());
                     schedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
@@ -526,7 +555,8 @@ public class OceanConverter {
         return bLTasks;
     }
 
-    private static ClusterShutdownHoursSpecification toBl(ApiClusterShutdownHoursSpecification apiShutdownHoursSpecification) {
+    private static ClusterShutdownHoursSpecification toBl(
+            ApiClusterShutdownHoursSpecification apiShutdownHoursSpecification) {
         ClusterShutdownHoursSpecification retVal = null;
 
         if (apiShutdownHoursSpecification != null) {
@@ -554,7 +584,9 @@ public class OceanConverter {
                 computeBuilder.setInstanceTypes(toBl(apicompute.getInstanceTypes()));
             }
             if (apicompute.isSubnetIdsSet()) {
+                //todo lihi - why do we check if it's null
                 if (apicompute.getSubnetIds() != null) {
+                    //todo lihi - why do we need a new list?
                     computeBuilder.setSubnetIds(new LinkedList<>(apicompute.getSubnetIds()));
                 }
             }
@@ -582,8 +614,10 @@ public class OceanConverter {
                 launchSpecBuilder.setUserData(apilaunchSpecification.getUserData());
             }
             if (apilaunchSpecification.isSecurityGroupIdsSet()) {
+                //todo lihi - why do we check if it's null
                 if (apilaunchSpecification.getSecurityGroupIds() != null) {
-                    launchSpecBuilder.setSecurityGroupIds(new LinkedList<>(apilaunchSpecification.getSecurityGroupIds()));
+                    launchSpecBuilder
+                            .setSecurityGroupIds(new LinkedList<>(apilaunchSpecification.getSecurityGroupIds()));
                 }
             }
             if (apilaunchSpecification.isIamInstanceProfileSet()) {
@@ -635,9 +669,10 @@ public class OceanConverter {
         ClusterIamInstanceProfileSpec retVal = null;
 
         if (apiIamInstanceProfileSpec != null) {
-            ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder = ClusterIamInstanceProfileSpec.Builder.get();
+            ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder =
+                    ClusterIamInstanceProfileSpec.Builder.get();
 
-            if (apiIamInstanceProfileSpec.isArnSet()){
+            if (apiIamInstanceProfileSpec.isArnSet()) {
                 iamInstanceProfileBuilder.setArn(apiIamInstanceProfileSpec.getArn());
             }
             retVal = iamInstanceProfileBuilder.build();
@@ -653,11 +688,13 @@ public class OceanConverter {
             ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
 
             if (apiInstanceTypes.isBlacklistSet()) {
+                //todo lihi - why do we check if it's null
                 if (apiInstanceTypes.getBlacklist() != null) {
                     apiInstanceTypes.setBlacklist(new LinkedList<>(apiInstanceTypes.getBlacklist()));
                 }
             }
             if (apiInstanceTypes.isWhitelistSet()) {
+                //todo lihi - why do we check if it's null
                 if (apiInstanceTypes.getWhitelist() != null) {
                     apiInstanceTypes.setWhitelist(new LinkedList<>(apiInstanceTypes.getWhitelist()));
                 }

@@ -75,6 +75,7 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
+        //todo lihi - instead of + user String.format
         String uri = String.format("%s/ocean/aws/k8s/cluster/" + clusterId, apiEndpoint);
 
         // Send the request.

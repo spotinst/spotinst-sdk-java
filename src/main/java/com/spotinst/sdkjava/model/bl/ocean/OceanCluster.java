@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by Lihi Shoham on 3/7/2020.
  */
-
+//todo lihi - remove these annotation
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 //todo lihi - add oceanK8sCluster class that inherits from this one and use it
@@ -230,7 +230,7 @@ public class OceanCluster {
     }
 
     @JsonIgnore
-    public boolean iscontrollerClusterIdSet() {
+    public boolean isControllerClusterIdSet() {
         return isSet.contains("controllerClusterId");
     }
 

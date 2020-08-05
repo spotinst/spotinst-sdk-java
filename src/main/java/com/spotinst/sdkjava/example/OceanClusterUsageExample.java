@@ -133,6 +133,7 @@ public class OceanClusterUsageExample {
 
         // Create cluster
         OceanCluster createdCluster = client.createCluster(creationRequest);
+        //todo lihi - createdCluster can be null
         System.out.println("Cluster successfully created: " + createdCluster.getId());
 
         return createdCluster.getId();
