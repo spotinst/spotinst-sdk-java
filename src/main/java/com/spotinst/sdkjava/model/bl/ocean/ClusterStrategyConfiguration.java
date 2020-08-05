@@ -96,7 +96,6 @@ public class ClusterStrategyConfiguration {
         }
 
         public ClusterStrategyConfiguration build() {
-            // TODO : Validations
             return strategy;
         }
     }

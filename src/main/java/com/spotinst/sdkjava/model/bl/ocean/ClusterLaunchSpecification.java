@@ -211,7 +211,6 @@ public class ClusterLaunchSpecification {
         }
 
         public ClusterLaunchSpecification build() {
-            // TODO : Validations
             return launchSpecification;
         }
     }

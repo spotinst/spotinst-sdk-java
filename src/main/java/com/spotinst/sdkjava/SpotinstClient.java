@@ -62,9 +62,9 @@ public class SpotinstClient {
         return spotinstMrScalerAwsClient;
     }
 
-    public static SpotinstOceanClusterClient getOceanClusterClient(String authToken, String account) {
-        SpotinstOceanClusterClient spotinstOceanClusterClient = new SpotinstOceanClusterClient(authToken, account);
-        return spotinstOceanClusterClient;
+    public static SpotOceanClusterClient getOceanClusterClient(String authToken, String account) {
+        SpotOceanClusterClient spotOceanClusterClient = new SpotOceanClusterClient(authToken, account);
+        return spotOceanClusterClient;
     }
 
     //endregion

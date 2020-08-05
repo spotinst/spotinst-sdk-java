@@ -8,14 +8,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class SpotinstOceanClusterClient {
-    private static final Logger                    LOGGER = LoggerFactory.getLogger(SpotinstOceanClusterClient.class);
+public class SpotOceanClusterClient {
+    private static final Logger                LOGGER = LoggerFactory.getLogger(SpotOceanClusterClient.class);
     //Members
-    private              String                    authToken;
-    private              String                    account;
-    private              ISpotinstOceanClusterRepo spotinstOceanClusterRepo;
+    private              String                authToken;
+    private              String                account;
+    private              ISpotOceanClusterRepo spotinstOceanClusterRepo;
 
-    public ISpotinstOceanClusterRepo getSpotinstOceanClusterRepo() {
+    public ISpotOceanClusterRepo getSpotinstOceanClusterRepo() {
         return spotinstOceanClusterRepo;
     }
 
@@ -24,7 +24,7 @@ public class SpotinstOceanClusterClient {
     }
 
     //Constructor
-    public SpotinstOceanClusterClient(String authToken, String account) {
+    public SpotOceanClusterClient(String authToken, String account) {
         this.authToken = authToken;
         this.account = account;
 
@@ -92,14 +92,13 @@ public class SpotinstOceanClusterClient {
     public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest) {
         OceanCluster                      retVal;
         String                            clusterToGet   = oceanClusterGetRequest.getClusterId();
-        //todo lihi - change mrScaler
-        RepoGenericResponse<OceanCluster> mrScalerGetRes =
+        RepoGenericResponse<OceanCluster> ClusterRes =
                 getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
-        if (mrScalerGetRes.isRequestSucceed()) {
-            retVal = mrScalerGetRes.getValue();
+        if (ClusterRes.isRequestSucceed()) {
+            retVal = ClusterRes.getValue();
         }
         else {
-            List<HttpError> httpExceptions = mrScalerGetRes.getHttpExceptions();
+            List<HttpError> httpExceptions = ClusterRes.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
                                        httpException.getCode(), httpException.getMessage()));

@@ -83,7 +83,6 @@ public class ClusterCapacityConfiguration {
         }
 
         public ClusterCapacityConfiguration build() {
-            // TODO : Validations
             return capacity;
         }
     }

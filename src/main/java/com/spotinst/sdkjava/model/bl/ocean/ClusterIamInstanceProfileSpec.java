@@ -53,7 +53,6 @@ public class ClusterIamInstanceProfileSpec {
         }
 
         public ClusterIamInstanceProfileSpec build() {
-            // TODO : Validations
             return iamInstanceProfile;
         }
     }

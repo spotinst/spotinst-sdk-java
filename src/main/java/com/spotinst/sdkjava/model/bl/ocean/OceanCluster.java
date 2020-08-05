@@ -151,7 +151,6 @@ public class OceanCluster {
         this.updatedAt = updatedAt;
     }
 
-    //todo- lihi- what is the use of it?
     public static class Builder {
         private OceanCluster cluster;
 

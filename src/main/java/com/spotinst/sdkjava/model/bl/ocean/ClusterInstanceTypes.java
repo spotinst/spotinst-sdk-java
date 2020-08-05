@@ -69,7 +69,6 @@ public class ClusterInstanceTypes {
         }
 
         public ClusterInstanceTypes build() {
-            // TODO : Validations
             return instanceTypes;
         }
     }

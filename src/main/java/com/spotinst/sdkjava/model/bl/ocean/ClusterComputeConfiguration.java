@@ -84,7 +84,6 @@ public class ClusterComputeConfiguration {
         }
 
         public ClusterComputeConfiguration build() {
-            // TODO : Validations
             return compute;
         }
     }

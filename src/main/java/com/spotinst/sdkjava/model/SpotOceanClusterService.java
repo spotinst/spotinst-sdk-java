@@ -10,8 +10,7 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-//todo lihi - rename to Spot
-public class SpotinstOceanClusterService extends BaseSpotinstService {
+public class SpotOceanClusterService extends BaseSpotinstService {
 
     //todo lihi - specify that this is creating ocean k8s
     public static ApiOceanCluster createCluster(ApiOceanCluster clusterToCreate, String authToken,
@@ -76,7 +75,7 @@ public class SpotinstOceanClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        String uri = String.format("%s/ocean/aws/k8s/cluster/%s" + clusterId, apiEndpoint);
+        String uri = String.format("%s/ocean/aws/k8s/cluster/" + clusterId, apiEndpoint);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);

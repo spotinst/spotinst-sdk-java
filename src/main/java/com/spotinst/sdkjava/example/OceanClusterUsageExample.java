@@ -1,23 +1,23 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.model.SpotinstOceanClusterClient;
+import com.spotinst.sdkjava.model.SpotOceanClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class OceanClusterUsageExample {
-    private final static String auth_token          =
-            "your token";
-    private final static String act_id              = "your Id";
+    private final static String auth_token          = "your-token";
+    private final static String act_id              = "your-account-id";
     private final static String controllerClusterId = "testSdkClusterid";
 
 
     public static void main(String[] args) {
-        SpotinstOceanClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, act_id);
+        SpotOceanClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, act_id);
 
         String clusterId = createCluster(clusterClient);
         System.out.println("Created a new cluster with id: " + clusterId);
@@ -26,7 +26,7 @@ public class OceanClusterUsageExample {
         deleteCluster(clusterClient, clusterId);
     }
 
-    private static String createCluster(SpotinstOceanClusterClient client) {
+    private static String createCluster(SpotOceanClusterClient client) {
         System.out.println("-------------------------start creating ocean cluster------------------------");
         //Build autoScaler
         ClusterDownSpecification.Builder downSpecBuilder = ClusterDownSpecification.Builder.get();
@@ -62,14 +62,11 @@ public class OceanClusterUsageExample {
         Tag.Builder tagsBuilder = Tag.Builder.get();
 
         //todo lihi -  extract all mandatory filed to be members of the class, that should be filled by whoever runs the example.
-        //todo lihi - change to more generic email
-        Tag       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("lihi.shoham@spot.io").build();
+        Tag       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("testingSdkOcean").build();
         List<Tag> tagsList = Collections.singletonList(tag1);
 
         //todo lihi - Arrays.asList
-        List<String> securityGroups = new ArrayList<>();
-        securityGroups.add("sg-0d8bb5479f633c0ac");
-        securityGroups.add("sg-a22000e8");
+        List<String> securityGroups = Arrays.asList("sg-0d8bb5479f633c0ac","sg-a22000e8");
 
         ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder = ClusterIamInstanceProfileSpec.Builder.get();
         ClusterIamInstanceProfileSpec iamInstanceProfileSpec =
@@ -141,7 +138,7 @@ public class OceanClusterUsageExample {
         return createdCluster.getId();
     }
 
-    private static void updateCluster(SpotinstOceanClusterClient client, String clusterId) {
+    private static void updateCluster(SpotOceanClusterClient client, String clusterId) {
         System.out.println("-------------------------start updating ocean cluster------------------------");
         //Create cluster update
         ClusterCapacityConfiguration.Builder updateCapacityBuilder = ClusterCapacityConfiguration.Builder.get();
@@ -150,9 +147,8 @@ public class OceanClusterUsageExample {
 
         // Build cluster update
         OceanCluster.Builder updateOceanClusterBuilder = OceanCluster.Builder.get();
-        //todo lihi - use the cluster name defined above
         OceanCluster oceanClusterUpdate =
-                updateOceanClusterBuilder.setCapacity(updateCapacity).setName("SpotinstTestClusterUpdate").build();
+                updateOceanClusterBuilder.setCapacity(updateCapacity).setName("Java-SDK-Testing-Update").build();
 
         ClusterUpdateRequest.Builder clusterUpdateRequestBuilder = ClusterUpdateRequest.Builder.get();
         ClusterUpdateRequest updateRequest = clusterUpdateRequestBuilder.setCluster(oceanClusterUpdate).build();
@@ -167,7 +163,7 @@ public class OceanClusterUsageExample {
         }
     }
 
-    private static void deleteCluster(SpotinstOceanClusterClient client, String clusterId) {
+    private static void deleteCluster(SpotOceanClusterClient client, String clusterId) {
         System.out.println("-------------------------start deleting ocean cluster------------------------");
         ClusterDeleteRequest.Builder deletionBuilder = ClusterDeleteRequest.Builder.get();
         ClusterDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
