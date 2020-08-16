@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.ocean.*;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
