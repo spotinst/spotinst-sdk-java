@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.ocean;
+package com.spotinst.sdkjava.model.api.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

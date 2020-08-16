@@ -4,7 +4,7 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.ApiOceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;

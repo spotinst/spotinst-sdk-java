@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.ocean;
+package com.spotinst.sdkjava.model.api.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +17,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-//todo lihi - test that you can update ocean by setting a field to be null
+//todo lihi - Done - test that you can update ocean by setting a field to be null
 //todo lihi - add oceanK8sCluster class that inherits from this one and use it
 public class ApiOceanCluster implements IPartialUpdateEntity {
     @JsonIgnore

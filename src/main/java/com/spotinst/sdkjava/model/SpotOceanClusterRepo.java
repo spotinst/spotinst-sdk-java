@@ -2,8 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.ApiOceanCluster;
-import com.spotinst.sdkjava.model.bl.ocean.OceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanCluster;
 
 public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
 

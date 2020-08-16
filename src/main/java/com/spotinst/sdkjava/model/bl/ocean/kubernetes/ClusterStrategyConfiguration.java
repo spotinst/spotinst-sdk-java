@@ -1,18 +1,10 @@
-package com.spotinst.sdkjava.model.api.ocean;
+package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
+public class ClusterStrategyConfiguration {
     @JsonIgnore
     private Set<String>                isSet;
     private Boolean                    fallbackToOd;
@@ -20,9 +12,11 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     private Integer                    drainingTimeout;
     private Integer                    gracePeriod;
 
-    public ApiClusterStrategyConfiguration() {
+
+    private ClusterStrategyConfiguration() {
         isSet = new HashSet<>();
     }
+
 
     public Set<String> getIsSet() {
         return isSet;
@@ -31,6 +25,7 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
+
 
     public Integer getDrainingTimeout() {
         return drainingTimeout;
@@ -66,6 +61,43 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     public void setGracePeriod(Integer gracePeriod) {
         isSet.add("gracePeriod");
         this.gracePeriod = gracePeriod;
+    }
+
+    public static class Builder {
+        private ClusterStrategyConfiguration strategy;
+
+        private Builder() {
+            this.strategy = new ClusterStrategyConfiguration();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setFallbackToOnDemand(final Boolean fallbackToOnDemand) {
+            strategy.setFallbackToOd(fallbackToOnDemand);
+            return this;
+        }
+
+        public Builder setUtilizeReservedInstances(final Boolean utilizeReservedInstances) {
+            strategy.setUtilizeReservedInstances(utilizeReservedInstances);
+            return this;
+        }
+
+        public Builder setDrainingTimeout(final Integer drainingTimeout) {
+            strategy.setDrainingTimeout(drainingTimeout);
+            return this;
+        }
+
+        public Builder setGracePeriod(final Integer gracePeriod) {
+            strategy.setGracePeriod(gracePeriod);
+            return this;
+        }
+
+        public ClusterStrategyConfiguration build() {
+            return strategy;
+        }
     }
 
     @JsonIgnore

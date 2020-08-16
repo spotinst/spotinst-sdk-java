@@ -1,12 +1,9 @@
-package com.spotinst.sdkjava.model.api.ocean;
+package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.ApiTag;
-import com.spotinst.sdkjava.model.LoadBalancersConfig;
+import com.spotinst.sdkjava.model.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,25 +11,24 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
+public class ClusterLaunchSpecification {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private String                           imageId;
-    private String                           userData;
-    private List<String>                     securityGroupIds;
-    private ApiClusterIamInstanceProfileSpec iamInstanceProfile;
-    private String                           keyPair;
-    private List<ApiTag>                     tags;
-    private LoadBalancersConfig              loadBalancersConfig;
-    private Boolean                          associatePublicIpAddress;
-    private Boolean                          monitoring;
-    private Boolean                          ebsOptimized;
-    private Integer                          rootVolumeSize;
+    private Set<String>                   isSet;
+    private String                        imageId;
+    private String                        userData;
+    private List<String>                  securityGroupIds;
+    private ClusterIamInstanceProfileSpec iamInstanceProfile;
+    private String                        keyPair;
+    private List<Tag>                     tags;
+    private LoadBalancersConfig           loadBalancersConfig;
+    private Boolean                       associatePublicIpAddress;
+    private Boolean                       monitoring;
+    private Boolean                       ebsOptimized;
+    private Integer                       rootVolumeSize;
 
 
-    public ApiClusterLaunchSpecification() {
+    private ClusterLaunchSpecification() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -92,11 +88,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.userData = userData;
     }
 
-    public List<ApiTag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<ApiTag> tags) {
+    public void setTags(List<Tag> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -110,11 +106,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.loadBalancersConfig = loadBalancersConfig;
     }
 
-    public ApiClusterIamInstanceProfileSpec getIamInstanceProfile() {
+    public ClusterIamInstanceProfileSpec getIamInstanceProfile() {
         return iamInstanceProfile;
     }
 
-    public void setIamInstanceProfile(ApiClusterIamInstanceProfileSpec iamInstanceProfile) {
+    public void setIamInstanceProfile(ClusterIamInstanceProfileSpec iamInstanceProfile) {
         isSet.add("iamInstanceProfile");
 
         this.iamInstanceProfile = iamInstanceProfile;
@@ -147,6 +143,77 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.rootVolumeSize = rootVolumeSize;
     }
 
+    public static class Builder {
+        private ClusterLaunchSpecification launchSpecification;
+
+        private Builder() {
+            this.launchSpecification = new ClusterLaunchSpecification();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setImageId(final String imageId) {
+            launchSpecification.setImageId(imageId);
+            return this;
+        }
+
+        public Builder setKeyPair(final String keyPair) {
+            launchSpecification.setKeyPair(keyPair);
+            return this;
+        }
+
+        public Builder setEbsOptimized(final Boolean ebsOptimized) {
+            launchSpecification.setEbsOptimized(ebsOptimized);
+            return this;
+        }
+
+        public Builder setUserData(final String userData) {
+            launchSpecification.setUserData(userData);
+            return this;
+        }
+
+        public Builder setSecurityGroupIds(final List<String> securityGroupIds) {
+            launchSpecification.setSecurityGroupIds(securityGroupIds);
+            return this;
+        }
+
+        public Builder setIamInstanceProfile(final ClusterIamInstanceProfileSpec iamInstanceProfile) {
+            launchSpecification.setIamInstanceProfile(iamInstanceProfile);
+            return this;
+        }
+
+        public Builder setAssociatePublicIpAddress(final Boolean associatePublicIpAddress) {
+            launchSpecification.setAssociatePublicIpAddress(associatePublicIpAddress);
+            return this;
+        }
+
+        public Builder setMonitoring(final Boolean monitoring) {
+            launchSpecification.setMonitoring(monitoring);
+            return this;
+        }
+
+        public Builder setRootVolumeSize(final Integer rootVolumeSize) {
+            launchSpecification.setRootVolumeSize(rootVolumeSize);
+            return this;
+        }
+
+        public Builder setLoadBalancersConfig(final LoadBalancersConfig loadBalancersConfig) {
+            launchSpecification.setLoadBalancersConfig(loadBalancersConfig);
+            return this;
+        }
+
+        public Builder setTags(final List<Tag> tags) {
+            launchSpecification.setTags(tags);
+            return this;
+        }
+
+        public ClusterLaunchSpecification build() {
+            return launchSpecification;
+        }
+    }
     @JsonIgnore
     public boolean isImageIdSet() {
         return isSet.contains("imageId");

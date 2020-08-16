@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.ocean;
+package com.spotinst.sdkjava.model.api.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,12 +12,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterIamInstanceProfileSpec implements IPartialUpdateEntity {
+
+public class ApiClusterDownSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private String      arn;
+    private Integer     maxScaleDownPercentage;
 
-    public ApiClusterIamInstanceProfileSpec() {
+    public ApiClusterDownSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -29,17 +30,17 @@ public class ApiClusterIamInstanceProfileSpec implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getArn() {
-        return arn;
+    public Integer getMaxScaleDownPercentage() {
+        return maxScaleDownPercentage;
     }
 
-    public void setArn(String arn) {
-        isSet.add("arn");
-        this.arn = arn;
+    public void setMaxScaleDownPercentage(Integer maxScaleDownPercentage) {
+        isSet.add("maxScaleDownPercentage");
+        this.maxScaleDownPercentage = maxScaleDownPercentage;
     }
 
     @JsonIgnore
-    public boolean isArnSet() {
-        return isSet.contains("arn");
+    public boolean isMaxScaleDownPercentageSet() {
+        return isSet.contains("maxScaleDownPercentage");
     }
 }

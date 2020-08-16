@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.api.ocean.*;
-import com.spotinst.sdkjava.model.bl.ocean.*;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 
 import java.util.LinkedList;
 import java.util.List;
