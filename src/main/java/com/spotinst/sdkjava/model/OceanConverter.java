@@ -11,14 +11,6 @@ import java.util.stream.Collectors;
 public class OceanConverter {
     //region BL -> DAL
 
-    //todo lihi - something like that in a separate converter
-
-    //    public static ApiOceanK8sCluster toDal(OceanK8sCluster src) {
-    //        ApiOceanCluster apiOcean = super.toDal(src);
-    //        apiOcean.setAutoScaler(src.);
-    //
-    //    }
-
     public static ApiOceanCluster toDal(OceanCluster src) {
         ApiOceanCluster apiCluster = null;
 
@@ -304,10 +296,11 @@ public class OceanConverter {
                 retVal.setKeyPair(launchSpecification.getKeyPair());
             }
             if (launchSpecification.isTagsSet()) {
-                //todo lihi - tags can be null
-                List<ApiTag> tagList =
-                        launchSpecification.getTags().stream().map(OceanConverter::toDal).collect(Collectors.toList());
-                retVal.setTags(tagList);
+                //todo lihi - done tags can be null
+                if (launchSpecification.getTags() != null) {
+                    List<ApiTag> tagList = launchSpecification.getTags().stream().map(OceanConverter::toDal).collect(Collectors.toList());
+                    retVal.setTags(tagList);
+                }
             }
             if (launchSpecification.isAssociatePublicIpAddressSet()) {
                 retVal.setAssociatePublicIpAddress(launchSpecification.getAssociatePublicIpAddress());
@@ -414,10 +407,15 @@ public class OceanConverter {
 
             cluster = clusterBuilder.build();
 
-            //todo lihi - what about updatedat? check if we return it in the api
+            //todo lihi - done what about updatedat? check if we return it in the api
 
+            // createdAt is not taken from builder since it cannot be set when creating/updating an cluster
             if (src.isCreatedAtSet()) {
                 cluster.setCreatedAt(src.getCreatedAt());
+            }
+
+            if (src.isUpdatedAtSet()) {
+                cluster.setUpdatedAt(src.getUpdatedAt());
             }
         }
         return cluster;
@@ -555,8 +553,7 @@ public class OceanConverter {
         return bLTasks;
     }
 
-    private static ClusterShutdownHoursSpecification toBl(
-            ApiClusterShutdownHoursSpecification apiShutdownHoursSpecification) {
+    private static ClusterShutdownHoursSpecification toBl(ApiClusterShutdownHoursSpecification apiShutdownHoursSpecification) {
         ClusterShutdownHoursSpecification retVal = null;
 
         if (apiShutdownHoursSpecification != null) {
@@ -584,11 +581,11 @@ public class OceanConverter {
                 computeBuilder.setInstanceTypes(toBl(apicompute.getInstanceTypes()));
             }
             if (apicompute.isSubnetIdsSet()) {
-                //todo lihi - why do we check if it's null
-                if (apicompute.getSubnetIds() != null) {
-                    //todo lihi - why do we need a new list?
-                    computeBuilder.setSubnetIds(new LinkedList<>(apicompute.getSubnetIds()));
-                }
+                //todo lihi - done- why do we check if it's null
+//                if (apicompute.getSubnetIds() != null) {
+                    //todo lihi -done- why do we need a new list?
+                    computeBuilder.setSubnetIds(apicompute.getSubnetIds());
+//                }
             }
             if (apicompute.isLaunchSpecificationSet()) {
                 computeBuilder.setLaunchSpecification(toBl(apicompute.getLaunchSpecification()));
@@ -614,11 +611,8 @@ public class OceanConverter {
                 launchSpecBuilder.setUserData(apilaunchSpecification.getUserData());
             }
             if (apilaunchSpecification.isSecurityGroupIdsSet()) {
-                //todo lihi - why do we check if it's null
-                if (apilaunchSpecification.getSecurityGroupIds() != null) {
-                    launchSpecBuilder
-                            .setSecurityGroupIds(new LinkedList<>(apilaunchSpecification.getSecurityGroupIds()));
-                }
+                //todo lihi -done- why do we check if it's null
+                    launchSpecBuilder.setSecurityGroupIds(apilaunchSpecification.getSecurityGroupIds());
             }
             if (apilaunchSpecification.isIamInstanceProfileSet()) {
                 launchSpecBuilder.setIamInstanceProfile(toBl(apilaunchSpecification.getIamInstanceProfile()));
@@ -688,16 +682,12 @@ public class OceanConverter {
             ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
 
             if (apiInstanceTypes.isBlacklistSet()) {
-                //todo lihi - why do we check if it's null
-                if (apiInstanceTypes.getBlacklist() != null) {
-                    apiInstanceTypes.setBlacklist(new LinkedList<>(apiInstanceTypes.getBlacklist()));
-                }
+                //todo lihi -done- why do we check if it's null
+                    apiInstanceTypes.setBlacklist(apiInstanceTypes.getBlacklist());
             }
             if (apiInstanceTypes.isWhitelistSet()) {
-                //todo lihi - why do we check if it's null
-                if (apiInstanceTypes.getWhitelist() != null) {
-                    apiInstanceTypes.setWhitelist(new LinkedList<>(apiInstanceTypes.getWhitelist()));
-                }
+                //todo lihi -done- why do we check if it's null
+                    apiInstanceTypes.setWhitelist(apiInstanceTypes.getWhitelist());
             }
 
             retVal = instanceTypesBuilder.build();

@@ -12,9 +12,9 @@ import java.util.Map;
 
 public class SpotOceanClusterService extends BaseSpotinstService {
 
-    //todo lihi - specify that this is creating ocean k8s
-    public static ApiOceanCluster createCluster(ApiOceanCluster clusterToCreate, String authToken,
-                                                String account) throws SpotinstHttpException {
+    //todo lihi - done - specify that this is creating ocean k8s
+    public static ApiOceanCluster createK8sCluster(ApiOceanCluster clusterToCreate, String authToken,
+                                                   String account) throws SpotinstHttpException {
         // Init retVal
         ApiOceanCluster retVal = null;
 
@@ -54,8 +54,8 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteCluster(String clusterId, String authToken,
-                                        String account) throws SpotinstHttpException {
+    public static Boolean deleteK8sCluster(String clusterId, String authToken,
+                                           String account) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -75,8 +75,8 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        //todo lihi - instead of + user String.format
-        String uri = String.format("%s/ocean/aws/k8s/cluster/" + clusterId, apiEndpoint);
+        //todo lihi -done - instead of + user String.format
+        String uri = String.format("%s/ocean/aws/k8s/cluster/%s", apiEndpoint, clusterId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
@@ -90,8 +90,8 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateCluster(String clusterId, ApiOceanCluster apiCluster, String authToken,
-                                        String account) throws SpotinstHttpException {
+    public static Boolean updateK8sCluster(String clusterId, ApiOceanCluster apiCluster, String authToken,
+                                           String account) throws SpotinstHttpException {
 
         //Init retVal
         Boolean retVal = null;
@@ -131,8 +131,8 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiOceanCluster getOcean(String clusterId, String authToken,
-                                          String account) throws SpotinstHttpException {
+    public static ApiOceanCluster getK8sCluster(String clusterId, String authToken,
+                                                String account) throws SpotinstHttpException {
         // Init retVal
         ApiOceanCluster retVal = new ApiOceanCluster();
 

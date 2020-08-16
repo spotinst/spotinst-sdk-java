@@ -16,10 +16,10 @@ public class OceanKubernetesClusterUsageExample {
 
     private final static String controllerClusterId = "testSdkClusterid";
     private final static String launchSpecificationImageId = "launchSpec image id";
-    private final static String securityGroupsList = "sg-0d8bb5479f633c0ac,sg-a22000e8"; //"sec1,sec2,sec3"
+    private final static List<String> securityGroups = Arrays.asList("sg-0d8bb5479f633c0ac","sg-a22000e8"); //"sec1,sec2,sec3"
     private final static String region = "us-west-2";
     private final static String keyPair = "key-pair";
-    private final static String subnetList = "subnet-4333093a,subnet-8ab89cc1"; //"sub1,sub2"
+    private final static List<String> subnetIds = Arrays.asList("subnet-4333093a","subnet-8ab89cc1"); //"sub1,sub2"
     private final static String arnRole = "arn role";
 
     public static void main(String[] args) {
@@ -71,7 +71,6 @@ public class OceanKubernetesClusterUsageExample {
         Tag       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("testingSdkOcean").build();
         List<Tag> tagsList = Collections.singletonList(tag1);
 
-        List<String> securityGroups = Arrays.asList(securityGroupsList);
 
         ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder = ClusterIamInstanceProfileSpec.Builder.get();
         ClusterIamInstanceProfileSpec iamInstanceProfileSpec =
@@ -91,7 +90,6 @@ public class OceanKubernetesClusterUsageExample {
 
         ClusterInstanceTypes instanceTypes = instanceTypesBuilder.setWhitelist(whiteList).build();
 
-        List<String> subnetIds = Arrays.asList(subnetList);
 
         ClusterComputeConfiguration.Builder computeBuilder = ClusterComputeConfiguration.Builder.get();
         ClusterComputeConfiguration compute =
@@ -126,7 +124,7 @@ public class OceanKubernetesClusterUsageExample {
         ClusterCreationRequest         creationRequest               = clusterCreationRequestBuilder.setCluster(oceanCluster).build();
 
         // Convert cluster to API object json
-        //System.out.println(creationRequest.toJson());
+        System.out.println(creationRequest.toJson());
 
         // Create cluster
         OceanCluster createdCluster = client.createCluster(creationRequest);

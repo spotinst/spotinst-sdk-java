@@ -15,7 +15,7 @@ public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
         try {
             ApiOceanCluster apiOceanClusterToCreate = OceanConverter.toDal(clusterToCreate);
             ApiOceanCluster apiCreatedCluster =
-                    SpotOceanClusterService.createCluster(apiOceanClusterToCreate, authToken, account);
+                    SpotOceanClusterService.createK8sCluster(apiOceanClusterToCreate, authToken, account);
             OceanCluster createdOceanCluster = OceanConverter.toBl(apiCreatedCluster);
             retVal = new RepoGenericResponse<>(createdOceanCluster);
         }
@@ -31,7 +31,7 @@ public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = SpotOceanClusterService.deleteCluster(identifier, authToken, account);
+            Boolean updated = SpotOceanClusterService.deleteK8sCluster(identifier, authToken, account);
             retVal = new RepoGenericResponse<>(updated);
 
         }
@@ -50,7 +50,7 @@ public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
         ApiOceanCluster apiOceanCluster = OceanConverter.toDal(clusterUpdate);
 
         try {
-            Boolean success = SpotOceanClusterService.updateCluster(clusterId, apiOceanCluster, authToken, account);
+            Boolean success = SpotOceanClusterService.updateK8sCluster(clusterId, apiOceanCluster, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -65,7 +65,7 @@ public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
         RepoGenericResponse<OceanCluster> retVal;
 
         try {
-            ApiOceanCluster apiOceanCluster = SpotOceanClusterService.getOcean(clusterId, authToken, account);
+            ApiOceanCluster apiOceanCluster = SpotOceanClusterService.getK8sCluster(clusterId, authToken, account);
             OceanCluster    oceanCluster    = OceanConverter.toBl(apiOceanCluster);
             retVal = new RepoGenericResponse<>(oceanCluster);
         }

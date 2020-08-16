@@ -18,7 +18,6 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 //todo lihi - Done - test that you can update ocean by setting a field to be null
-//todo lihi - add oceanK8sCluster class that inherits from this one and use it
 public class ApiOceanCluster implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                       isSet;
