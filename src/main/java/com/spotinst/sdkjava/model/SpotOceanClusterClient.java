@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class SpotOceanClusterClient {
-    private static final Logger                LOGGER = LoggerFactory.getLogger(SpotOceanClusterClient.class);
+    private static final Logger                   LOGGER = LoggerFactory.getLogger(SpotOceanClusterClient.class);
     //Members
-    private              String                authToken;
-    private              String                account;
-    private              ISpotOceanClusterRepo spotinstOceanClusterRepo;
+    private              String                   authToken;
+    private              String                   account;
+    private              ISpotOceanK8sClusterRepo spotinstOceanClusterRepo;
 
-    public ISpotOceanClusterRepo getSpotinstOceanClusterRepo() {
+    public ISpotOceanK8sClusterRepo getSpotinstOceanClusterRepo() {
         return spotinstOceanClusterRepo;
     }
 
@@ -32,7 +32,8 @@ public class SpotOceanClusterClient {
     }
 
     //Methods
-    public OceanCluster createCluster(ClusterCreationRequest oceanClusterCreationRequest) {
+    //todo lihi - change ClusterCreationRequest to k8s (and more classes if needed)
+    public OceanCluster createK8sCluster(ClusterCreationRequest oceanClusterCreationRequest) {
         OceanCluster retVal;
 
         OceanCluster clusterToCreate = oceanClusterCreationRequest.getCluster();
@@ -73,25 +74,30 @@ public class SpotOceanClusterClient {
     }
 
     public Boolean deleteCluster(ClusterDeleteRequest clusterDeletionRequest) {
-        Boolean retVal;
-        String clusterToDeleteId = clusterDeletionRequest.getClusterId();
-        RepoGenericResponse<Boolean> clusterDeletionResponse = getSpotinstOceanClusterRepo().delete(clusterToDeleteId, authToken, account);
+        Boolean                      retVal;
+        String                       clusterIdToDelete       = clusterDeletionRequest.getClusterId();
+        RepoGenericResponse<Boolean> clusterDeletionResponse =
+                getSpotinstOceanClusterRepo().delete(clusterIdToDelete, authToken, account);
 
         if (clusterDeletionResponse.isRequestSucceed()) {
             retVal = clusterDeletionResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = clusterDeletionResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to delete ocean cluster. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete ocean cluster. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return retVal;
     }
 
+    // todo lihi - add example
     public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest) {
-        OceanCluster                      retVal;
-        String                            clusterToGet   = oceanClusterGetRequest.getClusterId();
+        OceanCluster retVal;
+        String       clusterToGet = oceanClusterGetRequest.getClusterId();
         RepoGenericResponse<OceanCluster> clusterRes =
                 getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
         if (clusterRes.isRequestSucceed()) {
@@ -100,8 +106,9 @@ public class SpotOceanClusterClient {
         else {
             List<HttpError> httpExceptions = clusterRes.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 

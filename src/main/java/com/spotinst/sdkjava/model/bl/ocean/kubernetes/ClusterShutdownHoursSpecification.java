@@ -29,11 +29,11 @@ public class ClusterShutdownHoursSpecification {
     }
 
 
-    public Boolean getEnabled() {
+    public Boolean getIsEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setIsEnabled(Boolean enabled) {
         isSet.add("isEnabled");
         isEnabled = enabled;
     }
@@ -60,7 +60,7 @@ public class ClusterShutdownHoursSpecification {
         }
 
         public ClusterShutdownHoursSpecification.Builder setEnabled(final Boolean isEnabled) {
-            scheduling.setEnabled(isEnabled);
+            scheduling.setIsEnabled(isEnabled);
             return this;
         }
 

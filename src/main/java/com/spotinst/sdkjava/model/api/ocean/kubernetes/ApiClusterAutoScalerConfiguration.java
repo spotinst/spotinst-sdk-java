@@ -134,6 +134,4 @@ public class ApiClusterAutoScalerConfiguration implements IPartialUpdateEntity {
     public boolean isAutoHeadroomPercentageSet() {
         return isSet.contains("autoHeadroomPercentage");
     }
-
-
 }

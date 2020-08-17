@@ -11,19 +11,19 @@ import java.util.Set;
  */
 public class OceanCluster {
     @JsonIgnore
-    private Set<String>                                     isSet;
-    private String                                          id;
-    private String                                          name;
-    private String                                          controllerClusterId;
-    private String                                          region;
-    private ClusterAutoScalerConfiguration                  autoScaler;
-    private ClusterCapacityConfiguration                    capacity;
-    private ClusterStrategyConfiguration                    strategy;
-    private ClusterSchedulingConfiguration                  scheduling;
-    private ClusterSecurityConfiguration                    security;
-    private ClusterComputeConfiguration                     compute;
-    private Date                                            createdAt;
-    private Date                                            updatedAt;
+    private Set<String>                    isSet;
+    private String                         id;
+    private String                         name;
+    private String                         controllerClusterId;
+    private String                         region;
+    private ClusterAutoScalerConfiguration autoScaler;
+    private ClusterCapacityConfiguration   capacity;
+    private ClusterStrategyConfiguration   strategy;
+    private ClusterSchedulingConfiguration scheduling;
+    private ClusterSecurityConfiguration   security;
+    private ClusterComputeConfiguration    compute;
+    private Date                           createdAt;
+    private Date                           updatedAt;
 
     private OceanCluster() {
         isSet = new HashSet<>();

@@ -268,6 +268,4 @@ public class ClusterLaunchSpecification {
     public boolean isRootVolumeSizeSet() {
         return isSet.contains("rootVolumeSize");
     }
-
-
 }

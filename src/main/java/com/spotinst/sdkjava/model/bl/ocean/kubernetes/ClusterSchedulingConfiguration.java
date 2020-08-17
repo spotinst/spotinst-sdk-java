@@ -14,7 +14,8 @@ public class ClusterSchedulingConfiguration {
     @JsonIgnore
     private Set<String>                       isSet;
     private ClusterShutdownHoursSpecification shutdownHours;
-    private List<ClusterTasksSpecification>          tasks;
+    private List<ClusterTasksSpecification>   tasks;
+
     private ClusterSchedulingConfiguration() {
         isSet = new HashSet<>();
     }
@@ -62,6 +63,7 @@ public class ClusterSchedulingConfiguration {
             scheduling.setTasks(tasks);
             return this;
         }
+
         public Builder setShutdownHours(final ClusterShutdownHoursSpecification shutdownHours) {
             scheduling.setShutdownHours(shutdownHours);
             return this;

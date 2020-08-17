@@ -14,7 +14,7 @@ class SpotinstRepoManager {
     private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
-    private ISpotOceanClusterRepo                       spotinstOceanClusterRepo;
+    private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
 
     //region Constructor
     private SpotinstRepoManager() {
@@ -24,7 +24,7 @@ class SpotinstRepoManager {
         this.spotinstSpectrumRepo = new SpotinstSpectrumRepo();
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
-        this.spotinstOceanClusterRepo = new SpotOceanClusterRepo();
+        this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
     }
     //endregion
 
@@ -83,11 +83,11 @@ class SpotinstRepoManager {
         this.spotinstInstanceHealthinessRepo = spotinstInstanceHealthinessRepo;
     }
 
-    public ISpotOceanClusterRepo getSpotinstOceanClusterRepo() {
+    public ISpotOceanK8sClusterRepo getSpotinstOceanClusterRepo() {
         return spotinstOceanClusterRepo;
     }
 
-    public void setSpotinstOceanClusterRepo(ISpotOceanClusterRepo spotinstOceanClusterRepo) {
+    public void setSpotinstOceanClusterRepo(ISpotOceanK8sClusterRepo spotinstOceanClusterRepo) {
         this.spotinstOceanClusterRepo = spotinstOceanClusterRepo;
     }
     //endregion

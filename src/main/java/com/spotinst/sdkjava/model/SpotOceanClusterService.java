@@ -12,7 +12,6 @@ import java.util.Map;
 
 public class SpotOceanClusterService extends BaseSpotinstService {
 
-    //todo lihi - done - specify that this is creating ocean k8s
     public static ApiOceanCluster createK8sCluster(ApiOceanCluster clusterToCreate, String authToken,
                                                    String account) throws SpotinstHttpException {
         // Init retVal
@@ -75,7 +74,6 @@ public class SpotOceanClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        //todo lihi -done - instead of + user String.format
         String uri = String.format("%s/ocean/aws/k8s/cluster/%s", apiEndpoint, clusterId);
 
         // Send the request.

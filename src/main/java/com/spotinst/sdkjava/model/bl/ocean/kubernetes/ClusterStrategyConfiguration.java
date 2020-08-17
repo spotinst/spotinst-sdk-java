@@ -1,16 +1,17 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class ClusterStrategyConfiguration {
     @JsonIgnore
-    private Set<String>                isSet;
-    private Boolean                    fallbackToOd;
-    private Boolean                    utilizeReservedInstances;
-    private Integer                    drainingTimeout;
-    private Integer                    gracePeriod;
+    private Set<String> isSet;
+    private Boolean     fallbackToOd;
+    private Boolean     utilizeReservedInstances;
+    private Integer     drainingTimeout;
+    private Integer     gracePeriod;
 
 
     private ClusterStrategyConfiguration() {
@@ -25,7 +26,6 @@ public class ClusterStrategyConfiguration {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
 
     public Integer getDrainingTimeout() {
         return drainingTimeout;

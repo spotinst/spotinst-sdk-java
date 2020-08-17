@@ -48,6 +48,7 @@ public class BaseSpotinstService {
         }
     }
 
+    //todo lihi - do not push this!
 //    static {
 //        String     userAgentFormat = "%s/%s";
 //

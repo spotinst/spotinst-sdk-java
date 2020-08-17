@@ -31,11 +31,11 @@ public class ApiClusterShutdownHoursSpecification implements IPartialUpdateEntit
         this.isSet = isSet;
     }
 
-    public Boolean getEnabled() {
+    public Boolean getIsEnabled() {
         return isEnabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setIsEnabled(Boolean enabled) {
         isSet.add("isEnabled");
         isEnabled = enabled;
     }
@@ -54,7 +54,7 @@ public class ApiClusterShutdownHoursSpecification implements IPartialUpdateEntit
         return isSet.contains("isEnabled");
     }
     @JsonIgnore
-    public boolean istimeWindowsSet() {
+    public boolean isTimeWindowsSet() {
         return isSet.contains("timeWindows");
     }
 }

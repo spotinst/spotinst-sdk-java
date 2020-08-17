@@ -51,16 +51,4 @@ public class ClusterUpdateRequest {
 
     }
     //endregion
-
-    //region Json methods
-    public String toJson() {
-        ApiOceanCluster apiClusterToCreate = OceanConverter.toDal(cluster);
-
-        Map<String, ApiOceanCluster> clusterRequest = new HashMap<>();
-        clusterRequest.put("cluster", apiClusterToCreate);
-        String clusterJson = JsonMapper.toJson(clusterRequest);
-
-        return clusterJson;
-    }
-    //endregion
 }

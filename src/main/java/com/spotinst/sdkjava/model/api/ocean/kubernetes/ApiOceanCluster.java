@@ -17,7 +17,6 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-//todo lihi - Done - test that you can update ocean by setting a field to be null
 public class ApiOceanCluster implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                       isSet;

@@ -11,9 +11,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token = "Youe Token";
-    private final static String act_id     = "Yout Account Id";
-    private final static String key_pair_name = "test1-test2";
+    private final static String auth_token = "your-token";
+    private final static String act_id     = "your-account-id";
+    private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 

@@ -5,7 +5,7 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanCluster;
 
-public class SpotOceanClusterRepo implements ISpotOceanClusterRepo {
+public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
 
     @Override
     public RepoGenericResponse<OceanCluster> create(OceanCluster clusterToCreate, String authToken, String account) {
