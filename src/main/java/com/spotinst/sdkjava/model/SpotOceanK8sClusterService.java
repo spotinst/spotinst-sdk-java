@@ -10,7 +10,7 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SpotOceanClusterService extends BaseSpotinstService {
+public class SpotOceanK8sClusterService extends BaseSpotinstService {
 
     public static ApiOceanCluster createK8sCluster(ApiOceanCluster clusterToCreate, String authToken,
                                                    String account) throws SpotinstHttpException {

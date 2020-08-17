@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class OceanConverter {
+public class OceanK8sConverter {
     //region BL -> DAL
 
     public static ApiOceanCluster toDal(OceanCluster src) {
@@ -166,7 +166,7 @@ public class OceanConverter {
             if (scheduling.isTasksSet()) {
                 if (scheduling.getTasks() != null) {
                     List<ApiClusterTasksSpecification> taskList =
-                            scheduling.getTasks().stream().map(OceanConverter::toDal).collect(Collectors.toList());
+                            scheduling.getTasks().stream().map(OceanK8sConverter::toDal).collect(Collectors.toList());
                     retVal.setTasks(taskList);
                 }
                 if (scheduling.isShutdownHoursSet()) {
@@ -218,25 +218,6 @@ public class OceanConverter {
         return retVal;
 
     }
-
-    //todo lihi - check if forgotten, if not delete
-    private static ApiHeadroom toDal(ElastigroupHeadroomSpecification headroom) {
-        ApiHeadroom retVal = null;
-        if (headroom != null) {
-            retVal = new ApiHeadroom();
-            if (headroom.isCpuPerUnitSet()) {
-                retVal.setCpuPerUnit(headroom.getCpuPerUnit());
-            }
-            if (headroom.isMemoryPerUnitSet()) {
-                retVal.setMemoryPerUnit(headroom.getMemoryPerUnit());
-            }
-            if (headroom.isNumOfUnitsSet()) {
-                retVal.setNumOfUnits(headroom.getNumOfUnits());
-            }
-        }
-        return retVal;
-    }
-
     private static ApiClusterComputeConfiguration toDal(ClusterComputeConfiguration compute) {
         ApiClusterComputeConfiguration retVal = null;
 
@@ -297,7 +278,7 @@ public class OceanConverter {
             }
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
-                    List<ApiTag> tagList = launchSpecification.getTags().stream().map(OceanConverter::toDal)
+                    List<ApiTag> tagList = launchSpecification.getTags().stream().map(OceanK8sConverter::toDal)
                                                               .collect(Collectors.toList());
                     retVal.setTags(tagList);
                 }
@@ -522,12 +503,14 @@ public class OceanConverter {
             if (apiScheduling.isTasksSet()) {
                 if (apiScheduling.getTasks() != null) {
                     List<ClusterTasksSpecification> tasksConfigurationList =
-                            apiScheduling.getTasks().stream().map(OceanConverter::toBl).collect(Collectors.toList());
+                            apiScheduling.getTasks().stream().map(OceanK8sConverter::toBl).collect(Collectors.toList());
                     schedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
-
-            //todo lihi - convert shutdown hours
+            if (apiScheduling.isShutdownHoursSet()){
+                schedulingConfigurationBuilder.setShutdownHours(toBl(apiScheduling.getShutdownHours()));
+            }
+            //todo lihi -done- convert shutdown hours
             retVal = schedulingConfigurationBuilder.build();
         }
         return retVal;
@@ -618,7 +601,7 @@ public class OceanConverter {
             }
             if (apilaunchSpecification.isTagsSet()) {
                 if (apilaunchSpecification.getTags() != null) {
-                    List<Tag> tags = apilaunchSpecification.getTags().stream().map(OceanConverter::toBl)
+                    List<Tag> tags = apilaunchSpecification.getTags().stream().map(OceanK8sConverter::toBl)
                                                            .collect(Collectors.toList());
                     launchSpecBuilder.setTags(tags);
                 }

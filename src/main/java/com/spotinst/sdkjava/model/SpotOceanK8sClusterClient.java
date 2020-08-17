@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class SpotOceanClusterClient {
-    private static final Logger                   LOGGER = LoggerFactory.getLogger(SpotOceanClusterClient.class);
+public class SpotOceanK8sClusterClient {
+    private static final Logger                   LOGGER = LoggerFactory.getLogger(SpotOceanK8sClusterClient.class);
     //Members
     private              String                   authToken;
     private              String                   account;
@@ -24,7 +24,7 @@ public class SpotOceanClusterClient {
     }
 
     //Constructor
-    public SpotOceanClusterClient(String authToken, String account) {
+    public SpotOceanK8sClusterClient(String authToken, String account) {
         this.authToken = authToken;
         this.account = account;
 
@@ -32,7 +32,7 @@ public class SpotOceanClusterClient {
     }
 
     //Methods
-    //todo lihi - change ClusterCreationRequest to k8s (and more classes if needed)
+    //todo lihi - done- change ClusterCreationRequest to k8s (and more classes if needed)
     public OceanCluster createK8sCluster(ClusterCreationRequest oceanClusterCreationRequest) {
         OceanCluster retVal;
 
@@ -54,7 +54,7 @@ public class SpotOceanClusterClient {
         return retVal;
     }
 
-    public Boolean updateCluster(ClusterUpdateRequest clusterUpdateRequest, String clusterId) {
+    public Boolean updateK8sCluster(ClusterUpdateRequest clusterUpdateRequest, String clusterId) {
         Boolean retVal;
 
         OceanCluster clusterToUpdate = clusterUpdateRequest.getCluster();
@@ -73,7 +73,7 @@ public class SpotOceanClusterClient {
         return retVal;
     }
 
-    public Boolean deleteCluster(ClusterDeleteRequest clusterDeletionRequest) {
+    public Boolean deleteK8sCluster(ClusterDeleteRequest clusterDeletionRequest) {
         Boolean                      retVal;
         String                       clusterIdToDelete       = clusterDeletionRequest.getClusterId();
         RepoGenericResponse<Boolean> clusterDeletionResponse =
@@ -94,8 +94,8 @@ public class SpotOceanClusterClient {
         return retVal;
     }
 
-    // todo lihi - add example
-    public OceanCluster getOceanCluster(ClusterGetRequest oceanClusterGetRequest) {
+    // todo lihi -done- add example
+    public OceanCluster getOceanK8sCluster(ClusterGetRequest oceanClusterGetRequest) {
         OceanCluster retVal;
         String       clusterToGet = oceanClusterGetRequest.getClusterId();
         RepoGenericResponse<OceanCluster> clusterRes =

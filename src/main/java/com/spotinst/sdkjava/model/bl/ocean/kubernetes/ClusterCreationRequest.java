@@ -1,13 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.OceanConverter;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
-
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClusterCreationRequest {
 

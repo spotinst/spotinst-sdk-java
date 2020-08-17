@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.SpotOceanClusterClient;
+import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 
@@ -11,32 +11,31 @@ import java.util.Collections;
 import java.util.List;
 
 public class OceanKubernetesClusterUsageExample {
-    //fields to change
+
     private final static String auth_token = "your-token";
     private final static String act_id     = "your-account-id";
 
     // Fill in the correct values from your account
-
-    //todo lihi - rename values to be general
-    private final static String       controllerClusterId        = "testSdkClusterid";
-    private final static String       launchSpecificationImageId = "launchSpec image id";
-    private final static List<String> securityGroups             = Arrays.asList("sg-0d8bb5479f633c0ac", "sg-a22000e8");
-    private final static String       region                     = "us-west-2";
-    private final static String       keyPair                    = "key-pair";
-    private final static List<String> subnetIds                  = Arrays.asList("subnet-4333093a", "subnet-8ab89cc1");
-    private final static String       arnRole                    = "arn role";
+    private final static String       controllerClusterId        = "your-sdk-Cluster-id";
+    private final static String       launchSpecificationImageId = "your-launchSpec-image-id";
+    private final static List<String> securityGroups             = Arrays.asList("sg-1", "sg-2");
+    private final static String       region                     = "chosen-region";
+    private final static String       keyPair                    = "some-key-pair";
+    private final static List<String> subnetIds                  = Arrays.asList("subnet-1", "subnet-2");
+    private final static String       arnRole                    = "your-arn-role";
 
     public static void main(String[] args) {
-        SpotOceanClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, act_id);
+        SpotOceanK8sClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, act_id);
 
         String clusterId = createCluster(clusterClient);
         System.out.println("Created a new cluster with id: " + clusterId);
-
+        OceanCluster cluster = getCluster(clusterClient,clusterId);
+        System.out.println("Retrieved cluster id: " + cluster.getId());
         updateCluster(clusterClient, clusterId);
         deleteCluster(clusterClient, clusterId);
     }
 
-    private static String createCluster(SpotOceanClusterClient client) {
+    private static String createCluster(SpotOceanK8sClusterClient client) {
         System.out.println("-------------------------start creating ocean cluster------------------------");
         //Build autoScaler
         ClusterDownSpecification.Builder downSpecBuilder = ClusterDownSpecification.Builder.get();
@@ -135,7 +134,7 @@ public class OceanKubernetesClusterUsageExample {
         return createdCluster.getId();
     }
 
-    private static void updateCluster(SpotOceanClusterClient client, String clusterId) {
+    private static void updateCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start updating ocean cluster------------------------");
         //Create cluster update
         ClusterCapacityConfiguration.Builder updateCapacityBuilder = ClusterCapacityConfiguration.Builder.get();
@@ -158,21 +157,35 @@ public class OceanKubernetesClusterUsageExample {
         System.out.println(JsonMapper.toJson(updateRequest));
 
         // Update cluster
-        Boolean updateSuccess = client.updateCluster(updateRequest, clusterId);
+        Boolean updateSuccess = client.updateK8sCluster(updateRequest, clusterId);
         if (updateSuccess) {
             System.out.println("Cluster successfully updated.");
         }
     }
 
-    private static void deleteCluster(SpotOceanClusterClient client, String clusterId) {
+    private static void deleteCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start deleting ocean cluster------------------------");
         ClusterDeleteRequest.Builder deletionBuilder = ClusterDeleteRequest.Builder.get();
         ClusterDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
 
-        Boolean successfulDeletion = client.deleteCluster(deletionRequest);
+        Boolean successfulDeletion = client.deleteK8sCluster(deletionRequest);
         if (successfulDeletion) {
             System.out.println("Cluster successfully deleted: " + clusterId);
         }
     }
+
+    private static OceanCluster getCluster(SpotOceanK8sClusterClient client, String clusterId) {
+        System.out.println("-------------------------start getting ocean cluster------------------------");
+        ClusterGetRequest.Builder getBuilder = ClusterGetRequest.Builder.get();
+        ClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
+
+        OceanCluster succesffulGet = client.getOceanK8sCluster(getRequest);
+        if (succesffulGet!=null) {
+            System.out.println("Get Cluster successfully: " + clusterId);
+        }
+        return succesffulGet;
+    }
+
+
 
 }
