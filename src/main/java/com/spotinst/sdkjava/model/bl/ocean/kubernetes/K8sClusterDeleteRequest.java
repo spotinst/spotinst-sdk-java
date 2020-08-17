@@ -1,10 +1,10 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-public class ClusterK8sDeleteRequest {
+public class K8sClusterDeleteRequest {
 
     private String clusterId;
 
-    private ClusterK8sDeleteRequest() {
+    private K8sClusterDeleteRequest() {
     }
 
     //region Getters & Setters
@@ -20,10 +20,10 @@ public class ClusterK8sDeleteRequest {
 
     //region Builder class
     public static class Builder {
-        private ClusterK8sDeleteRequest clusterDeletionRequest;
+        private K8sClusterDeleteRequest clusterDeletionRequest;
 
         private Builder() {
-            this.clusterDeletionRequest = new ClusterK8sDeleteRequest();
+            this.clusterDeletionRequest = new K8sClusterDeleteRequest();
         }
 
         public static Builder get() {
@@ -36,7 +36,7 @@ public class ClusterK8sDeleteRequest {
             return this;
         }
 
-        public ClusterK8sDeleteRequest build() {
+        public K8sClusterDeleteRequest build() {
             return clusterDeletionRequest;
         }
 

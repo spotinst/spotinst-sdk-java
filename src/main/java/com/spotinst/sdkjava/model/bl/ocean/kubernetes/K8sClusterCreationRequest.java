@@ -9,12 +9,12 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClusterK8sCreationRequest {
+public class K8sClusterCreationRequest {
 
     @JsonProperty("cluster")
     private OceanK8sCluster cluster;
 
-    private ClusterK8sCreationRequest() {
+    private K8sClusterCreationRequest() {
     }
 
     //region Getters & Setters
@@ -30,10 +30,10 @@ public class ClusterK8sCreationRequest {
 
     //region Builder class
     public static class Builder {
-        private ClusterK8sCreationRequest clusterCreationRequest;
+        private K8sClusterCreationRequest clusterCreationRequest;
 
         private Builder() {
-            this.clusterCreationRequest = new ClusterK8sCreationRequest();
+            this.clusterCreationRequest = new K8sClusterCreationRequest();
         }
 
         public static Builder get() {
@@ -46,7 +46,7 @@ public class ClusterK8sCreationRequest {
             return this;
         }
 
-        public ClusterK8sCreationRequest build() {
+        public K8sClusterCreationRequest build() {
             return clusterCreationRequest;
         }
 

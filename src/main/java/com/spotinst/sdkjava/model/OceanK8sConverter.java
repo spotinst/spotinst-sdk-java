@@ -510,7 +510,6 @@ public class OceanK8sConverter {
             if (apiScheduling.isShutdownHoursSet()){
                 schedulingConfigurationBuilder.setShutdownHours(toBl(apiScheduling.getShutdownHours()));
             }
-            //todo lihi -done- convert shutdown hours
             retVal = schedulingConfigurationBuilder.build();
         }
         return retVal;

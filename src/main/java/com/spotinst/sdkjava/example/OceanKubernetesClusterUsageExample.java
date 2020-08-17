@@ -117,8 +117,8 @@ public class OceanKubernetesClusterUsageExample {
                             .setAutoScaler(autoScaler).setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                             .setScheduling(scheduling).build();
         // Build cluster creation request
-        ClusterK8sCreationRequest.Builder clusterCreationRequestBuilder = ClusterK8sCreationRequest.Builder.get();
-        ClusterK8sCreationRequest creationRequest               =
+        K8sClusterCreationRequest.Builder clusterCreationRequestBuilder = K8sClusterCreationRequest.Builder.get();
+        K8sClusterCreationRequest creationRequest               =
                 clusterCreationRequestBuilder.setCluster(oceanK8sCluster).build();
 
         // Convert cluster to API object json
@@ -146,8 +146,8 @@ public class OceanKubernetesClusterUsageExample {
         OceanK8sCluster oceanK8sClusterUpdate =
                 updateOceanClusterBuilder.setCapacity(updateCapacity).setName("Java-SDK-Testing-Update").build();
 
-        ClusterK8sUpdateRequest.Builder clusterUpdateRequestBuilder = ClusterK8sUpdateRequest.Builder.get();
-        ClusterK8sUpdateRequest updateRequest               =
+        K8sClusterUpdateRequest.Builder clusterUpdateRequestBuilder = K8sClusterUpdateRequest.Builder.get();
+        K8sClusterUpdateRequest updateRequest               =
                 clusterUpdateRequestBuilder.setCluster(oceanK8sClusterUpdate).build();
 
         // Convert cluster update to API object json
@@ -162,8 +162,8 @@ public class OceanKubernetesClusterUsageExample {
 
     private static void deleteCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start deleting ocean cluster------------------------");
-        ClusterK8sDeleteRequest.Builder deletionBuilder = ClusterK8sDeleteRequest.Builder.get();
-        ClusterK8sDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
+        K8sClusterDeleteRequest.Builder deletionBuilder = K8sClusterDeleteRequest.Builder.get();
+        K8sClusterDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
 
         Boolean successfulDeletion = client.deleteK8sCluster(deletionRequest);
         if (successfulDeletion) {
@@ -176,11 +176,11 @@ public class OceanKubernetesClusterUsageExample {
         ClusterGetRequest.Builder getBuilder = ClusterGetRequest.Builder.get();
         ClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
 
-        OceanK8sCluster succesffulGet = client.getOceanK8sCluster(getRequest);
-        if (succesffulGet!=null) {
-            System.out.println("Get Cluster successfully: " + clusterId);
+        OceanK8sCluster oceanK8sCluster = client.getOceanK8sCluster(getRequest);
+        if (oceanK8sCluster!=null) {
+            System.out.println("Get Cluster successfully: " + oceanK8sCluster.getId());
         }
-        return succesffulGet;
+        return oceanK8sCluster;
     }
 
 
