@@ -48,24 +48,23 @@ public class BaseSpotinstService {
         }
     }
 
-    //todo lihi - do not push this!
-//    static {
-//        String     userAgentFormat = "%s/%s";
-//
-//        try {
-//            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-//            InputStream is = classloader.getResourceAsStream(FILE_PATH);
-//
-//            String theString = IOUtils.toString(new InputStreamReader(is));
-//            String[] arrOfStr = theString.split("=");
-//
-//            String version = StringUtils.chomp(arrOfStr[1]);
-//            spotinstSdkJavaUserAgent = String.format(userAgentFormat, spotinstSdkJavaUserAgent, version);
-//
-//        } catch (IOException ex) {
-//            LOGGER.error("Cannot determine spotinst-sdk-java version", ex);
-//        }
-//    }
+    static {
+        String     userAgentFormat = "%s/%s";
+
+        try {
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream(FILE_PATH);
+
+            String theString = IOUtils.toString(new InputStreamReader(is));
+            String[] arrOfStr = theString.split("=");
+
+            String version = StringUtils.chomp(arrOfStr[1]);
+            spotinstSdkJavaUserAgent = String.format(userAgentFormat, spotinstSdkJavaUserAgent, version);
+
+        } catch (IOException ex) {
+            LOGGER.error("Cannot determine spotinst-sdk-java version", ex);
+        }
+    }
 
     public static <T> T getCastedResponse(RestResponse response, Class<T> contentClass) throws SpotinstHttpException {
         T retVal = null;

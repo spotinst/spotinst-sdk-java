@@ -13,14 +13,14 @@ public class SpotOceanK8sClusterClient {
     //Members
     private              String                   authToken;
     private              String                   account;
-    private              ISpotOceanK8sClusterRepo spotinstOceanClusterRepo;
+    private              ISpotOceanK8sClusterRepo spotOceanK8sClusterRepo;
 
-    public ISpotOceanK8sClusterRepo getSpotinstOceanClusterRepo() {
-        return spotinstOceanClusterRepo;
+    public ISpotOceanK8sClusterRepo getSpotOceanK8sClusterRepo() {
+        return spotOceanK8sClusterRepo;
     }
 
     public void setSpotinstOceanClusterRepo() {
-        this.spotinstOceanClusterRepo = SpotinstRepoManager.getInstance().getSpotinstOceanClusterRepo();
+        this.spotOceanK8sClusterRepo = SpotinstRepoManager.getInstance().getSpotinstOceanClusterRepo();
     }
 
     //Constructor
@@ -33,13 +33,13 @@ public class SpotOceanK8sClusterClient {
 
     //Methods
     //todo lihi - done- change ClusterCreationRequest to k8s (and more classes if needed)
-    public OceanCluster createK8sCluster(ClusterCreationRequest oceanClusterCreationRequest) {
-        OceanCluster retVal;
+    public OceanK8sCluster createK8sCluster(ClusterK8sCreationRequest oceanClusterCreationRequest) {
+        OceanK8sCluster retVal;
 
-        OceanCluster clusterToCreate = oceanClusterCreationRequest.getCluster();
+        OceanK8sCluster clusterToCreate = oceanClusterCreationRequest.getCluster();
 
-        RepoGenericResponse<OceanCluster> creationResponse =
-                getSpotinstOceanClusterRepo().create(clusterToCreate, authToken, account);
+        RepoGenericResponse<OceanK8sCluster> creationResponse =
+                getSpotOceanK8sClusterRepo().create(clusterToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -54,12 +54,12 @@ public class SpotOceanK8sClusterClient {
         return retVal;
     }
 
-    public Boolean updateK8sCluster(ClusterUpdateRequest clusterUpdateRequest, String clusterId) {
+    public Boolean updateK8sCluster(ClusterK8sUpdateRequest clusterK8sUpdateRequest, String clusterId) {
         Boolean retVal;
 
-        OceanCluster clusterToUpdate = clusterUpdateRequest.getCluster();
+        OceanK8sCluster clusterToUpdate = clusterK8sUpdateRequest.getCluster();
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstOceanClusterRepo().update(clusterId, clusterToUpdate, authToken, account);
+                getSpotOceanK8sClusterRepo().update(clusterId, clusterToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -73,11 +73,11 @@ public class SpotOceanK8sClusterClient {
         return retVal;
     }
 
-    public Boolean deleteK8sCluster(ClusterDeleteRequest clusterDeletionRequest) {
+    public Boolean deleteK8sCluster(ClusterK8sDeleteRequest clusterDeletionRequest) {
         Boolean                      retVal;
         String                       clusterIdToDelete       = clusterDeletionRequest.getClusterId();
         RepoGenericResponse<Boolean> clusterDeletionResponse =
-                getSpotinstOceanClusterRepo().delete(clusterIdToDelete, authToken, account);
+                getSpotOceanK8sClusterRepo().delete(clusterIdToDelete, authToken, account);
 
         if (clusterDeletionResponse.isRequestSucceed()) {
             retVal = clusterDeletionResponse.getValue();
@@ -95,11 +95,11 @@ public class SpotOceanK8sClusterClient {
     }
 
     // todo lihi -done- add example
-    public OceanCluster getOceanK8sCluster(ClusterGetRequest oceanClusterGetRequest) {
-        OceanCluster retVal;
-        String       clusterToGet = oceanClusterGetRequest.getClusterId();
-        RepoGenericResponse<OceanCluster> clusterRes =
-                getSpotinstOceanClusterRepo().get(clusterToGet, authToken, account);
+    public OceanK8sCluster getOceanK8sCluster(ClusterGetRequest oceanClusterGetRequest) {
+        OceanK8sCluster retVal;
+        String          clusterToGet = oceanClusterGetRequest.getClusterId();
+        RepoGenericResponse<OceanK8sCluster> clusterRes =
+                getSpotOceanK8sClusterRepo().get(clusterToGet, authToken, account);
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();
         }

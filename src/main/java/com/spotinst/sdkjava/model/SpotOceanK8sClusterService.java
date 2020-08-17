@@ -4,7 +4,7 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class SpotOceanK8sClusterService extends BaseSpotinstService {
 
-    public static ApiOceanCluster createK8sCluster(ApiOceanCluster clusterToCreate, String authToken,
-                                                   String account) throws SpotinstHttpException {
+    public static ApiOceanK8sCluster createK8sCluster(ApiOceanK8sCluster clusterToCreate, String authToken,
+                                                      String account) throws SpotinstHttpException {
         // Init retVal
-        ApiOceanCluster retVal = null;
+        ApiOceanK8sCluster retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -32,7 +32,7 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Write to json
-        Map<String, ApiOceanCluster> clusterRequest = new HashMap<>();
+        Map<String, ApiOceanK8sCluster> clusterRequest = new HashMap<>();
         clusterRequest.put("cluster", clusterToCreate);
         String body = JsonMapper.toJson(clusterRequest);
 
@@ -88,7 +88,7 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateK8sCluster(String clusterId, ApiOceanCluster apiCluster, String authToken,
+    public static Boolean updateK8sCluster(String clusterId, ApiOceanK8sCluster apiCluster, String authToken,
                                            String account) throws SpotinstHttpException {
 
         //Init retVal
@@ -113,7 +113,7 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         String uri = String.format("%s/ocean/aws/k8s/cluster/%s", apiEndpoint, clusterId);
 
         // Write to json
-        Map<String, ApiOceanCluster> groupRequest = new HashMap<>();
+        Map<String, ApiOceanK8sCluster> groupRequest = new HashMap<>();
         groupRequest.put("cluster", apiCluster);
         String body = JsonMapper.toJson(groupRequest);
 
@@ -129,10 +129,10 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiOceanCluster getK8sCluster(String clusterId, String authToken,
-                                                String account) throws SpotinstHttpException {
+    public static ApiOceanK8sCluster getK8sCluster(String clusterId, String authToken,
+                                                   String account) throws SpotinstHttpException {
         // Init retVal
-        ApiOceanCluster retVal = new ApiOceanCluster();
+        ApiOceanK8sCluster retVal = new ApiOceanK8sCluster();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();

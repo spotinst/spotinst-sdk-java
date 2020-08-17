@@ -17,7 +17,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiOceanCluster implements IPartialUpdateEntity {
+public class ApiOceanK8sCluster implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                       isSet;
     private String                            id;
@@ -33,7 +33,7 @@ public class ApiOceanCluster implements IPartialUpdateEntity {
     private Date                              createdAt;
     private Date                              updatedAt;
 
-    public ApiOceanCluster() {
+    public ApiOceanK8sCluster() {
         isSet = new HashSet<>();
     }
 

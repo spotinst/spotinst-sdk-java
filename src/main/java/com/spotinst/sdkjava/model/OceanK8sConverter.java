@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 public class OceanK8sConverter {
     //region BL -> DAL
 
-    public static ApiOceanCluster toDal(OceanCluster src) {
-        ApiOceanCluster apiCluster = null;
+    public static ApiOceanK8sCluster toDal(OceanK8sCluster src) {
+        ApiOceanK8sCluster apiCluster = null;
 
         if (src != null) {
-            apiCluster = new ApiOceanCluster();
+            apiCluster = new ApiOceanK8sCluster();
 
             if (src.isIdSet()) {
                 apiCluster.setId(src.getId());
@@ -352,11 +352,11 @@ public class OceanK8sConverter {
     //endregion
 
     //region DAL -> BL
-    public static OceanCluster toBl(ApiOceanCluster src) {
-        OceanCluster cluster = null;
+    public static OceanK8sCluster toBl(ApiOceanK8sCluster src) {
+        OceanK8sCluster cluster = null;
 
         if (src != null) {
-            OceanCluster.Builder clusterBuilder = OceanCluster.Builder.get();
+            OceanK8sCluster.Builder clusterBuilder = OceanK8sCluster.Builder.get();
 
             if (src.isIdSet()) {
                 clusterBuilder.setId(src.getId());

@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
@@ -28,9 +27,7 @@ public class OceanKubernetesClusterUsageExample {
         SpotOceanK8sClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, act_id);
 
         String clusterId = createCluster(clusterClient);
-        System.out.println("Created a new cluster with id: " + clusterId);
-        OceanCluster cluster = getCluster(clusterClient,clusterId);
-        System.out.println("Retrieved cluster id: " + cluster.getId());
+        getCluster(clusterClient,clusterId);
         updateCluster(clusterClient, clusterId);
         deleteCluster(clusterClient, clusterId);
     }
@@ -114,21 +111,21 @@ public class OceanKubernetesClusterUsageExample {
                 schedulingBuilder.setShutdownHours(shutDownHours).setTasks(tasksList).build();
 
         // Build cluster
-        OceanCluster.Builder oceanBuilder = OceanCluster.Builder.get();
-        OceanCluster oceanCluster =
+        OceanK8sCluster.Builder oceanBuilder = OceanK8sCluster.Builder.get();
+        OceanK8sCluster oceanK8sCluster =
                 oceanBuilder.setName("Java-SDK-Testing").setRegion(region).setControllerClusterId(controllerClusterId)
                             .setAutoScaler(autoScaler).setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                             .setScheduling(scheduling).build();
         // Build cluster creation request
-        ClusterCreationRequest.Builder clusterCreationRequestBuilder = ClusterCreationRequest.Builder.get();
-        ClusterCreationRequest         creationRequest               =
-                clusterCreationRequestBuilder.setCluster(oceanCluster).build();
+        ClusterK8sCreationRequest.Builder clusterCreationRequestBuilder = ClusterK8sCreationRequest.Builder.get();
+        ClusterK8sCreationRequest creationRequest               =
+                clusterCreationRequestBuilder.setCluster(oceanK8sCluster).build();
 
         // Convert cluster to API object json
-        System.out.println(JsonMapper.toJson(creationRequest));
+        System.out.println(creationRequest.toJson());
 
         // Create cluster
-        OceanCluster createdCluster = client.createK8sCluster(creationRequest);
+        OceanK8sCluster createdCluster = client.createK8sCluster(creationRequest);
         System.out.println("Cluster successfully created: " + createdCluster.getId());
 
         return createdCluster.getId();
@@ -145,16 +142,16 @@ public class OceanKubernetesClusterUsageExample {
         ClusterStrategyConfiguration updateStrategy = updateStrategyBuilder.setGracePeriod(null).build();
 
         // Build cluster update
-        OceanCluster.Builder updateOceanClusterBuilder = OceanCluster.Builder.get();
-        OceanCluster oceanClusterUpdate =
+        OceanK8sCluster.Builder updateOceanClusterBuilder = OceanK8sCluster.Builder.get();
+        OceanK8sCluster oceanK8sClusterUpdate =
                 updateOceanClusterBuilder.setCapacity(updateCapacity).setName("Java-SDK-Testing-Update").build();
 
-        ClusterUpdateRequest.Builder clusterUpdateRequestBuilder = ClusterUpdateRequest.Builder.get();
-        ClusterUpdateRequest         updateRequest               =
-                clusterUpdateRequestBuilder.setCluster(oceanClusterUpdate).build();
+        ClusterK8sUpdateRequest.Builder clusterUpdateRequestBuilder = ClusterK8sUpdateRequest.Builder.get();
+        ClusterK8sUpdateRequest updateRequest               =
+                clusterUpdateRequestBuilder.setCluster(oceanK8sClusterUpdate).build();
 
         // Convert cluster update to API object json
-        System.out.println(JsonMapper.toJson(updateRequest));
+        System.out.println(updateRequest.toJson());
 
         // Update cluster
         Boolean updateSuccess = client.updateK8sCluster(updateRequest, clusterId);
@@ -165,8 +162,8 @@ public class OceanKubernetesClusterUsageExample {
 
     private static void deleteCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start deleting ocean cluster------------------------");
-        ClusterDeleteRequest.Builder deletionBuilder = ClusterDeleteRequest.Builder.get();
-        ClusterDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
+        ClusterK8sDeleteRequest.Builder deletionBuilder = ClusterK8sDeleteRequest.Builder.get();
+        ClusterK8sDeleteRequest         deletionRequest = deletionBuilder.setClusterId(clusterId).build();
 
         Boolean successfulDeletion = client.deleteK8sCluster(deletionRequest);
         if (successfulDeletion) {
@@ -174,12 +171,12 @@ public class OceanKubernetesClusterUsageExample {
         }
     }
 
-    private static OceanCluster getCluster(SpotOceanK8sClusterClient client, String clusterId) {
+    private static OceanK8sCluster getCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start getting ocean cluster------------------------");
         ClusterGetRequest.Builder getBuilder = ClusterGetRequest.Builder.get();
         ClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
 
-        OceanCluster succesffulGet = client.getOceanK8sCluster(getRequest);
+        OceanK8sCluster succesffulGet = client.getOceanK8sCluster(getRequest);
         if (succesffulGet!=null) {
             System.out.println("Get Cluster successfully: " + clusterId);
         }

@@ -2,22 +2,22 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanCluster;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanCluster;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanK8sCluster;
 
 public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
 
     @Override
-    public RepoGenericResponse<OceanCluster> create(OceanCluster clusterToCreate, String authToken, String account) {
+    public RepoGenericResponse<OceanK8sCluster> create(OceanK8sCluster clusterToCreate, String authToken, String account) {
 
-        RepoGenericResponse<OceanCluster> retVal;
+        RepoGenericResponse<OceanK8sCluster> retVal;
 
         try {
-            ApiOceanCluster apiOceanClusterToCreate = OceanK8sConverter.toDal(clusterToCreate);
-            ApiOceanCluster apiCreatedCluster =
-                    SpotOceanK8sClusterService.createK8sCluster(apiOceanClusterToCreate, authToken, account);
-            OceanCluster createdOceanCluster = OceanK8sConverter.toBl(apiCreatedCluster);
-            retVal = new RepoGenericResponse<>(createdOceanCluster);
+            ApiOceanK8sCluster apiOceanK8sClusterToCreate = OceanK8sConverter.toDal(clusterToCreate);
+            ApiOceanK8sCluster apiCreatedCluster =
+                    SpotOceanK8sClusterService.createK8sCluster(apiOceanK8sClusterToCreate, authToken, account);
+            OceanK8sCluster createdOceanK8sCluster = OceanK8sConverter.toBl(apiCreatedCluster);
+            retVal = new RepoGenericResponse<>(createdOceanK8sCluster);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
@@ -43,15 +43,15 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> update(String clusterId, OceanCluster clusterUpdate, String authToken,
+    public RepoGenericResponse<Boolean> update(String clusterId, OceanK8sCluster clusterUpdate, String authToken,
                                                String account) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiOceanCluster apiOceanCluster = OceanK8sConverter.toDal(clusterUpdate);
+        ApiOceanK8sCluster apiOceanK8sCluster = OceanK8sConverter.toDal(clusterUpdate);
 
         try {
             Boolean success = SpotOceanK8sClusterService
-                    .updateK8sCluster(clusterId, apiOceanCluster, authToken, account);
+                    .updateK8sCluster(clusterId, apiOceanK8sCluster, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -62,13 +62,14 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
     }
 
     @Override
-    public RepoGenericResponse<OceanCluster> get(String clusterId, String authToken, String account) {
-        RepoGenericResponse<OceanCluster> retVal;
+    public RepoGenericResponse<OceanK8sCluster> get(String clusterId, String authToken, String account) {
+        RepoGenericResponse<OceanK8sCluster> retVal;
 
         try {
-            ApiOceanCluster apiOceanCluster = SpotOceanK8sClusterService.getK8sCluster(clusterId, authToken, account);
-            OceanCluster    oceanCluster    = OceanK8sConverter.toBl(apiOceanCluster);
-            retVal = new RepoGenericResponse<>(oceanCluster);
+            ApiOceanK8sCluster
+                            apiOceanK8sCluster = SpotOceanK8sClusterService.getK8sCluster(clusterId, authToken, account);
+            OceanK8sCluster oceanK8sCluster    = OceanK8sConverter.toBl(apiOceanK8sCluster);
+            retVal = new RepoGenericResponse<>(oceanK8sCluster);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

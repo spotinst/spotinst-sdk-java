@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by Lihi Shoham on 3/7/2020.
  */
-public class OceanCluster {
+public class OceanK8sCluster {
     @JsonIgnore
     private Set<String>                    isSet;
     private String                         id;
@@ -25,7 +25,7 @@ public class OceanCluster {
     private Date                           createdAt;
     private Date                           updatedAt;
 
-    private OceanCluster() {
+    private OceanK8sCluster() {
         isSet = new HashSet<>();
     }
 
@@ -146,10 +146,10 @@ public class OceanCluster {
     }
 
     public static class Builder {
-        private OceanCluster cluster;
+        private OceanK8sCluster cluster;
 
         private Builder() {
-            this.cluster = new OceanCluster();
+            this.cluster = new OceanK8sCluster();
         }
 
         public static Builder get() {
@@ -207,7 +207,7 @@ public class OceanCluster {
             return this;
         }
 
-        public OceanCluster build() {
+        public OceanK8sCluster build() {
             // Validations
             return cluster;
         }
