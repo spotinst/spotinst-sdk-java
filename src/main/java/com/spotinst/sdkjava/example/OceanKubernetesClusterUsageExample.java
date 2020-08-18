@@ -173,8 +173,8 @@ public class OceanKubernetesClusterUsageExample {
 
     private static OceanK8sCluster getCluster(SpotOceanK8sClusterClient client, String clusterId) {
         System.out.println("-------------------------start getting ocean cluster------------------------");
-        ClusterGetRequest.Builder getBuilder = ClusterGetRequest.Builder.get();
-        ClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
+        K8sClusterGetRequest.Builder getBuilder = K8sClusterGetRequest.Builder.get();
+        K8sClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
 
         OceanK8sCluster oceanK8sCluster = client.getOceanK8sCluster(getRequest);
         if (oceanK8sCluster!=null) {

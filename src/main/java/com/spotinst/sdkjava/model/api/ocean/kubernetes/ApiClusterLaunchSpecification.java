@@ -25,7 +25,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private ApiClusterIamInstanceProfileSpec iamInstanceProfile;
     private String                           keyPair;
     private List<ApiTag>                     tags;
-    private LoadBalancersConfig              loadBalancersConfig;
     private Boolean                          associatePublicIpAddress;
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
@@ -101,15 +100,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.tags = tags;
     }
 
-    public LoadBalancersConfig getLoadBalancersConfig() {
-        return loadBalancersConfig;
-    }
-
-    public void setLoadBalancersConfig(LoadBalancersConfig loadBalancersConfig) {
-        isSet.add("loadBalancersConfig");
-        this.loadBalancersConfig = loadBalancersConfig;
-    }
-
     public ApiClusterIamInstanceProfileSpec getIamInstanceProfile() {
         return iamInstanceProfile;
     }
@@ -175,11 +165,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
-    }
-
-    @JsonIgnore
-    public boolean isLoadBalancersConfigSet() {
-        return isSet.contains("loadBalancersConfig");
     }
 
     @JsonIgnore

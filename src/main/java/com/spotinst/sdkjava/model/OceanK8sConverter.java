@@ -43,6 +43,9 @@ public class OceanK8sConverter {
             if (src.isSchedulingSet()) {
                 apiCluster.setScheduling(toDal(src.getScheduling()));
             }
+            if (src.isSecuritySet()){
+                apiCluster.setSecurity(toDal(src.getSecurity()));
+            }
         }
 
         return apiCluster;
@@ -349,6 +352,34 @@ public class OceanK8sConverter {
         return retVal;
     }
 
+    private static ApiClusterSecurityConfiguration toDal(ClusterSecurityConfiguration security) {
+        ApiClusterSecurityConfiguration retVal = null;
+
+        if (security != null) {
+            retVal = new ApiClusterSecurityConfiguration();
+
+            if (security.isContainerimageSet()) {
+                retVal.setContainerImage(toDal(security.getContainerImage()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiClusterContainerImageSpecification toDal(ClusterContainerImageSpecification containerImage) {
+        ApiClusterContainerImageSpecification retVal = null;
+
+        if (containerImage != null) {
+            retVal = new ApiClusterContainerImageSpecification();
+
+            if (containerImage.isApprovedImagesSet()) {
+                retVal.setApprovedImages(containerImage.getApprovedImages());
+            }
+        }
+
+        return retVal;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -384,6 +415,9 @@ public class OceanK8sConverter {
             }
             if (src.isSchedulingSet()) {
                 clusterBuilder.setScheduling(toBl(src.getScheduling()));
+            }
+            if (src.isSecuritySet()){
+                clusterBuilder.setSecurity(toBl(src.getSecurity()));
             }
 
             cluster = clusterBuilder.build();
@@ -720,5 +754,39 @@ public class OceanK8sConverter {
 
         return retVal;
     }
+
+    private static ClusterSecurityConfiguration toBl(ApiClusterSecurityConfiguration security) {
+        ClusterSecurityConfiguration retVal = null;
+
+        if (security != null) {
+            ClusterSecurityConfiguration.Builder retValBuilder = ClusterSecurityConfiguration.Builder.get();
+
+            if (security.isContainerimageSet()) {
+                retValBuilder.setContainerImage(toBl(security.getContainerImage()));
+            }
+
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ClusterContainerImageSpecification toBl(ApiClusterContainerImageSpecification containerImage) {
+        ClusterContainerImageSpecification retVal = null;
+
+        if (containerImage != null) {
+            ClusterContainerImageSpecification.Builder retValBuilder = ClusterContainerImageSpecification.Builder.get();
+
+            if (containerImage.isApprovedImagesSet()) {
+                retValBuilder.setApprovedImages(containerImage.getApprovedImages());
+            }
+
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+
     //endregion
 }

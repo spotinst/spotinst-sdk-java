@@ -85,7 +85,7 @@ public class ClusterHeadroomSpecification {
         }
 
         public ClusterHeadroomSpecification.Builder setGpuPerUnit(final Integer gpuPerUnit) {
-            headroom.setMemoryPerUnit(gpuPerUnit);
+            headroom.setGpuPerUnit(gpuPerUnit);
             return this;
         }
 

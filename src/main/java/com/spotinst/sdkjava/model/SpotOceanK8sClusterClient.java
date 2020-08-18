@@ -93,9 +93,9 @@ public class SpotOceanK8sClusterClient {
         return retVal;
     }
 
-    public OceanK8sCluster getOceanK8sCluster(ClusterGetRequest oceanClusterGetRequest) {
+    public OceanK8sCluster getOceanK8sCluster(K8sClusterGetRequest oceanK8sClusterGetRequest) {
         OceanK8sCluster retVal;
-        String          clusterToGet = oceanClusterGetRequest.getClusterId();
+        String          clusterToGet = oceanK8sClusterGetRequest.getClusterId();
         RepoGenericResponse<OceanK8sCluster> clusterRes =
                 getSpotOceanK8sClusterRepo().get(clusterToGet, authToken, account);
         if (clusterRes.isRequestSucceed()) {

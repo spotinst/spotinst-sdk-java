@@ -21,7 +21,6 @@ public class ClusterLaunchSpecification {
     private ClusterIamInstanceProfileSpec iamInstanceProfile;
     private String                        keyPair;
     private List<Tag>                     tags;
-    private LoadBalancersConfig           loadBalancersConfig;
     private Boolean                       associatePublicIpAddress;
     private Boolean                       monitoring;
     private Boolean                       ebsOptimized;
@@ -95,15 +94,6 @@ public class ClusterLaunchSpecification {
     public void setTags(List<Tag> tags) {
         isSet.add("tags");
         this.tags = tags;
-    }
-
-    public LoadBalancersConfig getLoadBalancersConfig() {
-        return loadBalancersConfig;
-    }
-
-    public void setLoadBalancersConfig(LoadBalancersConfig loadBalancersConfig) {
-        isSet.add("loadBalancersConfig");
-        this.loadBalancersConfig = loadBalancersConfig;
     }
 
     public ClusterIamInstanceProfileSpec getIamInstanceProfile() {
@@ -200,11 +190,6 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setLoadBalancersConfig(final LoadBalancersConfig loadBalancersConfig) {
-            launchSpecification.setLoadBalancersConfig(loadBalancersConfig);
-            return this;
-        }
-
         public Builder setTags(final List<Tag> tags) {
             launchSpecification.setTags(tags);
             return this;
@@ -242,11 +227,6 @@ public class ClusterLaunchSpecification {
     @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
-    }
-
-    @JsonIgnore
-    public boolean isLoadBalancersConfigSet() {
-        return isSet.contains("loadBalancersConfig");
     }
 
     @JsonIgnore

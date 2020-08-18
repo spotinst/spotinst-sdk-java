@@ -18,7 +18,7 @@ public class ApiClusterContainerImageSpecification implements IPartialUpdateEnti
     private Set<String>  isSet;
     private List<String> approvedImages;
 
-    private ApiClusterContainerImageSpecification() {
+    public ApiClusterContainerImageSpecification() {
         isSet = new HashSet<>();
     }
 

@@ -18,7 +18,6 @@ public class ClusterStrategyConfiguration {
         isSet = new HashSet<>();
     }
 
-
     public Set<String> getIsSet() {
         return isSet;
     }
