@@ -7,6 +7,7 @@ import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
 import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
 import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
 import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
+import com.spotinst.sdkjava.model.SpotinstMrScalerOperatorAwsClient;
 
 import java.util.List;
 
