@@ -65,5 +65,10 @@ public class SpotinstClient {
         return spotinstMrScalerAwsClient;
     }
 
+    public static SpotinstMrScalerOperatorAwsClient getMrScalerOperatorAwsClient(String authToken, String account) {
+        SpotinstMrScalerOperatorAwsClient spotinstMrScalerOperatorAwsClient = new SpotinstMrScalerOperatorAwsClient(authToken, account);
+        return spotinstMrScalerOperatorAwsClient;
+    }
+
     //endregion
 }
