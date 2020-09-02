@@ -1,0 +1,228 @@
+package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.spotinst.sdkjava.enums.AzureVolumeTypeEnum;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by aharontwizer on 8/24/15.
+ */
+public class EbsDeviceAzure {
+
+    // Partial Update support
+    @JsonIgnore
+    private Set<String>         isSet;
+    private Boolean             deleteOnTermination;
+    private Boolean             encrypted;
+    private Integer             iops;
+    private String              snapshotId;
+    private Integer             volumeSize;
+    private AzureVolumeTypeEnum volumeType;
+
+    //region Constructor
+
+    private EbsDeviceAzure() {
+        isSet = new HashSet<>();
+    }
+    //endregion
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public Boolean getDeleteOnTermination() {
+        return deleteOnTermination;
+    }
+
+    public void setDeleteOnTermination(Boolean deleteOnTermination) {
+        isSet.add("deleteOnTermination");
+        this.deleteOnTermination = deleteOnTermination;
+    }
+
+    public Boolean getEncrypted() {
+        return encrypted;
+    }
+
+    public void setEncrypted(Boolean encrypted) {
+        isSet.add("encrypted");
+        this.encrypted = encrypted;
+    }
+
+    public Integer getIops() {
+        return iops;
+    }
+
+    public void setIops(Integer iops) {
+        isSet.add("iops");
+        this.iops = iops;
+    }
+
+    public String getSnapshotId() {
+        return snapshotId;
+    }
+
+    public void setSnapshotId(String snapshotId) {
+        isSet.add("snapshotId");
+        this.snapshotId = snapshotId;
+    }
+
+    public Integer getVolumeSize() {
+        return volumeSize;
+    }
+
+    public void setVolumeSize(Integer volumeSize) {
+        isSet.add("volumeSize");
+        this.volumeSize = volumeSize;
+    }
+
+    public AzureVolumeTypeEnum getVolumeType() {
+        return volumeType;
+    }
+
+    public void setVolumeType(AzureVolumeTypeEnum volumeType) {
+        isSet.add("volumeType");
+        this.volumeType = volumeType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        EbsDeviceAzure ebsDevice = (EbsDeviceAzure) o;
+
+        if (deleteOnTermination != ebsDevice.deleteOnTermination) {
+            return false;
+        }
+        if (encrypted != ebsDevice.encrypted) {
+            return false;
+        }
+        if (iops != null ? !iops.equals(ebsDevice.iops) : ebsDevice.iops != null) {
+            return false;
+        }
+        if (snapshotId != null ? !snapshotId.equals(ebsDevice.snapshotId) : ebsDevice.snapshotId != null) {
+            return false;
+        }
+        if (volumeSize != null ? !volumeSize.equals(ebsDevice.volumeSize) : ebsDevice.volumeSize != null) {
+            return false;
+        }
+        return volumeType == ebsDevice.volumeType;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (deleteOnTermination ? 1 : 0);
+        result = 31 * result + (encrypted ? 1 : 0);
+        result = 31 * result + (iops != null ? iops.hashCode() : 0);
+        result = 31 * result + (snapshotId != null ? snapshotId.hashCode() : 0);
+        result = 31 * result + (volumeSize != null ? volumeSize.hashCode() : 0);
+        result = 31 * result + (volumeType != null ? volumeType.hashCode() : 0);
+        return result;
+    }
+
+    //region Builder class
+    public static class Builder {
+        private EbsDeviceAzure ebsDevice;
+
+        private Builder() {
+            this.ebsDevice = new EbsDeviceAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setVolumeType(final AzureVolumeTypeEnum volumeType) {
+            ebsDevice.setVolumeType(volumeType);
+            return this;
+        }
+
+        public Builder setDeleteOnTermination(final Boolean deleteOnTermination) {
+            ebsDevice.setDeleteOnTermination(deleteOnTermination);
+            return this;
+        }
+
+        public Builder setEncrypted(final Boolean encrypted) {
+            ebsDevice.setEncrypted(encrypted);
+            return this;
+        }
+
+        public Builder setIops(final Integer iops) {
+            ebsDevice.setIops(iops);
+            return this;
+        }
+
+        public Builder setSnapshotId(final String snapshotId) {
+            ebsDevice.setSnapshotId(snapshotId);
+            return this;
+        }
+
+        public Builder setVolumeSize(final Integer volumeSize) {
+            ebsDevice.setVolumeSize(volumeSize);
+            return this;
+        }
+
+        public EbsDeviceAzure build() {
+            // TODO : Validations
+            return ebsDevice;
+        }
+    }
+
+    //endregion
+
+    //region isSet methods
+    // Is deleteOnTermination Set boolean method
+    @JsonIgnore
+    public boolean isDeleteOnTerminationSet() {
+        return isSet.contains("deleteOnTermination");
+    }
+
+
+    // Is encrypted Set boolean method
+    @JsonIgnore
+    public boolean isEncryptedSet() {
+        return isSet.contains("encrypted");
+    }
+
+
+    // Is iops Set boolean method
+    @JsonIgnore
+    public boolean isIopsSet() {
+        return isSet.contains("iops");
+    }
+
+
+    // Is snapshotId Set boolean method
+    @JsonIgnore
+    public boolean isSnapshotIdSet() {
+        return isSet.contains("snapshotId");
+    }
+
+
+    // Is volumeSize Set boolean method
+    @JsonIgnore
+    public boolean isVolumeSizeSet() {
+        return isSet.contains("volumeSize");
+    }
+
+    // Is volumeType Set boolean method
+    @JsonIgnore
+    public boolean isVolumeTypeSet() {
+        return isSet.contains("volumeType");
+    }
+
+    //endregion
+}
