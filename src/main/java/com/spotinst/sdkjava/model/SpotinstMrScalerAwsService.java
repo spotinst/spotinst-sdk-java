@@ -5,7 +5,6 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
-import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorAws;
 import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -188,5 +187,4 @@ public class SpotinstMrScalerAwsService extends BaseSpotinstService {
         }
         return retVal;
     }
-
 }
