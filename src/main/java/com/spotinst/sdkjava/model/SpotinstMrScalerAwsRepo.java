@@ -3,9 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAws;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
-import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorAws;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,21 +88,4 @@ public class SpotinstMrScalerAwsRepo implements ISpotinstMrScalerAwsRepo {
 
         return retVal;
     }
-
-    //TODO - Override???
-    public RepoGenericResponse<ApiMrScalerOperatorAws> operator(ApiMrScalerOperatorAws mrScalerOperator, String authToken, String account) {
-        RepoGenericResponse<ApiMrScalerOperatorAws> retVal;
-
-        try {
-            BlMrScalerOperatorAws blMrScalerOperator = MrScalerOperatorAwsConverter.toBl(mrScalerOperator);
-            BlMrScalerOperatorAws         returnedBlMrScalerOperator  = SpotinstMrScalerAwsService.mrScalerOperator(blMrScalerOperator, authToken, account);
-            ApiMrScalerOperatorAws        returnedMrScalerOperator    = MrScalerOperatorAwsConverter.toApi(returnedBlMrScalerOperator);
-            retVal = new RepoGenericResponse<>(returnedMrScalerOperator);
-        } catch (SpotinstHttpException ex) {
-            retVal = ExceptionHelper.handleHttpException(ex);
-        }
-
-        return retVal;
-    }
-
 }

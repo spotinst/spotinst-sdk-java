@@ -1,13 +1,10 @@
+
 package com.spotinst.sdkjava;
 
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
-import com.spotinst.sdkjava.model.SpotinstElastigroupClient;
-import com.spotinst.sdkjava.model.SpotinstMrScalerAwsClient;
-import com.spotinst.sdkjava.model.SpotinstSpectrumClient;
-import com.spotinst.sdkjava.model.SpotinstSubscriptionClient;
-import com.spotinst.sdkjava.model.SpotinstMrScalerOperatorAwsClient;
+import com.spotinst.sdkjava.model.*;
 
 import java.util.List;
 
@@ -66,10 +63,14 @@ public class SpotinstClient {
         return spotinstMrScalerAwsClient;
     }
 
+    public static SpotOceanK8sClusterClient getOceanClusterClient(String authToken, String account) {
+        SpotOceanK8sClusterClient spotOceanK8sClusterClient = new SpotOceanK8sClusterClient(authToken, account);
+        return spotOceanK8sClusterClient;
+    }
+
     public static SpotinstMrScalerOperatorAwsClient getMrScalerOperatorAwsClient(String authToken, String account) {
         SpotinstMrScalerOperatorAwsClient spotinstMrScalerOperatorAwsClient = new SpotinstMrScalerOperatorAwsClient(authToken, account);
         return spotinstMrScalerOperatorAwsClient;
     }
-
     //endregion
 }
