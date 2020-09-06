@@ -22,7 +22,7 @@ public class SpotinstMrScalerOperatorAwsClient {
         return this.spotinstMrScalerOperatorRepo;
     }
 
-    public void setSpotinstMrScalerOPeratorRepo(){
+    public void setSpotinstMrScalerOperatorRepo(){
         this.spotinstMrScalerOperatorRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerOperatorAwsRepo();
     }
 
@@ -37,7 +37,7 @@ public class SpotinstMrScalerOperatorAwsClient {
         this.authToken = authToken;
         this.account = account;
 
-        setSpotinstMrScalerOPeratorRepo();
+        setSpotinstMrScalerOperatorRepo();
     }
 
 
@@ -45,13 +45,15 @@ public class SpotinstMrScalerOperatorAwsClient {
 
     // region Methods
     /**
+     * todo liron - describe what this operation does
      * This method is used to create an AWS MrScaler Cluster
      *
      * @param mrScalerOperatorRequest ApiMrScalerOpeartorAwsRequest Object that contains the requested operator params
      * @return ApiMrScalerOperatorAws
      */
+    //todo liron - rename to create
     public ApiMrScalerOperatorAws mrScalerOperator(ApiMrScalerOperatorAwsRequest mrScalerOperatorRequest) {
-        ApiMrScalerOperatorAws retVal = null;
+        ApiMrScalerOperatorAws retVal;
 
         ApiMrScalerOperatorAws mrScalerOperator = mrScalerOperatorRequest.getMrScalerOperator();
 
@@ -66,8 +68,6 @@ public class SpotinstMrScalerOperatorAwsClient {
         }
         return retVal;
     }
-
-
     // endregion
 
 }

@@ -67,6 +67,7 @@ public class SpotinstClient {
         return spotOceanK8sClusterClient;
     }
 
+    //todo liron - use mrScaler client
     public static SpotinstMrScalerOperatorAwsClient getMrScalerOperatorAwsClient(String authToken, String account) {
         SpotinstMrScalerOperatorAwsClient spotinstMrScalerOperatorAwsClient = new SpotinstMrScalerOperatorAwsClient(authToken, account);
         return spotinstMrScalerOperatorAwsClient;

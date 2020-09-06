@@ -8,12 +8,16 @@ import java.util.Set;
 public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String      name;
+    private Set<String>    isSet;
+    //todo liron
+    private ApiMrScalerAws mrScalerAws;
+    private String         name;
     // endregion
 
     //region Constructor
-    public ApiMrScalerOperatorAws() { isSet = new HashSet<>(); }
+    public ApiMrScalerOperatorAws() {
+        isSet = new HashSet<>();
+    }
     // endregion
 
     //region getters and setters
@@ -27,7 +31,7 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
         this.name = name;
     }
 
-    public Boolean isOperatorNameSet(){
+    public Boolean isOperatorNameSet() {
         return isSet.contains("name");
     }
     // endregion
@@ -35,7 +39,10 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
 
     public static class Builder {
         private ApiMrScalerOperatorAws apiMrScalerOperatorAws;
-        private Builder() { this.apiMrScalerOperatorAws = new ApiMrScalerOperatorAws(); }
+
+        private Builder() {
+            this.apiMrScalerOperatorAws = new ApiMrScalerOperatorAws();
+        }
 
         public static Builder get() {
             Builder builder = new Builder();
@@ -53,6 +60,7 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
             apiMrScalerOperatorAws.setName(name);
             return this;
         }
+
         protected Builder setId(final String id) {
             apiMrScalerOperatorAws.setId(id);
             return this;
@@ -68,37 +76,37 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
             return this;
         }
 
-        public Builder setStrategy(final ApiMrScalerAwsStrategyConfiguration strategy){
+        public Builder setStrategy(final ApiMrScalerAwsStrategyConfiguration strategy) {
             apiMrScalerOperatorAws.setStrategy(strategy);
             return this;
         }
 
-        public Builder setCompute(final ApiMrScalerAwsComputeConfiguration compute){
+        public Builder setCompute(final ApiMrScalerAwsComputeConfiguration compute) {
             apiMrScalerOperatorAws.setCompute(compute);
             return this;
         }
 
-        public Builder setCluster(final ApiMrScalerAwsClusterConfiguration cluster){
+        public Builder setCluster(final ApiMrScalerAwsClusterConfiguration cluster) {
             apiMrScalerOperatorAws.setCluster(cluster);
             return this;
         }
 
-        public Builder setScaling(final ApiMrScalerAwsScalingConfiguration scaling){
+        public Builder setScaling(final ApiMrScalerAwsScalingConfiguration scaling) {
             apiMrScalerOperatorAws.setScaling(scaling);
             return this;
         }
 
-        public Builder seCoretScaling(final ApiMrScalerAwsScalingConfiguration coreScaling){
+        public Builder seCoretScaling(final ApiMrScalerAwsScalingConfiguration coreScaling) {
             apiMrScalerOperatorAws.setCoreScaling(coreScaling);
             return this;
         }
 
-        public Builder setScheduling(final ApiMrScalerAwsSchedulingConfiguration scheduling){
+        public Builder setScheduling(final ApiMrScalerAwsSchedulingConfiguration scheduling) {
             apiMrScalerOperatorAws.setScheduling(scheduling);
             return this;
         }
 
-        public ApiMrScalerOperatorAws build(){
+        public ApiMrScalerOperatorAws build() {
             return apiMrScalerOperatorAws;
         }
         // endregion
