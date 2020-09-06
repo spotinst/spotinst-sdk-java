@@ -88,4 +88,6 @@ public class SpotinstMrScalerAwsRepo implements ISpotinstMrScalerAwsRepo {
 
         return retVal;
     }
+
+
 }

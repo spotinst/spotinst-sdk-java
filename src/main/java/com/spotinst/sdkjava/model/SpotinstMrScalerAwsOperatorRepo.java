@@ -3,25 +3,29 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAws;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAwsResponse;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorResponse;
 
-public class SpotinstMrScalerAwsOperatorRepo implements ISpotinstMrScalerOperatorAwsRepo{
+public class SpotinstMrScalerAwsOperatorRepo implements ISpotinstMrScalerOperatorAwsRepo {
     @Override
-    public RepoGenericResponse<ApiMrScalerOperatorAws> mrScalerOperator(ApiMrScalerOperatorAws mrScalerOperator, String authToken, String account) {
-        RepoGenericResponse<ApiMrScalerOperatorAws> retVal;
+    public RepoGenericResponse<ApiMrScalerOperatorAwsResponse> createMrScalerOperator(
+            ApiMrScalerOperatorAws apiMrScalerOperatorAws, String authToken, String account) {
+        RepoGenericResponse<ApiMrScalerOperatorAwsResponse> retVal;
 
         try {
-            BlMrScalerOperatorAws  blMrScalerOperator         = MrScalerOperatorAwsConverter.toBl(mrScalerOperator);
-            BlMrScalerOperatorAws  returnedBlMrScalerOperator = SpotinstMrScalerOperatorAwsService.mrScalerOperator(blMrScalerOperator, authToken, account);
+            BlMrScalerOperatorAws blMrScalerOperatorAws = MrScalerOperatorAwsConverter.toBl(apiMrScalerOperatorAws);
 
-            //Set returned id to MrScaler object
-            returnedBlMrScalerOperator.setMrScaler(blMrScalerOperator.getMrScaler());
-            returnedBlMrScalerOperator.getMrScaler().setId(returnedBlMrScalerOperator.getMrScalerId());
+            BlMrScalerOperatorResponse blCreatedMrScalerOperator = SpotinstMrScalerOperatorAwsService
+                    .createMrScalerOperator(blMrScalerOperatorAws, authToken, account);
 
-            ApiMrScalerOperatorAws returnedMrScalerOperator   = MrScalerOperatorAwsConverter.toApi(returnedBlMrScalerOperator);
-            retVal = new RepoGenericResponse<>(returnedMrScalerOperator);
+            ApiMrScalerOperatorAwsResponse createdMrScalerOperator =
+                    MrScalerOperatorAwsConverter.toApi(blCreatedMrScalerOperator);
 
-        } catch (SpotinstHttpException ex) {
+            retVal = new RepoGenericResponse<>(createdMrScalerOperator);
+
+        }
+        catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 

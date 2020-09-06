@@ -5,17 +5,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BlMrScalerOperatorAws {
-
+public class BlMrScalerOperatorResponse {
     //region Members
-    private String        name;
-    private BlMrScalerAws mrScaler;
+    private String name;
+    private String mrScalerId;
+    private String status;
     //endregion
 
     //region getters and setters
     // region Name
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -23,14 +23,26 @@ public class BlMrScalerOperatorAws {
     }
     // endregion
 
-    // region mrScaler
-    public BlMrScalerAws getMrScaler() {
-        return mrScaler;
+    // region MrScalerId
+    public String getMrScalerId() {
+        return mrScalerId;
     }
 
-    public void setMrScaler(BlMrScalerAws mrScaler) {
-        this.mrScaler = mrScaler;
+    public void setMrScalerId(String mrScalerId) {
+        this.mrScalerId = mrScalerId;
+    }
+    // endregion
+
+    //region Status
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     // endregion
     //endregion
+
+
 }

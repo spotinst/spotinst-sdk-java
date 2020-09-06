@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class ApiMrScalerOperatorAwsRequest {
     //region Members
-    @JsonProperty("mrscalerOperator")
+    @JsonProperty("mrScalerOperator")
     private ApiMrScalerOperatorAws mrScalerOperator;
     //endregion
 
@@ -62,7 +62,7 @@ public class ApiMrScalerOperatorAwsRequest {
         BlMrScalerOperatorAws blMrScalerOpertor = MrScalerOperatorAwsConverter.toBl(mrScalerOperator);
 
         Map<String, BlMrScalerOperatorAws> mrScalerOpertorRequest = new HashMap<>();
-        mrScalerOpertorRequest.put("mrScalerOperator", blMrScalerOpertor);
+        mrScalerOpertorRequest.put("createMrScalerOperator", blMrScalerOpertor);
         String mrScalerJson = JsonMapper.toJson(mrScalerOpertorRequest);
 
         return mrScalerJson;

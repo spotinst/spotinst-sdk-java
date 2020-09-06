@@ -2,8 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAwsCreationRequest;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,17 +13,25 @@ public class SpotinstMrScalerAwsClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstSpectrumClient.class);
 
     //region Members
-    private String authToken;
-    private String account;
-    private ISpotinstMrScalerAwsRepo spotinstMrScalerRepo;
+    private String                           authToken;
+    private String                           account;
+    private ISpotinstMrScalerAwsRepo         spotinstMrScalerRepo;
+    private ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo;
 
-
-    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerRepo(){
+    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerRepo() {
         return this.spotinstMrScalerRepo;
     }
 
-    public void setSpotinstMrScalerRepo(){
+    public void setSpotinstMrScalerRepo() {
         this.spotinstMrScalerRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerAwsRepo();
+    }
+
+    public ISpotinstMrScalerOperatorAwsRepo getSpotinstMrScalerOperatorAwsRepo() {
+        return spotinstMrScalerOperatorAwsRepo;
+    }
+
+    public void setSpotinstMrScalerOperatorAwsRepo() {
+        this.spotinstMrScalerOperatorAwsRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerOperatorAwsRepo();
     }
 
     /**
@@ -32,19 +39,21 @@ public class SpotinstMrScalerAwsClient {
      * AWS MrScaler endpoints.
      *
      * @param authToken User Spotinst API token
-     * @param account User Spotinst account ID
+     * @param account   User Spotinst account ID
      */
-    public SpotinstMrScalerAwsClient(String authToken,String account) {
+    public SpotinstMrScalerAwsClient(String authToken, String account) {
         this.authToken = authToken;
         this.account = account;
 
         setSpotinstMrScalerRepo();
+        setSpotinstMrScalerOperatorAwsRepo();
     }
 
 
     // endregion
 
     // region Methods
+
     /**
      * This method is used to create an AWS MrScaler Cluster
      *
@@ -56,13 +65,16 @@ public class SpotinstMrScalerAwsClient {
 
         ApiMrScalerAws mrScalerToCreate = mrScalerCreationRequest.getMrScaler();
 
-        RepoGenericResponse<ApiMrScalerAws> creationResponse = getSpotinstMrScalerRepo().create(mrScalerToCreate, authToken, account);
+        RepoGenericResponse<ApiMrScalerAws> creationResponse =
+                getSpotinstMrScalerRepo().create(mrScalerToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to create MrScaler. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to create MrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
@@ -72,7 +84,7 @@ public class SpotinstMrScalerAwsClient {
      * This method is used to update an exiting AWS MrScaler Cluster
      *
      * @param mrScalerUpdateRequest ApiMrScalerAwsUpdateRequest Object that contains the requested update params
-     * @param clusterId String for the cluster Id to update
+     * @param clusterId             String for the cluster Id to update
      * @return Boolean
      */
     public Boolean updateMrScaler(ApiMrScalerAwsUpdateRequest mrScalerUpdateRequest, String clusterId) {
@@ -80,13 +92,16 @@ public class SpotinstMrScalerAwsClient {
 
         ApiMrScalerAws mrScalerToUpdate = mrScalerUpdateRequest.getMrScaler();
 
-        RepoGenericResponse<Boolean> updateResponse = getSpotinstMrScalerRepo().update(clusterId, mrScalerToUpdate, authToken, account);
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstMrScalerRepo().update(clusterId, mrScalerToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to create mrScaler. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to create mrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
@@ -99,15 +114,18 @@ public class SpotinstMrScalerAwsClient {
      * @return Boolean
      */
     public Boolean deleteMrScaler(ApiMrScalerAwsDeleteRequest mrScalerDeletionRequest) {
-        Boolean retVal;
-        String mrScalerToDeleteId = mrScalerDeletionRequest.getMrScalerId();
-        RepoGenericResponse<Boolean> mrScalerDeletionResponse = getSpotinstMrScalerRepo().delete(mrScalerToDeleteId, authToken, account);
+        Boolean                      retVal;
+        String                       mrScalerToDeleteId       = mrScalerDeletionRequest.getMrScalerId();
+        RepoGenericResponse<Boolean> mrScalerDeletionResponse =
+                getSpotinstMrScalerRepo().delete(mrScalerToDeleteId, authToken, account);
         if (mrScalerDeletionResponse.isRequestSucceed()) {
             retVal = mrScalerDeletionResponse.getValue();
-        } else {
+        }
+        else {
             List<HttpError> httpExceptions = mrScalerDeletionResponse.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to delete mrScaler. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to delete mrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -120,16 +138,19 @@ public class SpotinstMrScalerAwsClient {
      * @param mrScalerAwsGetRequest ApiMrScalerAwsGetRequest Object that contains the requested get mrScaler ID
      * @return ApiMrScalerAws
      */
-    public ApiMrScalerAws getMrScaler(ApiMrScalerAwsGetRequest mrScalerAwsGetRequest){
-        ApiMrScalerAws retVal;
-        String clusterToGet = mrScalerAwsGetRequest.getMrScalerId();
-        RepoGenericResponse<ApiMrScalerAws> mrScalerGetRes = getSpotinstMrScalerRepo().get(clusterToGet, authToken, account);
-        if (mrScalerGetRes.isRequestSucceed()){
+    public ApiMrScalerAws getMrScaler(ApiMrScalerAwsGetRequest mrScalerAwsGetRequest) {
+        ApiMrScalerAws                      retVal;
+        String                              clusterToGet   = mrScalerAwsGetRequest.getMrScalerId();
+        RepoGenericResponse<ApiMrScalerAws> mrScalerGetRes =
+                getSpotinstMrScalerRepo().get(clusterToGet, authToken, account);
+        if (mrScalerGetRes.isRequestSucceed()) {
             retVal = mrScalerGetRes.getValue();
-        }else{
+        }
+        else {
             List<HttpError> httpExceptions = mrScalerGetRes.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get mrScaler. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get mrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -141,19 +162,51 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return List
      */
-    public List<ApiMrScalerAws> getAllMrScalers(){
-        List<ApiMrScalerAws> retVal;
-        RepoGenericResponse<List<ApiMrScalerAws>> getAllRes = getSpotinstMrScalerRepo().getAll(null, authToken, account);
+    public List<ApiMrScalerAws> getAllMrScalers() {
+        List<ApiMrScalerAws>                      retVal;
+        RepoGenericResponse<List<ApiMrScalerAws>> getAllRes =
+                getSpotinstMrScalerRepo().getAll(null, authToken, account);
 
-        if(getAllRes.isRequestSucceed()){
+        if (getAllRes.isRequestSucceed()) {
             retVal = getAllRes.getValue();
-        }else{
+        }
+        else {
             List<HttpError> httpExceptions = getAllRes.getHttpExceptions();
-            HttpError httpException = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get all mrScalers. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all mrScalers. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
+        return retVal;
+    }
+
+    /**
+     * This method is used to create an AWS MrScaler Operator.
+     * if MrScaler does not exsit - create new one
+     * else - return MrScale ID that connect to this operator name and its luster status.
+     *
+     * @param mrScalerOperatorRequest ApiMrScalerOpeartorAwsRequest Object that contains the requested operator params
+     * @return ApiMrScalerOperatorAwsResponse
+     */
+    public ApiMrScalerOperatorAwsResponse createMrScalerOperator(ApiMrScalerOperatorAwsRequest mrScalerOperatorRequest) {
+        ApiMrScalerOperatorAwsResponse retVal;
+
+        ApiMrScalerOperatorAws apiMrScalerOperatorAws = mrScalerOperatorRequest.getMrScalerOperator();
+
+        RepoGenericResponse<ApiMrScalerOperatorAwsResponse> operatorResponse =
+                getSpotinstMrScalerOperatorAwsRepo().createMrScalerOperator(apiMrScalerOperatorAws, authToken, account);
+        if (operatorResponse.isRequestSucceed()) {
+            retVal = operatorResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = operatorResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to create MrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
         return retVal;
     }
 
