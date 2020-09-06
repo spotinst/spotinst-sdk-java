@@ -178,10 +178,11 @@ public class SpotinstElastigroupClient {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
-        Boolean retVal                = null;
-        String  elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        Boolean               retVal                = null;
+        String                elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        ApiDeleteGroupRequest deleteRequest         = elastigroupDeletionRequest.getDeleteRequest();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
-                getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account);
+                getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account, deleteRequest);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
         }

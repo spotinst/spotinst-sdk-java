@@ -6,6 +6,7 @@ package com.spotinst.sdkjava.model;
 public class ElastigroupDeletionRequest {
     //region Members
     private String elastigroupId;
+    private ApiDeleteGroupRequest deleteRequest;
     //endregion
 
     //region Private constructor
@@ -14,7 +15,6 @@ public class ElastigroupDeletionRequest {
     //endregion
 
     //region Getter and Setter methods
-
     public String getElastigroupId() {
         return elastigroupId;
     }
@@ -23,6 +23,13 @@ public class ElastigroupDeletionRequest {
         this.elastigroupId = elastigroupId;
     }
 
+    public ApiDeleteGroupRequest getDeleteRequest() {
+        return deleteRequest;
+    }
+
+    public void setDeleteRequest(ApiDeleteGroupRequest deleteRequest) {
+        this.deleteRequest = deleteRequest;
+    }
     //endregion
 
     //region Builder class
@@ -40,6 +47,11 @@ public class ElastigroupDeletionRequest {
 
         public ElastigroupDeletionRequest.Builder setElastigroupId(final String elastigroupId) {
             elastigroupDeletionRequest.setElastigroupId(elastigroupId);
+            return this;
+        }
+
+        public ElastigroupDeletionRequest.Builder setDeleteRequest(final ApiDeleteGroupRequest deleteRequest) {
+            elastigroupDeletionRequest.setDeleteRequest(deleteRequest);
             return this;
         }
 

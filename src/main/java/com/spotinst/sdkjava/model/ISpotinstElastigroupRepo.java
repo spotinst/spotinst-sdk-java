@@ -24,9 +24,15 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account);
 
-    RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions, String authToken, String account);
+    RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
+                                                             String authToken, String account);
 
-    RepoGenericResponse<SuspendedProcesses> removeSuspensions(String elastigroupId, List<ProcessNameEnum> processNames, String authToken, String account);
+    RepoGenericResponse<SuspendedProcesses> removeSuspensions(String elastigroupId, List<ProcessNameEnum> processNames,
+                                                              String authToken, String account);
 
-    RepoGenericResponse<SuspendedProcesses> getSuspendedProcesses(String elastigroupId, String authToken, String account);
+    RepoGenericResponse<SuspendedProcesses> getSuspendedProcesses(String elastigroupId, String authToken,
+                                                                  String account);
+
+    RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account,
+                                        ApiDeleteGroupRequest deleteRequest);
 }
