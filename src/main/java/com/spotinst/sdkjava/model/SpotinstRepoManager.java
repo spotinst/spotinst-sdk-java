@@ -15,8 +15,7 @@ class SpotinstRepoManager {
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private ISpotinstMrScalerOperatorAwsRepo                  spotinstMrScalerOperatorAwsRepo;
-
+    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
 
     //region Constructor
     private SpotinstRepoManager() {

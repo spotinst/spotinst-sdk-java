@@ -58,6 +58,8 @@ public class ApiMrScalerOperatorAwsRequest {
     //endregion
 
     //region Json methods
+
+    //todo liron - remove
     public String toJson() {
         BlMrScalerOperatorAws blMrScalerOpertor = MrScalerOperatorAwsConverter.toBl(mrScalerOperator);
 

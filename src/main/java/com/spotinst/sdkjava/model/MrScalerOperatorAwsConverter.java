@@ -15,7 +15,7 @@ public class MrScalerOperatorAwsConverter {
         if (apiMrScalerOperatorAws != null) {
             blMrScalerOperatorAws = new BlMrScalerOperatorAws();
 
-            if(apiMrScalerOperatorAws.isMrScalerSet()) {
+            if (apiMrScalerOperatorAws.isMrScalerSet()) {
                 ApiMrScalerAws apiMrScalerAws = apiMrScalerOperatorAws.getMrScaler();
                 BlMrScalerAws  blMrScalerAws  = MrScalerAwsConverter.toBl(apiMrScalerAws);
                 blMrScalerOperatorAws.setMrScaler(blMrScalerAws);

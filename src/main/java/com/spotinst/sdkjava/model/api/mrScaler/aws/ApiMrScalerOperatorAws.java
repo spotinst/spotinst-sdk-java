@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerOperatorAws{
+public class ApiMrScalerOperatorAws {
     //region Members
     @JsonIgnore
     private Set<String>    isSet;
@@ -62,7 +62,6 @@ public class ApiMrScalerOperatorAws{
         public static Builder get() {
             Builder builder = new Builder();
             return builder;
-
         }
 
         //region Build methods

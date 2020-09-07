@@ -66,5 +66,6 @@ public class SpotinstClient {
         SpotOceanK8sClusterClient spotOceanK8sClusterClient = new SpotOceanK8sClusterClient(authToken, account);
         return spotOceanK8sClusterClient;
     }
+
     //endregion
 }

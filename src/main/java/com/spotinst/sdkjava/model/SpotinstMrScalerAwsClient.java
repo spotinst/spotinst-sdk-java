@@ -114,8 +114,8 @@ public class SpotinstMrScalerAwsClient {
      * @return Boolean
      */
     public Boolean deleteMrScaler(ApiMrScalerAwsDeleteRequest mrScalerDeletionRequest) {
-        Boolean                      retVal;
-        String                       mrScalerToDeleteId       = mrScalerDeletionRequest.getMrScalerId();
+        Boolean retVal;
+        String  mrScalerToDeleteId = mrScalerDeletionRequest.getMrScalerId();
         RepoGenericResponse<Boolean> mrScalerDeletionResponse =
                 getSpotinstMrScalerRepo().delete(mrScalerToDeleteId, authToken, account);
         if (mrScalerDeletionResponse.isRequestSucceed()) {
@@ -139,8 +139,8 @@ public class SpotinstMrScalerAwsClient {
      * @return ApiMrScalerAws
      */
     public ApiMrScalerAws getMrScaler(ApiMrScalerAwsGetRequest mrScalerAwsGetRequest) {
-        ApiMrScalerAws                      retVal;
-        String                              clusterToGet   = mrScalerAwsGetRequest.getMrScalerId();
+        ApiMrScalerAws retVal;
+        String         clusterToGet = mrScalerAwsGetRequest.getMrScalerId();
         RepoGenericResponse<ApiMrScalerAws> mrScalerGetRes =
                 getSpotinstMrScalerRepo().get(clusterToGet, authToken, account);
         if (mrScalerGetRes.isRequestSucceed()) {
@@ -163,7 +163,7 @@ public class SpotinstMrScalerAwsClient {
      * @return List
      */
     public List<ApiMrScalerAws> getAllMrScalers() {
-        List<ApiMrScalerAws>                      retVal;
+        List<ApiMrScalerAws> retVal;
         RepoGenericResponse<List<ApiMrScalerAws>> getAllRes =
                 getSpotinstMrScalerRepo().getAll(null, authToken, account);
 
@@ -184,15 +184,15 @@ public class SpotinstMrScalerAwsClient {
 
     /**
      * This method is used to create an AWS MrScaler Operator.
-     * if MrScaler does not exsit - create new one
-     * else - return MrScale ID that connect to this operator name and its luster status.
+     * if MrScaler does not exist - it will create a new one
+     * otherwise - it will return the MrScaler ID which is connected to this operator name and its cluster status.
      *
      * @param mrScalerOperatorRequest ApiMrScalerOpeartorAwsRequest Object that contains the requested operator params
      * @return ApiMrScalerOperatorAwsResponse
      */
-    public ApiMrScalerOperatorAwsResponse createMrScalerOperator(ApiMrScalerOperatorAwsRequest mrScalerOperatorRequest) {
+    public ApiMrScalerOperatorAwsResponse createMrScalerOperator(
+            ApiMrScalerOperatorAwsRequest mrScalerOperatorRequest) {
         ApiMrScalerOperatorAwsResponse retVal;
-
         ApiMrScalerOperatorAws apiMrScalerOperatorAws = mrScalerOperatorRequest.getMrScalerOperator();
 
         RepoGenericResponse<ApiMrScalerOperatorAwsResponse> operatorResponse =
@@ -203,8 +203,9 @@ public class SpotinstMrScalerAwsClient {
         else {
             List<HttpError> httpExceptions = operatorResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to create MrScaler. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to create MrScaler operator. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;

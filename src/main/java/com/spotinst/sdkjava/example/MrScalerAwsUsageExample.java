@@ -277,4 +277,6 @@ public class MrScalerAwsUsageExample {
         System.out.println(JsonMapper.toJson(getRes));
     }
 
+    //todo liron - add example here
+
 }

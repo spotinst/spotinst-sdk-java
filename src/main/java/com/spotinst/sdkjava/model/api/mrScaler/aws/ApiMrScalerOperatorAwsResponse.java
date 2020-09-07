@@ -11,6 +11,7 @@ public class ApiMrScalerOperatorAwsResponse {
     private Set<String> isSet;
     private String      name;
     private String      mrScalerId;
+    //todo liron - change to enum
     private String      state;
     //endregion
 
@@ -65,6 +66,7 @@ public class ApiMrScalerOperatorAwsResponse {
     //endregion
     //endregion
 
+    //todo liron - remove if not used
         public static class Builder {
         private ApiMrScalerOperatorAwsResponse apiMrScalerAwsResponse;
 
