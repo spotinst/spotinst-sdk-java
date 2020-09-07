@@ -9,7 +9,7 @@ public class BlMrScalerOperatorResponse {
     //region Members
     private String name;
     private String mrScalerId;
-    private String status;
+    private String state;
     //endregion
 
     //region getters and setters
@@ -34,12 +34,12 @@ public class BlMrScalerOperatorResponse {
     // endregion
 
     //region Status
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
     }
     // endregion
     //endregion

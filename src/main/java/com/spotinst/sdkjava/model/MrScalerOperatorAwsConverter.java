@@ -2,8 +2,10 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAws;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAwsResponse;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorResponse;
 
 public class MrScalerOperatorAwsConverter {
     // region toBl
@@ -11,13 +13,16 @@ public class MrScalerOperatorAwsConverter {
         BlMrScalerOperatorAws blMrScalerOperatorAws = null;
 
         if (apiMrScalerOperatorAws != null) {
-            BlMrScalerAws blMrScaler = MrScalerAwsConverter.toBl(apiMrScalerOperatorAws);
-
             blMrScalerOperatorAws = new BlMrScalerOperatorAws();
-            blMrScalerOperatorAws.setMrScaler(blMrScaler);
 
-            if (apiMrScalerOperatorAws.isOperatorNameSet()) {
-                blMrScalerOperatorAws.setName(apiMrScalerOperatorAws.getOperatorName());
+            if(apiMrScalerOperatorAws.isMrScalerSet()) {
+                ApiMrScalerAws apiMrScalerAws = apiMrScalerOperatorAws.getMrScaler();
+                BlMrScalerAws  blMrScalerAws  = MrScalerAwsConverter.toBl(apiMrScalerAws);
+                blMrScalerOperatorAws.setMrScaler(blMrScalerAws);
+            }
+
+            if (apiMrScalerOperatorAws.isNameSet()) {
+                blMrScalerOperatorAws.setName(apiMrScalerOperatorAws.getName());
             }
         }
 
@@ -26,39 +31,25 @@ public class MrScalerOperatorAwsConverter {
     // endregion
 
     // region toApi
-    public static ApiMrScalerOperatorAws toApi(BlMrScalerOperatorAws blMrScalerOperatorAws) {
-       ApiMrScalerOperatorAws apiMrScalerOperatorAws = null;
+    public static ApiMrScalerOperatorAwsResponse toApi(BlMrScalerOperatorResponse blMrScalerOperatorAwsResponse) {
+        ApiMrScalerOperatorAwsResponse apiMrScalerOperatorAwsResponse = null;
 
-        if (blMrScalerOperatorAws != null) {
-            BlMrScalerAws blMrScalerAws = blMrScalerOperatorAws.getMrScaler();
-            ApiMrScalerAws apiMrScalerAws = MrScalerAwsConverter.toApi(blMrScalerAws);
+        if (blMrScalerOperatorAwsResponse != null) {
+            apiMrScalerOperatorAwsResponse = new ApiMrScalerOperatorAwsResponse();
 
-            ApiMrScalerOperatorAws.Builder apiMrScalerOperatorAwsBuilder = ApiMrScalerOperatorAws.Builder.get();
-            apiMrScalerOperatorAws = apiMrScalerOperatorAwsBuilder.setName(blMrScalerAws.getName())
-                                                                  .setCluster(apiMrScalerAws.getCluster())
-                                                                  .setCompute(apiMrScalerAws.getCompute())
-                                                                  .setDescription(apiMrScalerAws.getDescription())
-                                                                  .setRegion(apiMrScalerAws.getRegion())
-                                                                  .setScaling(apiMrScalerAws.getScaling())
-                                                                  .setStrategy(apiMrScalerAws.getStrategy())
-                                                                  .seCoretScaling(apiMrScalerAws.getCoreScaling())
-                                                                  .setScheduling(apiMrScalerAws.getScheduling())
-                                                                  .build();
-
-            if (blMrScalerOperatorAws.getName() != null) {
-                apiMrScalerOperatorAws.setOperatorName(blMrScalerOperatorAws.getName());
+            if (blMrScalerOperatorAwsResponse.getName() != null) {
+                apiMrScalerOperatorAwsResponse.setName(blMrScalerOperatorAwsResponse.getName());
             }
 
-            if (blMrScalerOperatorAws.getMrScaler() != null) {
-                if (blMrScalerOperatorAws.getMrScaler().getId() != null) {
-                    String id = blMrScalerOperatorAws.getMrScaler().getId();
-                    apiMrScalerOperatorAws.setId(id);
-                }
+            if (blMrScalerOperatorAwsResponse.getMrScalerId() != null) {
+                apiMrScalerOperatorAwsResponse.setMrScalerId(blMrScalerOperatorAwsResponse.getMrScalerId());
             }
-
+            if (blMrScalerOperatorAwsResponse.getState() != null) {
+                apiMrScalerOperatorAwsResponse.setState(blMrScalerOperatorAwsResponse.getState());
+            }
         }
 
-        return apiMrScalerOperatorAws;
-   }
+        return apiMrScalerOperatorAwsResponse;
+    }
     // endregion
 }
