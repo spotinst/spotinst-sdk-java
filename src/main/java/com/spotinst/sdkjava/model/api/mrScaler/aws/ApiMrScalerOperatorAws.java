@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
+public class ApiMrScalerOperatorAws{
     //region Members
     @JsonIgnore
     private Set<String>    isSet;
-    //todo liron
-    private ApiMrScalerAws mrScalerAws;
     private String         name;
+    private ApiMrScalerAws mrScaler;
+
     // endregion
 
     //region Constructor
@@ -22,19 +22,34 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
 
     //region getters and setters
     // region Name
-    public String getOperatorName() {
+    public String getName() {
         return name;
     }
 
-    public void setOperatorName(String name) {
+    public void setName(String name) {
         isSet.add("name");
         this.name = name;
     }
 
-    public Boolean isOperatorNameSet() {
+    public Boolean isNameSet() {
         return isSet.contains("name");
     }
     // endregion
+
+    // region MrScaler
+    public ApiMrScalerAws getMrScaler() {
+        return mrScaler;
+    }
+
+    public void setMrScaler(ApiMrScalerAws mrScalerAws) {
+
+        isSet.add("mrScaler");
+        this.mrScaler = mrScalerAws;
+    }
+
+    public Boolean isMrScalerSet() {
+        return isSet.contains("mrScaler");
+    }
     // endregion
 
     public static class Builder {
@@ -51,58 +66,13 @@ public class ApiMrScalerOperatorAws extends ApiMrScalerAws {
         }
 
         //region Build methods
-        public Builder setOperatorName(final String name) {
-            apiMrScalerOperatorAws.setOperatorName(name);
-            return this;
-        }
-
         public Builder setName(final String name) {
             apiMrScalerOperatorAws.setName(name);
             return this;
         }
 
-        protected Builder setId(final String id) {
-            apiMrScalerOperatorAws.setId(id);
-            return this;
-        }
-
-        public Builder setDescription(final String description) {
-            apiMrScalerOperatorAws.setDescription(description);
-            return this;
-        }
-
-        public Builder setRegion(final String mrScalerRegion) {
-            apiMrScalerOperatorAws.setRegion(mrScalerRegion);
-            return this;
-        }
-
-        public Builder setStrategy(final ApiMrScalerAwsStrategyConfiguration strategy) {
-            apiMrScalerOperatorAws.setStrategy(strategy);
-            return this;
-        }
-
-        public Builder setCompute(final ApiMrScalerAwsComputeConfiguration compute) {
-            apiMrScalerOperatorAws.setCompute(compute);
-            return this;
-        }
-
-        public Builder setCluster(final ApiMrScalerAwsClusterConfiguration cluster) {
-            apiMrScalerOperatorAws.setCluster(cluster);
-            return this;
-        }
-
-        public Builder setScaling(final ApiMrScalerAwsScalingConfiguration scaling) {
-            apiMrScalerOperatorAws.setScaling(scaling);
-            return this;
-        }
-
-        public Builder seCoretScaling(final ApiMrScalerAwsScalingConfiguration coreScaling) {
-            apiMrScalerOperatorAws.setCoreScaling(coreScaling);
-            return this;
-        }
-
-        public Builder setScheduling(final ApiMrScalerAwsSchedulingConfiguration scheduling) {
-            apiMrScalerOperatorAws.setScheduling(scheduling);
+        public Builder setMrScaler(final ApiMrScalerAws apiMrScalerAws) {
+            apiMrScalerOperatorAws.setMrScaler(apiMrScalerAws);
             return this;
         }
 
