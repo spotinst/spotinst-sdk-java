@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ElastigroupStrategyConfigurationAzure {
     //region Members
     @JsonIgnore
@@ -19,20 +16,16 @@ public class ElastigroupStrategyConfigurationAzure {
     private Boolean               fallbackToOd;
     private RevertToSpotSpecAzure revertToSpot;
     private List<String>          optimizationWindows;
-
     //todo add  signals in future
-
     //endregion
 
     //region Constructor
-
     private ElastigroupStrategyConfigurationAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -139,22 +132,14 @@ public class ElastigroupStrategyConfigurationAzure {
             return this;
         }
 
-        //TODO Itzik - delete?
-        public Builder set(final RevertToSpotSpecAzure revertToSpot) {
-            strategy.setRevertToSpot(revertToSpot);
-            return this;
-        }
-
         public ElastigroupStrategyConfigurationAzure build() {
             // TODO : Validations
             return strategy;
         }
     }
-
     //endregion
 
     //region isSet methods
-
     // Is spotPercentage Set boolean method
     @JsonIgnore
     public boolean isSpotPercentageSet() {
@@ -191,7 +176,5 @@ public class ElastigroupStrategyConfigurationAzure {
     public boolean isOptimizationWindowsSet() {
         return isSet.contains("optimizationWindows");
     }
-
-
     //endregion
 }

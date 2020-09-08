@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/27/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ScalingDimensionAzure {
 
@@ -17,8 +14,6 @@ public class ScalingDimensionAzure {
     private Set<String> isSet = new HashSet<>();
     private String      name;
     private String      value;
-    private String      resourceGrodownName;    //TODO Itzik - please check
-    private String      resourceName;
 
 
     public Set<String> getIsSet() {
@@ -47,25 +42,6 @@ public class ScalingDimensionAzure {
         this.value = value;
     }
 
-    public String getResourceGrodownName() {
-        return resourceGrodownName;
-    }
-
-    public void setResourceGrodownName(String resourceGrodownName) {
-        isSet.add("resourceGrodownName");
-        this.resourceGrodownName = resourceGrodownName;
-    }
-
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(String resourceName) {
-        isSet.add("resourceName");
-        this.resourceName = resourceName;
-    }
-
-    //TODO Itzik - delete?
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -74,14 +50,11 @@ public class ScalingDimensionAzure {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         ScalingDimensionAzure that = (ScalingDimensionAzure) o;
-
         if (!name.equals(that.name)) {
             return false;
         }
         return !(value != null ? !value.equals(that.value) : that.value != null);
-
     }
 
     @Override
@@ -109,16 +82,6 @@ public class ScalingDimensionAzure {
             return this;
         }
 
-        public Builder setResourceGrodownName(final String resourceGrodownName) {
-            dimension.setResourceGrodownName(resourceGrodownName);
-            return this;
-        }
-
-        public Builder setResourceName(final String resourceName) {
-            dimension.setResourceName(resourceName);
-            return this;
-        }
-
         public Builder setValue(final String value) {
             dimension.setValue(value);
             return this;
@@ -136,16 +99,6 @@ public class ScalingDimensionAzure {
     @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
-    }
-
-    @JsonIgnore
-    public boolean isResourceNameSet() {
-        return isSet.contains("resourceName");
-    }
-
-    @JsonIgnore
-    public boolean isResourceGrodownNameSet() {
-        return isSet.contains("resourceGrodownName");
     }
 
     // Is value Set boolean method

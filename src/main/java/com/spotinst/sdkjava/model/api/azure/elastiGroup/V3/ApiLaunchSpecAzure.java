@@ -10,17 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-
+    private Set<String>                 isSet;
     private ApiImageSpecAzure           image;
     private ApiLoadBalancersConfigAzure loadBalancersConfig;
     private List<ApiTagAzure>           tags;
@@ -28,18 +24,15 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
     private List<ApiLoginAzure>         login;
     private String                      customData;
     //todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks in future
-
-
     //endregion
 
     //region Constructor
-
     public ApiLaunchSpecAzure() {
         isSet = new HashSet<>();
     }
     //endregion
-    //region Getters & Setters
 
+    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -56,7 +49,6 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         isSet.add("customData");
         this.customData = customData;
     }
-
 
     public List<ApiNetworkAzure> getNetwork() {
         return network;
@@ -102,12 +94,9 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         isSet.add("image");
         this.image = image;
     }
-
     //endregion
 
     //region isSet methods
-
-
     // Is customData Set boolean method
     @JsonIgnore
     public boolean isCustomDataSet() {
@@ -116,9 +105,9 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
 
     // Is Login Set boolean method
     @JsonIgnore
-    public boolean isLoginaSet() {
+    public boolean isLoginSet() {
         return isSet.contains("login");
-    }   //TODO Itzik - typo in name
+    }
 
     // Is network Set boolean method
     @JsonIgnore
@@ -138,6 +127,7 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         return isSet.contains("image");
     }
 
+    // Is loadBalancersConfig Set boolean method
     @JsonIgnore
     public boolean isLoadBalancersConfigSet() {
         return isSet.contains("loadBalancersConfig");

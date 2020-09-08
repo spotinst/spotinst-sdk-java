@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ElastigroupComputeConfigurationAzure {
     //region Members
     // Partial Update support
@@ -17,18 +14,15 @@ public class ElastigroupComputeConfigurationAzure {
     private String                              os;
     private ElastigroupLaunchSpecificationAzure launchSpecification;
     private List<ElastigroupVmSizesAzure>       vmSizes;
-
     //endregion
 
     //region Constructor
-
     private ElastigroupComputeConfigurationAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -36,7 +30,6 @@ public class ElastigroupComputeConfigurationAzure {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
 
     public String getOs() {
         return os;
@@ -64,9 +57,8 @@ public class ElastigroupComputeConfigurationAzure {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
-
-
     //endregion
+
     //region Builder class
     public static class Builder {
         private ElastigroupComputeConfigurationAzure compute;
@@ -79,7 +71,6 @@ public class ElastigroupComputeConfigurationAzure {
             Builder builder = new Builder();
             return builder;
         }
-
 
         public Builder setOs(final String os) {
             compute.setOs(os);
@@ -112,22 +103,17 @@ public class ElastigroupComputeConfigurationAzure {
     @JsonIgnore
     public boolean isVmSizesSet() { return isSet.contains("vmSizes"); }
 
-
     // Is launchSpecification Set boolean method
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
     }
 
-
     // Is instanceTypes Set boolean method
     @JsonIgnore
     public boolean isInstanceTypesSet() {
         return isSet.contains("instanceTypes");
     }
-
-
-
     //endregion
 
 }

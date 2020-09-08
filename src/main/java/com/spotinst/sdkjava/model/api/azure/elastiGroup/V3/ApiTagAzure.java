@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -24,22 +21,18 @@ public class ApiTagAzure implements IPartialUpdateEntity {
     //endregion
 
     //region Constructors
-
     public ApiTagAzure() {
         isSet = new HashSet<>();
     }
-    //endregion
 
     public ApiTagAzure(String tagKey, String tagValue) {
         isSet = new HashSet<>();
         this.setTagKey(tagKey);
         this.setTagValue(tagValue);
     }
-
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -65,7 +58,6 @@ public class ApiTagAzure implements IPartialUpdateEntity {
         isSet.add("tagValue");
         this.tagValue = tagValue;
     }
-
     //endregion
 
     //region isSet methods
@@ -80,6 +72,5 @@ public class ApiTagAzure implements IPartialUpdateEntity {
     public boolean isTagValueSet() {
         return isSet.contains("tagValue");
     }
-
     //endregion
 }

@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.LoadBalancersConfigAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -11,8 +13,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token = "your-token";
-    private final static String act_id     = "your-account-id";
+    private final static String auth_token    = "your-token";
+    private final static String act_id        = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -86,10 +88,12 @@ public class ElastigroupUsageExampleAzure {
         deleteSubscription(subscriptionClient, createdTerminateSubscriptionId);
 
         // Suspend AUTO_HEALING process
-        SuspendedProcesses activeSuspensions = suspendProcess(elastigroupClient, elastigroupId, ProcessNameEnum.AUTO_HEALING);
+        SuspendedProcesses activeSuspensions =
+                suspendProcess(elastigroupClient, elastigroupId, ProcessNameEnum.AUTO_HEALING);
 
         List<ProcessNameEnum> activeSuspensionNames =
-                activeSuspensions.getSuspensions().stream().map(ProcessSuspensionResult::getName).collect(Collectors.toList());
+                activeSuspensions.getSuspensions().stream().map(ProcessSuspensionResult::getName)
+                                 .collect(Collectors.toList());
 
         // Remove all active suspensions
         removeSuspendedProcesses(elastigroupClient, activeSuspensions.getGroupId(), activeSuspensionNames);
@@ -144,9 +148,13 @@ public class ElastigroupUsageExampleAzure {
                                                                                 .collect(Collectors.toList());
 
         System.out.println(String.format("%s Healthy instances: %s", healthyInstanceIds.size(), healthyInstanceIds));
-        System.out.println(String.format("%s Unhealthy instances: %s", unhealthyInstanceIds.size(), unhealthyInstanceIds));
-        System.out.println(String.format("%s Instances with insufficient healthiness data: %s", insufficientDataInstanceIds.size(), insufficientDataInstanceIds));
-        System.out.println(String.format("%s Instances with unknown ElastigroupHealthConfigurationAzure: %s", unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
+        System.out.println(
+                String.format("%s Unhealthy instances: %s", unhealthyInstanceIds.size(), unhealthyInstanceIds));
+        System.out.println(
+                String.format("%s Instances with insufficient healthiness data: %s", insufficientDataInstanceIds.size(),
+                              insufficientDataInstanceIds));
+        System.out.println(String.format("%s Instances with unknown ElastigroupHealthConfigurationAzure: %s",
+                                         unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
     }
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -189,7 +197,8 @@ public class ElastigroupUsageExampleAzure {
                                            String createdSubscriptionId) {
         // Delete Retrieved event
         SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
+        SubscriptionDeletionRequest         subDelRequest =
+                subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
         Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
         if (deletionSuccess) {
@@ -305,68 +314,55 @@ public class ElastigroupUsageExampleAzure {
     }
 
     private static String createGroup(SpotinstElastigroupClient client) {
-        // Build group instance types
-        ElastigroupInstanceTypes.Builder instanceTypesBuilder = ElastigroupInstanceTypes.Builder.get();
-        List<String>                     spotTypes            = new ArrayList<>();
-        spotTypes.add("c3.large");
-        ElastigroupInstanceTypes instanceTypes =
-                instanceTypesBuilder.setOnDemandType("c3.large").setSpotTypes(spotTypes).build();
-
-        // Build group availability Zones
-        ArrayList<Placement> placements = new ArrayList<>();
-        Placement.Builder placementBuilder1 = Placement.Builder.get();
-        Placement.Builder placementBuilder2 = Placement.Builder.get();
-        List<String>      subnetIds        = new ArrayList<>();
-        subnetIds.add("subnet-020cf6648937b2272");
-        Placement placement = placementBuilder1.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
-        placements.add(placement);
-        List<String> subnets2 = new LinkedList<>();
-        subnets2.add("subnet-01972f2531cb1ca4b");
-        Placement placement2 = placementBuilder2.setAvailabilityZoneName("us-west-2b").setSubnetIds(subnets2).build();
-        placements.add(placement2);
         // Build group launch spec
+        ElastigroupLaunchSpecificationAzure.Builder launchSpecBuilder =
+                ElastigroupLaunchSpecificationAzure.Builder.get();
 
-        //Build Load Balancer Config
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
-        LoadBalancer                loadBalancer              =
-                lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
-        LoadBalancersConfig loadBalancersConfig =
-                loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
-        ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
-        List<String>                           securityGroupIds  = new ArrayList<>();
-        securityGroupIds.add("sg-060d199c638390fa1");
-        ElastigroupLaunchSpecification launchSpec =
-                launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
-                                 .setKeyPair(key_pair_name).setDetailedMonitoring(true)
-                                 .setLoadBalancersConfig(loadBalancersConfig).build();
+        MarketplaceAzure.Builder marketplaceBuilder = MarketplaceAzure.Builder.get();
+
+        MarketplaceAzure marketplace =
+                marketplaceBuilder.setVersion("latest").setSku("18.04-LTS").setPublisher("Canonical")
+                                  .setOffer("UbuntuServer").build();
+        List<MarketplaceAzure> marketplaceAzureListList = new ArrayList<>();
+        marketplaceAzureListList.add(marketplace);
+
+        ImageSpecAzure.Builder imageSpecBuilder = ImageSpecAzure.Builder.get();
+
+        ImageSpecAzure imageSpecAzure = imageSpecBuilder.setMarketplace(marketplaceAzureListList).build();
+
+        ElastigroupLaunchSpecificationAzure launchSpec = launchSpecBuilder.setImage(imageSpecAzure).setNetwork();
+
 
         // Build group compute
-        ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration compute =
-                computeBuilder.setInstanceTypes(instanceTypes).setProduct("Linux/UNIX")
-                              .setLaunchSpecification(launchSpec).setAvailabilityZones(placements).build();
+        ElastigroupComputeConfigurationAzure.Builder computeBuilder =
+                ElastigroupComputeConfigurationAzure.Builder.get();
+        ElastigroupComputeConfigurationAzure compute =
+                computeBuilder.setOs("Linux/UNIX").setLaunchSpecification(launchSpec).build();
 
+
+        //todo take
         // Build group strategy
-        ElastigroupStrategyConfiguration.Builder strategyBuilder = ElastigroupStrategyConfiguration.Builder.get();
-        ElastigroupStrategyConfiguration strategy =
-                strategyBuilder.setElastigroupOrientation(ElastigroupOrientationEnum.COST_ORIENTED)
-                               .setFallbackToOnDemand(true).setUtilizeReservedInstances(false).setSpotPercentage(100)
-                               .build();
+        //build revert to spot
+        RevertToSpotSpecAzure.Builder reveertToSpotBuilder = RevertToSpotSpecAzure.Builder.get();
 
+        List<String> optimizationTimeList = new ArrayList<>();
+        optimizationTimeList.add("Mon:03:00-Wed:02:30");
+
+        RevertToSpotSpecAzure reveertToSpot = reveertToSpotBuilder.setPerformAt("timeWindow").build();
+        ElastigroupStrategyConfigurationAzure.Builder strategyBuilder =
+                ElastigroupStrategyConfigurationAzure.Builder.get();
+        ElastigroupStrategyConfigurationAzure strategy =
+                strategyBuilder.setSpotPercentage(100).setDrainingTimeout(30).setFallbackToOd(true)
+                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot);
+
+        //todo take
         //Build group capacity
-        ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
+        ElastigroupCapacityConfigurationAzure.Builder capacityBuilder =
+                ElastigroupCapacityConfigurationAzure.Builder.get();
+        ElastigroupCapacityConfigurationAzure capacity =
+                capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
 
-        //build down
-        ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
-        ElastigroupDownSpecification         down        =
-                downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
-        //build headroom
-        ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
-        ElastigroupHeadroomSpecification headRoom =
-                headroomBuilder.setCpuPerUnit(1).setNumOfUnits(2).setMemoryPerUnit(3).build();
         //build attributes
         ElastigroupAttributesSpecification.Builder attributesBuilder = ElastigroupAttributesSpecification.Builder.get();
         ElastigroupAttributesSpecification attributesSpecification =
@@ -394,21 +390,6 @@ public class ElastigroupUsageExampleAzure {
         ElastigroupOptimizeImages optimizeImages =
                 optimizeImagesBuilder.setShouldOptimizeEcsAmi(true).setPerformAt(MaintenanceWindowTypeEnum.TIME_WINDOW)
                                      .setTimeWindow(timeWindow).build();
-        // build batch
-        ElastigroupEcsBatch.Builder ecsBatchBuilder = ElastigroupEcsBatch.Builder.get();
-        List<String>                batchList       = new ArrayList<>();
-        batchList.add("abc");
-        ElastigroupEcsBatch batch = ecsBatchBuilder.setJobQueueNames(batchList).build();
-        //build ecs
-        ElastigroupEcsSpecification.Builder ecsBuilder = ElastigroupEcsSpecification.Builder.get();
-        ElastigroupEcsSpecification ecs =
-                ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages)
-                          .setBatch(batch).build();
-        //build group third party integration ECS
-        ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder =
-                ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
-        ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
-                thirdPartiesIntegrationBuilder.setEcs(ecs).build();
         //build task
         TasksConfiguration.Builder tasksBuilder = TasksConfiguration.Builder.get();
         List<TasksConfiguration>   tasksList    = new ArrayList<>();
@@ -483,9 +464,8 @@ public class ElastigroupUsageExampleAzure {
         String retVal;
 
         // Build elastigroup clone
-        Elastigroup.Builder cloneElastigroupBuilder = Elastigroup.Builder.get();
-        Elastigroup elastigroupModifications =
-                cloneElastigroupBuilder.setName("Cloned Elastigroup").build();
+        Elastigroup.Builder cloneElastigroupBuilder  = Elastigroup.Builder.get();
+        Elastigroup         elastigroupModifications = cloneElastigroupBuilder.setName("Cloned Elastigroup").build();
 
         // Build elastigroup clone request
         ElastigroupCloneRequest.Builder elastigroupCloneRequestBuilder = ElastigroupCloneRequest.Builder.get();
@@ -530,21 +510,19 @@ public class ElastigroupUsageExampleAzure {
     }
 
     private static void detachLoadBalancer(SpotinstElastigroupClient client, String elastigroupId) {
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancersConfig loadBalancersConfig =
-                loadBalancerConfigBuilder.setLoadBalancers(null).build();
+        LoadBalancersConfigAzure.Builder loadBalancerConfigBuilder = LoadBalancersConfigAzure.Builder.get();
+        LoadBalancersConfigAzure loadBalancersConfig = loadBalancerConfigBuilder.setLoadBalancers(null).build();
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setLoadBalancersConfig(loadBalancersConfig).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration         compute        =
-                computeBuilder.setLaunchSpecification(launchSpec).build();
+        ElastigroupComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpec).build();
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
-        Elastigroup elastigroupUpdate = updateElastigroupBuilder.setCompute(compute).build();
+        Elastigroup         elastigroupUpdate        = updateElastigroupBuilder.setCompute(compute).build();
 
         // Build elastigroup update request
         ElastigroupUpdateRequest.Builder elastigroupUpdateRequestBuilder = ElastigroupUpdateRequest.Builder.get();
@@ -565,7 +543,8 @@ public class ElastigroupUsageExampleAzure {
 
         // Build standby elastigroup request
         ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest postRequest = elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+        ElastigroupStandbyRequest postRequest =
+                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
 
         // enter group standby
         Boolean updateSuccess = client.enterGroupStandby(postRequest);
@@ -579,7 +558,8 @@ public class ElastigroupUsageExampleAzure {
 
         // Build standby elastigroup request
         ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest deleteRequest = elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+        ElastigroupStandbyRequest deleteRequest =
+                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
 
         // exit group standby
         Boolean updateSuccess = client.exitGroupStandby(deleteRequest);
@@ -589,7 +569,8 @@ public class ElastigroupUsageExampleAzure {
         }
     }
 
-    private static SuspendedProcesses getSuspendedProcesses(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+    private static SuspendedProcesses getSuspendedProcesses(SpotinstElastigroupClient elastigroupClient,
+                                                            String elastigroupId) {
         SuspendedProcesses retVal;
 
         ElastigroupGetSuspensionsRequest.Builder requestBuilder = ElastigroupGetSuspensionsRequest.Builder.get();
@@ -630,8 +611,9 @@ public class ElastigroupUsageExampleAzure {
         ElastigroupSuspendProcessesRequest.Builder requestBuilder = ElastigroupSuspendProcessesRequest.Builder.get();
 
         ProcessSuspension.Builder suspensionBuilder = ProcessSuspension.Builder.get();
-        ProcessSuspension suspension = suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
-        List<ProcessSuspension> suspensions = Collections.singletonList(suspension);
+        ProcessSuspension         suspension        =
+                suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
+        List<ProcessSuspension>   suspensions       = Collections.singletonList(suspension);
         ElastigroupSuspendProcessesRequest request =
                 requestBuilder.setElastigroupId(elastigroupId).setSuspensions(suspensions).build();
 

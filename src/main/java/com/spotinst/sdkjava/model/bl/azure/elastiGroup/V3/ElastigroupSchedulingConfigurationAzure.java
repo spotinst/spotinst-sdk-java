@@ -9,7 +9,7 @@ import java.util.Set;
 public class ElastigroupSchedulingConfigurationAzure {
     //region Members
     @JsonIgnore
-    private Set<String>              isSet;
+    private Set<String>                   isSet;
     private List<TasksConfigurationAzure> tasks;
     //endregion
 

@@ -10,9 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -23,17 +20,15 @@ public class ApiGroupComputeAzure implements IPartialUpdateEntity {
     private String                           os;
     private List<ApiElastigroupVmSizesAzure> vmSizes;
     private ApiLaunchSpecAzure               launchSpecification;
-
     //endregion
 
     //region Constructor
-
     public ApiGroupComputeAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
-
+    //region getters &setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -68,9 +63,9 @@ public class ApiGroupComputeAzure implements IPartialUpdateEntity {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
-    //region isset methods
+    //end region
 
-
+    //region is set methods
     // Is os Set boolean method
     @JsonIgnore
     public boolean isOsSet() {
@@ -88,7 +83,5 @@ public class ApiGroupComputeAzure implements IPartialUpdateEntity {
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
     }
-
-
     //endregion
 }

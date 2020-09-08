@@ -8,11 +8,9 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -58,7 +56,26 @@ public class ApiElastigroupVmSizesAzure implements IPartialUpdateEntity {
         isSet.add("spotSizes");
         this.spotSizes = spotSizes;
     }
+    //endregion
 
+
+    //region override methods
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ApiElastigroupVmSizesAzure that = (ApiElastigroupVmSizesAzure) o;
+        return Objects.equals(odSizes, that.odSizes) && Objects.equals(spotSizes, that.spotSizes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(odSizes, spotSizes);
+    }
     //endregion
 
     //region isSet methods

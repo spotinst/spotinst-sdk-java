@@ -327,11 +327,11 @@ public class ElastigroupUsageExample {
         // Build group launch spec
 
         //Build Load Balancer Config
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
-        LoadBalancer                loadBalancer              =
+        LoadBalancersConfigAzure.Builder loadBalancerConfigBuilder = LoadBalancersConfigAzure.Builder.get();
+        LoadBalancerAzure.Builder        lbBuilder                 = LoadBalancerAzure.Builder.get();
+        LoadBalancerAzure loadBalancer              =
                 lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
-        LoadBalancersConfig loadBalancersConfig =
+        LoadBalancersConfigAzure loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         List<String>                           securityGroupIds  = new ArrayList<>();
@@ -530,8 +530,8 @@ public class ElastigroupUsageExample {
     }
 
     private static void detachLoadBalancer(SpotinstElastigroupClient client, String elastigroupId) {
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancersConfig loadBalancersConfig =
+        LoadBalancersConfigAzure.Builder loadBalancerConfigBuilder = LoadBalancersConfigAzure.Builder.get();
+        LoadBalancersConfigAzure loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(null).build();
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         ElastigroupLaunchSpecification launchSpec =
@@ -539,7 +539,7 @@ public class ElastigroupUsageExample {
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration         compute        =
+        ElastigroupComputeConfiguration compute        =
                 computeBuilder.setLaunchSpecification(launchSpec).build();
 
         // Build elastigroup update

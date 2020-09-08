@@ -2,16 +2,14 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/27/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ElastigroupScalingConfigurationAzure {
+public class ElastigroupScalingConfigurationAzure implements IPartialUpdateEntity {
     //region Members
     // Partial Update support
     @JsonIgnore
@@ -58,31 +56,6 @@ public class ElastigroupScalingConfigurationAzure {
     public void setDown(List<ScalingPolicyAzure> down) {
         isSet.add("down");
         this.down = down;
-    }
-
-    //endregion
-
-    //endregion
-
-    //TODO Itzik - delete?
-    //region Object overrides
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ElastigroupScalingConfigurationAzure elastigroupScalingConfiguration = (ElastigroupScalingConfigurationAzure) o;
-
-        if (up != null ? !up.equals(elastigroupScalingConfiguration.up) : elastigroupScalingConfiguration.up != null) return false;
-        return !(down != null ? !down.equals(elastigroupScalingConfiguration.down) : elastigroupScalingConfiguration.down != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = up != null ? up.hashCode() : 0;
-        result = 31 * result + (down != null ? down.hashCode() : 0);
-        return result;
     }
     //endregion
 

@@ -10,9 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -27,18 +25,15 @@ public class ApiNetworkInterfaceAzure implements IPartialUpdateEntity {
     private Boolean                                  enableIPForwarding;
     private List<ApiAdditionalIpConfigurationsAzure> additionalIpConfigurations;
     //todo add security group in future
-
     //endregion
 
     //region Constructor
-
     public ApiNetworkInterfaceAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -103,20 +98,17 @@ public class ApiNetworkInterfaceAzure implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
-
     // Is isPrimary Set boolean method
     @JsonIgnore
     public boolean isIsPrimarySet() {
         return isSet.contains("isPrimary");
     }
-
-
     // Is assignPublicIp Set boolean method
+
     @JsonIgnore
     public boolean isAssignPublicIpSet() {
         return isSet.contains("assignPublicIp");
     }
-
 
     // Is enableIPForwarding Set boolean method
     @JsonIgnore
@@ -136,13 +128,10 @@ public class ApiNetworkInterfaceAzure implements IPartialUpdateEntity {
         return isSet.contains("publicIpSku");
     }
 
-
     // Is subnetName Set boolean method
     @JsonIgnore
     public boolean isSubnetNameSet() {
         return isSet.contains("subnetName");
     }
-
-
     //endregion
 }

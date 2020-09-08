@@ -15,15 +15,15 @@ import java.util.Set;
 public class ApiLoadBalancersConfigAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>           isSet;    //TODO Itzik - indentation
+    private Set<String>                isSet;
     private List<ApiLoadBalancerAzure> loadBalancers;
     //endregion
 
     public ApiLoadBalancersConfigAzure() {
         isSet = new HashSet<>();
     }
-    //region Setters & Getters
 
+    //region Setters & Getters
     public List<ApiLoadBalancerAzure> getLoadBalancers() {
         return loadBalancers;
     }

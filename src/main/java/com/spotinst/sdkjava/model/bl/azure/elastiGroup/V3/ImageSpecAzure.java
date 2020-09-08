@@ -6,32 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ImageSpecAzure {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-
-    //private List<CustomSpecAzure>         custom;
-    private List<MarketplaceAzure> matketplace;     //TODO Itzik - typo
-
-    //todo add custom
-
-
-
+    private List<CustomSpecAzure>  custom;
+    private List<MarketplaceAzure> marketplace;
     //endregion
 
     //region Constructor
-
     private ImageSpecAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -40,21 +29,28 @@ public class ImageSpecAzure {
         this.isSet = isSet;
     }
 
-    public List<MarketplaceAzure> getMatketplace() {
-        return matketplace;
+    public List<CustomSpecAzure> getCustom() {
+        return custom;
     }
 
-    public void setMatketplace(List<MarketplaceAzure> matketplace) {
-        isSet.add("matketplace");
-        this.matketplace = matketplace;
+    public void setCustom(List<CustomSpecAzure> custom) {
+        isSet.add("custom");
+        this.custom = custom;
     }
 
+    public List<MarketplaceAzure> getMarketplace() {
+        return marketplace;
+    }
+
+    public void setMarketplace(List<MarketplaceAzure> marketplace) {
+        isSet.add("marketplace");
+        this.marketplace = marketplace;
+    }
     //endregion
 
     //region Builder class
     public static class Builder {
         private ImageSpecAzure launchSpecification;
-
         private Builder() {
             this.launchSpecification = new ImageSpecAzure();
         }
@@ -64,8 +60,12 @@ public class ImageSpecAzure {
             return builder;
         }
 
-        public Builder setMatketplace(final List<MarketplaceAzure> marketplace) {
-            launchSpecification.setMatketplace(marketplace);
+        public Builder setMarketplace(final List<MarketplaceAzure> marketplace) {
+            launchSpecification.setMarketplace(marketplace);
+            return this;
+        }
+        public Builder setCustom(final List<CustomSpecAzure> custom) {
+            launchSpecification.setCustom(custom);
             return this;
         }
 
@@ -75,13 +75,18 @@ public class ImageSpecAzure {
         }
     }
     //endregion
+
     //region isSet methods
-
-
-    // Is matketplace Set boolean method
+    // Is marketplace Set boolean method
     @JsonIgnore
-    public boolean isMatketplaceSet() {
-        return isSet.contains("matketplace");
+    public boolean isMarketplaceSet() {
+        return isSet.contains("marketplace");
+    }
+
+    // Is custom Set boolean method
+    @JsonIgnore
+    public boolean isCustomSet() {
+        return isSet.contains("custom");
     }
     //endregion
 }

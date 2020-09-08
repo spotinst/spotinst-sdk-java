@@ -6,37 +6,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ElastigroupLaunchSpecificationAzure {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-
-    private ImageSpecAzure image; //todo add
-
-    private LoadBalancersConfigAzure    loadBalancersConfig;
-    private List<TagAzure>              tags;
-    private List<NetworkAzure> network;
-    private List<LoginAzure>            login;
-    private String customData;
-
-
-
-
-//todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks
+    private Set<String>              isSet;
+    private ImageSpecAzure           image;
+    private LoadBalancersConfigAzure loadBalancersConfig;
+    private List<TagAzure>           tags;
+    private List<NetworkAzure>       network;
+    private List<LoginAzure>         login;
+    private String                   customData;
+    //todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks
     //endregion
 
     //region Constructor
-
     private ElastigroupLaunchSpecificationAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -44,8 +33,6 @@ public class ElastigroupLaunchSpecificationAzure {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
-
 
     public List<NetworkAzure> getNetwork() {
         return network;
@@ -55,7 +42,6 @@ public class ElastigroupLaunchSpecificationAzure {
         isSet.add("network");
         this.network = network;
     }
-
 
     public String getCustomData() {
         return customData;
@@ -101,13 +87,11 @@ public class ElastigroupLaunchSpecificationAzure {
         isSet.add("image");
         this.image = image;
     }
-
     //endregion
 
     //region Builder class
     public static class Builder {
         private ElastigroupLaunchSpecificationAzure launchSpecification;
-
         private Builder() {
             this.launchSpecification = new ElastigroupLaunchSpecificationAzure();
         }
@@ -153,14 +137,13 @@ public class ElastigroupLaunchSpecificationAzure {
         }
     }
     //endregion
-    //region isSet methods
 
+    //region isSet methods
     // Is customData Set boolean method
     @JsonIgnore
     public boolean isCustomDataSet() {
         return isSet.contains("customData");
     }
-
 
     // Is network Set boolean method
     @JsonIgnore

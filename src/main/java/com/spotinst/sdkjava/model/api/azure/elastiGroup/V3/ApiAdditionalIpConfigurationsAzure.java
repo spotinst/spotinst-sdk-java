@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -24,22 +21,17 @@ public class ApiAdditionalIpConfigurationsAzure implements IPartialUpdateEntity 
     //endregion
 
     //region Constructors
-
     public ApiAdditionalIpConfigurationsAzure() {
         isSet = new HashSet<>();
     }
-    //endregion
-
     ApiAdditionalIpConfigurationsAzure(String name, String privateIpAddressVersion) {
         isSet = new HashSet<>();
         this.setName(name);
         this.setPrivateIpAddressVersion(privateIpAddressVersion);
     }
-
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -65,7 +57,6 @@ public class ApiAdditionalIpConfigurationsAzure implements IPartialUpdateEntity 
         isSet.add("privateIpAddressVersion");
         this.privateIpAddressVersion = privateIpAddressVersion;
     }
-
     //endregion
 
     //region isSet methods

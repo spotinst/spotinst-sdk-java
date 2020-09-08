@@ -26,23 +26,12 @@ public class ApiMarketplaceAzure implements IPartialUpdateEntity {
     //endregion
 
     //region Constructors
-
     public ApiMarketplaceAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
-    ApiMarketplaceAzure(String publisher, String offer, String sku) {
-        isSet = new HashSet<>();
-        this.setPublisher(publisher);
-        this.setOffer(offer);
-        this.setSku(sku);
-    }
-
-    //endregion
-
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -85,8 +74,6 @@ public class ApiMarketplaceAzure implements IPartialUpdateEntity {
         isSet.add("version");
         this.version = version;
     }
-
-
     //endregion
 
     //region isSet methods

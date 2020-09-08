@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -25,7 +22,6 @@ public class ApiLoginAzure implements IPartialUpdateEntity {
     //endregion
 
     //region Constructors
-
     public ApiLoginAzure() {
         isSet = new HashSet<>();
     }
@@ -37,11 +33,9 @@ public class ApiLoginAzure implements IPartialUpdateEntity {
         this.setSshPublicKey(sshPublicKey);
         this.setPassword(password);
     }
-
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -76,8 +70,6 @@ public class ApiLoginAzure implements IPartialUpdateEntity {
         isSet.add("password");
         this.password = password;
     }
-
-
     //endregion
 
     //region isSet methods

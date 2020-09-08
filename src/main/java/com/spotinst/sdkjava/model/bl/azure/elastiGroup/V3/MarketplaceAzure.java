@@ -3,11 +3,9 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class MarketplaceAzure {
     //region Members
     // Partial Update support
@@ -16,10 +14,7 @@ public class MarketplaceAzure {
     private String      publisher;
     private String      offer;
     private String      sku;
-
-
-
-    private String version;
+    private String      version;
 
     //endregion
 
@@ -79,6 +74,7 @@ public class MarketplaceAzure {
     //endregion
 
     //region Object overrides
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -87,24 +83,17 @@ public class MarketplaceAzure {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
-        MarketplaceAzure tag = (MarketplaceAzure) o;
-
-        if (!publisher.equals(tag.publisher)) {
-            return false;
-        }
-        return offer.equals(tag.offer);
-
+        MarketplaceAzure that = (MarketplaceAzure) o;
+        return Objects.equals(publisher, that.publisher) && Objects.equals(offer, that.offer) &&
+               Objects.equals(sku, that.sku) && Objects.equals(version, that.version);
     }
 
     @Override
     public int hashCode() {
-        int result = publisher.hashCode();
-        result = 31 * result + offer.hashCode();
-        return result;
+        return Objects.hash(publisher, offer, sku, version);
     }
-
     //endregion
+
     //region Builder class
     public static class Builder {
         private MarketplaceAzure loginAzure;
@@ -127,6 +116,7 @@ public class MarketplaceAzure {
             loginAzure.setOffer(offer);
             return this;
         }
+
         public Builder setSku(final String sku) {
             loginAzure.setSku(sku);
             return this;

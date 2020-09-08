@@ -3,20 +3,15 @@ package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.model.ApiScalingAction;
-import com.spotinst.sdkjava.model.ApiScalingDimension;
+
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/27/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiScalingPolicyAzure {
-    //TODO Itzik - check with Azure entity
     //region Members
     // Partial Update support
     private Set<String>                    isSet = new HashSet<>();
@@ -33,6 +28,7 @@ public class ApiScalingPolicyAzure {
     private ApiScalingActionAzure          action;
     private String                         operator;
     private Boolean                        isEnabled;
+
     //endregion
 
     //region Getters & Setters

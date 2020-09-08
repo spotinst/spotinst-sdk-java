@@ -16,6 +16,14 @@ public class LoadBalancersConfigAzure {
 
 
     //region Setters&Getters
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public List<LoadBalancerAzure> getLoadBalancers() {
         return loadBalancers;
     }
@@ -24,6 +32,7 @@ public class LoadBalancersConfigAzure {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }
+    //endregion
 
     //region Builder class
     public static class Builder {
@@ -50,16 +59,7 @@ public class LoadBalancersConfigAzure {
     }
     //endregion
 
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
-    //endregion
-
-    //region Methods
+    //region isSet Methods
     @JsonIgnore
     public boolean isLoadBalancersSet() {
         return isSet.contains("loadBalancers");

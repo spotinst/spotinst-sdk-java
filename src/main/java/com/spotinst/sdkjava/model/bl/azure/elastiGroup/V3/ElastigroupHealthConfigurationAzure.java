@@ -8,39 +8,34 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElastigroupHealthConfigurationAzure {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private boolean autoHealing;    //TODO Itzik - Boolean/boolean?
+    private Boolean autoHealing;
     private String  healthCheckTypes;
     private Integer gracePeriod;
     private Integer unhealthyDuration;
     //endregion
 
     //region Constructor
-
     private ElastigroupHealthConfigurationAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getter and Setter methods
-
     public Set<String> getIsSet() {
         return isSet;
     }
 
-    public boolean getAutoHealing() {
+    public Boolean getAutoHealing() {
         return autoHealing;
     }
 
-    public void setAutoHealing(boolean autoHealing) {
+    public void setAutoHealing(Boolean autoHealing) {
         isSet.add("autoHealing");
         this.autoHealing = autoHealing;
     }
@@ -75,15 +70,11 @@ public class ElastigroupHealthConfigurationAzure {
         isSet.add("unhealthyDuration");
         this.unhealthyDuration = unhealthyDuration;
     }
-
-    //endregion
-
     //endregion
 
     //region Builder class
     public static class Builder {
         private ElastigroupHealthConfigurationAzure capacity;
-
         private Builder() {
             this.capacity = new ElastigroupHealthConfigurationAzure();
         }
@@ -98,7 +89,7 @@ public class ElastigroupHealthConfigurationAzure {
             return this;
         }
 
-        public Builder setAutoHealing(final boolean autoHealing) {
+        public Builder setAutoHealing(final Boolean autoHealing) {
             capacity.setAutoHealing(autoHealing);
             return this;
         }
@@ -143,6 +134,5 @@ public class ElastigroupHealthConfigurationAzure {
     public boolean isUnhealthyDurationSet() {
         return isSet.contains("unhealthyDuration");
     }
-
     //endregion
 }

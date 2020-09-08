@@ -10,32 +10,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiImageSpecAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
+    private Set<String>               isSet;
     private List<ApiMarketplaceAzure> marketplace;
-
-//todo add custom
-    //TODO Itzik - Check with Yarden
-
-
+    private List<ApiCustomSpecAzure> custom;
     //endregion
 
     //region Constructor
-
     public ApiImageSpecAzure() {
         isSet = new HashSet<>();
     }
     //endregion
-    //region Getters & Setters
 
+    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -53,15 +45,27 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
         this.marketplace = marketplace;
     }
 
+    public List<ApiCustomSpecAzure> getCustom() {
+        return custom;
+    }
+
+    public void setCustom(List<ApiCustomSpecAzure> custom) {
+        isSet.add("custom");
+        this.custom = custom;
+    }
     //endregion
 
     //region isSet methods
-
-
     // Is marketplace Set boolean method
     @JsonIgnore
     public boolean isMarketplaceSet() {
         return isSet.contains("marketplace");
+    }
+
+    // Is custom Set boolean method
+    @JsonIgnore
+    public boolean isCustomSet() {
+        return isSet.contains("custom");
     }
     //endregion
 }

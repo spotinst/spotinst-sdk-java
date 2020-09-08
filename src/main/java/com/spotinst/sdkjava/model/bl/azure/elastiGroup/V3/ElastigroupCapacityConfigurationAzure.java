@@ -8,9 +8,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElastigroupCapacityConfigurationAzure {
@@ -23,14 +20,12 @@ public class ElastigroupCapacityConfigurationAzure {
     //endregion
 
     //region Constructor
-
     private ElastigroupCapacityConfigurationAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getter and Setter methods
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -65,8 +60,6 @@ public class ElastigroupCapacityConfigurationAzure {
         isSet.add("target");
         this.target = target;
     }
-
-    //endregion
 
     //endregion
 
@@ -112,7 +105,6 @@ public class ElastigroupCapacityConfigurationAzure {
         return isSet.contains("minimum");
     }
 
-
     // Is maximum Set boolean method
     @JsonIgnore
     public boolean isMaximumSet() {
@@ -124,6 +116,5 @@ public class ElastigroupCapacityConfigurationAzure {
     public boolean isTargetSet() {
         return isSet.contains("target");
     }
-
     //endregion
 }

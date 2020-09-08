@@ -6,10 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ElastigroupAzure {
     //region Members
     @JsonIgnore
@@ -21,11 +17,9 @@ public class ElastigroupAzure {
     private ElastigroupCapacityConfigurationAzure   capacity;
     private ElastigroupStrategyConfigurationAzure   strategy;
     private ElastigroupHealthConfigurationAzure     health;
-
     private ElastigroupComputeConfigurationAzure    compute;
-
     private ElastigroupScalingConfigurationAzure    scaling;
-    private ElastigroupSchedulingConfigurationAzure scheduling; //todo check if needed - needed
+    private ElastigroupSchedulingConfigurationAzure scheduling;
     private Date                                    createdAt;
     private Date                                    updatedAt;
     //endregion
@@ -216,6 +210,7 @@ public class ElastigroupAzure {
             elastigroup.setScaling(elastigroupScalingConfiguration);
             return this;
         }
+
         public Builder setHealth(final ElastigroupHealthConfigurationAzure health) {
             elastigroup.setHealth(health);
             return this;

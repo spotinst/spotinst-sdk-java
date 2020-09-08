@@ -8,42 +8,42 @@ import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class LoadBalancersConfig {
+public class LoadBalancersConfigAzure {
     //region Members
-    private Set<String>        isSet = new HashSet<>();
-    private List<LoadBalancer> loadBalancers;
+    private Set<String>             isSet = new HashSet<>();
+    private List<LoadBalancerAzure> loadBalancers;
     //endregion
 
 
     //region Setters&Getters
-    public List<LoadBalancer> getLoadBalancers() {
+    public List<LoadBalancerAzure> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<LoadBalancer> loadBalancers) {
+    public void setLoadBalancers(List<LoadBalancerAzure> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }
 
     //region Builder class
     public static class Builder {
-        private LoadBalancersConfig loadBalancersConfig;
+        private LoadBalancersConfigAzure loadBalancersConfig;
 
         private Builder() {
-            this.loadBalancersConfig = new LoadBalancersConfig();
+            this.loadBalancersConfig = new LoadBalancersConfigAzure();
         }
 
-        public static LoadBalancersConfig.Builder get() {
-            LoadBalancersConfig.Builder builder = new LoadBalancersConfig.Builder();
+        public static LoadBalancersConfigAzure.Builder get() {
+            LoadBalancersConfigAzure.Builder builder = new LoadBalancersConfigAzure.Builder();
             return builder;
         }
 
-        public LoadBalancersConfig.Builder setLoadBalancers(final List<LoadBalancer> loadBalancers) {
+        public LoadBalancersConfigAzure.Builder setLoadBalancers(final List<LoadBalancerAzure> loadBalancers) {
             loadBalancersConfig.setLoadBalancers(loadBalancers);
             return this;
         }
 
-        public LoadBalancersConfig build() {
+        public LoadBalancersConfigAzure build() {
             // TODO : Validations
             return loadBalancersConfig;
         }

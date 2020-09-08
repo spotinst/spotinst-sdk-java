@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by yossi.elman on 12/03/20.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -25,10 +22,12 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
     private String      name;
     private String      backendPoolNames;
     private String      sku;
-
     //endregion
 
     //region Getters & Setters
+    public Set<String> getIsSet() {
+        return isSet;
+    }
 
     public String getName() {
         return name;
@@ -39,11 +38,6 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
-    }
-
     public String getBackendPoolNames() {
         return backendPoolNames;
     }
@@ -51,11 +45,6 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
     public void setBackendPoolNames(String backendPoolNames) {
         isSet.add("backendPoolNames");
         this.backendPoolNames = backendPoolNames;
-    }
-
-    @JsonIgnore
-    public boolean isBackendPoolNamesSet() {
-        return isSet.contains("backendPoolNames");
     }
 
     public String getSku() {
@@ -76,17 +65,6 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         this.resourceGroupName = resourceGroupName;
     }
 
-    @JsonIgnore
-    public boolean isResourceGroupNameSet() {
-        return isSet.contains("resourceGroupName");
-    }
-
-
-    @JsonIgnore
-    public boolean isSkuSet() {
-        return isSet.contains("sku");
-    }
-
     public String getType() {
         return type;
     }
@@ -95,17 +73,33 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         isSet.add("type");
         this.type = type;
     }
+    //endregion
+
+
+    //region is Set methods
+    @JsonIgnore
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isBackendPoolNamesSet() {
+        return isSet.contains("backendPoolNames");
+    }
+
+    @JsonIgnore
+    public boolean isResourceGroupNameSet() {
+        return isSet.contains("resourceGroupName");
+    }
+
+    @JsonIgnore
+    public boolean isSkuSet() {
+        return isSet.contains("sku");
+    }
 
     @JsonIgnore
     public boolean isTypeSet() {
         return isSet.contains("type");
     }
-
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
-    }
     //endregion
-
-    //TODO Itzik - Is set in different region
 }

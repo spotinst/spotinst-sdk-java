@@ -10,31 +10,26 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiNetworkAzure implements IPartialUpdateEntity {
+
     //region Members
     @JsonIgnore
     private Set<String>                    isSet;
     private String                         resourceGroupName;
     private String                         virtualNetworkName;
     private List<ApiNetworkInterfaceAzure> networkInterfaces;
-
     //endregion
 
     //region Constructor
-
     public ApiNetworkAzure() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -71,7 +66,6 @@ public class ApiNetworkAzure implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
-
     // Is resourceGroupName Set boolean method
     @JsonIgnore
     public boolean isResourceGroupNameSet() {
@@ -89,7 +83,5 @@ public class ApiNetworkAzure implements IPartialUpdateEntity {
     public boolean isVirtualNetworkNameSet() {
         return isSet.contains("virtualNetworkName");
     }
-
-
     //endregion
 }

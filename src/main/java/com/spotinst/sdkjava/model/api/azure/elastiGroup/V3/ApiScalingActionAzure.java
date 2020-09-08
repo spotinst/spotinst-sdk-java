@@ -7,9 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 7/22/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiScalingActionAzure {
@@ -23,8 +20,6 @@ public class ApiScalingActionAzure {
     //endregion
 
     //region Getter and Setter methods
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -77,7 +72,6 @@ public class ApiScalingActionAzure {
         isSet.add("maximum");
         this.maximum = maximum;
     }
-
     //endregion
 
     //region isSet methods
@@ -99,7 +93,6 @@ public class ApiScalingActionAzure {
     public boolean isTargetSet() {
         return isSet.contains("target");
     }
-
 
     // Is minimum Set boolean method
     @JsonIgnore

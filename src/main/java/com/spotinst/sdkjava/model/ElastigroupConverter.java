@@ -503,11 +503,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiLoadBalancersConfig toDal(LoadBalancersConfig loadBalancersConfig) {
+    private static ApiLoadBalancersConfig toDal(LoadBalancersConfigAzure loadBalancersConfig) {
         ApiLoadBalancersConfig retVal           = new ApiLoadBalancersConfig();
         List<ApiLoadBalancer>  apiLoadBalancers = null;
 
-        List<LoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
+        List<LoadBalancerAzure> loadBalancers = loadBalancersConfig.getLoadBalancers();
 
         if (loadBalancers != null) {
             apiLoadBalancers = loadBalancers.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
@@ -518,7 +518,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiLoadBalancer toDal(LoadBalancer loadBalancer) {
+    private static ApiLoadBalancer toDal(LoadBalancerAzure loadBalancer) {
         ApiLoadBalancer retVal = null;
 
         if (loadBalancer != null) {
@@ -1382,11 +1382,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static LoadBalancer toBl(ApiLoadBalancer loadBalancer) {
-        LoadBalancer retVal = null;
+    private static LoadBalancerAzure toBl(ApiLoadBalancer loadBalancer) {
+        LoadBalancerAzure retVal = null;
 
         if (loadBalancer != null) {
-            LoadBalancer.Builder retValBuilder = LoadBalancer.Builder.get();
+            LoadBalancerAzure.Builder retValBuilder = LoadBalancerAzure.Builder.get();
 
             if (loadBalancer.isNameSet()) {
                 retValBuilder.setName(loadBalancer.getName());
@@ -1578,15 +1578,15 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static LoadBalancersConfig toBl(ApiLoadBalancersConfig loadBalancersConfig) {
-        LoadBalancersConfig retVal = null;
+    private static LoadBalancersConfigAzure toBl(ApiLoadBalancersConfig loadBalancersConfig) {
+        LoadBalancersConfigAzure retVal = null;
 
         if (loadBalancersConfig != null) {
-            LoadBalancersConfig.Builder retValBuilder = LoadBalancersConfig.Builder.get();
-            List<ApiLoadBalancer>       loadBalancers = loadBalancersConfig.getLoadBalancers();
+            LoadBalancersConfigAzure.Builder retValBuilder = LoadBalancersConfigAzure.Builder.get();
+            List<ApiLoadBalancer>            loadBalancers = loadBalancersConfig.getLoadBalancers();
 
             if (loadBalancersConfig.isLoadBalancersSet() && loadBalancers != null) {
-                List<LoadBalancer> blLoadBalancers =
+                List<LoadBalancerAzure> blLoadBalancers =
                         loadBalancers.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
                 retValBuilder.setLoadBalancers(blLoadBalancers);
             }

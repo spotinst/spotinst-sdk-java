@@ -10,10 +10,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author: sniramsalem     //TODO Itzik
- * @since: 06/12/2016
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -28,11 +24,9 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
     private ApiCapacityAzure                       capacity;
     private ApiStrategyAzure                       strategy;
     private ApiElastigroupHealthConfigurationAzure health;
-    //TODO Itzik - empty line
-    private ApiGroupComputeAzure                   compute; // not ready yet    //TODO Itzik
-
+    private ApiGroupComputeAzure                   compute;
     private ApiScalingAzure                        scaling;
-    private ApiElastigroupSchedulingAzure          scheduling; //need in future //TODO Itzik - do we need it ?
+    private ApiElastigroupSchedulingAzure          scheduling;
     private Date                                   createdAt;
     private Date                                   updatedAt;
 
