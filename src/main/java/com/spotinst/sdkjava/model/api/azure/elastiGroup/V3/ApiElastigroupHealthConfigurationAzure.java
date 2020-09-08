@@ -19,7 +19,7 @@ public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEnt
     @JsonIgnore
     private Set<String> isSet;
 
-    private boolean autoHealing;
+    private boolean autoHealing;    //TODO Itzik - Boolean/boolean?
     private String  healthCheckTypes;
     private Integer gracePeriod;
     private Integer unhealthyDuration;

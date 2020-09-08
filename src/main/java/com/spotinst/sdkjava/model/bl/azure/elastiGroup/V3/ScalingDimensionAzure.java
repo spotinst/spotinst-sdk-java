@@ -17,7 +17,7 @@ public class ScalingDimensionAzure {
     private Set<String> isSet = new HashSet<>();
     private String      name;
     private String      value;
-    private String      resourceGrodownName;
+    private String      resourceGrodownName;    //TODO Itzik - please check
     private String      resourceName;
 
 
@@ -65,6 +65,7 @@ public class ScalingDimensionAzure {
         this.resourceName = resourceName;
     }
 
+    //TODO Itzik - delete?
     @Override
     public boolean equals(Object o) {
         if (this == o) {

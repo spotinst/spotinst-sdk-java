@@ -12,7 +12,7 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiRevertToSpotSpecAzure {
+public class ApiRevertToSpotSpecAzure {     //TODO Itzik - is partial update
 
     // Partial Update support
     private Set<String> isSet = new HashSet<>();

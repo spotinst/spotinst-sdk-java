@@ -17,7 +17,7 @@ public class ElastigroupHealthConfigurationAzure {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private boolean autoHealing;
+    private boolean autoHealing;    //TODO Itzik - Boolean/boolean?
     private String  healthCheckTypes;
     private Integer gracePeriod;
     private Integer unhealthyDuration;

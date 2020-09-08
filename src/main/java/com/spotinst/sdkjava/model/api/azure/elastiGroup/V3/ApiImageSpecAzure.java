@@ -23,6 +23,7 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
     private List<ApiMarketplaceAzure> marketplace;
 
 //todo add custom
+    //TODO Itzik - Check with Yarden
 
 
     //endregion

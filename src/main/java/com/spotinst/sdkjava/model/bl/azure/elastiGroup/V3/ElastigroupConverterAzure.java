@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author: sniramsalem
+ * @author: sniramsalem //TODO Itzik
  * @since: 06/12/2016
  */
 public class ElastigroupConverterAzure {
@@ -37,12 +37,12 @@ public class ElastigroupConverterAzure {
             if (src.isComputeSet()) {
                 apiGroup.setCompute(toDal(src.getCompute()));
             }
-
+            //TODO Itzik - empty line
             if (src.isSchedulingSet()) {
                 apiGroup.setScheduling(toDal(src.getScheduling()));
             }
             if (src.isHealthSet()) {
-                apiGroup.setHealth(toDal(src.getHealth());
+                apiGroup.setHealth(toDal(src.getHealth());  //TODO Itzik - fix
             }
         }
 
@@ -693,6 +693,7 @@ public class ElastigroupConverterAzure {
 
     //endregion
 
+    //TODO Nadav to review
     //region DAL -> BL
     public static ElastigroupAzure toBl(ApiElastigroupAzure apiElastigroup) {
         ElastigroupAzure elastigroup = null;

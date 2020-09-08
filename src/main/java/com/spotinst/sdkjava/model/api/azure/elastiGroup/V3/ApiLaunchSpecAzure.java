@@ -118,7 +118,7 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isLoginaSet() {
         return isSet.contains("login");
-    }
+    }   //TODO Itzik - typo in name
 
     // Is network Set boolean method
     @JsonIgnore

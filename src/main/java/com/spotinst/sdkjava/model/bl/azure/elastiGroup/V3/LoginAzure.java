@@ -65,6 +65,7 @@ public class LoginAzure {
 
     //endregion
 
+    //TODO Itzik - delete?
     //region Object overrides
     @Override
     public boolean equals(Object o) {

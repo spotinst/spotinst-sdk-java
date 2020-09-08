@@ -25,6 +25,7 @@ public class ElastigroupVmSizesAzure {
         isSet = new HashSet<>();
     }
 
+    //TODO Itzik - do we need it?
     public ElastigroupVmSizesAzure(String odSizes, String spotSizes) {
         this.setOdSizes(Arrays.asList(odSizes));
         this.setSpotSizes(Arrays.asList(spotSizes));
@@ -75,6 +76,7 @@ public class ElastigroupVmSizesAzure {
     }
     //endregion
 
+    //TODO Itzik - delete?
     //region Object overrides
 
     @Override

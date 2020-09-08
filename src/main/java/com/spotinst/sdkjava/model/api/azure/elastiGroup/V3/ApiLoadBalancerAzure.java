@@ -106,4 +106,6 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         return isSet;
     }
     //endregion
+
+    //TODO Itzik - Is set in different region
 }

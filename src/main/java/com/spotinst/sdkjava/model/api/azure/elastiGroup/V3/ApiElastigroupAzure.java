@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author: sniramsalem
+ * @author: sniramsalem     //TODO Itzik
  * @since: 06/12/2016
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,11 +28,11 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
     private ApiCapacityAzure                       capacity;
     private ApiStrategyAzure                       strategy;
     private ApiElastigroupHealthConfigurationAzure health;
-
-    private ApiGroupComputeAzure                   compute; // not ready yet
+    //TODO Itzik - empty line
+    private ApiGroupComputeAzure                   compute; // not ready yet    //TODO Itzik
 
     private ApiScalingAzure                        scaling;
-    private ApiElastigroupSchedulingAzure          scheduling; //need in future
+    private ApiElastigroupSchedulingAzure          scheduling; //need in future //TODO Itzik - do we need it ?
     private Date                                   createdAt;
     private Date                                   updatedAt;
 
@@ -57,7 +57,7 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
         return this.id;
     }
 
-
+    //TODO Itzik - empty line
     public void setId(String id) {
         isSet.add("id");
         this.id = id;
@@ -166,6 +166,7 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
 
     //region isSet methods
 
+    //TODO Itzik - delete from all places
     // Is thirdPartiesIntegration Set boolean method
     @JsonIgnore
     public boolean isThirdPartiesIntegrationSet() {

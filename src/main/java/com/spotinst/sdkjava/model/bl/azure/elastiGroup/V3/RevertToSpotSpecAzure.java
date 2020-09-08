@@ -44,6 +44,7 @@ public class RevertToSpotSpecAzure {
 
     //endregion
 
+    //TODO Itzik - delete?
     //region Object overrides
     @Override
     public boolean equals(Object o) {

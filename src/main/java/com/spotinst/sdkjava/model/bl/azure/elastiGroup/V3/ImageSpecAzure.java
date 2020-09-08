@@ -15,7 +15,7 @@ public class ImageSpecAzure {
     private Set<String> isSet;
 
     //private List<CustomSpecAzure>         custom;
-    private List<MarketplaceAzure> matketplace;
+    private List<MarketplaceAzure> matketplace;     //TODO Itzik - typo
 
     //todo add custom
 

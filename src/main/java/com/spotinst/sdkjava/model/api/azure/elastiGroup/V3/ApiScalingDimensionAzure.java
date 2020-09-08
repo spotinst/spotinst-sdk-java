@@ -19,7 +19,7 @@ public class ApiScalingDimensionAzure {
 
     private String name;
     private String value;
-    private String resourceGrodownName;
+    private String resourceGrodownName;     //TODO Itzik - check
     private String resourceName;
 
     public String getName() {

@@ -139,6 +139,7 @@ public class ElastigroupStrategyConfigurationAzure {
             return this;
         }
 
+        //TODO Itzik - delete?
         public Builder set(final RevertToSpotSpecAzure revertToSpot) {
             strategy.setRevertToSpot(revertToSpot);
             return this;

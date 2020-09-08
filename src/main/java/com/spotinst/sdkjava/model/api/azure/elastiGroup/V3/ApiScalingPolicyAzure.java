@@ -16,6 +16,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiScalingPolicyAzure {
+    //TODO Itzik - check with Azure entity
     //region Members
     // Partial Update support
     private Set<String>                    isSet = new HashSet<>();
