@@ -1,8 +1,11 @@
 package com.spotinst.sdkjava.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * @author Caduri Katzav
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiDeleteGroupRequest {
     //region Members
     private StatefulDeallocationConfig statefulDeallocation;
@@ -37,7 +40,6 @@ public class ApiDeleteGroupRequest {
         }
 
         public ApiDeleteGroupRequest build() {
-            // TODO : Validations
             return deleteRequest;
         }
     }

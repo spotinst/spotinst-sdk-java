@@ -17,13 +17,14 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiStrategy implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer     risk;
-    private Integer     onDemandCount;
-    private String      availabilityVsCost;
-    private Integer     drainingTimeout;
-    private Boolean     utilizeReservedInstances;
-    private Boolean     fallbackToOd;
+    private Set<String>         isSet;
+    private Integer             risk;
+    private Integer             onDemandCount;
+    private String              availabilityVsCost;
+    private Integer             drainingTimeout;
+    private Boolean             utilizeReservedInstances;
+    private Boolean             fallbackToOd;
+    private ApiGroupPersistence persistence;
 
     //region Constructor
 
@@ -95,6 +96,15 @@ class ApiStrategy implements IPartialUpdateEntity {
         isSet.add("fallbackToOd");
         this.fallbackToOd = fallbackToOd;
     }
+
+    public ApiGroupPersistence getPersistence() {
+        return persistence;
+    }
+
+    public void setPersistence(ApiGroupPersistence persistence) {
+        isSet.add("persistence");
+        this.persistence = persistence;
+    }
     //endregion
 
     //region isSet methods
@@ -139,6 +149,10 @@ class ApiStrategy implements IPartialUpdateEntity {
         return isSet.contains("fallbackToOd");
     }
 
-
+    // Is persistence Set boolean method
+    @JsonIgnore
+    public boolean isPersistenceSet() {
+        return isSet.contains("persistence");
+    }
     //endregion
 }

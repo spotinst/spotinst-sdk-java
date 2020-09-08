@@ -26,7 +26,7 @@ public class BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseSpotinstService.class);
 
-    private static final String FILE_PATH = "gradle.properties";
+    private static final String FILE_PATH = "version.txt";
 
     private static String spotinstSdkJavaUserAgent = "spotinst-sdk-java";
 
@@ -56,7 +56,7 @@ public class BaseSpotinstService {
             InputStream is = classloader.getResourceAsStream(FILE_PATH);
 
             String theString = IOUtils.toString(new InputStreamReader(is));
-            String[] arrOfStr = theString.split("=");
+            String[] arrOfStr = theString.split(":");
 
             String version = StringUtils.chomp(arrOfStr[1]);
             spotinstSdkJavaUserAgent = String.format(userAgentFormat, spotinstSdkJavaUserAgent, version);

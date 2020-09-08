@@ -1,15 +1,17 @@
 package com.spotinst.sdkjava.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * @author Caduri Katzav
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulDeallocationConfig {
     //region Members
     private Boolean shouldDeleteNetworkInterfaces;
     private Boolean shouldDeleteSnapshots;
     private Boolean shouldDeleteImages;
     private Boolean shouldDeleteVolumes;
-    private Boolean shouldTerminateInstance;
     //endregion
 
     //region Getters & Setters
@@ -43,14 +45,6 @@ public class StatefulDeallocationConfig {
 
     public void setShouldDeleteVolumes(Boolean shouldDeleteVolumes) {
         this.shouldDeleteVolumes = shouldDeleteVolumes;
-    }
-
-    public Boolean getShouldTerminateInstance() {
-        return shouldTerminateInstance;
-    }
-
-    public void setShouldTerminateInstance(Boolean shouldTerminateInstance) {
-        this.shouldTerminateInstance = shouldTerminateInstance;
     }
     //endregion
 
@@ -87,13 +81,7 @@ public class StatefulDeallocationConfig {
             return this;
         }
 
-        public StatefulDeallocationConfig.Builder setShouldTerminateInstance(Boolean shouldTerminateInstance) {
-            statefulDeallocationConfig.setShouldTerminateInstance(shouldTerminateInstance);
-            return this;
-        }
-
         public StatefulDeallocationConfig build() {
-            // TODO : Validations
             return statefulDeallocationConfig;
         }
     }

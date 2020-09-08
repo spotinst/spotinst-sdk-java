@@ -681,8 +681,13 @@ class SpotinstElastigroupService extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
+        String body = null;
+
+        if (deleteRequest != null) {
+            body = JsonMapper.toJson(deleteRequest);
+        }
+
         Map<String, String> headers  = buildHeaders(authToken);
-        String              body     = JsonMapper.toJson(deleteRequest);
         String              uri      = String.format("%s/aws/ec2/group/" + elastigroupId, apiEndpoint);
         RestResponse        response = RestClient.sendDelete(uri, body, headers, queryParams);
 
