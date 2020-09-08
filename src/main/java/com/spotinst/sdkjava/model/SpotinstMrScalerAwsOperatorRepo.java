@@ -9,8 +9,7 @@ import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorResponse;
 
 public class SpotinstMrScalerAwsOperatorRepo implements ISpotinstMrScalerOperatorAwsRepo {
     @Override
-    //todo liron - rename to create
-    public RepoGenericResponse<ApiMrScalerOperatorAwsResponse> createMrScalerOperator(
+    public RepoGenericResponse<ApiMrScalerOperatorAwsResponse> create(
             ApiMrScalerOperatorAws apiMrScalerOperatorAws, String authToken, String account) {
         RepoGenericResponse<ApiMrScalerOperatorAwsResponse> retVal;
 

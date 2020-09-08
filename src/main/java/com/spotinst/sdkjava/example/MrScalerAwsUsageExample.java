@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.enums.AwsMrScalerStateEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
 
@@ -17,7 +18,8 @@ public class MrScalerAwsUsageExample {
         SpotinstMrScalerAwsClient mrScalerAwsClient = SpotinstClient.getMrScalerAwsClient(auth_token, act_id);
 
         System.out.println("Creating MrScaler");
-        String mrScalerId = createMrScaler(mrScalerAwsClient);
+        ApiMrScalerAws mrScaler   = createMrScaler(mrScalerAwsClient);
+        String         mrScalerId = mrScaler.getId();
         System.out.println("Creation Success: " + mrScalerId);
 
         System.out.println("Getting New MrScaler");
@@ -36,9 +38,25 @@ public class MrScalerAwsUsageExample {
         deleteMrScaler(mrScalerAwsClient, mrScalerId);
         System.out.println("Delete Success: " + mrScalerId);
 
+        System.out.println("Creating MrScaler Operator");
+        ApiMrScalerOperatorAwsResponse mrScalerOperator   = createMrScaleOperator(mrScalerAwsClient, mrScaler);
+        AwsMrScalerStateEnum           mrScalerState      = mrScalerOperator.getState();
+        String                         mrScalerOperatorId = mrScalerOperator.getMrScalerId();
+
+        System.out.println("Update MrScaler cached in MrScaler Operator");
+        updateMrScaler(mrScalerAwsClient, mrScalerOperatorId);
+        System.out.println("Update Success: " + mrScalerOperatorId);
+
+        System.out.println("Creation Success: " + mrScalerOperatorId);
+        System.out.println("MrScaler state: " + mrScalerState.getName());
+
+        System.out.println("Delete MrScaler cached in MrScaler Operator");
+        deleteMrScaler(mrScalerAwsClient, mrScalerOperatorId);
+        System.out.println("Delete Success: " + mrScalerOperatorId);
+
     }
 
-    public static String createMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient) {
+    public static ApiMrScalerAws createMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient) {
 
         System.out.println("Building Scheduling Parameters");
         List<ApiMrScalerAwsTask>   tasks       = new ArrayList<>();
@@ -226,7 +244,7 @@ public class MrScalerAwsUsageExample {
         System.out.println("Request Success: ");
         System.out.println(JsonMapper.toJson(mrScalerResponse));
 
-        return mrScalerResponse.getId();
+        return mrScalerResponse;
     }
 
     public static void updateMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId) {
@@ -277,6 +295,33 @@ public class MrScalerAwsUsageExample {
         System.out.println(JsonMapper.toJson(getRes));
     }
 
-    //todo liron - add example here
+    public static ApiMrScalerOperatorAwsResponse createMrScaleOperator(SpotinstMrScalerAwsClient mrScalerAwsClient,
+                                                                       ApiMrScalerAws mrScalerAws) {
+        System.out.println("Building MrScaler Operator");
+        mrScalerAws.setId(null);
+        ApiMrScalerOperatorAws.Builder mrScalerOperatorBuilder = ApiMrScalerOperatorAws.Builder.get();
+
+        ApiMrScalerOperatorAws mrScalerOperator =
+                mrScalerOperatorBuilder.setName("Java-SDK-MrScaler-Operator-Test").setMrScaler(mrScalerAws).build();
+        System.out.println(JsonMapper.toJson(mrScalerOperator));
+
+        System.out.println("Building MrScaler Operator Creation Request");
+        ApiMrScalerOperatorAwsRequest.Builder mrScalerOperatorRequestBuilder =
+                ApiMrScalerOperatorAwsRequest.Builder.get();
+
+        ApiMrScalerOperatorAwsRequest operatorCreationRequest =
+                mrScalerOperatorRequestBuilder.setMrScalerOperator(mrScalerOperator).build();
+
+        System.out.println(JsonMapper.toJson(operatorCreationRequest));
+
+        System.out.println("Sending Request");
+        ApiMrScalerOperatorAwsResponse mrScalerOperatorResponse =
+                mrScalerAwsClient.createMrScalerOperator(operatorCreationRequest);
+
+        System.out.println("Request Success: ");
+        System.out.println(JsonMapper.toJson(mrScalerOperatorResponse));
+
+        return mrScalerOperatorResponse;
+    }
 
 }

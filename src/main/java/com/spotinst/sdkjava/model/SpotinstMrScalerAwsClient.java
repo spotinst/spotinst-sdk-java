@@ -196,7 +196,7 @@ public class SpotinstMrScalerAwsClient {
         ApiMrScalerOperatorAws apiMrScalerOperatorAws = mrScalerOperatorRequest.getMrScalerOperator();
 
         RepoGenericResponse<ApiMrScalerOperatorAwsResponse> operatorResponse =
-                getSpotinstMrScalerOperatorAwsRepo().createMrScalerOperator(apiMrScalerOperatorAws, authToken, account);
+                getSpotinstMrScalerOperatorAwsRepo().create(apiMrScalerOperatorAws, authToken, account);
         if (operatorResponse.isRequestSucceed()) {
             retVal = operatorResponse.getValue();
         }

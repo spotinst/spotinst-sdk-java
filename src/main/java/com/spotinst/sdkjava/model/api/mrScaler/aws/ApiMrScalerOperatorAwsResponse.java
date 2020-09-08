@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.AwsMrScalerStateEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,11 +9,10 @@ import java.util.Set;
 public class ApiMrScalerOperatorAwsResponse {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String      name;
-    private String      mrScalerId;
-    //todo liron - change to enum
-    private String      state;
+    private Set<String>          isSet;
+    private String               name;
+    private String               mrScalerId;
+    private AwsMrScalerStateEnum state;
     //endregion
 
     //region Constructor
@@ -51,11 +51,11 @@ public class ApiMrScalerOperatorAwsResponse {
     //endregion
 
     //region State
-    public String getState() {
+    public AwsMrScalerStateEnum getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(AwsMrScalerStateEnum state) {
         isSet.add("state");
         this.state = state;
     }
@@ -65,38 +65,4 @@ public class ApiMrScalerOperatorAwsResponse {
     }
     //endregion
     //endregion
-
-    //todo liron - remove if not used
-        public static class Builder {
-        private ApiMrScalerOperatorAwsResponse apiMrScalerAwsResponse;
-
-        private Builder() { this.apiMrScalerAwsResponse = new ApiMrScalerOperatorAwsResponse();}
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-
-        }
-
-        //region Build methods
-        public Builder setName(final String name) {
-            apiMrScalerAwsResponse.setName(name);
-            return this;
-        }
-
-        public Builder setMscalerId(final String mrScalerId) {
-            apiMrScalerAwsResponse.setMrScalerId(mrScalerId);
-            return this;
-        }
-
-        public Builder setState(final String state) {
-            apiMrScalerAwsResponse.setState(state);
-            return this;
-        }
-
-        public ApiMrScalerOperatorAwsResponse build(){
-            return apiMrScalerAwsResponse;
-        }
-        // endregion
-    }
 }

@@ -56,19 +56,4 @@ public class ApiMrScalerOperatorAwsRequest {
 
     }
     //endregion
-
-    //region Json methods
-
-    //todo liron - remove
-    public String toJson() {
-        BlMrScalerOperatorAws blMrScalerOpertor = MrScalerOperatorAwsConverter.toBl(mrScalerOperator);
-
-        Map<String, BlMrScalerOperatorAws> mrScalerOpertorRequest = new HashMap<>();
-        mrScalerOpertorRequest.put("createMrScalerOperator", blMrScalerOpertor);
-        String mrScalerJson = JsonMapper.toJson(mrScalerOpertorRequest);
-
-        return mrScalerJson;
-    }
-    //endregion
-
 }
