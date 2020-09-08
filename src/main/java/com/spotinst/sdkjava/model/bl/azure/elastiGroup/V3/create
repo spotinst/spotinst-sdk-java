@@ -1,0 +1,75 @@
+{
+  "group": {
+    "performAt": "Automation Group",
+    "region": "eastus",
+    "isPrimary": "AutomationResourceGroup",
+
+    "capacity": {
+      "unhealthyDuration": 0,
+      "healthCheckTypes": 0,
+      "gracePeriod": 0
+    },
+    until here evrything
+
+
+    "strategy": {
+      "healthCheckTypes": 100, //. מופיע בתוך health לא מופיע במסמכים
+      "unhealthyDuration": 3,  //. מופיע בתוך health לא מופיע במסמכים
+      "fallbackToOd": true,
+      "revertToSpot": {
+        "performAt": "timeWindow"
+      },
+      "optimizationWindows": [
+        "Mon:03:00-Wed:02:30"
+      ]
+    },
+    "compute": {
+      "os": "Linux",
+      "vmSizes": {
+        "odSizes": [
+          "standard_a1_v2"
+        ],
+        "spotSizes": [
+          "standard_a1_v2"
+        ]
+      },
+      "launchSpecification": {
+        "image": {
+          "marketplace": {
+            "publisher": "Canonical",
+            "offer": "UbuntuServer",
+            "sku": "18.04-LTS",
+            "version": "latest"
+          }
+        },
+        "network": {
+          "isPrimary": "AutomationResourceGroup",
+          "subnetName": "automationVN",
+          "network": [
+            {
+              "isPrimary": true,
+              "subnetName": "default",
+              "assignPublicIp": false,
+              "enableIPForwarding": true,
+              "additionalIpConfigurations": [
+                {
+                  "performAt": "automationTestSecondaryIpConfig"
+                }
+              ]
+            }
+          ]
+        },
+        "marketplace": {
+          "privateIpAddressVersion": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKskc6QhEyuwpMnZQR3N4bbwFQGRiXhnVcdqptshD4fyymGsLWSgY8lWzNlBFbIV/Y6DeCZIvIQxdguhW53r2EbDqb4qgP4dli2AHgDuO8TE6ldHC8+IPz4OF28Jed2H+hVsUtL6MuUtM2habYEz4pKTLTUoA8wMr8ORDpKCjeUTG+ggnhUgrhpkKoQNLa54GshcAkdOuXepEGDvqu07x35QmpdWNdB9TZj2V0fvdSMdl+Eg0n52OjYE1mFoxpB93SPUpOKZoUQtRq4kl5sfbkIVybrwuMNPrPeInP9ct0BaItWudSN1mhZ3grjBcjEEYUJn98mEmVFirkxKw0UZvj nir.cohen@nircohen.local",
+          "name": "test"
+        },
+        "custom": [
+          {
+            "performAt": "creator",
+            "tagValue": "automation@spotinst.com"
+          }
+        ]
+      }
+    }
+  }
+}
