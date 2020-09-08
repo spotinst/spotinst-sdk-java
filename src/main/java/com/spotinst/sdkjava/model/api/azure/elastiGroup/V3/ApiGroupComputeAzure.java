@@ -16,16 +16,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiGroupComputeAzure implements IPartialUpdateEntity {
+public class ApiGroupComputeAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>         isSet;
-    private ApiInstanceTypesAzure    instanceTypes;
-    private List<ApiPlacementAzure>  availabilityZones;
-    private String              product;
-    private ApiLaunchSpecAzure       launchSpecification;
-    private List<String>        elasticIps;
-    private List<ApiVolumePoolAzure> ebsVolumePool;
+    private Set<String>                      isSet;
+    private String                           os;
+    private List<ApiElastigroupVmSizesAzure> vmSizes;
+    private ApiLaunchSpecAzure               launchSpecification;
+
     //endregion
 
     //region Constructor
@@ -44,31 +42,22 @@ class ApiGroupComputeAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiInstanceTypesAzure getInstanceTypes() {
-        return instanceTypes;
+    public String getOs() {
+        return os;
     }
 
-    public void setInstanceTypes(ApiInstanceTypesAzure instanceTypes) {
-        isSet.add("instanceTypes");
-        this.instanceTypes = instanceTypes;
+    public void setOs(String os) {
+        isSet.add("os");
+        this.os = os;
     }
 
-    public List<ApiPlacementAzure> getAvailabilityZones() {
-        return availabilityZones;
+    public List<ApiElastigroupVmSizesAzure> getVmSizes() {
+        return vmSizes;
     }
 
-    public void setAvailabilityZones(List<ApiPlacementAzure> availabilityZones) {
-        isSet.add("availabilityZones");
-        this.availabilityZones = availabilityZones;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        isSet.add("product");
-        this.product = product;
+    public void setVmSizes(List<ApiElastigroupVmSizesAzure> vmSizes) {
+        isSet.add("vmSizes");
+        this.vmSizes = vmSizes;
     }
 
     public ApiLaunchSpecAzure getLaunchSpecification() {
@@ -79,64 +68,25 @@ class ApiGroupComputeAzure implements IPartialUpdateEntity {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
-
-    public List<String> getElasticIps() {
-        return elasticIps;
-    }
-
-    public void setElasticIps(List<String> elasticIps) {
-        isSet.add("elasticIps");
-        this.elasticIps = elasticIps;
-    }
-
-    public List<ApiVolumePoolAzure> getEbsVolumePool() {
-        return ebsVolumePool;
-    }
-
-    public void setEbsVolumePool(List<ApiVolumePoolAzure> ebsVolumePool) {
-        isSet.add("ebsVolumePool");
-        this.ebsVolumePool = ebsVolumePool;
-    }
     //region isset methods
 
-    // Is instanceTypes Set boolean method
+
+    // Is os Set boolean method
     @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
+    public boolean isOsSet() {
+        return isSet.contains("os");
     }
 
-
-    // Is availabilityZones Set boolean method
+    // Is vmSizes Set boolean method
     @JsonIgnore
-    public boolean isAvailabilityZonesSet() {
-        return isSet.contains("availabilityZones");
+    public boolean isVmSizesSet() {
+        return isSet.contains("vmSizes");
     }
-
-
-    // Is product Set boolean method
-    @JsonIgnore
-    public boolean isProductSet() {
-        return isSet.contains("product");
-    }
-
 
     // Is launchSpecification Set boolean method
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
-    }
-
-
-    // Is elasticIps Set boolean method
-    @JsonIgnore
-    public boolean isElasticIpsSet() {
-        return isSet.contains("elasticIps");
-    }
-
-    // Is ebsVolumePool Set boolean method
-    @JsonIgnore
-    public boolean isEbsVolumePoolSet() {
-        return isSet.contains("ebsVolumePool");
     }
 
 

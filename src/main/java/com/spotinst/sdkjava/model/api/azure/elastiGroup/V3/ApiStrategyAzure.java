@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,15 +16,17 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiStrategyAzure implements IPartialUpdateEntity {
+public class ApiStrategyAzure implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer     risk;
-    private Integer     onDemandCount;
-    private String      availabilityVsCost;
-    private Integer     drainingTimeout;
-    private Boolean     utilizeReservedInstances;
-    private Boolean     fallbackToOd;
+    private Set<String>              isSet;
+    private Integer                  spotPercentage;
+    private Integer                  onDemandCount;
+    private Integer                  drainingTimeout;
+    private Boolean                  fallbackToOd;
+    private ApiRevertToSpotSpecAzure revertToSpot;
+    private List<String>             optimizationWindows;
+
+    //todo add  signals in future
 
     //region Constructor
 
@@ -42,13 +45,40 @@ class ApiStrategyAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Integer getRisk() {
-        return risk;
+    public Integer getSpotPercentage() {
+        return spotPercentage;
     }
 
-    public void setRisk(Integer risk) {
-        isSet.add("risk");
-        this.risk = risk;
+    public void setSpotPercentage(Integer spotPercentage) {
+        isSet.add("spotPercentage");
+        this.spotPercentage = spotPercentage;
+    }
+
+    public Boolean getFallbackToOd() {
+        return fallbackToOd;
+    }
+
+    public void setFallbackToOd(Boolean fallbackToOd) {
+        isSet.add("fallbackToOd");
+        this.fallbackToOd = fallbackToOd;
+    }
+
+    public List<String> getOptimizationWindows() {
+        return optimizationWindows;
+    }
+
+    public void setOptimizationWindows(List<String> optimizationWindows) {
+        isSet.add("optimizationWindows");
+        this.optimizationWindows = optimizationWindows;
+    }
+
+    public ApiRevertToSpotSpecAzure getRevertToSpot() {
+        return revertToSpot;
+    }
+
+    public void setRevertToSpot(ApiRevertToSpotSpecAzure revertToSpot) {
+        isSet.add("revertToSpot");
+        this.revertToSpot = revertToSpot;
     }
 
     public Integer getOnDemandCount() {
@@ -60,14 +90,6 @@ class ApiStrategyAzure implements IPartialUpdateEntity {
         this.onDemandCount = onDemandCount;
     }
 
-    public String getAvailabilityVsCost() {
-        return availabilityVsCost;
-    }
-
-    public void setAvailabilityVsCost(String availabilityVsCost) {
-        isSet.add("availabilityVsCost");
-        this.availabilityVsCost = availabilityVsCost;
-    }
 
     public Integer getDrainingTimeout() {
         return drainingTimeout;
@@ -78,59 +100,14 @@ class ApiStrategyAzure implements IPartialUpdateEntity {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public Boolean getUtilizeReservedInstances() {
-        return utilizeReservedInstances;
-    }
-
-    public void setUtilizeReservedInstances(Boolean utilizeReservedInstances) {
-        isSet.add("utilizeReservedInstances");
-        this.utilizeReservedInstances = utilizeReservedInstances;
-    }
-
-    public Boolean getFallbackToOd() {
-        return fallbackToOd;
-    }
-
-    public void setFallbackToOd(Boolean fallbackToOd) {
-        isSet.add("fallbackToOd");
-        this.fallbackToOd = fallbackToOd;
-    }
     //endregion
 
     //region isSet methods
 
-    // Is risk Set boolean method
+    // Is spotPercentage Set boolean method
     @JsonIgnore
-    public boolean isRiskSet() {
-        return isSet.contains("risk");
-    }
-
-
-    // Is onDemandCount Set boolean method
-    @JsonIgnore
-    public boolean isOnDemandCountSet() {
-        return isSet.contains("onDemandCount");
-    }
-
-
-    // Is availabilityVsCost Set boolean method
-    @JsonIgnore
-    public boolean isAvailabilityVsCostSet() {
-        return isSet.contains("availabilityVsCost");
-    }
-
-
-    // Is drainingTimeout Set boolean method
-    @JsonIgnore
-    public boolean isDrainingTimeoutSet() {
-        return isSet.contains("drainingTimeout");
-    }
-
-
-    // Is utilizeReservedInstances Set boolean method
-    @JsonIgnore
-    public boolean isUtilizeReservedInstancesSet() {
-        return isSet.contains("utilizeReservedInstances");
+    public boolean isSpotPercentageSet() {
+        return isSet.contains("spotPercentage");
     }
 
     // Is fallbackToOd Set boolean method
@@ -139,6 +116,28 @@ class ApiStrategyAzure implements IPartialUpdateEntity {
         return isSet.contains("fallbackToOd");
     }
 
+    // Is onDemandCount Set boolean method
+    @JsonIgnore
+    public boolean isOnDemandCountSet() {
+        return isSet.contains("onDemandCount");
+    }
 
+    // Is optimizationWindows Set boolean method
+    @JsonIgnore
+    public boolean isOptimizationWindowsSet() {
+        return isSet.contains("optimizationWindows");
+    }
+
+    // Is revertToSpot Set boolean method
+    @JsonIgnore
+    public boolean isRevertToSpotSet() {
+        return isSet.contains("revertToSpot");
+    }
+
+    // Is drainingTimeout Set boolean method
+    @JsonIgnore
+    public boolean isDrainingTimeoutSet() {
+        return isSet.contains("drainingTimeout");
+    }
     //endregion
 }

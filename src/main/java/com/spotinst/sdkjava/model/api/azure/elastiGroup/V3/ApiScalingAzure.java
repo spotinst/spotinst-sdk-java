@@ -32,11 +32,6 @@ public class ApiScalingAzure implements IPartialUpdateEntity {
         this.up = up;
     }
 
-    @JsonIgnore
-    public boolean isUpSet() {
-        return isSet.contains("up");
-    }
-
     public List<ApiScalingPolicyAzure> getDown() {
         return down;
     }
@@ -44,6 +39,11 @@ public class ApiScalingAzure implements IPartialUpdateEntity {
     public void setDown(List<ApiScalingPolicyAzure> down) {
         isSet.add("down");
         this.down = down;
+    }
+
+    @JsonIgnore
+    public boolean isUpSet() {
+        return isSet.contains("up");
     }
 
     @JsonIgnore

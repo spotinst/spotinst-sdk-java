@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,23 +16,20 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiLaunchSpecAzure implements IPartialUpdateEntity {
+public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                    isSet;
-    private String                         healthCheckType;
-    private Integer                        healthCheckGracePeriod;
-    private List<String>                   securityGroupIds;
-    private Boolean                        monitoring;
-    private Boolean                        ebsOptimized;
-    private String                         imageId;
-    private ApiIamRoleAzure                iamRole;
-    private String                         keyPair;
-    private String                         userData;
-    private List<ApiBlockDeviceAzure>      blockDeviceMappings;
-    private List<ApiNetworkInterfaceAzure> networkInterfaces;
-    private List<ApiTagAzure>                   tags;
-    private ApiLoadBalancersConfigAzure         loadBalancersConfig;
+    private Set<String> isSet;
+
+    private ApiImageSpecAzure           image;
+    private ApiLoadBalancersConfigAzure loadBalancersConfig;
+    private List<ApiTagAzure>           tags;
+    private List<ApiNetworkAzure>       network;
+    private List<ApiLoginAzure>         login;
+    private String                      customData;
+    //todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks in future
+
+
     //endregion
 
     //region Constructor
@@ -52,103 +48,23 @@ class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getHealthCheckType() {
-        return healthCheckType;
+    public String getCustomData() {
+        return customData;
     }
 
-    public void setHealthCheckType(String healthCheckType) {
-        isSet.add("healthCheckType");
-        this.healthCheckType = healthCheckType;
+    public void setCustomData(String customData) {
+        isSet.add("customData");
+        this.customData = customData;
     }
 
-    public Integer getHealthCheckGracePeriod() {
-        return healthCheckGracePeriod;
+
+    public List<ApiNetworkAzure> getNetwork() {
+        return network;
     }
 
-    public void setHealthCheckGracePeriod(Integer healthCheckGracePeriod) {
-        isSet.add("healthCheckGracePeriod");
-        this.healthCheckGracePeriod = healthCheckGracePeriod;
-    }
-
-    public List<String> getSecurityGroupIds() {
-        return securityGroupIds;
-    }
-
-    public void setSecurityGroupIds(List<String> securityGroupIds) {
-        isSet.add("securityGroupIds");
-        this.securityGroupIds = securityGroupIds;
-    }
-
-    public Boolean getMonitoring() {
-        return monitoring;
-    }
-
-    public void setMonitoring(Boolean monitoring) {
-        isSet.add("monitoring");
-        this.monitoring = monitoring;
-    }
-
-    public Boolean getEbsOptimized() {
-        return ebsOptimized;
-    }
-
-    public void setEbsOptimized(Boolean ebsOptimized) {
-        isSet.add("ebsOptimized");
-        this.ebsOptimized = ebsOptimized;
-    }
-
-    public String getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(String imageId) {
-        isSet.add("imageId");
-        this.imageId = imageId;
-    }
-
-    public ApiIamRoleAzure getIamRole() {
-        return iamRole;
-    }
-
-    public void setIamRole(ApiIamRoleAzure iamRole) {
-        isSet.add("iamRole");
-        this.iamRole = iamRole;
-    }
-
-    public String getKeyPair() {
-        return keyPair;
-    }
-
-    public void setKeyPair(String keyPair) {
-        isSet.add("keyPair");
-        this.keyPair = keyPair;
-    }
-
-    public String getUserData() {
-        return userData;
-    }
-
-    public void setUserData(String userData) {
-        isSet.add("userData");
-        this.userData = userData;
-    }
-
-    public List<ApiBlockDeviceAzure> getBlockDeviceMappings() {
-        return blockDeviceMappings;
-    }
-
-    public void setBlockDeviceMappings(List<ApiBlockDeviceAzure> blockDeviceMappings) {
-        isSet.add("blockDeviceMappings");
-        this.blockDeviceMappings = blockDeviceMappings;
-    }
-
-    public List<ApiNetworkInterfaceAzure> getNetworkInterfaces() {
-        return networkInterfaces;
-    }
-
-    public void setNetworkInterfaces(List<ApiNetworkInterfaceAzure> networkInterfaces) {
-        isSet.add("networkInterfaces");
-        this.networkInterfaces = networkInterfaces;
+    public void setNetwork(List<ApiNetworkAzure> network) {
+        isSet.add("network");
+        this.network = network;
     }
 
     public List<ApiTagAzure> getTags() {
@@ -168,89 +84,58 @@ class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
     }
+
+    public List<ApiLoginAzure> getLogin() {
+        return login;
+    }
+
+    public void setLogin(List<ApiLoginAzure> login) {
+        isSet.add("login");
+        this.login = login;
+    }
+
+    public ApiImageSpecAzure getImage() {
+        return image;
+    }
+
+    public void setImage(ApiImageSpecAzure image) {
+        isSet.add("image");
+        this.image = image;
+    }
+
     //endregion
 
     //region isSet methods
-    // Is healthCheckType Set boolean method
+
+
+    // Is customData Set boolean method
     @JsonIgnore
-    public boolean isHealthCheckTypeSet() {
-        return isSet.contains("healthCheckType");
+    public boolean isCustomDataSet() {
+        return isSet.contains("customData");
     }
 
-
-    // Is healthCheckGracePeriod Set boolean method
+    // Is Login Set boolean method
     @JsonIgnore
-    public boolean isHealthCheckGracePeriodSet() {
-        return isSet.contains("healthCheckGracePeriod");
+    public boolean isLoginaSet() {
+        return isSet.contains("login");
     }
 
-
-    // Is securityGroupIds Set boolean method
+    // Is network Set boolean method
     @JsonIgnore
-    public boolean isSecurityGroupIdsSet() {
-        return isSet.contains("securityGroupIds");
-    }
-
-
-    // Is monitoring Set boolean method
-    @JsonIgnore
-    public boolean isMonitoringSet() {
-        return isSet.contains("monitoring");
-    }
-
-
-    // Is ebsOptimized Set boolean method
-    @JsonIgnore
-    public boolean isEbsOptimizedSet() {
-        return isSet.contains("ebsOptimized");
-    }
-
-
-    // Is imageId Set boolean method
-    @JsonIgnore
-    public boolean isImageIdSet() {
-        return isSet.contains("imageId");
-    }
-
-
-    // Is iamRole Set boolean method
-    @JsonIgnore
-    public boolean isIamRoleSet() {
-        return isSet.contains("iamRole");
-    }
-
-
-    // Is keyPair Set boolean method
-    @JsonIgnore
-    public boolean isKeyPairSet() {
-        return isSet.contains("keyPair");
-    }
-
-
-    // Is userData Set boolean method
-    @JsonIgnore
-    public boolean isUserDataSet() {
-        return isSet.contains("userData");
-    }
-
-
-    // Is blockDeviceMappings Set boolean method
-    @JsonIgnore
-    public boolean isBlockDeviceMappingsSet() {
-        return isSet.contains("blockDeviceMappings");
-    }
-
-
-    // Is networkInterfaces Set boolean method
-    @JsonIgnore
-    public boolean isNetworkInterfacesSet() {
-        return isSet.contains("networkInterfaces");
+    public boolean isNetworkSet() {
+        return isSet.contains("network");
     }
 
     // Is tags Set boolean method
     @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
+    }
+
+    // Is image Set boolean method
+    @JsonIgnore
+    public boolean isImageSet() {
+        return isSet.contains("image");
     }
 
     @JsonIgnore

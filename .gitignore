@@ -3,7 +3,7 @@
 # Output directories
 build/
 out/
-target/
+unhealthyDuration/
 
 # Mac OS X files
 .DS_Store

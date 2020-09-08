@@ -1,10 +1,9 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +13,7 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiCapacityAzure implements IPartialUpdateEntity {
+public class ElastigroupCapacityConfigurationAzure {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -26,14 +24,13 @@ public class ApiCapacityAzure implements IPartialUpdateEntity {
 
     //region Constructor
 
-    public ApiCapacityAzure() {
+    private ElastigroupCapacityConfigurationAzure() {
         isSet = new HashSet<>();
     }
-
-
     //endregion
 
-    //region Getters & Setters
+    //region Getter and Setter methods
+
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -42,7 +39,6 @@ public class ApiCapacityAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    //region Minimum
     public Integer getMinimum() {
         return minimum;
     }
@@ -52,9 +48,6 @@ public class ApiCapacityAzure implements IPartialUpdateEntity {
         this.minimum = minimum;
     }
 
-    //endregion
-
-    //region Maximum
     public Integer getMaximum() {
         return maximum;
     }
@@ -64,9 +57,6 @@ public class ApiCapacityAzure implements IPartialUpdateEntity {
         this.maximum = maximum;
     }
 
-    //endregion
-
-    //region Target
     public Integer getTarget() {
         return target;
     }
@@ -75,10 +65,47 @@ public class ApiCapacityAzure implements IPartialUpdateEntity {
         isSet.add("target");
         this.target = target;
     }
+
     //endregion
 
+    //endregion
 
-    //region isset methods
+    //region Builder class
+    public static class Builder {
+        private ElastigroupCapacityConfigurationAzure capacity;
+
+        private Builder() {
+            this.capacity = new ElastigroupCapacityConfigurationAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setMinimum(final Integer minimum) {
+            capacity.setMinimum(minimum);
+            return this;
+        }
+
+        public Builder setMaximum(final Integer maximum) {
+            capacity.setMaximum(maximum);
+            return this;
+        }
+
+        public Builder setTarget(final Integer target) {
+            capacity.setTarget(target);
+            return this;
+        }
+
+        public ElastigroupCapacityConfigurationAzure build() {
+            // TODO : Validations
+            return capacity;
+        }
+    }
+    //endregion
+
+    //region isSet methods
     // Is minimum Set boolean method
     @JsonIgnore
     public boolean isMinimumSet() {

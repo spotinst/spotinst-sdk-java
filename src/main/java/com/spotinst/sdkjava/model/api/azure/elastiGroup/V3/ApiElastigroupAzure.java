@@ -17,22 +17,25 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiElastigroupAzure implements IPartialUpdateEntity {
+public class ApiElastigroupAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                     isSet;
-    private String                          id;
-    private String                          name;
-    private String                          region;
-    private ApiStrategyAzure                strategy;
-    private ApiGroupComputeAzure            compute;
-    private String                          description;
-    private ApiCapacityAzure                capacity;
-    private ApiScalingAzure                 scaling;
-    private Date                            createdAt;
-    private Date                            updatedAt;
-    private ApiThirdPartiesIntegrationAzure thirdPartiesIntegration;
-    private ApiElastigroupSchedulingAzure        scheduling;
+    private Set<String>                            isSet;
+    private String                                 id;
+    private String                                 name;
+    private String                                 region;
+    private String                                 resourceGroupName;
+    private ApiCapacityAzure                       capacity;
+    private ApiStrategyAzure                       strategy;
+    private ApiElastigroupHealthConfigurationAzure health;
+
+    private ApiGroupComputeAzure                   compute; // not ready yet
+
+    private ApiScalingAzure                        scaling;
+    private ApiElastigroupSchedulingAzure          scheduling; //need in future
+    private Date                                   createdAt;
+    private Date                                   updatedAt;
+
     //endregion
 
     //region Constructor
@@ -43,16 +46,6 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
     //endregion
 
     //region Getters & Setters
-
-    public ApiThirdPartiesIntegrationAzure getThirdPartiesIntegration() {
-        return thirdPartiesIntegration;
-    }
-
-    public void setThirdPartiesIntegration(ApiThirdPartiesIntegrationAzure thirdPartiesIntegration) {
-        isSet.add("thirdPartiesIntegration");
-        this.thirdPartiesIntegration = thirdPartiesIntegration;
-    }
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -60,10 +53,10 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
-    String getId() {
-        return id;
+    public String getId() {
+        return this.id;
     }
+
 
     public void setId(String id) {
         isSet.add("id");
@@ -79,13 +72,13 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getResourceGroupName() {
+        return resourceGroupName;
     }
 
-    public void setDescription(String description) {
-        isSet.add("description");
-        this.description = description;
+    public void setResourceGroupName(String resourceGroupName) {
+        isSet.add("resourceGroupName");
+        this.resourceGroupName = resourceGroupName;
     }
 
     public String getRegion() {
@@ -132,6 +125,14 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
         isSet.add("compute");
         this.compute = compute;
     }
+    public ApiElastigroupHealthConfigurationAzure getHealth() {
+        return health;
+    }
+
+    public void setHealth(ApiElastigroupHealthConfigurationAzure health) {
+        isSet.add("health");
+        this.health = health;
+    }
 
     public Date getCreatedAt() {
         return createdAt;
@@ -160,6 +161,7 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
         this.scheduling = scheduling;
     }
 
+
     //endregion
 
     //region isSet methods
@@ -184,10 +186,10 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
     }
 
 
-    // Is description Set boolean method
+    // Is resourceGroupName Set boolean method
     @JsonIgnore
-    public boolean isDescriptionSet() {
-        return isSet.contains("description");
+    public boolean isResourceGroupNameSet() {
+        return isSet.contains("resourceGroupName");
     }
 
 
@@ -208,6 +210,12 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
         return isSet.contains("strategy");
     }
 
+    // Is health Set boolean method
+    @JsonIgnore
+    public boolean isHealthSet() {
+        return isSet.contains("health");
+    }
+
     // Is compute Set boolean method
     @JsonIgnore
     public boolean isComputeSet() {
@@ -219,7 +227,6 @@ class ApiElastigroupAzure implements IPartialUpdateEntity {
     public boolean isRegionSet() {
         return isSet.contains("region");
     }
-
 
     // Is createdAt Set boolean method
     @JsonIgnore

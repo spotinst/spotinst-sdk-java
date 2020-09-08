@@ -18,21 +18,20 @@ import java.util.Set;
 public class ApiScalingPolicyAzure {
     //region Members
     // Partial Update support
-    private Set<String>               isSet = new HashSet<>();
-    private String                    policyName;
-    private String                    metricName;
-    private String                    statistic;
-    private String                    extendedStatistic;
-    private String                    unit;
-    private Float                     threshold;
-    private String                    namespace;
-    private Integer                   period;
-    private Integer                   evaluationPeriods;
-    private Integer                   cooldown;
+    private Set<String>                    isSet = new HashSet<>();
+    private String                         policyName;
+    private String                         metricName;
+    private String                         statistic;
+    private String                         unit;
+    private Float                          threshold;
+    private String                         namespace;
+    private Integer                        period;
+    private Integer                        evaluationPeriods;
+    private Integer                        cooldown;
     private List<ApiScalingDimensionAzure> dimensions;
     private ApiScalingActionAzure          action;
-    private String                    operator;
-    private Boolean                   isEnabled;
+    private String                         operator;
+    private Boolean                        isEnabled;
     //endregion
 
     //region Getters & Setters
@@ -82,21 +81,6 @@ public class ApiScalingPolicyAzure {
         return isSet.contains("statistic");
     }
     //endregion
-
-
-    public String getExtendedStatistic() {
-        return extendedStatistic;
-    }
-
-    public void setExtendedStatistic(String extendedStatistic) {
-        isSet.add("extendedStatistic");
-        this.extendedStatistic = extendedStatistic;
-    }
-
-    @JsonIgnore
-    public boolean isExtendedStatisticSet() {
-        return isSet.contains("extendedStatistic");
-    }
 
     //region Unit
     public String getUnit() {

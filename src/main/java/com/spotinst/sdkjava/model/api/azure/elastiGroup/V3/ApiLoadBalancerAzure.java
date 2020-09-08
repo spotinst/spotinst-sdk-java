@@ -20,9 +20,12 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
     // Partial Update support
     @JsonIgnore
     private Set<String> isSet = new HashSet<>();
-    private String      name;
-    private String      arn;
     private String      type;
+    private String      resourceGroupName;
+    private String      name;
+    private String      backendPoolNames;
+    private String      sku;
+
     //endregion
 
     //region Getters & Setters
@@ -41,18 +44,47 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         return isSet.contains("name");
     }
 
-    public String getArn() {
-        return arn;
+    public String getBackendPoolNames() {
+        return backendPoolNames;
     }
 
-    public void setArn(String arn) {
-        isSet.add("arn");
-        this.arn = arn;
+    public void setBackendPoolNames(String backendPoolNames) {
+        isSet.add("backendPoolNames");
+        this.backendPoolNames = backendPoolNames;
     }
 
     @JsonIgnore
-    public boolean isArnSet() {
-        return isSet.contains("arn");
+    public boolean isBackendPoolNamesSet() {
+        return isSet.contains("backendPoolNames");
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        isSet.add("sku");
+        this.sku = sku;
+    }
+
+    public String getResourceGroupName() {
+        return resourceGroupName;
+    }
+
+    public void setResourceGroupName(String resourceGroupName) {
+        isSet.add("resourceGroupName");
+        this.resourceGroupName = resourceGroupName;
+    }
+
+    @JsonIgnore
+    public boolean isResourceGroupNameSet() {
+        return isSet.contains("resourceGroupName");
+    }
+
+
+    @JsonIgnore
+    public boolean isSkuSet() {
+        return isSet.contains("sku");
     }
 
     public String getType() {

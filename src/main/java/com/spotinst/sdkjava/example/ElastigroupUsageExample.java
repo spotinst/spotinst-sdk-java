@@ -146,7 +146,7 @@ public class ElastigroupUsageExample {
         System.out.println(String.format("%s Healthy instances: %s", healthyInstanceIds.size(), healthyInstanceIds));
         System.out.println(String.format("%s Unhealthy instances: %s", unhealthyInstanceIds.size(), unhealthyInstanceIds));
         System.out.println(String.format("%s Instances with insufficient healthiness data: %s", insufficientDataInstanceIds.size(), insufficientDataInstanceIds));
-        System.out.println(String.format("%s Instances with unknown health: %s", unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
+        System.out.println(String.format("%s Instances with unknown ElastigroupHealthConfigurationAzure: %s", unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
     }
 
     private static void scaleUpGroup(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -640,3 +640,4 @@ public class ElastigroupUsageExample {
         return retVal;
     }
 }
+

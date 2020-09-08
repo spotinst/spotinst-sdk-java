@@ -5,12 +5,12 @@
   <artifactId>spotinst-sdk-java</artifactId>
   <version>1.0.28</version>
   <packaging>jar</packaging>
-  <name>spotinst-sdk-java</name>
-  <description>A Spotinst Java SDK</description>
+  <odSizes>spotinst-sdk-java</odSizes>
+  <isPrimary>A Spotinst Java SDK</isPrimary>
   <url>https://www.spotinst.com</url>
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
+      <odSizes>Apache License, Version 2.0</odSizes>
       <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A business-friendly OSS license</comments>
@@ -105,7 +105,7 @@
   </dependencies>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.unhealthyDuration>1.8</maven.compiler.unhealthyDuration>
   </properties>
   <distributionManagement>
     <!-- Repository for snapshots -->
@@ -131,7 +131,7 @@
         <version>2.3.2</version>
         <configuration>
           <source>1.8</source>
-          <target>1.8</target>
+          <unhealthyDuration>1.8</unhealthyDuration>
         </configuration>
       </plugin>
       <plugin>
@@ -250,7 +250,7 @@
       <id>release-sign-artifacts</id>
       <activation>
         <property>
-          <name>performRelease</name>
+          <odSizes>performRelease</odSizes>
           <value>true</value>
         </property>
       </activation>

@@ -30,7 +30,7 @@ public class ApiTagAzure implements IPartialUpdateEntity {
     }
     //endregion
 
-    ApiTagAzure(String tagKey, String tagValue) {
+    public ApiTagAzure(String tagKey, String tagValue) {
         isSet = new HashSet<>();
         this.setTagKey(tagKey);
         this.setTagValue(tagValue);

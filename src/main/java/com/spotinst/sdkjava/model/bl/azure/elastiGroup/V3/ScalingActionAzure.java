@@ -1,8 +1,7 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.ScalingActionTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,21 +9,19 @@ import java.util.Set;
 /**
  * Created by aharontwizer on 7/22/15.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiScalingActionAzure {
-
-    private Set<String> isSet = new HashSet<>();
-    private String      type;
-    private String      adjustment;
-    private String      target;
-    private String      minimum;
-    private String      maximum;
+public class ScalingActionAzure {
+    //region Members
+    @JsonIgnore
+    private Set<String>           isSet = new HashSet<>();
+    private ScalingActionTypeEnum type;
+    private String                adjustment;
+    private String                target;
+    private String                minimum;
+    private String                maximum;
     //endregion
 
+
     //region Getter and Setter methods
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -33,11 +30,11 @@ public class ApiScalingActionAzure {
         this.isSet = isSet;
     }
 
-    public String getType() {
+    public ScalingActionTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ScalingActionTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -80,6 +77,52 @@ public class ApiScalingActionAzure {
 
     //endregion
 
+    //region Builder class
+    public static class Builder {
+        private ScalingActionAzure scalingAction;
+
+        private Builder() {
+            this.scalingAction = new ScalingActionAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setType(final ScalingActionTypeEnum type) {
+            scalingAction.setType(type);
+            return this;
+        }
+
+        public Builder setTarget(final String target) {
+            scalingAction.setTarget(target);
+            return this;
+        }
+
+        public Builder setAdjustment(final String adjustment) {
+            scalingAction.setAdjustment(adjustment);
+            return this;
+        }
+
+        public Builder setMaximum(final String maximum) {
+            scalingAction.setMaximum(maximum);
+            return this;
+        }
+
+        public Builder setMinimum(final String minimum) {
+            scalingAction.setMinimum(minimum);
+            return this;
+        }
+
+        public ScalingActionAzure build() {
+            // TODO : Validations
+            return scalingAction;
+        }
+    }
+
+    //endregion
+
     //region isSet methods
     // Is type Set boolean method
     @JsonIgnore
@@ -93,6 +136,7 @@ public class ApiScalingActionAzure {
     public boolean isAdjustmentSet() {
         return isSet.contains("adjustment");
     }
+
 
     // Is target Set boolean method
     @JsonIgnore
@@ -112,5 +156,6 @@ public class ApiScalingActionAzure {
     public boolean isMaximumSet() {
         return isSet.contains("maximum");
     }
+
     //endregion
 }
