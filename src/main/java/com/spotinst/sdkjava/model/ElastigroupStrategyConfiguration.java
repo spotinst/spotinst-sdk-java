@@ -19,10 +19,10 @@ public class ElastigroupStrategyConfiguration {
     private Boolean utilizeReservedInstances;
     private Boolean fallbackToOd;
     private ElastigroupOrientationEnum elastigroupOrientation;
+    private ElastigroupPersistenceConfiguration persistence;
     //endregion
 
     //region Constructor
-
     private ElastigroupStrategyConfiguration() {
         isSet = new HashSet<>();
     }
@@ -91,6 +91,15 @@ public class ElastigroupStrategyConfiguration {
         isSet.add("fallbackToOd");
         this.fallbackToOd = fallbackToOd;
     }
+
+    public ElastigroupPersistenceConfiguration getPersistence() {
+        return persistence;
+    }
+
+    public void setPersistence(ElastigroupPersistenceConfiguration persistence) {
+        isSet.add("persistence");
+        this.persistence = persistence;
+    }
     //endregion
 
     //region Builder class
@@ -133,6 +142,11 @@ public class ElastigroupStrategyConfiguration {
 
         public Builder setSpotPercentage(final Integer spotPercentage) {
             strategy.setSpotPercentage(spotPercentage);
+            return this;
+        }
+
+        public Builder setPersistence(final ElastigroupPersistenceConfiguration persistence) {
+            strategy.setPersistence(persistence);
             return this;
         }
 
@@ -184,6 +198,12 @@ public class ElastigroupStrategyConfiguration {
     @JsonIgnore
     public boolean isElastigroupOrientationSet() {
         return isSet.contains("elastigroupOrientation");
+    }
+
+    // Is persistence Set boolean method
+    @JsonIgnore
+    public boolean isPersistenceSet() {
+        return isSet.contains("persistence");
     }
 
     //endregion

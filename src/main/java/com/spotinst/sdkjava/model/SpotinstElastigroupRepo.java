@@ -47,6 +47,24 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
+    public RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account,
+                                               ApiDeleteGroupRequest deleteRequest) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean updated =
+                    SpotinstElastigroupService.deleteElastigroup(elastigroupId, authToken, account, deleteRequest);
+            retVal = new RepoGenericResponse<>(updated);
+
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
     public RepoGenericResponse<Boolean> detachInstances(String elastigroupId,
                                                         ElastigroupDetachInstancesRequest detachRequest,
                                                         String authToken, String account) {
@@ -223,8 +241,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId,
-                                                                    List<ProcessSuspension> suspensions,
+    public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
                                                                     String authToken, String account) {
         RepoGenericResponse<SuspendedProcesses> retVal;
         ApiSuspendProcessesRequest              request = new ApiSuspendProcessesRequest();
@@ -249,8 +266,8 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<SuspendedProcesses> removeSuspensions(String elastigroupId,
-                                                                     List<ProcessNameEnum> processes,
-                                                                     String authToken, String account) {
+                                                                     List<ProcessNameEnum> processes, String authToken,
+                                                                     String account) {
         RepoGenericResponse<SuspendedProcesses> retVal;
         ApiRemoveSuspensionsRequest             request = new ApiRemoveSuspensionsRequest();
 

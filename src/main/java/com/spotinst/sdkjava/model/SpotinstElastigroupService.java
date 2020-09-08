@@ -669,4 +669,31 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static Boolean deleteElastigroup(String elastigroupId, String authToken, String account,
+                                            ApiDeleteGroupRequest deleteRequest) {
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        String body = null;
+
+        if (deleteRequest != null) {
+            body = JsonMapper.toJson(deleteRequest);
+        }
+
+        Map<String, String> headers  = buildHeaders(authToken);
+        String              uri      = String.format("%s/aws/ec2/group/" + elastigroupId, apiEndpoint);
+        RestResponse        response = RestClient.sendDelete(uri, body, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        Boolean                  retVal        = true;
+
+        return retVal;
+    }
 }
