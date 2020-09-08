@@ -18,8 +18,7 @@ public class MrScalerAwsUsageExample {
         SpotinstMrScalerAwsClient mrScalerAwsClient = SpotinstClient.getMrScalerAwsClient(auth_token, act_id);
 
         System.out.println("Creating MrScaler");
-        ApiMrScalerAws mrScaler   = createMrScaler(mrScalerAwsClient);
-        String         mrScalerId = mrScaler.getId();
+        String mrScalerId = createMrScaler(mrScalerAwsClient);
         System.out.println("Creation Success: " + mrScalerId);
 
         System.out.println("Getting New MrScaler");
@@ -39,9 +38,11 @@ public class MrScalerAwsUsageExample {
         System.out.println("Delete Success: " + mrScalerId);
 
         System.out.println("Creating MrScaler Operator");
-        ApiMrScalerOperatorAwsResponse mrScalerOperator   = createMrScaleOperator(mrScalerAwsClient, mrScaler);
-        AwsMrScalerStateEnum           mrScalerState      = mrScalerOperator.getState();
-        String                         mrScalerOperatorId = mrScalerOperator.getMrScalerId();
+        ApiMrScalerAws                 mrScalerForOperator = buildApiMrScalerAws();
+        ApiMrScalerOperatorAwsResponse mrScalerOperator    =
+                createMrScaleOperator(mrScalerAwsClient, mrScalerForOperator);
+        AwsMrScalerStateEnum           mrScalerState       = mrScalerOperator.getState();
+        String                         mrScalerOperatorId  = mrScalerOperator.getMrScalerId();
 
         System.out.println("Update MrScaler cached in MrScaler Operator");
         updateMrScaler(mrScalerAwsClient, mrScalerOperatorId);
@@ -56,13 +57,34 @@ public class MrScalerAwsUsageExample {
 
     }
 
-    public static ApiMrScalerAws createMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient) {
+    public static String createMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient) {
+        ApiMrScalerAws mrScalerRequest = buildApiMrScalerAws();
 
+        System.out.println("Building MrScaler Creation Request");
+        ApiMrScalerAwsCreationRequest.Builder mrScalerCreationRequestBuilder =
+                ApiMrScalerAwsCreationRequest.Builder.get();
+
+        ApiMrScalerAwsCreationRequest creationRequest =
+                mrScalerCreationRequestBuilder.setMrScaler(mrScalerRequest).build();
+
+        System.out.println(JsonMapper.toJson(creationRequest));
+
+        System.out.println("Sending Request");
+        ApiMrScalerAws mrScalerResponse = mrScalerAwsClient.createMrScaler(creationRequest);
+
+        System.out.println("Request Success: ");
+        System.out.println(JsonMapper.toJson(mrScalerResponse));
+
+        return mrScalerResponse.getId();
+    }
+
+    public static ApiMrScalerAws buildApiMrScalerAws() {
         System.out.println("Building Scheduling Parameters");
         List<ApiMrScalerAwsTask>   tasks       = new ArrayList<>();
         ApiMrScalerAwsTask.Builder taskBuilder = ApiMrScalerAwsTask.Builder.get();
-        ApiMrScalerAwsTask task = taskBuilder.setCronExpression("cron").setInstanceGroupType("instnace").setIsEnabled(true)
-                                             .setMaxCapacity(0).setMinCapacity(0).setTargetCapacity(0).setTaskType("type").build();
+        ApiMrScalerAwsTask task =
+                taskBuilder.setCronExpression("cron").setInstanceGroupType("instnace").setIsEnabled(true)
+                           .setMaxCapacity(0).setMinCapacity(0).setTargetCapacity(0).setTaskType("type").build();
         tasks.add(task);
 
         ApiMrScalerAwsSchedulingConfiguration.Builder schedulingBuilder =
@@ -76,7 +98,7 @@ public class MrScalerAwsUsageExample {
         System.out.println("Building Scaling Parameters");
         List<ApiMrScalerAwsScalingDimenation>   dimList    = new ArrayList<>();
         ApiMrScalerAwsScalingDimenation.Builder dimBuilder = ApiMrScalerAwsScalingDimenation.Builder.get();
-        ApiMrScalerAwsScalingDimenation dim = dimBuilder.setName("name").setValue("value").build();
+        ApiMrScalerAwsScalingDimenation         dim        = dimBuilder.setName("name").setValue("value").build();
         dimList.add(dim);
 
         ApiMrScalerAwsScalingAction.Builder actionBuilder = ApiMrScalerAwsScalingAction.Builder.get();
@@ -90,11 +112,9 @@ public class MrScalerAwsUsageExample {
 
         ApiMrScalerAwsScalingPolicy scaleuppolicy = policyBuilder.setAction(scalingAction).setCooldown(300)
 
-                                                                 .setDimensions(dimList)
-                                                                 .setMetricName("test")
+                                                                 .setDimensions(dimList).setMetricName("test")
 
-                                                                 .setNamespace("AWS")
-                                                                 .setOperator("lte").setPeriod(300)
+                                                                 .setNamespace("AWS").setOperator("lte").setPeriod(300)
                                                                  .setEvaluationPeriods(1)
 
                                                                  .setPolicyName("scaleUpPolicy").setStatistic("average")
@@ -103,12 +123,13 @@ public class MrScalerAwsUsageExample {
         uppolicies.add(scaleuppolicy);
 
 
-        List<ApiMrScalerAwsScalingPolicy> downPolicies = new ArrayList<>();
+        List<ApiMrScalerAwsScalingPolicy>   downPolicies   = new ArrayList<>();
         ApiMrScalerAwsScalingPolicy.Builder policyBuilder3 = ApiMrScalerAwsScalingPolicy.Builder.get();
-        ApiMrScalerAwsScalingPolicy scaleDownPolicy = policyBuilder3.setAction(scalingAction).setCooldown(300)
-                                                                    .setDimensions(dimList).setMetricName("YARNMemoryAvailablePercentage")
-                                                                    .setNamespace("AWS/ElasticMapReduce").setOperator("gte").setPeriod(300).setEvaluationPeriods(1)
-                                                                    .setPolicyName("scaleuppolicy").setStatistic("average").setUnit("percent").setThreshold(90).build();
+        ApiMrScalerAwsScalingPolicy scaleDownPolicy =
+                policyBuilder3.setAction(scalingAction).setCooldown(300).setDimensions(dimList)
+                              .setMetricName("YARNMemoryAvailablePercentage").setNamespace("AWS/ElasticMapReduce")
+                              .setOperator("gte").setPeriod(300).setEvaluationPeriods(1).setPolicyName("scaleuppolicy")
+                              .setStatistic("average").setUnit("percent").setThreshold(90).build();
         downPolicies.add(scaleDownPolicy);
 
         ApiMrScalerAwsScalingConfiguration.Builder scalingBuilder = ApiMrScalerAwsScalingConfiguration.Builder.get();
@@ -132,7 +153,7 @@ public class MrScalerAwsUsageExample {
         ApiMrScalerAwsFileParams fileParams = fileParamsBuilder.setBucket("test-bucket").setKey("test-key").build();
 
         ApiMrScalerAwsFile.Builder fileBuilder = ApiMrScalerAwsFile.Builder.get();
-        ApiMrScalerAwsFile file = fileBuilder.setFile(fileParams).build();
+        ApiMrScalerAwsFile         file        = fileBuilder.setFile(fileParams).build();
 
         Tag.Builder tagBuilder = Tag.Builder.get();
         Tag         tag        = tagBuilder.setTagKey("test-key").setTagValue("test-value").build();
@@ -150,7 +171,7 @@ public class MrScalerAwsUsageExample {
         appList.add(application);
 
         AvailabilityZone.Builder azBuilder = AvailabilityZone.Builder.get();
-        AvailabilityZone         az        = azBuilder.setName("us-west-2b").setSubnetId("subnet-01972f2531cb1ca4b").build();
+        AvailabilityZone         az        = azBuilder.setName("us-west-2a").setSubnetId("subnet-4333093a").build();
 
         List<AvailabilityZone> availabilityZones = new ArrayList<>();
         availabilityZones.add(az);
@@ -172,7 +193,7 @@ public class MrScalerAwsUsageExample {
 
 
         ApiMrScalerAwsEbsConfiguration.Builder ebsBuilder = ApiMrScalerAwsEbsConfiguration.Builder.get();
-        ApiMrScalerAwsEbsConfiguration ebs = ebsBuilder.setEbsOptimized(true).build();
+        ApiMrScalerAwsEbsConfiguration         ebs        = ebsBuilder.setEbsOptimized(true).build();
 
         ApiMrScalerAwsMasterGroup.Builder masterGroupBuilder = ApiMrScalerAwsMasterGroup.Builder.get();
         ApiMrScalerAwsMasterGroup masterGroup =
@@ -205,17 +226,17 @@ public class MrScalerAwsUsageExample {
         ApiMrScalerAwsProvisioningTimeout pt = ptBuilder.setTimeout(1).setTimeoutAction("test-action").build();
 
         ApiMrScalerAwsWrapStrategy.Builder wrapBuilder = ApiMrScalerAwsWrapStrategy.Builder.get();
-        ApiMrScalerAwsWrapStrategy wrap = wrapBuilder.setSourceClusterId("test-source-id").build();
+        ApiMrScalerAwsWrapStrategy         wrap        = wrapBuilder.setSourceClusterId("test-source-id").build();
 
         ApiMrScalerAwsNewStrategy.Builder newBuilder = ApiMrScalerAwsNewStrategy.Builder.get();
-        ApiMrScalerAwsNewStrategy newing = newBuilder.setReleaseLabel("emr-5.17.0").build();
+        ApiMrScalerAwsNewStrategy         newing     = newBuilder.setReleaseLabel("emr-5.17.0").build();
 
         ApiMrScalerAwsCloneStrategy.Builder cloneBuilder = ApiMrScalerAwsCloneStrategy.Builder.get();
         ApiMrScalerAwsCloneStrategy clone =
                 cloneBuilder.setOriginClusterId("test-id").setIncludeSteps(true).setNumberOfRetries(1).build();
 
         ApiMrScalerAwsStrategyConfiguration.Builder strategyBuilder = ApiMrScalerAwsStrategyConfiguration.Builder.get();
-        ApiMrScalerAwsStrategyConfiguration strategy = strategyBuilder.setNew(newing).build();
+        ApiMrScalerAwsStrategyConfiguration         strategy        = strategyBuilder.setNew(newing).build();
         System.out.println("End Building Strategy Params");
         System.out.println(JsonMapper.toJson(strategy));
 
@@ -228,23 +249,7 @@ public class MrScalerAwsUsageExample {
                                .setStrategy(strategy).setCompute(compute).setCluster(cluster).setScaling(scaling)
                                .build();
         System.out.println(JsonMapper.toJson(mrScalerRequest));
-
-        System.out.println("Building MrScaler Creation Request");
-        ApiMrScalerAwsCreationRequest.Builder mrScalerCreationRequestBuilder =
-                ApiMrScalerAwsCreationRequest.Builder.get();
-
-        ApiMrScalerAwsCreationRequest creationRequest =
-                mrScalerCreationRequestBuilder.setMrScaler(mrScalerRequest).build();
-
-        System.out.println(JsonMapper.toJson(creationRequest));
-
-        System.out.println("Sending Request");
-        ApiMrScalerAws mrScalerResponse = mrScalerAwsClient.createMrScaler(creationRequest);
-
-        System.out.println("Request Success: ");
-        System.out.println(JsonMapper.toJson(mrScalerResponse));
-
-        return mrScalerResponse;
+        return mrScalerRequest;
     }
 
     public static void updateMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId) {
@@ -257,7 +262,7 @@ public class MrScalerAwsUsageExample {
 
         System.out.println("Building All Parameters");
         ApiMrScalerAws.Builder mrScalerBuilder = ApiMrScalerAws.Builder.get();
-        ApiMrScalerAws mrScalerRequest = mrScalerBuilder.setCluster(cluster).build();
+        ApiMrScalerAws         mrScalerRequest = mrScalerBuilder.setCluster(cluster).build();
         System.out.println(JsonMapper.toJson(mrScalerRequest));
 
         ApiMrScalerAwsUpdateRequest.Builder updateBuilder = ApiMrScalerAwsUpdateRequest.Builder.get();
@@ -298,7 +303,6 @@ public class MrScalerAwsUsageExample {
     public static ApiMrScalerOperatorAwsResponse createMrScaleOperator(SpotinstMrScalerAwsClient mrScalerAwsClient,
                                                                        ApiMrScalerAws mrScalerAws) {
         System.out.println("Building MrScaler Operator");
-        mrScalerAws.setId(null);
         ApiMrScalerOperatorAws.Builder mrScalerOperatorBuilder = ApiMrScalerOperatorAws.Builder.get();
 
         ApiMrScalerOperatorAws mrScalerOperator =
