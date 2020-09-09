@@ -15,6 +15,7 @@ class SpotinstRepoManager {
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
+    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
 
     //region Constructor
     private SpotinstRepoManager() {
@@ -25,6 +26,7 @@ class SpotinstRepoManager {
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
+        this.spotinstMrScalerOperatorAwsRepo = new SpotinstMrScalerAwsOperatorRepo();
     }
     //endregion
 
@@ -72,6 +74,12 @@ class SpotinstRepoManager {
 
     public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo){
         this.spotinstMrScalerAwsRepo = spotinstMrScalerAwsRepo;
+    }
+
+    public ISpotinstMrScalerOperatorAwsRepo getSpotinstMrScalerOperatorAwsRepo(){ return  spotinstMrScalerOperatorAwsRepo; }
+
+    public void setSpotinstMrScalerOperatorAwsRepo(ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo){
+        this.spotinstMrScalerOperatorAwsRepo = spotinstMrScalerOperatorAwsRepo;
     }
 
     public ISpotinstElastigroupInstanceHealthinessRepo getSpotinstInstanceHealthinessRepo() {
