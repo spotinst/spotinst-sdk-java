@@ -29,11 +29,9 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
     private ApiElastigroupSchedulingAzure          scheduling;
     private Date                                   createdAt;
     private Date                                   updatedAt;
-
     //endregion
 
     //region Constructor
-
     public ApiElastigroupAzure() {
         isSet = new HashSet<>();
     }
@@ -51,7 +49,6 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
         return this.id;
     }
 
-    //TODO Itzik - empty line
     public void setId(String id) {
         isSet.add("id");
         this.id = id;
@@ -154,25 +151,14 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
         isSet.add("scheduling");
         this.scheduling = scheduling;
     }
-
-
     //endregion
 
     //region isSet methods
-
-    //TODO Itzik - delete from all places
-    // Is thirdPartiesIntegration Set boolean method
-    @JsonIgnore
-    public boolean isThirdPartiesIntegrationSet() {
-        return isSet.contains("thirdPartiesIntegration");
-    }
-
     // Is id Set boolean method
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");
     }
-
 
     // Is name Set boolean method
     @JsonIgnore
@@ -180,13 +166,11 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
         return isSet.contains("name");
     }
 
-
     // Is resourceGroupName Set boolean method
     @JsonIgnore
     public boolean isResourceGroupNameSet() {
         return isSet.contains("resourceGroupName");
     }
-
 
     // Is capacity Set boolean method
     @JsonIgnore
@@ -229,17 +213,10 @@ public class ApiElastigroupAzure implements IPartialUpdateEntity {
         return isSet.contains("createdAt");
     }
 
-    // Is updatedAt Set boolean method
-    @JsonIgnore
-    public boolean isUpdatedAtSet() {
-        return isSet.contains("updatedAt");
-    }
-
     // Is scheduling Set boolean method
     @JsonIgnore
     public boolean isSchedulingSet() {
         return isSet.contains("scheduling");
     }
-
     //endregion
 }

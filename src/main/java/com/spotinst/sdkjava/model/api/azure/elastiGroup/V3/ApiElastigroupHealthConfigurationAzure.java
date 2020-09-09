@@ -9,17 +9,13 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-
-    private boolean autoHealing;    //TODO Itzik - Boolean/boolean?
+    private Boolean autoHealing;
     private String  healthCheckTypes;
     private Integer gracePeriod;
     private Integer unhealthyDuration;
@@ -41,11 +37,11 @@ public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEnt
         this.isSet = isSet;
     }
 
-    public boolean getAutoHealing() {
+    public Boolean getAutoHealing() {
         return autoHealing;
     }
 
-    public void setAutoHealing(boolean autoHealing) {
+    public void setAutoHealing(Boolean autoHealing) {
         isSet.add("autoHealing");
         this.autoHealing = autoHealing;
     }
@@ -68,8 +64,6 @@ public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEnt
         this.gracePeriod = gracePeriod;
     }
 
-
-
     public Integer getUnhealthyDuration() {
         return unhealthyDuration;
     }
@@ -78,11 +72,9 @@ public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEnt
         isSet.add("unhealthyDuration");
         this.unhealthyDuration = unhealthyDuration;
     }
-
     //endregion
 
     //region isSet methods
-
     // Is autoHealing Set boolean method
     @JsonIgnore
     public boolean isAutoHealingSet() {
