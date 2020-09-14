@@ -1,20 +1,16 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.LoadBalancersConfigAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
-
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token    = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
-    private final static String act_id        = "act-e929c6e7";
+    private final static String auth_token = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
+    private final static String act_id     = "act-e929c6e7";
+    private final static String SSA        =
+            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKskc6QhEyuwpMnZQR3N4bbwFQGRiXhnVcdqptshD4fyymGsLWSgY8lWzNlBFbIV/Y6DeCZIvIQxdguhW53r2EbDqb4qgP4dli2AHgDuO8TE6ldHC8+IPz4OF28Jed2H+hVsUtL6MuUtM2habYEz4pKTLTUoA8wMr8ORDpKCjeUTG+ggnhUgrhpkKoQNLa54GshcAkdOuXepEGDvqu07x35QmpdWNdB9TZj2V0fvdSMdl+Eg0n52OjYE1mFoxpB93SPUpOKZoUQtRq4kl5sfbkIVybrwuMNPrPeInP9ct0BaItWudSN1mhZ3grjBcjEEYUJn98mEmVFirkxKw0UZvj nir.cohen@nircohen.local";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
@@ -23,54 +19,30 @@ public class ElastigroupUsageExampleAzure {
         SpotinstElastigroupClientAzure elastigroupClient = SpotinstClient.getElastigroupClientAzure(auth_token, act_id);
 
         // Create group
-       //String elastigroupId = createGroup(elastigroupClient);
+        String elastigroupId = createGroup(elastigroupClient);
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 45 seconds.");
-       // sleep(100);
+        sleep(45);
         // Update group
-        //updateGroup(elastigroupClient,elastigroupId);
+        updateGroup(elastigroupClient, elastigroupId);
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 45 seconds.");
-        //sleep(30);
+        System.out.println("Sleeping... waiting for provisioning 30 seconds.");
+        sleep(30);
 
         // Get all Elastigroups
         getAllElastigroupsIncludeDeleted(elastigroupClient);
 
 
         // Delete elastigroup
-        //deleteElastigroup(elastigroupClient,elastigroupId);
+        deleteElastigroup(elastigroupClient, elastigroupId);
 
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 45 seconds.");
-        sleep(100);
+        sleep(45);
 
-
-    }
-    private static List<ElastigroupAzure> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientAzure client) {
-
-        ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
-        ElastigroupGetAllRequestAzure requestByName =
-                requestBuilder.setName("SpotinstTestGroupU1").setIncludeDeleted(true).build();
-
-        return client.getAllElastigroups(requestByName);
-    }
-
-
-    private static void sleep(Integer seconds) {
-        for (Integer i = 0; i < seconds; i++) {
-            try {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if ((i % 5) == 0 && i > 0) {
-                System.out.println(i + " seconds have passed.");
-            }
-        }
 
     }
 
@@ -114,9 +86,9 @@ public class ElastigroupUsageExampleAzure {
         //build network
         NetworkAzure.Builder networkBuilder = NetworkAzure.Builder.get();
 
-        NetworkAzure network = networkBuilder.setResourceGroupName("AutomationResourceGroup")
-                                             .setVirtualNetworkName("automationVN")
-                                             .setNetworkInterfaces(networkInterfaceAzuresList).build();
+        NetworkAzure network =
+                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("automationVN")
+                              .setNetworkInterfaces(networkInterfaceAzuresList).build();
 
 
         //build tags
@@ -132,15 +104,14 @@ public class ElastigroupUsageExampleAzure {
 
         //build login
         LoginAzure.Builder loginBuilder = LoginAzure.Builder.get();
-        String ssh =
-                "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKskc6QhEyuwpMnZQR3N4bbwFQGRiXhnVcdqptshD4fyymGsLWSgY8lWzNlBFbIV/Y6DeCZIvIQxdguhW53r2EbDqb4qgP4dli2AHgDuO8TE6ldHC8+IPz4OF28Jed2H+hVsUtL6MuUtM2habYEz4pKTLTUoA8wMr8ORDpKCjeUTG+ggnhUgrhpkKoQNLa54GshcAkdOuXepEGDvqu07x35QmpdWNdB9TZj2V0fvdSMdl+Eg0n52OjYE1mFoxpB93SPUpOKZoUQtRq4kl5sfbkIVybrwuMNPrPeInP9ct0BaItWudSN1mhZ3grjBcjEEYUJn98mEmVFirkxKw0UZvj nir.cohen@nircohen.local";
+        String             ssh          = SSA;
 
         LoginAzure login = loginBuilder.setUserName("test").setSshPublicKey(ssh).build();
 
 
         ElastigroupLaunchSpecificationAzure launchSpec =
-                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login)
-                                 .setTags(tagsList).build();
+                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList)
+                                 .build();
 
 
         //buildVmSizes
@@ -220,7 +191,7 @@ public class ElastigroupUsageExampleAzure {
         // Build elastigroup update
         ElastigroupAzure.Builder updateElastigroupBuilder = ElastigroupAzure.Builder.get();
         ElastigroupAzure elastigroupUpdate =
-                updateElastigroupBuilder.setCapacity(updateCapacity).setName("SpotinstTestGroupU1").build();
+                updateElastigroupBuilder.setCapacity(updateCapacity).setName(SPOTINST_TEST_GROUP_NAME).build();
 
         // Build elastigroup update request
         ElastigroupUpdateRequestAzure.Builder elastigroupUpdateRequestBuilder =
@@ -237,14 +208,40 @@ public class ElastigroupUsageExampleAzure {
             System.out.println("Group successfully updated.");
         }
     }
+
     private static void deleteElastigroup(SpotinstElastigroupClientAzure client, String elastigroupId) {
         ElastigroupDeletionRequestAzure.Builder deletionBuilder = ElastigroupDeletionRequestAzure.Builder.get();
-        ElastigroupDeletionRequestAzure         deletionRequest = deletionBuilder.setElastigroupId(elastigroupId).build();
+        ElastigroupDeletionRequestAzure         deletionRequest =
+                deletionBuilder.setElastigroupId(elastigroupId).build();
 
         Boolean successfulDeletion = client.deleteElastigroup(deletionRequest);
         if (successfulDeletion) {
             System.out.println("Elastigroup succesfully deleted: " + elastigroupId);
         }
+    }
+
+    private static List<ElastigroupAzure> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientAzure client) {
+
+        ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
+        ElastigroupGetAllRequestAzure requestByName =
+                requestBuilder.setName("SpotinstTestGroupU1").setIncludeDeleted(true).build();
+        return client.getAllElastigroups(requestByName);
+    }
+
+
+    private static void sleep(Integer seconds) {
+        for (Integer i = 0; i < seconds; i++) {
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if ((i % 5) == 0 && i > 0) {
+                System.out.println(i + " seconds have passed.");
+            }
+        }
+
     }
 }
 

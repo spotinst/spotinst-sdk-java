@@ -6,9 +6,6 @@ import com.spotinst.sdkjava.enums.ScalingActionTypeEnum;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 7/22/15.
- */
 public class ScalingActionAzure {
     //region Members
     @JsonIgnore

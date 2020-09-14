@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/27/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ScalingPolicyAzure {
 

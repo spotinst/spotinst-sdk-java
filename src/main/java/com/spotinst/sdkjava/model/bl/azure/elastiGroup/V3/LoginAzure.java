@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class LoginAzure {
     //region Members
     // Partial Update support
@@ -62,10 +59,8 @@ public class LoginAzure {
         isSet.add("sshPublicKey");
         this.sshPublicKey = sshPublicKey;
     }
-
     //endregion
 
-    //TODO Itzik - delete?
     //region Object overrides
     @Override
     public boolean equals(Object o) {
@@ -84,7 +79,6 @@ public class LoginAzure {
         return sshPublicKey.equals(tag.sshPublicKey);
 
     }
-
     @Override
     public int hashCode() {
         int result = userName.hashCode();

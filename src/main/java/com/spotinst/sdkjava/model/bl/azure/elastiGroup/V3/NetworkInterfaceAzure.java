@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/25/15.
- */
 public class NetworkInterfaceAzure {
 
     // Partial Update support

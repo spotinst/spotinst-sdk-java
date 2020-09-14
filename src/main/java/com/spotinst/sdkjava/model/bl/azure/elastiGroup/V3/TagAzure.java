@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class TagAzure {
     //region Members
     // Partial Update support

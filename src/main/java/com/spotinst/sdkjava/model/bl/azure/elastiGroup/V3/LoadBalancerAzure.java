@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by yossi.elman on 12/03/20.
- */
 public class LoadBalancerAzure {
     // region Members
     @JsonIgnore

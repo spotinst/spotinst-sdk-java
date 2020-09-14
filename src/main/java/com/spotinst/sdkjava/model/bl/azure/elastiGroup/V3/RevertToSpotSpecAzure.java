@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class RevertToSpotSpecAzure {
-    // Partial Update support  //todo itzik what is Partial Update support??
+    // Partial Update support
     //region Members
     @JsonIgnore
     private Set<String> isSet;
