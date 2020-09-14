@@ -25,6 +25,9 @@ public class ElastigroupConverterAzure {
             if (src.isCapacitySet()) {
                 apiGroup.setCapacity(toDal(src.getCapacity()));
             }
+            if (src.isRegionSet()) {
+                apiGroup.setRegion(src.getRegion());
+            }
             if (src.isStrategySet()) {
                 apiGroup.setStrategy(toDal(src.getStrategy()));
             }
@@ -123,12 +126,7 @@ public class ElastigroupConverterAzure {
                 optCompute.setLaunchSpecification(toDal(compute.getLaunchSpecification()));
             }
             if (compute.isVmSizesSet()) {
-                if (compute.getVmSizes() != null) {
-                    List<ApiElastigroupVmSizesAzure> vmSizes =
-                            compute.getVmSizes().stream().map(ElastigroupConverterAzure::toDal)
-                                   .collect(Collectors.toList());
-                    optCompute.setVmSizes(vmSizes);
-                }
+                optCompute.setVmSizes(toDal(compute.getVmSizes()));
             }
         }
         return optCompute;
@@ -139,7 +137,7 @@ public class ElastigroupConverterAzure {
         if (vmSizes != null) {
             retVal = new ApiElastigroupVmSizesAzure();
             if (vmSizes.isOdSizesSet()) {
-                retVal.setOdSizes(vmSizes.getOdSizes());
+                retVal.setOdSizes(new LinkedList<>(vmSizes.getOdSizes()));
             }
             if (vmSizes.isSpotSizesSet()) {
                 if (vmSizes.getSpotSizes() != null) {
@@ -169,10 +167,7 @@ public class ElastigroupConverterAzure {
             }
             if (launchSpecification.isNetworkSet()) {
                 if (launchSpecification.getNetwork() != null) {
-                    List<ApiNetworkAzure> optimizerNIC =
-                            launchSpecification.getNetwork().stream().map(ElastigroupConverterAzure::toDal)
-                                               .collect(Collectors.toList());
-                    retVal.setNetwork(optimizerNIC);
+                    retVal.setNetwork(toDal(launchSpecification.getNetwork()));
                 }
             }
             if (launchSpecification.isTagsSet()) {
@@ -185,10 +180,7 @@ public class ElastigroupConverterAzure {
             }
             if (launchSpecification.isLoginSet()) {
                 if (launchSpecification.getLogin() != null) {
-                    List<ApiLoginAzure> optimizerLogin =
-                            launchSpecification.getLogin().stream().map(ElastigroupConverterAzure::toDal)
-                                               .collect(Collectors.toList());
-                    retVal.setLogin(optimizerLogin);
+                    retVal.setLogin(toDal(launchSpecification.getLogin()));
                 }
             }
         }
@@ -200,12 +192,7 @@ public class ElastigroupConverterAzure {
         if (imageSpecAzure != null) {
             retVal = new ApiImageSpecAzure();
             if (imageSpecAzure.isMarketplaceSet()) {
-                if (imageSpecAzure.getMarketplace() != null) {
-                    List<ApiMarketplaceAzure> marketplaceAzures =
-                            imageSpecAzure.getMarketplace().stream().map(ElastigroupConverterAzure::toDal)
-                                          .collect(Collectors.toList());
-                    retVal.setMarketplace(marketplaceAzures);
-                }
+                retVal.setMarketplace(toDal(imageSpecAzure.getMarketplace()));
             }
             if (imageSpecAzure.isCustomSet()) {
                 if (imageSpecAzure.getCustom() != null) {
@@ -712,13 +699,7 @@ public class ElastigroupConverterAzure {
                 blComputeBuilder.setLaunchSpecification(toBl(compute.getLaunchSpecification()));
             }
             if (compute.isVmSizesSet()) {
-                if (compute.getVmSizes() != null) {
-                    List<ApiElastigroupVmSizesAzure> ApiElastigroupVmSizesAzure = compute.getVmSizes();
-                    List<ElastigroupVmSizesAzure> ElastigroupVmSizesAzure =
-                            ApiElastigroupVmSizesAzure.stream().map(ElastigroupConverterAzure::toBl)
-                                                      .collect(Collectors.toList());
-                    blComputeBuilder.setVmSizes(ElastigroupVmSizesAzure);
-                }
+                blComputeBuilder.setVmSizes(toBl(compute.getVmSizes()));
             }
             blCompute = blComputeBuilder.build();
         }
@@ -745,18 +726,12 @@ public class ElastigroupConverterAzure {
             }
             if (launchSpecification.isNetworkSet()) {
                 if (launchSpecification.getNetwork() != null) {
-                    List<NetworkAzure> blNIC =
-                            launchSpecification.getNetwork().stream().map(ElastigroupConverterAzure::toBl)
-                                               .collect(Collectors.toList());
-                    retValBuilder.setNetwork(blNIC);
+                    retValBuilder.setNetwork(toBl(launchSpecification.getNetwork()));
                 }
             }
             if (launchSpecification.isLoginSet()) {
                 if (launchSpecification.getLogin() != null) {
-                    List<LoginAzure> loginAzures =
-                            launchSpecification.getLogin().stream().map(ElastigroupConverterAzure::toBl)
-                                               .collect(Collectors.toList());
-                    retValBuilder.setLogin(loginAzures);
+                    retValBuilder.setLogin(toBl(launchSpecification.getLogin()));
                 }
             }
             if (launchSpecification.isTagsSet()) {
@@ -776,12 +751,7 @@ public class ElastigroupConverterAzure {
         if (apiImageSpecAzure != null) {
             ImageSpecAzure.Builder retValBuilder = ImageSpecAzure.Builder.get();
             if (apiImageSpecAzure.isMarketplaceSet()) {
-                if (apiImageSpecAzure.getMarketplace() != null) {
-                    List<MarketplaceAzure> marketplaceAzures =
-                            apiImageSpecAzure.getMarketplace().stream().map(ElastigroupConverterAzure::toBl)
-                                             .collect(Collectors.toList());
-                    retValBuilder.setMarketplace(marketplaceAzures);
-                }
+                retValBuilder.setMarketplace(toBl(apiImageSpecAzure.getMarketplace()));
             }
             if (apiImageSpecAzure.isCustomSet()) {
                 if (apiImageSpecAzure.getCustom() != null) {
@@ -1181,7 +1151,7 @@ public class ElastigroupConverterAzure {
         if (vmSizes != null) {
             ElastigroupVmSizesAzure.Builder retValBuilder = ElastigroupVmSizesAzure.Builder.get();
             if (vmSizes.isSpotSizesSet()) {
-                retValBuilder.setSpotSizes(vmSizes.getSpotSizes());
+                retValBuilder.setSpotSizes(new LinkedList<>(vmSizes.getSpotSizes()));
             }
             if (vmSizes.isOdSizesSet()) {
                 if (vmSizes.getOdSizes() != null) {

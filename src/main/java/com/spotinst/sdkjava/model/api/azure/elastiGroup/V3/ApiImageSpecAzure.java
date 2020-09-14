@@ -17,7 +17,7 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>               isSet;
-    private List<ApiMarketplaceAzure> marketplace;
+    private ApiMarketplaceAzure marketplace;
     private List<ApiCustomSpecAzure> custom;
     //endregion
 
@@ -36,11 +36,11 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiMarketplaceAzure> getMarketplace() {
+    public ApiMarketplaceAzure getMarketplace() {
         return marketplace;
     }
 
-    public void setMarketplace(List<ApiMarketplaceAzure> marketplace) {
+    public void setMarketplace(ApiMarketplaceAzure marketplace) {
         isSet.add("marketplace");
         this.marketplace = marketplace;
     }

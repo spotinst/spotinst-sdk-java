@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -14,6 +15,9 @@ public class TagAzure {
     @JsonIgnore
     private Set<String> isSet;
     private String tagKey;
+
+
+
     private String tagValue;
     //endregion
 
@@ -57,24 +61,20 @@ public class TagAzure {
     //region Object overrides
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TagAzure tag = (TagAzure) o;
-
-        if (!tagKey.equals(tag.tagKey)) return false;
-        return tagValue.equals(tag.tagValue);
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TagAzure tagAzure = (TagAzure) o;
+        return Objects.equals(tagKey, tagAzure.tagKey) && Objects.equals(tagValue, tagAzure.tagValue);
     }
 
-    //TODO Itzik - delete?
     @Override
     public int hashCode() {
-        int result = tagKey.hashCode();
-        result = 31 * result + tagValue.hashCode();
-        return result;
+        return Objects.hash(tagKey, tagValue);
     }
-    //endregion
     //region Builder class
     public static class Builder {
         private TagAzure tag;

@@ -7,16 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/25/15.
- */
 public class NetworkAzure {
 
     // Partial Update support
     @JsonIgnore
-    private Set<String>            isSet;
-    private String                 resourceGroupName;
-    private String                 virtualNetworkName;
+    private Set<String>                 isSet;
+    private String                      resourceGroupName;
+    private String                      virtualNetworkName;
     private List<NetworkInterfaceAzure> networkInterfaces;
 
     //region Constructor
@@ -42,6 +39,7 @@ public class NetworkAzure {
         isSet.add("resourceGroupName");
         this.resourceGroupName = resourceGroupName;
     }
+
     public List<NetworkInterfaceAzure> getNetworkInterfaces() {
         return networkInterfaces;
     }
@@ -106,7 +104,7 @@ public class NetworkAzure {
     // Is networkInterface Set boolean method
     @JsonIgnore
     public boolean isNetworkInterfaceSet() {
-        return isSet.contains("networkInterface");
+        return isSet.contains("networkInterfaces");
     }
 
     // Is virtualNetworkName Set boolean method

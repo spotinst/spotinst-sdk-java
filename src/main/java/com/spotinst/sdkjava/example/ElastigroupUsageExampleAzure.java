@@ -13,9 +13,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token    = "your-token";
-    private final static String act_id        = "your-account-id";
-    private final static String key_pair_name = "some-key-pair-name";
+    private final static String auth_token    = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
+    private final static String act_id        = "act-e929c6e7";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
@@ -24,89 +23,41 @@ public class ElastigroupUsageExampleAzure {
         SpotinstElastigroupClientAzure elastigroupClient = SpotinstClient.getElastigroupClientAzure(auth_token, act_id);
 
         // Create group
-        String elastigroupId = createGroup(elastigroupClient);
+       //String elastigroupId = createGroup(elastigroupClient);
+
+        // Sleep for provisioning
+        System.out.println("Sleeping... waiting for provisioning 45 seconds.");
+       // sleep(100);
+        // Update group
+        //updateGroup(elastigroupClient,elastigroupId);
+
+        // Sleep for provisioning
+        System.out.println("Sleeping... waiting for provisioning 45 seconds.");
+        //sleep(30);
 
         // Get all Elastigroups
-        getAllElastigroupsFilteredByDate(elastigroupClient);
-        getAllElastigroupsFilteredByName(elastigroupClient);
+        getAllElastigroupsIncludeDeleted(elastigroupClient);
 
-        // Get subscription service client
-        SpotinstSubscriptionClient subscriptionClient = SpotinstClient.getSubscriptionClient(auth_token, act_id);
 
-        // Update group
-        updateGroup(elastigroupClient, elastigroupId);
+        // Delete elastigroup
+        //deleteElastigroup(elastigroupClient,elastigroupId);
+
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 45 seconds.");
         sleep(100);
 
-        // Delete elastigroup
-        deleteElastigroup(elastigroupClient, elastigroupId);
+
     }
-
-    private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
-        ElastigroupGetInstanceHealthinessRequest.Builder instanceHealthinessRequestBuilder =
-                ElastigroupGetInstanceHealthinessRequest.Builder.get();
-
-        ElastigroupGetInstanceHealthinessRequest instanceHealthinessRequest =
-                instanceHealthinessRequestBuilder.setElastigroupId(elastigroupId).build();
-        List<ElastigroupInstanceHealthiness> elastigroupInstanceHealthinesses =
-                elastigroupClient.getInstanceHealthiness(instanceHealthinessRequest);
-
-        List<String> healthyInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
-                                                                                                   instance.getHealthStatus() ==
-                                                                                                   InstanceHealthStatusEnum.HEALTHY)
-                                                                          .map(ElastigroupInstanceHealthiness::getInstanceId)
-                                                                          .collect(Collectors.toList());
-
-        List<String> unhealthyInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
-                                                                                                     instance.getHealthStatus() ==
-                                                                                                     InstanceHealthStatusEnum.UNHEALTHY)
-                                                                            .map(ElastigroupInstanceHealthiness::getInstanceId)
-                                                                            .collect(Collectors.toList());
-
-        List<String> insufficientDataInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
-                                                                                                            instance.getHealthStatus() ==
-                                                                                                            InstanceHealthStatusEnum.INSUFFICIENT_DATA)
-                                                                                   .map(ElastigroupInstanceHealthiness::getInstanceId)
-                                                                                   .collect(Collectors.toList());
-
-        List<String> unknownHealthInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
-                                                                                                         instance.getHealthStatus() ==
-                                                                                                         InstanceHealthStatusEnum.UNKNOWN)
-                                                                                .map(ElastigroupInstanceHealthiness::getInstanceId)
-                                                                                .collect(Collectors.toList());
-
-        System.out.println(String.format("%s Healthy instances: %s", healthyInstanceIds.size(), healthyInstanceIds));
-        System.out.println(
-                String.format("%s Unhealthy instances: %s", unhealthyInstanceIds.size(), unhealthyInstanceIds));
-        System.out.println(
-                String.format("%s Instances with insufficient healthiness data: %s", insufficientDataInstanceIds.size(),
-                              insufficientDataInstanceIds));
-        System.out.println(String.format("%s Instances with unknown ElastigroupHealthConfigurationAzure: %s",
-                                         unknownHealthInstanceIds.size(), unknownHealthInstanceIds));
-    }
-
-    private static List<ElastigroupAzure> getAllElastigroupsFilteredByName(SpotinstElastigroupClientAzure client) {
+    private static List<ElastigroupAzure> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientAzure client) {
 
         ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
-        ElastigroupGetAllRequestAzure         requestByName  = requestBuilder.setName(SPOTINST_TEST_GROUP_NAME).build();
+        ElastigroupGetAllRequestAzure requestByName =
+                requestBuilder.setName("SpotinstTestGroupU1").setIncludeDeleted(true).build();
 
         return client.getAllElastigroups(requestByName);
     }
 
-    private static List<ElastigroupAzure> getAllElastigroupsFilteredByDate(SpotinstElastigroupClientAzure client) {
-        Date     activeTo = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_MONTH, -1);
-        Date activeFrom = calendar.getTime();
-
-        ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
-        ElastigroupGetAllRequestAzure requestByDates =
-                requestBuilder.setActiveFrom(activeFrom).setActiveTo(activeTo).build();
-
-        return client.getAllElastigroups(requestByDates);
-    }
 
     private static void sleep(Integer seconds) {
         for (Integer i = 0; i < seconds; i++) {
@@ -133,12 +84,10 @@ public class ElastigroupUsageExampleAzure {
         MarketplaceAzure marketplace =
                 marketplaceBuilder.setVersion("latest").setSku("18.04-LTS").setPublisher("Canonical")
                                   .setOffer("UbuntuServer").build();
-        List<MarketplaceAzure> marketplaceAzureList = new ArrayList<>();
-        marketplaceAzureList.add(marketplace);
 
         ImageSpecAzure.Builder imageSpecBuilder = ImageSpecAzure.Builder.get();
 
-        ImageSpecAzure imageSpecAzure = imageSpecBuilder.setMarketplace(marketplaceAzureList).build();
+        ImageSpecAzure imageSpecAzure = imageSpecBuilder.setMarketplace(marketplace).build();
 
         //build Additional Ip Configurations
         AdditionalIpConfigurationsAzure.Builder additionalIpConfigurationsAzureBuilder =
@@ -165,17 +114,17 @@ public class ElastigroupUsageExampleAzure {
         //build network
         NetworkAzure.Builder networkBuilder = NetworkAzure.Builder.get();
 
-        NetworkAzure network = networkBuilder.setResourceGroupName("AutomationResourceGroup_SDK")
-                                             .setVirtualNetworkName("automationVN_SDK")
+        NetworkAzure network = networkBuilder.setResourceGroupName("AutomationResourceGroup")
+                                             .setVirtualNetworkName("automationVN")
                                              .setNetworkInterfaces(networkInterfaceAzuresList).build();
-        List<NetworkAzure> networkAzureList = new ArrayList<>();
-        networkAzureList.add(network);
+
 
         //build tags
-        TagAzure.Builder tagsBuilder = TagAzure.Builder.get();
+        TagAzure.Builder tagsBuilder1 = TagAzure.Builder.get();
+        TagAzure.Builder tagsBuilder2 = TagAzure.Builder.get();
 
-        TagAzure tag1 = tagsBuilder.setTagKey("creator").setTagValue("automation@spotinst.com").build();
-        TagAzure tag2 = tagsBuilder.setTagKey("name").setTagValue("automation").build();
+        TagAzure tag1 = tagsBuilder1.setTagKey("creator").setTagValue("automation@spotinst.com").build();
+        TagAzure tag2 = tagsBuilder2.setTagKey("name").setTagValue("automation").build();
 
         List<TagAzure> tagsList = new ArrayList<>();
         tagsList.add(tag1);
@@ -188,12 +137,9 @@ public class ElastigroupUsageExampleAzure {
 
         LoginAzure login = loginBuilder.setUserName("test").setSshPublicKey(ssh).build();
 
-        List<LoginAzure> loginList = new ArrayList<>();
-        loginList.add(login);
-
 
         ElastigroupLaunchSpecificationAzure launchSpec =
-                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(networkAzureList).setLogin(loginList)
+                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login)
                                  .setTags(tagsList).build();
 
 
@@ -208,14 +154,12 @@ public class ElastigroupUsageExampleAzure {
         ElastigroupVmSizesAzure vmSizesAzure =
                 vmSizesAzureBuilder.setOdSizes(odSizesAzureList).setSpotSizes(spotSizesAzureList).build();
 
-        List<ElastigroupVmSizesAzure> vmSizesAzureList = new ArrayList<>();
-        vmSizesAzureList.add(vmSizesAzure);
 
         // Build group compute
         ElastigroupComputeConfigurationAzure.Builder computeBuilder =
                 ElastigroupComputeConfigurationAzure.Builder.get();
         ElastigroupComputeConfigurationAzure compute =
-                computeBuilder.setOs("Linux").setLaunchSpecification(launchSpec).setVmSizes(vmSizesAzureList).build();
+                computeBuilder.setOs("Linux").setLaunchSpecification(launchSpec).setVmSizes(vmSizesAzure).build();
 
 
         //Build group strategy
@@ -256,8 +200,8 @@ public class ElastigroupUsageExampleAzure {
 
         // Convert elastigroup to API object json
         System.out.println(creationRequest.toJson());
-
         // Create elastigroup
+
         ElastigroupAzure createdElastigroup = client.createElastigroup(creationRequest);
         System.out.println("Elastigroup succesfully created: " + createdElastigroup.getId());
 

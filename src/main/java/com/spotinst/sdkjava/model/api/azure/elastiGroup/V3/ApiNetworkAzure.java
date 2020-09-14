@@ -75,7 +75,7 @@ public class ApiNetworkAzure implements IPartialUpdateEntity {
     // Is networkInterfaceId Set boolean method
     @JsonIgnore
     public boolean isNetworkInterfaceSet() {
-        return isSet.contains("networkInterface");
+        return isSet.contains("networkInterfaces");
     }
 
     // Is virtualNetworkName Set boolean method

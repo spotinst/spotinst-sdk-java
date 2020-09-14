@@ -13,7 +13,7 @@ public class ElastigroupComputeConfigurationAzure {
     private Set<String>                         isSet;
     private String                              os;
     private ElastigroupLaunchSpecificationAzure launchSpecification;
-    private List<ElastigroupVmSizesAzure>       vmSizes;
+    private ElastigroupVmSizesAzure       vmSizes;
     //endregion
 
     //region Constructor
@@ -40,11 +40,11 @@ public class ElastigroupComputeConfigurationAzure {
         this.os = os;
     }
 
-    public List<ElastigroupVmSizesAzure> getVmSizes() {
+    public ElastigroupVmSizesAzure getVmSizes() {
         return vmSizes;
     }
 
-    public void setVmSizes(List<ElastigroupVmSizesAzure> vmSizes) {
+    public void setVmSizes(ElastigroupVmSizesAzure vmSizes) {
         isSet.add("vmSizes");
         this.vmSizes = vmSizes;
     }
@@ -82,7 +82,7 @@ public class ElastigroupComputeConfigurationAzure {
             return this;
         }
 
-        public Builder setVmSizes(final List<ElastigroupVmSizesAzure> vmSizes) {
+        public Builder setVmSizes(final ElastigroupVmSizesAzure vmSizes) {
             compute.setVmSizes(vmSizes);
             return this;
         }
@@ -107,12 +107,6 @@ public class ElastigroupComputeConfigurationAzure {
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
-    }
-
-    // Is instanceTypes Set boolean method
-    @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
     }
     //endregion
 

@@ -20,8 +20,8 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
     private ApiImageSpecAzure           image;
     private ApiLoadBalancersConfigAzure loadBalancersConfig;
     private List<ApiTagAzure>           tags;
-    private List<ApiNetworkAzure>       network;
-    private List<ApiLoginAzure>         login;
+    private ApiNetworkAzure             network;
+    private ApiLoginAzure               login;
     private String                      customData;
     //todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks in future
     //endregion
@@ -50,11 +50,11 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         this.customData = customData;
     }
 
-    public List<ApiNetworkAzure> getNetwork() {
+    public ApiNetworkAzure getNetwork() {
         return network;
     }
 
-    public void setNetwork(List<ApiNetworkAzure> network) {
+    public void setNetwork(ApiNetworkAzure network) {
         isSet.add("network");
         this.network = network;
     }
@@ -77,11 +77,11 @@ public class ApiLaunchSpecAzure implements IPartialUpdateEntity {
         this.loadBalancersConfig = loadBalancersConfig;
     }
 
-    public List<ApiLoginAzure> getLogin() {
+    public ApiLoginAzure getLogin() {
         return login;
     }
 
-    public void setLogin(List<ApiLoginAzure> login) {
+    public void setLogin(ApiLoginAzure login) {
         isSet.add("login");
         this.login = login;
     }

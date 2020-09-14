@@ -13,8 +13,8 @@ public class ElastigroupLaunchSpecificationAzure {
     private ImageSpecAzure           image;
     private LoadBalancersConfigAzure loadBalancersConfig;
     private List<TagAzure>           tags;
-    private List<NetworkAzure>       network;
-    private List<LoginAzure>         login;
+    private NetworkAzure             network;
+    private LoginAzure               login;
     private String                   customData;
     //todo add managedServiceIdentities, shutdownScript ,extensions,dataDisks
     //endregion
@@ -34,11 +34,11 @@ public class ElastigroupLaunchSpecificationAzure {
         this.isSet = isSet;
     }
 
-    public List<NetworkAzure> getNetwork() {
+    public NetworkAzure getNetwork() {
         return network;
     }
 
-    public void setNetwork(List<NetworkAzure> network) {
+    public void setNetwork(NetworkAzure network) {
         isSet.add("network");
         this.network = network;
     }
@@ -61,11 +61,11 @@ public class ElastigroupLaunchSpecificationAzure {
         this.tags = tags;
     }
 
-    public List<LoginAzure> getLogin() {
+    public LoginAzure getLogin() {
         return login;
     }
 
-    public void setLogin(List<LoginAzure> login) {
+    public void setLogin(LoginAzure login) {
         isSet.add("login");
         this.login = login;
     }
@@ -92,6 +92,7 @@ public class ElastigroupLaunchSpecificationAzure {
     //region Builder class
     public static class Builder {
         private ElastigroupLaunchSpecificationAzure launchSpecification;
+
         private Builder() {
             this.launchSpecification = new ElastigroupLaunchSpecificationAzure();
         }
@@ -106,7 +107,7 @@ public class ElastigroupLaunchSpecificationAzure {
             return this;
         }
 
-        public Builder setNetwork(final List<NetworkAzure> network) {
+        public Builder setNetwork(final NetworkAzure network) {
             launchSpecification.setNetwork(network);
             return this;
         }
@@ -116,7 +117,7 @@ public class ElastigroupLaunchSpecificationAzure {
             return this;
         }
 
-        public Builder setLogin(final List<LoginAzure> login) {
+        public Builder setLogin(final LoginAzure login) {
             launchSpecification.setLogin(login);
             return this;
         }

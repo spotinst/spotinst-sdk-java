@@ -11,7 +11,7 @@ public class ImageSpecAzure {
     @JsonIgnore
     private Set<String> isSet;
     private List<CustomSpecAzure>  custom;
-    private List<MarketplaceAzure> marketplace;
+    private MarketplaceAzure marketplace;
     //endregion
 
     //region Constructor
@@ -38,11 +38,11 @@ public class ImageSpecAzure {
         this.custom = custom;
     }
 
-    public List<MarketplaceAzure> getMarketplace() {
+    public MarketplaceAzure getMarketplace() {
         return marketplace;
     }
 
-    public void setMarketplace(List<MarketplaceAzure> marketplace) {
+    public void setMarketplace(MarketplaceAzure marketplace) {
         isSet.add("marketplace");
         this.marketplace = marketplace;
     }
@@ -60,7 +60,7 @@ public class ImageSpecAzure {
             return builder;
         }
 
-        public Builder setMarketplace(final List<MarketplaceAzure> marketplace) {
+        public Builder setMarketplace(final MarketplaceAzure marketplace) {
             launchSpecification.setMarketplace(marketplace);
             return this;
         }

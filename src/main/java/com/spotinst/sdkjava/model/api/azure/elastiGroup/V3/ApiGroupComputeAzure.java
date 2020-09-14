@@ -16,10 +16,10 @@ import java.util.Set;
 public class ApiGroupComputeAzure implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private String                           os;
-    private List<ApiElastigroupVmSizesAzure> vmSizes;
-    private ApiLaunchSpecAzure               launchSpecification;
+    private Set<String>                isSet;
+    private String                     os;
+    private ApiElastigroupVmSizesAzure vmSizes;
+    private ApiLaunchSpecAzure         launchSpecification;
     //endregion
 
     //region Constructor
@@ -46,11 +46,11 @@ public class ApiGroupComputeAzure implements IPartialUpdateEntity {
         this.os = os;
     }
 
-    public List<ApiElastigroupVmSizesAzure> getVmSizes() {
+    public ApiElastigroupVmSizesAzure getVmSizes() {
         return vmSizes;
     }
 
-    public void setVmSizes(List<ApiElastigroupVmSizesAzure> vmSizes) {
+    public void setVmSizes(ApiElastigroupVmSizesAzure vmSizes) {
         isSet.add("vmSizes");
         this.vmSizes = vmSizes;
     }

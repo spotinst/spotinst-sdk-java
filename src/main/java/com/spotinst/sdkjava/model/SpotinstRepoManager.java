@@ -27,6 +27,7 @@ class SpotinstRepoManager {
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
+        this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
     }
     //endregion
 
