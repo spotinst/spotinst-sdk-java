@@ -61,12 +61,6 @@ task fatJar(type: Jar) {
     with jar
 }
 
-task versionTxt() {
-    doLast {
-        new File("$projectDir/src/main/resources/version.txt").text = """Version:$version """
-    }
-}
-
 artifacts {
     archives sourcesJar
     archives javadocJar
