@@ -643,6 +643,35 @@ class ElastigroupConverter {
                 retVal.setFallbackToOd(strategy.getFallbackToOd());
             }
 
+            if (strategy.isPersistenceSet()) {
+                retVal.setPersistence(toDal(strategy.getPersistence()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiGroupPersistence toDal(ElastigroupPersistenceConfiguration persistence) {
+        ApiGroupPersistence retVal = null;
+
+        if (persistence != null) {
+            retVal = new ApiGroupPersistence();
+
+            if (persistence.isBlockDevicesModeSet()) {
+                retVal.setBlockDevicesMode(persistence.getBlockDevicesMode());
+            }
+
+            if (persistence.isShouldPersistBlockDevicesSet()) {
+                retVal.setShouldPersistBlockDevices(persistence.getShouldPersistBlockDevices());
+            }
+
+            if (persistence.isShouldPersistPrivateIpSet()) {
+                retVal.setShouldPersistPrivateIp(persistence.getShouldPersistPrivateIp());
+            }
+
+            if (persistence.isShouldPersistRootDeviceSet()) {
+                retVal.setShouldPersistRootDevice(persistence.getShouldPersistRootDevice());
+            }
         }
 
         return retVal;
@@ -1512,8 +1541,37 @@ class ElastigroupConverter {
                 retValBuilder.setFallbackToOnDemand(strategy.getFallbackToOd());
             }
 
-            retVal = retValBuilder.build();
+            if (strategy.isPersistenceSet()) {
+                retValBuilder.setPersistence(toBl(strategy.getPersistence()));
+            }
 
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupPersistenceConfiguration toBl(ApiGroupPersistence persistence) {
+        ElastigroupPersistenceConfiguration retVal = null;
+
+        if (persistence != null) {
+            retVal = new ElastigroupPersistenceConfiguration();
+
+            if (persistence.isBlockDevicesModeSet()) {
+                retVal.setBlockDevicesMode(persistence.getBlockDevicesMode());
+            }
+
+            if (persistence.isShouldPersistBlockDevicesSet()) {
+                retVal.setShouldPersistBlockDevices(persistence.getShouldPersistBlockDevices());
+            }
+
+            if (persistence.isShouldPersistPrivateIpSet()) {
+                retVal.setShouldPersistPrivateIp(persistence.getShouldPersistPrivateIp());
+            }
+
+            if (persistence.isShouldPersistRootDeviceSet()) {
+                retVal.setShouldPersistRootDevice(persistence.getShouldPersistRootDevice());
+            }
         }
 
         return retVal;

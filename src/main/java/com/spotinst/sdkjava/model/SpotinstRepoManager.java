@@ -8,15 +8,15 @@ class SpotinstRepoManager {
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
     //endregion
     //region Members
-    private        ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
-    private        ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
-    private        ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
-    private        ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
-    private        ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
-    private        ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
-    private        ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private        ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
-
+    private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
+    private ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
+    private ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
+    private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
+    private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
+    private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
+    private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
+    private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
+    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
 
     //region Constructor
     private SpotinstRepoManager() {
@@ -28,6 +28,7 @@ class SpotinstRepoManager {
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
         this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
+        this.spotinstMrScalerOperatorAwsRepo = new SpotinstMrScalerAwsOperatorRepo();
     }
     //endregion
 
@@ -51,8 +52,7 @@ class SpotinstRepoManager {
         return spotinstElastigroupActiveInstanceRepo;
     }
 
-    public void setSpotinstElastigroupActiveInstanceRepo(
-            ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo) {
+    public void setSpotinstElastigroupActiveInstanceRepo(ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo) {
         this.spotinstElastigroupActiveInstanceRepo = spotinstElastigroupActiveInstanceRepo;
     }
 
@@ -72,12 +72,16 @@ class SpotinstRepoManager {
         this.spotinstSpectrumRepo = spotinstSpectrumRepo;
     }
 
-    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerAwsRepo() {
-        return spotinstMrScalerAwsRepo;
+    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerAwsRepo(){ return  spotinstMrScalerAwsRepo; }
+
+    public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo){
+        this.spotinstMrScalerAwsRepo = spotinstMrScalerAwsRepo;
     }
 
-    public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo) {
-        this.spotinstMrScalerAwsRepo = spotinstMrScalerAwsRepo;
+    public ISpotinstMrScalerOperatorAwsRepo getSpotinstMrScalerOperatorAwsRepo(){ return  spotinstMrScalerOperatorAwsRepo; }
+
+    public void setSpotinstMrScalerOperatorAwsRepo(ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo){
+        this.spotinstMrScalerOperatorAwsRepo = spotinstMrScalerOperatorAwsRepo;
     }
 
     public ISpotinstElastigroupInstanceHealthinessRepo getSpotinstInstanceHealthinessRepo() {

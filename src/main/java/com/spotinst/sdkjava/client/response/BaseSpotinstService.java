@@ -12,12 +12,14 @@ import org.apache.logging.log4j.core.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by aharontwizer on 8/24/15.
@@ -26,13 +28,23 @@ public class BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseSpotinstService.class);
 
-    private static final String FILE_PATH = "gradle.properties";
+    private static final String GRADLE_PROPERTIES_FILE_PATH  = "gradle.properties";
+    private static final String GRADLE_PROPERTIES_VERSION    = "theVersion";
+    private static       String SPOTINST_SDK_JAVA_USER_AGENT = "spotinst-sdk-java";
 
-    private static String spotinstSdkJavaUserAgent = "spotinst-sdk-java";
+    static {
+        Properties prop            = new Properties();
+        String     userAgentFormat = "%s/%s";
 
-
-    private static String getUserAgent() {
-        return spotinstSdkJavaUserAgent;
+        try {
+            prop.load(new FileInputStream(GRADLE_PROPERTIES_FILE_PATH));
+            if(prop.containsKey(GRADLE_PROPERTIES_VERSION)) {
+                String version = prop.getProperty(GRADLE_PROPERTIES_VERSION);
+                SPOTINST_SDK_JAVA_USER_AGENT = String.format(userAgentFormat, SPOTINST_SDK_JAVA_USER_AGENT, version);
+            }
+        } catch (IOException e) {
+            LOGGER.error("Cannot determine spotinst-sdk-java version", e);
+        }
     }
 
     public static void addCustomUserAgents(List<UserAgentConfig> userAgentConfigurations) {
@@ -44,27 +56,9 @@ public class BaseSpotinstService {
             }
 
             String userAgentToAdd = String.format("%s/%s", agentType, userAgentConfig.getVersion());
-            spotinstSdkJavaUserAgent = String.format("%s %s", spotinstSdkJavaUserAgent, userAgentToAdd);
+            SPOTINST_SDK_JAVA_USER_AGENT = String.format("%s %s", SPOTINST_SDK_JAVA_USER_AGENT, userAgentToAdd);
         }
     }
-//todo itzik uncomment
-//    static {
-//        String     userAgentFormat = "%s/%s";
-//
-//        try {
-//            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-//            InputStream is = classloader.getResourceAsStream(FILE_PATH);
-//
-//            String theString = IOUtils.toString(new InputStreamReader(is));
-//            String[] arrOfStr = theString.split("=");
-//
-//            String version = StringUtils.chomp(arrOfStr[1]);
-//            spotinstSdkJavaUserAgent = String.format(userAgentFormat, spotinstSdkJavaUserAgent, version);
-//
-//        } catch (IOException ex) {
-//            LOGGER.error("Cannot determine spotinst-sdk-java version", ex);
-//        }
-//    }
 
     public static <T> T getCastedResponse(RestResponse response, Class<T> contentClass) throws SpotinstHttpException {
         T retVal = null;
@@ -93,12 +87,16 @@ public class BaseSpotinstService {
         return retVal;
     }
 
-    public static Map<String, String> buildHeaders(String authToken) {
+    protected static Map<String, String> buildHeaders(String authToken) {
         Map<String, String> retVal = new HashMap<>();
         retVal.put("Authorization", "Bearer " + authToken);
         retVal.put("Content-Type", "application/json");
         retVal.put(HttpHeaders.USER_AGENT, getUserAgent());
 
         return retVal;
+    }
+
+    private static String getUserAgent() {
+        return SPOTINST_SDK_JAVA_USER_AGENT;
     }
 }
