@@ -37,7 +37,7 @@ public enum InstanceHealthStatusEnum {
 
         if (retVal == null)
         {
-            LOGGER.error("Tried to create instance health status enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create instance ElastigroupHealthConfigurationAzure status enum for: " + name + ", but we don't support such type ");
         }
         return retVal;
     }

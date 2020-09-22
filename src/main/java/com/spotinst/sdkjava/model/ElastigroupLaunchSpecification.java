@@ -25,7 +25,7 @@ public class ElastigroupLaunchSpecification {
     private List<NetworkInterface>   networkInterfaces;
     private List<Tag>                tags;
     private List<BlockDeviceMapping> blockDeviceMappings;
-    private LoadBalancersConfig      loadBalancersConfig;
+    private LoadBalancersConfigAzure loadBalancersConfig;
     //endregion
 
     //region Constructor
@@ -153,11 +153,11 @@ public class ElastigroupLaunchSpecification {
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public LoadBalancersConfig getLoadBalancersConfig() {
+    public LoadBalancersConfigAzure getLoadBalancersConfig() {
         return loadBalancersConfig;
     }
 
-    public void setLoadBalancersConfig(LoadBalancersConfig loadBalancersConfig) {
+    public void setLoadBalancersConfig(LoadBalancersConfigAzure loadBalancersConfig) {
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
     }
@@ -237,7 +237,7 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
-        public Builder setLoadBalancersConfig(final LoadBalancersConfig loadBalancersConfig) {
+        public Builder setLoadBalancersConfig(final LoadBalancersConfigAzure loadBalancersConfig) {
             launchSpecification.setLoadBalancersConfig(loadBalancersConfig);
             return this;
         }
