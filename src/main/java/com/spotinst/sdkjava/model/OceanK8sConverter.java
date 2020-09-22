@@ -689,16 +689,20 @@ public class OceanK8sConverter {
 
     private static ClusterInstanceTypes toBl(ApiClusterInstanceTypes apiInstanceTypes) {
         ClusterInstanceTypes retVal = null;
+
         if (apiInstanceTypes != null) {
             ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
+
             if (apiInstanceTypes.isBlacklistSet()) {
                 apiInstanceTypes.setBlacklist(apiInstanceTypes.getBlacklist());
             }
             if (apiInstanceTypes.isWhitelistSet()) {
                 apiInstanceTypes.setWhitelist(apiInstanceTypes.getWhitelist());
             }
+
             retVal = instanceTypesBuilder.build();
         }
+
         return retVal;
     }
 
