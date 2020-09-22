@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by yossi.elman on 12/03/20.
  */
-public class LoadBalancerAzure {
+public class LoadBalancer {
     // region Members
     @JsonIgnore
     private Set<String> isSet = new HashSet<>();
@@ -65,33 +65,33 @@ public class LoadBalancerAzure {
 
     //region Builder class
     public static class Builder {
-        private LoadBalancerAzure loadBalancer;
+        private LoadBalancer loadBalancer;
 
         private Builder() {
-            this.loadBalancer = new LoadBalancerAzure();
+            this.loadBalancer = new LoadBalancer();
         }
 
-        public static LoadBalancerAzure.Builder get() {
-            LoadBalancerAzure.Builder builder = new LoadBalancerAzure.Builder();
+        public static LoadBalancer.Builder get() {
+            LoadBalancer.Builder builder = new LoadBalancer.Builder();
             return builder;
         }
 
-        public LoadBalancerAzure.Builder setName(final String name) {
+        public LoadBalancer.Builder setName(final String name) {
             loadBalancer.setName(name);
             return this;
         }
 
-        public LoadBalancerAzure.Builder setArn(final String arn) {
+        public LoadBalancer.Builder setArn(final String arn) {
             loadBalancer.setArn(arn);
             return this;
         }
 
-        public LoadBalancerAzure.Builder setType(final LbTypeEnum type) {
+        public LoadBalancer.Builder setType(final LbTypeEnum type) {
             loadBalancer.setType(type);
             return this;
         }
 
-        public LoadBalancerAzure build() {
+        public LoadBalancer build() {
             // TODO : Validations
             return loadBalancer;
         }
