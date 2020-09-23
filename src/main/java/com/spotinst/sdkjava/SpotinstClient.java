@@ -67,5 +67,22 @@ public class SpotinstClient {
         return spotOceanK8sClusterClient;
     }
 
+    public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken) {
+        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure = new SpotinstElastigroupClientAzure(authToken, null);
+        return spotinstElastigroupClientAzure;
+    }
+
+    public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken, String account) {
+        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure = new SpotinstElastigroupClientAzure(authToken, account);
+        return spotinstElastigroupClientAzure;
+    }
+
+    public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken, String account,
+                                                                 List<UserAgentConfig> userAgentConfigurations) {
+        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure =
+                new SpotinstElastigroupClientAzure(authToken, account, userAgentConfigurations);
+        return spotinstElastigroupClientAzure;
+    }
+
     //endregion
 }
