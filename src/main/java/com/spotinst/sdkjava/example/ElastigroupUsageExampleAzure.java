@@ -17,13 +17,13 @@ public class ElastigroupUsageExampleAzure {
         SpotinstElastigroupClientAzure elastigroupClient = SpotinstClient.getElastigroupClientAzure(auth_token, act_id);
 
         // Create group
-        String elastigroupId = createGroup(elastigroupClient);
+        String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
         // Update group
-        updateGroup(elastigroupClient, elastigroupId);
+        updateElastigroup(elastigroupClient, elastigroupId);
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
@@ -37,7 +37,7 @@ public class ElastigroupUsageExampleAzure {
 
     }
 
-    private static String createGroup(SpotinstElastigroupClientAzure client) {
+    private static String createElastigroup(SpotinstElastigroupClientAzure client) {
         // Build group launch spec
         ElastigroupLaunchSpecificationAzure.Builder launchSpecBuilder =
                 ElastigroupLaunchSpecificationAzure.Builder.get();
@@ -172,7 +172,7 @@ public class ElastigroupUsageExampleAzure {
     }
 
 
-    private static void updateGroup(SpotinstElastigroupClientAzure client, String elastigroupId) {
+    private static void updateElastigroup(SpotinstElastigroupClientAzure client, String elastigroupId) {
         //Create group update
         ElastigroupCapacityConfigurationAzure.Builder updateCapacityBuilder =
                 ElastigroupCapacityConfigurationAzure.Builder.get();
@@ -196,7 +196,7 @@ public class ElastigroupUsageExampleAzure {
         // Update elastigroup
         Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
         if (updateSuccess) {
-            System.out.println("Group successfully updated.");
+            System.out.println("Elastigroup successfully updated.");
         }
     }
 
@@ -215,7 +215,7 @@ public class ElastigroupUsageExampleAzure {
 
         ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
         ElastigroupGetAllRequestAzure requestByName =
-                requestBuilder.setName("SpotinstTestGroupU1").setIncludeDeleted(true).build();
+                requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
         return client.getAllElastigroups(requestByName);
     }
 
@@ -235,5 +235,6 @@ public class ElastigroupUsageExampleAzure {
 
     }
 }
+
 
 

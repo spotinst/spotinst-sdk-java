@@ -230,7 +230,7 @@ public class ApiElastigroupScheduledTaskAzure implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isgracePeriodSet() {
+    public boolean isGracePeriodSet() {
         return isSet.contains("gracePeriod");
     }
 

@@ -567,7 +567,6 @@ public class ElastigroupConverterAzure {
     }
     //endregion
 
-    //TODO Nadav to review
     //region DAL -> BL
     public static ElastigroupAzure toBl(ApiElastigroupAzure apiElastigroup) {
         ElastigroupAzure elastigroup = null;
@@ -662,7 +661,7 @@ public class ElastigroupConverterAzure {
             if (apiScheduledTask.isBatchSizePercentageSet()) {
                 blTasksBuilder.setBatchSizePercentage(apiScheduledTask.getBatchSizePercentage());
             }
-            if (apiScheduledTask.isgracePeriodSet()) {
+            if (apiScheduledTask.isGracePeriodSet()) {
                 blTasksBuilder.setGracePeriod(apiScheduledTask.getGracePeriod());
             }
             if (apiScheduledTask.isAdjustmentSet()) {
@@ -1151,7 +1150,9 @@ public class ElastigroupConverterAzure {
         if (vmSizes != null) {
             ElastigroupVmSizesAzure.Builder retValBuilder = ElastigroupVmSizesAzure.Builder.get();
             if (vmSizes.isSpotSizesSet()) {
-                retValBuilder.setSpotSizes(new LinkedList<>(vmSizes.getSpotSizes()));
+                if (vmSizes.getSpotSizes() != null) {
+                    retValBuilder.setSpotSizes(new LinkedList<>(vmSizes.getSpotSizes()));
+                }
             }
             if (vmSizes.isOdSizesSet()) {
                 if (vmSizes.getOdSizes() != null) {

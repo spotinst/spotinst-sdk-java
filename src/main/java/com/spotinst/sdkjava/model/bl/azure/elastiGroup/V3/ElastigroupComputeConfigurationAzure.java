@@ -13,7 +13,7 @@ public class ElastigroupComputeConfigurationAzure {
     private Set<String>                         isSet;
     private String                              os;
     private ElastigroupLaunchSpecificationAzure launchSpecification;
-    private ElastigroupVmSizesAzure       vmSizes;
+    private ElastigroupVmSizesAzure             vmSizes;
     //endregion
 
     //region Constructor
@@ -97,11 +97,15 @@ public class ElastigroupComputeConfigurationAzure {
     //region isSet methods
     // Is os Set boolean method
     @JsonIgnore
-    public boolean isOsSet() { return isSet.contains("os"); }
+    public boolean isOsSet() {
+        return isSet.contains("os");
+    }
 
     // Is vmSizes Set boolean method
     @JsonIgnore
-    public boolean isVmSizesSet() { return isSet.contains("vmSizes"); }
+    public boolean isVmSizesSet() {
+        return isSet.contains("vmSizes");
+    }
 
     // Is launchSpecification Set boolean method
     @JsonIgnore

@@ -54,7 +54,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         if (elastigroupApiResponse.getResponse().getCount() > 0) {
             retVal = elastigroupApiResponse.getResponse().getItems().get(0);
         }
-
         return retVal;
     }
 
@@ -79,7 +78,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        String uri = String.format("%s/azure/compute/group/" + elastigroupId, apiEndpoint);
+        String uri = String.format("%s/azure/compute/group/%s", apiEndpoint,elastigroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
@@ -89,7 +88,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
-
         return retVal;
     }
 
@@ -140,7 +138,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/azure/compute/group?accountId=%s", apiEndpoint,account);
+        String uri = String.format("%s/azure/compute/group", apiEndpoint);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
@@ -151,7 +149,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         if (allElastigroupsResponse.getResponse().getCount() > 0) {
             retVal = allElastigroupsResponse.getResponse().getItems();
         }
-
         return retVal;
     }
 
@@ -177,7 +174,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/azure/compute/group/%s?accountId=%s", apiEndpoint, elastigroupId,account);
+        String uri = String.format("%s/azure/compute/group/%s?", apiEndpoint, elastigroupId);
 
         // Write to json
         Map<String, ApiElastigroupAzure> groupRequest = new HashMap<>();
@@ -192,7 +189,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
-
         return retVal;
     }
 }
