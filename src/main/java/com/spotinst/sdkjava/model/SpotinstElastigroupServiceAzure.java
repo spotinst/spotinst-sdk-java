@@ -6,12 +6,15 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiDeploymentAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentDetailsAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentRequestAzure;
+import com.spotinst.sdkjava.model.filters.SortFilter;
+import com.spotinst.sdkjava.model.responses.*;
+
 import org.apache.http.HttpStatus;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
@@ -48,7 +51,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiResponseAzure elastigroupApiResponse = getCastedResponse(response, ElastigroupApiResponseAzure.class);
+        ElastigroupApiResponseAzure elastigroupApiResponse =
+                getCastedResponse(response, ElastigroupApiResponseAzure.class);
 
 
         if (elastigroupApiResponse.getResponse().getCount() > 0) {
@@ -78,7 +82,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        String uri = String.format("%s/azure/compute/group/%s", apiEndpoint,elastigroupId);
+        String uri = String.format("%s/azure/compute/group/%s", apiEndpoint, elastigroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
@@ -93,7 +97,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
 
     public static List<ApiElastigroupAzure> getAllGroups(GroupFilter filter, String authToken,
-                                                    String account) throws SpotinstHttpException {
+                                                         String account) throws SpotinstHttpException {
         // Init retVal
         List<ApiElastigroupAzure> retVal = new LinkedList<>();
 
@@ -144,7 +148,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiResponseAzure allElastigroupsResponse = getCastedResponse(response, ElastigroupApiResponseAzure.class);
+        ElastigroupApiResponseAzure allElastigroupsResponse =
+                getCastedResponse(response, ElastigroupApiResponseAzure.class);
 
         if (allElastigroupsResponse.getResponse().getCount() > 0) {
             retVal = allElastigroupsResponse.getResponse().getItems();
@@ -189,6 +194,148 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
+        return retVal;
+    }
+
+    ApiDeploymentAzure createDeployment(ApiGroupDeploymentRequestAzure apiDeploymentToCreate, String authToken,
+                                        String account, String groupId) {
+        ApiDeploymentAzure retVal = null;
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+        String             uri         = String.format("%s/azure/compute/group/%s/deployment", apiEndpoint, groupId);
+
+        Map<String, String>                         queryParams       = new HashMap<>();
+        Map<String, ApiGroupDeploymentRequestAzure> deploymentRequest = new HashMap<>();
+        deploymentRequest.put("deployment", apiDeploymentToCreate);
+        String body = JsonMapper.toJson(deploymentRequest);
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers  = buildHeaders(authToken);
+        RestResponse        response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        ElastigroupApiDeploymentResponseAzure elastigroupApiResponse =
+                getCastedResponse(response, ElastigroupApiDeploymentResponseAzure.class);
+
+
+        if (elastigroupApiResponse.getResponse().getCount() > 0) {
+            retVal = elastigroupApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    List<ApiDeploymentAzure> getAllDeployments(SortFilter filter, String authToken, String account, String groupId) {
+
+
+        List<ApiDeploymentAzure> retVal      = new ArrayList<>();
+        Map<String, String>      queryParams = new HashMap<>();
+        Map<String, String>      headers     = buildHeaders(authToken);
+        SpotinstHttpConfig       config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String                   apiEndpoint = config.getEndpoint();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if (filter != null) {
+
+            Integer     limit     = filter.getLimit();
+            String      sortField = filter.getSortField();
+            AscDescEnum sortOrder = filter.getSortOrder();
+            String      finalSortString;
+
+            if (limit != null) {
+                queryParams.put("limit", limit.toString());
+            }
+
+            if (sortField != null) {
+
+                if (sortOrder != null) {
+                    finalSortString = sortField + sortOrder.getName();
+                }
+
+                else {
+                    finalSortString = sortField + AscDescEnum.DESC.getName();
+                }
+
+                queryParams.put("sort", finalSortString);
+            }
+
+        }
+
+        String uri = String.format("%s/azure/compute/group/%s/deployment", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+
+        // Handle the response.
+        ElastigroupApiDeploymentResponseAzure deploymentsResponse =
+                getCastedResponse(response, ElastigroupApiDeploymentResponseAzure.class);
+
+        if (deploymentsResponse.getResponse().getCount() > 0) {
+            retVal = deploymentsResponse.getResponse().getItems();
+        }
+        return retVal;
+
+    }
+
+
+    ApiDeploymentAzure getDeployment(String deploymentId, String authToken, String account, String groupId) {
+        ApiDeploymentAzure  retVal      = null;
+        Map<String, String> headers     = buildHeaders(authToken);
+        Map<String, String> queryParams = new HashMap<>();
+        SpotinstHttpConfig  config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String              apiEndpoint = config.getEndpoint();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+
+        String       uri      =
+                String.format("%s/azure/compute/group/%s/deployment/%s", apiEndpoint, groupId, deploymentId);
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiDeploymentResponseAzure deploymentsResponse =
+                getCastedResponse(response, ElastigroupApiDeploymentResponseAzure.class);
+
+        if (deploymentsResponse.getResponse().getCount() > 0) {
+            retVal = deploymentsResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    ApiGroupDeploymentDetailsAzure getDeploymentDetails(String deploymentId, String authToken, String account,
+                                                        String groupId) {
+        ApiGroupDeploymentDetailsAzure retVal      = null;
+        Map<String, String>            headers     = buildHeaders(authToken);
+        Map<String, String>            queryParams = new HashMap<>();
+        SpotinstHttpConfig             config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String                         apiEndpoint = config.getEndpoint();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+
+        String uri =
+                String.format("%s/azure/compute/group/%s/deployment/%s/details", apiEndpoint, groupId, deploymentId);
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiDeploymentDetailsResponseAzure deploymentsResponse =
+                getCastedResponse(response, ElastigroupApiDeploymentDetailsResponseAzure.class);
+
+        if (deploymentsResponse.getResponse().getCount() > 0) {
+            retVal = deploymentsResponse.getResponse().getItems().get(0);
+        }
+
         return retVal;
     }
 }
