@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,11 +15,11 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean autoHealing;
-    private String  healthCheckTypes;
-    private Integer gracePeriod;
-    private Integer unhealthyDuration;
+    private Set<String>  isSet;
+    private Boolean      autoHealing;
+    private List<String> healthCheckTypes;
+    private Integer      gracePeriod;
+    private Integer      unhealthyDuration;
 
     //region Constructor
 
@@ -46,11 +47,11 @@ public class ApiElastigroupHealthConfigurationAzure implements IPartialUpdateEnt
         this.autoHealing = autoHealing;
     }
 
-    public String getHealthCheckTypes() {
+    public List<String> getHealthCheckTypes() {
         return healthCheckTypes;
     }
 
-    public void setHealthCheckTypes(String healthCheckTypes) {
+    public void setHealthCheckTypes(List<String> healthCheckTypes) {
         isSet.add("healthCheckTypes");
         this.healthCheckTypes = healthCheckTypes;
     }

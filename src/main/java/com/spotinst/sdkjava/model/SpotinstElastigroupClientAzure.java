@@ -2,35 +2,25 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
-import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.GroupDeploymentDetailsAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupAzure;
+import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class SpotinstElastigroupClientAzure {
-    private static final Logger                                      LOGGER =
-            LoggerFactory.getLogger(SpotinstElastigroupClientAzure.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupClientAzure.class);
     //region Members
-    private              String                                      authToken;
-    private              String                                      account;
-    private              ISpotinstElastigroupRepoAzure               spotinstElastigroupRepo;
-    private              ISpotinstElastigroupActiveInstanceRepoAzure      spotinstElastigroupActiveInstanceRepo;
-    private              ISpotinstElastigroupInstanceHealthinessRepoAzure spotinstElastigroupInstanceHealthinessRepo;
+    private              String authToken;
+    private              String account;
     //endregion
-
-    public ISpotinstElastigroupRepoAzure getSpotinstElastigroupRepo() {
-        return this.spotinstElastigroupRepo;
-    }
-
-    public void setSpotinstElastigroupRepo() {
-        this.spotinstElastigroupRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepoAzure();
-    }
 
 
     //region Constructor
@@ -43,12 +33,11 @@ public class SpotinstElastigroupClientAzure {
         this.authToken = authToken;
         this.account = account;
 
-        setSpotinstElastigroupRepo();
-
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
             BaseSpotinstService.addCustomUserAgents(userAgentConfigurations);
         }
+
     }
 
     //endregion
@@ -56,12 +45,13 @@ public class SpotinstElastigroupClientAzure {
     //region Methods
     public ElastigroupAzure createElastigroup(ElastigroupCreationRequestAzure elastigroupCreationRequest) {
 
-        ElastigroupAzure retVal = null;
+        ElastigroupAzure retVal;
 
-        ElastigroupAzure elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
-
+        ElastigroupAzure              elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
+        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure           = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> creationResponse =
-                getSpotinstElastigroupRepo().create(elastigroupToCreate, authToken, account);
+                repoAzure.create(elastigroupToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -78,11 +68,13 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean updateElastigroup(ElastigroupUpdateRequestAzure elastigroupUpdateRequest, String elastigroupId) {
 
-        Boolean retVal = null;
+        Boolean retVal;
 
-        ElastigroupAzure elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
+        ElastigroupAzure              elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
+        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure           = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstElastigroupRepo().update(elastigroupId, elastigroupToUpdate, authToken, account);
+                repoAzure.update(elastigroupId, elastigroupToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -99,10 +91,12 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequestAzure elastigroupDeletionRequest) {
 
-        Boolean retVal                = null;
-        String  elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        Boolean                       retVal;
+        String                        elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        SpotinstRepoManager           managerInstance       = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure             = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
-                getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account);
+                repoAzure.delete(elastigroupToDeleteId, authToken, account);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
         }
@@ -130,8 +124,10 @@ public class SpotinstElastigroupClientAzure {
         filter.setName(elastigroupGetAllRequest.getName());
         filter.setIncludeDeleted(false);
 
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<List<ElastigroupAzure>> elastigroupsRepoGenericResponse =
-                getSpotinstElastigroupRepo().getAll(filter, authToken, account);
+                repoAzure.getAll(filter, authToken, account);
         if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupsRepoGenericResponse.getValue();
         }
@@ -153,6 +149,102 @@ public class SpotinstElastigroupClientAzure {
         List<HttpError> httpExceptions = response.getHttpExceptions();
         LOGGER.error(String.format("%s. Errors: %s", errorMessage, httpExceptions));
         throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
+    }
+
+    public GroupDeploymentCreateAzure createDeployment(
+            GroupDeploymentCreationRequestAzure deploymentCreationRequestAzure, String elastigroupId) {
+
+        GroupDeploymentCreateAzure              retVal;
+        SpotinstRepoManager                     managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupDeploymentRepoAzure repoAzure       =
+                managerInstance.getSpotinstElastigroupDeploymentRepoAzure();
+        RepoGenericResponse<GroupDeploymentCreateAzure> repoGenericResponse =
+                repoAzure.create(deploymentCreationRequestAzure, authToken, account, elastigroupId);
+
+        if (repoGenericResponse.isRequestSucceed()) {
+            retVal = repoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = repoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create a deployment. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<GroupDeploymentGetAzure> getAllDeployments(String groupId, Integer limit,
+                                                           SortQueryParam sortQueryParam) {
+
+        List<GroupDeploymentGetAzure>           retVal;
+        SpotinstRepoManager                     managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupDeploymentRepoAzure repoAzure       =
+                managerInstance.getSpotinstElastigroupDeploymentRepoAzure();
+        RepoGenericResponse<List<GroupDeploymentGetAzure>> repoGenericResponse =
+                repoAzure.getAll(groupId, authToken, account, limit, sortQueryParam);
+
+        if (repoGenericResponse.isRequestSucceed()) {
+            retVal = repoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = repoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to list deployments. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public GroupDeploymentGetAzure getDeployment(String groupId, String deploymentId) {
+
+        GroupDeploymentGetAzure retVal;
+        SpotinstRepoManager     managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupDeploymentRepoAzure repoAzure = managerInstance.getSpotinstElastigroupDeploymentRepoAzure();
+        RepoGenericResponse<GroupDeploymentGetAzure> repoGenericResponse =
+                repoAzure.get(deploymentId, authToken, account, groupId);
+
+        if (repoGenericResponse.isRequestSucceed()) {
+            retVal = repoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = repoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get deployment %s. Code: %s. Message: %s.",
+                                  deploymentId, httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public GroupDeploymentDetailsAzure getDeploymentDetails(String groupId, String deploymentId) {
+
+        GroupDeploymentDetailsAzure             retVal;
+        SpotinstRepoManager                     managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupDeploymentRepoAzure repoAzure       =
+                managerInstance.getSpotinstElastigroupDeploymentRepoAzure();
+        RepoGenericResponse<GroupDeploymentDetailsAzure> repoGenericResponse =
+                repoAzure.getDetails(deploymentId, authToken, account, groupId);
+
+        if (repoGenericResponse.isRequestSucceed()) {
+            retVal = repoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = repoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get deployment %s. Code: %s. Message: %s.",
+                                  deploymentId, httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
     }
     //endregion
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,11 +14,11 @@ import java.util.Set;
 public class ElastigroupHealthConfigurationAzure {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean autoHealing;
-    private String  healthCheckTypes;
-    private Integer gracePeriod;
-    private Integer unhealthyDuration;
+    private Set<String>  isSet;
+    private Boolean      autoHealing;
+    private List<String> healthCheckTypes;
+    private Integer      gracePeriod;
+    private Integer      unhealthyDuration;
     //endregion
 
     //region Constructor
@@ -44,11 +45,11 @@ public class ElastigroupHealthConfigurationAzure {
         this.isSet = isSet;
     }
 
-    public String getHealthCheckTypes() {
+    public List<String> getHealthCheckTypes() {
         return healthCheckTypes;
     }
 
-    public void setHealthCheckTypes(String healthCheckTypes) {
+    public void setHealthCheckTypes(List<String> healthCheckTypes) {
         isSet.add("healthCheckTypes");
         this.healthCheckTypes = healthCheckTypes;
     }
@@ -75,6 +76,7 @@ public class ElastigroupHealthConfigurationAzure {
     //region Builder class
     public static class Builder {
         private ElastigroupHealthConfigurationAzure capacity;
+
         private Builder() {
             this.capacity = new ElastigroupHealthConfigurationAzure();
         }
@@ -84,7 +86,7 @@ public class ElastigroupHealthConfigurationAzure {
             return builder;
         }
 
-        public Builder setHealthCheckTypes(final String healthCheckTypes) {
+        public Builder setHealthCheckTypes(final List<String> healthCheckTypes) {
             capacity.setHealthCheckTypes(healthCheckTypes);
             return this;
         }
@@ -93,12 +95,13 @@ public class ElastigroupHealthConfigurationAzure {
             capacity.setAutoHealing(autoHealing);
             return this;
         }
+
         public Builder setGracePeriod(final Integer gracePeriod) {
             capacity.setGracePeriod(gracePeriod);
             return this;
         }
 
-        public Builder setUnhealthyDuration (final Integer unhealthyDuration) {
+        public Builder setUnhealthyDuration(final Integer unhealthyDuration) {
             capacity.setUnhealthyDuration(unhealthyDuration);
             return this;
         }

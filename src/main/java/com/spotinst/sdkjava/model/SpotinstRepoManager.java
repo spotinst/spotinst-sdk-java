@@ -1,12 +1,13 @@
 package com.spotinst.sdkjava.model;
 
+
 /**
  * Created by talzur on 12/01/2017.
  */
 class SpotinstRepoManager {
 
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
-    //endregion
+
     //region Members
     private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
     private ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
@@ -16,7 +17,9 @@ class SpotinstRepoManager {
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
     private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
+    private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
     private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
+    //endregion
 
     //region Constructor
     private SpotinstRepoManager() {
@@ -29,6 +32,7 @@ class SpotinstRepoManager {
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
         this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
         this.spotinstMrScalerOperatorAwsRepo = new SpotinstMrScalerAwsOperatorRepo();
+        this.spotinstElastigroupDeploymentRepoAzure = new SpotinstElastigroupDeploymentRepoAzure();
     }
     //endregion
 
@@ -52,7 +56,8 @@ class SpotinstRepoManager {
         return spotinstElastigroupActiveInstanceRepo;
     }
 
-    public void setSpotinstElastigroupActiveInstanceRepo(ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo) {
+    public void setSpotinstElastigroupActiveInstanceRepo(
+            ISpotinstElastigroupActiveInstanceRepo spotinstElastigroupActiveInstanceRepo) {
         this.spotinstElastigroupActiveInstanceRepo = spotinstElastigroupActiveInstanceRepo;
     }
 
@@ -72,15 +77,19 @@ class SpotinstRepoManager {
         this.spotinstSpectrumRepo = spotinstSpectrumRepo;
     }
 
-    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerAwsRepo(){ return  spotinstMrScalerAwsRepo; }
+    public ISpotinstMrScalerAwsRepo getSpotinstMrScalerAwsRepo() {
+        return spotinstMrScalerAwsRepo;
+    }
 
-    public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo){
+    public void setSpotinstMrScalerAwsRepo(ISpotinstMrScalerAwsRepo spotinstMrScalerAwsRepo) {
         this.spotinstMrScalerAwsRepo = spotinstMrScalerAwsRepo;
     }
 
-    public ISpotinstMrScalerOperatorAwsRepo getSpotinstMrScalerOperatorAwsRepo(){ return  spotinstMrScalerOperatorAwsRepo; }
+    public ISpotinstMrScalerOperatorAwsRepo getSpotinstMrScalerOperatorAwsRepo() {
+        return spotinstMrScalerOperatorAwsRepo;
+    }
 
-    public void setSpotinstMrScalerOperatorAwsRepo(ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo){
+    public void setSpotinstMrScalerOperatorAwsRepo(ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo) {
         this.spotinstMrScalerOperatorAwsRepo = spotinstMrScalerOperatorAwsRepo;
     }
 
@@ -104,8 +113,13 @@ class SpotinstRepoManager {
     public ISpotinstElastigroupRepoAzure getSpotinstElastigroupRepoAzure() {
         return spotinstElastigroupRepoAzure;
     }
+
     public void setSpotinstElastigroupRepoAzure(ISpotinstElastigroupRepoAzure spotinstElastigroupRepo) {
         this.spotinstElastigroupRepoAzure = spotinstElastigroupRepo;
+    }
+
+    public ISpotinstElastigroupDeploymentRepoAzure getSpotinstElastigroupDeploymentRepoAzure() {
+        return spotinstElastigroupDeploymentRepoAzure;
     }
 
     //endregion

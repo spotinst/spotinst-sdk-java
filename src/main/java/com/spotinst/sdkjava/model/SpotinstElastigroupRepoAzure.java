@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupAzure;
