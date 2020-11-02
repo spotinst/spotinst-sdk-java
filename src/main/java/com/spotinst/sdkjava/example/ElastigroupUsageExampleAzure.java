@@ -1,15 +1,24 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.AzureUnitEnum;
+import com.spotinst.sdkjava.enums.HealthCheckTypeEnumAzure;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.DeploymentDetailsBatchAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.DeploymentDetailsOverviewAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.GroupDeploymentDetailsAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
+import com.spotinst.sdkjava.model.filters.SortQueryParam;
+
 import java.io.IOException;
 import java.util.*;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token = "your-token";
-    private final static String act_id     = "your-account-id";;
-    private final static String SSA        = "your-ssa";
+    private final static String auth_token          = "your-token";
+    private final static String act_id              = "your-account-id";
+    private final static String SSA                 = "your-ssa";
     private static final String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
 
     public static void main(String[] args) throws IOException {
@@ -31,10 +40,20 @@ public class ElastigroupUsageExampleAzure {
 
         // Get all Elastigroups
         getAllElastigroupsIncludeDeleted(elastigroupClient);
+        // Create Deployment (Group should have > 0 VMs)
+        GroupDeploymentCreateAzure newlyCreatedDeployment = createDeployment(elastigroupClient, elastigroupId);
 
+        // Get Deployment
+        String                  deploymentId        = newlyCreatedDeployment.getId();
+        GroupDeploymentGetAzure retrievedDeployment = getDeployment(elastigroupClient, elastigroupId, deploymentId);
+
+        // Get Deployment Details
+        GroupDeploymentDetailsAzure deploymentDetails =
+                getDeploymentDetails(elastigroupClient, elastigroupId, deploymentId);
+        // List Deployments
+        List<GroupDeploymentGetAzure> allDeployments = getAllDeployments(elastigroupClient, elastigroupId);
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
-
     }
 
     private static String createElastigroup(SpotinstElastigroupClientAzure client) {
@@ -97,7 +116,8 @@ public class ElastigroupUsageExampleAzure {
         LoginAzure.Builder loginBuilder = LoginAzure.Builder.get();
         String             ssh          = SSA;
 
-        LoginAzure login = loginBuilder.setUserName("test").setSshPublicKey(ssh).build();
+        // it is recommended to set a unique username that isn't present in the "reserved usernames" pool
+        LoginAzure login = loginBuilder.setUserName("notAReservedUserName").setSshPublicKey(ssh).build();
 
 
         ElastigroupLaunchSpecificationAzure launchSpec =
@@ -150,7 +170,7 @@ public class ElastigroupUsageExampleAzure {
         // Build elastigroup
         ElastigroupAzure.Builder elastigroupBuilder = ElastigroupAzure.Builder.get();
         ElastigroupAzure elastigroup =
-                elastigroupBuilder.setName("Automation Group_SDK").setResourceGroupName("AutomationResourceGroup_SDK")
+                elastigroupBuilder.setName(SPOTINST_GROUP_NAME).setResourceGroupName("AutomationResourceGroup")
                                   .setRegion("eastus").setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                                   .build();
 
@@ -165,7 +185,7 @@ public class ElastigroupUsageExampleAzure {
         // Create elastigroup
 
         ElastigroupAzure createdElastigroup = client.createElastigroup(creationRequest);
-        System.out.println("Elastigroup succesfully created: " + createdElastigroup.getId());
+        System.out.println("Elastigroup successfully created: " + createdElastigroup.getId());
 
         // Get elastigroup Id
         return createdElastigroup.getId();
@@ -219,6 +239,85 @@ public class ElastigroupUsageExampleAzure {
         return client.getAllElastigroups(requestByName);
     }
 
+    private static GroupDeploymentCreateAzure createDeployment(SpotinstElastigroupClientAzure client,
+                                                               String elastigroupId) {
+
+        GroupDeploymentCreationRequestAzure.Builder groupDeploymentRequestBuilder =
+                GroupDeploymentCreationRequestAzure.Builder.get();
+        GroupDeploymentCreationRequestAzure groupDeploymentRequest =
+                groupDeploymentRequestBuilder.setBatchSizePercentage(100).setDrainingTimeout(20).setGracePeriod(300)
+                                             .build();
+
+
+        GroupDeploymentCreateAzure createdDeployment        =
+                client.createDeployment(groupDeploymentRequest, elastigroupId);
+        String                     cDeploymentId            = createdDeployment.getId();
+        String                     cDeploymentGroupId       = createdDeployment.getGroupId();
+        String                     cDeploymentProgressValue = createdDeployment.getProgress().getValue().toString();
+        String                     cDeploymentProgressUnit  = createdDeployment.getProgress().getUnit().getName();
+        String                     preFormat                =
+                "deployment %s for group %s successfully created, progress: %s %s complete";
+        System.out.println(String.format(preFormat, cDeploymentId, cDeploymentGroupId, cDeploymentProgressValue,
+                                         cDeploymentProgressUnit));
+
+        return createdDeployment;
+
+    }
+
+    private static List<GroupDeploymentGetAzure> getAllDeployments(SpotinstElastigroupClientAzure client,
+                                                                   String groupId) {
+
+        SortQueryParam sortQueryParam = new SortQueryParam("createdAt");
+        sortQueryParam.setSortOrder(AscDescEnum.DESC);
+        Integer                       limit       = 20;
+        List<GroupDeploymentGetAzure> deployments = client.getAllDeployments(groupId, limit, sortQueryParam);
+        System.out.println(String.format("found %s deployments with IDs:", deployments.size()));
+        deployments.stream().map(GroupDeploymentGetAzure::getId).forEach(System.out::println);
+
+        return deployments;
+    }
+
+    private static GroupDeploymentGetAzure getDeployment(SpotinstElastigroupClientAzure client, String groupId,
+                                                         String deploymentId) {
+
+        GroupDeploymentGetAzure deployment    = client.getDeployment(groupId, deploymentId);
+        String                  progressValue = deployment.getProgress().getValue().toString();
+        String                  progressUnit  = deployment.getProgress().getUnit().getName();
+        String                  status        = deployment.getStatus().getName();
+        String                  preFormat     = "deployment ID: %s - status: %s - progress: %s %s complete";
+        System.out.println(String.format(preFormat, deploymentId, status, progressValue, progressUnit));
+        return deployment;
+
+    }
+
+    private static GroupDeploymentDetailsAzure getDeploymentDetails(SpotinstElastigroupClientAzure client,
+                                                                    String groupId, String deploymentId) {
+
+        GroupDeploymentDetailsAzure    deploymentDetails = client.getDeploymentDetails(groupId, deploymentId);
+        DeploymentDetailsOverviewAzure overview          = deploymentDetails.getDetailsOverview();
+        String                         retDeploymentId   = overview.getDeploymentId();
+        String                         blueInstances     = overview.getBlueVms().toString();
+        String                         greenInstances    = overview.getGreenVms().toString();
+        String                         currentBatch      = overview.getCurrentBatch().toString();
+        String                         numOfBatches      = overview.getNumberOfBatches().toString();
+        String preFormatted = "Get deployment details: ID: %s, batches: %s out of %s complete, blue/green: %s/%s";
+        System.out.println(String.format(preFormatted, retDeploymentId, currentBatch, numOfBatches, blueInstances,
+                                         greenInstances));
+        List<DeploymentDetailsBatchAzure> overviewBatches = deploymentDetails.getBatches();
+
+        if (overviewBatches != null && overviewBatches.size() > 0) {
+
+            for (DeploymentDetailsBatchAzure batch : overviewBatches) {
+                String batchPreString = "batch number %s: # of green VMs %s, # of blue VMs %s";
+                int    greenSizes     = batch.getGreen().size();
+                int    blueSizes      = batch.getBlue().size();
+                System.out.println(String.format(batchPreString, batch.getBatch(), greenSizes, blueSizes));
+            }
+
+        }
+
+        return deploymentDetails;
+    }
 
     private static void sleep(Integer seconds) {
         for (Integer i = 0; i < seconds; i++) {
