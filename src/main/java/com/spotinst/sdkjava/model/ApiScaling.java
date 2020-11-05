@@ -16,6 +16,7 @@ public class ApiScaling implements IPartialUpdateEntity {
 
     //region Members
     // Partial Update support
+    @JsonIgnore
     private Set<String>            isSet = new HashSet<>();
     private List<ApiScalingPolicy> up;
     private List<ApiScalingPolicy> down;

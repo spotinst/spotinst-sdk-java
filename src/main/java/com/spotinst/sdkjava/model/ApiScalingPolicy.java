@@ -16,6 +16,7 @@ import java.util.Set;
 public class ApiScalingPolicy {
     //region Members
     // Partial Update support
+    @JsonIgnore
     private Set<String>               isSet = new HashSet<>();
     private String                    policyName;
     private String                    metricName;
