@@ -5,17 +5,13 @@ import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.client.rest.RestResponse;
 import com.spotinst.sdkjava.exception.SpotinstHttpErrorsException;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
-import org.apache.logging.log4j.core.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,23 +24,25 @@ public class BaseSpotinstService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseSpotinstService.class);
 
-    private static final String GRADLE_PROPERTIES_FILE_PATH  = "gradle.properties";
-    private static final String GRADLE_PROPERTIES_VERSION    = "theVersion";
-    private static       String SPOTINST_SDK_JAVA_USER_AGENT = "spotinst-sdk-java";
+    private static final String VERSION_FILE_PATH     = "project.properties";
+    private static final String VERSION_PROPERTY_NAME = "version";
+    private static       String spotSdkJava           = "spotinst-sdk-java";
 
     static {
-        Properties prop            = new Properties();
-        String     userAgentFormat = "%s/%s";
+        String userAgentFormat = "%s/%s";
 
         try {
-            prop.load(new FileInputStream(GRADLE_PROPERTIES_FILE_PATH));
-            if(prop.containsKey(GRADLE_PROPERTIES_VERSION)) {
-                String version = prop.getProperty(GRADLE_PROPERTIES_VERSION);
-                SPOTINST_SDK_JAVA_USER_AGENT = String.format(userAgentFormat, SPOTINST_SDK_JAVA_USER_AGENT, version);
-            }
-        } catch (IOException e) {
-            LOGGER.error("Cannot determine spotinst-sdk-java version", e);
+            InputStream is = BaseSpotinstService.class.getClassLoader().getResourceAsStream(VERSION_FILE_PATH);
+            Properties prop = new Properties();
+            prop.load(is);
+            String version = prop.getProperty(VERSION_PROPERTY_NAME);
+            spotSdkJava = String.format(userAgentFormat, spotSdkJava, version);
+            LOGGER.info(String.format("Spot Java SDK version is: %s", version));
         }
+        catch (Exception e) {
+            LOGGER.error(String.format("failed to get Spot Java SDK version from project.properties, message: %s", e));
+        }
+
     }
 
     public static void addCustomUserAgents(List<UserAgentConfig> userAgentConfigurations) {
@@ -56,7 +54,7 @@ public class BaseSpotinstService {
             }
 
             String userAgentToAdd = String.format("%s/%s", agentType, userAgentConfig.getVersion());
-            SPOTINST_SDK_JAVA_USER_AGENT = String.format("%s %s", SPOTINST_SDK_JAVA_USER_AGENT, userAgentToAdd);
+            spotSdkJava = String.format("%s %s", spotSdkJava, userAgentToAdd);
         }
     }
 
@@ -70,16 +68,20 @@ public class BaseSpotinstService {
                 throw new SpotinstHttpException("Can't parse response to class : " + contentClass.toString());
             }
 
-        } else {
+        }
+        else {
             // Read the errors.
-            String message = "Got status code different the SC_OK : " + response.getStatusCode() + " Body " + response.getBody();
+            String message =
+                    "Got status code different the SC_OK : " + response.getStatusCode() + " Body " + response.getBody();
             LOGGER.warn(message);
 
             // Try to cast the error to ErrorResponse.
-            ServiceErrorsResponse serviceErrorsResponse = JsonMapper.fromJson(response.getBody(), ServiceErrorsResponse.class);
+            ServiceErrorsResponse serviceErrorsResponse =
+                    JsonMapper.fromJson(response.getBody(), ServiceErrorsResponse.class);
             if (serviceErrorsResponse != null) {
                 throw new SpotinstHttpErrorsException(message, serviceErrorsResponse.getResponse().getErrors());
-            } else {
+            }
+            else {
                 throw new SpotinstHttpException(message);
             }
         }
@@ -97,6 +99,6 @@ public class BaseSpotinstService {
     }
 
     private static String getUserAgent() {
-        return SPOTINST_SDK_JAVA_USER_AGENT;
+        return spotSdkJava;
     }
 }

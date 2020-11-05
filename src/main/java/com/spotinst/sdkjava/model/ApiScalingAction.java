@@ -13,7 +13,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiScalingAction {
-
+    @JsonIgnore
     private Set<String> isSet = new HashSet<>();
     private String      type;
     private String      adjustment;
