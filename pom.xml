@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
-  <version>1.0.34-SNAPSHOT</version>
+  <version>1.0.34</version>
   <packaging>jar</packaging>
   <name>spotinst-sdk-java</name>
   <description>A Spotinst Java SDK</description>
@@ -106,6 +106,7 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <distributionManagement>
     <!-- Repository for snapshots -->
@@ -232,10 +233,8 @@
     </plugins>
     <resources>
       <resource>
-        <directory>./</directory>
-        <includes>
-          <include>gradle.properties</include>
-        </includes>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
       </resource>
     </resources>
   </build>
@@ -269,6 +268,14 @@
                 </goals>
               </execution>
             </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.4.3</version>
+            <configuration>
+              <encoding>${project.build.sourceEncoding}</encoding>
+            </configuration>
           </plugin>
         </plugins>
       </build>
