@@ -35,6 +35,9 @@ public class ElastigroupUsageExampleAzure {
         updateElastigroup(elastigroupClient, elastigroupId);
 
         ElastigroupAzure group =  getGroup(elastigroupClient,elastigroupId);
+        String groupName = group.getName();
+        String preFormat     = "groupId: %s - groupName: %s";
+        System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
@@ -327,9 +330,6 @@ public class ElastigroupUsageExampleAzure {
         ElastigroupGetRequestAzure requestById = requestBuilder.setElastigroupId(groupId).build();
         ElastigroupAzure group = client.getElastigroup(requestById);
 
-        String groupName = group.getName();
-        String preFormat     = "groupId: %s - groupName: %s";
-        System.out.println(String.format(preFormat, groupId, groupName));
         return group;
 
     }

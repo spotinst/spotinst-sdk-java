@@ -1,5 +1,8 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.exception.SpotinstValidationException;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by itzik hazzan on 30/11/2020.
  */
@@ -42,11 +45,13 @@ public class ElastigroupGetRequestAzure {
         }
 
         public ElastigroupGetRequestAzure build() {
-            // TODO : Validations
+            if(StringUtils.isEmpty(elastigroupGetRequest.getElastigroupId())){
+                throw new SpotinstValidationException(
+                        "Invalid Request - elastigroupId must be set");
+            }
             return elastigroupGetRequest;
         }
 
     }
     //endregion
-
 }

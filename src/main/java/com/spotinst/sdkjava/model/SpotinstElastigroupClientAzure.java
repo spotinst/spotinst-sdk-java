@@ -144,21 +144,23 @@ public class SpotinstElastigroupClientAzure {
 
     public ElastigroupAzure getElastigroup(ElastigroupGetRequestAzure elastigroupGetRequest) {
 
-        ElastigroupAzure retVal = null;
+        ElastigroupAzure retVal;
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
                 repoAzure.get(elastigroupId, authToken, account);
+
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            LOGGER.info(String.format("get successfully the group %s", elastigroupId));
             retVal = elastigroupRepoGenericResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get elastigroup. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format("Error encountered while attempting to get elastigroup : %s. Code: %s. Message: %s.",
+                                       elastigroupId,httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
