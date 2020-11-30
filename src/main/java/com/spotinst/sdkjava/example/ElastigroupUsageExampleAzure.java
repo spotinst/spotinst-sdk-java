@@ -34,6 +34,11 @@ public class ElastigroupUsageExampleAzure {
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
 
+        ElastigroupAzure group =  getGroup(elastigroupClient,elastigroupId);
+        String groupName = group.getName();
+        String preFormat     = "groupId: %s - groupName: %s";
+        System.out.println(String.format(preFormat, elastigroupId, groupName));
+
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
@@ -317,6 +322,16 @@ public class ElastigroupUsageExampleAzure {
         }
 
         return deploymentDetails;
+    }
+
+    private static ElastigroupAzure getGroup(SpotinstElastigroupClientAzure client, String groupId) {
+
+        ElastigroupGetRequestAzure.Builder requestBuilder = ElastigroupGetRequestAzure.Builder.get();
+        ElastigroupGetRequestAzure requestById = requestBuilder.setElastigroupId(groupId).build();
+        ElastigroupAzure group = client.getElastigroup(requestById);
+
+        return group;
+
     }
 
     private static void sleep(Integer seconds) {
