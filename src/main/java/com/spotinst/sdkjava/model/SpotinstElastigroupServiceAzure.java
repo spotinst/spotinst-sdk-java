@@ -139,7 +139,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
             }
         }
 
-        // Get the headers for AWS.
+        // Get the headers for Azure.
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
@@ -318,6 +318,41 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         if (deploymentsResponse.getResponse().getCount() > 0) {
             retVal = deploymentsResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static ApiElastigroupAzure getGroup(String elastigroupId, String authToken,
+                                          String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiElastigroupAzure retVal = new ApiElastigroupAzure();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers for Azure.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/group/%s", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponseAzure groupActiveInstanceResponse = getCastedResponse(response, ElastigroupApiResponseAzure.class);
+
+        if (groupActiveInstanceResponse.getResponse().getCount() > 0) {
+            retVal = groupActiveInstanceResponse.getResponse().getItems().get(0);
         }
 
         return retVal;

@@ -80,6 +80,22 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<ElastigroupAzure> get(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupAzure> retVal;
+
+        try {
+            ApiElastigroupAzure apiElastigroup = SpotinstElastigroupServiceAzure.getGroup(elastigroupId, authToken, account);
+            ElastigroupAzure    elastigroup    = ElastigroupConverterAzure.toBl(apiElastigroup);
+            retVal = new RepoGenericResponse<>(elastigroup);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
 
 
 }
