@@ -24,14 +24,15 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     private String      snapshotId;
     private Integer     volumeSize;
     private String      volumeType;
+    private Integer     throughput;
 
     //region Constructor
-
     public ApiEbsDevice() {
         isSet = new HashSet<>();
     }
     //endregion
 
+    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -94,6 +95,16 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         this.volumeType = volumeType;
     }
 
+    public Integer getThroughput() {
+        return throughput;
+    }
+
+    public void setThroughput(Integer throughput) {
+        isSet.add("throughput");
+        this.throughput = throughput;
+    }
+    //endregion
+
     //region isSet methods
     // Is deleteOnTermination Set boolean method
     @JsonIgnore
@@ -135,6 +146,10 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         return isSet.contains("volumeType");
     }
 
-
+    // Is throughput Set boolean method
+    @JsonIgnore
+    public boolean isThroughputSet() {
+        return isSet.contains("throughput");
+    }
     //endregion
 }
