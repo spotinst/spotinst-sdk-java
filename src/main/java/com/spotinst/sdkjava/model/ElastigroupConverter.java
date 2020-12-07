@@ -565,11 +565,17 @@ class ElastigroupConverter {
             if (ebsDevice.isVolumeSizeSet()) {
                 retVal.setVolumeSize(ebsDevice.getVolumeSize());
             }
+
             if (ebsDevice.isVolumeTypeSet()) {
                 if (ebsDevice.getVolumeType() != null) {
                     retVal.setVolumeType(ebsDevice.getVolumeType().getName());
                 }
             }
+
+            if (ebsDevice.isThroughputSet()) {
+                retVal.setThroughput(ebsDevice.getThroughput());
+            }
+
         }
 
         return retVal;
@@ -1459,6 +1465,10 @@ class ElastigroupConverter {
 
             if (ebsDevice.isVolumeTypeSet()) {
                 retValBuilder.setVolumeType(AwsVolumeTypeEnum.fromName(ebsDevice.getVolumeType()));
+            }
+
+            if (ebsDevice.isThroughputSet()) {
+                retValBuilder.setThroughput(ebsDevice.getThroughput());
             }
 
             retVal = retValBuilder.build();

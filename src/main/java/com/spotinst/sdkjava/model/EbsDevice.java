@@ -11,23 +11,25 @@ import java.util.Set;
  */
 public class EbsDevice {
 
-    // Partial Update support
+    //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean deleteOnTermination;
-    private Boolean encrypted;
-    private Integer iops;
-    private String snapshotId;
-    private Integer volumeSize;
+    private Set<String>       isSet;
+    private Boolean           deleteOnTermination;
+    private Boolean           encrypted;
+    private Integer           iops;
+    private String            snapshotId;
+    private Integer           volumeSize;
     private AwsVolumeTypeEnum volumeType;
+    private Integer           throughput;
+    //endregion
 
     //region Constructor
-
     private EbsDevice() {
         isSet = new HashSet<>();
     }
     //endregion
 
+    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -90,6 +92,17 @@ public class EbsDevice {
         this.volumeType = volumeType;
     }
 
+    public Integer getThroughput() {
+        return throughput;
+    }
+
+    public void setThroughput(Integer throughput) {
+        isSet.add("throughput");
+        this.throughput = throughput;
+    }
+
+    //endregion
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,6 +129,7 @@ public class EbsDevice {
         result = 31 * result + (volumeType != null ? volumeType.hashCode() : 0);
         return result;
     }
+
     //region Builder class
     public static class Builder {
         private EbsDevice ebsDevice;
@@ -124,7 +138,7 @@ public class EbsDevice {
             this.ebsDevice = new EbsDevice();
         }
 
-        public static Builder get(){
+        public static Builder get() {
             Builder builder = new Builder();
             return builder;
         }
@@ -146,6 +160,11 @@ public class EbsDevice {
 
         public Builder setIops(final Integer iops) {
             ebsDevice.setIops(iops);
+            return this;
+        }
+
+        public Builder setThroughput(final Integer throughput) {
+            ebsDevice.setThroughput(throughput);
             return this;
         }
 
@@ -208,5 +227,10 @@ public class EbsDevice {
         return isSet.contains("volumeType");
     }
 
+    // Is throughput Set boolean method
+    @JsonIgnore
+    public boolean isThroughputSet() {
+        return isSet.contains("throughput");
+    }
     //endregion
 }
