@@ -16,6 +16,7 @@ class ApiElastigroupInstanceHealthinessConverter {
         retVal.setSpotRequestId(apiInstanceHealthiness.getSpotRequestId());
         retVal.setGroupId(apiInstanceHealthiness.getGroupId());
         retVal.setAvailabilityZone(apiInstanceHealthiness.getAvailabilityZone());
+        retVal.setPrivateIp(apiInstanceHealthiness.getPrivateIp());
 
         if (apiInstanceHealthiness.getLifeCycle() != null) {
             AwsInstanceLifecycleEnum instanceHealthStatusEnum =
