@@ -15,6 +15,7 @@ public class ElastigroupInstanceHealthiness {
     private String                   availabilityZone;
     private AwsInstanceLifecycleEnum lifeCycle;
     private InstanceHealthStatusEnum healthStatus;
+    private String                   privateIp;
     //endregion
 
     //region Getters & Setters
@@ -64,6 +65,14 @@ public class ElastigroupInstanceHealthiness {
 
     public void setHealthStatus(InstanceHealthStatusEnum healthStatus) {
         this.healthStatus = healthStatus;
+    }
+
+    public String getPrivateIp() {
+        return privateIp;
+    }
+
+    public void setPrivateIp(String privateIp) {
+        this.privateIp = privateIp;
     }
     //endregion
 }
