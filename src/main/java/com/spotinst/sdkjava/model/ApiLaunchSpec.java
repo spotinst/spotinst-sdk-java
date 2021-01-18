@@ -19,20 +19,21 @@ import java.util.Set;
 class ApiLaunchSpec implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>               isSet;
-    private String                    healthCheckType;
-    private Integer                   healthCheckGracePeriod;
-    private List<String>              securityGroupIds;
-    private Boolean                   monitoring;
-    private Boolean                   ebsOptimized;
-    private String                    imageId;
-    private ApiIamRole                iamRole;
-    private String                    keyPair;
-    private String                    userData;
-    private List<ApiBlockDevice>      blockDeviceMappings;
-    private List<ApiNetworkInterface> networkInterfaces;
-    private List<ApiTag>              tags;
-    private ApiLoadBalancersConfig    loadBalancersConfig;
+    private Set<String>                 isSet;
+    private String                      healthCheckType;
+    private Integer                     healthCheckGracePeriod;
+    private List<String>                securityGroupIds;
+    private Boolean                     monitoring;
+    private Boolean                     ebsOptimized;
+    private String                      imageId;
+    private ApiIamRole                  iamRole;
+    private String                      keyPair;
+    private String                      userData;
+    private List<ApiBlockDevice>        blockDeviceMappings;
+    private List<ApiNetworkInterface>   networkInterfaces;
+    private List<ApiTag>                tags;
+    private ApiResourceTagSpecification resourceTagSpecification;
+    private ApiLoadBalancersConfig      loadBalancersConfig;
     //endregion
 
     //region Constructor
@@ -49,6 +50,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public ApiResourceTagSpecification getResourceTagSpecification() {
+        return resourceTagSpecification;
+    }
+
+    public void setResourceTagSpecification(ApiResourceTagSpecification resourceTagSpecification) {
+        isSet.add("resourceTagSpec");
+        this.resourceTagSpecification = resourceTagSpecification;
     }
 
     public String getHealthCheckType() {
@@ -170,12 +180,18 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
+
     // Is healthCheckType Set boolean method
     @JsonIgnore
     public boolean isHealthCheckTypeSet() {
         return isSet.contains("healthCheckType");
     }
 
+    // Is resourceTagSpecification Set boolean method
+    @JsonIgnore
+    public boolean isResourceTagSpecificationSet() {
+        return isSet.contains("resourceTagSpec");
+    }
 
     // Is healthCheckGracePeriod Set boolean method
     @JsonIgnore

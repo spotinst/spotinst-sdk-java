@@ -337,7 +337,6 @@ public class ElastigroupUsageExample {
         subnets2.add("subnet-01972f2531cb1ca4b");
         Placement placement2 = placementBuilder2.setAvailabilityZoneName("us-west-2b").setSubnetIds(subnets2).build();
         placements.add(placement2);
-        // Build group launch spec
 
         //Build Load Balancer Config
         LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
@@ -346,13 +345,22 @@ public class ElastigroupUsageExample {
                 lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
         LoadBalancersConfig loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
+
+        //Build Resource Tag Spec
+        ResourceTagSpecification.Builder resourceTagSpecBuilder = ResourceTagSpecification.Builder.get();
+        ResourceTagSpecification resourceTagSpecification = resourceTagSpecBuilder.setTagAmis(true)
+                                                                                  .setTagEnis(true)
+                                                                                  .setTagSnapshot(true)
+                                                                                  .setTagVolume(true)
+                                                                                  .build();
+        // Build group launch spec
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         List<String>                           securityGroupIds  = new ArrayList<>();
         securityGroupIds.add("sg-060d199c638390fa1");
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
                                  .setKeyPair(key_pair_name).setDetailedMonitoring(true)
-                                 .setLoadBalancersConfig(loadBalancersConfig).build();
+                                 .setLoadBalancersConfig(loadBalancersConfig).setResourceTagSpecification(resourceTagSpecification).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
@@ -531,10 +539,21 @@ public class ElastigroupUsageExample {
         ElastigroupCapacityConfiguration updateCapacity =
                 updateCapacityBuilder.setMinimum(0).setTarget(3).setMaximum(5).build();
 
+        //create group update - tag specs
+        ResourceTagSpecification.Builder updateResourceTagSpecBuilder = ResourceTagSpecification.Builder.get();
+        ResourceTagSpecification updateResourceTagSpec = updateResourceTagSpecBuilder.setTagVolume(true).build();
+
+        ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
+        ElastigroupLaunchSpecification launchSpecification = launchSpecBuilder.setResourceTagSpecification(updateResourceTagSpec).build();
+
+        ElastigroupComputeConfiguration.Builder updateComputeConfigureBuilder = ElastigroupComputeConfiguration.Builder.get();
+        ElastigroupComputeConfiguration updateComputeConfigure = updateComputeConfigureBuilder.setLaunchSpecification(launchSpecification).build();
+
+
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup elastigroupUpdate =
-                updateElastigroupBuilder.setCapacity(updateCapacity).setName("SpotinstTestGroupU1").build();
+                updateElastigroupBuilder.setCapacity(updateCapacity).setCompute(updateComputeConfigure).setName("SpotinstTestGroupU1").build();
 
         // Build elastigroup update request
         ElastigroupUpdateRequest.Builder elastigroupUpdateRequestBuilder = ElastigroupUpdateRequest.Builder.get();

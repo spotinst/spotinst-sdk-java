@@ -399,6 +399,10 @@ class ElastigroupConverter {
                 retVal.setUserData(launchSpecification.getUserData());
             }
 
+            if (launchSpecification.isResourceTagSpecificationSet()) {
+                retVal.setResourceTagSpecification(toDal(launchSpecification.getResourceTagSpecification()));
+            }
+
             if (launchSpecification.isBlockDeviceMappingsSet()) {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<ApiBlockDevice> optimizerBDM =
@@ -498,6 +502,24 @@ class ElastigroupConverter {
             if (blockDeviceMapping.isEbsDeviceSet()) {
                 retVal.setEbs(toDal(blockDeviceMapping.getEbsDevice()));
             }
+        }
+
+        return retVal;
+    }
+
+    private static ApiResourceTagSpecification toDal(ResourceTagSpecification resourceTagSpecification) {
+        ApiResourceTagSpecification retVal = new ApiResourceTagSpecification();
+        if(resourceTagSpecification.isVolumeSet()) {
+            retVal.setShouldTagVolumes(resourceTagSpecification.isShouldTagVolumes());
+        }
+        if(resourceTagSpecification.isSnapshotSet()) {
+            retVal.setShouldTagSnapshots(resourceTagSpecification.isShouldTagSnapshots());
+        }
+        if(resourceTagSpecification.isEniSet()) {
+            retVal.setShouldTagEnis(resourceTagSpecification.isShouldTagEnis());
+        }
+        if(resourceTagSpecification.isAmiSet()) {
+            retVal.setShouldTagAmis(resourceTagSpecification.isShouldTagAmis());
         }
 
         return retVal;
