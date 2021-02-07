@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupVmSizes
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiLaunchSpecAzure;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,10 +18,10 @@ import java.util.Set;
 public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                isSet;
-    private String                     os;
-    private ApiElastigroupVmSizesAzure vmSizes;
-    private ApiLaunchSpecAzure         launchSpecification;
+    private Set<String>                       isSet;
+    private List<String>                      availabilityZones;
+    private ApiSubnetsGcp                     subnets;
+    private ApiLaunchSpecificationGcp         launchSpecification;
     //endregion
 
     //region Constructor
@@ -38,45 +39,45 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getOs() {
-        return os;
+    public List<String> getAvailabilityZones() {
+        return availabilityZones;
     }
 
-    public void setOs(String os) {
-        isSet.add("os");
-        this.os = os;
+    public void setAvailabilityZones(List<String> availabilityZones) {
+        isSet.add("availabilityZones");
+        this.availabilityZones = availabilityZones;
     }
 
-    public ApiElastigroupVmSizesAzure getVmSizes() {
-        return vmSizes;
+    public ApiSubnetsGcp getSubnets() {
+        return subnets;
     }
 
-    public void setVmSizes(ApiElastigroupVmSizesAzure vmSizes) {
-        isSet.add("vmSizes");
-        this.vmSizes = vmSizes;
+    public void setSubnets(ApiSubnetsGcp subnets) {
+        isSet.add("subnets");
+        this.subnets = subnets;
     }
 
-    public ApiLaunchSpecAzure getLaunchSpecification() {
+    public ApiLaunchSpecificationGcp getLaunchSpecification() {
         return launchSpecification;
     }
 
-    public void setLaunchSpecification(ApiLaunchSpecAzure launchSpecification) {
+    public void setLaunchSpecification(ApiLaunchSpecificationGcp launchSpecification) {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
     //end region
 
     //region is set methods
-    // Is os Set boolean method
+    // Is availabilityZones Set boolean method
     @JsonIgnore
-    public boolean isOsSet() {
-        return isSet.contains("os");
+    public boolean isAvailabilityZonesSet() {
+        return isSet.contains("availabilityZones");
     }
 
-    // Is vmSizes Set boolean method
+    // Is subnets Set boolean method
     @JsonIgnore
-    public boolean isVmSizesSet() {
-        return isSet.contains("vmSizes");
+    public boolean isSubnetsSet() {
+        return isSet.contains("subnets");
     }
 
     // Is launchSpecification Set boolean method
