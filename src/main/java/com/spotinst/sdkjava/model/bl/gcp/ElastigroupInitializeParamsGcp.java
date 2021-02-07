@@ -105,6 +105,6 @@ public class ElastigroupInitializeParamsGcp {
 
     // Is sourceImage Set boolean method
     @JsonIgnore
-    public boolean isSourceImage() { return isSet.contains("sourceImage"); }
+    public boolean isSourceImageSet() { return isSet.contains("sourceImage"); }
     //endregion
 }

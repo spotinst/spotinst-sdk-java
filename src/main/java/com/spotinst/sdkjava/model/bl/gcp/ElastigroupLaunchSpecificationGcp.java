@@ -85,7 +85,7 @@ public class ElastigroupLaunchSpecificationGcp {
 
     // Is networkInterfaces Set boolean method
     @JsonIgnore
-    public boolean isNetworkInterfaces() {
+    public boolean isNetworkInterfacesSet() {
         return isSet.contains("networkInterfaces");
     }
     //endregion
