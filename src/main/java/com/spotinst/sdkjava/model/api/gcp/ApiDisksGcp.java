@@ -105,11 +105,11 @@ public class ApiDisksGcp implements IPartialUpdateEntity {
         this.boot = boot;
     }
 
-    public ApiInitializeParamsGcp getInitializeParamsGcp() {
+    public ApiInitializeParamsGcp getInitializeParams() {
         return initializeParams;
     }
 
-    public void setInitializeParamsGcp(ApiInitializeParamsGcp initializeParams) {
+    public void setInitializeParams(ApiInitializeParamsGcp initializeParams) {
         isSet.add("initializeParams");
         this.initializeParams = initializeParams;
     }
@@ -117,49 +117,49 @@ public class ApiDisksGcp implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
-    // Is isPrimary Set boolean method
+    // Is autoDelete Set boolean method
     @JsonIgnore
     public boolean isAutoDeleteSet() {
         return isSet.contains("autoDelete");
     }
-    // Is assignPublicIp Set boolean method
 
+    // Is boot Set boolean method
     @JsonIgnore
     public boolean isBootSet() {
         return isSet.contains("boot");
     }
 
-    // Is subnetName Set boolean method
+    // Is deviceName Set boolean method
     @JsonIgnore
     public boolean isDeviceNameSet() {
         return isSet.contains("deviceName");
     }
 
-    // Is subnetName Set boolean method
+    // Is mode Set boolean method
     @JsonIgnore
     public boolean isModeSet() {
         return isSet.contains("mode");
     }
 
-    // Is subnetName Set boolean method
+    // Is interfaze Set boolean method
     @JsonIgnore
     public boolean isInterfazeSet() {
         return isSet.contains("interfaze");
     }
 
-    // Is subnetName Set boolean method
+    // Is source Set boolean method
     @JsonIgnore
     public boolean isSourceSet() {
         return isSet.contains("source");
     }
 
-    // Is subnetName Set boolean method
+    // Is type Set boolean method
     @JsonIgnore
     public boolean isTypeSet() {
         return isSet.contains("type");
     }
 
-    // Is subnetName Set boolean method
+    // Is initializeParams Set boolean method
     @JsonIgnore
     public boolean isInitializeParamsSet() {
         return isSet.contains("initializeParams");

@@ -16,6 +16,7 @@ public class ElastigroupComputeConfigurationGcp {
     private List<String>                      availabilityZones;
     private ElastigroupLaunchSpecificationGcp launchSpecification;
     private ElastigroupSubnetsGcp             subnets;
+    private ElastigroupInstanceTypesGcp       instanceTypes;
     //endregion
 
     //region Constructor
@@ -51,6 +52,15 @@ public class ElastigroupComputeConfigurationGcp {
         this.subnets = subnets;
     }
 
+    public ElastigroupInstanceTypesGcp getInstanceTypes() {
+        return instanceTypes;
+    }
+
+    public void setInstanceTypes(ElastigroupInstanceTypesGcp instanceTypes) {
+        isSet.add("instanceTypes");
+        this.instanceTypes = instanceTypes;
+    }
+
     public ElastigroupLaunchSpecificationGcp getLaunchSpecification() {
         return launchSpecification;
     }
@@ -74,13 +84,18 @@ public class ElastigroupComputeConfigurationGcp {
             return builder;
         }
 
-        public Builder setOs(final List<String>  availabilityZones) {
+        public Builder setAvailabilityZones(final List<String>  availabilityZones) {
             compute.setAvailabilityZones(availabilityZones);
             return this;
         }
 
         public Builder setLaunchSpecification(final ElastigroupLaunchSpecificationGcp launchSpecification) {
             compute.setLaunchSpecification(launchSpecification);
+            return this;
+        }
+
+        public Builder setInstanceTypes(final ElastigroupInstanceTypesGcp instanceTypes) {
+            compute.setInstanceTypes(instanceTypes);
             return this;
         }
 
@@ -106,6 +121,12 @@ public class ElastigroupComputeConfigurationGcp {
     @JsonIgnore
     public boolean isSubnetsSet() {
         return isSet.contains("subnets");
+    }
+
+    // Is instanceTypes Set boolean method
+    @JsonIgnore
+    public boolean isInstanceTypesSet() {
+        return isSet.contains("instanceTypes");
     }
 
     // Is launchSpecification Set boolean method

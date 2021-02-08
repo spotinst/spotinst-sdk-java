@@ -22,6 +22,7 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     private List<String>                      availabilityZones;
     private ApiSubnetsGcp                     subnets;
     private ApiLaunchSpecificationGcp         launchSpecification;
+    private ApiInstanceTypesGcp               instanceTypes;
     //endregion
 
     //region Constructor
@@ -57,6 +58,15 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
         this.subnets = subnets;
     }
 
+    public ApiInstanceTypesGcp getInstanceTypes() {
+        return instanceTypes;
+    }
+
+    public void setInstanceTypes(ApiInstanceTypesGcp instanceTypes) {
+        isSet.add("instanceTypes");
+        this.instanceTypes = instanceTypes;
+    }
+
     public ApiLaunchSpecificationGcp getLaunchSpecification() {
         return launchSpecification;
     }
@@ -78,6 +88,12 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSubnetsSet() {
         return isSet.contains("subnets");
+    }
+
+    // Is instanceTypes Set boolean method
+    @JsonIgnore
+    public boolean isInstanceTypesSet() {
+        return isSet.contains("instanceTypes");
     }
 
     // Is launchSpecification Set boolean method

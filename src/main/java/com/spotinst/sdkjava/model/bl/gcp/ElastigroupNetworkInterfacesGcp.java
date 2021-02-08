@@ -71,12 +71,12 @@ public class ElastigroupNetworkInterfacesGcp {
             return builder;
         }
 
-        public Builder setNetworkType(final String networkType) {
+        public Builder setNetwork(final String networkType) {
             instanceTypes.setNetwork(networkType);
             return this;
         }
 
-        public Builder setProjectIdTypes(final String projectIdType) {
+        public Builder setProjectId(final String projectIdType) {
             instanceTypes.setProjectId(projectIdType);
             return this;
         }

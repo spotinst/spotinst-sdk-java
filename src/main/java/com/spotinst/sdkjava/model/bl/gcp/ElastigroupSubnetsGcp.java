@@ -71,12 +71,12 @@ public class ElastigroupSubnetsGcp {
             return builder;
         }
 
-        public Builder setRegionType(final String regionType) {
+        public Builder setRegion(final String regionType) {
             instanceTypes.setRegion(regionType);
             return this;
         }
 
-        public Builder setSubnetNamesTypes(final List<String> subnetNamesTypes) {
+        public Builder setSubnetNames(final List<String> subnetNamesTypes) {
             instanceTypes.setSubnetNames(subnetNamesTypes);
             return this;
         }

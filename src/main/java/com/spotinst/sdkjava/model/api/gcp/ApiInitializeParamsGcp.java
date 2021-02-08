@@ -78,7 +78,7 @@ public class ApiInitializeParamsGcp implements IPartialUpdateEntity {
     //region isset methods
     // Is diskSizeGb Set boolean method
     @JsonIgnore
-    public boolean isDiskSizeGb() {
+    public boolean isDiskSizeGbSet() {
         return isSet.contains("diskSizeGb");
     }
 

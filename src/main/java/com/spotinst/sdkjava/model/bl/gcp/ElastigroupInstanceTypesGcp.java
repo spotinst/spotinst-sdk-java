@@ -16,7 +16,7 @@ public class ElastigroupInstanceTypesGcp {
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> preemptible;
-    private String      ondemand;
+    private String       ondemand;
     //endregion
 
     //region Constructor
