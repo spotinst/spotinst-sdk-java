@@ -14,7 +14,7 @@ public class ElastigroupUsageExampleGcp {
     private final static String auth_token          = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
     private final static String act_id              = "act-7d8b3fee";
     private final static String SSA                 = "your-ssa";
-    private static final String SPOTINST_GROUP_NAME = "FirstGcpFromApiTest";
+    private static final String SPOTINST_GROUP_NAME = "First_Gcp_Group_From_SDK";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -113,7 +113,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupComputeConfigurationGcp.Builder.get();
 
         List<String> AvailabilityZonesList = new ArrayList<>();
-        AvailabilityZonesList.add("asia-east1-a");
+        AvailabilityZonesList.add("us-east1-b");
 
         ElastigroupComputeConfigurationGcp computeConfigurationGcp = ElastigroupComputeConfigurationGcpBuilder
                                            .setAvailabilityZones(AvailabilityZonesList).setInstanceTypes(instanceTypesGcp)

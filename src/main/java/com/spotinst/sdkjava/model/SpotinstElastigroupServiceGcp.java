@@ -40,7 +40,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         String body = JsonMapper.toJson(groupRequest);
 
         // Build URI
-        String uri = String.format("%s/Gcp/compute/group", apiEndpoint);
+        String uri = String.format("%s/gcp/gce/group", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
