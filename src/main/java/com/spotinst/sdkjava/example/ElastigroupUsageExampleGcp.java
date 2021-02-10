@@ -27,26 +27,26 @@ public class ElastigroupUsageExampleGcp {
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
         // Update group
-        updateElastigroup(elastigroupClient, elastigroupId);
+       // updateElastigroup(elastigroupClient, elastigroupId);
 
-        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
-        String groupName = group.getName();
-        String preFormat     = "groupId: %s - groupName: %s";
-        System.out.println(String.format(preFormat, elastigroupId, groupName));
+        //ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
+       // String groupName = group.getName();
+       // String preFormat     = "groupId: %s - groupName: %s";
+       // System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
 
         // Get all Elastigroups
-        getAllElastigroupsIncludeDeleted(elastigroupClient);
+       // getAllElastigroupsIncludeDeleted(elastigroupClient);
 
         // Delete elastigroup
-        deleteElastigroup(elastigroupClient, elastigroupId);
+        //deleteElastigroup(elastigroupClient, elastigroupId);
     }
 
     private static String createElastigroup(SpotinstElastigroupClientGcp client) {
-
+        //////*********************
         //Build Instance Type
         ElastigroupInstanceTypesGcp.Builder ElastigroupInstanceTypesGcpBuilder =
                 ElastigroupInstanceTypesGcp.Builder.get();
@@ -54,7 +54,7 @@ public class ElastigroupUsageExampleGcp {
         List<String> PreemtibleList = new ArrayList<>();
         PreemtibleList.add("n1-standard-1");
 
-        ElastigroupInstanceTypesGcp instanceTypesGcp = ElastigroupInstanceTypesGcpBuilder.setOndemand("n1-stamdard-1")
+        ElastigroupInstanceTypesGcp instanceTypesGcp = ElastigroupInstanceTypesGcpBuilder.setOndemand("n1-standard-1")
                                     .setPreemptible(PreemtibleList).build();
 
         //build Intialize Params
@@ -72,8 +72,8 @@ public class ElastigroupUsageExampleGcp {
 
 
         ElastigroupDisksGcp disksGcp = ElastigroupDisksGcpBuilder.setAutoDelete(true).setBoot(true).setDeviceName("test")
-                                       .setInitializeParams(initializeParamsGcp).setInterfaze("SCSI").setMode("READ_WRITE")
-                                       .setSource("").setType("PRESISTENT").build();
+                                       .setInitializeParams(initializeParamsGcp).setMode("READ_WRITE")
+                                       .setSource("testt").setType("PRESISTENT").build();
 
         List<ElastigroupDisksGcp> disksGcpList = new ArrayList<>();
         disksGcpList.add(disksGcp);
@@ -122,119 +122,62 @@ public class ElastigroupUsageExampleGcp {
         //Build group capacity
         ElastigroupCapacityConfigurationGcp.Builder capacityBuilder =
                 ElastigroupCapacityConfigurationGcp.Builder.get();
+
         ElastigroupCapacityConfigurationGcp capacity =
                 capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
-        //build Additional Ip Configurations
-        AdditionalIpConfigurationsAzure.Builder additionalIpConfigurationsAzureBuilder =
-                AdditionalIpConfigurationsAzure.Builder.get();
+        // build revert to preemptible
+        ElastigroupRevertToPreemptibleGcp.Builder ElastigroupRevertToPreemptibleGcpBuilder=
+                ElastigroupRevertToPreemptibleGcp.Builder.get();
 
-        AdditionalIpConfigurationsAzure ipConfiguration =
-                additionalIpConfigurationsAzureBuilder.setName("automationTestSecondaryIpConfig").build();
+        ElastigroupRevertToPreemptibleGcp revertToPreemptibleGcp = ElastigroupRevertToPreemptibleGcpBuilder.setPerformAt("never").build();
 
+        //build strategy
+        ElastigroupStrategyConfigurationGcp.Builder ElastigroupStrategyConfigurationGcpBuilder
+                                                    = ElastigroupStrategyConfigurationGcp.Builder.get();
 
-        List<AdditionalIpConfigurationsAzure> additionalIpConfigurationsAzureList = new ArrayList<>();
-        additionalIpConfigurationsAzureList.add(ipConfiguration);
+        //List<String> optimizationWindows = new ArrayList<>();
+        //optimizationWindows.add("Mon:01:00-Mon:02:00");
 
-        //build network interface
-        NetworkInterfaceAzure.Builder networkInterfaceBuilder = NetworkInterfaceAzure.Builder.get();
-
-        NetworkInterfaceAzure networkInterfaceAzure =
-                networkInterfaceBuilder.setIsPrimary(true).setAssignPublicIp(false).setSubnetName("default")
-                                       .setEnableIPForwarding(true)
-                                       .setAdditionalIpConfigurations(additionalIpConfigurationsAzureList).build();
-
-        List<NetworkInterfaceAzure> networkInterfaceAzuresList = new ArrayList<>();
-        networkInterfaceAzuresList.add(networkInterfaceAzure);
-
-        //build network
-        NetworkAzure.Builder networkBuilder = NetworkAzure.Builder.get();
-
-        NetworkAzure network =
-                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("automationVN")
-                              .setNetworkInterfaces(networkInterfaceAzuresList).build();
-
-
-        //build tags
-        TagAzure.Builder tagsBuilder1 = TagAzure.Builder.get();
-        TagAzure.Builder tagsBuilder2 = TagAzure.Builder.get();
-
-        TagAzure tag1 = tagsBuilder1.setTagKey("creator").setTagValue("automation@spotinst.com").build();
-        TagAzure tag2 = tagsBuilder2.setTagKey("name").setTagValue("automation").build();
-
-        List<TagAzure> tagsList = new ArrayList<>();
-        tagsList.add(tag1);
-        tagsList.add(tag2);
+        ElastigroupStrategyConfigurationGcp strategyConfigurationGcp = ElastigroupStrategyConfigurationGcpBuilder
+                                            .setDrainingTimeout(30)
+                                            .setFallbackToOd(true)
+                                            .setOnDemandCount(2)
+                                            .setPreemptiblePercentage(90)
+                                            .setRevertToPreemptible(revertToPreemptibleGcp).build();
 
         //build login
-        LoginAzure.Builder loginBuilder = LoginAzure.Builder.get();
-        String             ssh          = SSA;
+        //LoginGcp.Builder loginBuilder = LoginAzure.Builder.get();
+        //String             ssh          = SSA;
 
         // it is recommended to set a unique username that isn't present in the "reserved usernames" pool
-        LoginAzure login = loginBuilder.setUserName("notAReservedUserName").setSshPublicKey(ssh).build();
+        //LoginAzure login = loginBuilder.setUserName("notAReservedUserName").setSshPublicKey(ssh).build();
 
 
-        ElastigroupLaunchSpecificationAzure launchSpec =
-                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList)
-                                 .build();
+       // ElastigroupLaunchSpecificationAzure launchSpec =
+           //     launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList)
+                   //              .build();
 
+        //build elastigroup gcp
+        ElastigroupGcp.Builder ElastigroupGcpBuilder = ElastigroupGcp.Builder.get();
+        ElastigroupGcp elastigroupGcp =
+                ElastigroupGcpBuilder.setName(SPOTINST_GROUP_NAME)
+                                     .setCapacity(capacity)
+                                     .setCompute(computeConfigurationGcp)
+                                     .setStrategy(strategyConfigurationGcp).build();
 
-        //buildVmSizes
-        List<String> odSizesAzureList = new ArrayList<>();
-        odSizesAzureList.add("standard_a1_v2");
-        List<String> spotSizesAzureList = new ArrayList<>();
-        spotSizesAzureList.add("standard_a1_v2");
+        // Build gcp elastigroup creation request
+        ElastigroupCreationRequestGcp.Builder ElastigroupCreationRequestGcpBuilder =
+                ElastigroupCreationRequestGcp.Builder.get();
 
-        ElastigroupVmSizesAzure.Builder vmSizesAzureBuilder = ElastigroupVmSizesAzure.Builder.get();
-
-        ElastigroupVmSizesAzure vmSizesAzure =
-                vmSizesAzureBuilder.setOdSizes(odSizesAzureList).setSpotSizes(spotSizesAzureList).build();
-
-
-        // Build group compute
-        ElastigroupComputeConfigurationAzure.Builder computeBuilder =
-                ElastigroupComputeConfigurationAzure.Builder.get();
-        ElastigroupComputeConfigurationAzure compute =
-                computeBuilder.setOs("Linux").setLaunchSpecification(launchSpec).setVmSizes(vmSizesAzure).build();
-
-
-        //Build group strategy
-        //build revert to spot
-        RevertToSpotSpecAzure.Builder reveertToSpotBuilder = RevertToSpotSpecAzure.Builder.get();
-
-        List<String> optimizationTimeList = new ArrayList<>();
-        optimizationTimeList.add("Mon:03:00-Wed:02:30");
-
-        RevertToSpotSpecAzure reveertToSpot = reveertToSpotBuilder.setPerformAt("timeWindow").build();
-
-        ElastigroupStrategyConfigurationAzure.Builder strategyBuilder =
-                ElastigroupStrategyConfigurationAzure.Builder.get();
-
-        ElastigroupStrategyConfigurationAzure strategy =
-                strategyBuilder.setSpotPercentage(100).setDrainingTimeout(30).setFallbackToOd(true)
-                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).build();
-
-
-
-
-        // Build elastigroup
-        ElastigroupAzure.Builder elastigroupBuilder = ElastigroupAzure.Builder.get();
-        ElastigroupAzure elastigroup =
-                elastigroupBuilder.setName(SPOTINST_GROUP_NAME).setResourceGroupName("AutomationResourceGroup")
-                                  .setRegion("eastus").setStrategy(strategy).setCapacity(capacity).setCompute(compute)
-                                  .build();
-
-        // Build elastigroup creation request
-        ElastigroupCreationRequestAzure.Builder elastigroupCreationRequestBuilder =
-                ElastigroupCreationRequestAzure.Builder.get();
-        ElastigroupCreationRequestAzure creationRequest =
-                elastigroupCreationRequestBuilder.setElastigroup(elastigroup).build();
+        ElastigroupCreationRequestGcp creationRequestGcp=
+                ElastigroupCreationRequestGcpBuilder.setElastigroup(elastigroupGcp).build();
 
         // Convert elastigroup to API object json
-        System.out.println(creationRequest.toJson());
+        System.out.println(creationRequestGcp.toJson());
         // Create elastigroup
 
-        ElastigroupAzure createdElastigroup = client.createElastigroup(creationRequest);
+        ElastigroupGcp createdElastigroup = client.createElastigroup(creationRequestGcp);
         System.out.println("Elastigroup successfully created: " + createdElastigroup.getId());
 
         // Get elastigroup Id
@@ -264,10 +207,10 @@ public class ElastigroupUsageExampleGcp {
         System.out.println(updateRequest.toJson());
 
         // Update elastigroup
-        Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
-        if (updateSuccess) {
-            System.out.println("Elastigroup successfully updated.");
-        }
+        //Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
+        //if (updateSuccess) {
+         //   System.out.println("Elastigroup successfully updated.");
+        //}
     }
 
     private static void deleteElastigroup(SpotinstElastigroupClientAzure client, String elastigroupId) {
