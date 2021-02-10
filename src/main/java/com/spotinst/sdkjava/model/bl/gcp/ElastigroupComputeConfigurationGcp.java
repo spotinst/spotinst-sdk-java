@@ -15,7 +15,7 @@ public class ElastigroupComputeConfigurationGcp {
     private Set<String>                       isSet;
     private List<String>                      availabilityZones;
     private ElastigroupLaunchSpecificationGcp launchSpecification;
-    private ElastigroupSubnetsGcp             subnets;
+    private List<ElastigroupSubnetsGcp>       subnets;
     private ElastigroupInstanceTypesGcp       instanceTypes;
     //endregion
 
@@ -43,11 +43,11 @@ public class ElastigroupComputeConfigurationGcp {
         this.availabilityZones = availabilityZones;
     }
 
-    public ElastigroupSubnetsGcp getSubnets() {
+    public List<ElastigroupSubnetsGcp> getSubnets() {
         return subnets;
     }
 
-    public void setSubnets(ElastigroupSubnetsGcp subnets) {
+    public void setSubnets(List<ElastigroupSubnetsGcp> subnets) {
         isSet.add("subnets");
         this.subnets = subnets;
     }
@@ -99,7 +99,7 @@ public class ElastigroupComputeConfigurationGcp {
             return this;
         }
 
-        public Builder setSubnets(final ElastigroupSubnetsGcp subnets) {
+        public Builder setSubnets(final List<ElastigroupSubnetsGcp> subnets) {
             compute.setSubnets(subnets);
             return this;
         }

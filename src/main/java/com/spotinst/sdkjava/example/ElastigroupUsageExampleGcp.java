@@ -47,7 +47,83 @@ public class ElastigroupUsageExampleGcp {
 
     private static String createElastigroup(SpotinstElastigroupClientGcp client) {
 
-        //availavility zone
+        //Build Instance Type
+        ElastigroupInstanceTypesGcp.Builder ElastigroupInstanceTypesGcpBuilder =
+                ElastigroupInstanceTypesGcp.Builder.get();
+
+        List<String> PreemtibleList = new ArrayList<>();
+        PreemtibleList.add("n1-standard-1");
+
+        ElastigroupInstanceTypesGcp instanceTypesGcp = ElastigroupInstanceTypesGcpBuilder.setOndemand("n1-stamdard-1")
+                                    .setPreemptible(PreemtibleList).build();
+
+        //build Intialize Params
+        ElastigroupInitializeParamsGcp.Builder ElastigroupInitializeParamsGcpBuilder =
+                ElastigroupInitializeParamsGcp.Builder.get();
+
+        ElastigroupInitializeParamsGcp initializeParamsGcp = ElastigroupInitializeParamsGcpBuilder.setDiskSizeGb(10)
+                                       .setDiskType("pd-standard")
+                                       .setSourceImage("https://www.googleapis.com/compute/v1/projects/test/global/images/docker-image-1").build();
+
+        //build disks
+        ElastigroupDisksGcp.Builder ElastigroupDisksGcpBuilder =
+                ElastigroupDisksGcp.Builder.get();
+
+
+
+        ElastigroupDisksGcp disksGcp = ElastigroupDisksGcpBuilder.setAutoDelete(true).setBoot(true).setDeviceName("test")
+                                       .setInitializeParams(initializeParamsGcp).setInterfaze("SCSI").setMode("READ_WRITE")
+                                       .setSource("").setType("PRESISTENT").build();
+
+        List<ElastigroupDisksGcp> disksGcpList = new ArrayList<>();
+        disksGcpList.add(disksGcp);
+
+        //build Network Interfaces
+        ElastigroupNetworkInterfacesGcp.Builder ElastigroupNetworkInterfacesGcpBuilder =
+                ElastigroupNetworkInterfacesGcp.Builder.get();
+
+        ElastigroupNetworkInterfacesGcp networkInterfacesGcp=
+                ElastigroupNetworkInterfacesGcpBuilder.setNetwork("spot-network").setProjectId("test-project").build();
+
+        List<ElastigroupNetworkInterfacesGcp> networkInterfacesGcpList = new ArrayList<>();
+        networkInterfacesGcpList.add(networkInterfacesGcp);
+
+        //build subnets
+        ElastigroupSubnetsGcp.Builder ElastigroupSubnetsGcpBuilder =
+                ElastigroupSubnetsGcp.Builder.get();
+
+        List<String> SubnetsNamesList = new ArrayList<>();
+        SubnetsNamesList.add("private");
+
+        ElastigroupSubnetsGcp subnetsGcp =
+                ElastigroupSubnetsGcpBuilder.setRegion("us-west1").setSubnetNames(SubnetsNamesList).build();
+
+        List<ElastigroupSubnetsGcp> subnetsGcpList = new ArrayList<>();
+        subnetsGcpList.add(subnetsGcp);
+
+        //build launch specification
+        ElastigroupLaunchSpecificationGcp.Builder ElastigroupLaunchSpecificationGcpBuilder =
+                ElastigroupLaunchSpecificationGcp.Builder.get();
+
+        ElastigroupLaunchSpecificationGcp launchSpecificationGcp = ElastigroupLaunchSpecificationGcpBuilder.setDisks(disksGcpList)
+                                          .setNetworkInterfaces(networkInterfacesGcpList).build();
+
+        //build Compute
+        ElastigroupComputeConfigurationGcp.Builder ElastigroupComputeConfigurationGcpBuilder =
+                ElastigroupComputeConfigurationGcp.Builder.get();
+
+        List<String> AvailabilityZonesList = new ArrayList<>();
+        AvailabilityZonesList.add("asia-east1-a");
+
+        ElastigroupComputeConfigurationGcp computeConfigurationGcp = ElastigroupComputeConfigurationGcpBuilder
+                                           .setAvailabilityZones(AvailabilityZonesList).setInstanceTypes(instanceTypesGcp)
+                                           .setLaunchSpecification(launchSpecificationGcp).setSubnets(subnetsGcpList).build();
+
+        //Build group capacity
+        ElastigroupCapacityConfigurationGcp.Builder capacityBuilder =
+                ElastigroupCapacityConfigurationGcp.Builder.get();
+        ElastigroupCapacityConfigurationGcp capacity =
+                capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
 
         //build Additional Ip Configurations
         AdditionalIpConfigurationsAzure.Builder additionalIpConfigurationsAzureBuilder =
@@ -138,11 +214,7 @@ public class ElastigroupUsageExampleGcp {
                 strategyBuilder.setSpotPercentage(100).setDrainingTimeout(30).setFallbackToOd(true)
                                .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).build();
 
-        //Build group capacity
-        ElastigroupCapacityConfigurationGcp.Builder capacityBuilder =
-                ElastigroupCapacityConfigurationGcp.Builder.get();
-        ElastigroupCapacityConfigurationGcp capacity =
-                capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
+
 
 
         // Build elastigroup

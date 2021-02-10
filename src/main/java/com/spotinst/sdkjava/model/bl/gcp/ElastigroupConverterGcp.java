@@ -42,7 +42,12 @@ public class ElastigroupConverterGcp {
                 optCompute.setLaunchSpecification(toDal(compute.getLaunchSpecification()));
             }
             if (compute.isSubnetsSet()) {
-                optCompute.setSubnets(toDal(compute.getSubnets()));
+                if(compute.getSubnets() != null){
+                    List<ApiSubnetsGcp> optimizerSubnets=
+                        compute.getSubnets().stream().map(ElastigroupConverterGcp::toDal)
+                               .collect(Collectors.toList());
+                    optCompute.setSubnets(optimizerSubnets);
+                }
             }
             if (compute.isInstanceTypesSet()) {
                 optCompute.setInstanceTypes(toDal(compute.getInstanceTypes()));
@@ -267,7 +272,12 @@ public class ElastigroupConverterGcp {
                 blComputeBuilder.setLaunchSpecification(toBl(compute.getLaunchSpecification()));
             }
             if (compute.isSubnetsSet()) {
-                blComputeBuilder.setSubnets(toBl(compute.getSubnets()));
+                if(compute.getSubnets() != null) {
+                    List<ApiSubnetsGcp> apiOptimizerSubnets = compute.getSubnets();
+                    List<ElastigroupSubnetsGcp> optimizerSubnets = apiOptimizerSubnets.stream().map(ElastigroupConverterGcp::toBl)
+                                                .collect(Collectors.toList());
+                    blComputeBuilder.setSubnets(optimizerSubnets);
+                }
             }
             if (compute.isInstanceTypesSet()) {
                 blComputeBuilder.setInstanceTypes(toBl(compute.getInstanceTypes()));

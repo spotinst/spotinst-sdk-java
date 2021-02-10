@@ -20,7 +20,7 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                       isSet;
     private List<String>                      availabilityZones;
-    private ApiSubnetsGcp                     subnets;
+    private List<ApiSubnetsGcp>               subnets;
     private ApiLaunchSpecificationGcp         launchSpecification;
     private ApiInstanceTypesGcp               instanceTypes;
     //endregion
@@ -49,11 +49,11 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
         this.availabilityZones = availabilityZones;
     }
 
-    public ApiSubnetsGcp getSubnets() {
+    public List<ApiSubnetsGcp>  getSubnets() {
         return subnets;
     }
 
-    public void setSubnets(ApiSubnetsGcp subnets) {
+    public void setSubnets(List<ApiSubnetsGcp>  subnets) {
         isSet.add("subnets");
         this.subnets = subnets;
     }
