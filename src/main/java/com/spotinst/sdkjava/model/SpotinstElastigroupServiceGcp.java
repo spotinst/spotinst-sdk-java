@@ -77,7 +77,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         //Build URI
-        String uri = String.format("%s/Gcp/compute/group/%s", apiEndpoint, elastigroupId);
+        String uri = String.format("%s/gcp/gce/group/%s", apiEndpoint, elastigroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
@@ -137,7 +137,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/Gcp/compute/group", apiEndpoint);
+        String uri = String.format("%s/gcp/gce/group", apiEndpoint);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
@@ -174,7 +174,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/Gcp/compute/group/%s?", apiEndpoint, elastigroupId);
+        String uri = String.format("%s/gcp/gce/group/%s", apiEndpoint, elastigroupId);
 
         // Write to json
         Map<String, ApiElastigroupGcp> groupRequest = new HashMap<>();
@@ -212,7 +212,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/Gcp/compute/group/%s", apiEndpoint, elastigroupId);
+        String uri = String.format("%s/gcp/gce/group/%s", apiEndpoint, elastigroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);

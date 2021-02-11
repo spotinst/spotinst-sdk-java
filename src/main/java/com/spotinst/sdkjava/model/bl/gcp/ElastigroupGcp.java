@@ -13,6 +13,7 @@ public class ElastigroupGcp {
     private Set<String>                             isSet;
     private String                                  id;
     private String                                  name;
+    private String                                  description;
     private ElastigroupCapacityConfigurationGcp     capacity;
     private ElastigroupStrategyConfigurationGcp     strategy;
     private ElastigroupComputeConfigurationGcp      compute;
@@ -72,6 +73,15 @@ public class ElastigroupGcp {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        isSet.add("description");
+        this.description = description;
+    }
+
     public ElastigroupCapacityConfigurationGcp  getCapacity() {
         return capacity;
     }
@@ -128,6 +138,11 @@ public class ElastigroupGcp {
             return this;
         }
 
+        public Builder setDescription(final String description) {
+            elastigroup.setDescription(description);
+            return this;
+        }
+
         public Builder setCapacity(final ElastigroupCapacityConfigurationGcp capacity) {
             elastigroup.setCapacity(capacity);
             return this;
@@ -171,6 +186,10 @@ public class ElastigroupGcp {
     public boolean isNameSet() {
         return isSet.contains("name");
     }
+
+    // Is description Set boolean method
+    @JsonIgnore
+    public boolean isDescriptionSet() { return isSet.contains("description"); }
 
     // Is capacity Set boolean method
     @JsonIgnore

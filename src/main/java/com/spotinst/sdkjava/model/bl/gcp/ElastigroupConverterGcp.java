@@ -18,6 +18,9 @@ public class ElastigroupConverterGcp {
             if (src.isNameSet()) {
                 apiGroup.setName(src.getName());
             }
+            if (src.isDescriptionSet()) {
+                apiGroup.setDescription(src.getDescription());
+            }
             if (src.isCapacitySet()) {
                 apiGroup.setCapacity(toDal(src.getCapacity()));
             }
@@ -242,6 +245,9 @@ public class ElastigroupConverterGcp {
             }
             if (src.isNameSet()) {
                 elastigroupBuilder.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                elastigroupBuilder.setDescription(src.getDescription());
             }
             if (src.isCapacitySet()) {
                 elastigroupBuilder.setCapacity(toBl(src.getCapacity()));

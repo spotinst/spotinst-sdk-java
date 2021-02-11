@@ -20,6 +20,7 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
     private Set<String>                            isSet;
     private String                                 id;
     private String                                 name;
+    private String                                 description;
     private ApiCapacityGcp                         capacity;
     private ApiStrategyGcp                         strategy;
     private ApiGroupComputeGcp                     compute;
@@ -57,6 +58,15 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
     public void setName(String name) {
         isSet.add("name");
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        isSet.add("description");
+        this.description = description;
     }
 
     public ApiCapacityGcp getCapacity() {
@@ -119,6 +129,11 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
         return isSet.contains("name");
     }
 
+    // Is description Set boolean method
+    @JsonIgnore
+    public boolean isDescriptionSet() {
+        return isSet.contains("description");
+    }
 
     // Is capacity Set boolean method
     @JsonIgnore

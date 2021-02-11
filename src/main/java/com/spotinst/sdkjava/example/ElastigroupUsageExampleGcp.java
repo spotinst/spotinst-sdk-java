@@ -2,7 +2,6 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.gcp.*;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
 
@@ -14,7 +13,7 @@ public class ElastigroupUsageExampleGcp {
     private final static String auth_token          = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
     private final static String act_id              = "act-7d8b3fee";
     private final static String SSA                 = "your-ssa";
-    private static final String SPOTINST_GROUP_NAME = "First_Gcp_Group_From_SDK";
+    private static final String SPOTINST_GROUP_NAME = "Gcp_SDK_test_or";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -26,27 +25,28 @@ public class ElastigroupUsageExampleGcp {
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
-        // Update group
-       // updateElastigroup(elastigroupClient, elastigroupId);
 
-        //ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
-       // String groupName = group.getName();
-       // String preFormat     = "groupId: %s - groupName: %s";
-       // System.out.println(String.format(preFormat, elastigroupId, groupName));
+        // Update group
+        updateElastigroup(elastigroupClient, elastigroupId);
+
+        // Get group
+        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
+        String groupName = group.getName();
+        String preFormat     = "groupId: %s - groupName: %s";
+        System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
 
         // Get all Elastigroups
-       // getAllElastigroupsIncludeDeleted(elastigroupClient);
+        getAllElastigroupsIncludeDeleted(elastigroupClient);
 
         // Delete elastigroup
-        //deleteElastigroup(elastigroupClient, elastigroupId);
+        deleteElastigroup(elastigroupClient, elastigroupId);
     }
 
-    private static String createElastigroup(SpotinstElastigroupClientGcp client) {
-        //////*********************
+    private static String  createElastigroup(SpotinstElastigroupClientGcp client) {
         //Build Instance Type
         ElastigroupInstanceTypesGcp.Builder ElastigroupInstanceTypesGcpBuilder =
                 ElastigroupInstanceTypesGcp.Builder.get();
@@ -61,9 +61,9 @@ public class ElastigroupUsageExampleGcp {
         ElastigroupInitializeParamsGcp.Builder ElastigroupInitializeParamsGcpBuilder =
                 ElastigroupInitializeParamsGcp.Builder.get();
 
-        ElastigroupInitializeParamsGcp initializeParamsGcp = ElastigroupInitializeParamsGcpBuilder.setDiskSizeGb(10)
-                                       .setDiskType("pd-standard")
-                                       .setSourceImage("https://www.googleapis.com/compute/v1/projects/test/global/images/docker-image-1").build();
+        ElastigroupInitializeParamsGcp initializeParamsGcp = ElastigroupInitializeParamsGcpBuilder.setDiskSizeGb(12)
+                                       .setDiskType("pd-ssd")
+                                       .setSourceImage("https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-1604-xenial-v20181004").build();
 
         //build disks
         ElastigroupDisksGcp.Builder ElastigroupDisksGcpBuilder =
@@ -71,9 +71,9 @@ public class ElastigroupUsageExampleGcp {
 
 
 
-        ElastigroupDisksGcp disksGcp = ElastigroupDisksGcpBuilder.setAutoDelete(true).setBoot(true).setDeviceName("test")
+        ElastigroupDisksGcp disksGcp = ElastigroupDisksGcpBuilder.setAutoDelete(true).setBoot(true).setDeviceName(null)
                                        .setInitializeParams(initializeParamsGcp).setMode("READ_WRITE")
-                                       .setSource("testt").setType("PRESISTENT").build();
+                                       .setSource(null).setType("PERSISTENT").build();
 
         List<ElastigroupDisksGcp> disksGcpList = new ArrayList<>();
         disksGcpList.add(disksGcp);
@@ -83,7 +83,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupNetworkInterfacesGcp.Builder.get();
 
         ElastigroupNetworkInterfacesGcp networkInterfacesGcp=
-                ElastigroupNetworkInterfacesGcpBuilder.setNetwork("spot-network").setProjectId("test-project").build();
+                ElastigroupNetworkInterfacesGcpBuilder.setNetwork("default").setProjectId(null).build();
 
         List<ElastigroupNetworkInterfacesGcp> networkInterfacesGcpList = new ArrayList<>();
         networkInterfacesGcpList.add(networkInterfacesGcp);
@@ -93,7 +93,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupSubnetsGcp.Builder.get();
 
         List<String> SubnetsNamesList = new ArrayList<>();
-        SubnetsNamesList.add("private");
+        SubnetsNamesList.add("default");
 
         ElastigroupSubnetsGcp subnetsGcp =
                 ElastigroupSubnetsGcpBuilder.setRegion("us-west1").setSubnetNames(SubnetsNamesList).build();
@@ -113,7 +113,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupComputeConfigurationGcp.Builder.get();
 
         List<String> AvailabilityZonesList = new ArrayList<>();
-        AvailabilityZonesList.add("us-east1-b");
+        AvailabilityZonesList.add("us-west1-a");
 
         ElastigroupComputeConfigurationGcp computeConfigurationGcp = ElastigroupComputeConfigurationGcpBuilder
                                            .setAvailabilityZones(AvailabilityZonesList).setInstanceTypes(instanceTypesGcp)
@@ -136,32 +136,18 @@ public class ElastigroupUsageExampleGcp {
         ElastigroupStrategyConfigurationGcp.Builder ElastigroupStrategyConfigurationGcpBuilder
                                                     = ElastigroupStrategyConfigurationGcp.Builder.get();
 
-        //List<String> optimizationWindows = new ArrayList<>();
-        //optimizationWindows.add("Mon:01:00-Mon:02:00");
-
         ElastigroupStrategyConfigurationGcp strategyConfigurationGcp = ElastigroupStrategyConfigurationGcpBuilder
-                                            .setDrainingTimeout(30)
+                                           // .setDrainingTimeout(null)
                                             .setFallbackToOd(true)
-                                            .setOnDemandCount(2)
-                                            .setPreemptiblePercentage(90)
-                                            .setRevertToPreemptible(revertToPreemptibleGcp).build();
-
-        //build login
-        //LoginGcp.Builder loginBuilder = LoginAzure.Builder.get();
-        //String             ssh          = SSA;
-
-        // it is recommended to set a unique username that isn't present in the "reserved usernames" pool
-        //LoginAzure login = loginBuilder.setUserName("notAReservedUserName").setSshPublicKey(ssh).build();
-
-
-       // ElastigroupLaunchSpecificationAzure launchSpec =
-           //     launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList)
-                   //              .build();
+                                            .setOnDemandCount(0)
+                                            .setPreemptiblePercentage(100)
+                                            .setRevertToPreemptible(null).build();
 
         //build elastigroup gcp
         ElastigroupGcp.Builder ElastigroupGcpBuilder = ElastigroupGcp.Builder.get();
         ElastigroupGcp elastigroupGcp =
                 ElastigroupGcpBuilder.setName(SPOTINST_GROUP_NAME)
+                                     .setDescription("spotinst-automation")
                                      .setCapacity(capacity)
                                      .setCompute(computeConfigurationGcp)
                                      .setStrategy(strategyConfigurationGcp).build();
@@ -187,35 +173,42 @@ public class ElastigroupUsageExampleGcp {
 
     private static void updateElastigroup(SpotinstElastigroupClientGcp client, String elastigroupId) {
         //Create group update
-        ElastigroupCapacityConfigurationAzure.Builder updateCapacityBuilder =
-                ElastigroupCapacityConfigurationAzure.Builder.get();
-        ElastigroupCapacityConfigurationAzure updateCapacity =
-                updateCapacityBuilder.setMinimum(0).setTarget(0).setMaximum(0).build();
+        ElastigroupCapacityConfigurationGcp.Builder updateCapacityBuilder =
+                ElastigroupCapacityConfigurationGcp.Builder.get();
+
+        ElastigroupCapacityConfigurationGcp updateCapacity =
+                updateCapacityBuilder.setMinimum(1).setTarget(1).setMaximum(1).build();
+
+        ElastigroupStrategyConfigurationGcp.Builder strategyBuilder =
+                ElastigroupStrategyConfigurationGcp.Builder.get();
+
+        ElastigroupStrategyConfigurationGcp strategyConfigurationGcp =
+                strategyBuilder.setOnDemandCount(0).build();
 
         // Build elastigroup update
-        ElastigroupAzure.Builder updateElastigroupBuilder = ElastigroupAzure.Builder.get();
-        ElastigroupAzure elastigroupUpdate =
-                updateElastigroupBuilder.setCapacity(updateCapacity).setName(SPOTINST_GROUP_NAME).build();
+        ElastigroupGcp.Builder updateElastigroupBuilder = ElastigroupGcp.Builder.get();
+        ElastigroupGcp elastigroupUpdate =
+                updateElastigroupBuilder.setCapacity(updateCapacity).setStrategy(strategyConfigurationGcp).setDescription("spotinst-automation").setName(SPOTINST_GROUP_NAME).build();
 
         // Build elastigroup update request
-        ElastigroupUpdateRequestAzure.Builder elastigroupUpdateRequestBuilder =
-                ElastigroupUpdateRequestAzure.Builder.get();
-        ElastigroupUpdateRequestAzure updateRequest =
+        ElastigroupUpdateRequestGcp.Builder elastigroupUpdateRequestBuilder =
+                ElastigroupUpdateRequestGcp.Builder.get();
+        ElastigroupUpdateRequestGcp updateRequest =
                 elastigroupUpdateRequestBuilder.setElastigroup(elastigroupUpdate).build();
 
         // Convert elastigroup update to API object json
         System.out.println(updateRequest.toJson());
 
         // Update elastigroup
-        //Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
-        //if (updateSuccess) {
-         //   System.out.println("Elastigroup successfully updated.");
-        //}
+        Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
+        if (updateSuccess) {
+            System.out.println("Elastigroup successfully updated.");
+        }
     }
 
-    private static void deleteElastigroup(SpotinstElastigroupClientAzure client, String elastigroupId) {
-        ElastigroupDeletionRequestAzure.Builder deletionBuilder = ElastigroupDeletionRequestAzure.Builder.get();
-        ElastigroupDeletionRequestAzure         deletionRequest =
+    private static void deleteElastigroup(SpotinstElastigroupClientGcp client, String elastigroupId) {
+        ElastigroupDeletionRequestGcp.Builder deletionBuilder = ElastigroupDeletionRequestGcp.Builder.get();
+        ElastigroupDeletionRequestGcp        deletionRequest =
                 deletionBuilder.setElastigroupId(elastigroupId).build();
 
         Boolean successfulDeletion = client.deleteElastigroup(deletionRequest);
@@ -224,19 +217,19 @@ public class ElastigroupUsageExampleGcp {
         }
     }
 
-    private static List<ElastigroupAzure> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientAzure client) {
+    private static List<ElastigroupGcp> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientGcp client) {
 
-        ElastigroupGetAllRequestAzure.Builder requestBuilder = ElastigroupGetAllRequestAzure.Builder.get();
-        ElastigroupGetAllRequestAzure requestByName =
+        ElastigroupGetAllRequestGcp.Builder requestBuilder = ElastigroupGetAllRequestGcp.Builder.get();
+        ElastigroupGetAllRequestGcp requestByName =
                 requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
         return client.getAllElastigroups(requestByName);
     }
 
-    private static ElastigroupAzure getGroup(SpotinstElastigroupClientAzure client, String groupId) {
+    private static ElastigroupGcp getGroup(SpotinstElastigroupClientGcp client, String groupId) {
 
-        ElastigroupGetRequestAzure.Builder requestBuilder = ElastigroupGetRequestAzure.Builder.get();
-        ElastigroupGetRequestAzure requestById = requestBuilder.setElastigroupId(groupId).build();
-        ElastigroupAzure group = client.getElastigroup(requestById);
+        ElastigroupGetRequestGcp.Builder requestBuilder = ElastigroupGetRequestGcp.Builder.get();
+        ElastigroupGetRequestGcp requestById = requestBuilder.setElastigroupId(groupId).build();
+        ElastigroupGcp group = client.getElastigroup(requestById);
 
         return group;
 
