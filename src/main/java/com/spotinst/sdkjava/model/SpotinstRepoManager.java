@@ -9,17 +9,18 @@ class SpotinstRepoManager {
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
 
     //region Members
-    private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
-    private ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
-    private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
-    private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
-    private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
-    private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
-    private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
-    private ISpotinstElastigroupRepoGcp                 spotinstElastigroupRepoGcp;
-    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
+    private ISpotinstElastigroupRepo                       spotinstElastigroupRepo;
+    private ISpotinstElastigroupActiveInstanceRepo         spotinstElastigroupActiveInstanceRepo;
+    private ISpotinstSubscriptionRepo                      spotinstSubscriptionRepo;
+    private ISpotinstSpectrumRepo                          spotinstSpectrumRepo;
+    private ISpotinstMrScalerAwsRepo                       spotinstMrScalerAwsRepo;
+    private ISpotinstElastigroupInstanceHealthinessRepo    spotinstInstanceHealthinessRepo;
+    private ISpotinstElastigroupInstanceHealthinessRepoGcp spotinstInstanceHealthinessRepoGcp;
+    private ISpotOceanK8sClusterRepo                       spotinstOceanClusterRepo;
+    private ISpotinstElastigroupRepoAzure                  spotinstElastigroupRepoAzure;
+    private ISpotinstElastigroupDeploymentRepoAzure        spotinstElastigroupDeploymentRepoAzure;
+    private ISpotinstElastigroupRepoGcp                    spotinstElastigroupRepoGcp;
+    private ISpotinstMrScalerOperatorAwsRepo               spotinstMrScalerOperatorAwsRepo;
     //endregion
 
     //region Constructor
@@ -30,6 +31,7 @@ class SpotinstRepoManager {
         this.spotinstSpectrumRepo = new SpotinstSpectrumRepo();
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
+        this.spotinstInstanceHealthinessRepoGcp = new SpotinstElastigroupInstanceHealthinessRepoGcp();
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
         this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
         this.spotinstElastigroupRepoGcp = new SpotinstElastigroupRepoGcp();
@@ -97,6 +99,10 @@ class SpotinstRepoManager {
 
     public ISpotinstElastigroupInstanceHealthinessRepo getSpotinstInstanceHealthinessRepo() {
         return spotinstInstanceHealthinessRepo;
+    }
+
+    public ISpotinstElastigroupInstanceHealthinessRepoGcp getSpotinstInstanceHealthinessRepoGcp() {
+        return spotinstInstanceHealthinessRepoGcp;
     }
 
     public void setSpotinstInstanceHealthinessRepo(

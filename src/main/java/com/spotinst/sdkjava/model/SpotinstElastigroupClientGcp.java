@@ -14,6 +14,7 @@ import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class SpotinstElastigroupClientGcp {
@@ -21,8 +22,17 @@ public class SpotinstElastigroupClientGcp {
     //region Members
     private              String authToken;
     private              String account;
+    private              ISpotinstElastigroupInstanceHealthinessRepoGcp spotinstElastigroupInstanceHealthinessRepoGcp;
     //endregion
 
+    public ISpotinstElastigroupInstanceHealthinessRepoGcp getSpotinstElastigroupInstanceHealthinessRepoGcp() {
+        return this.spotinstElastigroupInstanceHealthinessRepoGcp;
+    }
+
+    public void setInstanceHealthinessRepoGcp() {
+        this.spotinstElastigroupInstanceHealthinessRepoGcp =
+                SpotinstRepoManager.getInstance().getSpotinstInstanceHealthinessRepoGcp();
+    }
 
     //region Constructor
     public SpotinstElastigroupClientGcp(String authToken, String account) {
@@ -33,6 +43,7 @@ public class SpotinstElastigroupClientGcp {
                                           List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
         this.account = account;
+        setInstanceHealthinessRepoGcp();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -163,6 +174,26 @@ public class SpotinstElastigroupClientGcp {
             LOGGER.error(String.format("Error encountered while attempting to get elastigroup : %s. Code: %s. Message: %s.",
                                        elastigroupId,httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupInstanceHealthinessGcp> getInstanceHealthiness(
+            ElastigroupGetInstanceHealthinessRequestGcp elastigroupGetInstanceHealthinessRequest) {
+        List<ElastigroupInstanceHealthinessGcp> retVal = new LinkedList<>();
+
+        String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
+
+        RepoGenericResponse<List<ElastigroupInstanceHealthinessGcp>> instancesHealthinessResponse =
+                getSpotinstElastigroupInstanceHealthinessRepoGcp().getAll(elastigroupId, authToken, account);
+
+        if (instancesHealthinessResponse.isRequestSucceed()) {
+            retVal = instancesHealthinessResponse.getValue();
+        }
+        else {
+            String errorMessage = "Error encountered while attempting to get instance healthiness of elastigroup";
+            handleFailure(instancesHealthinessResponse, errorMessage);
         }
 
         return retVal;

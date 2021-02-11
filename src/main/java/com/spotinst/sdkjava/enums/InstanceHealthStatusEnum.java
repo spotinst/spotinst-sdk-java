@@ -11,7 +11,11 @@ public enum InstanceHealthStatusEnum {
     HEALTHY("HEALTHY"),
     UNHEALTHY("UNHEALTHY"),
     INSUFFICIENT_DATA("INSUFFICIENT_DATA"),
-    UNKNOWN("UNKNOWN");
+    UNKNOWN("UNKNOWN"),
+    SUSPENDED("SUSPENDED"),
+    TERMINATED("TERMINATED"),
+    PROVISIONING("PROVISIONING"),
+    RUNNING("RUNNING");
 
     private InstanceHealthStatusEnum(String name) {
         this.name = name;

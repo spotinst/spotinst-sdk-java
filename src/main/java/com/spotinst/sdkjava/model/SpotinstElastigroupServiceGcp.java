@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import org.apache.http.HttpStatus;
 
@@ -223,6 +224,40 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         if (groupActiveInstanceResponse.getResponse().getCount() > 0) {
             retVal = groupActiveInstanceResponse.getResponse().getItems().get(0);
         }
+
+        return retVal;
+    }
+
+    public static List<ApiInstanceHealthinessGcp> getInstanceHealthiness(String elastigroupId, String authToken,
+                                                                         String account) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiInstanceHealthinessGcp> retVal;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/group/%s/status", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupInstanceHealthinessApiResponseGcp groupInstanceHealthinessResponse =
+                getCastedResponse(response, ElastigroupInstanceHealthinessApiResponseGcp.class);
+
+        retVal = groupInstanceHealthinessResponse.getResponse().getItems();
 
         return retVal;
     }

@@ -5,29 +5,32 @@ import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
 
 public class ElastigroupInstanceHealthinessGcp {
     //region Members
-    private String                   instanceId;
-    private String                   spotRequestId;
+    private String                   instanceName;
+    private String                   zone;
     private String                   groupId;
-    private String                   availabilityZone;
+    private String                   machineType;
+    private String                   privateIpAddress;
+    private String                   createdAt;
+    private String                   updatedAt;
     private AwsInstanceLifecycleEnum lifeCycle;
-    private InstanceHealthStatusEnum healthStatus;
+    private InstanceHealthStatusEnum statusName;
     //endregion
 
     //region Getters & Setters
-    public String getInstanceId() {
-        return instanceId;
+    public String getInstanceName() {
+        return instanceName;
     }
 
-    public void setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
+    public void setInstanceName(String instanceName) {
+        this.instanceName = instanceName;
     }
 
-    public String getSpotRequestId() {
-        return spotRequestId;
+    public String getZone() {
+        return zone;
     }
 
-    public void setSpotRequestId(String spotRequestId) {
-        this.spotRequestId = spotRequestId;
+    public void setZone(String spotRequestId) {
+        this.zone = spotRequestId;
     }
 
     public String getGroupId() {
@@ -38,13 +41,17 @@ public class ElastigroupInstanceHealthinessGcp {
         this.groupId = groupId;
     }
 
-    public String getAvailabilityZone() {
-        return availabilityZone;
+    public String getPrivateIpAddress() {
+        return privateIpAddress;
     }
 
-    public void setAvailabilityZone(String availabilityZone) {
-        this.availabilityZone = availabilityZone;
+    public void setPrivateIpAddress(String privateIp) {
+        this.privateIpAddress = privateIp;
     }
+
+    public String getMachineType() { return machineType; }
+
+    public void setMachineType(String availabilityZone) { this.machineType = machineType; }
 
     public AwsInstanceLifecycleEnum getLifeCycle() {
         return lifeCycle;
@@ -54,12 +61,20 @@ public class ElastigroupInstanceHealthinessGcp {
         this.lifeCycle = lifeCycle;
     }
 
-    public InstanceHealthStatusEnum getHealthStatus() {
-        return healthStatus;
+    public InstanceHealthStatusEnum getStatusName() {
+        return statusName;
     }
 
-    public void setHealthStatus(InstanceHealthStatusEnum healthStatus) {
-        this.healthStatus = healthStatus;
+    public void setStatusName(InstanceHealthStatusEnum statusName) {
+        this.statusName = statusName;
     }
+
+    public String getCreatedAt() { return createdAt; }
+
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public String getUpdatedAt() { return updatedAt; }
+
+    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
     //endregion
 }

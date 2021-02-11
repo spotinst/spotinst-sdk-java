@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.gcp.*;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
@@ -8,6 +9,7 @@ import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleGcp {
     private final static String auth_token          = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
@@ -23,24 +25,27 @@ public class ElastigroupUsageExampleGcp {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
-        sleep(7);
+       // System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+       // sleep(7);
 
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
 
         // Get group
-        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
-        String groupName = group.getName();
-        String preFormat     = "groupId: %s - groupName: %s";
-        System.out.println(String.format(preFormat, elastigroupId, groupName));
+       // ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
+        //String groupName = group.getName();
+        //String preFormat     = "groupId: %s - groupName: %s";
+        //System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
-        sleep(7);
+       // System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+       // sleep(7);
 
         // Get all Elastigroups
-        getAllElastigroupsIncludeDeleted(elastigroupClient);
+        //getAllElastigroupsIncludeDeleted(elastigroupClient);
+
+        //Get elastigroup status
+        getInstanceHealthiness(elastigroupClient, elastigroupId);
 
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
@@ -177,7 +182,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupCapacityConfigurationGcp.Builder.get();
 
         ElastigroupCapacityConfigurationGcp updateCapacity =
-                updateCapacityBuilder.setMinimum(1).setTarget(1).setMaximum(1).build();
+                updateCapacityBuilder.setMinimum(2).setTarget(2).setMaximum(2).build();
 
         ElastigroupStrategyConfigurationGcp.Builder strategyBuilder =
                 ElastigroupStrategyConfigurationGcp.Builder.get();
@@ -223,6 +228,49 @@ public class ElastigroupUsageExampleGcp {
         ElastigroupGetAllRequestGcp requestByName =
                 requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
         return client.getAllElastigroups(requestByName);
+    }
+
+    private static void getInstanceHealthiness(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
+        ElastigroupGetInstanceHealthinessRequestGcp.Builder instanceHealthinessRequestBuilder =
+                ElastigroupGetInstanceHealthinessRequestGcp.Builder.get();
+
+        ElastigroupGetInstanceHealthinessRequestGcp instanceHealthinessRequest =
+                instanceHealthinessRequestBuilder.setElastigroupId(elastigroupId).build();
+        List<ElastigroupInstanceHealthinessGcp> elastigroupInstanceHealthinesses =
+                elastigroupClient.getInstanceHealthiness(instanceHealthinessRequest);
+
+        List<String> runningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                   instance.getStatusName() ==
+                                                                                                   InstanceHealthStatusEnum.RUNNING)
+                                                                          .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                          .collect(Collectors.toList());
+
+        List<String> terminatedInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                     instance.getStatusName() ==
+                                                                                                     InstanceHealthStatusEnum.TERMINATED)
+                                                                            .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                            .collect(Collectors.toList());
+
+        List<String> provisioningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                            instance.getStatusName() ==
+                                                                                                            InstanceHealthStatusEnum.PROVISIONING)
+                                                                                   .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                                   .collect(Collectors.toList());
+
+        List<String> suspendedInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                         instance.getStatusName() ==
+                                                                                                         InstanceHealthStatusEnum.SUSPENDED)
+                                                                                .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                                .collect(Collectors.toList());
+
+        System.out.println(String.format("%s Running instances: %s", runningInstanceIds.size(), runningInstanceIds));
+        System.out.println(
+                String.format("%s Terminated instances: %s", terminatedInstanceIds.size(), terminatedInstanceIds));
+        System.out.println(
+                String.format("%s Provisioning instances: %s", provisioningInstanceIds.size(),
+                              provisioningInstanceIds));
+        System.out.println(String.format("%s Suspended instances: %s", suspendedInstanceIds.size(),
+                                         suspendedInstanceIds));
     }
 
     private static ElastigroupGcp getGroup(SpotinstElastigroupClientGcp client, String groupId) {
