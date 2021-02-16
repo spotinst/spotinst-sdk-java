@@ -3,12 +3,13 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShouldTag {
     //region Members
-    private Set<String>        isSet;
+    private Set<String>        isSet = new HashSet<>();
     private Boolean            shouldTag;
 
     //endregion
