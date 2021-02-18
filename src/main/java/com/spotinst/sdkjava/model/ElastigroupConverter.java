@@ -508,9 +508,10 @@ class ElastigroupConverter {
     }
 
     private static ApiGroupTagSpecification toDal(GroupTagSpecification groupTagSpecification) {
-        ApiGroupTagSpecification retVal = new ApiGroupTagSpecification();
+        ApiGroupTagSpecification retVal = null;
 
         if(groupTagSpecification != null) {
+            retVal =  new ApiGroupTagSpecification();
             retVal.setShouldTag(groupTagSpecification.getShouldTag());
         }
         return retVal;
