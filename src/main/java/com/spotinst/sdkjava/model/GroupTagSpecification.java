@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ShouldTag {
+public class GroupTagSpecification {
     //region Members
+    @JsonIgnore
     private Set<String>        isSet = new HashSet<>();
     private Boolean            shouldTag;
 
@@ -22,7 +23,7 @@ public class ShouldTag {
     }
 
     public void setShouldTag(Boolean shouldTag) {
-        isSet.add("set");
+        isSet.add("shouldTag");
         this.shouldTag = shouldTag;
     }
 
@@ -40,7 +41,7 @@ public class ShouldTag {
     //region Methods
     @JsonIgnore
     public boolean isSet() {
-        return isSet.contains("set");
+        return isSet.contains("shouldTag");
     }
 
     //endregion

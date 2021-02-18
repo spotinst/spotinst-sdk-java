@@ -24,7 +24,7 @@ public class ElastigroupLaunchSpecification {
     private IamRole                  iamRole;
     private List<NetworkInterface>   networkInterfaces;
     private List<Tag>                tags;
-    private ResourceTagSpecification resourceTagSpecification;
+    private GroupResourceTagSpecification resourceTagSpecification;
     private List<BlockDeviceMapping> blockDeviceMappings;
     private LoadBalancersConfig      loadBalancersConfig;
     //endregion
@@ -38,13 +38,13 @@ public class ElastigroupLaunchSpecification {
 
     //region Getters & Setters
 
-    public ResourceTagSpecification getResourceTagSpecification() {
+    public GroupResourceTagSpecification getResourceTagSpecification() {
         return resourceTagSpecification;
     }
 
-    public void setResourceTagSpecification(ResourceTagSpecification resourceTagSpecification) {
-        isSet.add("resourceTagSpec");
-        this.resourceTagSpecification = resourceTagSpecification;
+    public void setResourceTagSpecification(GroupResourceTagSpecification groupResourceTagSpecification) {
+        isSet.add("resourceTagSpecification");
+        this.resourceTagSpecification = groupResourceTagSpecification;
     }
 
     public Set<String> getIsSet() {
@@ -252,7 +252,7 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
-        public Builder setResourceTagSpecification(final ResourceTagSpecification resourceTagSpecification) {
+        public Builder setResourceTagSpecification(final GroupResourceTagSpecification resourceTagSpecification) {
             launchSpecification.setResourceTagSpecification(resourceTagSpecification);
             return this;
         }
@@ -273,7 +273,7 @@ public class ElastigroupLaunchSpecification {
     // Is ResourceTagSpecification Set boolean method
     @JsonIgnore
     public boolean isResourceTagSpecificationSet() {
-        return isSet.contains("resourceTagSpec");
+        return isSet.contains("resourceTagSpecification");
     }
 
     // Is healthCheckGracePeriod Set boolean method
