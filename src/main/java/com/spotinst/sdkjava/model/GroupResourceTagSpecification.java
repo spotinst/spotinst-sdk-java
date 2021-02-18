@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,8 +11,10 @@ import java.util.Set;
 public class GroupResourceTagSpecification {
     //region Members
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnore
     private Set<String>           isSet = new HashSet<>();
+
     private GroupTagSpecification volumes;
     private GroupTagSpecification snapshots;
     private GroupTagSpecification enis;

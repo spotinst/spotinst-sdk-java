@@ -11,6 +11,7 @@ public class GroupTagSpecification {
     //region Members
     @JsonIgnore
     private Set<String>        isSet = new HashSet<>();
+
     private Boolean            shouldTag;
 
     //endregion
@@ -40,7 +41,7 @@ public class GroupTagSpecification {
 
     //region Methods
     @JsonIgnore
-    public boolean isSet() {
+    public boolean isShouldTagSet() {
         return isSet.contains("shouldTag");
     }
 

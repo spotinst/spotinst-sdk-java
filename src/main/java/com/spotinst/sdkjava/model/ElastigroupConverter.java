@@ -1297,7 +1297,7 @@ class ElastigroupConverter {
         if(apiGroupTagSpecification != null) {
             retVal = new GroupTagSpecification();
 
-            if(apiGroupTagSpecification.isSet()) {
+            if(apiGroupTagSpecification.isShouldTagSet()) {
                 retVal.setShouldTag(apiGroupTagSpecification.getShouldTag());
             }
         }

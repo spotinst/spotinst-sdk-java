@@ -40,7 +40,7 @@ public class ApiGroupTagSpecification {
 
     //region Methods
     @JsonIgnore
-    public boolean isSet() {
+    public boolean isShouldTagSet() {
         return isSet.contains("shouldTag");
     }
 
