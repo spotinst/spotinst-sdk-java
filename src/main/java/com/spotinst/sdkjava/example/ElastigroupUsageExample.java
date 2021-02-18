@@ -346,12 +346,22 @@ public class ElastigroupUsageExample {
         LoadBalancersConfig loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
 
+
         //Build Resource Tag Spec
-        ResourceTagSpecification.Builder resourceTagSpecBuilder = ResourceTagSpecification.Builder.get();
-        ResourceTagSpecification resourceTagSpecification = resourceTagSpecBuilder.setTagAmis(true)
-                                                                                  .setTagEnis(true)
-                                                                                  .setTagSnapshot(true)
-                                                                                  .setTagVolume(true)
+        GroupTagSpecification volumes = new GroupTagSpecification();
+        volumes.setShouldTag(true);
+        GroupTagSpecification amis = new GroupTagSpecification();
+        amis.setShouldTag(true);
+        GroupTagSpecification enis = new GroupTagSpecification();
+        enis.setShouldTag(true);
+        GroupTagSpecification snapshots = new GroupTagSpecification();
+        snapshots.setShouldTag(true);
+
+        GroupResourceTagSpecification.Builder resourceTagSpecBuilder = GroupResourceTagSpecification.Builder.get();
+        GroupResourceTagSpecification resourceTagSpecification = resourceTagSpecBuilder.setTagAmis(amis)
+                                                                                  .setTagEnis(enis)
+                                                                                  .setTagSnapshot(snapshots)
+                                                                                  .setTagVolume(volumes)
                                                                                   .build();
         // Build group launch spec
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
@@ -540,8 +550,11 @@ public class ElastigroupUsageExample {
                 updateCapacityBuilder.setMinimum(0).setTarget(3).setMaximum(5).build();
 
         //create group update - tag specs
-        ResourceTagSpecification.Builder updateResourceTagSpecBuilder = ResourceTagSpecification.Builder.get();
-        ResourceTagSpecification updateResourceTagSpec = updateResourceTagSpecBuilder.setTagVolume(true).build();
+        GroupTagSpecification volumes = new GroupTagSpecification();
+        volumes.setShouldTag(false);
+
+        GroupResourceTagSpecification.Builder updateResourceTagSpecBuilder = GroupResourceTagSpecification.Builder.get();
+        GroupResourceTagSpecification updateResourceTagSpec = updateResourceTagSpecBuilder.setTagVolume(volumes).build();
 
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         ElastigroupLaunchSpecification launchSpecification = launchSpecBuilder.setResourceTagSpecification(updateResourceTagSpec).build();
