@@ -2,7 +2,8 @@ package com.spotinst.sdkjava.model;
 
 
 import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
-import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
+import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
+import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
 import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
 
 
@@ -19,14 +20,14 @@ class ApiElastigroupInstanceHealthinessConverterGcp {
         retVal.setCreatedAt(apiInstanceHealthiness.getCreatedAt());
 
         if (apiInstanceHealthiness.getLifeCycle() != null) {
-            AwsInstanceLifecycleEnum instanceHealthStatusEnum =
-                    AwsInstanceLifecycleEnum.fromName(apiInstanceHealthiness.getLifeCycle());
+            GcpInstanceLifecycleEnum instanceHealthStatusEnum =
+                    GcpInstanceLifecycleEnum.fromName(apiInstanceHealthiness.getLifeCycle());
             retVal.setLifeCycle(instanceHealthStatusEnum);
         }
 
         if (apiInstanceHealthiness.getStatusName() != null) {
-            InstanceHealthStatusEnum instanceHealthStatusEnum =
-                    InstanceHealthStatusEnum.fromName(apiInstanceHealthiness.getStatusName());
+            InstanceHealthStatusGcpEnum instanceHealthStatusEnum =
+                    InstanceHealthStatusGcpEnum.fromName(apiInstanceHealthiness.getStatusName());
             retVal.setStatusName(instanceHealthStatusEnum);
         }
 

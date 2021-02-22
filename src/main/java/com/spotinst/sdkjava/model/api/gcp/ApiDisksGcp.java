@@ -24,7 +24,6 @@ public class ApiDisksGcp implements IPartialUpdateEntity {
     private String                                   type;
     private String                                   source;
     private String                                   mode;
-    private String                                   interfaze;  //written interaZe instead of interfaCe due to coding limitations
     private Boolean                                  boot;
     private ApiInitializeParamsGcp                   initializeParams;
     //endregion
@@ -89,13 +88,6 @@ public class ApiDisksGcp implements IPartialUpdateEntity {
         this.mode = mode;
     }
 
-    public String getInterfaze() { return interfaze; }
-
-    public void setInterfaze(String interfaze) {
-        isSet.add("interfaze");
-        this.interfaze = interfaze;
-    }
-
     public Boolean getBoot() {
         return boot;
     }
@@ -139,12 +131,6 @@ public class ApiDisksGcp implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isModeSet() {
         return isSet.contains("mode");
-    }
-
-    // Is interfaze Set boolean method
-    @JsonIgnore
-    public boolean isInterfazeSet() {
-        return isSet.contains("interfaze");
     }
 
     // Is source Set boolean method

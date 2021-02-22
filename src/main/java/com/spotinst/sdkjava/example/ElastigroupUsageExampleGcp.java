@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
+import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.gcp.*;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
@@ -14,7 +15,6 @@ import java.util.stream.Collectors;
 public class ElastigroupUsageExampleGcp {
     private final static String auth_token          = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
     private final static String act_id              = "act-7d8b3fee";
-    private final static String SSA                 = "your-ssa";
     private static final String SPOTINST_GROUP_NAME = "Gcp_SDK_test_or";
 
     public static void main(String[] args) throws IOException {
@@ -25,24 +25,24 @@ public class ElastigroupUsageExampleGcp {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-       // System.out.println("Sleeping... waiting for provisioning 7 seconds.");
-       // sleep(7);
+        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
 
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
 
         // Get group
-       // ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
-        //String groupName = group.getName();
-        //String preFormat     = "groupId: %s - groupName: %s";
-        //System.out.println(String.format(preFormat, elastigroupId, groupName));
+        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
+        String groupName = group.getName();
+        String preFormat     = "groupId: %s - groupName: %s";
+        System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
-       // System.out.println("Sleeping... waiting for provisioning 7 seconds.");
-       // sleep(7);
+        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
 
-        // Get all Elastigroups
-        //getAllElastigroupsIncludeDeleted(elastigroupClient);
+        // List all Elastigroups
+        getAllElastigroupsIncludeDeleted(elastigroupClient);
 
         //Get elastigroup status
         getInstanceHealthiness(elastigroupClient, elastigroupId);
@@ -241,25 +241,25 @@ public class ElastigroupUsageExampleGcp {
 
         List<String> runningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                    instance.getStatusName() ==
-                                                                                                   InstanceHealthStatusEnum.RUNNING)
+                                                                                                   InstanceHealthStatusGcpEnum.RUNNING)
                                                                           .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
                                                                           .collect(Collectors.toList());
 
         List<String> terminatedInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                      instance.getStatusName() ==
-                                                                                                     InstanceHealthStatusEnum.TERMINATED)
+                                                                                                     InstanceHealthStatusGcpEnum.TERMINATED)
                                                                             .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
                                                                             .collect(Collectors.toList());
 
         List<String> provisioningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                             instance.getStatusName() ==
-                                                                                                            InstanceHealthStatusEnum.PROVISIONING)
+                                                                                                            InstanceHealthStatusGcpEnum.PROVISIONING)
                                                                                    .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
                                                                                    .collect(Collectors.toList());
 
         List<String> suspendedInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                          instance.getStatusName() ==
-                                                                                                         InstanceHealthStatusEnum.SUSPENDED)
+                                                                                                         InstanceHealthStatusGcpEnum.SUSPENDED)
                                                                                 .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
                                                                                 .collect(Collectors.toList());
 

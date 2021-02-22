@@ -24,12 +24,9 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-
     public ApiCapacityGcp() {
         isSet = new HashSet<>();
     }
-
-
     //endregion
 
     //region Getters & Setters
@@ -40,8 +37,8 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
     //region Minimum
+
     public Integer getMinimum() {
         return minimum;
     }
@@ -50,7 +47,6 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
         isSet.add("minimum");
         this.minimum = minimum;
     }
-
     //endregion
 
     //region Maximum
@@ -62,7 +58,6 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
         isSet.add("maximum");
         this.maximum = maximum;
     }
-
     //endregion
 
     //region Target
@@ -95,7 +90,6 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
         return isSet.contains("minimum");
     }
 
-
     // Is maximum Set boolean method
     @JsonIgnore
     public boolean isMaximumSet() {
@@ -113,6 +107,5 @@ public class ApiCapacityGcp implements IPartialUpdateEntity {
     public boolean isUnitSet() {
         return isSet.contains("unit");
     }
-
     //endregion
 }

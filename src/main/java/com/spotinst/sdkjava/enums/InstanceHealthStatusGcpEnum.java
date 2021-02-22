@@ -6,14 +6,15 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by ohadmuchnik on 12/04/2016.
  */
-public enum InstanceHealthStatusEnum {
+public enum InstanceHealthStatusGcpEnum {
 
-    HEALTHY("HEALTHY"),
-    UNHEALTHY("UNHEALTHY"),
-    INSUFFICIENT_DATA("INSUFFICIENT_DATA"),
-    UNKNOWN("UNKNOWN");
+    SUSPENDED("SUSPENDED"),
+    TERMINATED("TERMINATED"),
+    PROVISIONING("PROVISIONING"),
+    NEW("NEW"),
+    RUNNING("RUNNING");
 
-    private InstanceHealthStatusEnum(String name) {
+    private InstanceHealthStatusGcpEnum(String name) {
         this.name = name;
     }
 
@@ -22,12 +23,12 @@ public enum InstanceHealthStatusEnum {
     }
 
     private final        String name;
-    private static final Logger LOGGER = LoggerFactory.getLogger(InstanceHealthStatusEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(InstanceHealthStatusGcpEnum.class);
 
-    public static InstanceHealthStatusEnum fromName(String name)
+    public static InstanceHealthStatusGcpEnum fromName(String name)
     {
-        InstanceHealthStatusEnum retVal = null;
-        for (InstanceHealthStatusEnum type : InstanceHealthStatusEnum.values()) {
+        InstanceHealthStatusGcpEnum retVal = null;
+        for (InstanceHealthStatusGcpEnum type : InstanceHealthStatusGcpEnum.values()) {
             if (name.equalsIgnoreCase(type.name))
             {
                 retVal = type;

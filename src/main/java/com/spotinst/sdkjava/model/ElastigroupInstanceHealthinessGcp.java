@@ -1,19 +1,20 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
+import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
+import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
 
 public class ElastigroupInstanceHealthinessGcp {
     //region Members
-    private String                   instanceName;
-    private String                   zone;
-    private String                   groupId;
-    private String                   machineType;
-    private String                   privateIpAddress;
-    private String                   createdAt;
-    private String                   updatedAt;
-    private AwsInstanceLifecycleEnum lifeCycle;
-    private InstanceHealthStatusEnum statusName;
+    private String                      instanceName;
+    private String                      zone;
+    private String                      groupId;
+    private String                      machineType;
+    private String                      privateIpAddress;
+    private String                      createdAt;
+    private String                      updatedAt;
+    private GcpInstanceLifecycleEnum    lifeCycle;
+    private InstanceHealthStatusGcpEnum statusName;
     //endregion
 
     //region Getters & Setters
@@ -53,19 +54,19 @@ public class ElastigroupInstanceHealthinessGcp {
 
     public void setMachineType(String availabilityZone) { this.machineType = machineType; }
 
-    public AwsInstanceLifecycleEnum getLifeCycle() {
+    public GcpInstanceLifecycleEnum getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(AwsInstanceLifecycleEnum lifeCycle) {
+    public void setLifeCycle(GcpInstanceLifecycleEnum lifeCycle) {
         this.lifeCycle = lifeCycle;
     }
 
-    public InstanceHealthStatusEnum getStatusName() {
+    public InstanceHealthStatusGcpEnum getStatusName() {
         return statusName;
     }
 
-    public void setStatusName(InstanceHealthStatusEnum statusName) {
+    public void setStatusName(InstanceHealthStatusGcpEnum statusName) {
         this.statusName = statusName;
     }
 

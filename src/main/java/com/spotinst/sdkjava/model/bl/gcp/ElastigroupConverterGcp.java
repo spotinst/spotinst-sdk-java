@@ -96,9 +96,6 @@ public class ElastigroupConverterGcp {
             if (disksGcp.isDeviceNameSet()) {
                 retVal.setDeviceName(disksGcp.getDeviceName());
             }
-            if (disksGcp.isInterfazeSet()) {
-                retVal.setInterfaze(disksGcp.getInterfaze());
-            }
             if (disksGcp.isTypeSet()) {
                 retVal.setType(disksGcp.getType());
             }
@@ -330,9 +327,6 @@ public class ElastigroupConverterGcp {
             }
             if (disksGcp.isDeviceNameSet()) {
                 blDisksGcpBuilder.setDeviceName(disksGcp.getDeviceName());
-            }
-            if (disksGcp.isInterfazeSet()) {
-                blDisksGcpBuilder.setInterfaze(disksGcp.getInterfaze());
             }
             if (disksGcp.isTypeSet()) {
                 blDisksGcpBuilder.setType(disksGcp.getType());
