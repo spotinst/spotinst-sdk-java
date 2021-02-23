@@ -24,6 +24,7 @@ public class ElastigroupLaunchSpecification {
     private IamRole                  iamRole;
     private List<NetworkInterface>   networkInterfaces;
     private List<Tag>                tags;
+    private GroupResourceTagSpecification resourceTagSpecification;
     private List<BlockDeviceMapping> blockDeviceMappings;
     private LoadBalancersConfig      loadBalancersConfig;
     //endregion
@@ -36,6 +37,15 @@ public class ElastigroupLaunchSpecification {
     //endregion
 
     //region Getters & Setters
+
+    public GroupResourceTagSpecification getResourceTagSpecification() {
+        return resourceTagSpecification;
+    }
+
+    public void setResourceTagSpecification(GroupResourceTagSpecification groupResourceTagSpecification) {
+        isSet.add("resourceTagSpecification");
+        this.resourceTagSpecification = groupResourceTagSpecification;
+    }
 
     public Set<String> getIsSet() {
         return isSet;
@@ -242,8 +252,12 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
+        public Builder setResourceTagSpecification(final GroupResourceTagSpecification resourceTagSpecification) {
+            launchSpecification.setResourceTagSpecification(resourceTagSpecification);
+            return this;
+        }
+
         public ElastigroupLaunchSpecification build() {
-            // TODO : Validations
             return launchSpecification;
         }
     }
@@ -256,6 +270,11 @@ public class ElastigroupLaunchSpecification {
         return isSet.contains("healthCheckType");
     }
 
+    // Is ResourceTagSpecification Set boolean method
+    @JsonIgnore
+    public boolean isResourceTagSpecificationSet() {
+        return isSet.contains("resourceTagSpecification");
+    }
 
     // Is healthCheckGracePeriod Set boolean method
     @JsonIgnore

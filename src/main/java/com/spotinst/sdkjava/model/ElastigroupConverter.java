@@ -399,6 +399,10 @@ class ElastigroupConverter {
                 retVal.setUserData(launchSpecification.getUserData());
             }
 
+            if (launchSpecification.isResourceTagSpecificationSet()) {
+                retVal.setResourceTagSpecification(toDal(launchSpecification.getResourceTagSpecification()));
+            }
+
             if (launchSpecification.isBlockDeviceMappingsSet()) {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<ApiBlockDevice> optimizerBDM =
@@ -500,6 +504,38 @@ class ElastigroupConverter {
             }
         }
 
+        return retVal;
+    }
+
+    private static ApiGroupTagSpecification toDal(GroupTagSpecification groupTagSpecification) {
+        ApiGroupTagSpecification retVal = null;
+
+        if(groupTagSpecification != null) {
+            retVal =  new ApiGroupTagSpecification();
+            retVal.setShouldTag(groupTagSpecification.getShouldTag());
+        }
+        return retVal;
+    }
+
+    private static ApiGroupResourceTagSpecification toDal(GroupResourceTagSpecification resourceTagSpecification) {
+        ApiGroupResourceTagSpecification retVal = null;
+
+        if (resourceTagSpecification != null) {
+            retVal =  new ApiGroupResourceTagSpecification();
+
+            if (resourceTagSpecification.isVolumeSet()) {
+                retVal.setVolumes(toDal(resourceTagSpecification.getVolumes()));
+            }
+            if (resourceTagSpecification.isSnapshotSet()) {
+                retVal.setSnapshots(toDal(resourceTagSpecification.getSnapshots()));
+            }
+            if (resourceTagSpecification.isEniSet()) {
+                retVal.setEnis(toDal(resourceTagSpecification.getEnis()));
+            }
+            if (resourceTagSpecification.isAmiSet()) {
+                retVal.setAmis(toDal(resourceTagSpecification.getAmis()));
+            }
+        }
         return retVal;
     }
 
@@ -1256,12 +1292,55 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    private static GroupTagSpecification toBl(ApiGroupTagSpecification apiGroupTagSpecification) {
+        GroupTagSpecification retVal = null;
+
+        if(apiGroupTagSpecification != null) {
+            retVal = new GroupTagSpecification();
+
+            if(apiGroupTagSpecification.isShouldTagSet()) {
+                retVal.setShouldTag(apiGroupTagSpecification.getShouldTag());
+            }
+        }
+        return retVal;
+    }
+
+    private static GroupResourceTagSpecification toBl(ApiGroupResourceTagSpecification resourceTagSpecification) {
+        GroupResourceTagSpecification retVal = null;
+
+        if (resourceTagSpecification != null) {
+            GroupResourceTagSpecification.Builder retValBuilder = GroupResourceTagSpecification.Builder.get();
+
+            if(resourceTagSpecification.isVolumeSet()) {
+                retValBuilder.setTagVolume(toBl(resourceTagSpecification.getVolumes()));
+            }
+
+            if(resourceTagSpecification.isSnapshotSet()) {
+                retValBuilder.setTagSnapshot(toBl(resourceTagSpecification.getSnapshots()));
+            }
+
+            if(resourceTagSpecification.isAmiSet()) {
+                retValBuilder.setTagAmis(toBl(resourceTagSpecification.getAmis()));
+            }
+
+            if(resourceTagSpecification.isEniSet()) {
+                retValBuilder.setTagEnis(toBl(resourceTagSpecification.getEnis()));
+            }
+        retVal = retValBuilder.build();
+        }
+        return retVal;
+    }
+
     private static ElastigroupLaunchSpecification toBl(ApiLaunchSpec launchSpecification) {
         ElastigroupLaunchSpecification retVal = null;
 
         if (launchSpecification != null) {
 
             ElastigroupLaunchSpecification.Builder retValBuilder = ElastigroupLaunchSpecification.Builder.get();
+
+            if (launchSpecification.isResourceTagSpecificationSet()) {
+                retValBuilder.setResourceTagSpecification(toBl(launchSpecification.getResourceTagSpecification()));
+            }
 
             if (launchSpecification.isHealthCheckTypeSet()) {
                 retValBuilder.setHealthCheckType(launchSpecification.getHealthCheckType());
