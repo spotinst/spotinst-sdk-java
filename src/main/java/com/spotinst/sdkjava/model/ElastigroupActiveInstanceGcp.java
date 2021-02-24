@@ -2,7 +2,6 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.AwsInstanceTypeEnum;
-
 import java.util.Date;
 
 public class ElastigroupActiveInstanceGcp {

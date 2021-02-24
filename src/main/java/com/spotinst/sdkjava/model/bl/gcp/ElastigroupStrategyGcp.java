@@ -1,13 +1,12 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.RevertToSpotSpecAzure;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ElastigroupStrategyConfigurationGcp {
+public class ElastigroupStrategyGcp {
     //region Members
     @JsonIgnore
     private Set<String>                       isSet;
@@ -20,7 +19,7 @@ public class ElastigroupStrategyConfigurationGcp {
     //endregion
 
     //region Constructor
-    private ElastigroupStrategyConfigurationGcp() {
+    private ElastigroupStrategyGcp() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -91,10 +90,10 @@ public class ElastigroupStrategyConfigurationGcp {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupStrategyConfigurationGcp strategy;
+        private ElastigroupStrategyGcp strategy;
 
         private Builder() {
-            this.strategy = new ElastigroupStrategyConfigurationGcp();
+            this.strategy = new ElastigroupStrategyGcp();
         }
 
         public static Builder get() {
@@ -132,8 +131,7 @@ public class ElastigroupStrategyConfigurationGcp {
             return this;
         }
 
-        public ElastigroupStrategyConfigurationGcp build() {
-            // TODO : Validations
+        public ElastigroupStrategyGcp build() {
             return strategy;
         }
     }
@@ -142,39 +140,26 @@ public class ElastigroupStrategyConfigurationGcp {
     //region isSet methods
     // Is preemptiblePercentage Set boolean method
     @JsonIgnore
-    public boolean isPreemptiblePercentageSet() {
-        return isSet.contains("preemptiblePercentage");
-    }
-
+    public boolean isPreemptiblePercentageSet() { return isSet.contains("preemptiblePercentage"); }
 
     // Is onDemandCount Set boolean method
     @JsonIgnore
-    public boolean isOnDemandCountSet() {
-        return isSet.contains("onDemandCount");
-    }
+    public boolean isOnDemandCountSet() { return isSet.contains("onDemandCount"); }
 
     // Is fallbackToOd Set boolean method
     @JsonIgnore
-    public boolean isFallbackToOdSet() {
-        return isSet.contains("fallbackToOd");
-    }
+    public boolean isFallbackToOdSet() { return isSet.contains("fallbackToOd"); }
 
     // Is drainingTimeout Set boolean method
     @JsonIgnore
-    public boolean isDrainingTimeoutSet() {
-        return isSet.contains("drainingTimeout");
-    }
+    public boolean isDrainingTimeoutSet() { return isSet.contains("drainingTimeout"); }
 
     // Is revertToPreemptible Set boolean method
     @JsonIgnore
-    public boolean isRevertToPreemptibleSet() {
-        return isSet.contains("revertToPreemptible");
-    }
+    public boolean isRevertToPreemptibleSet() { return isSet.contains("revertToPreemptible"); }
 
     // Is optimizationWindows Set boolean method
     @JsonIgnore
-    public boolean isOptimizationWindowsSet() {
-        return isSet.contains("optimizationWindows");
-    }
+    public boolean isOptimizationWindowsSet() { return isSet.contains("optimizationWindows"); }
     //endregion
 }

@@ -10,9 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -21,7 +18,8 @@ public class ApiSubnetsGcp implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private String       region;
-    private List<String> subnetNames;
+    // todo or: convert to set of strings - DONE
+    private Set<String> subnetNames;
     //endregion
 
     //region Constructor
@@ -41,17 +39,16 @@ public class ApiSubnetsGcp implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<String> getSubnetNames() {
+    public Set<String> getSubnetNames() {
         return subnetNames;
     }
 
-    public void setSubnetNames(List<String> subnetNames) {
+    public void setSubnetNames(Set<String> subnetNames) {
         isSet.add("subnetNames");
         this.subnetNames = subnetNames;
     }
 
     public String getRegion() {
-
         return region;
     }
 
@@ -59,7 +56,6 @@ public class ApiSubnetsGcp implements IPartialUpdateEntity {
         isSet.add("region");
         this.region = region;
     }
-
     //endregion
 
     //region isSet methods
@@ -75,8 +71,6 @@ public class ApiSubnetsGcp implements IPartialUpdateEntity {
     public boolean isSubnetNamesSet() {
         return isSet.contains("subnetNames");
     }
-
-
     //endregion
 
 }

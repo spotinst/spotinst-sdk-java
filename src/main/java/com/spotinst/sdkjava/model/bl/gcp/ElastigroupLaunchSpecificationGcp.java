@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -79,14 +78,10 @@ public class ElastigroupLaunchSpecificationGcp {
     //region isSet methods
     // Is disks Set boolean method
     @JsonIgnore
-    public boolean isDisksSet() {
-        return isSet.contains("disks");
-    }
+    public boolean isDisksSet() { return isSet.contains("disks"); }
 
     // Is networkInterfaces Set boolean method
     @JsonIgnore
-    public boolean isNetworkInterfacesSet() {
-        return isSet.contains("networkInterfaces");
-    }
+    public boolean isNetworkInterfacesSet() { return isSet.contains("networkInterfaces"); }
     //endregion
 }

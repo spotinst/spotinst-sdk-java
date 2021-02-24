@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -92,6 +91,5 @@ public class ElastigroupInstanceTypesGcp {
     // Is ondemand Set boolean method
     @JsonIgnore
     public boolean isOndemandSet() { return isSet.contains("ondemand"); }
-
     //endregion
 }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
+
 
 import java.util.Date;
 import java.util.HashSet;
@@ -113,7 +113,6 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
         isSet.add("updatedAt");
         this.updatedAt = updatedAt;
     }
-
     //endregion
 
     //region isSet methods
@@ -157,6 +156,12 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isCreatedAtSet() {
         return isSet.contains("createdAt");
+    }
+
+    // Is updatedAt Set boolean method
+    @JsonIgnore
+    public boolean isUpdatedAtSet() {
+        return isSet.contains("updatedAt");
     }
     //endregion
 }

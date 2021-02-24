@@ -7,7 +7,6 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
-import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import org.apache.http.HttpStatus;
 
 import java.util.*;

@@ -11,6 +11,7 @@ public class ElastigroupInstanceHealthinessGcp {
     private String                      groupId;
     private String                      machineType;
     private String                      privateIpAddress;
+    private String                      publicIpAddress;
     private String                      createdAt;
     private String                      updatedAt;
     private GcpInstanceLifecycleEnum    lifeCycle;
@@ -48,6 +49,14 @@ public class ElastigroupInstanceHealthinessGcp {
 
     public void setPrivateIpAddress(String privateIp) {
         this.privateIpAddress = privateIp;
+    }
+
+    public String getPublicIpAddress() {
+        return publicIpAddress;
+    }
+
+    public void setPublicIpAddress(String publicIpAddress) {
+        this.publicIpAddress = publicIpAddress;
     }
 
     public String getMachineType() { return machineType; }

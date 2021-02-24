@@ -20,7 +20,6 @@ public class ElastigroupDeletionRequestGcp {
     public void setElastigroupId(String elastigroupId) {
         this.elastigroupId = elastigroupId;
     }
-
     //endregion
 
     //region Builder class

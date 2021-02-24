@@ -2,16 +2,13 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
-/**
- * Created by yossi.elman on 13/04/2020.
- */
+
 public class ElastigroupGetInstanceHealthinessRequestGcp {
     //region Members
     private String elastigroupId;
     //endregion
 
     //region Private Constructor
-
     private ElastigroupGetInstanceHealthinessRequestGcp() {
     }
     //endregion
@@ -24,7 +21,6 @@ public class ElastigroupGetInstanceHealthinessRequestGcp {
     public void setElastigroupId(String elastigroupId) {
         this.elastigroupId = elastigroupId;
     }
-
     //endregion
 
     //region Builder class

@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -95,9 +94,7 @@ public class ElastigroupInitializeParamsGcp {
     //region isSet methods
     // Is diskSizeGb Set boolean method
     @JsonIgnore
-    public boolean isDiskSizeGbSet() {
-        return isSet.contains("diskSizeGb");
-    }
+    public boolean isDiskSizeGbSet() { return isSet.contains("diskSizeGb"); }
 
     // Is diskType Set boolean method
     @JsonIgnore

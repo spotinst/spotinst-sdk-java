@@ -1,16 +1,13 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupLaunchSpecificationAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupVmSizesAzure;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ElastigroupComputeConfigurationGcp {
+public class ElastigroupComputeGcp {
     //region Members
-    // Partial Update support
     @JsonIgnore
     private Set<String>                       isSet;
     private List<String>                      availabilityZones;
@@ -20,7 +17,7 @@ public class ElastigroupComputeConfigurationGcp {
     //endregion
 
     //region Constructor
-    private ElastigroupComputeConfigurationGcp() {
+    private ElastigroupComputeGcp() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -34,11 +31,11 @@ public class ElastigroupComputeConfigurationGcp {
         this.isSet = isSet;
     }
 
-    public List<String>  getAvailabilityZones() {
+    public List<String> getAvailabilityZones() {
         return availabilityZones;
     }
 
-    public void setAvailabilityZones(List<String>  availabilityZones) {
+    public void setAvailabilityZones(List<String> availabilityZones) {
         isSet.add("availabilityZones");
         this.availabilityZones = availabilityZones;
     }
@@ -73,10 +70,10 @@ public class ElastigroupComputeConfigurationGcp {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupComputeConfigurationGcp compute;
+        private ElastigroupComputeGcp compute;
 
         private Builder() {
-            this.compute = new ElastigroupComputeConfigurationGcp();
+            this.compute = new ElastigroupComputeGcp();
         }
 
         public static Builder get() {
@@ -84,7 +81,7 @@ public class ElastigroupComputeConfigurationGcp {
             return builder;
         }
 
-        public Builder setAvailabilityZones(final List<String>  availabilityZones) {
+        public Builder setAvailabilityZones(final List<String> availabilityZones) {
             compute.setAvailabilityZones(availabilityZones);
             return this;
         }
@@ -104,7 +101,7 @@ public class ElastigroupComputeConfigurationGcp {
             return this;
         }
 
-        public ElastigroupComputeConfigurationGcp build() {
+        public ElastigroupComputeGcp build() {
             return compute;
         }
     }
@@ -113,27 +110,19 @@ public class ElastigroupComputeConfigurationGcp {
     //region isSet methods
     // Is availabilityZones Set boolean method
     @JsonIgnore
-    public boolean isAvailabilityZonesSet() {
-        return isSet.contains("availabilityZones");
-    }
+    public boolean isAvailabilityZonesSet() { return isSet.contains("availabilityZones"); }
 
     // Is subnets Set boolean method
     @JsonIgnore
-    public boolean isSubnetsSet() {
-        return isSet.contains("subnets");
-    }
+    public boolean isSubnetsSet() { return isSet.contains("subnets"); }
 
     // Is instanceTypes Set boolean method
     @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
-    }
+    public boolean isInstanceTypesSet() { return isSet.contains("instanceTypes"); }
 
     // Is launchSpecification Set boolean method
     @JsonIgnore
-    public boolean isLaunchSpecificationSet() {
-        return isSet.contains("launchSpecification");
-    }
+    public boolean isLaunchSpecificationSet() { return isSet.contains("launchSpecification"); }
     //endregion
 
 }

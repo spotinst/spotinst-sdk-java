@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,19 +9,18 @@ import java.util.Set;
 public class ElastigroupGcp {
     //region Members
     @JsonIgnore
-    private Set<String>                             isSet;
-    private String                                  id;
-    private String                                  name;
-    private String                                  description;
-    private ElastigroupCapacityConfigurationGcp     capacity;
-    private ElastigroupStrategyConfigurationGcp     strategy;
-    private ElastigroupComputeConfigurationGcp      compute;
-    private Date                                    createdAt;
-    private Date                                    updatedAt;
+    private Set<String>            isSet;
+    private String                 id;
+    private String                 name;
+    private String                 description;
+    private ElastigroupCapacityGcp capacity;
+    private ElastigroupStrategyGcp strategy;
+    private ElastigroupComputeGcp  compute;
+    private Date                   createdAt;
+    private Date                   updatedAt;
     //endregion
 
     //region Constructor
-
     private ElastigroupGcp() {
         isSet = new HashSet<>();
     }
@@ -82,29 +80,29 @@ public class ElastigroupGcp {
         this.description = description;
     }
 
-    public ElastigroupCapacityConfigurationGcp  getCapacity() {
+    public ElastigroupCapacityGcp getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(ElastigroupCapacityConfigurationGcp  capacity) {
+    public void setCapacity(ElastigroupCapacityGcp capacity) {
         isSet.add("capacity");
         this.capacity = capacity;
     }
 
-    public ElastigroupStrategyConfigurationGcp  getStrategy() {
+    public ElastigroupStrategyGcp getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(ElastigroupStrategyConfigurationGcp  strategy) {
+    public void setStrategy(ElastigroupStrategyGcp strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
     }
 
-    public ElastigroupComputeConfigurationGcp  getCompute() {
+    public ElastigroupComputeGcp getCompute() {
         return compute;
     }
 
-    public void setCompute(ElastigroupComputeConfigurationGcp  compute) {
+    public void setCompute(ElastigroupComputeGcp compute) {
         isSet.add("compute");
         this.compute = compute;
     }
@@ -143,17 +141,17 @@ public class ElastigroupGcp {
             return this;
         }
 
-        public Builder setCapacity(final ElastigroupCapacityConfigurationGcp capacity) {
+        public Builder setCapacity(final ElastigroupCapacityGcp capacity) {
             elastigroup.setCapacity(capacity);
             return this;
         }
 
-        public Builder setStrategy(final ElastigroupStrategyConfigurationGcp strategy) {
+        public Builder setStrategy(final ElastigroupStrategyGcp strategy) {
             elastigroup.setStrategy(strategy);
             return this;
         }
 
-        public Builder setCompute(final ElastigroupComputeConfigurationGcp compute) {
+        public Builder setCompute(final ElastigroupComputeGcp compute) {
             elastigroup.setCompute(compute);
             return this;
         }
@@ -167,25 +165,13 @@ public class ElastigroupGcp {
     //endregion
 
     //region isSet methods
-
-    // Is thirdPartiesIntegration Set boolean method
-    @JsonIgnore
-    public boolean isThirdPartiesIntegrationSet() {
-        return isSet.contains("thirdPartiesIntegration");
-    }
-
     // Is id Set boolean method
     @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
-    }
-
+    public boolean isIdSet() { return isSet.contains("id"); }
 
     // Is name Set boolean method
     @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
-    }
+    public boolean isNameSet() { return isSet.contains("name"); }
 
     // Is description Set boolean method
     @JsonIgnore
@@ -193,34 +179,22 @@ public class ElastigroupGcp {
 
     // Is capacity Set boolean method
     @JsonIgnore
-    public boolean isCapacitySet() {
-        return isSet.contains("capacity");
-    }
-
+    public boolean isCapacitySet() { return isSet.contains("capacity"); }
 
     // Is strategy Set boolean method
     @JsonIgnore
-    public boolean isStrategySet() {
-        return isSet.contains("strategy");
-    }
-
+    public boolean isStrategySet() { return isSet.contains("strategy"); }
 
     // Is compute Set boolean method
     @JsonIgnore
-    public boolean isComputeSet() {
-        return isSet.contains("compute");
-    }
+    public boolean isComputeSet() { return isSet.contains("compute"); }
 
     // Is createdAt Set boolean method
     @JsonIgnore
-    public boolean isCreatedAtSet() {
-        return isSet.contains("createdAt");
-    }
+    public boolean isCreatedAtSet() { return isSet.contains("createdAt"); }
 
     // Is updatedAt Set boolean method
     @JsonIgnore
-    public boolean isUpdatedAtSet() {
-        return isSet.contains("updatedAt");
-    }
+    public boolean isUpdatedAtSet() { return isSet.contains("updatedAt"); }
     //endregion
 }

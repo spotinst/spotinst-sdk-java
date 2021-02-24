@@ -3,22 +3,23 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum GcpInstanceLifecycleEnum {
+public enum GcpPerformAtEnum {
 
-    ONDEMAND("ONDEMAND"),
-    PREEMPTIBLE("PREEMPTIBLE");
+    never("never"),
+    timeWindow("timeWindow"),
+    always("always");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
 
-    private GcpInstanceLifecycleEnum(String name) {
+    private GcpPerformAtEnum(String name) {
         this.name = name;
     }
 
-    public static GcpInstanceLifecycleEnum fromName(String name) {
-        GcpInstanceLifecycleEnum retVal = null;
+    public static GcpPerformAtEnum fromName(String name) {
+        GcpPerformAtEnum retVal = null;
 
-        for (GcpInstanceLifecycleEnum instanceMarketEnum : GcpInstanceLifecycleEnum.values()) {
+        for (GcpPerformAtEnum instanceMarketEnum : GcpPerformAtEnum.values()) {
             if (name.equalsIgnoreCase(instanceMarketEnum.name)) {
                 retVal = instanceMarketEnum;
                 break;
@@ -26,7 +27,7 @@ public enum GcpInstanceLifecycleEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create instance life cycle enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create 'perfom at' enum for: " + name + ", but we don't support such type ");
         }
 
         return retVal;

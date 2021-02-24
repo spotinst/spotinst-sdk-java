@@ -1,15 +1,9 @@
 package com.spotinst.sdkjava.model;
-
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.GroupDeploymentDetailsAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupAzure;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

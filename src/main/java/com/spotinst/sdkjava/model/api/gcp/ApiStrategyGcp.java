@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiRevertToSpotSpecAzure;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiStrategyGcp implements IPartialUpdateEntity {
+    // todo or: add region members - DONE
+    //region members
     @JsonIgnore
     private Set<String>               isSet;
     private Integer                   preemptiblePercentage;
@@ -23,18 +24,15 @@ public class ApiStrategyGcp implements IPartialUpdateEntity {
     private Boolean                   fallbackToOd;
     private ApiRevertToPreemptibleGcp revertToPreemptible;
     private List<String>              optimizationWindows;
-
-    //todo add  signals in future
+    //endregion
 
     //region Constructor
-
     public ApiStrategyGcp() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -97,11 +95,9 @@ public class ApiStrategyGcp implements IPartialUpdateEntity {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }
-
     //endregion
 
     //region isSet methods
-
     // Is spotPercentage Set boolean method
     @JsonIgnore
     public boolean isPreemptiblePercentageSet() {

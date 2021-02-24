@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

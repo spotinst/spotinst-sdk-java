@@ -3,9 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 import org.apache.commons.lang3.StringUtils;
 
-/**
- * Created by Or Zuk on 08/02/2021.
- */
 public class ElastigroupGetRequestGcp {
     //region Members
     private String elastigroupId;

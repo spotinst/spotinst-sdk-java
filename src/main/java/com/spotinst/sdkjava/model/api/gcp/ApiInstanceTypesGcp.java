@@ -14,20 +14,21 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
+    // todo or: add region members - DONE
+    //region members
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> preemptible;
-    private String      ondemand;
+    private String       ondemand;
+    //endregion
 
     //region Constructor
-
     public ApiInstanceTypesGcp() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -56,7 +57,6 @@ public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
-
     // Is preemptible Set boolean method
     @JsonIgnore
     public boolean isPreemptibleSet() {

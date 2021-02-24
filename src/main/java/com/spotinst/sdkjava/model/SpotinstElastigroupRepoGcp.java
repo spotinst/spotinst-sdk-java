@@ -5,7 +5,6 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

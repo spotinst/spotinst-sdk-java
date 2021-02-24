@@ -1,10 +1,8 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.RevertToSpotSpecAzure;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ElastigroupDisksGcp {
@@ -14,12 +12,10 @@ public class ElastigroupDisksGcp {
     private Boolean                        autoDelete;
     private Boolean                        boot;
     private String                         deviceName;
-    private String                         interfaze;   //written interaZe instead of interfaCe due to coding limitations
     private String                         type;
     private String                         source;
     private String                         mode;
     private ElastigroupInitializeParamsGcp initializeParams;
-    //todo add  signals in future
     //endregion
 
     //region Constructor
@@ -62,15 +58,6 @@ public class ElastigroupDisksGcp {
     public void setMode(String mode) {
         isSet.add("mode");
         this.mode = mode;
-    }
-
-    public String getInterfaze() {
-        return interfaze;
-    }
-
-    public void setInterfaze(String interfaze) {
-        isSet.add("interfaze");
-        this.interfaze = interfaze;
     }
 
     public String getType() {
@@ -139,11 +126,6 @@ public class ElastigroupDisksGcp {
             return this;
         }
 
-        public Builder setInterfaze(final String interfaze) {
-            disks.setInterfaze(interfaze);
-            return this;
-        }
-
         public Builder setType(final String type) {
             disks.setType(type);
             return this;
@@ -171,41 +153,32 @@ public class ElastigroupDisksGcp {
     //endregion
 
     //region isSet methods
-    // Is fallbackToOd Set boolean method
+    // Is autoDelete Set boolean method
     @JsonIgnore
-    public boolean isAutoDeleteSet() {
-        return isSet.contains("autoDelete");
-    }
+    public boolean isAutoDeleteSet() { return isSet.contains("autoDelete"); }
 
-    // Is fallbackToOd Set boolean method
+    // Is boot Set boolean method
     @JsonIgnore
     public boolean isBootSet() { return isSet.contains("boot"); }
 
-    // Is fallbackToOd Set boolean method
+    // Is mode Set boolean method
     @JsonIgnore
     public boolean isModeSet() { return isSet.contains("mode"); }
 
-    // Is fallbackToOd Set boolean method
+    // Is source Set boolean method
     @JsonIgnore
     public boolean isSourceSet() { return isSet.contains("source"); }
 
-    // Is fallbackToOd Set boolean method
-    @JsonIgnore
-    public boolean isInterfazeSet() { return isSet.contains("interfaze"); }
-
-    // Is fallbackToOd Set boolean method
+    // Is type Set boolean method
     @JsonIgnore
     public boolean isTypeSet() { return isSet.contains("type"); }
 
-    // Is fallbackToOd Set boolean method
+    // Is deviceName Set boolean method
     @JsonIgnore
     public boolean isDeviceNameSet() { return isSet.contains("deviceName"); }
 
-    // Is revertToSpot Set boolean method
+    // Is initializeParams Set boolean method
     @JsonIgnore
-    public boolean isInitializeParamsSet() {
-        return isSet.contains("initializeParams");
-    }
-
+    public boolean isInitializeParamsSet() { return isSet.contains("initializeParams"); }
     //endregion
 }

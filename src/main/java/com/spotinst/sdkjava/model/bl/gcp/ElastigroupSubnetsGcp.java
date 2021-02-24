@@ -6,13 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 public class ElastigroupSubnetsGcp {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
     private String region;
-    private List<String> subnetNames;
+    private Set<String> subnetNames;
     //endregion
 
     //region Constructors
@@ -20,12 +19,9 @@ public class ElastigroupSubnetsGcp {
     private ElastigroupSubnetsGcp() {
         isSet = new HashSet<>();
     }
-
     //endregion
 
     //region Getters & Setters
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -35,11 +31,11 @@ public class ElastigroupSubnetsGcp {
     }
 
     //region subnetNames
-    public List<String> getSubnetNames() {
+    public Set<String> getSubnetNames() {
         return subnetNames;
     }
 
-    public void setSubnetNames(List<String> subnetNames) {
+    public void setSubnetNames(Set<String> subnetNames) {
         isSet.add("subnetNames");
         this.subnetNames = subnetNames;
     }
@@ -54,8 +50,6 @@ public class ElastigroupSubnetsGcp {
         isSet.add("region");
         this.region = region;
     }
-    //endregion
-
     //endregion
 
     //region Builder class
@@ -76,7 +70,7 @@ public class ElastigroupSubnetsGcp {
             return this;
         }
 
-        public Builder setSubnetNames(final List<String> subnetNamesTypes) {
+        public Builder setSubnetNames(final Set<String> subnetNamesTypes) {
             instanceTypes.setSubnetNames(subnetNamesTypes);
             return this;
         }
@@ -86,18 +80,14 @@ public class ElastigroupSubnetsGcp {
         }
     }
     //endregion
+
     //region isSet methods
     // Is region Set boolean method
     @JsonIgnore
-    public boolean isRegionSet() {
-        return isSet.contains("region");
-    }
+    public boolean isRegionSet() { return isSet.contains("region"); }
 
     // Is subnetNames Set boolean method
     @JsonIgnore
-    public boolean isSubnetNamesSet() {
-        return isSet.contains("subnetNames");
-    }
-
+    public boolean isSubnetNamesSet() { return isSet.contains("subnetNames"); }
     //endregion
 }

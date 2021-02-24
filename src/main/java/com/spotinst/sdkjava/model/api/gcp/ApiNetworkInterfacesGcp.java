@@ -7,16 +7,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
+    // todo: support additional members
     //region Members
     @JsonIgnore
     private Set<String>  isSet;
@@ -25,14 +23,12 @@ public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-
     public ApiNetworkInterfacesGcp() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -42,7 +38,6 @@ public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
     }
 
     public String getProjectId() {
-
         return projectId;
     }
 
@@ -52,7 +47,6 @@ public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
     }
 
     public String getNetwork() {
-
         return network;
     }
 
@@ -60,7 +54,6 @@ public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
         isSet.add("network");
         this.network = network;
     }
-
     //endregion
 
     //region isSet methods
@@ -76,8 +69,6 @@ public class ApiNetworkInterfacesGcp implements IPartialUpdateEntity {
     public boolean isProjectIdSet() {
         return isSet.contains("projectId");
     }
-
-
     //endregion
 
 }

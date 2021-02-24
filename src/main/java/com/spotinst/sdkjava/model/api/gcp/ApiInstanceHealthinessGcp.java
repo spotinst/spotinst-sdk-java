@@ -1,19 +1,33 @@
 package com.spotinst.sdkjava.model.api.gcp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiInstanceHealthinessGcp {
+    // todo or: add isSet, add constructor, add isXset booleans. - DONE
     //region Members
-    private String instanceName;
-    private String zone;
-    private String groupId;
-    private String machineType;
-    private String lifeCycle;
-    private String statusName;
-    private String privateIpAddress;
-    private String createdAt;
-    private String updatedAt;
+    // todo or: addd "publicIpAddress" - DONE
+    private Set<String> isSet;
+    private String      instanceName;
+    private String      zone;
+    // todo or: remove groupId, does not return. - DONE
+    private String      machineType;
+    private String      lifeCycle;
+    private String      statusName;
+    private String      privateIpAddress;
+    private String      publicIpAddress;
+    private String      createdAt;
+    private String      updatedAt;
+    //endregion
+
+    //region Constructor
+    public ApiInstanceHealthinessGcp() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
@@ -33,21 +47,12 @@ public class ApiInstanceHealthinessGcp {
         this.zone = spotRequestId;
     }
 
-    public String getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
     public String getMachineType() {
         return machineType;
     }
 
-    public void setMachineType(String availabilityZone) {
-        this.machineType = machineType;
-    }
+    // todo or: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
+    public void setMachineType(String machineType) { this.machineType = machineType; }
 
     public String getLifeCycle() {
         return lifeCycle;
@@ -61,6 +66,7 @@ public class ApiInstanceHealthinessGcp {
         return statusName;
     }
 
+    // todo or: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
     public void setStatusName(String healthStatus) {
         this.statusName = healthStatus;
     }
@@ -69,8 +75,14 @@ public class ApiInstanceHealthinessGcp {
         return privateIpAddress;
     }
 
-    public void setPrivateIpAddress(String privateIp) {
-        this.privateIpAddress = privateIp;
+    public void setPrivateIpAddress(String privateIpAddress) {
+        this.privateIpAddress = privateIpAddress;
+    }
+
+    public String getPublicIpAddress() { return publicIpAddress; }
+
+    public void setPublicIpAddress(String publicIpAddress) {
+        this.publicIpAddress = publicIpAddress;
     }
 
     public String getCreatedAt() { return createdAt; }
@@ -80,5 +92,61 @@ public class ApiInstanceHealthinessGcp {
     public String getUpdatedAt() { return updatedAt; }
 
     public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
+    //endregion
+
+    //region isset methods
+    // Is instanceName Set boolean method
+    @JsonIgnore
+    public boolean isInstanceNameSet() {
+        return isSet.contains("instanceName");
+    }
+
+    // Is zone Set boolean method
+    @JsonIgnore
+    public boolean isZoneSet() {
+        return isSet.contains("zone");
+    }
+
+    // Is machineType Set boolean method
+    @JsonIgnore
+    public boolean isMachineTypeSet() {
+        return isSet.contains("machineType");
+    }
+
+    // Is lifeCycle Set boolean method
+    @JsonIgnore
+    public boolean isLifeCycleSet() {
+        return isSet.contains("lifeCycle");
+    }
+
+    // Is statusName Set boolean method
+    @JsonIgnore
+    public boolean isStatusNameSet() {
+        return isSet.contains("statusName");
+    }
+
+    // Is privateIpAddress Set boolean method
+    @JsonIgnore
+    public boolean isPrivateIpAddressSet() {
+        return isSet.contains("privateIpAddress");
+    }
+
+    // Is publicIpAddress Set boolean method
+    @JsonIgnore
+    public boolean isPublicIpAddress() {
+        return isSet.contains("publicIpAddress");
+    }
+
+    // Is createdAt Set boolean method
+    @JsonIgnore
+    public boolean isCreatedAtSet() {
+        return isSet.contains("createdAt");
+    }
+
+    // Is updatedAt Set boolean method
+    @JsonIgnore
+    public boolean isUpdatedAtSet() {
+        return isSet.contains("updatedAt");
+    }
     //endregion
 }

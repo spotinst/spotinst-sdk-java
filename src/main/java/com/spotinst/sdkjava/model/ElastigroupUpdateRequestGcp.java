@@ -20,7 +20,6 @@ public class ElastigroupUpdateRequestGcp {
 
     private ElastigroupUpdateRequestGcp() {
     }
-
     //endregion
 
     //region Getters & Setters

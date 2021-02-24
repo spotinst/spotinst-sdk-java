@@ -1,7 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-
-import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
 import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
@@ -13,8 +11,9 @@ class ApiElastigroupInstanceHealthinessConverterGcp {
         ElastigroupInstanceHealthinessGcp retVal = new ElastigroupInstanceHealthinessGcp();
 
         retVal.setInstanceName(apiInstanceHealthiness.getInstanceName());
+        retVal.setPublicIpAddress(apiInstanceHealthiness.getPublicIpAddress());
         retVal.setMachineType(apiInstanceHealthiness.getMachineType());
-        retVal.setGroupId(apiInstanceHealthiness.getGroupId());
+        retVal.setZone(apiInstanceHealthiness.getZone());
         retVal.setPrivateIpAddress(apiInstanceHealthiness.getPrivateIpAddress());
         retVal.setUpdatedAt(apiInstanceHealthiness.getUpdatedAt());
         retVal.setCreatedAt(apiInstanceHealthiness.getCreatedAt());

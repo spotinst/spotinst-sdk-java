@@ -23,12 +23,9 @@ public class ApiInitializeParamsGcp implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-
     public ApiInitializeParamsGcp() {
         isSet = new HashSet<>();
     }
-
-
     //endregion
 
     //region Getters & Setters
@@ -49,7 +46,6 @@ public class ApiInitializeParamsGcp implements IPartialUpdateEntity {
         isSet.add("diskSizeGb");
         this.diskSizeGb = diskSizeGb;
     }
-
     //endregion
 
     //region sourceImage
@@ -95,6 +91,5 @@ public class ApiInitializeParamsGcp implements IPartialUpdateEntity {
     public boolean isDiskTypeSet() {
         return isSet.contains("diskType");
     }
-
     //endregion
 }

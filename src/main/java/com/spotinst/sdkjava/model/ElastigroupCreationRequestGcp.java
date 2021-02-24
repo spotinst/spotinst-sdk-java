@@ -23,7 +23,6 @@ public class ElastigroupCreationRequestGcp {
 
 
     //region Getters & Setters
-
     public ElastigroupGcp getElastigroup() {
         return elastigroup;
     }
@@ -31,7 +30,6 @@ public class ElastigroupCreationRequestGcp {
     public void setElastigroup(ElastigroupGcp elastigroup) {
         this.elastigroup = elastigroup;
     }
-
     //endregion
 
     //region Builder class

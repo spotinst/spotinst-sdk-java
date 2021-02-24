@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupVmSizesAzure;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiLaunchSpecAzure;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -49,7 +48,7 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
         this.availabilityZones = availabilityZones;
     }
 
-    public List<ApiSubnetsGcp>  getSubnets() {
+    public List<ApiSubnetsGcp> getSubnets() {
         return subnets;
     }
 
