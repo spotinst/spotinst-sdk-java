@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 import org.apache.commons.lang3.StringUtils;
 
+
+// todo or: check with Ziv - if this should be a client parameter or as a separate request
 public class ElastigroupGetRequestGcp {
     //region Members
     private String elastigroupId;

@@ -5,21 +5,25 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
+class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
 
     @Override
-    public RepoGenericResponse<ElastigroupGcp> create(ElastigroupGcp elastigroupToCreate, String authToken, String account) {
+    public RepoGenericResponse<ElastigroupGcp> create(ElastigroupGcp elastigroupToCreate, String authToken,
+                                                      String account) {
         RepoGenericResponse<ElastigroupGcp> retVal;
 
         try {
-            ApiElastigroupGcp apiElastigroupToCreate = ElastigroupConverterGcp.toDal(elastigroupToCreate);
-            SpotinstElastigroupServiceGcp A = new SpotinstElastigroupServiceGcp();
-            ApiElastigroupGcp apiCreatedElastigroup =
-                    A.createElastigroup(apiElastigroupToCreate, authToken, account);
+            ApiElastigroupGcp             apiElastigroupToCreate = ElastigroupConverterGcp.toDal(elastigroupToCreate);
+            // todo or: CC, what is A? - DONE
+            SpotinstElastigroupServiceGcp elastigroupServiceGcp = new SpotinstElastigroupServiceGcp();
+            // todo or: check warning, should createElastigroup be a static method?
+            ApiElastigroupGcp             apiCreatedElastigroup  =
+                    elastigroupServiceGcp.createElastigroup(apiElastigroupToCreate, authToken, account);
 
             ElastigroupGcp createdElastigroup = ElastigroupConverterGcp.toBl(apiCreatedElastigroup);
             retVal = new RepoGenericResponse<>(createdElastigroup);
@@ -30,6 +34,8 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
 
         return retVal;
     }
+
+    // todo or: consistency in naming, identigier == elastigroupId?
     @Override
     public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
@@ -45,20 +51,22 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
 
         return retVal;
     }
+
     @Override
     public RepoGenericResponse<Boolean> update(String elastigroupId, ElastigroupGcp groupUpdate, String authToken,
                                                String account) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiElastigroupGcp apiElastigroup = ElastigroupConverterGcp.toDal(groupUpdate);
-
         try {
-            Boolean success = SpotinstElastigroupServiceGcp.updateGroup(elastigroupId, apiElastigroup, authToken, account);
+            ApiElastigroupGcp apiElastigroup = ElastigroupConverterGcp.toDal(groupUpdate);
+            Boolean success =
+                    SpotinstElastigroupServiceGcp.updateGroup(elastigroupId, apiElastigroup, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
+
         return retVal;
     }
 
@@ -67,7 +75,8 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
         RepoGenericResponse<List<ElastigroupGcp>> retVal;
 
         try {
-            List<ApiElastigroupGcp> apiElastigroups = SpotinstElastigroupServiceGcp.getAllGroups(filter, authToken, account);
+            List<ApiElastigroupGcp> apiElastigroups =
+                    SpotinstElastigroupServiceGcp.getAllGroups(filter, authToken, account);
             List<ElastigroupGcp> elastigroups =
                     apiElastigroups.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(elastigroups);
@@ -84,8 +93,9 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
         RepoGenericResponse<ElastigroupGcp> retVal;
 
         try {
-            ApiElastigroupGcp apiElastigroup = SpotinstElastigroupServiceGcp.getGroup(elastigroupId, authToken, account);
-            ElastigroupGcp    elastigroup    = ElastigroupConverterGcp.toBl(apiElastigroup);
+            ApiElastigroupGcp apiElastigroup =
+                    SpotinstElastigroupServiceGcp.getGroup(elastigroupId, authToken, account);
+            ElastigroupGcp elastigroup = ElastigroupConverterGcp.toBl(apiElastigroup);
             retVal = new RepoGenericResponse<>(elastigroup);
         }
         catch (SpotinstHttpException e) {
@@ -94,7 +104,6 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp{
 
         return retVal;
     }
-
 
 
 }

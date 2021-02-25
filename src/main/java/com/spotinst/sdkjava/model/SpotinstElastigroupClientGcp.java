@@ -1,4 +1,5 @@
 package com.spotinst.sdkjava.model;
+
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
@@ -12,10 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SpotinstElastigroupClientGcp {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupClientGcp.class);
+    private static final Logger                                         LOGGER =
+            LoggerFactory.getLogger(SpotinstElastigroupClientGcp.class);
     //region Members
-    private              String authToken;
-    private              String account;
+    private              String                                         authToken;
+    private              String                                         account;
+    // todo or: does not belong here
     private              ISpotinstElastigroupInstanceHealthinessRepoGcp spotinstElastigroupInstanceHealthinessRepoGcp;
     //endregion
 
@@ -34,9 +37,11 @@ public class SpotinstElastigroupClientGcp {
     }
 
     public SpotinstElastigroupClientGcp(String authToken, String account,
-                                          List<UserAgentConfig> userAgentConfigurations) {
+                                        List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
         this.account = account;
+
+        // todo or: do not use setters in constructor, pull from ManagerInstance instead (see AzureDeploymentsRepo)
         setInstanceHealthinessRepoGcp();
 
         if (userAgentConfigurations != null) {
@@ -49,15 +54,16 @@ public class SpotinstElastigroupClientGcp {
     //endregion
 
     //region Methods
+    // todo or: conventions
     public ElastigroupGcp createElastigroup(ElastigroupCreationRequestGcp elastigroupCreationRequest) {
 
         ElastigroupGcp retVal;
 
         ElastigroupGcp              elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
-        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoGcp repoGcp           = managerInstance.getSpotinstElastigroupRepoGcp();
-        RepoGenericResponse<ElastigroupGcp> creationResponse =
-                repoGcp.create(elastigroupToCreate, authToken, account);
+        SpotinstRepoManager         managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoGcp repoGcp             = managerInstance.getSpotinstElastigroupRepoGcp();
+        RepoGenericResponse<ElastigroupGcp> creationResponse = repoGcp.create(elastigroupToCreate, authToken, account);
+
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -69,6 +75,7 @@ public class SpotinstElastigroupClientGcp {
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -77,8 +84,8 @@ public class SpotinstElastigroupClientGcp {
         Boolean retVal;
 
         ElastigroupGcp              elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
-        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoGcp repoGcp           = managerInstance.getSpotinstElastigroupRepoGcp();
+        SpotinstRepoManager         managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoGcp repoGcp             = managerInstance.getSpotinstElastigroupRepoGcp();
         RepoGenericResponse<Boolean> updateResponse =
                 repoGcp.update(elastigroupId, elastigroupToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
@@ -97,10 +104,10 @@ public class SpotinstElastigroupClientGcp {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequestGcp elastigroupDeletionRequest) {
 
-        Boolean                       retVal;
-        String                        elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
-        SpotinstRepoManager           managerInstance       = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoGcp repoGcp             = managerInstance.getSpotinstElastigroupRepoGcp();
+        Boolean                     retVal;
+        String                      elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
+        SpotinstRepoManager         managerInstance       = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoGcp repoGcp               = managerInstance.getSpotinstElastigroupRepoGcp();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
                 repoGcp.delete(elastigroupToDeleteId, authToken, account);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
@@ -128,10 +135,11 @@ public class SpotinstElastigroupClientGcp {
         filter.setActiveFrom(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveFrom()));
         filter.setActiveTo(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveTo()));
         filter.setName(elastigroupGetAllRequest.getName());
+        // todo or: what if user wants to include deleted?
         filter.setIncludeDeleted(false);
 
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoGcp repoGcp       = managerInstance.getSpotinstElastigroupRepoGcp();
+        SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoGcp repoGcp         = managerInstance.getSpotinstElastigroupRepoGcp();
         RepoGenericResponse<List<ElastigroupGcp>> elastigroupsRepoGenericResponse =
                 repoGcp.getAll(filter, authToken, account);
         if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
@@ -145,16 +153,21 @@ public class SpotinstElastigroupClientGcp {
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
+        for(int i=0 ; i< retVal.size() ; i++ )
+            System.out.println("Group number:" + i+1 + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
+
         return retVal;
     }
 
+    // todo or: as we talked, check if there is justification for a separate class instead of passing ID directly
     public ElastigroupGcp getElastigroup(ElastigroupGetRequestGcp elastigroupGetRequest) {
 
         ElastigroupGcp retVal;
 
-        String elastigroupId = elastigroupGetRequest.getElastigroupId();
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoGcp repoGcp       = managerInstance.getSpotinstElastigroupRepoGcp();
+        String                      elastigroupId   = elastigroupGetRequest.getElastigroupId();
+        SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoGcp repoGcp         = managerInstance.getSpotinstElastigroupRepoGcp();
         RepoGenericResponse<ElastigroupGcp> elastigroupRepoGenericResponse =
                 repoGcp.get(elastigroupId, authToken, account);
 
@@ -165,14 +178,17 @@ public class SpotinstElastigroupClientGcp {
         else {
             List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get elastigroup : %s. Code: %s. Message: %s.",
-                                       elastigroupId,httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get elastigroup : %s. Code: %s. Message: %s.",
+                                  elastigroupId, httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return retVal;
     }
 
+
+    // todo or: this is probably not healthiness, status...
     public List<ElastigroupInstanceHealthinessGcp> getInstanceHealthiness(
             ElastigroupGetInstanceHealthinessRequestGcp elastigroupGetInstanceHealthinessRequest) {
         List<ElastigroupInstanceHealthinessGcp> retVal = new LinkedList<>();
@@ -187,6 +203,7 @@ public class SpotinstElastigroupClientGcp {
         }
         else {
             String errorMessage = "Error encountered while attempting to get instance healthiness of elastigroup";
+            // todo or: any special reason to use different method?
             handleFailure(instancesHealthinessResponse, errorMessage);
         }
 

@@ -8,13 +8,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiInstanceHealthinessGcp {
-    // todo or: add isSet, add constructor, add isXset booleans. - DONE
+    // todo oz: add isSet, add constructor, add isXset booleans. - DONE
     //region Members
-    // todo or: addd "publicIpAddress" - DONE
+    // todo oz: addd "publicIpAddress" - DONE
     private Set<String> isSet;
     private String      instanceName;
     private String      zone;
-    // todo or: remove groupId, does not return. - DONE
+    // todo oz: remove groupId, does not return. - DONE
     private String      machineType;
     private String      lifeCycle;
     private String      statusName;
@@ -51,7 +51,7 @@ public class ApiInstanceHealthinessGcp {
         return machineType;
     }
 
-    // todo or: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
+    // todo oz: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
     public void setMachineType(String machineType) { this.machineType = machineType; }
 
     public String getLifeCycle() {
@@ -66,7 +66,7 @@ public class ApiInstanceHealthinessGcp {
         return statusName;
     }
 
-    // todo or: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
+    // todo oz: check why setter is ununsed, converter? - DONE converter use get from api and set from bl
     public void setStatusName(String healthStatus) {
         this.statusName = healthStatus;
     }

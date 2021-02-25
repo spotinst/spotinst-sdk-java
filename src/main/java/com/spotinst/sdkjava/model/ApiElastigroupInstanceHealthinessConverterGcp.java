@@ -1,13 +1,15 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
-import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
+import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
 
-
+// todo or: rename
 class ApiElastigroupInstanceHealthinessConverterGcp {
 
+    // todo or: rename to toBl (convention)
     static ElastigroupInstanceHealthinessGcp dalToBl(ApiInstanceHealthinessGcp apiInstanceHealthiness) {
+        // todo or: check if null
         ElastigroupInstanceHealthinessGcp retVal = new ElastigroupInstanceHealthinessGcp();
 
         retVal.setInstanceName(apiInstanceHealthiness.getInstanceName());
@@ -25,8 +27,8 @@ class ApiElastigroupInstanceHealthinessConverterGcp {
         }
 
         if (apiInstanceHealthiness.getStatusName() != null) {
-            InstanceHealthStatusGcpEnum instanceHealthStatusEnum =
-                    InstanceHealthStatusGcpEnum.fromName(apiInstanceHealthiness.getStatusName());
+            GroupActiveInstanceStatusEnumGcp instanceHealthStatusEnum =
+                    GroupActiveInstanceStatusEnumGcp.fromName(apiInstanceHealthiness.getStatusName());
             retVal.setStatusName(instanceHealthStatusEnum);
         }
 

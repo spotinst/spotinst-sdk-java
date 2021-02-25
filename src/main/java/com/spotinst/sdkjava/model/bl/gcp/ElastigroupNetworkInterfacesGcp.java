@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-
 public class ElastigroupNetworkInterfacesGcp {
     //region Members
     @JsonIgnore
@@ -15,16 +14,12 @@ public class ElastigroupNetworkInterfacesGcp {
     //endregion
 
     //region Constructors
-
     private ElastigroupNetworkInterfacesGcp() {
         isSet = new HashSet<>();
     }
-
     //endregion
 
     //region Getters & Setters
-
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -55,8 +50,6 @@ public class ElastigroupNetworkInterfacesGcp {
     }
     //endregion
 
-    //endregion
-
     //region Builder class
     public static class Builder {
         private ElastigroupNetworkInterfacesGcp instanceTypes;
@@ -85,6 +78,7 @@ public class ElastigroupNetworkInterfacesGcp {
         }
     }
     //endregion
+
     //region isSet methods
     // Is network Set boolean method
     @JsonIgnore

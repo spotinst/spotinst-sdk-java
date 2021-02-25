@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum GcpPerformAtEnum {
+public enum PerformAtEnumGcp {
 
     never("never"),
     timeWindow("timeWindow"),
@@ -12,14 +12,14 @@ public enum GcpPerformAtEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
 
-    private GcpPerformAtEnum(String name) {
+    private PerformAtEnumGcp(String name) {
         this.name = name;
     }
 
-    public static GcpPerformAtEnum fromName(String name) {
-        GcpPerformAtEnum retVal = null;
+    public static PerformAtEnumGcp fromName(String name) {
+        PerformAtEnumGcp retVal = null;
 
-        for (GcpPerformAtEnum instanceMarketEnum : GcpPerformAtEnum.values()) {
+        for (PerformAtEnumGcp instanceMarketEnum : PerformAtEnumGcp.values()) {
             if (name.equalsIgnoreCase(instanceMarketEnum.name)) {
                 retVal = instanceMarketEnum;
                 break;

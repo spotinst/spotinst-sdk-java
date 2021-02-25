@@ -18,7 +18,7 @@ public class ApiSubnetsGcp implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private String       region;
-    // todo or: convert to set of strings - DONE
+    // todo oz: convert to set of strings - DONE
     private Set<String> subnetNames;
     //endregion
 

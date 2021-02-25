@@ -53,6 +53,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         if (elastigroupApiResponse.getResponse().getCount() > 0) {
             retVal = elastigroupApiResponse.getResponse().getItems().get(0);
         }
+
         return retVal;
     }
 
@@ -84,9 +85,11 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
         // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
+
         return retVal;
     }
 
@@ -125,6 +128,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
             }
 
             if (filter.getIncludeDeleted() != null) {
+                // todo or: check functionality of this
                 queryParams.put("includeDeleted", filter.getIncludeDeleted().toString());
             }
 
@@ -149,6 +153,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         if (allElastigroupsResponse.getResponse().getCount() > 0) {
             retVal = allElastigroupsResponse.getResponse().getItems();
         }
+
         return retVal;
     }
 
@@ -186,9 +191,11 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
         // Handle the response.
         ElastigroupApiResponseGcp updateResponse = getCastedResponse(response, ElastigroupApiResponseGcp.class);
+
         if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
+
         return retVal;
     }
 
@@ -218,6 +225,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
+        // todo or: unrelated variable name
         ElastigroupApiResponseGcp groupActiveInstanceResponse = getCastedResponse(response, ElastigroupApiResponseGcp.class);
 
         if (groupActiveInstanceResponse.getResponse().getCount() > 0) {
@@ -227,6 +235,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         return retVal;
     }
 
+    // todo or: should be getGroupStatus
     public static List<ApiInstanceHealthinessGcp> getInstanceHealthiness(String elastigroupId, String authToken,
                                                                          String account) throws SpotinstHttpException {
         // Init retVal

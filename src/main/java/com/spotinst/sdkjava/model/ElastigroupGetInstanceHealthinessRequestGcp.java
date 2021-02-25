@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
 
+// todo or: rename
 public class ElastigroupGetInstanceHealthinessRequestGcp {
     //region Members
     private String elastigroupId;

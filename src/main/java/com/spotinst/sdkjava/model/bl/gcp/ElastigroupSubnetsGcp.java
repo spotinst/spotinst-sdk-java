@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model.bl.gcp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ElastigroupSubnetsGcp {
@@ -15,7 +14,6 @@ public class ElastigroupSubnetsGcp {
     //endregion
 
     //region Constructors
-
     private ElastigroupSubnetsGcp() {
         isSet = new HashSet<>();
     }

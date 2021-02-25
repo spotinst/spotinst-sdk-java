@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.GcpPerformAtEnum;
+import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +17,7 @@ public class ApiRevertToPreemptibleGcp implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>      isSet;
-    private GcpPerformAtEnum performAt;
+    private PerformAtEnumGcp performAt;
     //endregion
 
     //region Constructor
@@ -36,12 +36,12 @@ public class ApiRevertToPreemptibleGcp implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public GcpPerformAtEnum getPerformAt() {
+    public PerformAtEnumGcp getPerformAt() {
 
         return performAt;
     }
 
-    public void setPerformAt(GcpPerformAtEnum performAt) {
+    public void setPerformAt(PerformAtEnumGcp performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
     }

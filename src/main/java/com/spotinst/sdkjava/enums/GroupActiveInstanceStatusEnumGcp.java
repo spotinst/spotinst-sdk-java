@@ -4,15 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public enum InstanceHealthStatusGcpEnum {
-    // todo or: "change value to lower case -> STOPPING("stopping") - DONE
+// todo oz: GroupActiveInstanceStatusEnumGcp - DONE
+public enum GroupActiveInstanceStatusEnumGcp {
+    // todo oz: "change value to lower case -> STOPPING("stopping") - DONE
     stopping("stopping"),
     terminated("terminated"),
     provisioning("provisioning"),
     staging("staging"),
     running("running");
 
-    private InstanceHealthStatusGcpEnum(String name) {
+    private GroupActiveInstanceStatusEnumGcp(String name) {
         this.name = name;
     }
 
@@ -21,12 +22,12 @@ public enum InstanceHealthStatusGcpEnum {
     }
 
     private final        String name;
-    private static final Logger LOGGER = LoggerFactory.getLogger(InstanceHealthStatusGcpEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GroupActiveInstanceStatusEnumGcp.class);
 
-    public static InstanceHealthStatusGcpEnum fromName(String name) {
-        InstanceHealthStatusGcpEnum retVal = null;
+    public static GroupActiveInstanceStatusEnumGcp fromName(String name) {
+        GroupActiveInstanceStatusEnumGcp retVal = null;
 
-        for (InstanceHealthStatusGcpEnum type : InstanceHealthStatusGcpEnum.values()) {
+        for (GroupActiveInstanceStatusEnumGcp type : GroupActiveInstanceStatusEnumGcp.values()) {
             if (name.equalsIgnoreCase(type.name)) {
                 retVal = type;
                 break;

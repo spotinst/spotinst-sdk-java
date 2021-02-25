@@ -1,21 +1,22 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
-import com.spotinst.sdkjava.enums.InstanceHealthStatusEnum;
-import com.spotinst.sdkjava.enums.InstanceHealthStatusGcpEnum;
+import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 
+// todo or: GroupActiveInstanceStatusGcp
 public class ElastigroupInstanceHealthinessGcp {
     //region Members
-    private String                      instanceName;
-    private String                      zone;
-    private String                      groupId;
-    private String                      machineType;
-    private String                      privateIpAddress;
-    private String                      publicIpAddress;
-    private String                      createdAt;
-    private String                      updatedAt;
-    private GcpInstanceLifecycleEnum    lifeCycle;
-    private InstanceHealthStatusGcpEnum statusName;
+    private String                           instanceName;
+    private String                           zone;
+    private String                           groupId;
+    private String                           machineType;
+    private String                           privateIpAddress;
+    private String                           publicIpAddress;
+    // todo or: Date
+    private String                           createdAt;
+    private String                           updatedAt;
+    private GcpInstanceLifecycleEnum         lifeCycle;
+    private GroupActiveInstanceStatusEnumGcp statusName;
     //endregion
 
     //region Getters & Setters
@@ -71,11 +72,11 @@ public class ElastigroupInstanceHealthinessGcp {
         this.lifeCycle = lifeCycle;
     }
 
-    public InstanceHealthStatusGcpEnum getStatusName() {
+    public GroupActiveInstanceStatusEnumGcp getStatusName() {
         return statusName;
     }
 
-    public void setStatusName(InstanceHealthStatusGcpEnum statusName) {
+    public void setStatusName(GroupActiveInstanceStatusEnumGcp statusName) {
         this.statusName = statusName;
     }
 

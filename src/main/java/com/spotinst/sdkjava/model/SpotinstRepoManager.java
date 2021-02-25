@@ -130,9 +130,7 @@ class SpotinstRepoManager {
         return spotinstElastigroupRepoGcp;
     }
 
-    public void setSpotinstElastigroupRepoGcp(ISpotinstElastigroupRepoGcp spotinstElastigroupRepo) {
-        this.spotinstElastigroupRepoGcp = spotinstElastigroupRepo;
-    }
+    // todo oz: no need for setter, already initiliazed in constrcutor - DONE
 
     public ISpotinstElastigroupDeploymentRepoAzure getSpotinstElastigroupDeploymentRepoAzure() {
         return spotinstElastigroupDeploymentRepoAzure;

@@ -1,18 +1,18 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.GcpPerformAtEnum;
+import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 
 import java.util.HashSet;
 import java.util.Set;
-
 
 public class ElastigroupRevertToPreemptibleGcp {
     //region Members
     @JsonIgnore
     private Set<String>      isSet;
-    // todo or: convert to enum - DONE
-    private GcpPerformAtEnum performAt;
+    // todo oz: convert to enum - DONE
+    // todo oz: rename as with convention - DONE
+    private PerformAtEnumGcp performAt;
     //endregion
 
     //region Constructors
@@ -31,11 +31,11 @@ public class ElastigroupRevertToPreemptibleGcp {
     }
 
     //region performAt
-    public GcpPerformAtEnum getPerformAt() {
+    public PerformAtEnumGcp getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(GcpPerformAtEnum performAt) {
+    public void setPerformAt(PerformAtEnumGcp performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
     }
@@ -54,7 +54,7 @@ public class ElastigroupRevertToPreemptibleGcp {
             return builder;
         }
 
-        public Builder setPerformAt(final GcpPerformAtEnum performAt) {
+        public Builder setPerformAt(final PerformAtEnumGcp performAt) {
             instanceTypes.setPerformAt(performAt);
             return this;
         }

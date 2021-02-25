@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.enums.AwsInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.AwsInstanceTypeEnum;
 import java.util.Date;
 
+// todo or: probably not needed, remove - this should be another object
 public class ElastigroupActiveInstanceGcp {
     //region Members
     private String instanceId;

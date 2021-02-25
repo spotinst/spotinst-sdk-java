@@ -8,12 +8,14 @@ import java.util.stream.Collectors;
 
 public class SpotinstElastigroupInstanceHealthinessRepoGcp implements ISpotinstElastigroupInstanceHealthinessRepoGcp {
 
+    // todo or: this is getting a single group's status, no getAll
     @Override
     public RepoGenericResponse<List<ElastigroupInstanceHealthinessGcp>> getAll(String elastigroupId, String authToken,
                                                                             String account) {
         RepoGenericResponse<List<ElastigroupInstanceHealthinessGcp>> retVal;
 
         try {
+            // todo or: rename
             List<ElastigroupInstanceHealthinessGcp> instanceHealthinesses;
             List<ApiInstanceHealthinessGcp> apiInstanceHealthinesses =
                     SpotinstElastigroupServiceGcp.getInstanceHealthiness(elastigroupId, authToken, account);

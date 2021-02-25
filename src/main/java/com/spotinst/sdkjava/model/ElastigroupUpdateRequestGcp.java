@@ -17,7 +17,6 @@ public class ElastigroupUpdateRequestGcp {
     //endregion
 
     //region Private Constructor
-
     private ElastigroupUpdateRequestGcp() {
     }
     //endregion
@@ -51,7 +50,6 @@ public class ElastigroupUpdateRequestGcp {
         }
 
         public ElastigroupUpdateRequestGcp build() {
-            // TODO : Validations
             return elastigroupCreationRequest;
         }
 

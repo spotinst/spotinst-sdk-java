@@ -4,6 +4,9 @@ import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
 import java.util.Date;
 
+
+// todo or: we need to check with Ziv if this should be here, or logic for this is in the client.
+// todo or: in any case, also test other params, and combos of them
 public class ElastigroupGetAllRequestGcp {
     //region Members
     private Date    minCreatedAt;
