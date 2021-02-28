@@ -244,7 +244,7 @@ public class ElastigroupUsageExampleGcp {
         ElastigroupGetGroupInstanceStatusRequestGcp instanceHealthinessRequest =
                 instanceHealthinessRequestBuilder.setElastigroupId(elastigroupId).build();
         List<GroupActiveInstanceStatusGcp> elastigroupInstanceHealthinesses =
-                elastigroupClient.getInstanceHealthiness(instanceHealthinessRequest);
+                elastigroupClient.getInstanceStatus(instanceHealthinessRequest);
 
         List<String> runningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                    instance.getStatusName() ==
