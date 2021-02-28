@@ -3,11 +3,12 @@ package com.spotinst.sdkjava.model.api.gcp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ApiInstanceHealthinessGcp {
+public class ApiGroupActiveInstanceStatusGcp {
     // todo oz: add isSet, add constructor, add isXset booleans. - DONE
     //region Members
     // todo oz: addd "publicIpAddress" - DONE
@@ -20,12 +21,12 @@ public class ApiInstanceHealthinessGcp {
     private String      statusName;
     private String      privateIpAddress;
     private String      publicIpAddress;
-    private String      createdAt;
-    private String      updatedAt;
+    private Date        createdAt;
+    private Date        updatedAt;
     //endregion
 
     //region Constructor
-    public ApiInstanceHealthinessGcp() {
+    public ApiGroupActiveInstanceStatusGcp() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -85,13 +86,13 @@ public class ApiInstanceHealthinessGcp {
         this.publicIpAddress = publicIpAddress;
     }
 
-    public String getCreatedAt() { return createdAt; }
+    public Date getCreatedAt() { return createdAt; }
 
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 
-    public String getUpdatedAt() { return updatedAt; }
+    public Date getUpdatedAt() { return updatedAt; }
 
-    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
+    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
     //endregion
 
     //region isset methods

@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
 import org.apache.http.HttpStatus;
 
 import java.util.*;
@@ -14,7 +14,7 @@ import java.util.*;
 
 class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
-    public static ApiElastigroupGcp createElastigroup(ApiElastigroupGcp groupToCreate, String authToken,
+    public ApiElastigroupGcp createElastigroup(ApiElastigroupGcp groupToCreate, String authToken,
                                                         String account) throws SpotinstHttpException {
         // Init retVal
         ApiElastigroupGcp retVal = null;
@@ -128,7 +128,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
             }
 
             if (filter.getIncludeDeleted() != null) {
-                // todo or: check functionality of this
+                // todo oz: check functionality of this - DONE - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
                 queryParams.put("includeDeleted", filter.getIncludeDeleted().toString());
             }
 
@@ -222,11 +222,11 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         String uri = String.format("%s/gcp/gce/group/%s", apiEndpoint, elastigroupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse getGroupResponse = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        // todo or: unrelated variable name
-        ElastigroupApiResponseGcp groupActiveInstanceResponse = getCastedResponse(response, ElastigroupApiResponseGcp.class);
+        // todo oz: unrelated variable name - DONE - getGroupResponse
+        ElastigroupApiResponseGcp groupActiveInstanceResponse = getCastedResponse(getGroupResponse, ElastigroupApiResponseGcp.class);
 
         if (groupActiveInstanceResponse.getResponse().getCount() > 0) {
             retVal = groupActiveInstanceResponse.getResponse().getItems().get(0);
@@ -235,11 +235,11 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         return retVal;
     }
 
-    // todo or: should be getGroupStatus
-    public static List<ApiInstanceHealthinessGcp> getInstanceHealthiness(String elastigroupId, String authToken,
-                                                                         String account) throws SpotinstHttpException {
+    // todo oz: should be getGroupStatus - DONE
+    public static List<ApiGroupActiveInstanceStatusGcp> getGroupStatus(String elastigroupId, String authToken,
+                                                                               String account) throws SpotinstHttpException {
         // Init retVal
-        List<ApiInstanceHealthinessGcp> retVal;
+        List<ApiGroupActiveInstanceStatusGcp> retVal;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -262,8 +262,8 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupInstanceHealthinessApiResponseGcp groupInstanceHealthinessResponse =
-                getCastedResponse(response, ElastigroupInstanceHealthinessApiResponseGcp.class);
+        ElastigroupInstanceStatusApiResponseGcp groupInstanceHealthinessResponse =
+                getCastedResponse(response, ElastigroupInstanceStatusApiResponseGcp.class);
 
         retVal = groupInstanceHealthinessResponse.getResponse().getItems();
 

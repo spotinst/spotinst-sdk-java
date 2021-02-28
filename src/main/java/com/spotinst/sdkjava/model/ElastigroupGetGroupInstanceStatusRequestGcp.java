@@ -3,14 +3,14 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
 
-// todo or: rename
-public class ElastigroupGetInstanceHealthinessRequestGcp {
+// todo oz: rename - DONE
+public class ElastigroupGetGroupInstanceStatusRequestGcp {
     //region Members
     private String elastigroupId;
     //endregion
 
     //region Private Constructor
-    private ElastigroupGetInstanceHealthinessRequestGcp() {
+    private ElastigroupGetGroupInstanceStatusRequestGcp() {
     }
     //endregion
 
@@ -26,24 +26,24 @@ public class ElastigroupGetInstanceHealthinessRequestGcp {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupGetInstanceHealthinessRequestGcp elastigroupInstanceHealthinessRequest;
+        private ElastigroupGetGroupInstanceStatusRequestGcp elastigroupInstanceHealthinessRequest;
 
         private Builder() {
-            this.elastigroupInstanceHealthinessRequest = new ElastigroupGetInstanceHealthinessRequestGcp();
+            this.elastigroupInstanceHealthinessRequest = new ElastigroupGetGroupInstanceStatusRequestGcp();
         }
 
-        public static ElastigroupGetInstanceHealthinessRequestGcp.Builder get() {
-            ElastigroupGetInstanceHealthinessRequestGcp.Builder builder =
-                    new ElastigroupGetInstanceHealthinessRequestGcp.Builder();
+        public static ElastigroupGetGroupInstanceStatusRequestGcp.Builder get() {
+            ElastigroupGetGroupInstanceStatusRequestGcp.Builder builder =
+                    new ElastigroupGetGroupInstanceStatusRequestGcp.Builder();
             return builder;
         }
 
-        public ElastigroupGetInstanceHealthinessRequestGcp.Builder setElastigroupId(final String elastigroupId) {
+        public ElastigroupGetGroupInstanceStatusRequestGcp.Builder setElastigroupId(final String elastigroupId) {
             elastigroupInstanceHealthinessRequest.setElastigroupId(elastigroupId);
             return this;
         }
 
-        public ElastigroupGetInstanceHealthinessRequestGcp build() {
+        public ElastigroupGetGroupInstanceStatusRequestGcp build() {
 
             if (elastigroupInstanceHealthinessRequest.getElastigroupId() == null) {
                 throw new SpotinstValidationException("Invalid Request - group id must be specified");

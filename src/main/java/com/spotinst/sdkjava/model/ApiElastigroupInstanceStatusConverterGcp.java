@@ -2,15 +2,15 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
-import com.spotinst.sdkjava.model.api.gcp.ApiInstanceHealthinessGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
 
-// todo or: rename
-class ApiElastigroupInstanceHealthinessConverterGcp {
+// todo oz: rename - DONE
+class ApiElastigroupInstanceStatusConverterGcp {
 
-    // todo or: rename to toBl (convention)
-    static ElastigroupInstanceHealthinessGcp dalToBl(ApiInstanceHealthinessGcp apiInstanceHealthiness) {
-        // todo or: check if null
-        ElastigroupInstanceHealthinessGcp retVal = new ElastigroupInstanceHealthinessGcp();
+    // todo oz: rename to toBl (convention) - DONE
+    static GroupActiveInstanceStatusGcp toBl(ApiGroupActiveInstanceStatusGcp apiInstanceHealthiness) {
+        // todo oz: check if null - how? it returns from cloud provider
+        GroupActiveInstanceStatusGcp retVal = new GroupActiveInstanceStatusGcp();
 
         retVal.setInstanceName(apiInstanceHealthiness.getInstanceName());
         retVal.setPublicIpAddress(apiInstanceHealthiness.getPublicIpAddress());

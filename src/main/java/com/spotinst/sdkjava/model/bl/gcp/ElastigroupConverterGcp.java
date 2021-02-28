@@ -47,7 +47,7 @@ public class ElastigroupConverterGcp {
             retVal = new ApiGroupComputeGcp();
 
             if (compute.isAvailabilityZonesSet()) {
-                // todo or: what if set to null? - DONE return 400 says cannot be null (failed to create a group)
+                // todo oz: what if set to null? - DONE return 400 says cannot be null (failed to create a group)
                 retVal.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
             }
             if (compute.isLaunchSpecificationSet()) {
@@ -178,7 +178,7 @@ public class ElastigroupConverterGcp {
             if (subnetsGcp.isSubnetNamesSet()) {
 
                 if (subnetsGcp.getSubnetNames() != null) {
-                    // todo or: what if set to null? - it can be nullified, but if so, instances cant run (always be on 0) (break or save as null?)
+                    // todo oz: what if set to null? - it can be nullified, but if so, instances cant run (always be on 0) (break or save as null?)
                     retVal.setSubnetNames(new LinkedHashSet<>(subnetsGcp.getSubnetNames()));
                 }
 
@@ -208,7 +208,7 @@ public class ElastigroupConverterGcp {
                 retVal.setFallbackToOd(strategyConfigurationGcp.getFallbackToOd());
             }
             if (strategyConfigurationGcp.isOptimizationWindowsSet()) {
-                // todo or: what if it's set to null? - cannot be null - return 400
+                // todo oz: what if it's set to null? - cannot be null - return 400
                 retVal.setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
             }
             else {
@@ -271,7 +271,7 @@ public class ElastigroupConverterGcp {
                 retVal.setOndemand(instanceTypesGcp.getOndemand());
             }
             if (instanceTypesGcp.isPreemptibleSet()) {
-                // todo or: what if set to null? - cannot be null return 400
+                // todo oz: what if set to null? - cannot be null return 400
                 retVal.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
             }
         }
@@ -322,7 +322,7 @@ public class ElastigroupConverterGcp {
             ElastigroupComputeGcp.Builder blComputeBuilder = ElastigroupComputeGcp.Builder.get();
 
             if (compute.isAvailabilityZonesSet()) {
-                // todo or: if null - cannot be null - return 400
+                // todo oz: if null - cannot be null - return 400
                 blComputeBuilder.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
             }
             if (compute.isLaunchSpecificationSet()) {
@@ -330,7 +330,7 @@ public class ElastigroupConverterGcp {
             }
             if (compute.isSubnetsSet()) {
                 if (compute.getSubnets() != null) {
-                    // todo or: if null - it can be nullified, but if so, instances cant run (always be on 0
+                    // todo oz: if null - it can be nullified, but if so, instances cant run (always be on 0
                     List<ApiSubnetsGcp> apiOptimizerSubnets = compute.getSubnets();
                     List<ElastigroupSubnetsGcp> optimizerSubnets =
                             apiOptimizerSubnets.stream().map(ElastigroupConverterGcp::toBl)
@@ -355,7 +355,7 @@ public class ElastigroupConverterGcp {
                     ElastigroupLaunchSpecificationGcp.Builder.get();
 
             if (launchSpecification.isDisksSet()) {
-                // todo or: if null - cant be null, return 400
+                // todo oz: if null - cant be null, return 400
                 if (launchSpecification.getDisks() != null) {
                     List<ApiDisksGcp> apiOptimizerDisks = launchSpecification.getDisks();
                     List<ElastigroupDisksGcp> optimizerDisks =
@@ -364,7 +364,7 @@ public class ElastigroupConverterGcp {
                 }
             }
             if (launchSpecification.isNetworkInterfacesSet()) {
-                // todo or: if null -cant be null, return 400
+                // todo oz: if null -cant be null, return 400
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterfacesGcp> apiOptimizerNetworkInterfaces =
                             launchSpecification.getNetworkInterfaces();
@@ -493,7 +493,7 @@ public class ElastigroupConverterGcp {
                 blStrategyConfigurationGcpBuilder.setFallbackToOd(strategyConfigurationGcp.getFallbackToOd());
             }
             if (strategyConfigurationGcp.isOptimizationWindowsSet()) {
-                // todo or: what if it became back as null from Api? - cant be null return 400
+                // todo oz: what if it became back as null from Api? - cant be null return 400
                 blStrategyConfigurationGcpBuilder
                         .setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
             }
@@ -557,7 +557,7 @@ public class ElastigroupConverterGcp {
                 blInstanceTypesGcpBuilder.setOndemand(instanceTypesGcp.getOndemand());
             }
             if (instanceTypesGcp.isPreemptibleSet()) {
-                // todo or: if null cant be null, return 400
+                // todo oz: if null cant be null, return 400
                 blInstanceTypesGcpBuilder.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
             }
             retVal = blInstanceTypesGcpBuilder.build();

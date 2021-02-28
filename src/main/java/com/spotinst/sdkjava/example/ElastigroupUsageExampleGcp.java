@@ -44,13 +44,13 @@ public class ElastigroupUsageExampleGcp {
         sleep(7);
 
         // List all Elastigroups
-        getAllElastigroupsIncludeDeleted(elastigroupClient);
+        getAllElastigroups(elastigroupClient);
 
         //Get elastigroup status
-        getInstanceHealthiness(elastigroupClient, elastigroupId);
+        getElastigroupStatus(elastigroupClient, elastigroupId);
 
         // Delete elastigroup
-       //deleteElastigroup(elastigroupClient, elastigroupId);
+       deleteElastigroup(elastigroupClient, elastigroupId);
     }
 
     private static String  createElastigroup(SpotinstElastigroupClientGcp client) {
@@ -228,52 +228,52 @@ public class ElastigroupUsageExampleGcp {
         }
     }
 
-    private static List<ElastigroupGcp> getAllElastigroupsIncludeDeleted(SpotinstElastigroupClientGcp client) {
+    private static List<ElastigroupGcp> getAllElastigroups(SpotinstElastigroupClientGcp client) {
 
         ElastigroupGetAllRequestGcp.Builder requestBuilder = ElastigroupGetAllRequestGcp.Builder.get();
-        // todo or: check again
+        // todo oז: check again - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
         ElastigroupGetAllRequestGcp requestByName =
                 requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
         return client.getAllElastigroups(requestByName);
     }
 
-    private static void getInstanceHealthiness(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
-        ElastigroupGetInstanceHealthinessRequestGcp.Builder instanceHealthinessRequestBuilder =
-                ElastigroupGetInstanceHealthinessRequestGcp.Builder.get();
+    private static void getElastigroupStatus(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
+        ElastigroupGetGroupInstanceStatusRequestGcp.Builder instanceHealthinessRequestBuilder =
+                ElastigroupGetGroupInstanceStatusRequestGcp.Builder.get();
 
-        ElastigroupGetInstanceHealthinessRequestGcp instanceHealthinessRequest =
+        ElastigroupGetGroupInstanceStatusRequestGcp instanceHealthinessRequest =
                 instanceHealthinessRequestBuilder.setElastigroupId(elastigroupId).build();
-        List<ElastigroupInstanceHealthinessGcp> elastigroupInstanceHealthinesses =
+        List<GroupActiveInstanceStatusGcp> elastigroupInstanceHealthinesses =
                 elastigroupClient.getInstanceHealthiness(instanceHealthinessRequest);
 
         List<String> runningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                    instance.getStatusName() ==
                                                                                                    GroupActiveInstanceStatusEnumGcp.running)
-                                                                          .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                          .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                           .collect(Collectors.toList());
 
         List<String> terminatedInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                       instance.getStatusName() ==
                                                                                                       GroupActiveInstanceStatusEnumGcp.terminated)
-                                                                            .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                            .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                             .collect(Collectors.toList());
 
         List<String> provisioningInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                         instance.getStatusName() ==
                                                                                                         GroupActiveInstanceStatusEnumGcp.provisioning)
-                                                                                   .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                                   .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                                    .collect(Collectors.toList());
 
         List<String> stoppingInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                     instance.getStatusName() ==
                                                                                                     GroupActiveInstanceStatusEnumGcp.stopping)
-                                                                                .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                                .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                                 .collect(Collectors.toList());
 
         List<String> stagingInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
                                                                                                    instance.getStatusName() ==
                                                                                                    GroupActiveInstanceStatusEnumGcp.staging)
-                                                                            .map(ElastigroupInstanceHealthinessGcp::getInstanceName)
+                                                                            .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                             .collect(Collectors.toList());
 
         System.out.println(String.format("%s Running status instances: %s", runningInstanceIds.size(), runningInstanceIds));

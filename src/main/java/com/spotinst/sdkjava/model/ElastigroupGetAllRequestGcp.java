@@ -5,8 +5,8 @@ import com.spotinst.sdkjava.exception.SpotinstValidationException;
 import java.util.Date;
 
 
-// todo or: we need to check with Ziv if this should be here, or logic for this is in the client.
-// todo or: in any case, also test other params, and combos of them
+// todo oz: we need to check with Ziv if this should be here, or logic for this is in the client. - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
+// todo oz: in any case, also test other params, and combos of them - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
 public class ElastigroupGetAllRequestGcp {
     //region Members
     private Date    minCreatedAt;

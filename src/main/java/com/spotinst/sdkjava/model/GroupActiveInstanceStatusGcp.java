@@ -3,8 +3,10 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 
-// todo or: GroupActiveInstanceStatusGcp
-public class ElastigroupInstanceHealthinessGcp {
+import java.util.Date;
+
+// todo oz: GroupActiveInstanceStatusGcp - DONE
+public class GroupActiveInstanceStatusGcp {
     //region Members
     private String                           instanceName;
     private String                           zone;
@@ -12,9 +14,9 @@ public class ElastigroupInstanceHealthinessGcp {
     private String                           machineType;
     private String                           privateIpAddress;
     private String                           publicIpAddress;
-    // todo or: Date
-    private String                           createdAt;
-    private String                           updatedAt;
+    // todo oz: Date - DONE
+    private Date                             createdAt;
+    private Date                             updatedAt;
     private GcpInstanceLifecycleEnum         lifeCycle;
     private GroupActiveInstanceStatusEnumGcp statusName;
     //endregion
@@ -80,12 +82,12 @@ public class ElastigroupInstanceHealthinessGcp {
         this.statusName = statusName;
     }
 
-    public String getCreatedAt() { return createdAt; }
+    public Date getCreatedAt() { return createdAt; }
 
-    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt; }
 
-    public String getUpdatedAt() { return updatedAt; }
+    public Date getUpdatedAt() { return updatedAt; }
 
-    public void setUpdatedAt(String updatedAt) { this.updatedAt = updatedAt; }
+    public void setUpdatedAt(Date updatedAt) { this.updatedAt = updatedAt; }
     //endregion
 }

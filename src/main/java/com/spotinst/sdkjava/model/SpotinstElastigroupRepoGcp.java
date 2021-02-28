@@ -19,9 +19,9 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
 
         try {
             ApiElastigroupGcp             apiElastigroupToCreate = ElastigroupConverterGcp.toDal(elastigroupToCreate);
-            // todo or: CC, what is A? - DONE
+            // todo oz: CC, what is A? - DONE
             SpotinstElastigroupServiceGcp elastigroupServiceGcp = new SpotinstElastigroupServiceGcp();
-            // todo or: check warning, should createElastigroup be a static method?
+            // todo oz: check warning, should createElastigroup be a static method? - DONE createElastigroup shouldnt be static - warning is off
             ApiElastigroupGcp             apiCreatedElastigroup  =
                     elastigroupServiceGcp.createElastigroup(apiElastigroupToCreate, authToken, account);
 
@@ -35,13 +35,13 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return retVal;
     }
 
-    // todo or: consistency in naming, identigier == elastigroupId?
+    // todo oz: consistency in naming, identigier == elastigroupId? - DONE - after a debug it is elastigroupId
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
+    public RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = SpotinstElastigroupServiceGcp.deleteElastigroup(identifier, authToken, account);
+            Boolean updated = SpotinstElastigroupServiceGcp.deleteElastigroup(elastigroupId, authToken, account);
             retVal = new RepoGenericResponse<>(updated);
 
         }

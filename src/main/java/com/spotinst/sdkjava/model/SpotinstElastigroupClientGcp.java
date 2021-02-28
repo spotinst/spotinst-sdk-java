@@ -13,16 +13,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SpotinstElastigroupClientGcp {
-    private static final Logger                                         LOGGER =
+    private static final Logger                                    LOGGER =
             LoggerFactory.getLogger(SpotinstElastigroupClientGcp.class);
     //region Members
-    private              String                                         authToken;
-    private              String                                         account;
+    private              String                                    authToken;
+    private              String                                    account;
     // todo or: does not belong here
-    private              ISpotinstElastigroupInstanceHealthinessRepoGcp spotinstElastigroupInstanceHealthinessRepoGcp;
+    private              ISpotinstElastigroupInstanceStatusRepoGcp spotinstElastigroupInstanceHealthinessRepoGcp;
     //endregion
 
-    public ISpotinstElastigroupInstanceHealthinessRepoGcp getSpotinstElastigroupInstanceHealthinessRepoGcp() {
+    public ISpotinstElastigroupInstanceStatusRepoGcp getSpotinstElastigroupInstanceHealthinessRepoGcp() {
         return this.spotinstElastigroupInstanceHealthinessRepoGcp;
     }
 
@@ -135,8 +135,8 @@ public class SpotinstElastigroupClientGcp {
         filter.setActiveFrom(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveFrom()));
         filter.setActiveTo(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveTo()));
         filter.setName(elastigroupGetAllRequest.getName());
-        // todo or: what if user wants to include deleted?
-        filter.setIncludeDeleted(false);
+        // todo oz: what if user wants to include deleted? - DONE
+        filter.setIncludeDeleted(elastigroupGetAllRequest.getIncludeDeleted());
 
         SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoGcp repoGcp         = managerInstance.getSpotinstElastigroupRepoGcp();
@@ -155,7 +155,7 @@ public class SpotinstElastigroupClientGcp {
         }
 
         for(int i=0 ; i< retVal.size() ; i++ )
-            System.out.println("Group number:" + i+1 + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
+            System.out.println("Group number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
 
         return retVal;
     }
@@ -189,13 +189,13 @@ public class SpotinstElastigroupClientGcp {
 
 
     // todo or: this is probably not healthiness, status...
-    public List<ElastigroupInstanceHealthinessGcp> getInstanceHealthiness(
-            ElastigroupGetInstanceHealthinessRequestGcp elastigroupGetInstanceHealthinessRequest) {
-        List<ElastigroupInstanceHealthinessGcp> retVal = new LinkedList<>();
+    public List<GroupActiveInstanceStatusGcp> getInstanceHealthiness(
+            ElastigroupGetGroupInstanceStatusRequestGcp elastigroupGetInstanceHealthinessRequest) {
+        List<GroupActiveInstanceStatusGcp> retVal = new LinkedList<>();
 
         String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
 
-        RepoGenericResponse<List<ElastigroupInstanceHealthinessGcp>> instancesHealthinessResponse =
+        RepoGenericResponse<List<GroupActiveInstanceStatusGcp>> instancesHealthinessResponse =
                 getSpotinstElastigroupInstanceHealthinessRepoGcp().getAll(elastigroupId, authToken, account);
 
         if (instancesHealthinessResponse.isRequestSucceed()) {
