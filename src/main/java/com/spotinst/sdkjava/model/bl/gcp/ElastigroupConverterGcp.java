@@ -23,15 +23,19 @@ public class ElastigroupConverterGcp {
             if (src.isNameSet()) {
                 retVal.setName(src.getName());
             }
+
             if (src.isDescriptionSet()) {
                 retVal.setDescription(src.getDescription());
             }
+
             if (src.isCapacitySet()) {
                 retVal.setCapacity(toDal(src.getCapacity()));
             }
+
             if (src.isStrategySet()) {
                 retVal.setStrategy(toDal(src.getStrategy()));
             }
+
             if (src.isComputeSet()) {
                 retVal.setCompute(toDal(src.getCompute()));
             }
@@ -47,12 +51,19 @@ public class ElastigroupConverterGcp {
             retVal = new ApiGroupComputeGcp();
 
             if (compute.isAvailabilityZonesSet()) {
-                // todo oz: what if set to null? - DONE return 400 says cannot be null (failed to create a group)
-                retVal.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
+                    //todo oz: if null - DONE
+                if (compute.getAvailabilityZones() == null) {
+                    retVal.setAvailabilityZones(null);
+                }
+                else {
+                    retVal.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
+                }
             }
+
             if (compute.isLaunchSpecificationSet()) {
                 retVal.setLaunchSpecification(toDal(compute.getLaunchSpecification()));
             }
+
             if (compute.isSubnetsSet()) {
 
                 if (compute.getSubnets() != null) {
@@ -62,6 +73,7 @@ public class ElastigroupConverterGcp {
                 }
 
             }
+
             if (compute.isInstanceTypesSet()) {
                 retVal.setInstanceTypes(toDal(compute.getInstanceTypes()));
             }
@@ -83,13 +95,20 @@ public class ElastigroupConverterGcp {
                                                .collect(Collectors.toList());
                     retVal.setDisks(optimizerDisks);
                 }
+                else {
+                    retVal.setDisks(null);
+                }
             }
+
             if (launchSpecification.isNetworkInterfacesSet()) {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterfacesGcp> optimizerNetworkInterfaces =
                             launchSpecification.getNetworkInterfaces().stream().map(ElastigroupConverterGcp::toDal)
                                                .collect(Collectors.toList());
                     retVal.setNetworkInterfaces(optimizerNetworkInterfaces);
+                }
+                else {
+                    retVal.setNetworkInterfaces(null);
                 }
             }
         }
@@ -106,21 +125,27 @@ public class ElastigroupConverterGcp {
             if (disksGcp.isAutoDeleteSet()) {
                 retVal.setAutoDelete(disksGcp.getAutoDelete());
             }
+
             if (disksGcp.isBootSet()) {
                 retVal.setBoot(disksGcp.getBoot());
             }
+
             if (disksGcp.isDeviceNameSet()) {
                 retVal.setDeviceName(disksGcp.getDeviceName());
             }
+
             if (disksGcp.isTypeSet()) {
                 retVal.setType(disksGcp.getType());
             }
+
             if (disksGcp.isSourceSet()) {
                 retVal.setSource(disksGcp.getSource());
             }
+
             if (disksGcp.isModeSet()) {
                 retVal.setMode(disksGcp.getMode());
             }
+
             if (disksGcp.isInitializeParamsSet()) {
                 retVal.setInitializeParams(toDal(disksGcp.getInitializeParams()));
             }
@@ -138,9 +163,11 @@ public class ElastigroupConverterGcp {
             if (initializeParamsGcp.isDiskSizeGbSet()) {
                 retVal.setDiskSizeGb(initializeParamsGcp.getDiskSizeGb());
             }
+
             if (initializeParamsGcp.isDiskTypeSet()) {
                 retVal.setDiskType(initializeParamsGcp.getDiskType());
             }
+
             if (initializeParamsGcp.isSourceImageSet()) {
                 retVal.setSourceImage(initializeParamsGcp.getSourceImage());
             }
@@ -158,6 +185,7 @@ public class ElastigroupConverterGcp {
             if (network.isNetworkSet()) {
                 retVal.setNetwork(network.getNetwork());
             }
+
             if (network.isProjectIdSet()) {
                 retVal.setProjectId(network.getProjectId());
             }
@@ -175,11 +203,17 @@ public class ElastigroupConverterGcp {
             if (subnetsGcp.isRegionSet()) {
                 retVal.setRegion(subnetsGcp.getRegion());
             }
+
             if (subnetsGcp.isSubnetNamesSet()) {
 
                 if (subnetsGcp.getSubnetNames() != null) {
-                    // todo oz: what if set to null? - it can be nullified, but if so, instances cant run (always be on 0) (break or save as null?)
-                    retVal.setSubnetNames(new LinkedHashSet<>(subnetsGcp.getSubnetNames()));
+                    // todo oz: what if set to null? - it can be nullified, but if so, instances cant run (always be on 0) (break or save as null?) - DONE
+                    if(subnetsGcp.getSubnetNames() == null) {
+                        retVal.setSubnetNames(null);
+                    }
+                    else {
+                        retVal.setSubnetNames(new LinkedHashSet<>(subnetsGcp.getSubnetNames()));
+                    }
                 }
 
             }
@@ -198,22 +232,30 @@ public class ElastigroupConverterGcp {
             if (strategyConfigurationGcp.isPreemptiblePercentageSet()) {
                 retVal.setPreemptiblePercentage(strategyConfigurationGcp.getPreemptiblePercentage());
             }
+
             if (strategyConfigurationGcp.isOnDemandCountSet()) {
                 retVal.setOnDemandCount(strategyConfigurationGcp.getOnDemandCount());
             }
+
             if (strategyConfigurationGcp.isDrainingTimeoutSet()) {
                 retVal.setDrainingTimeout(strategyConfigurationGcp.getDrainingTimeout());
             }
+
             if (strategyConfigurationGcp.isFallbackToOdSet()) {
                 retVal.setFallbackToOd(strategyConfigurationGcp.getFallbackToOd());
             }
+            // todo oz: what if it's set to null? - cannot be null - return 400 - DONE
             if (strategyConfigurationGcp.isOptimizationWindowsSet()) {
-                // todo oz: what if it's set to null? - cannot be null - return 400
-                retVal.setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
+
+                if(strategyConfigurationGcp.getOptimizationWindows() == null) {
+                    retVal.setOptimizationWindows(null);
+                }
+
+                else {
+                    retVal.setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
+                }
             }
-            else {
-                retVal.setOptimizationWindows(null);
-            }
+
             if (strategyConfigurationGcp.isRevertToPreemptibleSet()) {
                 retVal.setRevertToPreemptible(toDal(strategyConfigurationGcp.getRevertToPreemptible()));
             }
@@ -247,12 +289,15 @@ public class ElastigroupConverterGcp {
             if (capacityConfigurationGcp.isMinimumSet()) {
                 retVal.setMinimum(capacityConfigurationGcp.getMinimum());
             }
+
             if (capacityConfigurationGcp.isMaximumSet()) {
                 retVal.setMaximum(capacityConfigurationGcp.getMaximum());
             }
+
             if (capacityConfigurationGcp.isTargetSet()) {
                 retVal.setTarget(capacityConfigurationGcp.getTarget());
             }
+
             if (capacityConfigurationGcp.isUnitSet()) {
                 retVal.setUnit(capacityConfigurationGcp.getUnit());
             }
@@ -261,6 +306,7 @@ public class ElastigroupConverterGcp {
         return retVal;
     }
 
+    //todo oz: beautify
     private static ApiInstanceTypesGcp toDal(ElastigroupInstanceTypesGcp instanceTypesGcp) {
         ApiInstanceTypesGcp retVal = null;
 
@@ -270,9 +316,17 @@ public class ElastigroupConverterGcp {
             if (instanceTypesGcp.isOndemandSet()) {
                 retVal.setOndemand(instanceTypesGcp.getOndemand());
             }
+
             if (instanceTypesGcp.isPreemptibleSet()) {
-                // todo oz: what if set to null? - cannot be null return 400
-                retVal.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
+                // todo oz: what if set to null? - cannot be null return 400 - DONE
+                if (instanceTypesGcp.getPreemptible() == null) {
+                    retVal.setPreemptible(null);
+                }
+
+                else {
+                    retVal.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
+                }
+
             }
         }
 
@@ -290,21 +344,27 @@ public class ElastigroupConverterGcp {
             if (src.isIdSet()) {
                 elastigroupBuilder.setId(src.getId());
             }
+
             if (src.isNameSet()) {
                 elastigroupBuilder.setName(src.getName());
             }
+
             if (src.isDescriptionSet()) {
                 elastigroupBuilder.setDescription(src.getDescription());
             }
+
             if (src.isCapacitySet()) {
                 elastigroupBuilder.setCapacity(toBl(src.getCapacity()));
             }
+
             if (src.isStrategySet()) {
                 elastigroupBuilder.setStrategy(toBl(src.getStrategy()));
             }
+
             if (src.isComputeSet()) {
                 elastigroupBuilder.setCompute(toBl(src.getCompute()));
             }
+
             retVal = elastigroupBuilder.build();
             // createdAt is not taken from builder since it cannot be set when creating/updating an Elastigroup
             if (src.isCreatedAtSet()) {
@@ -322,25 +382,39 @@ public class ElastigroupConverterGcp {
             ElastigroupComputeGcp.Builder blComputeBuilder = ElastigroupComputeGcp.Builder.get();
 
             if (compute.isAvailabilityZonesSet()) {
-                // todo oz: if null - cannot be null - return 400
-                blComputeBuilder.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
+                // todo oz: if null - DONE
+                if(compute.getAvailabilityZones() == null) {
+                    blComputeBuilder.setAvailabilityZones(null);
+                }
+
+                else {
+                    blComputeBuilder.setAvailabilityZones(new LinkedList<>(compute.getAvailabilityZones()));
+                }
             }
+
             if (compute.isLaunchSpecificationSet()) {
                 blComputeBuilder.setLaunchSpecification(toBl(compute.getLaunchSpecification()));
             }
+
             if (compute.isSubnetsSet()) {
                 if (compute.getSubnets() != null) {
-                    // todo oz: if null - it can be nullified, but if so, instances cant run (always be on 0
+                    // todo oz: if null - DONE
                     List<ApiSubnetsGcp> apiOptimizerSubnets = compute.getSubnets();
                     List<ElastigroupSubnetsGcp> optimizerSubnets =
                             apiOptimizerSubnets.stream().map(ElastigroupConverterGcp::toBl)
                                                .collect(Collectors.toList());
                     blComputeBuilder.setSubnets(optimizerSubnets);
                 }
+
+                else {
+                    blComputeBuilder.setSubnets(null);
+                }
             }
+
             if (compute.isInstanceTypesSet()) {
                 blComputeBuilder.setInstanceTypes(toBl(compute.getInstanceTypes()));
             }
+
             retVal = blComputeBuilder.build();
         }
 
@@ -355,16 +429,21 @@ public class ElastigroupConverterGcp {
                     ElastigroupLaunchSpecificationGcp.Builder.get();
 
             if (launchSpecification.isDisksSet()) {
-                // todo oz: if null - cant be null, return 400
+                // todo oz: if null - DONE
                 if (launchSpecification.getDisks() != null) {
                     List<ApiDisksGcp> apiOptimizerDisks = launchSpecification.getDisks();
                     List<ElastigroupDisksGcp> optimizerDisks =
                             apiOptimizerDisks.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
                     blLaunchSpecificationBuilder.setDisks(optimizerDisks);
                 }
+
+                else {
+                    blLaunchSpecificationBuilder.setDisks(null);
+                }
             }
+
             if (launchSpecification.isNetworkInterfacesSet()) {
-                // todo oz: if null -cant be null, return 400
+                // todo oz: if null - DONE
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterfacesGcp> apiOptimizerNetworkInterfaces =
                             launchSpecification.getNetworkInterfaces();
@@ -373,7 +452,12 @@ public class ElastigroupConverterGcp {
                                                          .collect(Collectors.toList());
                     blLaunchSpecificationBuilder.setNetworkInterfaces(optimizerNetworkInterfaces);
                 }
+
+                else {
+                    blLaunchSpecificationBuilder.setNetworkInterfaces(null);
+                }
             }
+
             retVal = blLaunchSpecificationBuilder.build();
         }
 
@@ -389,24 +473,31 @@ public class ElastigroupConverterGcp {
             if (disksGcp.isAutoDeleteSet()) {
                 blDisksGcpBuilder.setAutoDelete(disksGcp.getAutoDelete());
             }
+
             if (disksGcp.isBootSet()) {
                 blDisksGcpBuilder.setBoot(disksGcp.getBoot());
             }
+
             if (disksGcp.isDeviceNameSet()) {
                 blDisksGcpBuilder.setDeviceName(disksGcp.getDeviceName());
             }
+
             if (disksGcp.isTypeSet()) {
                 blDisksGcpBuilder.setType(disksGcp.getType());
             }
+
             if (disksGcp.isSourceSet()) {
                 blDisksGcpBuilder.setSource(disksGcp.getSource());
             }
+
             if (disksGcp.isModeSet()) {
                 blDisksGcpBuilder.setMode(disksGcp.getMode());
             }
+
             if (disksGcp.isInitializeParamsSet()) {
                 blDisksGcpBuilder.setInitializeParams(toBl(disksGcp.getInitializeParams()));
             }
+
             retVal = blDisksGcpBuilder.build();
         }
 
@@ -423,12 +514,15 @@ public class ElastigroupConverterGcp {
             if (initializeParamsGcp.isDiskSizeGbSet()) {
                 blInitializeParamsGcpBuilder.setDiskSizeGb(initializeParamsGcp.getDiskSizeGb());
             }
+
             if (initializeParamsGcp.isDiskTypeSet()) {
                 blInitializeParamsGcpBuilder.setDiskType(initializeParamsGcp.getDiskType());
             }
+
             if (initializeParamsGcp.isSourceImageSet()) {
                 blInitializeParamsGcpBuilder.setSourceImage(initializeParamsGcp.getSourceImage());
             }
+
             retVal = blInitializeParamsGcpBuilder.build();
         }
 
@@ -444,9 +538,11 @@ public class ElastigroupConverterGcp {
             if (network.isNetworkSet()) {
                 blNetworkBuilder.setNetwork(network.getNetwork());
             }
+
             if (network.isProjectIdSet()) {
                 blNetworkBuilder.setProjectId(network.getProjectId());
             }
+
             retVal = blNetworkBuilder.build();
         }
 
@@ -462,11 +558,16 @@ public class ElastigroupConverterGcp {
             if (subnetsGcp.isRegionSet()) {
                 blSubnetsGcpBuilder.setRegion(subnetsGcp.getRegion());
             }
+
             if (subnetsGcp.isSubnetNamesSet()) {
                 if (subnetsGcp.getSubnetNames() != null) {
                     blSubnetsGcpBuilder.setSubnetNames(new LinkedHashSet<>(subnetsGcp.getSubnetNames()));
                 }
+                else {
+                    blSubnetsGcpBuilder.setSubnetNames(null);
+                }
             }
+
             retVal = blSubnetsGcpBuilder.build();
         }
 
@@ -483,24 +584,36 @@ public class ElastigroupConverterGcp {
                 blStrategyConfigurationGcpBuilder
                         .setPreemptiblePercentage(strategyConfigurationGcp.getPreemptiblePercentage());
             }
+
             if (strategyConfigurationGcp.isOnDemandCountSet()) {
                 blStrategyConfigurationGcpBuilder.setOnDemandCount(strategyConfigurationGcp.getOnDemandCount());
             }
+
             if (strategyConfigurationGcp.isDrainingTimeoutSet()) {
                 blStrategyConfigurationGcpBuilder.setDrainingTimeout(strategyConfigurationGcp.getDrainingTimeout());
             }
+
             if (strategyConfigurationGcp.isFallbackToOdSet()) {
                 blStrategyConfigurationGcpBuilder.setFallbackToOd(strategyConfigurationGcp.getFallbackToOd());
             }
+
             if (strategyConfigurationGcp.isOptimizationWindowsSet()) {
-                // todo oz: what if it became back as null from Api? - cant be null return 400
-                blStrategyConfigurationGcpBuilder
-                        .setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
+                // todo oz: what if it became back as null from Api? - DONE
+                if (strategyConfigurationGcp.getOptimizationWindows() != null){
+                    blStrategyConfigurationGcpBuilder.setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
+                }
+
+                else {
+                    blStrategyConfigurationGcpBuilder.setOptimizationWindows(null);
+                }
             }
+
             if (strategyConfigurationGcp.isRevertToPreemptibleSet()) {
-                ElastigroupRevertToPreemptibleGcp blRevertToPreemptible = toBl(strategyConfigurationGcp.getRevertToPreemptible());
+                ElastigroupRevertToPreemptibleGcp blRevertToPreemptible =
+                        toBl(strategyConfigurationGcp.getRevertToPreemptible());
                 blStrategyConfigurationGcpBuilder.setRevertToPreemptible(blRevertToPreemptible);
             }
+
             retVal = blStrategyConfigurationGcpBuilder.build();
         }
 
@@ -532,15 +645,19 @@ public class ElastigroupConverterGcp {
             if (capacityConfigurationGcp.isMinimumSet()) {
                 blCapacityConfigurationGcpBuilder.setMinimum(capacityConfigurationGcp.getMinimum());
             }
+
             if (capacityConfigurationGcp.isMaximumSet()) {
                 blCapacityConfigurationGcpBuilder.setMaximum(capacityConfigurationGcp.getMaximum());
             }
+
             if (capacityConfigurationGcp.isTargetSet()) {
                 blCapacityConfigurationGcpBuilder.setTarget(capacityConfigurationGcp.getTarget());
             }
+
             if (capacityConfigurationGcp.isUnitSet()) {
                 blCapacityConfigurationGcpBuilder.setUnit(capacityConfigurationGcp.getUnit());
             }
+
             retVal = blCapacityConfigurationGcpBuilder.build();
         }
 
@@ -556,10 +673,18 @@ public class ElastigroupConverterGcp {
             if (instanceTypesGcp.isOndemandSet()) {
                 blInstanceTypesGcpBuilder.setOndemand(instanceTypesGcp.getOndemand());
             }
+
             if (instanceTypesGcp.isPreemptibleSet()) {
                 // todo oz: if null cant be null, return 400
-                blInstanceTypesGcpBuilder.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
+                if (instanceTypesGcp.getPreemptible() != null) {
+                    blInstanceTypesGcpBuilder.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
+                }
+
+                else {
+                    blInstanceTypesGcpBuilder.setPreemptible(null);
+                }
             }
+
             retVal = blInstanceTypesGcpBuilder.build();
         }
 
