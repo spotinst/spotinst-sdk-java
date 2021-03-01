@@ -188,7 +188,7 @@ public class ElastigroupUsageExampleGcp {
                 ElastigroupCapacityGcp.Builder.get();
 
         ElastigroupCapacityGcp updateCapacity =
-                updateCapacityBuilder.setMinimum(1).setTarget(1).setMaximum(1).build();
+                updateCapacityBuilder.setMinimum(2).setTarget(2).setMaximum(2).build();
 
         ElastigroupStrategyGcp.Builder strategyBuilder =
                 ElastigroupStrategyGcp.Builder.get();
