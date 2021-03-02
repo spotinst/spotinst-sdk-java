@@ -148,6 +148,7 @@ public class ElastigroupUsageExampleGcp {
         OptimizationWindowsList.add("Mon:01:00-Mon:04:00");
 
         ElastigroupStrategyGcp strategyConfigurationGcp = ElastigroupStrategyConfigurationGcpBuilder
+                                            .setOptimizationWindows(OptimizationWindowsList)
                                             .setDrainingTimeout(null)
                                             .setFallbackToOd(true)
                                             .setOnDemandCount(0)
@@ -276,16 +277,18 @@ public class ElastigroupUsageExampleGcp {
                                                                             .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                             .collect(Collectors.toList());
 
+        List<String> newInstanceIds = elastigroupInstanceHealthinesses.stream().filter(instance ->
+                                                                                                   instance.getStatusName() ==
+                                                                                                   GroupActiveInstanceStatusEnumGcp.NEW)
+                                                                          .map(GroupActiveInstanceStatusGcp::getInstanceName)
+                                                                          .collect(Collectors.toList());
+
         System.out.println(String.format("%s Running status instances: %s", runningInstanceIds.size(), runningInstanceIds));
-        System.out.println(
-                String.format("%s Terminated status instances: %s", terminatedInstanceIds.size(), terminatedInstanceIds));
-        System.out.println(
-                String.format("%s Provisioning status instances: %s", provisioningInstanceIds.size(),
-                              provisioningInstanceIds));
-        System.out.println(String.format("%s Stopping status instances: %s", stoppingInstanceIds.size(),
-                                         stoppingInstanceIds));
-        System.out.println(String.format("%s Staging status instances: %s", stagingInstanceIds.size(),
-                                         stagingInstanceIds));
+        System.out.println(String.format("%s New (just created) status instances: %s", newInstanceIds.size(), newInstanceIds));
+        System.out.println(String.format("%s Terminated status instances: %s", terminatedInstanceIds.size(), terminatedInstanceIds));
+        System.out.println(String.format("%s Provisioning status instances: %s", provisioningInstanceIds.size(), provisioningInstanceIds));
+        System.out.println(String.format("%s Stopping status instances: %s", stoppingInstanceIds.size(), stoppingInstanceIds));
+        System.out.println(String.format("%s Staging status instances: %s", stagingInstanceIds.size(), stagingInstanceIds));
     }
 
     private static ElastigroupGcp getGroup(SpotinstElastigroupClientGcp client, String groupId) {

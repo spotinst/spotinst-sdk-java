@@ -11,6 +11,7 @@ public enum GroupActiveInstanceStatusEnumGcp {
     terminated("terminated"),
     provisioning("provisioning"),
     staging("staging"),
+    NEW("new"),
     running("running");
 
     private GroupActiveInstanceStatusEnumGcp(String name) {
