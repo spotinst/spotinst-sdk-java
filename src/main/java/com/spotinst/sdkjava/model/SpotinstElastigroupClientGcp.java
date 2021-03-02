@@ -152,7 +152,7 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
-    // todo or: as we talked, check if there is justification for a separate class instead of passing ID directly - DONE
+    // todo oz: as we talked, check if there is justification for a separate class instead of passing ID directly - DONE
     public ElastigroupGcp getElastigroup(ElastigroupGetRequestGcp elastigroupGetRequest) {
 
         ElastigroupGcp retVal;

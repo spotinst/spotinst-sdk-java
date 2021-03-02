@@ -39,6 +39,15 @@ public class ElastigroupConverterGcp {
             if (src.isComputeSet()) {
                 retVal.setCompute(toDal(src.getCompute()));
             }
+
+            if (src.isCreatedAtSet()) {
+                retVal.setCreatedAt(src.getCreatedAt());
+            }
+
+            if (src.isUpdatedAtSet()) {
+                retVal.setUpdatedAt(src.getUpdatedAt());
+            }
+            //todo or: add and check createdAt, UpdatedAt
         }
 
         return retVal;
@@ -250,7 +259,6 @@ public class ElastigroupConverterGcp {
                 if(strategyConfigurationGcp.getOptimizationWindows() == null) {
                     retVal.setOptimizationWindows(null);
                 }
-
                 else {
                     retVal.setOptimizationWindows(new LinkedList<>(strategyConfigurationGcp.getOptimizationWindows()));
                 }
@@ -322,11 +330,9 @@ public class ElastigroupConverterGcp {
                 if (instanceTypesGcp.getPreemptible() == null) {
                     retVal.setPreemptible(null);
                 }
-
                 else {
                     retVal.setPreemptible(new LinkedList<>(instanceTypesGcp.getPreemptible()));
                 }
-
             }
         }
 
@@ -370,6 +376,11 @@ public class ElastigroupConverterGcp {
             if (src.isCreatedAtSet()) {
                 retVal.setCreatedAt(src.getCreatedAt());
             }
+            //todo or: check if the field changes after each update call
+            if (src.isUpdatedAtSet()) {
+                retVal.setUpdatedAt(src.getUpdatedAt());
+            }
+            //todo or: make a run to create and get and check if updatedAt is not null
         }
 
         return retVal;

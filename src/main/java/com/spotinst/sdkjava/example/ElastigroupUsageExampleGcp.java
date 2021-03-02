@@ -15,13 +15,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleGcp {
-    private final static String auth_token          = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
-    private final static String act_id              = "act-7d8b3fee";
-    private static final String SPOTINST_GROUP_NAME = "Gcp_SDK_test_or";
+
+    private final static String auth_token              = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a"; //todo or: change to your-token etc..
+    private final static String account_id              = "act-7d8b3fee";
+    private static final String SPOTINST_GROUP_NAME     = "Gcp_SDK_test_or";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
-        SpotinstElastigroupClientGcp elastigroupClient = SpotinstClient.getElastigroupClientGcp(auth_token, act_id);
+        SpotinstElastigroupClientGcp elastigroupClient = SpotinstClient.getElastigroupClientGcp(auth_token, account_id);
 
         // Create group
         String elastigroupId = createElastigroup(elastigroupClient);
@@ -232,13 +233,13 @@ public class ElastigroupUsageExampleGcp {
     private static List<ElastigroupGcp> getAllElastigroups(SpotinstElastigroupClientGcp client) {
 
         ElastigroupGetAllRequestGcp.Builder requestBuilder = ElastigroupGetAllRequestGcp.Builder.get();
-        // todo oז: check again - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
+        // todo oz: check again - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
         ElastigroupGetAllRequestGcp requestByName =
                 requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
         return client.getAllElastigroups(requestByName);
     }
 
-    private static void getElastigroupStatus(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
+    public static void getElastigroupStatus(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
         ElastigroupGetGroupInstanceStatusRequestGcp.Builder instanceHealthinessRequestBuilder =
                 ElastigroupGetGroupInstanceStatusRequestGcp.Builder.get();
 
