@@ -8,14 +8,12 @@ import java.util.stream.Collectors;
 
 public class SpotinstElastigroupInstanceStatusRepoGcp implements ISpotinstElastigroupInstanceStatusRepoGcp {
 
-    // todo oz: this is getting a single group's status, no getAll -DONE -  it gets all the single group's instances
     @Override
     public RepoGenericResponse<List<GroupActiveInstanceStatusGcp>> getAll(String elastigroupId, String authToken,
                                                                           String account) {
         RepoGenericResponse<List<GroupActiveInstanceStatusGcp>> retVal;
 
         try {
-            // todo oz: rename - DONE
             List<GroupActiveInstanceStatusGcp> groupActiveInstanceStatus;
             List<ApiGroupActiveInstanceStatusGcp> apiGroupActiveInstanceStatus =
                     SpotinstElastigroupServiceGcp.getGroupStatus(elastigroupId, authToken, account);

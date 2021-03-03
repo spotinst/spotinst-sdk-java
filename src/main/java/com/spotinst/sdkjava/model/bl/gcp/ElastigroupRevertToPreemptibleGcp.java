@@ -10,8 +10,6 @@ public class ElastigroupRevertToPreemptibleGcp {
     //region Members
     @JsonIgnore
     private Set<String>      isSet;
-    // todo oz: convert to enum - DONE
-    // todo oz: rename as with convention - DONE
     private PerformAtEnumGcp performAt;
     //endregion
 

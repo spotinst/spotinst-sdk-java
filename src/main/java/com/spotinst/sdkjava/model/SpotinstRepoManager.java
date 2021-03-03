@@ -130,8 +130,6 @@ class SpotinstRepoManager {
         return spotinstElastigroupRepoGcp;
     }
 
-    // todo oz: no need for setter, already initiliazed in constrcutor - DONE
-
     public ISpotinstElastigroupDeploymentRepoAzure getSpotinstElastigroupDeploymentRepoAzure() {
         return spotinstElastigroupDeploymentRepoAzure;
     }

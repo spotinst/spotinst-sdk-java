@@ -3,10 +3,8 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-// todo oz: GroupActiveInstanceStatusEnumGcp - DONE
 public enum GroupActiveInstanceStatusEnumGcp {
-    // todo oz: "change value to lower case -> STOPPING("stopping") - DONE
+
     stopping("stopping"),
     terminated("terminated"),
     provisioning("provisioning"),

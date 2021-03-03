@@ -18,7 +18,6 @@ public class SpotinstElastigroupClientGcp {
     //region Members
     private              String                                    authToken;
     private              String                                    account;
-    // todo oz: does not belong here - DONE
     //endregion
 
 
@@ -32,8 +31,6 @@ public class SpotinstElastigroupClientGcp {
         this.authToken = authToken;
         this.account = account;
 
-        // todo oz: do not use setters in constructor, pull from ManagerInstance instead (see AzureDeploymentsRepo) - DONE
-
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
             BaseSpotinstService.addCustomUserAgents(userAgentConfigurations);
@@ -44,7 +41,6 @@ public class SpotinstElastigroupClientGcp {
     //endregion
 
     //region Methods
-    // todo oz: conventions - DONE - beautify
     public ElastigroupGcp createElastigroup(ElastigroupCreationRequestGcp elastigroupCreationRequest) {
 
         ElastigroupGcp retVal;
@@ -135,6 +131,12 @@ public class SpotinstElastigroupClientGcp {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
+        System.out.println("GET- List All Elastigroups:");
+
+        if (retVal.size() == 0){ // No groups for this account
+            System.out.println("No group found for this account");
+        }
+
         for (int i = 0; i < retVal.size(); i++) {
             System.out.println("Group number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
         }
@@ -142,7 +144,6 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
-    // todo oz: as we talked, check if there is justification for a separate class instead of passing ID directly - DONE
     public ElastigroupGcp getElastigroup(ElastigroupGetRequestGcp elastigroupGetRequest) {
 
         ElastigroupGcp retVal;
@@ -169,8 +170,6 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
-
-    // todo oz: this is probably not healthiness, status... - DONE
     public List<GroupActiveInstanceStatusGcp> getInstanceStatus(
             ElastigroupGetGroupInstanceStatusRequestGcp elastigroupGetInstanceHealthinessRequest) {
         List<GroupActiveInstanceStatusGcp> retVal = new LinkedList<>();
@@ -184,7 +183,6 @@ public class SpotinstElastigroupClientGcp {
             retVal = instancesHealthinessResponse.getValue();
         }
         else {
-            // todo oz: any special reason to use different method? - DONE
             List<HttpError> httpExceptions = instancesHealthinessResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to get instance status of elastigroup Code: %s. Message: %s", httpException.getCode(), httpException.getMessage()));

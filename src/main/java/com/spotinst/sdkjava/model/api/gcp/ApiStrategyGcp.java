@@ -14,7 +14,6 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiStrategyGcp implements IPartialUpdateEntity {
-    // todo oz: add region members - DONE
     //region members
     @JsonIgnore
     private Set<String>               isSet;

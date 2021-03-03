@@ -5,7 +5,7 @@ import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 
 import java.util.Date;
 
-// todo oz: GroupActiveInstanceStatusGcp - DONE
+
 public class GroupActiveInstanceStatusGcp {
     //region Members
     private String                           instanceName;
@@ -14,7 +14,6 @@ public class GroupActiveInstanceStatusGcp {
     private String                           machineType;
     private String                           privateIpAddress;
     private String                           publicIpAddress;
-    // todo oz: Date - DONE
     private Date                             createdAt;
     private Date                             updatedAt;
     private GcpInstanceLifecycleEnum         lifeCycle;

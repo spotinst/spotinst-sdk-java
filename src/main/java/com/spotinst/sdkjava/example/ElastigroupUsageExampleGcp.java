@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleGcp {
 
-    private final static String auth_token              = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a"; //todo or: change to your-token etc..
-    private final static String account_id              = "act-7d8b3fee";
-    private static final String SPOTINST_GROUP_NAME     = "Gcp_SDK_test_or";
+    private final static String auth_token              = "your-token";
+    private final static String account_id              = "your-account-id";
+    private static final String SPOTINST_GROUP_NAME     = "name-of-the-group";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -28,7 +28,7 @@ public class ElastigroupUsageExampleGcp {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
         sleep(7);
 
         // Update group
@@ -41,7 +41,7 @@ public class ElastigroupUsageExampleGcp {
         System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
         sleep(7);
 
         // List all Elastigroups
@@ -215,7 +215,7 @@ public class ElastigroupUsageExampleGcp {
         // Update elastigroup
         Boolean updateSuccess = client.updateElastigroup(updateRequest, elastigroupId);
         if (updateSuccess) {
-            System.out.println("Elastigroup successfully updated.");
+            System.out.println("Elastigroup successfully updated.\n");
         }
     }
 
@@ -280,13 +280,13 @@ public class ElastigroupUsageExampleGcp {
                                                                                                    GroupActiveInstanceStatusEnumGcp.NEW)
                                                                           .map(GroupActiveInstanceStatusGcp::getInstanceName)
                                                                           .collect(Collectors.toList());
-
-        System.out.println(String.format("%s Running status instances: %s", runningInstanceIds.size(), runningInstanceIds));
-        System.out.println(String.format("%s New (just created) status instances: %s", newInstanceIds.size(), newInstanceIds));
-        System.out.println(String.format("%s Terminated status instances: %s", terminatedInstanceIds.size(), terminatedInstanceIds));
-        System.out.println(String.format("%s Provisioning status instances: %s", provisioningInstanceIds.size(), provisioningInstanceIds));
-        System.out.println(String.format("%s Stopping status instances: %s", stoppingInstanceIds.size(), stoppingInstanceIds));
-        System.out.println(String.format("%s Staging status instances: %s", stagingInstanceIds.size(), stagingInstanceIds));
+        System.out.println("\nGET- Group's status:");
+        System.out.println(String.format("%s Running instances: %s", runningInstanceIds.size(), runningInstanceIds));
+        System.out.println(String.format("%s New (just created) instances: %s", newInstanceIds.size(), newInstanceIds));
+        System.out.println(String.format("%s Terminated instances: %s", terminatedInstanceIds.size(), terminatedInstanceIds));
+        System.out.println(String.format("%s Provisioning instances: %s", provisioningInstanceIds.size(), provisioningInstanceIds));
+        System.out.println(String.format("%s Stopping instances: %s", stoppingInstanceIds.size(), stoppingInstanceIds));
+        System.out.println(String.format("%s Staging instances: %s\n", stagingInstanceIds.size(), stagingInstanceIds));
     }
 
     private static ElastigroupGcp getGroup(SpotinstElastigroupClientGcp client, String groupId) {
@@ -308,7 +308,7 @@ public class ElastigroupUsageExampleGcp {
                 e.printStackTrace();
             }
             if ((i % 5) == 0 && i > 0) {
-                System.out.println(i + " seconds have passed.");
+                System.out.println(i + " seconds have passed.\n");
             }
         }
 

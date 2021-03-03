@@ -58,7 +58,6 @@ public class ElastigroupCreationRequestGcp {
     //endregion
 
     //region Json methods
-    // todo oz: retVal - DONE
     public String toJson() {
         ApiElastigroupGcp apiElastigroupToCreate = ElastigroupConverterGcp.toDal(elastigroup);
 

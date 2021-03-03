@@ -199,7 +199,6 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         RestResponse getGroupResponse = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        // todo oz: unrelated variable name - DONE - getGroupResponse
         ElastigroupApiResponseGcp groupActiveInstanceResponse = getCastedResponse(getGroupResponse, ElastigroupApiResponseGcp.class);
 
         if (groupActiveInstanceResponse.getResponse().getCount() > 0) {
@@ -209,7 +208,6 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         return retVal;
     }
 
-    // todo oz: should be getGroupStatus - DONE
     public static List<ApiGroupActiveInstanceStatusGcp> getGroupStatus(String elastigroupId, String authToken,
                                                                                String account) throws SpotinstHttpException {
         // Init retVal

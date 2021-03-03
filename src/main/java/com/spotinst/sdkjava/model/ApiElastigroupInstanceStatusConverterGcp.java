@@ -4,12 +4,11 @@ import com.spotinst.sdkjava.enums.GcpInstanceLifecycleEnum;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
 
-// todo oz: rename - DONE
+
 class ApiElastigroupInstanceStatusConverterGcp {
 
-    // todo oz: rename to toBl (convention) - DONE
     static GroupActiveInstanceStatusGcp toBl(ApiGroupActiveInstanceStatusGcp apiInstanceHealthiness) {
-        // todo oz: check if null - how? it returns from cloud provider
+
         GroupActiveInstanceStatusGcp retVal = new GroupActiveInstanceStatusGcp();
 
         retVal.setInstanceName(apiInstanceHealthiness.getInstanceName());
