@@ -71,12 +71,12 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupGcp>> getAll(GroupFilter filter, String authToken, String account) {
+    public RepoGenericResponse<List<ElastigroupGcp>> getAll(String authToken, String account) {
         RepoGenericResponse<List<ElastigroupGcp>> retVal;
 
         try {
             List<ApiElastigroupGcp> apiElastigroups =
-                    SpotinstElastigroupServiceGcp.getAllGroups(filter, authToken, account);
+                    SpotinstElastigroupServiceGcp.getAllGroups(authToken, account);
             List<ElastigroupGcp> elastigroups =
                     apiElastigroups.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(elastigroups);

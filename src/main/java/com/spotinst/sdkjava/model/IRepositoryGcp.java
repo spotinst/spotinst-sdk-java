@@ -10,7 +10,7 @@ interface IRepositoryGcp<S, F, I> {
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<List<S>> getAll(F filter, String authToken, String account) {
+    default RepoGenericResponse<List<S>> getAll(String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 

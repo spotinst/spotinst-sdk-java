@@ -116,23 +116,13 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
-    public List<ElastigroupGcp> getAllElastigroups(ElastigroupGetAllRequestGcp elastigroupGetAllRequest) {
+    public List<ElastigroupGcp> getAllElastigroups() {
         List<ElastigroupGcp> retVal;
-
-        GroupFilter filter = new GroupFilter();
-
-        filter.setMaxCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMaxCreatedAt()));
-        filter.setMinCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMinCreatedAt()));
-        filter.setActiveFrom(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveFrom()));
-        filter.setActiveTo(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveTo()));
-        filter.setName(elastigroupGetAllRequest.getName());
-        // todo oz: what if user wants to include deleted? - DONE
-        filter.setIncludeDeleted(elastigroupGetAllRequest.getIncludeDeleted());
 
         SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoGcp repoGcp         = managerInstance.getSpotinstElastigroupRepoGcp();
         RepoGenericResponse<List<ElastigroupGcp>> elastigroupsRepoGenericResponse =
-                repoGcp.getAll(filter, authToken, account);
+                repoGcp.getAll(authToken, account);
         if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupsRepoGenericResponse.getValue();
         }

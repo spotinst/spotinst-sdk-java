@@ -232,11 +232,8 @@ public class ElastigroupUsageExampleGcp {
 
     private static List<ElastigroupGcp> getAllElastigroups(SpotinstElastigroupClientGcp client) {
 
-        ElastigroupGetAllRequestGcp.Builder requestBuilder = ElastigroupGetAllRequestGcp.Builder.get();
-        // todo oz: check again - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
-        ElastigroupGetAllRequestGcp requestByName =
-                requestBuilder.setName(SPOTINST_GROUP_NAME).setIncludeDeleted(true).build();
-        return client.getAllElastigroups(requestByName);
+        return client.getAllElastigroups();
+
     }
 
     public static void getElastigroupStatus(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {

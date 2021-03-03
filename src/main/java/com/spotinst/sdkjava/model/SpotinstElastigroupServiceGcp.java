@@ -94,7 +94,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
     }
 
 
-    public static List<ApiElastigroupGcp> getAllGroups(GroupFilter filter, String authToken,
+    public static List<ApiElastigroupGcp> getAllGroups( String authToken,
                                                          String account) throws SpotinstHttpException {
         // Init retVal
         List<ApiElastigroupGcp> retVal = new LinkedList<>();
@@ -110,32 +110,6 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
-        if (filter != null) {
-            if (filter.getMaxCreatedAt() != null) {
-                queryParams.put("maxCreatedAt", filter.getMaxCreatedAt());
-            }
-
-            if (filter.getMinCreatedAt() != null) {
-                queryParams.put("minCreatedAt", filter.getMinCreatedAt());
-            }
-
-            if (filter.getActiveFrom() != null) {
-                queryParams.put("activeFrom", filter.getActiveFrom());
-            }
-
-            if (filter.getActiveTo() != null) {
-                queryParams.put("activeTo", filter.getActiveTo());
-            }
-
-            if (filter.getIncludeDeleted() != null) {
-                // todo oz: check functionality of this - DONE - ignores the filter - in the openApi there isnt query params, guess gcp doesnt support filter
-                queryParams.put("includeDeleted", filter.getIncludeDeleted().toString());
-            }
-
-            if (filter.getName() != null) {
-                queryParams.put("name", filter.getName());
-            }
-        }
 
         // Get the headers for Gcp.
         Map<String, String> headers = buildHeaders(authToken);
