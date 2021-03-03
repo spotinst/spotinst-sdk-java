@@ -15,9 +15,11 @@ class SpotinstRepoManager {
     private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
+    private ISpotinstElastigroupInstanceStatusRepoGcp   spotinstInstanceHealthinessRepoGcp;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
     private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
     private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
+    private ISpotinstElastigroupRepoGcp                 spotinstElastigroupRepoGcp;
     private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
     //endregion
 
@@ -29,8 +31,10 @@ class SpotinstRepoManager {
         this.spotinstSpectrumRepo = new SpotinstSpectrumRepo();
         this.spotinstMrScalerAwsRepo = new SpotinstMrScalerAwsRepo();
         this.spotinstInstanceHealthinessRepo = new SpotinstElastigroupInstanceHealthinessRepo();
+        this.spotinstInstanceHealthinessRepoGcp = new SpotinstElastigroupInstanceStatusRepoGcp();
         this.spotinstOceanClusterRepo = new SpotOceanK8sClusterRepo();
         this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
+        this.spotinstElastigroupRepoGcp = new SpotinstElastigroupRepoGcp();
         this.spotinstMrScalerOperatorAwsRepo = new SpotinstMrScalerAwsOperatorRepo();
         this.spotinstElastigroupDeploymentRepoAzure = new SpotinstElastigroupDeploymentRepoAzure();
     }
@@ -97,6 +101,10 @@ class SpotinstRepoManager {
         return spotinstInstanceHealthinessRepo;
     }
 
+    public ISpotinstElastigroupInstanceStatusRepoGcp getSpotinstInstanceHealthinessRepoGcp() {
+        return spotinstInstanceHealthinessRepoGcp;
+    }
+
     public void setSpotinstInstanceHealthinessRepo(
             ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo) {
         this.spotinstInstanceHealthinessRepo = spotinstInstanceHealthinessRepo;
@@ -116,6 +124,10 @@ class SpotinstRepoManager {
 
     public void setSpotinstElastigroupRepoAzure(ISpotinstElastigroupRepoAzure spotinstElastigroupRepo) {
         this.spotinstElastigroupRepoAzure = spotinstElastigroupRepo;
+    }
+
+    public ISpotinstElastigroupRepoGcp getSpotinstElastigroupRepoGcp() {
+        return spotinstElastigroupRepoGcp;
     }
 
     public ISpotinstElastigroupDeploymentRepoAzure getSpotinstElastigroupDeploymentRepoAzure() {

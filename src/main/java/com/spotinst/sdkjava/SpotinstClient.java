@@ -84,5 +84,22 @@ public class SpotinstClient {
         return spotinstElastigroupClientAzure;
     }
 
+    public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken) {
+        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp = new SpotinstElastigroupClientGcp(authToken, null);
+        return spotinstElastigroupClientGcp;
+    }
+
+    public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken, String account) {
+        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp = new SpotinstElastigroupClientGcp(authToken, account);
+        return spotinstElastigroupClientGcp;
+    }
+
+    public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken, String account,
+                                                                           List<UserAgentConfig> userAgentConfigurations) {
+        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp =
+                new SpotinstElastigroupClientGcp(authToken, account, userAgentConfigurations);
+        return spotinstElastigroupClientGcp;
+    }
+
     //endregion
 }
