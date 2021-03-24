@@ -1,0 +1,49 @@
+package com.spotinst.sdkjava.model.api.ocean.aks;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class ApiLoginAks implements IPartialUpdateEntity {
+    @JsonIgnore
+    private Set<String> isSet;
+    private String                    sshPublicKey;
+    private String                    userName;
+
+
+    public ApiLoginAks() {
+        isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public String getSshPublicKey() {
+        return sshPublicKey;
+    }
+
+    public void setSshPublicKey(String sshPublicKey) {
+        this.sshPublicKey = sshPublicKey;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    @JsonIgnore
+    public boolean isYYYSet() {
+        return isSet.contains("yyy");
+    }
+}

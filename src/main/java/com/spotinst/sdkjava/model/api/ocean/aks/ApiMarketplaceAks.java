@@ -20,10 +20,8 @@ public class ApiMarketplaceAks {
     public ApiMarketplaceAks() {
 
         isSet = new HashSet<>();
-        version = DefaultVersion;
     }
 
-    private static final String DefaultVersion = "lastest";
 
     public Set<String> getIsSet() {
         return isSet;
@@ -86,6 +84,5 @@ public class ApiMarketplaceAks {
 
     @JsonIgnore
     public boolean isVersioneSet() {
-        return true;
-    }
+        return isSet.contains("version");    }
 }
