@@ -12,7 +12,6 @@ public class ApiImageAks implements IPartialUpdateEntity {
     private ApiMarketplaceAks                   marketplace;
 
 
-
     public ApiImageAks() {
         isSet = new HashSet<>();
     }

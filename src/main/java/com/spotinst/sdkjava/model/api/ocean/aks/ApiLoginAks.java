@@ -30,6 +30,8 @@ public class ApiLoginAks implements IPartialUpdateEntity {
     }
 
     public void setSshPublicKey(String sshPublicKey) {
+
+        isSet.add("sshPublicKey");
         this.sshPublicKey = sshPublicKey;
     }
 
@@ -38,12 +40,18 @@ public class ApiLoginAks implements IPartialUpdateEntity {
     }
 
     public void setUserName(String userName) {
+
+        isSet.add("userName");
         this.userName = userName;
     }
 
+    @JsonIgnore
+    public boolean isSshPublicKeySet() {
+        return isSet.contains("sshPublicKey");
+    }
 
     @JsonIgnore
-    public boolean isYYYSet() {
-        return isSet.contains("yyy");
+    public boolean isUserNameSet() {
+        return isSet.contains("userName");
     }
 }

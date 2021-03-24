@@ -22,6 +22,7 @@ public class ApiClusterAks implements IPartialUpdateEntity {
     private String                          name;
     private ApiVirtualNodeGroupTemplateAks  virtualNodeGroupTemplate;
 
+
     public ApiClusterAks() {
         isSet = new HashSet<>();
     }
@@ -30,16 +31,17 @@ public class ApiClusterAks implements IPartialUpdateEntity {
         return isSet;
     }
 
-    public ApiClusterConfigurationAks getAks() {
-        return aks;
-    }
-
     public ApiClusterAks setIsSet(Set<String> isSet) {
         this.isSet = isSet;
         return this;
     }
 
+    public ApiClusterConfigurationAks getAks() {
+        return aks;
+    }
+
     public void setAks(ApiClusterConfigurationAks aks) {
+        isSet.add("aks");
         this.aks = aks;
     }
 
@@ -48,6 +50,7 @@ public class ApiClusterAks implements IPartialUpdateEntity {
     }
 
     public void setControllerClusterId(String controllerClusterId) {
+        isSet.add("controllerClusterId");
         this.controllerClusterId = controllerClusterId;
     }
 
@@ -56,19 +59,39 @@ public class ApiClusterAks implements IPartialUpdateEntity {
     }
 
     public void setName(String name) {
+        isSet.add("name");
         this.name = name;
     }
 
     public ApiVirtualNodeGroupTemplateAks getVirtualNodeGroupTemplate() {
+
         return virtualNodeGroupTemplate;
     }
 
     public void setVirtualNodeGroupTemplate(ApiVirtualNodeGroupTemplateAks virtualNodeGroupTemplate) {
+
+        isSet.add("virtualNodeGroupTemplate");
         this.virtualNodeGroupTemplate = virtualNodeGroupTemplate;
     }
 
-    public boolean isXSet() {
-        return isSet.contains("marketplace");
+    @JsonIgnore
+    public boolean isAksSet() {
+        return isSet.contains("aks");
+    }
+
+    @JsonIgnore
+    public boolean isControllerClusterIdSet() {
+        return isSet.contains("controllerClusterId");
+    }
+
+    @JsonIgnore
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isVirtualNodeGroupTemplateSet() {
+        return isSet.contains("virtualNodeGroupTemplate");
     }
 
 

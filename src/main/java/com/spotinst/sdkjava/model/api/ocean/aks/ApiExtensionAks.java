@@ -16,7 +16,6 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     private String                      type;
 
 
-
     public ApiExtensionAks() {
         isSet = new HashSet<>();
     }
@@ -34,6 +33,7 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setApiVersion(String apiVersion) {
+        isSet.add("apiVersion");
         this.apiVersion = apiVersion;
     }
 
@@ -42,6 +42,8 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setMinorVersionAutoUpgrade(boolean minorVersionAutoUpgrade) {
+
+        isSet.add("minorVersionAutoUpgrade");
         this.minorVersionAutoUpgrade = minorVersionAutoUpgrade;
     }
 
@@ -50,6 +52,8 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setName(String name) {
+
+        isSet.add("name");
         this.name = name;
     }
 
@@ -58,6 +62,8 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setPublisher(String publisher) {
+
+        isSet.add("publisher");
         this.publisher = publisher;
     }
 
@@ -66,13 +72,33 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setType(String type) {
+
+        isSet.add("type");
         this.type = type;
     }
 
-
+    @JsonIgnore
+    public boolean isApiVersionSet() {
+        return isSet.contains("apiVersion");
+    }
 
     @JsonIgnore
-    public boolean isYYYSet() {
-        return isSet.contains("yyy");
+    public boolean isMinorVersionAutoUpgradeSet() {
+        return isSet.contains("minorVersionAutoUpgrade");
+    }
+
+    @JsonIgnore
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isPublisherSet() {
+        return isSet.contains("publisher");
+    }
+
+    @JsonIgnore
+    public boolean isTypeSet() {
+        return isSet.contains("type");
     }
 }

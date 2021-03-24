@@ -96,7 +96,7 @@ public class ApiLoadBalancerAks implements IPartialUpdateEntity {
 
     @JsonIgnore
     public boolean isTypeSet() {
-        return isSet.contains("marketplace");
+        return isSet.contains("type");
     }
 
 

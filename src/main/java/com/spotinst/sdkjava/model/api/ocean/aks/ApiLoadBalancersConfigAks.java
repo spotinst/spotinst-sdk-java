@@ -14,7 +14,6 @@ public class ApiLoadBalancersConfigAks  implements IPartialUpdateEntity {
     private List<ApiLoadBalancer>       loadBalancers;
 
 
-
     public ApiLoadBalancersConfigAks() {
         isSet = new HashSet<>();
     }
@@ -27,12 +26,6 @@ public class ApiLoadBalancersConfigAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-
-    @JsonIgnore
-    public boolean isLoadBalancersSet() {
-        return isSet.contains("loadBalancers");
-    }
-
     public List<ApiLoadBalancer> getLoadBalancers() {
         return loadBalancers;
     }
@@ -40,5 +33,10 @@ public class ApiLoadBalancersConfigAks  implements IPartialUpdateEntity {
     public void setLoadBalancers(List<ApiLoadBalancer> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
+    }
+
+    @JsonIgnore
+    public boolean isLoadBalancersSet() {
+        return isSet.contains("loadBalancers");
     }
 }

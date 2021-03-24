@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ApiMarketplaceAks {
-
-
-
     @JsonIgnore
     private Set<String>                          isSet;
     private String                               offer;
@@ -21,7 +18,6 @@ public class ApiMarketplaceAks {
 
         isSet = new HashSet<>();
     }
-
 
     public Set<String> getIsSet() {
         return isSet;
