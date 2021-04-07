@@ -64,13 +64,13 @@ public class ApiMarketplaceAks {
     }
 
     @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
+    public boolean isPublisherSet() {
+        return isSet.contains("publisher");
     }
 
     @JsonIgnore
-    public boolean isResourceGroupNameSet() {
-        return isSet.contains("resourceGroupName");
+    public boolean isOfferSet() {
+        return isSet.contains("offer");
     }
 
     @JsonIgnore

@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class ClusterSecurityGroupAks {
     @JsonIgnore
-    private Set<String> isSet;
-    private String name;
-    private String resourceGroupName;
+    private Set<String>             isSet;
+    private String                  name;
+    private String                  resourceGroupName;
 
 
-    public ClusterSecurityGroupAks() {
+    private ClusterSecurityGroupAks() {
         isSet = new HashSet<>();
     }
 
@@ -51,5 +51,30 @@ public class ClusterSecurityGroupAks {
     @JsonIgnore
     public boolean isResourceGroupNameSet() {
         return isSet.contains("resourceGroupName");
+    }
+
+    public static class Builder {
+
+        private ClusterSecurityGroupAks clusterSecurityGroupAks;
+        private Builder() {
+            this.clusterSecurityGroupAks = new ClusterSecurityGroupAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setName(final String name) {
+            clusterSecurityGroupAks.setName(name);
+            return this;
+        }
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            clusterSecurityGroupAks.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+
+        public ClusterSecurityGroupAks build() {
+            return clusterSecurityGroupAks;
+        }
     }
 }

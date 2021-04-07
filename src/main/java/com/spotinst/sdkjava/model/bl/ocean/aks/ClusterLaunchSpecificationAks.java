@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.ApiLoadBalancersConfig;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,16 +9,17 @@ import java.util.Set;
 
 public class ClusterLaunchSpecificationAks {
     @JsonIgnore
-    private Set<String>                     isSet;
-    private List<ClusterExtensionAks>       extensions;
-    private ClusterImageAks                 image;
-    private ApiLoadBalancersConfig          loadBalancersConfig;
-    private ClusterLoginAks                 login;
-    private ClusterNetworkAks               network;
-    private String                          resourceGroupName;
-    private List<ClusterTagAks>             tags;
+    private Set<String>                         isSet;
+    private List<ClusterExtensionAks>           extensions;
+    private ClusterImageAks                     image;
+    private ClusterLoadBalancersConfigAks       loadBalancersConfig;
+    private ClusterLoginAks                     login;
+    private ClusterNetworkAks                   network;
+    private String                              resourceGroupName;
+    private List<ClusterTagAks>                 tags;
 
-    public ClusterLaunchSpecificationAks() {
+
+    private ClusterLaunchSpecificationAks() {
         isSet = new HashSet<>();
     }
 
@@ -49,11 +50,11 @@ public class ClusterLaunchSpecificationAks {
         this.image = image;
     }
 
-    public ApiLoadBalancersConfig getLoadBalancersConfig() {
+    public ClusterLoadBalancersConfigAks getLoadBalancersConfig() {
         return loadBalancersConfig;
     }
 
-    public void setLoadBalancersConfig(ApiLoadBalancersConfig loadBalancersConfig) {
+    public void setLoadBalancersConfig(ClusterLoadBalancersConfigAks loadBalancersConfig) {
 
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
@@ -133,5 +134,53 @@ public class ClusterLaunchSpecificationAks {
     public boolean isTagsSet() {
         return isSet.contains("tags");
     }
+
+    public static class Builder {
+
+        private ClusterLaunchSpecificationAks clusterLaunchSpecificationAks;
+
+        private Builder() {
+            this.clusterLaunchSpecificationAks = new ClusterLaunchSpecificationAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setExtensions(final List<ClusterExtensionAks> extensions) {
+            clusterLaunchSpecificationAks.setExtensions(extensions);
+            return this;
+        }
+        public Builder setImage(final ClusterImageAks image) {
+            clusterLaunchSpecificationAks.setImage(image);
+            return this;
+        }
+        public Builder setLoadBalancersConfig(final ClusterLoadBalancersConfigAks loadBalancersConfig) {
+            clusterLaunchSpecificationAks.setLoadBalancersConfig(loadBalancersConfig);
+            return this;
+        }
+        public Builder setLogin(final ClusterLoginAks login) {
+            clusterLaunchSpecificationAks.setLogin(login);
+            return this;
+        }
+        public Builder setNetwork(final ClusterNetworkAks networkn) {
+            clusterLaunchSpecificationAks.setNetwork(networkn);
+            return this;
+        }
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            clusterLaunchSpecificationAks.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+        public Builder setTags(final List<ClusterTagAks> tags) {
+            clusterLaunchSpecificationAks.setTags(tags);
+            return this;
+        }
+
+        public ClusterLaunchSpecificationAks build() {
+            return clusterLaunchSpecificationAks;
+        }
+    }
+
 }
 

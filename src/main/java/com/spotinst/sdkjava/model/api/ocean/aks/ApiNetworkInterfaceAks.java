@@ -10,7 +10,6 @@ import java.util.Set;
 public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
-
     private boolean                   assignPublicIp;
     private boolean                   enableIPForwarding;
     private boolean                   isPrimary;
@@ -30,7 +29,7 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public boolean isAssignPublicIp() {
+    public boolean getAssignPublicIp() {
         return assignPublicIp;
     }
 
@@ -39,7 +38,7 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         this.assignPublicIp = assignPublicIp;
     }
 
-    public boolean isEnableIPForwarding() {
+    public boolean getEnableIPForwarding() {
         return enableIPForwarding;
     }
 
@@ -48,11 +47,11 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         this.enableIPForwarding = enableIPForwarding;
     }
 
-    public boolean isPrimary() {
+    public boolean getIsPrimary() {
         return isPrimary;
     }
 
-    public void setPrimary(boolean primary) {
+    public void setIsPrimary(boolean primary) {
         isSet.add("primary");
         isPrimary = primary;
     }
@@ -86,7 +85,7 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isPrimarySet() {
+    public boolean isIsPrimarySet() {
         return isSet.contains("primary");
     }
 

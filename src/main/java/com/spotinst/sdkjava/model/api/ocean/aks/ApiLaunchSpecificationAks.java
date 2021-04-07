@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.model.api.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.ApiLoadBalancersConfig;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,7 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
     private Set<String>                  isSet;
     private List<ApiExtensionAks>        extensions;
     private ApiImageAks                  image;
-    private ApiLoadBalancersConfig       loadBalancersConfig;
+    private ApiLoadBalancersConfigAks    loadBalancersConfig;
     private ApiLoginAks                  login;
     private ApiNetworkAks                network;
     private String                       resourceGroupName;
@@ -51,11 +51,11 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         this.image = image;
     }
 
-    public ApiLoadBalancersConfig getLoadBalancersConfig() {
+    public ApiLoadBalancersConfigAks getLoadBalancersConfig() {
         return loadBalancersConfig;
     }
 
-    public void setLoadBalancersConfig(ApiLoadBalancersConfig loadBalancersConfig) {
+    public void setLoadBalancersConfig(ApiLoadBalancersConfigAks loadBalancersConfig) {
 
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;

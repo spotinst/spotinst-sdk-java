@@ -13,7 +13,7 @@ public class ClusterExtensionAks {
     private String                      type;
 
 
-    public ClusterExtensionAks() {
+    private ClusterExtensionAks() {
         isSet = new HashSet<>();
     }
 
@@ -34,7 +34,7 @@ public class ClusterExtensionAks {
         this.apiVersion = apiVersion;
     }
 
-    public boolean isMinorVersionAutoUpgrade() {
+    public boolean GetMinorVersionAutoUpgrade() {
         return minorVersionAutoUpgrade;
     }
 
@@ -98,4 +98,43 @@ public class ClusterExtensionAks {
     public boolean isTypeSet() {
         return isSet.contains("type");
     }
+
+    public static class Builder {
+
+        private ClusterExtensionAks clusterExtensionAks;
+
+        private Builder() {
+            this.clusterExtensionAks = new ClusterExtensionAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setApiVersion(final String apiVersion){
+            clusterExtensionAks.setApiVersion(apiVersion);
+            return this;
+        }
+
+        public Builder setMinorVersionAutoUpgrade(final boolean minorVersionAutoUpgrade){
+            clusterExtensionAks.setMinorVersionAutoUpgrade(minorVersionAutoUpgrade);
+            return this;
+        }
+
+        public Builder setName(final String name){
+            clusterExtensionAks.setName(name);
+            return this;
+        }
+
+        public Builder setPublisher(final String publisher){
+            clusterExtensionAks.setPublisher(publisher);
+            return this;
+        }
+
+        public ClusterExtensionAks build() {
+            return clusterExtensionAks;
+        }
+    }
 }
+

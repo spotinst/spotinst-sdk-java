@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,14 +16,14 @@ import java.util.Set;
 public class ClusterAks {
 
     @JsonIgnore
-    private Set<String>                     isSet;
-    private ClusterConfigurationAks         aks;
-    private String                          controllerClusterId;
-    private String                          name;
-    private ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplate;
+    private Set<String>                         isSet;
+    private ClusterConfigurationAks             aks;
+    private String                              controllerClusterId;
+    private String                              name;
+    private ClusterVirtualNodeGroupTemplateAks  virtualNodeGroupTemplate;
 
 
-    public ClusterAks() {
+    private ClusterAks() {
         isSet = new HashSet<>();
     }
 
@@ -93,5 +94,43 @@ public class ClusterAks {
         return isSet.contains("virtualNodeGroupTemplate");
     }
 
+    public static class Builder {
+
+        private ClusterAks clusterAks;
+
+        private Builder() {
+            this.clusterAks = new ClusterAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setControllerClusterId(final String controllerClusterId) {
+            clusterAks.setControllerClusterId(controllerClusterId);
+            return this;
+        }
+
+        public Builder setName(final String name) {
+            clusterAks.setName(name);
+            return this;
+
+        }
+
+        public Builder setAks(final ClusterConfigurationAks aks) {
+            clusterAks.setAks(aks);
+            return this;
+        }
+
+        public Builder setVirtualNodeGroupTemplate(final ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplate) {
+            clusterAks.setVirtualNodeGroupTemplate(virtualNodeGroupTemplate);
+            return this;
+        }
+
+        public ClusterAks build() {
+            return clusterAks;
+        }
+    }
 
 }

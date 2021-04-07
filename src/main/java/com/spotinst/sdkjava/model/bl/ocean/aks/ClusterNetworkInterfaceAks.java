@@ -8,16 +8,15 @@ import java.util.Set;
 
 public class ClusterNetworkInterfaceAks {
     @JsonIgnore
-    private Set<String>               isSet;
+    private Set<String>                     isSet;
+    private boolean                         assignPublicIp;
+    private boolean                         enableIPForwarding;
+    private boolean                         isPrimary;
+    private List<ClusterSecurityGroupAks>   securityGroup;
+    private String                          subnetName;
 
-    private boolean                   assignPublicIp;
-    private boolean                   enableIPForwarding;
-    private boolean                   isPrimary;
-    private List<ClusterSecurityGroupAks> securityGroup;
-    private String                    subnetName;
 
-
-    public ClusterNetworkInterfaceAks() {
+    private ClusterNetworkInterfaceAks() {
         isSet = new HashSet<>();
     }
 
@@ -29,7 +28,7 @@ public class ClusterNetworkInterfaceAks {
         this.isSet = isSet;
     }
 
-    public boolean isAssignPublicIp() {
+    public boolean getAssignPublicIp() {
         return assignPublicIp;
     }
 
@@ -38,7 +37,7 @@ public class ClusterNetworkInterfaceAks {
         this.assignPublicIp = assignPublicIp;
     }
 
-    public boolean isEnableIPForwarding() {
+    public boolean getEnableIPForwarding() {
         return enableIPForwarding;
     }
 
@@ -47,12 +46,12 @@ public class ClusterNetworkInterfaceAks {
         this.enableIPForwarding = enableIPForwarding;
     }
 
-    public boolean isPrimary() {
+    public boolean getIsPrimary() {
         return isPrimary;
     }
 
-    public void setPrimary(boolean primary) {
-        isSet.add("primary");
+    public void setIsPrimary(boolean primary) {
+        isSet.add("isPrimary");
         isPrimary = primary;
     }
 
@@ -85,8 +84,8 @@ public class ClusterNetworkInterfaceAks {
     }
 
     @JsonIgnore
-    public boolean isPrimarySet() {
-        return isSet.contains("primary");
+    public boolean isIsPrimarySet() {
+        return isSet.contains("IsPrimary");
     }
 
     @JsonIgnore
@@ -97,5 +96,43 @@ public class ClusterNetworkInterfaceAks {
     @JsonIgnore
     public boolean isSubnetNameSet() {
         return isSet.contains("subnetName");
+    }
+
+    public static class Builder {
+
+        private ClusterNetworkInterfaceAks clusterNetworkInterfaceAks;
+
+        private Builder() {
+            this.clusterNetworkInterfaceAks = new ClusterNetworkInterfaceAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setAssignPublicIp(final boolean assignPublicIp) {
+            clusterNetworkInterfaceAks.setAssignPublicIp(assignPublicIp);
+            return this;
+        }
+        public Builder setEnableIPForwarding(final boolean enableIPForwarding) {
+            clusterNetworkInterfaceAks.setEnableIPForwarding(enableIPForwarding);
+            return this;
+        }
+        public Builder setSecurityGroup(final List<ClusterSecurityGroupAks> securityGroup) {
+            clusterNetworkInterfaceAks.setSecurityGroup(securityGroup);
+            return this;
+        }
+        public Builder setSubnetName(final String subnetName) {
+            clusterNetworkInterfaceAks.setSubnetName(subnetName);
+            return this;
+        }
+        public Builder setIsPrimary(final boolean isPrimary) {
+            clusterNetworkInterfaceAks.setIsPrimary(isPrimary);
+            return this;
+        }
+
+        public ClusterNetworkInterfaceAks build() {
+            return clusterNetworkInterfaceAks;
+        }
     }
 }

@@ -1,19 +1,13 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
 public class ClusterConfigurationAks{
     @JsonIgnore
     private Set<String>                          isSet;
@@ -21,7 +15,7 @@ public class ClusterConfigurationAks{
     private String                               resourceGroupName;
 
 
-    public ClusterConfigurationAks() {
+    private ClusterConfigurationAks() {
         isSet = new HashSet<>();
     }
 
@@ -59,5 +53,34 @@ public class ClusterConfigurationAks{
     @JsonIgnore
     public boolean isResourceGroupNameSet() {
         return isSet.contains("resourceGroupName");
+    }
+
+    public static class Builder {
+
+        private ClusterConfigurationAks clusterConfigurationAks;
+
+        private Builder() {
+            this.clusterConfigurationAks = new ClusterConfigurationAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setName(final String name) {
+            clusterConfigurationAks.setName(name);
+            return this;
+
+        }
+
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            clusterConfigurationAks.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+
+        public ClusterConfigurationAks build() {
+            return clusterConfigurationAks;
+        }
     }
 }

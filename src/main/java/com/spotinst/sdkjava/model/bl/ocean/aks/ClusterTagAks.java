@@ -12,7 +12,7 @@ public class ClusterTagAks {
     private String                    tagKey;
 
 
-    public ClusterTagAks() {
+    private ClusterTagAks() {
         isSet = new HashSet<>();
     }
 
@@ -36,5 +36,28 @@ public class ClusterTagAks {
     @JsonIgnore
     public boolean isTagKeySet() {
         return isSet.contains("tagKey");
+    }
+
+    public static class Builder {
+
+        private ClusterTagAks clusterTagAks;
+
+        private Builder() {
+            this.clusterTagAks = new ClusterTagAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setTagKey(final String tagKey) {
+            clusterTagAks.setTagKey(tagKey);
+            return this;
+        }
+
+        public ClusterTagAks build() {
+            return clusterTagAks;
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class ApiLoginAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
+    private Set<String>               isSet;
     private String                    sshPublicKey;
     private String                    userName;
 

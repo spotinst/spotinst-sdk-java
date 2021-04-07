@@ -8,10 +8,11 @@ import java.util.Set;
 
 public class ClusterVirtualNodeGroupTemplateAks {
     @JsonIgnore
-    private Set<String>                      isSet;
+    private Set<String>                          isSet;
     private ClusterLaunchSpecificationAks        launchSpecification;
 
-    public ClusterVirtualNodeGroupTemplateAks() {
+
+    private ClusterVirtualNodeGroupTemplateAks() {
         isSet = new HashSet<>();
     }
 
@@ -36,4 +37,28 @@ public class ClusterVirtualNodeGroupTemplateAks {
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
     }
+
+    public static class Builder {
+
+        private ClusterVirtualNodeGroupTemplateAks clusterVirtualNodeGroupTemplateAks;
+
+        private Builder() {
+            this.clusterVirtualNodeGroupTemplateAks = new ClusterVirtualNodeGroupTemplateAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setLaunchSpecification(final ClusterLaunchSpecificationAks launchSpecification) {
+            clusterVirtualNodeGroupTemplateAks.setLaunchSpecification(launchSpecification);
+            return this;
+        }
+
+        public ClusterVirtualNodeGroupTemplateAks build() {
+            return clusterVirtualNodeGroupTemplateAks;
+        }
+    }
+
 }

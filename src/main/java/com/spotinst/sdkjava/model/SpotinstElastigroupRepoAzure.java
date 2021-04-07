@@ -31,6 +31,7 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
 
         return retVal;
     }
+
     @Override
     public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;

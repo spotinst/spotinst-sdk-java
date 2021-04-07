@@ -10,11 +10,11 @@ import java.util.Set;
 
 public class ClusterLoadBalancersConfigAks {
     @JsonIgnore
-    private Set<String>                 isSet;
-    private List<ApiLoadBalancer>       loadBalancers;
+    private Set<String>                        isSet;
+    private List<ClusterLoadBalancerAks>       loadBalancers;
 
 
-    public ClusterLoadBalancersConfigAks() {
+    private ClusterLoadBalancersConfigAks() {
         isSet = new HashSet<>();
     }
 
@@ -26,11 +26,11 @@ public class ClusterLoadBalancersConfigAks {
         this.isSet = isSet;
     }
 
-    public List<ApiLoadBalancer> getLoadBalancers() {
+    public List<ClusterLoadBalancerAks> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<ApiLoadBalancer> loadBalancers) {
+    public void setLoadBalancers(List<ClusterLoadBalancerAks> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }
@@ -38,5 +38,28 @@ public class ClusterLoadBalancersConfigAks {
     @JsonIgnore
     public boolean isLoadBalancersSet() {
         return isSet.contains("loadBalancers");
+    }
+
+    public static class Builder {
+
+        private ClusterLoadBalancersConfigAks clusterLoadBalancersConfigAks;
+
+        private Builder() {
+            this.clusterLoadBalancersConfigAks = new ClusterLoadBalancersConfigAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder  setLoadBalancers(final List<ClusterLoadBalancerAks> loadBalancers) {
+            clusterLoadBalancersConfigAks.setLoadBalancers(loadBalancers);
+            return this;
+        }
+
+        public ClusterLoadBalancersConfigAks build() {
+            return clusterLoadBalancersConfigAks;
+        }
     }
 }

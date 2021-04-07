@@ -14,7 +14,7 @@ public class ClusterMarketplaceAks {
     private String                               version;
 
 
-    public ClusterMarketplaceAks() {
+    private ClusterMarketplaceAks() {
 
         isSet = new HashSet<>();
     }
@@ -64,13 +64,12 @@ public class ClusterMarketplaceAks {
     }
 
     @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
-    }
+    public boolean isOfferSet() {
+        return isSet.contains("offer");    }
 
     @JsonIgnore
-    public boolean isResourceGroupNameSet() {
-        return isSet.contains("resourceGroupName");
+    public boolean isPublisherSet() {
+        return isSet.contains("publisher");
     }
 
     @JsonIgnore
@@ -81,4 +80,37 @@ public class ClusterMarketplaceAks {
     @JsonIgnore
     public boolean isVersioneSet() {
         return isSet.contains("version");    }
+
+    public static class Builder {
+
+        private ClusterMarketplaceAks clusterMarketplaceAks;
+        private Builder() {
+            this.clusterMarketplaceAks = new ClusterMarketplaceAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setOffer(final String offer) {
+            clusterMarketplaceAks.setOffer(offer);
+            return this;
+        }
+        public Builder setPublisher(final String publisher) {
+            clusterMarketplaceAks.setPublisher(publisher);
+            return this;
+        }
+        public Builder setSku(final String sku) {
+            clusterMarketplaceAks.setSku(sku);
+            return this;
+        }
+        public Builder setVersion(final String version) {
+            clusterMarketplaceAks.setVersion(version);
+            return this;
+        }
+
+        public ClusterMarketplaceAks build() {
+            return clusterMarketplaceAks;
+        }
+    }
 }

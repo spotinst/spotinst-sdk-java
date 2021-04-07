@@ -37,7 +37,7 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
         this.apiVersion = apiVersion;
     }
 
-    public boolean isMinorVersionAutoUpgrade() {
+    public boolean getMinorVersionAutoUpgrade() {
         return minorVersionAutoUpgrade;
     }
 

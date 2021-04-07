@@ -11,6 +11,7 @@ public class ApiVirtualNodeGroupTemplateAks  implements IPartialUpdateEntity {
     private Set<String>                      isSet;
     private ApiLaunchSpecificationAks        launchSpecification;
 
+
     public ApiVirtualNodeGroupTemplateAks() {
         isSet = new HashSet<>();
     }

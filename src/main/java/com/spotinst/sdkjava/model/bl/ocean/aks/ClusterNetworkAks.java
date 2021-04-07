@@ -16,7 +16,7 @@ public class ClusterNetworkAks {
     private String                              virtualNetworkName;
 
 
-    public ClusterNetworkAks() {
+    private ClusterNetworkAks() {
         isSet = new HashSet<>();
     }
 
@@ -69,5 +69,34 @@ public class ClusterNetworkAks {
     @JsonIgnore
     public boolean isVirtualNetworkNameSet() {
         return isSet.contains("virtualNetworkName");
+    }
+
+    public static class Builder {
+
+        private ClusterNetworkAks clusterNetworkAks;
+        private Builder() {
+            this.clusterNetworkAks = new ClusterNetworkAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setNetworkInterfaces(final List<ClusterNetworkInterfaceAks> networkInterfaces) {
+            clusterNetworkAks.setNetworkInterfaces(networkInterfaces);
+            return this;
+        }
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            clusterNetworkAks.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+        public Builder setVirtualNetworkName(final String virtualNetworkName) {
+            clusterNetworkAks.setVirtualNetworkName(virtualNetworkName);
+            return this;
+        }
+
+        public ClusterNetworkAks build() {
+            return clusterNetworkAks;
+        }
     }
 }

@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class ApiLoadBalancersConfigAks  implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                 isSet;
-    private List<ApiLoadBalancer>       loadBalancers;
+    private Set<String>                     isSet;
+    private List<ApiLoadBalancerAks>        loadBalancers;
 
 
     public ApiLoadBalancersConfigAks() {
@@ -26,11 +26,11 @@ public class ApiLoadBalancersConfigAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiLoadBalancer> getLoadBalancers() {
+    public List<ApiLoadBalancerAks> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<ApiLoadBalancer> loadBalancers) {
+    public void setLoadBalancers(List<ApiLoadBalancerAks> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }

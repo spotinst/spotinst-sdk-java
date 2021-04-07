@@ -17,7 +17,7 @@ public class ClusterLoadBalancerAks {
     private String                              type;
 
 
-    public ClusterLoadBalancerAks() {
+    private ClusterLoadBalancerAks() {
         isSet = new HashSet<>();
     }
 
@@ -97,6 +97,44 @@ public class ClusterLoadBalancerAks {
     @JsonIgnore
     public boolean isTypeSet() {
         return isSet.contains("type");
+    }
+
+    public static class Builder {
+
+        private ClusterLoadBalancerAks clusterLoadBalancerAks;
+
+        private Builder() {
+            this.clusterLoadBalancerAks = new ClusterLoadBalancerAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setBackendPoolNames(final List<String> backendPoolNames) {
+            clusterLoadBalancerAks.setBackendPoolNames(backendPoolNames);
+            return this;
+        }
+        public Builder setLoadBalancerSku(final String loadBalancerSku) {
+            clusterLoadBalancerAks.setLoadBalancerSku(loadBalancerSku);
+            return this;
+        }
+        public Builder setName(final String name) {
+            clusterLoadBalancerAks.setName(name);
+            return this;
+        }
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            clusterLoadBalancerAks.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+        public Builder setType(final String type) {
+            clusterLoadBalancerAks.setType(type);
+            return this;
+        }
+
+        public ClusterLoadBalancerAks build() {
+            return clusterLoadBalancerAks;
+        }
     }
 
 

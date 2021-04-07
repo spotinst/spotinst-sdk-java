@@ -13,7 +13,7 @@ public class ClusterLoginAks  {
     private String                    userName;
 
 
-    public ClusterLoginAks() {
+    private ClusterLoginAks() {
         isSet = new HashSet<>();
     }
 
@@ -53,5 +53,32 @@ public class ClusterLoginAks  {
     @JsonIgnore
     public boolean isUserNameSet() {
         return isSet.contains("userName");
+    }
+
+    public static class Builder {
+
+        private ClusterLoginAks clusterLoginAks;
+
+        private Builder() {
+            this.clusterLoginAks = new ClusterLoginAks();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+        public Builder setSshPublicKey(final String sshPublicKey) {
+            clusterLoginAks.setSshPublicKey(sshPublicKey);
+            return this;
+        }
+
+        public Builder setUserName(final String userName) {
+            clusterLoginAks.setUserName(userName);
+            return this;
+        }
+
+        public ClusterLoginAks build() {
+            return clusterLoginAks;
+        }
     }
 }
