@@ -35,26 +35,26 @@ public class ClusterImageAks {
         return isSet.contains("marketplace");
     }
 
-    public static class Builder {
+public static class Builder {
 
-        private ClusterImageAks clusterImageAks;
-        private Builder() {
-            this.clusterImageAks = new ClusterImageAks();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setMarketplace(final ClusterMarketplaceAks marketplace) {
-            clusterImageAks.setMarketplace(marketplace);
-            return this;
-        }
-
-        public ClusterImageAks build() {
-            return clusterImageAks;
-        }
+    private ClusterImageAks clusterImageAks;
+    private Builder() {
+        this.clusterImageAks = new ClusterImageAks();
     }
+
+    public static Builder get() {
+        Builder builder = new Builder();
+        return builder;
+    }
+
+    public Builder setMarketplace(final ClusterMarketplaceAks marketplace) {
+        clusterImageAks.setMarketplace(marketplace);
+        return this;
+    }
+
+    public ClusterImageAks build() {
+        return clusterImageAks;
+    }
+}
 
 }

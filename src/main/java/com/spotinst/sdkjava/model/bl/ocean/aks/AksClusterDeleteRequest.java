@@ -7,7 +7,7 @@ public class AksClusterDeleteRequest {
     private AksClusterDeleteRequest() {
     }
 
-    //region Getters & Setters
+    //Getters & Setters
     public String getClusterId() {
         return clusterId;
     }
@@ -16,9 +16,9 @@ public class AksClusterDeleteRequest {
         this.clusterId = cluster;
     }
 
-    //endregion
 
-    //region Builder class
+
+    //Builder class
     public static class Builder {
 
         private AksClusterDeleteRequest clusterDeletionRequest;
@@ -42,5 +42,5 @@ public class AksClusterDeleteRequest {
         }
 
     }
-    //endregion
+
 }

@@ -15,7 +15,7 @@ public class AksClusterUpdateRequest {
     private AksClusterUpdateRequest() {
     }
 
-    //region Getters & Setters
+    //Getters & Setters
     public ClusterAks getCluster() {
         return cluster;
     }
@@ -24,15 +24,14 @@ public class AksClusterUpdateRequest {
         this.cluster = cluster;
     }
 
-    //endregion
 
-    //region Builder class
+    //Builder class
     public static class Builder {
 
-        private AksClusterUpdateRequest clusterCreationRequest;
+        private AksClusterUpdateRequest clusterUpdateRequest;
 
         private Builder() {
-            this.clusterCreationRequest = new AksClusterUpdateRequest();
+            this.clusterUpdateRequest = new AksClusterUpdateRequest();
         }
 
         public static AksClusterUpdateRequest.Builder get() {
@@ -41,27 +40,27 @@ public class AksClusterUpdateRequest {
         }
 
         public AksClusterUpdateRequest.Builder setCluster(final ClusterAks clusterAks) {
-            clusterCreationRequest.setCluster(clusterAks);
+            clusterUpdateRequest.setCluster(clusterAks);
             return this;
         }
 
         public AksClusterUpdateRequest build() {
-            return clusterCreationRequest;
+            return clusterUpdateRequest;
         }
 
     }
-    //endregion
 
-    //region Json methods
+
+    //Json methods
     public String toJson() {
-        ApiClusterAks apiClusterToCreate = ClusterConverterAks.toDal(cluster);
+        ApiClusterAks apiClusterToUpdate = ClusterConverterAks.toDal(cluster);
 
         Map<String, ApiClusterAks> clusterRequest = new HashMap<>();
-        clusterRequest.put("cluster", apiClusterToCreate);
+        clusterRequest.put("cluster", apiClusterToUpdate);
         String clusterJson = JsonMapper.toJson(clusterRequest);
 
         return clusterJson;
     }
-    //endregion
+
 }
 

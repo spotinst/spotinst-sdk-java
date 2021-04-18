@@ -1,16 +1,11 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.client.http.UserAgentConfig;
-import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.LinkedList;
 import java.util.List;
 
 public class SpotOceanAzureAksClusterClient {

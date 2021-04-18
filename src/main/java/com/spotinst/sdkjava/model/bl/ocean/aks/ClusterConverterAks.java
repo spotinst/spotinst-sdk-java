@@ -112,6 +112,10 @@ public class ClusterConverterAks {
                 retVal.setNetwork(toDal(launchSpecificationAks.getNetwork()));
             }
 
+            if (launchSpecificationAks.isOsDiskSet()){
+                retVal.setOsDisk(toDal(launchSpecificationAks.getOsDisk()));
+            }
+
             if (launchSpecificationAks.isResourceGroupNameSet()){
                 retVal.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
             }
@@ -174,6 +178,10 @@ public class ClusterConverterAks {
 
             if (tagAks.isTagKeySet()) {
                 retVal.setTagKey(tagAks.getTagKey());
+            }
+
+            if (tagAks.isTagValueSet()){
+                retVal.setTagValue(tagAks.getTagValue());
             }
         }
 
@@ -380,6 +388,19 @@ public class ClusterConverterAks {
         return retVal;
     }
 
+    private static ApiOsDiskAks toDal(ClusterOsDiskAks clusterOsDiskAks){
+        ApiOsDiskAks retVal = null;
+
+        if(clusterOsDiskAks != null){
+            retVal = new ApiOsDiskAks();
+
+            if (clusterOsDiskAks.isSizeGBSet()){
+                retVal.setSizeGB(clusterOsDiskAks.getSizeGB());
+            }
+        }
+        return retVal;
+    }
+
     //DAL -> BL
 
     public static ClusterAks toBl(ApiClusterAks src) {
@@ -485,6 +506,10 @@ public class ClusterConverterAks {
                 builder.setNetwork(toBl(launchSpecificationAks.getNetwork()));
             }
 
+            if (launchSpecificationAks.isOsDiskSet()){
+                builder.setOsDisk(toBl(launchSpecificationAks.getOsDisk()));
+            }
+
             if (launchSpecificationAks.isResourceGroupNameSet()){
                 builder.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
             }
@@ -551,6 +576,10 @@ public class ClusterConverterAks {
 
             if (tagAks.isTagKeySet()) {
                 builder.setTagKey(tagAks.getTagKey());
+            }
+
+            if (tagAks.isTagValueSet()){
+                builder.setTagValue(tagAks.getTagValue());
             }
 
             retVal = builder.build();
@@ -768,5 +797,22 @@ public class ClusterConverterAks {
             retVal = builder.build();
         }
         return retVal;
+    }
+
+    private static ClusterOsDiskAks toBl(ApiOsDiskAks osDiskAks){
+        ClusterOsDiskAks retVal = null;
+
+        if (osDiskAks != null) {
+            ClusterOsDiskAks.Builder builder = ClusterOsDiskAks.Builder.get();
+
+            if (osDiskAks.isSizeGBSet()) {
+                builder.setSizeGB(osDiskAks.getSizeGB());
+            }
+
+            retVal = builder.build();
+        }
+
+        return retVal;
+
     }
 }

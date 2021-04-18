@@ -10,6 +10,7 @@ public class ApiTagAks  implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
     private String                    tagKey;
+    private String                    tagValue;
 
 
     public ApiTagAks() {
@@ -33,8 +34,22 @@ public class ApiTagAks  implements IPartialUpdateEntity {
         this.tagKey = tagKey;
     }
 
+    public String getTagValue() {
+        return tagValue;
+    }
+
+    public void setTagValue(String tagValue) {
+        isSet.add("tagValue");
+        this.tagValue = tagValue;
+    }
+
     @JsonIgnore
     public boolean isTagKeySet() {
         return isSet.contains("tagKey");
+    }
+
+    @JsonIgnore
+    public boolean isTagValueSet() {
+        return isSet.contains("tagValue");
     }
 }

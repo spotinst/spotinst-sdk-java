@@ -14,7 +14,7 @@ public class AksClusterCreationRequest {
     private AksClusterCreationRequest() {
     }
 
-    //region Getters & Setters
+    //Getters & Setters
     public ClusterAks getCluster() {
         return cluster;
     }
@@ -23,9 +23,8 @@ public class AksClusterCreationRequest {
         this.cluster = cluster;
     }
 
-    //endregion
 
-    //region Builder class
+    //Builder class
     public static class Builder {
         private AksClusterCreationRequest clusterCreationRequest;
 
@@ -48,9 +47,8 @@ public class AksClusterCreationRequest {
         }
 
     }
-    //endregion
 
-    //region Json methods
+    //Json methods
     public String toJson() {
         ApiClusterAks apiClusterToCreate = ClusterConverterAks.toDal(cluster);
 
@@ -60,5 +58,5 @@ public class AksClusterCreationRequest {
 
         return clusterJson;
     }
-    //endregion
+
 }

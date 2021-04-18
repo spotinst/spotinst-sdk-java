@@ -15,6 +15,7 @@ public class ClusterLaunchSpecificationAks {
     private ClusterLoadBalancersConfigAks       loadBalancersConfig;
     private ClusterLoginAks                     login;
     private ClusterNetworkAks                   network;
+    private ClusterOsDiskAks                    osDisk;
     private String                              resourceGroupName;
     private List<ClusterTagAks>                 tags;
 
@@ -100,6 +101,15 @@ public class ClusterLaunchSpecificationAks {
         this.tags = tags;
     }
 
+    public ClusterOsDiskAks getOsDisk() {
+        return osDisk;
+    }
+
+    public void setOsDisk(ClusterOsDiskAks osDisk) {
+        isSet.add("osDisk");
+        this.osDisk = osDisk;
+    }
+
     @JsonIgnore
     public boolean isExtensionsSet() {
         return isSet.contains("extensions");
@@ -123,6 +133,11 @@ public class ClusterLaunchSpecificationAks {
     @JsonIgnore
     public boolean isNetworkSet() {
         return isSet.contains("network");
+    }
+
+    @JsonIgnore
+    public boolean isOsDiskSet() {
+        return isSet.contains("osDisk");
     }
 
     @JsonIgnore
@@ -166,6 +181,10 @@ public class ClusterLaunchSpecificationAks {
         }
         public Builder setNetwork(final ClusterNetworkAks networkn) {
             clusterLaunchSpecificationAks.setNetwork(networkn);
+            return this;
+        }
+        public Builder setOsDisk(final ClusterOsDiskAks osDisk){
+            clusterLaunchSpecificationAks.setOsDisk(osDisk);
             return this;
         }
         public Builder setResourceGroupName(final String resourceGroupName) {

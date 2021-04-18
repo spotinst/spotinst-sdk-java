@@ -132,6 +132,11 @@ public class ClusterExtensionAks {
             return this;
         }
 
+        public Builder setType(final String type){
+            clusterExtensionAks.setType(type);
+            return this;
+        }
+
         public ClusterExtensionAks build() {
             return clusterExtensionAks;
         }

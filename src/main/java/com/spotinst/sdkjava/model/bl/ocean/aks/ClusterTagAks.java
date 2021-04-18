@@ -10,6 +10,7 @@ public class ClusterTagAks {
     @JsonIgnore
     private Set<String>               isSet;
     private String                    tagKey;
+    private String                    tagValue;
 
 
     private ClusterTagAks() {
@@ -33,9 +34,23 @@ public class ClusterTagAks {
         this.tagKey = tagKey;
     }
 
+    public String getTagValue() {
+        return tagValue;
+    }
+
+    public void setTagValue(String tagValue) {
+        isSet.add("tagValue");
+        this.tagValue = tagValue;
+    }
+
     @JsonIgnore
     public boolean isTagKeySet() {
         return isSet.contains("tagKey");
+    }
+
+    @JsonIgnore
+    public boolean isTagValueSet() {
+        return isSet.contains("tagValue");
     }
 
     public static class Builder {
@@ -53,6 +68,11 @@ public class ClusterTagAks {
 
         public Builder setTagKey(final String tagKey) {
             clusterTagAks.setTagKey(tagKey);
+            return this;
+        }
+
+        public Builder setTagValue(final String tagValue) {
+            clusterTagAks.setTagKey(tagValue);
             return this;
         }
 

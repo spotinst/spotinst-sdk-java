@@ -17,7 +17,9 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
     private ApiLoadBalancersConfigAks    loadBalancersConfig;
     private ApiLoginAks                  login;
     private ApiNetworkAks                network;
+    private ApiOsDiskAks                 osDisk;
     private String                       resourceGroupName;
+    private String                       customData;
     private List<ApiTagAks>              tags;
 
     public ApiLaunchSpecificationAks() {
@@ -101,6 +103,15 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         this.tags = tags;
     }
 
+    public ApiOsDiskAks getOsDisk() {
+        return osDisk;
+    }
+
+    public void setOsDisk(ApiOsDiskAks osDisk) {
+        isSet.add("osDisk");
+        this.osDisk = osDisk;
+    }
+
     @JsonIgnore
     public boolean isExtensionsSet() {
         return isSet.contains("extensions");
@@ -132,8 +143,13 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
+    public boolean isOsDiskSet() {
+        return isSet.contains("osDisk");
+    }
+
+    @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
     }
-}
 
+}
