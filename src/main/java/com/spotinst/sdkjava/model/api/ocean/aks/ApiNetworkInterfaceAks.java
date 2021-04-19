@@ -10,11 +10,11 @@ import java.util.Set;
 public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
-    private boolean                   assignPublicIp;
-    private boolean                   enableIPForwarding;
     private boolean                   isPrimary;
-    private List<ApiSecurityGroupAks> securityGroup;
     private String                    subnetName;
+    private boolean                   assignPublicIp;
+    private ApiSecurityGroupAks       securityGroup;
+    private boolean                   enableIPForwarding;
 
 
     public ApiNetworkInterfaceAks() {
@@ -56,11 +56,11 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         isPrimary = primary;
     }
 
-    public List<ApiSecurityGroupAks> getSecurityGroup() {
+    public ApiSecurityGroupAks getSecurityGroup() {
         return securityGroup;
     }
 
-    public void setSecurityGroup(List<ApiSecurityGroupAks> securityGroup) {
+    public void setSecurityGroup(ApiSecurityGroupAks securityGroup) {
         isSet.add("securityGroup");
         this.securityGroup = securityGroup;
     }

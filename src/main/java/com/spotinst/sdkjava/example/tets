@@ -1,0 +1,69 @@
+{
+  "cluster": {
+    "aks": {
+      "name": "AutomationApi",
+      "resourceGroupName": "AutomationApiRG"
+    },
+    "controllerClusterId": "automation-api",
+    "name": "AutomationApi",
+    "virtualNodeGroupTemplate": {
+      "launchSpecification": {
+        "extensions": [
+          {
+            "apiVersion": "2.0",
+            "minorVersionAutoUpgrade": true,
+            "name": "OceanAKS",
+            "publisher": "Microsoft.Azure.Extensions",
+            "type": "customScript"
+          }
+        ],
+        "image": {
+          "marketplace": {
+            "offer": "aks",
+            "publisher": "microsoft-aks",
+            "sku": "aks-ubuntu-1804-gen2-2021-q1",
+            "version": "2021.03.29"
+          }
+        },
+        "loadBalancersConfig": {
+          "loadBalancers": [
+            {
+              "backendPoolNames": [
+                "aksOutboundBackendPool",
+                "kubernetes"
+              ],
+              "loadBalancerSku": "Standard",
+              "name": "kubernetes",
+              "resourceGroupName": "MC_RomanResourceGroup_RomanTestAKS2_eastus",
+              "type": "loadBalancer"
+            }
+          ]
+        },
+        "login": {
+          "sshPublicKey": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==",
+          "userName": "azureuser"
+        },
+        "network": {
+          "resourceGroupName": "MC_AutomationApiRG_AutomationApi_eastus",
+          "virtualNetworkName": "aks-vnet-15320214",
+          "networkInterfaces": [
+            {
+              "isPrimary": true,
+              "subnetName": "aks-subnet",
+              "assignPublicIp": false,
+              "securityGroup": {
+                "name": "aks-agentpool-15320214-nsg",
+                "resourceGroupName": "MC_AutomationApiRG_AutomationApi_eastus"
+              },
+              "enableIPForwarding": true
+            }
+          ]
+        },
+        "osDisk": {
+          "sizeGB": 30
+        },
+        "resourceGroupName": "MC_AutomationApiRG_AutomationApi_eastus"
+      }
+    }
+  }
+}

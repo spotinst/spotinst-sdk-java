@@ -39,7 +39,6 @@ public class ClusterExtensionAks {
     }
 
     public void setMinorVersionAutoUpgrade(boolean minorVersionAutoUpgrade) {
-
         isSet.add("minorVersionAutoUpgrade");
         this.minorVersionAutoUpgrade = minorVersionAutoUpgrade;
     }
@@ -49,7 +48,6 @@ public class ClusterExtensionAks {
     }
 
     public void setName(String name) {
-
         isSet.add("name");
         this.name = name;
     }
@@ -59,7 +57,6 @@ public class ClusterExtensionAks {
     }
 
     public void setPublisher(String publisher) {
-
         isSet.add("publisher");
         this.publisher = publisher;
     }
@@ -69,7 +66,6 @@ public class ClusterExtensionAks {
     }
 
     public void setType(String type) {
-
         isSet.add("type");
         this.type = type;
     }

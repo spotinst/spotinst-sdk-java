@@ -10,10 +10,9 @@ import java.util.Set;
 public class ApiNetworkAks  implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                  isSet;
-
-    private List<ApiNetworkInterfaceAks> networkInterfaces;
     private String                       resourceGroupName;
     private String                       virtualNetworkName;
+    private List<ApiNetworkInterfaceAks> networkInterfaces;
 
 
     public ApiNetworkAks() {

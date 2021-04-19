@@ -43,8 +43,7 @@ public class ClusterLoadBalancerAks {
     }
 
     public void setLoadBalancerSku(String loadBalancerSku) {
-        isSet.add("resourceGroupName");
-        // Verify default val
+        isSet.add("loadBalancerSku");
         this.loadBalancerSku = loadBalancerSku;
     }
 
@@ -53,6 +52,7 @@ public class ClusterLoadBalancerAks {
     }
 
     public void setName(String name) {
+        isSet.add("name");
         this.name = name;
     }
 

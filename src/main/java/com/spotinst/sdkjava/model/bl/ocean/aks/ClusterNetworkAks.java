@@ -11,9 +11,10 @@ import java.util.Set;
 public class ClusterNetworkAks {
     @JsonIgnore
     private Set<String>                         isSet;
-    private List<ClusterNetworkInterfaceAks>    networkInterfaces;
     private String                              resourceGroupName;
     private String                              virtualNetworkName;
+    private List<ClusterNetworkInterfaceAks>    networkInterfaces;
+
 
 
     private ClusterNetworkAks() {

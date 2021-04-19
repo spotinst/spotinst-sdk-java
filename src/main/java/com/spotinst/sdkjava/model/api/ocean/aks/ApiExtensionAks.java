@@ -42,7 +42,6 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setMinorVersionAutoUpgrade(boolean minorVersionAutoUpgrade) {
-
         isSet.add("minorVersionAutoUpgrade");
         this.minorVersionAutoUpgrade = minorVersionAutoUpgrade;
     }
@@ -52,7 +51,6 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setName(String name) {
-
         isSet.add("name");
         this.name = name;
     }
@@ -62,7 +60,6 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     }
 
     public void setPublisher(String publisher) {
-
         isSet.add("publisher");
         this.publisher = publisher;
     }

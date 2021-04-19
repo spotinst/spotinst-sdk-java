@@ -17,10 +17,12 @@ public class ClusterAks {
 
     @JsonIgnore
     private Set<String>                         isSet;
+    private String                              id;
     private ClusterConfigurationAks             aks;
     private String                              controllerClusterId;
     private String                              name;
     private ClusterVirtualNodeGroupTemplateAks  virtualNodeGroupTemplate;
+
 
 
     private ClusterAks() {
@@ -74,6 +76,15 @@ public class ClusterAks {
         this.virtualNodeGroupTemplate = virtualNodeGroupTemplate;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
+    }
+
     @JsonIgnore
     public boolean isAksSet() {
         return isSet.contains("aks");
@@ -92,6 +103,11 @@ public class ClusterAks {
     @JsonIgnore
     public boolean isVirtualNodeGroupTemplateSet() {
         return isSet.contains("virtualNodeGroupTemplate");
+    }
+
+    @JsonIgnore
+    public boolean isIdSet() {
+        return isSet.contains("id");
     }
 
     public static class Builder {
@@ -125,6 +141,11 @@ public class ClusterAks {
 
         public Builder setVirtualNodeGroupTemplate(final ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplate) {
             clusterAks.setVirtualNodeGroupTemplate(virtualNodeGroupTemplate);
+            return this;
+        }
+
+        public Builder setId(final String id) {
+            clusterAks.setId(id);
             return this;
         }
 

@@ -19,8 +19,7 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
     private ApiNetworkAks                network;
     private ApiOsDiskAks                 osDisk;
     private String                       resourceGroupName;
-    private String                       customData;
-    private List<ApiTagAks>              tags;
+
 
     public ApiLaunchSpecificationAks() {
         isSet = new HashSet<>();
@@ -93,16 +92,6 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         this.resourceGroupName = resourceGroupName;
     }
 
-    public List<ApiTagAks> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<ApiTagAks> tags) {
-
-        isSet.add("tags");
-        this.tags = tags;
-    }
-
     public ApiOsDiskAks getOsDisk() {
         return osDisk;
     }
@@ -147,9 +136,5 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         return isSet.contains("osDisk");
     }
 
-    @JsonIgnore
-    public boolean isTagsSet() {
-        return isSet.contains("tags");
-    }
 
 }

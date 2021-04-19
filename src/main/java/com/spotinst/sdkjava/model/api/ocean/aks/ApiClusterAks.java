@@ -17,6 +17,7 @@ public class ApiClusterAks implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                     isSet;
+    private String                          id;
     private ApiClusterConfigurationAks      aks;
     private String                          controllerClusterId;
     private String                          name;
@@ -74,6 +75,15 @@ public class ApiClusterAks implements IPartialUpdateEntity {
         this.virtualNodeGroupTemplate = virtualNodeGroupTemplate;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
+    }
+
     @JsonIgnore
     public boolean isAksSet() {
         return isSet.contains("aks");
@@ -94,5 +104,9 @@ public class ApiClusterAks implements IPartialUpdateEntity {
         return isSet.contains("virtualNodeGroupTemplate");
     }
 
+    @JsonIgnore
+    public boolean isIdSet() {
+        return isSet.contains("id");
+    }
 
 }

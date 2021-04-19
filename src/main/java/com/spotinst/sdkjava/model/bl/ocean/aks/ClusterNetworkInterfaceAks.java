@@ -9,11 +9,11 @@ import java.util.Set;
 public class ClusterNetworkInterfaceAks {
     @JsonIgnore
     private Set<String>                     isSet;
-    private boolean                         assignPublicIp;
-    private boolean                         enableIPForwarding;
     private boolean                         isPrimary;
-    private List<ClusterSecurityGroupAks>   securityGroup;
     private String                          subnetName;
+    private boolean                         assignPublicIp;
+    private ClusterSecurityGroupAks         securityGroup;
+    private boolean                         enableIPForwarding;
 
 
     private ClusterNetworkInterfaceAks() {
@@ -55,11 +55,11 @@ public class ClusterNetworkInterfaceAks {
         isPrimary = primary;
     }
 
-    public List<ClusterSecurityGroupAks> getSecurityGroup() {
+    public ClusterSecurityGroupAks getSecurityGroup() {
         return securityGroup;
     }
 
-    public void setSecurityGroup(List<ClusterSecurityGroupAks> securityGroup) {
+    public void setSecurityGroup(ClusterSecurityGroupAks securityGroup) {
         isSet.add("securityGroup");
         this.securityGroup = securityGroup;
     }
@@ -85,7 +85,7 @@ public class ClusterNetworkInterfaceAks {
 
     @JsonIgnore
     public boolean isIsPrimarySet() {
-        return isSet.contains("IsPrimary");
+        return isSet.contains("isPrimary");
     }
 
     @JsonIgnore
@@ -118,7 +118,7 @@ public class ClusterNetworkInterfaceAks {
             clusterNetworkInterfaceAks.setEnableIPForwarding(enableIPForwarding);
             return this;
         }
-        public Builder setSecurityGroup(final List<ClusterSecurityGroupAks> securityGroup) {
+        public Builder setSecurityGroup(final ClusterSecurityGroupAks securityGroup) {
             clusterNetworkInterfaceAks.setSecurityGroup(securityGroup);
             return this;
         }

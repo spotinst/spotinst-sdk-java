@@ -36,6 +36,10 @@ public class ClusterConverterAks {
                 retVal.setVirtualNodeGroupTemplate(toDal(src.getVirtualNodeGroupTemplate()));
             }
 
+            if (src.isIdSet()){
+                retVal.setId(src.getId());
+            }
+
         }
 
         return retVal;
@@ -66,7 +70,6 @@ public class ClusterConverterAks {
 
         if (virtualNodeGroupTemplateAks != null) {
             retVal = new ApiVirtualNodeGroupTemplateAks();
-
             if (virtualNodeGroupTemplateAks.isLaunchSpecificationSet()) {
                 retVal.setLaunchSpecification(toDal(virtualNodeGroupTemplateAks.getLaunchSpecification()));
             }
@@ -120,20 +123,6 @@ public class ClusterConverterAks {
                 retVal.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
             }
 
-            if (launchSpecificationAks.isTagsSet()){
-
-                if (launchSpecificationAks.getTags() != null){
-                    List<ApiTagAks> tags =
-                            launchSpecificationAks.getTags().stream().map(ClusterConverterAks::toDal)
-                                    .collect(Collectors.toList());
-                    retVal.setTags(tags);
-                }
-                else{
-                    retVal.setTags(null);
-
-                }
-            }
-
         }
 
         return retVal;
@@ -158,31 +147,13 @@ public class ClusterConverterAks {
             }
 
             if (extensionAks.isPublisherSet()){
-                retVal.setName(extensionAks.getPublisher());
+                retVal.setPublisher(extensionAks.getPublisher());
             }
 
             if (extensionAks.isTypeSet()){
-                retVal.setName(extensionAks.getType());
+                retVal.setType(extensionAks.getType());
             }
 
-        }
-
-        return retVal;
-    }
-
-    private static ApiTagAks toDal(ClusterTagAks tagAks) {
-        ApiTagAks retVal = null;
-
-        if (tagAks != null) {
-            retVal = new ApiTagAks();
-
-            if (tagAks.isTagKeySet()) {
-                retVal.setTagKey(tagAks.getTagKey());
-            }
-
-            if (tagAks.isTagValueSet()){
-                retVal.setTagValue(tagAks.getTagValue());
-            }
         }
 
         return retVal;
@@ -337,6 +308,7 @@ public class ClusterConverterAks {
         ApiNetworkInterfaceAks retVal = null;
 
         if (networkInterfaceAks != null){
+            retVal = new ApiNetworkInterfaceAks();
 
             if (networkInterfaceAks.isAssignPublicIpSet()){
                 retVal.setAssignPublicIp(networkInterfaceAks.getAssignPublicIp());
@@ -351,16 +323,7 @@ public class ClusterConverterAks {
             }
 
             if (networkInterfaceAks.isSecurityGroupSet()){
-
-                if (networkInterfaceAks.getSecurityGroup() != null){
-                    List<ApiSecurityGroupAks> securityGroup =
-                            networkInterfaceAks.getSecurityGroup().stream().map(ClusterConverterAks::toDal)
-                                    .collect(Collectors.toList());
-                    retVal.setSecurityGroup(securityGroup);
-                }
-                else{
-                    retVal.setSecurityGroup(null);
-                }
+                retVal.setSecurityGroup(toDal(networkInterfaceAks.getSecurityGroup()));
             }
 
             if (networkInterfaceAks.isSubnetNameSet()){
@@ -424,6 +387,10 @@ public class ClusterConverterAks {
 
             if (src.isVirtualNodeGroupTemplateSet()) {
                 builder.setVirtualNodeGroupTemplate(toBl(src.getVirtualNodeGroupTemplate()));
+            }
+
+            if (src.isIdSet()){
+                builder.setId(src.getId());
             }
 
             retVal = builder.build();
@@ -514,20 +481,6 @@ public class ClusterConverterAks {
                 builder.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
             }
 
-            if (launchSpecificationAks.isTagsSet()){
-
-                if (launchSpecificationAks.getTags() != null){
-                    List<ClusterTagAks> tags =
-                            launchSpecificationAks.getTags().stream().map(ClusterConverterAks::toBl)
-                                    .collect(Collectors.toList());
-                    builder.setTags(tags);
-                }
-                else{
-                    builder.setTags(null);
-
-                }
-            }
-
             retVal = builder.build();
 
         }
@@ -563,26 +516,6 @@ public class ClusterConverterAks {
 
             retVal = builder.build();
 
-        }
-
-        return retVal;
-    }
-
-    private static ClusterTagAks toBl(ApiTagAks tagAks) {
-        ClusterTagAks retVal = null;
-
-        if (tagAks != null) {
-            ClusterTagAks.Builder builder = ClusterTagAks.Builder.get();
-
-            if (tagAks.isTagKeySet()) {
-                builder.setTagKey(tagAks.getTagKey());
-            }
-
-            if (tagAks.isTagValueSet()){
-                builder.setTagValue(tagAks.getTagValue());
-            }
-
-            retVal = builder.build();
         }
 
         return retVal;
@@ -760,16 +693,8 @@ public class ClusterConverterAks {
             }
 
             if (networkInterfaceAks.isSecurityGroupSet()){
+                builder.setSecurityGroup(toBl(networkInterfaceAks.getSecurityGroup()));
 
-                if (networkInterfaceAks.getSecurityGroup() != null){
-                    List<ClusterSecurityGroupAks> securityGroup =
-                            networkInterfaceAks.getSecurityGroup().stream().map(ClusterConverterAks::toBl)
-                                    .collect(Collectors.toList());
-                    builder.setSecurityGroup(securityGroup);
-                }
-                else{
-                    builder.setSecurityGroup(null);
-                }
             }
 
             if (networkInterfaceAks.isSubnetNameSet()){
