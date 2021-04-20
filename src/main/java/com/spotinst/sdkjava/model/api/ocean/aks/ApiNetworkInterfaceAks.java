@@ -1,20 +1,28 @@
 package com.spotinst.sdkjava.model.api.ocean.aks;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
 
 public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>               isSet;
-    private boolean                   isPrimary;
-    private String                    subnetName;
-    private boolean                   assignPublicIp;
-    private ApiSecurityGroupAks       securityGroup;
-    private boolean                   enableIPForwarding;
+    private Set<String>                             isSet;
+    private boolean                                 isPrimary;
+    private String                                  subnetName;
+    private boolean                                 assignPublicIp;
+    private ApiSecurityGroupAks                     securityGroup;
+    private boolean                                 enableIPForwarding;
+    private String                                  publicIpSku;
+    private List<ApiAdditionalIpConfigurationsAks>  additionalIpConfigurations;
 
 
     public ApiNetworkInterfaceAks() {
@@ -52,7 +60,7 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     }
 
     public void setIsPrimary(boolean primary) {
-        isSet.add("primary");
+        isSet.add("isPrimary");
         isPrimary = primary;
     }
 
@@ -74,6 +82,29 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         this.subnetName = subnetName;
     }
 
+    public String getPublicIpSku() {
+        return publicIpSku;
+    }
+
+    public void setPublicIpSku(String publicIpSku) {
+        isSet.add("publicIpSku");
+        this.publicIpSku = publicIpSku;
+    }
+
+    public List<ApiAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
+        return additionalIpConfigurations;
+    }
+
+    public void setAdditionalIpConfigurations(List<ApiAdditionalIpConfigurationsAks> additionalIpConfigurations) {
+        isSet.add("additionalIpConfigurations");
+        this.additionalIpConfigurations = additionalIpConfigurations;
+    }
+
+    @JsonIgnore
+    public boolean isAdditionalIpConfigurationsSet() {
+        return isSet.contains("additionalIpConfigurations");
+    }
+
     @JsonIgnore
     public boolean isAssignPublicIpSet() {
         return isSet.contains("assignPublicIp");
@@ -86,7 +117,7 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
 
     @JsonIgnore
     public boolean isIsPrimarySet() {
-        return isSet.contains("primary");
+        return isSet.contains("isPrimary");
     }
 
     @JsonIgnore
@@ -97,5 +128,10 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSubnetNameSet() {
         return isSet.contains("subnetName");
+    }
+
+    @JsonIgnore
+    public boolean isPublicIpSkuSet() {
+        return isSet.contains("publicIpSku");
     }
 }

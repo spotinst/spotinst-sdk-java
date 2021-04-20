@@ -8,18 +8,18 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-
-public class ApiSecurityGroupAks  implements IPartialUpdateEntity {
+public class ApiAdditionalIpConfigurationsAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private String name;
-    private String resourceGroupName;
+    private Set<String>               isSet;
+    private String                    name;
 
 
-    public ApiSecurityGroupAks() {
+
+    public ApiAdditionalIpConfigurationsAks() {
         isSet = new HashSet<>();
     }
 
@@ -40,22 +40,10 @@ public class ApiSecurityGroupAks  implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    public String getResourceGroupName() {
-        return resourceGroupName;
-    }
-
-    public void setResourceGroupName(String resourceGroupName) {
-        isSet.add("resourceGroupName");
-        this.resourceGroupName = resourceGroupName;
-    }
 
     @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
     }
 
-    @JsonIgnore
-    public boolean isResourceGroupNameSet() {
-        return isSet.contains("resourceGroupName");
-    }
 }

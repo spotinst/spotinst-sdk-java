@@ -1,11 +1,17 @@
 package com.spotinst.sdkjava.model.api.ocean.aks;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
 
 public class ApiLoadBalancerAks implements IPartialUpdateEntity {
     @JsonIgnore
@@ -43,8 +49,7 @@ public class ApiLoadBalancerAks implements IPartialUpdateEntity {
     }
 
     public void setLoadBalancerSku(String loadBalancerSku) {
-        isSet.add("resourceGroupName");
-        // Verify default val
+        isSet.add("loadBalancerSku");
         this.loadBalancerSku = loadBalancerSku;
     }
 
@@ -53,6 +58,7 @@ public class ApiLoadBalancerAks implements IPartialUpdateEntity {
     }
 
     public void setName(String name) {
+        isSet.add("name");
         this.name = name;
     }
 

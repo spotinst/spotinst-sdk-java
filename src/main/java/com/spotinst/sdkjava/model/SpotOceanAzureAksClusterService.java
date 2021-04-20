@@ -1,5 +1,5 @@
 package com.spotinst.sdkjava.model;
-
+//TRY here
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
@@ -152,7 +152,7 @@ public class SpotOceanAzureAksClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/ocean/aws/k8s/cluster/%s", apiEndpoint, clusterId);
+        String uri = String.format("%s/ocean/azure/k8s/cluster/%s", apiEndpoint, clusterId);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);

@@ -86,7 +86,13 @@ public class ClusterConverterAks {
 
             retVal = new ApiLaunchSpecificationAks();
 
+            if (launchSpecificationAks.isResourceGroupNameSet()){
+
+                retVal.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
+            }
+
             if (launchSpecificationAks.isExtensionsSet()) {
+
                if (launchSpecificationAks.getExtensions() != null){
                    List<ApiExtensionAks> extensions =
                            launchSpecificationAks.getExtensions().stream().map(ClusterConverterAks::toDal)
@@ -119,9 +125,6 @@ public class ClusterConverterAks {
                 retVal.setOsDisk(toDal(launchSpecificationAks.getOsDisk()));
             }
 
-            if (launchSpecificationAks.isResourceGroupNameSet()){
-                retVal.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
-            }
 
         }
 
@@ -190,6 +193,7 @@ public class ClusterConverterAks {
             if (marketplaceAks.isSkuSet()) {
                 retVal.setSku(marketplaceAks.getSku());
             }
+
             if (marketplaceAks.isVersioneSet()) {
                 retVal.setVersion(marketplaceAks.getVersion());
             }
@@ -330,6 +334,20 @@ public class ClusterConverterAks {
                 retVal.setSubnetName(networkInterfaceAks.getSubnetName());
             }
 
+            if (networkInterfaceAks.isPublicIpSkuSet()){
+                retVal.setPublicIpSku(networkInterfaceAks.getPublicIpSku());
+            }
+
+            if (networkInterfaceAks.isAdditionalIpConfigurationsSet()){
+
+                if (networkInterfaceAks.getAdditionalIpConfigurations() != null){
+                    List<ApiAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toDal).collect(Collectors.toList());
+                    retVal.setAdditionalIpConfigurations(configurationsAks);
+                }
+                else{
+                    retVal.setAdditionalIpConfigurations(null);
+                }
+            }
         }
         return retVal;
     }
@@ -359,6 +377,19 @@ public class ClusterConverterAks {
 
             if (clusterOsDiskAks.isSizeGBSet()){
                 retVal.setSizeGB(clusterOsDiskAks.getSizeGB());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiAdditionalIpConfigurationsAks toDal(ClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
+        ApiAdditionalIpConfigurationsAks retVal = null;
+
+        if (additionalIpConfigurationsAks != null){
+            retVal = new ApiAdditionalIpConfigurationsAks();
+
+            if (additionalIpConfigurationsAks.isNameSet()){
+                retVal.setName(additionalIpConfigurationsAks.getName());
             }
         }
         return retVal;
@@ -700,6 +731,22 @@ public class ClusterConverterAks {
             if (networkInterfaceAks.isSubnetNameSet()){
                 builder.setSubnetName(networkInterfaceAks.getSubnetName());
             }
+
+            if (networkInterfaceAks.isPublicIpSkuSet()){
+                builder.setPublicIpSku(networkInterfaceAks.getPublicIpSku());
+            }
+
+            if (networkInterfaceAks.isAdditionalIpConfigurationsSet()){
+                if (networkInterfaceAks.getAdditionalIpConfigurations() != null){
+
+                    List<ClusterAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toBl).collect(Collectors.toList());
+                    builder.setAdditionalIpConfigurations(configurationsAks);
+                }
+                else {
+                    builder.setAdditionalIpConfigurations(null);
+                }
+            }
+
             retVal = builder.build();
         }
         return retVal;
@@ -739,5 +786,19 @@ public class ClusterConverterAks {
 
         return retVal;
 
+    }
+
+    private static ClusterAdditionalIpConfigurationsAks toBl(ApiAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
+        ClusterAdditionalIpConfigurationsAks retVal = null;
+
+        if (additionalIpConfigurationsAks != null){
+            ClusterAdditionalIpConfigurationsAks.Builder builder = ClusterAdditionalIpConfigurationsAks.Builder.get();
+
+            if (additionalIpConfigurationsAks.isNameSet()){
+                builder.setName(additionalIpConfigurationsAks.getName());
+            }
+            retVal = builder.build();
+        }
+        return retVal;
     }
 }

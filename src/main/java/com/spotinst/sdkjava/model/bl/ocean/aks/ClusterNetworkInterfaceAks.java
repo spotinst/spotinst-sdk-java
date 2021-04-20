@@ -1,19 +1,25 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterNetworkInterfaceAks {
     @JsonIgnore
-    private Set<String>                     isSet;
-    private boolean                         isPrimary;
-    private String                          subnetName;
-    private boolean                         assignPublicIp;
-    private ClusterSecurityGroupAks         securityGroup;
-    private boolean                         enableIPForwarding;
+    private Set<String>                                 isSet;
+    private boolean                                     isPrimary;
+    private String                                      subnetName;
+    private boolean                                     assignPublicIp;
+    private ClusterSecurityGroupAks                     securityGroup;
+    private boolean                                     enableIPForwarding;
+    private String                                      publicIpSku;
+    private List<ClusterAdditionalIpConfigurationsAks>  additionalIpConfigurations;
 
 
     private ClusterNetworkInterfaceAks() {
@@ -73,6 +79,29 @@ public class ClusterNetworkInterfaceAks {
         this.subnetName = subnetName;
     }
 
+    public String getPublicIpSku() {
+        return publicIpSku;
+    }
+
+    public void setPublicIpSku(String publicIpSku) {
+        isSet.add("publicIpSku");
+        this.publicIpSku = publicIpSku;
+    }
+
+    public List<ClusterAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
+        return additionalIpConfigurations;
+    }
+
+    public void setAdditionalIpConfigurations(List<ClusterAdditionalIpConfigurationsAks> additionalIpConfigurations) {
+        isSet.add("additionalIpConfigurations");
+        this.additionalIpConfigurations = additionalIpConfigurations;
+    }
+
+    @JsonIgnore
+    public boolean isAdditionalIpConfigurationsSet() {
+        return isSet.contains("additionalIpConfigurations");
+    }
+
     @JsonIgnore
     public boolean isAssignPublicIpSet() {
         return isSet.contains("assignPublicIp");
@@ -97,6 +126,14 @@ public class ClusterNetworkInterfaceAks {
     public boolean isSubnetNameSet() {
         return isSet.contains("subnetName");
     }
+
+    @JsonIgnore
+    public boolean isPublicIpSkuSet() {
+        return isSet.contains("publicIpSku");
+    }
+
+
+
 
     public static class Builder {
 
@@ -128,6 +165,14 @@ public class ClusterNetworkInterfaceAks {
         }
         public Builder setIsPrimary(final boolean isPrimary) {
             clusterNetworkInterfaceAks.setIsPrimary(isPrimary);
+            return this;
+        }
+        public Builder setPublicIpSku(final String publicIpSku){
+            clusterNetworkInterfaceAks.setPublicIpSku(publicIpSku);
+            return this;
+        }
+        public Builder setAdditionalIpConfigurations(final List<ClusterAdditionalIpConfigurationsAks> additionalIpConfigurations){
+            clusterNetworkInterfaceAks.setAdditionalIpConfigurations(additionalIpConfigurations);
             return this;
         }
 

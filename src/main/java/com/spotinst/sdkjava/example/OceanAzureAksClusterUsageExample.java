@@ -3,32 +3,33 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterClient;
-import com.spotinst.sdkjava.model.Tag;
+
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 
 import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class OceanAzureAksClusterUsageExample {
 
     private final static String auth_token = "eeab5e1e5e9b5dcbb1aba6d7023d2ae981c6b48dd13784439bb6061f8beb053a";
     private final static String act_id     = "act-e929c6e7";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SpotOceanAzureAksClusterClient clusterClient = SpotinstClient.getOceanAzureAksClusterClient(auth_token, act_id);
 
-//        String clusterId = createCluster(clusterClient);
-//        getCluster(clusterClient,clusterId);
-//        updateCluster(clusterClient, clusterId);
-//        deleteCluster(clusterClient, clusterId);
-//        listClusters(clusterClient);
-
-        getCluster(clusterClient,"o-aa38d4cd");
-        updateCluster(clusterClient, "o-aa38d4cd");
+        String clusterId = createCluster(clusterClient);
+        // Sleep for provisioning
+        System.out.println("Sleeping... waiting for provisioning 20 seconds.");
+        sleep(20);
+        getCluster(clusterClient, clusterId);
+        updateCluster(clusterClient, clusterId);
         listClusters(clusterClient);
-        deleteCluster(clusterClient, "o-aa38d4cd");
+        deleteCluster(clusterClient, clusterId);
+
+
 
 
     }
@@ -71,17 +72,16 @@ public class OceanAzureAksClusterUsageExample {
         //Build Network
         ClusterNetworkAks.Builder networkAksBuilder = ClusterNetworkAks.Builder.get();
         ClusterNetworkAks networkAks = networkAksBuilder.setNetworkInterfaces(networkInterfaces).setVirtualNetworkName("aks-vnet-15320214")
-                                       .setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
+                .setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
 
         //Build marketplace
         ClusterMarketplaceAks.Builder marketplaceAksBuilder = ClusterMarketplaceAks.Builder.get();
         ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("aks").setPublisher("microsoft-aks").setSku("aks-ubuntu-1804-gen2-2021-q1")
-                                                    .setVersion("2021.03.29").build();
+                .setVersion("2021.03.29").build();
 
         //Build image
         ClusterImageAks.Builder imageAksBuilder = ClusterImageAks.Builder.get();
         ClusterImageAks imageAks = imageAksBuilder.setMarketplace(clusterMarketplace).build();
-
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
         ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
@@ -105,7 +105,7 @@ public class OceanAzureAksClusterUsageExample {
         System.out.println(clusterCreationRequest.toJson());
 
         ClusterAks createdCluster = client.createAksCluster(clusterCreationRequest);
-        System.out.println("Cluster successfully created: " + createdCluster.getControllerClusterId());
+        System.out.println("Cluster successfully created: " + createdCluster.getId());
 
         return createdCluster.getId();
 
@@ -116,69 +116,22 @@ public class OceanAzureAksClusterUsageExample {
 
         //Build osDisk
         ClusterOsDiskAks.Builder osDiskAksBuilder = ClusterOsDiskAks.Builder.get();
-        ClusterOsDiskAks osDiskAks = osDiskAksBuilder.setSizeGB(30).build();
+        ClusterOsDiskAks osDiskAks = osDiskAksBuilder.setSizeGB(40).build();
 
-        //Build extensions
-        ClusterExtensionAks.Builder extensionBuilder = ClusterExtensionAks.Builder.get();
-        List<ClusterExtensionAks> extensions = Arrays.asList(extensionBuilder.setName("OceanAKS").setApiVersion("2.0").setType("customScript")
-                .setPublisher("Microsoft.Azure.Extensions").setMinorVersionAutoUpgrade(true).build());
-
-
-        //Build tag
-        ClusterTagAks.Builder tagAksBuilder = ClusterTagAks.Builder.get();
-        List<ClusterTagAks> tags = Arrays.asList(tagAksBuilder.setTagKey("creator").setTagValue("tester").build());
-
-        //Build Load Balancers
-        ClusterLoadBalancerAks.Builder loadBalancerAksBuilder = ClusterLoadBalancerAks.Builder.get();
-        List<ClusterLoadBalancerAks> loadBalancers = Arrays.asList(loadBalancerAksBuilder.setLoadBalancerSku("Standard").setType("loadBalancer")
-                .setResourceGroupName("MC_RomanResourceGroup_RomanTestAKS2_eastus").setName("kubernetes")
-                .setBackendPoolNames(Arrays.asList("aksOutboundBackendPool", "kubernetes")).build());
-
-        //Build Load Balancers Config
-        ClusterLoadBalancersConfigAks.Builder loadBalancersConfigBuilder = ClusterLoadBalancersConfigAks.Builder.get();
-        ClusterLoadBalancersConfigAks loadBalancersConfigAks = loadBalancersConfigBuilder.setLoadBalancers(loadBalancers).build();
-
-        //Build login
-        ClusterLoginAks.Builder loginAksBuilder = ClusterLoginAks.Builder.get();
-        ClusterLoginAks loginAks = loginAksBuilder.setUserName("azureuser").setSshPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==").build();
-
-
-        //Build Network
-        ClusterSecurityGroupAks.Builder clusterSecurityGroupAksBuilder = ClusterSecurityGroupAks.Builder.get();
-        ClusterSecurityGroupAks securityGroups = clusterSecurityGroupAksBuilder.setName("aks-agentpool-15320214-nsg").setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
-
-
-        //Build Network interface
-        ClusterNetworkInterfaceAks.Builder networkInterfaceAksBuilder = ClusterNetworkInterfaceAks.Builder.get();
-        List<ClusterNetworkInterfaceAks> networkInterfaces = Arrays.asList(networkInterfaceAksBuilder.setSecurityGroup(securityGroups).setAssignPublicIp(false).setIsPrimary(true)
-                .setEnableIPForwarding(true).setSubnetName("aks-subnet").build());
-
-        ClusterNetworkAks.Builder networkAksBuilder = ClusterNetworkAks.Builder.get();
-        ClusterNetworkAks networkAks = networkAksBuilder.setNetworkInterfaces(networkInterfaces).setVirtualNetworkName("aks-vnet-15320214")
-                .setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
-
-        //Build marketplace
-        ClusterMarketplaceAks.Builder marketplaceAksBuilder = ClusterMarketplaceAks.Builder.get();
-        ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("aks").setPublisher("microsoft-aks").setSku("aks-ubuntu-1804-gen2-2021-q1")
-                .setVersion("2021.03.29").build();
-
-        //Build image
-        ClusterImageAks.Builder imageAksBuilder = ClusterImageAks.Builder.get();
-        ClusterImageAks imageAks = imageAksBuilder.setMarketplace(clusterMarketplace).build();
 
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
-        ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
-                .setLogin(loginAks).setLoadBalancersConfig(loadBalancersConfigAks).setOsDisk(osDiskAks)
-                .setNetwork(networkAks).build();
+        ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder
+                .setOsDisk(osDiskAks)
+                .build();
 
-        //Build virtualNodeGroupTemplate
+        //Build Cluster
         ClusterVirtualNodeGroupTemplateAks.Builder virtualNodeGroupTemplateAksBuilder = ClusterVirtualNodeGroupTemplateAks.Builder.get();
         ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks = virtualNodeGroupTemplateAksBuilder.setLaunchSpecification(launchSpecificationAks).build();
 
 
         ClusterAks.Builder clusterAksBuilder = ClusterAks.Builder.get();
-        ClusterAks clusterAks = clusterAksBuilder.setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks).setName("AutomationApi").build();
+        ClusterAks clusterAks = clusterAksBuilder.setName("AutomationApi-updated").setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks).build();
 
         AksClusterUpdateRequest.Builder clusterUpdateRequestBuilder = AksClusterUpdateRequest.Builder.get();
         AksClusterUpdateRequest updatedClusterRequest = clusterUpdateRequestBuilder.setCluster(clusterAks).build();

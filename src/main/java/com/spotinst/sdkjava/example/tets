@@ -1,10 +1,5 @@
 {
   "cluster": {
-    "aks": {
-      "name": "AutomationApi",
-      "resourceGroupName": "AutomationApiRG"
-    },
-    "controllerClusterId": "automation-api",
     "name": "AutomationApi",
     "virtualNodeGroupTemplate": {
       "launchSpecification": {
@@ -51,18 +46,19 @@
               "isPrimary": true,
               "subnetName": "aks-subnet",
               "assignPublicIp": false,
+              "publicIpSku": "Standard",
               "securityGroup": {
                 "name": "aks-agentpool-15320214-nsg",
                 "resourceGroupName": "MC_AutomationApiRG_AutomationApi_eastus"
               },
-              "enableIPForwarding": true
+              "enableIPForwarding": true,
+              "additionalIpConfigurations": []
             }
           ]
         },
         "osDisk": {
           "sizeGB": 30
-        },
-        "resourceGroupName": "MC_AutomationApiRG_AutomationApi_eastus"
+        }
       }
     }
   }
