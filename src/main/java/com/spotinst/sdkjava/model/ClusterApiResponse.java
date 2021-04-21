@@ -7,3 +7,4 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 
 class ClusterApiResponse extends BaseServiceItemsResponse<ApiOceanK8sCluster> {
 }
+

@@ -94,6 +94,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
     }
 
 
+
     public static List<ApiElastigroupGcp> getAllGroups( String authToken,
                                                          String account) throws SpotinstHttpException {
         // Init retVal

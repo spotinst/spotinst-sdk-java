@@ -227,7 +227,6 @@ public class ElastigroupConverterGcp {
         return retVal;
     }
 
-
     private static ApiStrategyGcp toDal(ElastigroupStrategyGcp strategyConfigurationGcp) {
         ApiStrategyGcp retVal = null;
 
