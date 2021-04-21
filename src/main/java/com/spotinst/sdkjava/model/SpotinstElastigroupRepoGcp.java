@@ -33,6 +33,7 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return retVal;
     }
 
+
     @Override
     public RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
