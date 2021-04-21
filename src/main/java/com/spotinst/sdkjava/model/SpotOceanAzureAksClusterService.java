@@ -17,21 +17,17 @@ public class SpotOceanAzureAksClusterService extends BaseSpotinstService {
 
     public static ApiClusterAks createAksCluster(ApiClusterAks clusterToCreate, String authToken,
                                                  String account) throws SpotinstHttpException {
-        // Init retVal
         ApiClusterAks retVal = null;
 
-        // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<>();
 
-        // Add account Id Query param
         if (account != null) {
             queryParams.put("accountId", account);
         }
 
-        // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
 
         // Write to json

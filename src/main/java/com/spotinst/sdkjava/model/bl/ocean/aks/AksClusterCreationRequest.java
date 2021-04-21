@@ -9,17 +9,17 @@ import java.util.Map;
 public class AksClusterCreationRequest {
 
     @JsonProperty("cluster")
-    private ClusterAks cluster;
+    private OceanClusterAks cluster;
 
     private AksClusterCreationRequest() {
     }
 
     //Getters & Setters
-    public ClusterAks getCluster() {
+    public OceanClusterAks getCluster() {
         return cluster;
     }
 
-    public void setCluster(ClusterAks cluster) {
+    public void setCluster(OceanClusterAks cluster) {
         this.cluster = cluster;
     }
 
@@ -37,7 +37,7 @@ public class AksClusterCreationRequest {
             return builder;
         }
 
-        public AksClusterCreationRequest.Builder setCluster(final ClusterAks clusterAks) {
+        public AksClusterCreationRequest.Builder setCluster(final OceanClusterAks clusterAks) {
             clusterCreationRequest.setCluster(clusterAks);
             return this;
         }

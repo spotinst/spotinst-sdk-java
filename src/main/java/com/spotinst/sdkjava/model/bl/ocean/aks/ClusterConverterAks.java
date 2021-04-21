@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class ClusterConverterAks {
     //BL -> DAL
 
-    public static ApiClusterAks toDal(ClusterAks src) {
+    public static ApiClusterAks toDal(OceanClusterAks src) {
 
         ApiClusterAks retVal = null;
 
@@ -64,12 +64,12 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiVirtualNodeGroupTemplateAks toDal(ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks) {
+    private static ApiClusterVirtualNodeGroupTemplateAks toDal(ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks) {
 
-        ApiVirtualNodeGroupTemplateAks retVal = null;
+        ApiClusterVirtualNodeGroupTemplateAks retVal = null;
 
         if (virtualNodeGroupTemplateAks != null) {
-            retVal = new ApiVirtualNodeGroupTemplateAks();
+            retVal = new ApiClusterVirtualNodeGroupTemplateAks();
             if (virtualNodeGroupTemplateAks.isLaunchSpecificationSet()) {
                 retVal.setLaunchSpecification(toDal(virtualNodeGroupTemplateAks.getLaunchSpecification()));
             }
@@ -78,13 +78,13 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiLaunchSpecificationAks toDal(ClusterLaunchSpecificationAks launchSpecificationAks) {
+    private static ApiClusterLaunchSpecificationAks toDal(ClusterLaunchSpecificationAks launchSpecificationAks) {
 
-        ApiLaunchSpecificationAks retVal = null;
+        ApiClusterLaunchSpecificationAks retVal = null;
 
         if (launchSpecificationAks != null) {
 
-            retVal = new ApiLaunchSpecificationAks();
+            retVal = new ApiClusterLaunchSpecificationAks();
 
             if (launchSpecificationAks.isResourceGroupNameSet()){
 
@@ -94,7 +94,7 @@ public class ClusterConverterAks {
             if (launchSpecificationAks.isExtensionsSet()) {
 
                if (launchSpecificationAks.getExtensions() != null){
-                   List<ApiExtensionAks> extensions =
+                   List<ApiClusterExtensionAks> extensions =
                            launchSpecificationAks.getExtensions().stream().map(ClusterConverterAks::toDal)
                            .collect(Collectors.toList());
                    retVal.setExtensions(extensions);
@@ -125,17 +125,29 @@ public class ClusterConverterAks {
                 retVal.setOsDisk(toDal(launchSpecificationAks.getOsDisk()));
             }
 
+            if (launchSpecificationAks.isTagsSet()){
 
+                if (launchSpecificationAks.getTags() != null){
+                    List<ApiClusterTagAks> tags =
+                            launchSpecificationAks.getTags().stream().map(ClusterConverterAks::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setTags(tags);
+                }
+                else{
+                    retVal.setTags(null);
+
+                }
+            }
         }
 
         return retVal;
     }
 
-    private static ApiExtensionAks toDal(ClusterExtensionAks extensionAks) {
-        ApiExtensionAks retVal = null;
+    private static ApiClusterExtensionAks toDal(ClusterExtensionAks extensionAks) {
+        ApiClusterExtensionAks retVal = null;
 
         if (extensionAks != null) {
-            retVal = new ApiExtensionAks();
+            retVal = new ApiClusterExtensionAks();
 
             if (extensionAks.isApiVersionSet()) {
                 retVal.setApiVersion(extensionAks.getApiVersion());
@@ -162,11 +174,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiImageAks toDal(ClusterImageAks imageAks) {
-        ApiImageAks retVal = null;
+    private static ApiClusterImageAks toDal(ClusterImageAks imageAks) {
+        ApiClusterImageAks retVal = null;
 
         if (imageAks != null) {
-            retVal = new ApiImageAks();
+            retVal = new ApiClusterImageAks();
 
             if (imageAks.isMarketplaceSet()) {
                 retVal.setMarketplace(toDal(imageAks.getMarketplace()));
@@ -176,11 +188,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiMarketplaceAks toDal(ClusterMarketplaceAks marketplaceAks) {
-        ApiMarketplaceAks retVal = null;
+    private static ApiClusterMarketplaceAks toDal(ClusterMarketplaceAks marketplaceAks) {
+        ApiClusterMarketplaceAks retVal = null;
 
         if (marketplaceAks != null) {
-            retVal = new ApiMarketplaceAks();
+            retVal = new ApiClusterMarketplaceAks();
 
             if (marketplaceAks.isOfferSet()) {
                 retVal.setOffer(marketplaceAks.getOffer());
@@ -203,16 +215,16 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiLoadBalancersConfigAks toDal(ClusterLoadBalancersConfigAks loadBalancersConfigAks) {
-        ApiLoadBalancersConfigAks retVal = null;
+    private static ApiClusterLoadBalancersConfigAks toDal(ClusterLoadBalancersConfigAks loadBalancersConfigAks) {
+        ApiClusterLoadBalancersConfigAks retVal = null;
 
         if (loadBalancersConfigAks != null) {
-            retVal = new ApiLoadBalancersConfigAks();
+            retVal = new ApiClusterLoadBalancersConfigAks();
 
             if (loadBalancersConfigAks.isLoadBalancersSet()) {
 
                 if (loadBalancersConfigAks.getLoadBalancers() != null){
-                    List<ApiLoadBalancerAks> loadBalancers =
+                    List<ApiClusterLoadBalancerAks> loadBalancers =
                             loadBalancersConfigAks.getLoadBalancers().stream().map(ClusterConverterAks::toDal)
                                     .collect(Collectors.toList());
                     retVal.setLoadBalancers(loadBalancers);
@@ -227,11 +239,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiLoadBalancerAks toDal(ClusterLoadBalancerAks loadBalancerAks) {
-        ApiLoadBalancerAks retVal = null;
+    private static ApiClusterLoadBalancerAks toDal(ClusterLoadBalancerAks loadBalancerAks) {
+        ApiClusterLoadBalancerAks retVal = null;
 
         if (loadBalancerAks != null) {
-            retVal = new ApiLoadBalancerAks();
+            retVal = new ApiClusterLoadBalancerAks();
 
             if (loadBalancerAks.isBackendPoolNamesSet()) {
 
@@ -260,11 +272,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiLoginAks toDal(ClusterLoginAks loginAks){
-        ApiLoginAks retVal = null;
+    private static ApiClusterLoginAks toDal(ClusterLoginAks loginAks){
+        ApiClusterLoginAks retVal = null;
 
         if (loginAks != null){
-            retVal = new ApiLoginAks();
+            retVal = new ApiClusterLoginAks();
 
             if (loginAks.isSshPublicKeySet()){
                 retVal.setSshPublicKey(loginAks.getSshPublicKey());
@@ -277,16 +289,16 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiNetworkAks toDal(ClusterNetworkAks networkAks){
-        ApiNetworkAks retVal = null;
+    private static ApiClusterNetworkAks toDal(ClusterNetworkAks networkAks){
+        ApiClusterNetworkAks retVal = null;
 
         if (networkAks != null){
-            retVal = new ApiNetworkAks();
+            retVal = new ApiClusterNetworkAks();
 
             if (networkAks.isNetworkInterfacesSet()){
 
                 if (networkAks.getNetworkInterfaces() != null){
-                    List<ApiNetworkInterfaceAks> networks =
+                    List<ApiClusterNetworkInterfaceAks> networks =
                             networkAks.getNetworkInterfaces().stream().map(ClusterConverterAks::toDal)
                                     .collect(Collectors.toList());
                     retVal.setNetworkInterfaces(networks);
@@ -308,11 +320,11 @@ public class ClusterConverterAks {
 
     }
 
-    private static ApiNetworkInterfaceAks toDal(ClusterNetworkInterfaceAks networkInterfaceAks){
-        ApiNetworkInterfaceAks retVal = null;
+    private static ApiClusterNetworkInterfaceAks toDal(ClusterNetworkInterfaceAks networkInterfaceAks){
+        ApiClusterNetworkInterfaceAks retVal = null;
 
         if (networkInterfaceAks != null){
-            retVal = new ApiNetworkInterfaceAks();
+            retVal = new ApiClusterNetworkInterfaceAks();
 
             if (networkInterfaceAks.isAssignPublicIpSet()){
                 retVal.setAssignPublicIp(networkInterfaceAks.getAssignPublicIp());
@@ -341,7 +353,7 @@ public class ClusterConverterAks {
             if (networkInterfaceAks.isAdditionalIpConfigurationsSet()){
 
                 if (networkInterfaceAks.getAdditionalIpConfigurations() != null){
-                    List<ApiAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toDal).collect(Collectors.toList());
+                    List<ApiClusterAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toDal).collect(Collectors.toList());
                     retVal.setAdditionalIpConfigurations(configurationsAks);
                 }
                 else{
@@ -352,11 +364,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiSecurityGroupAks toDal(ClusterSecurityGroupAks securityGroupAks) {
-        ApiSecurityGroupAks retVal = null;
+    private static ApiClusterSecurityGroupAks toDal(ClusterSecurityGroupAks securityGroupAks) {
+        ApiClusterSecurityGroupAks retVal = null;
 
         if (securityGroupAks != null) {
-            retVal = new ApiSecurityGroupAks();
+            retVal = new ApiClusterSecurityGroupAks();
 
             if (securityGroupAks.isNameSet()){
                 retVal.setName(securityGroupAks.getName());
@@ -369,11 +381,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiOsDiskAks toDal(ClusterOsDiskAks clusterOsDiskAks){
-        ApiOsDiskAks retVal = null;
+    private static ApiClusterOsDiskAks toDal(ClusterOsDiskAks clusterOsDiskAks){
+        ApiClusterOsDiskAks retVal = null;
 
         if(clusterOsDiskAks != null){
-            retVal = new ApiOsDiskAks();
+            retVal = new ApiClusterOsDiskAks();
 
             if (clusterOsDiskAks.isSizeGBSet()){
                 retVal.setSizeGB(clusterOsDiskAks.getSizeGB());
@@ -382,11 +394,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiAdditionalIpConfigurationsAks toDal(ClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
-        ApiAdditionalIpConfigurationsAks retVal = null;
+    private static ApiClusterAdditionalIpConfigurationsAks toDal(ClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
+        ApiClusterAdditionalIpConfigurationsAks retVal = null;
 
         if (additionalIpConfigurationsAks != null){
-            retVal = new ApiAdditionalIpConfigurationsAks();
+            retVal = new ApiClusterAdditionalIpConfigurationsAks();
 
             if (additionalIpConfigurationsAks.isNameSet()){
                 retVal.setName(additionalIpConfigurationsAks.getName());
@@ -395,14 +407,31 @@ public class ClusterConverterAks {
         return retVal;
     }
 
+    private static ApiClusterTagAks toDal(ClusterTagAks tag){
+        ApiClusterTagAks retVal = null;
+
+        if (tag != null){
+            retVal = new ApiClusterTagAks();
+
+            if (tag.isTagKeySet()){
+                retVal.setTagKey(tag.getTagKey());
+            }
+
+            if (tag.isTagValueSet()){
+                retVal.setTagValue(tag.getTagValue());
+            }
+        }
+        return retVal;
+    }
+
     //DAL -> BL
 
-    public static ClusterAks toBl(ApiClusterAks src) {
+    public static OceanClusterAks toBl(ApiClusterAks src) {
 
-        ClusterAks retVal = null;
+        OceanClusterAks retVal = null;
 
         if (src != null) {
-            ClusterAks.Builder builder = ClusterAks.Builder.get();
+            OceanClusterAks.Builder builder = OceanClusterAks.Builder.get();
 
             if (src.isAksSet()) {
                 builder.setAks(toBl(src.getAks()));
@@ -451,7 +480,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterVirtualNodeGroupTemplateAks toBl(ApiVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks) {
+    private static ClusterVirtualNodeGroupTemplateAks toBl(ApiClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks) {
         ClusterVirtualNodeGroupTemplateAks retVal = null;
 
         if (virtualNodeGroupTemplateAks != null) {
@@ -467,7 +496,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterLaunchSpecificationAks toBl(ApiLaunchSpecificationAks launchSpecificationAks) {
+    private static ClusterLaunchSpecificationAks toBl(ApiClusterLaunchSpecificationAks launchSpecificationAks) {
 
         ClusterLaunchSpecificationAks retVal = null;
 
@@ -512,6 +541,20 @@ public class ClusterConverterAks {
                 builder.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
             }
 
+            if (launchSpecificationAks.isTagsSet()){
+
+            if (launchSpecificationAks.getTags() != null){
+                List<ClusterTagAks> tags = launchSpecificationAks.getTags().stream()
+                        .map(ClusterConverterAks::toBl).collect(Collectors.toList());
+
+                builder.setTags(tags);
+                }
+                else{
+                    builder.setTags(null);
+
+                }
+            }
+
             retVal = builder.build();
 
         }
@@ -519,7 +562,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterExtensionAks toBl(ApiExtensionAks extensionAks) {
+    private static ClusterExtensionAks toBl(ApiClusterExtensionAks extensionAks) {
         ClusterExtensionAks retVal = null;
 
         if (extensionAks != null) {
@@ -552,7 +595,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterImageAks toBl(ApiImageAks imageAks) {
+    private static ClusterImageAks toBl(ApiClusterImageAks imageAks) {
         ClusterImageAks retVal = null;
 
         if (imageAks != null) {
@@ -568,7 +611,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterMarketplaceAks toBl(ApiMarketplaceAks marketplaceAks) {
+    private static ClusterMarketplaceAks toBl(ApiClusterMarketplaceAks marketplaceAks) {
         ClusterMarketplaceAks retVal = null;
 
         if (marketplaceAks != null) {
@@ -596,7 +639,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterLoadBalancersConfigAks toBl(ApiLoadBalancersConfigAks loadBalancersConfigAks) {
+    private static ClusterLoadBalancersConfigAks toBl(ApiClusterLoadBalancersConfigAks loadBalancersConfigAks) {
         ClusterLoadBalancersConfigAks retVal = null;
 
         if (loadBalancersConfigAks != null) {
@@ -621,7 +664,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterLoadBalancerAks toBl(ApiLoadBalancerAks loadBalancerAks) {
+    private static ClusterLoadBalancerAks toBl(ApiClusterLoadBalancerAks loadBalancerAks) {
         ClusterLoadBalancerAks retVal = null;
 
         if (loadBalancerAks != null) {
@@ -654,7 +697,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterLoginAks toBl(ApiLoginAks loginAks){
+    private static ClusterLoginAks toBl(ApiClusterLoginAks loginAks){
         ClusterLoginAks retVal = null;
 
         if (loginAks != null){
@@ -672,7 +715,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterNetworkAks toBl(ApiNetworkAks networkAks){
+    private static ClusterNetworkAks toBl(ApiClusterNetworkAks networkAks){
         ClusterNetworkAks retVal = null;
 
         if (networkAks != null){
@@ -704,7 +747,7 @@ public class ClusterConverterAks {
 
     }
 
-    private static ClusterNetworkInterfaceAks toBl(ApiNetworkInterfaceAks networkInterfaceAks){
+    private static ClusterNetworkInterfaceAks toBl(ApiClusterNetworkInterfaceAks networkInterfaceAks){
         ClusterNetworkInterfaceAks retVal = null;
 
         if (networkInterfaceAks != null){
@@ -752,7 +795,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterSecurityGroupAks toBl(ApiSecurityGroupAks securityGroupAks) {
+    private static ClusterSecurityGroupAks toBl(ApiClusterSecurityGroupAks securityGroupAks) {
         ClusterSecurityGroupAks retVal = null;
 
         if (securityGroupAks != null) {
@@ -771,7 +814,7 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ClusterOsDiskAks toBl(ApiOsDiskAks osDiskAks){
+    private static ClusterOsDiskAks toBl(ApiClusterOsDiskAks osDiskAks){
         ClusterOsDiskAks retVal = null;
 
         if (osDiskAks != null) {
@@ -788,7 +831,7 @@ public class ClusterConverterAks {
 
     }
 
-    private static ClusterAdditionalIpConfigurationsAks toBl(ApiAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
+    private static ClusterAdditionalIpConfigurationsAks toBl(ApiClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
         ClusterAdditionalIpConfigurationsAks retVal = null;
 
         if (additionalIpConfigurationsAks != null){
@@ -799,6 +842,26 @@ public class ClusterConverterAks {
             }
             retVal = builder.build();
         }
+        return retVal;
+    }
+
+    private static ClusterTagAks toBl(ApiClusterTagAks tag){
+        ClusterTagAks retVal = null;
+
+        if (tag != null){
+
+            ClusterTagAks.Builder builder = ClusterTagAks.Builder.get();
+            if (tag.isTagKeySet()){
+
+                builder.setTagKey(tag.getTagKey());
+                }
+
+            if (tag.isTagValueSet()){
+                builder.setTagValue(tag.getTagValue());
+                }
+
+                retVal = builder.build();
+            }
         return retVal;
     }
 }

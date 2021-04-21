@@ -77,7 +77,7 @@ public class ClusterTagAks {
         }
 
         public Builder setTagValue(final String tagValue) {
-            clusterTagAks.setTagKey(tagValue);
+            clusterTagAks.setTagValue(tagValue);
             return this;
         }
 

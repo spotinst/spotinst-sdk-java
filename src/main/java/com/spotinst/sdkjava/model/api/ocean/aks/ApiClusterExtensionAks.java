@@ -11,7 +11,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiExtensionAks  implements IPartialUpdateEntity {
+public class ApiClusterExtensionAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                 isSet;
     private String                      apiVersion;
@@ -21,7 +21,7 @@ public class ApiExtensionAks  implements IPartialUpdateEntity {
     private String                      type;
 
 
-    public ApiExtensionAks() {
+    public ApiClusterExtensionAks() {
         isSet = new HashSet<>();
     }
 

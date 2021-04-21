@@ -12,13 +12,14 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiOsDiskAks implements IPartialUpdateEntity {
+public class ApiClusterTagAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
-    private Integer                   sizeGB;
+    private String                    tagKey;
+    private String                    tagValue;
 
 
-    public ApiOsDiskAks() {
+    public ApiClusterTagAks() {
         isSet = new HashSet<>();
     }
 
@@ -30,17 +31,31 @@ public class ApiOsDiskAks implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Integer getSizeGB() {
-        return sizeGB;
+    public String getTagKey() {
+        return tagKey;
     }
 
-    public void setSizeGB(Integer sizeGB) {
-        isSet.add("sizeGB");
-        this.sizeGB = sizeGB;
+    public void setTagKey(String tagKey) {
+        isSet.add("tagKey");
+        this.tagKey = tagKey;
+    }
+
+    public String getTagValue() {
+        return tagValue;
+    }
+
+    public void setTagValue(String tagValue) {
+        isSet.add("tagValue");
+        this.tagValue = tagValue;
     }
 
     @JsonIgnore
-    public boolean isSizeGBSet() {
-        return isSet.contains("sizeGB");
+    public boolean isTagKeySet() {
+        return isSet.contains("tagKey");
+    }
+
+    @JsonIgnore
+    public boolean isTagValueSet() {
+        return isSet.contains("tagValue");
     }
 }

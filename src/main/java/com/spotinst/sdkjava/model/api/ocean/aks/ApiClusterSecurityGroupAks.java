@@ -12,14 +12,14 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiLoginAks implements IPartialUpdateEntity {
+public class ApiClusterSecurityGroupAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>               isSet;
-    private String                    sshPublicKey;
-    private String                    userName;
+    private Set<String> isSet;
+    private String name;
+    private String resourceGroupName;
 
 
-    public ApiLoginAks() {
+    public ApiClusterSecurityGroupAks() {
         isSet = new HashSet<>();
     }
 
@@ -31,33 +31,31 @@ public class ApiLoginAks implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getSshPublicKey() {
-        return sshPublicKey;
+    public String getName() {
+        return name;
     }
 
-    public void setSshPublicKey(String sshPublicKey) {
-
-        isSet.add("sshPublicKey");
-        this.sshPublicKey = sshPublicKey;
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getResourceGroupName() {
+        return resourceGroupName;
     }
 
-    public void setUserName(String userName) {
-
-        isSet.add("userName");
-        this.userName = userName;
-    }
-
-    @JsonIgnore
-    public boolean isSshPublicKeySet() {
-        return isSet.contains("sshPublicKey");
+    public void setResourceGroupName(String resourceGroupName) {
+        isSet.add("resourceGroupName");
+        this.resourceGroupName = resourceGroupName;
     }
 
     @JsonIgnore
-    public boolean isUserNameSet() {
-        return isSet.contains("userName");
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isResourceGroupNameSet() {
+        return isSet.contains("resourceGroupName");
     }
 }

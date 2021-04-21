@@ -13,19 +13,19 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
+public class ApiClusterNetworkInterfaceAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                             isSet;
     private boolean                                 isPrimary;
     private String                                  subnetName;
     private boolean                                 assignPublicIp;
-    private ApiSecurityGroupAks                     securityGroup;
+    private ApiClusterSecurityGroupAks securityGroup;
     private boolean                                 enableIPForwarding;
     private String                                  publicIpSku;
-    private List<ApiAdditionalIpConfigurationsAks>  additionalIpConfigurations;
+    private List<ApiClusterAdditionalIpConfigurationsAks>  additionalIpConfigurations;
 
 
-    public ApiNetworkInterfaceAks() {
+    public ApiClusterNetworkInterfaceAks() {
         isSet = new HashSet<>();
     }
 
@@ -64,11 +64,11 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         isPrimary = primary;
     }
 
-    public ApiSecurityGroupAks getSecurityGroup() {
+    public ApiClusterSecurityGroupAks getSecurityGroup() {
         return securityGroup;
     }
 
-    public void setSecurityGroup(ApiSecurityGroupAks securityGroup) {
+    public void setSecurityGroup(ApiClusterSecurityGroupAks securityGroup) {
         isSet.add("securityGroup");
         this.securityGroup = securityGroup;
     }
@@ -91,11 +91,11 @@ public class ApiNetworkInterfaceAks  implements IPartialUpdateEntity {
         this.publicIpSku = publicIpSku;
     }
 
-    public List<ApiAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
+    public List<ApiClusterAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
         return additionalIpConfigurations;
     }
 
-    public void setAdditionalIpConfigurations(List<ApiAdditionalIpConfigurationsAks> additionalIpConfigurations) {
+    public void setAdditionalIpConfigurations(List<ApiClusterAdditionalIpConfigurationsAks> additionalIpConfigurations) {
         isSet.add("additionalIpConfigurations");
         this.additionalIpConfigurations = additionalIpConfigurations;
     }

@@ -1,6 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterAks;
+import com.spotinst.sdkjava.model.bl.ocean.aks.OceanClusterAks;
 
-public interface ISpotOceanAzureAksClusterRepo extends IRepository<ClusterAks, Void, String> {
+public interface ISpotOceanAzureAksClusterRepo extends IRepository<OceanClusterAks, Void, String> {
 }

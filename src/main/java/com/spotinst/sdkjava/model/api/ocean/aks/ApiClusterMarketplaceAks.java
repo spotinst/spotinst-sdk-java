@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiMarketplaceAks  implements IPartialUpdateEntity {
+public class ApiClusterMarketplaceAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                          isSet;
     private String                               offer;
@@ -21,7 +21,7 @@ public class ApiMarketplaceAks  implements IPartialUpdateEntity {
     private String                               version;
 
 
-    public ApiMarketplaceAks() {
+    public ApiClusterMarketplaceAks() {
 
         isSet = new HashSet<>();
     }

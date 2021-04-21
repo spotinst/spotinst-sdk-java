@@ -13,15 +13,15 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiNetworkAks  implements IPartialUpdateEntity {
+public class ApiClusterNetworkAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                  isSet;
     private String                       resourceGroupName;
     private String                       virtualNetworkName;
-    private List<ApiNetworkInterfaceAks> networkInterfaces;
+    private List<ApiClusterNetworkInterfaceAks> networkInterfaces;
 
 
-    public ApiNetworkAks() {
+    public ApiClusterNetworkAks() {
         isSet = new HashSet<>();
     }
 
@@ -33,11 +33,11 @@ public class ApiNetworkAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiNetworkInterfaceAks> getNetworkInterfaces() {
+    public List<ApiClusterNetworkInterfaceAks> getNetworkInterfaces() {
         return networkInterfaces;
     }
 
-    public void setNetworkInterfaces(List<ApiNetworkInterfaceAks> networkInterfaces) {
+    public void setNetworkInterfaces(List<ApiClusterNetworkInterfaceAks> networkInterfaces) {
 
         isSet.add("networkInterfaces");
         this.networkInterfaces = networkInterfaces;

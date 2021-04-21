@@ -13,7 +13,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiLoadBalancerAks implements IPartialUpdateEntity {
+public class ApiClusterLoadBalancerAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                         isSet;
     private List<String>                        backendPoolNames;
@@ -23,7 +23,7 @@ public class ApiLoadBalancerAks implements IPartialUpdateEntity {
     private String                              type;
 
 
-    public ApiLoadBalancerAks() {
+    public ApiClusterLoadBalancerAks() {
         isSet = new HashSet<>();
     }
 

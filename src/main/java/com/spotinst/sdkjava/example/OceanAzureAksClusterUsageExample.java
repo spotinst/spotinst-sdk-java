@@ -46,6 +46,11 @@ public class OceanAzureAksClusterUsageExample {
         List<ClusterExtensionAks> extensions = Arrays.asList(extensionBuilder.setName("OceanAKS").setApiVersion("2.0").setType("customScript")
                 .setPublisher("Microsoft.Azure.Extensions").setMinorVersionAutoUpgrade(true).build());
 
+
+        //Build tag
+        ClusterTagAks.Builder tagAksBuilder = ClusterTagAks.Builder.get();
+        List<ClusterTagAks> tags = Arrays.asList(tagAksBuilder.setTagKey("creator").setTagValue("AutomationApi").build());
+
         //Build Load Balancers
         ClusterLoadBalancerAks.Builder loadBalancerAksBuilder = ClusterLoadBalancerAks.Builder.get();
         List<ClusterLoadBalancerAks> loadBalancers = Arrays.asList(loadBalancerAksBuilder.setLoadBalancerSku("Standard").setType("loadBalancer")
@@ -82,10 +87,11 @@ public class OceanAzureAksClusterUsageExample {
         //Build image
         ClusterImageAks.Builder imageAksBuilder = ClusterImageAks.Builder.get();
         ClusterImageAks imageAks = imageAksBuilder.setMarketplace(clusterMarketplace).build();
+
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
         ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
-                                                                .setLogin(loginAks).setLoadBalancersConfig(loadBalancersConfigAks).setOsDisk(osDiskAks)
+                                                                .setLogin(loginAks).setLoadBalancersConfig(loadBalancersConfigAks).setOsDisk(osDiskAks).setTags(tags)
                                                                 .setNetwork(networkAks).setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
 
         //Build Cluster
@@ -95,8 +101,8 @@ public class OceanAzureAksClusterUsageExample {
         ClusterConfigurationAks.Builder aksBuilder = ClusterConfigurationAks.Builder.get();
         ClusterConfigurationAks aks = aksBuilder.setName("AutomationApi").setResourceGroupName("AutomationApiRG").build();
 
-        ClusterAks.Builder clusterAksBuilder = ClusterAks.Builder.get();
-        ClusterAks clusterAks = clusterAksBuilder.setAks(aks).setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks)
+        OceanClusterAks.Builder clusterAksBuilder = OceanClusterAks.Builder.get();
+        OceanClusterAks clusterAks = clusterAksBuilder.setAks(aks).setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks)
                                 .setControllerClusterId("automation-api").setName("AutomationApi").build();
 
         AksClusterCreationRequest.Builder clusterCreationRequestBuilder = AksClusterCreationRequest.Builder.get();
@@ -104,7 +110,7 @@ public class OceanAzureAksClusterUsageExample {
 
         System.out.println(clusterCreationRequest.toJson());
 
-        ClusterAks createdCluster = client.createAksCluster(clusterCreationRequest);
+        OceanClusterAks createdCluster = client.createAksCluster(clusterCreationRequest);
         System.out.println("Cluster successfully created: " + createdCluster.getId());
 
         return createdCluster.getId();
@@ -130,8 +136,8 @@ public class OceanAzureAksClusterUsageExample {
         ClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplateAks = virtualNodeGroupTemplateAksBuilder.setLaunchSpecification(launchSpecificationAks).build();
 
 
-        ClusterAks.Builder clusterAksBuilder = ClusterAks.Builder.get();
-        ClusterAks clusterAks = clusterAksBuilder.setName("AutomationApi-updated").setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks).build();
+        OceanClusterAks.Builder clusterAksBuilder = OceanClusterAks.Builder.get();
+        OceanClusterAks clusterAks = clusterAksBuilder.setName("AutomationApi-updated").setVirtualNodeGroupTemplate(virtualNodeGroupTemplateAks).build();
 
         AksClusterUpdateRequest.Builder clusterUpdateRequestBuilder = AksClusterUpdateRequest.Builder.get();
         AksClusterUpdateRequest updatedClusterRequest = clusterUpdateRequestBuilder.setCluster(clusterAks).build();
@@ -159,19 +165,19 @@ public class OceanAzureAksClusterUsageExample {
         }
     }
 
-    private static ClusterAks getCluster(SpotOceanAzureAksClusterClient client, String clusterId) {
+    private static OceanClusterAks getCluster(SpotOceanAzureAksClusterClient client, String clusterId) {
         System.out.println("-------------------------start getting ocean cluster------------------------");
         AksClusterGetRequest.Builder getBuilder = AksClusterGetRequest.Builder.get();
         AksClusterGetRequest         getRequest = getBuilder.setClusterId(clusterId).build();
 
-        ClusterAks aksCluster = client.getOceanAksCluster(getRequest);
+        OceanClusterAks aksCluster = client.getOceanAksCluster(getRequest);
         if (aksCluster!=null) {
             System.out.println("Get Cluster successfully: " + aksCluster.getControllerClusterId());
         }
         return aksCluster;
     }
 
-    private static List<ClusterAks> listClusters(SpotOceanAzureAksClusterClient client) {
+    private static List<OceanClusterAks> listClusters(SpotOceanAzureAksClusterClient client) {
         System.out.println("-------------------------start listing ocean clusters------------------------");
         return client.ListOceanAksCluster();
     }

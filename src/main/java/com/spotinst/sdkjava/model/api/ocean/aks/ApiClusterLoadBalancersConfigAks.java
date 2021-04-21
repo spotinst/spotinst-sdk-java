@@ -7,19 +7,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiTagAks  implements IPartialUpdateEntity {
+public class ApiClusterLoadBalancersConfigAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>               isSet;
-    private String                    tagKey;
-    private String                    tagValue;
+    private Set<String>                     isSet;
+    private List<ApiClusterLoadBalancerAks>        loadBalancers;
 
 
-    public ApiTagAks() {
+    public ApiClusterLoadBalancersConfigAks() {
         isSet = new HashSet<>();
     }
 
@@ -31,31 +32,17 @@ public class ApiTagAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getTagKey() {
-        return tagKey;
+    public List<ApiClusterLoadBalancerAks> getLoadBalancers() {
+        return loadBalancers;
     }
 
-    public void setTagKey(String tagKey) {
-        isSet.add("tagKey");
-        this.tagKey = tagKey;
-    }
-
-    public String getTagValue() {
-        return tagValue;
-    }
-
-    public void setTagValue(String tagValue) {
-        isSet.add("tagValue");
-        this.tagValue = tagValue;
+    public void setLoadBalancers(List<ApiClusterLoadBalancerAks> loadBalancers) {
+        isSet.add("loadBalancers");
+        this.loadBalancers = loadBalancers;
     }
 
     @JsonIgnore
-    public boolean isTagKeySet() {
-        return isSet.contains("tagKey");
-    }
-
-    @JsonIgnore
-    public boolean isTagValueSet() {
-        return isSet.contains("tagValue");
+    public boolean isLoadBalancersSet() {
+        return isSet.contains("loadBalancers");
     }
 }

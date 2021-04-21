@@ -21,7 +21,7 @@ public class ApiClusterAks implements IPartialUpdateEntity {
     private ApiClusterConfigurationAks      aks;
     private String                          controllerClusterId;
     private String                          name;
-    private ApiVirtualNodeGroupTemplateAks  virtualNodeGroupTemplate;
+    private ApiClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplate;
 
 
     public ApiClusterAks() {
@@ -64,12 +64,12 @@ public class ApiClusterAks implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    public ApiVirtualNodeGroupTemplateAks getVirtualNodeGroupTemplate() {
+    public ApiClusterVirtualNodeGroupTemplateAks getVirtualNodeGroupTemplate() {
 
         return virtualNodeGroupTemplate;
     }
 
-    public void setVirtualNodeGroupTemplate(ApiVirtualNodeGroupTemplateAks virtualNodeGroupTemplate) {
+    public void setVirtualNodeGroupTemplate(ApiClusterVirtualNodeGroupTemplateAks virtualNodeGroupTemplate) {
 
         isSet.add("virtualNodeGroupTemplate");
         this.virtualNodeGroupTemplate = virtualNodeGroupTemplate;

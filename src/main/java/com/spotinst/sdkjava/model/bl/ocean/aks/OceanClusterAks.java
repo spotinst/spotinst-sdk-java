@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +13,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ClusterAks {
+public class OceanClusterAks {
 
     @JsonIgnore
     private Set<String>                         isSet;
@@ -26,7 +25,7 @@ public class ClusterAks {
 
 
 
-    private ClusterAks() {
+    private OceanClusterAks() {
         isSet = new HashSet<>();
     }
 
@@ -34,7 +33,7 @@ public class ClusterAks {
         return isSet;
     }
 
-    public ClusterAks setIsSet(Set<String> isSet) {
+    public OceanClusterAks setIsSet(Set<String> isSet) {
         this.isSet = isSet;
         return this;
     }
@@ -113,10 +112,10 @@ public class ClusterAks {
 
     public static class Builder {
 
-        private ClusterAks clusterAks;
+        private OceanClusterAks clusterAks;
 
         private Builder() {
-            this.clusterAks = new ClusterAks();
+            this.clusterAks = new OceanClusterAks();
         }
 
         public static Builder get() {
@@ -150,7 +149,7 @@ public class ClusterAks {
             return this;
         }
 
-        public ClusterAks build() {
+        public OceanClusterAks build() {
             return clusterAks;
         }
     }

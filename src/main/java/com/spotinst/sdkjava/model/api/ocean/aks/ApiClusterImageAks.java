@@ -8,17 +8,17 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-
-public class ApiVirtualNodeGroupTemplateAks  implements IPartialUpdateEntity {
+public class ApiClusterImageAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                      isSet;
-    private ApiLaunchSpecificationAks        launchSpecification;
+    private Set<String>                         isSet;
+    private ApiClusterMarketplaceAks marketplace;
 
 
-    public ApiVirtualNodeGroupTemplateAks() {
+    public ApiClusterImageAks() {
         isSet = new HashSet<>();
     }
 
@@ -30,17 +30,17 @@ public class ApiVirtualNodeGroupTemplateAks  implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiLaunchSpecificationAks getLaunchSpecification() {
-        return launchSpecification;
+    public ApiClusterMarketplaceAks getMarketplace() {
+        return marketplace;
     }
 
-    public void setLaunchSpecification(ApiLaunchSpecificationAks launchSpecification) {
-        isSet.add("launchSpecification");
-        this.launchSpecification = launchSpecification;
+    public void setMarketplace(ApiClusterMarketplaceAks marketplace) {
+        isSet.add("marketplace");
+        this.marketplace = marketplace;
     }
 
     @JsonIgnore
-    public boolean isLaunchSpecificationSet() {
-        return isSet.contains("launchSpecification");
+    public boolean isMarketplaceSet() {
+        return isSet.contains("marketplace");
     }
 }

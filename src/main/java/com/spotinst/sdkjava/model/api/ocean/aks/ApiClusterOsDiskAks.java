@@ -8,18 +8,17 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiAdditionalIpConfigurationsAks implements IPartialUpdateEntity {
+
+public class ApiClusterOsDiskAks implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
-    private String                    name;
+    private Integer                   sizeGB;
 
 
-
-    public ApiAdditionalIpConfigurationsAks() {
+    public ApiClusterOsDiskAks() {
         isSet = new HashSet<>();
     }
 
@@ -31,19 +30,17 @@ public class ApiAdditionalIpConfigurationsAks implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getName() {
-        return name;
+    public Integer getSizeGB() {
+        return sizeGB;
     }
 
-    public void setName(String name) {
-        isSet.add("name");
-        this.name = name;
+    public void setSizeGB(Integer sizeGB) {
+        isSet.add("sizeGB");
+        this.sizeGB = sizeGB;
     }
-
 
     @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
+    public boolean isSizeGBSet() {
+        return isSet.contains("sizeGB");
     }
-
 }

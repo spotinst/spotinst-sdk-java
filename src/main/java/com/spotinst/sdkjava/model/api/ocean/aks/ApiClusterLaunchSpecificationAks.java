@@ -14,19 +14,19 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
+public class ApiClusterLaunchSpecificationAks implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                  isSet;
-    private List<ApiExtensionAks>        extensions;
-    private ApiImageAks                  image;
-    private ApiLoadBalancersConfigAks    loadBalancersConfig;
-    private ApiLoginAks                  login;
-    private ApiNetworkAks                network;
-    private ApiOsDiskAks                 osDisk;
-    private String                       resourceGroupName;
+    private Set<String>                         isSet;
+    private List<ApiClusterExtensionAks>        extensions;
+    private ApiClusterImageAks                  image;
+    private ApiClusterLoadBalancersConfigAks    loadBalancersConfig;
+    private ApiClusterLoginAks                  login;
+    private ApiClusterNetworkAks                network;
+    private ApiClusterOsDiskAks                 osDisk;
+    private String                              resourceGroupName;
+    private List<ApiClusterTagAks>              tags;
 
-
-    public ApiLaunchSpecificationAks() {
+    public ApiClusterLaunchSpecificationAks() {
         isSet = new HashSet<>();
     }
 
@@ -38,50 +38,50 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiExtensionAks> getExtensions() {
+    public List<ApiClusterExtensionAks> getExtensions() {
         return extensions;
     }
 
-    public void setExtensions(List<ApiExtensionAks> extensions) {
+    public void setExtensions(List<ApiClusterExtensionAks> extensions) {
         isSet.add("extensions");
         this.extensions = extensions;
     }
 
-    public ApiImageAks getImage() {
+    public ApiClusterImageAks getImage() {
         return image;
     }
 
-    public void setImage(ApiImageAks image) {
+    public void setImage(ApiClusterImageAks image) {
 
         isSet.add("image");
         this.image = image;
     }
 
-    public ApiLoadBalancersConfigAks getLoadBalancersConfig() {
+    public ApiClusterLoadBalancersConfigAks getLoadBalancersConfig() {
         return loadBalancersConfig;
     }
 
-    public void setLoadBalancersConfig(ApiLoadBalancersConfigAks loadBalancersConfig) {
+    public void setLoadBalancersConfig(ApiClusterLoadBalancersConfigAks loadBalancersConfig) {
 
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
     }
 
-    public ApiLoginAks getLogin() {
+    public ApiClusterLoginAks getLogin() {
         return login;
     }
 
-    public void setLogin(ApiLoginAks login) {
+    public void setLogin(ApiClusterLoginAks login) {
 
         isSet.add("login");
         this.login = login;
     }
 
-    public ApiNetworkAks getNetwork() {
+    public ApiClusterNetworkAks getNetwork() {
         return network;
     }
 
-    public void setNetwork(ApiNetworkAks network) {
+    public void setNetwork(ApiClusterNetworkAks network) {
 
         isSet.add("network");
         this.network = network;
@@ -97,13 +97,23 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         this.resourceGroupName = resourceGroupName;
     }
 
-    public ApiOsDiskAks getOsDisk() {
+    public ApiClusterOsDiskAks getOsDisk() {
         return osDisk;
     }
 
-    public void setOsDisk(ApiOsDiskAks osDisk) {
+    public void setOsDisk(ApiClusterOsDiskAks osDisk) {
         isSet.add("osDisk");
         this.osDisk = osDisk;
+    }
+
+    public List<ApiClusterTagAks> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<ApiClusterTagAks> tags) {
+
+        isSet.add("tags");
+        this.tags = tags;
     }
 
     @JsonIgnore
@@ -141,5 +151,10 @@ public class ApiLaunchSpecificationAks implements IPartialUpdateEntity {
         return isSet.contains("osDisk");
     }
 
-
+    @JsonIgnore
+    public boolean isTagsSet() {
+        return isSet.contains("tags");
+    }
 }
+
+

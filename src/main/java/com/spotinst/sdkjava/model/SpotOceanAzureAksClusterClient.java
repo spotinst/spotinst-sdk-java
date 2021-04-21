@@ -32,12 +32,12 @@ public class SpotOceanAzureAksClusterClient {
     }
 
 
-    public ClusterAks createAksCluster(AksClusterCreationRequest oceanClusterCreationRequest) {
+    public OceanClusterAks createAksCluster(AksClusterCreationRequest oceanClusterCreationRequest) {
 
-        ClusterAks retVal;
-        ClusterAks clusterToCreate = oceanClusterCreationRequest.getCluster();
+        OceanClusterAks retVal;
+        OceanClusterAks clusterToCreate = oceanClusterCreationRequest.getCluster();
 
-        RepoGenericResponse<ClusterAks> creationResponse = getSpotOceanAzureAksClusterRepo().create(clusterToCreate, authToken, account);
+        RepoGenericResponse<OceanClusterAks> creationResponse = getSpotOceanAzureAksClusterRepo().create(clusterToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -55,7 +55,7 @@ public class SpotOceanAzureAksClusterClient {
     public Boolean updateAksCluster(AksClusterUpdateRequest aksClusterUpdateRequest, String clusterId) {
         Boolean retVal;
 
-        ClusterAks clusterToUpdate = aksClusterUpdateRequest.getCluster();
+        OceanClusterAks clusterToUpdate = aksClusterUpdateRequest.getCluster();
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotOceanAzureAksClusterRepo().update(clusterId, clusterToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
@@ -92,10 +92,10 @@ public class SpotOceanAzureAksClusterClient {
         return retVal;
     }
 
-    public ClusterAks getOceanAksCluster(AksClusterGetRequest aksClusterGetRequest) {
-        ClusterAks retVal;
+    public OceanClusterAks getOceanAksCluster(AksClusterGetRequest aksClusterGetRequest) {
+        OceanClusterAks retVal;
         String          clusterToGet = aksClusterGetRequest.getClusterId();
-        RepoGenericResponse<ClusterAks> clusterRes =
+        RepoGenericResponse<OceanClusterAks> clusterRes =
                 getSpotOceanAzureAksClusterRepo().get(clusterToGet, authToken, account);
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();
@@ -112,11 +112,11 @@ public class SpotOceanAzureAksClusterClient {
         return retVal;
     }
 
-    public List<ClusterAks> ListOceanAksCluster() {
-        List<ClusterAks> retVal;
+    public List<OceanClusterAks> ListOceanAksCluster() {
+        List<OceanClusterAks> retVal;
 
         ISpotOceanAzureAksClusterRepo repo         = getSpotOceanAzureAksClusterRepo();
-        RepoGenericResponse<List<ClusterAks>> clustersRepoGenericResponse =
+        RepoGenericResponse<List<OceanClusterAks>> clustersRepoGenericResponse =
                 repo.getAll(null, authToken, account);
         if (clustersRepoGenericResponse.isRequestSucceed()) {
             retVal = clustersRepoGenericResponse.getValue();
