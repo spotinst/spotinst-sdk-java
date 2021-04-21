@@ -22,8 +22,8 @@ public class OceanAzureAksClusterUsageExample {
 
         String clusterId = createCluster(clusterClient);
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 20 seconds.");
-        sleep(20);
+        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
         getCluster(clusterClient, clusterId);
         updateCluster(clusterClient, clusterId);
         listClusters(clusterClient);
