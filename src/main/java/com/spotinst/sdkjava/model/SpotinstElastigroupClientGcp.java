@@ -8,7 +8,6 @@ import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +36,7 @@ public class SpotinstElastigroupClientGcp {
         }
 
     }
+
 
     //endregion
 

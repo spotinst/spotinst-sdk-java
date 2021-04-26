@@ -31,6 +31,7 @@ public class SpotOceanK8sClusterClient {
         setSpotinstOceanClusterRepo();
     }
 
+
     //Methods
     public OceanK8sCluster createK8sCluster(K8sClusterCreationRequest oceanClusterCreationRequest) {
         OceanK8sCluster retVal;

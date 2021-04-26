@@ -101,5 +101,12 @@ public class SpotinstClient {
         return spotinstElastigroupClientGcp;
     }
 
+    public static SpotOceanAzureAksClusterClient getOceanAzureAksClusterClient(String authToken, String account) {
+        SpotOceanAzureAksClusterClient spotOceanAzureAksClusterClient = new SpotOceanAzureAksClusterClient(authToken, account);
+        return spotOceanAzureAksClusterClient;
+    }
+
+
+
     //endregion
 }
