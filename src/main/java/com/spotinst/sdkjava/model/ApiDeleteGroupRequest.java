@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 public class ApiDeleteGroupRequest {
     //region Members
     private StatefulDeallocationConfig statefulDeallocation;
+    private AmiBackupConfig            amiBackup;
+    private BeanstalkDeleteConfig      beanstalk;
     //endregion
 
     //region Getters & Setters
@@ -18,6 +20,22 @@ public class ApiDeleteGroupRequest {
 
     public void setStatefulDeallocation(StatefulDeallocationConfig statefulDeallocation) {
         this.statefulDeallocation = statefulDeallocation;
+    }
+
+    public AmiBackupConfig getAmiBackup() {
+        return amiBackup;
+    }
+
+    public void setAmiBackup(AmiBackupConfig amiBackup) {
+        this.amiBackup = amiBackup;
+    }
+
+    public BeanstalkDeleteConfig getBeanstalk() {
+        return beanstalk;
+    }
+
+    public void setBeanstalk(BeanstalkDeleteConfig beanstalk) {
+        this.beanstalk = beanstalk;
     }
     //endregion
 
@@ -36,6 +54,16 @@ public class ApiDeleteGroupRequest {
 
         public ApiDeleteGroupRequest.Builder setStatefulDeallocation(final StatefulDeallocationConfig statefulDeallocation) {
             deleteRequest.setStatefulDeallocation(statefulDeallocation);
+            return this;
+        }
+
+        public ApiDeleteGroupRequest.Builder setAmiBackup(final AmiBackupConfig amiBackup) {
+            deleteRequest.setAmiBackup(amiBackup);
+            return this;
+        }
+
+        public ApiDeleteGroupRequest.Builder setBeanstalk(final BeanstalkDeleteConfig beanstalk) {
+            deleteRequest.setBeanstalk(beanstalk);
             return this;
         }
 
