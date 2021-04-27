@@ -154,7 +154,7 @@ public class ClusterConverterAks {
             }
 
             if (extensionAks.isMinorVersionAutoUpgradeSet()) {
-                retVal.setMinorVersionAutoUpgrade(extensionAks.GetMinorVersionAutoUpgrade());
+                retVal.setMinorVersionAutoUpgrade(extensionAks.getMinorVersionAutoUpgrade());
             }
 
             if (extensionAks.isNameSet()){
