@@ -39,7 +39,7 @@ public class ClusterExtensionAks {
         this.apiVersion = apiVersion;
     }
 
-    public boolean GetMinorVersionAutoUpgrade() {
+    public boolean getMinorVersionAutoUpgrade() {
         return minorVersionAutoUpgrade;
     }
 
