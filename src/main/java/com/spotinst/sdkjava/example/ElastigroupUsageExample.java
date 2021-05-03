@@ -226,8 +226,12 @@ public class ElastigroupUsageExample {
         StatefulDeallocationConfig.Builder deallocationConfigBuilder = StatefulDeallocationConfig.Builder.get();
         StatefulDeallocationConfig deallocationConfig = deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
 
+        AmiBackupConfig.Builder amiBackupConfigBuilder = AmiBackupConfig.Builder.get();
+        AmiBackupConfig         amiBackup              = amiBackupConfigBuilder.setShouldDeleteImages(true).build();
+
         ApiDeleteGroupRequest.Builder deleteRequestBuilder = ApiDeleteGroupRequest.Builder.get();
-        ApiDeleteGroupRequest deleteRequest = deleteRequestBuilder.setStatefulDeallocation(deallocationConfig).build();
+        ApiDeleteGroupRequest deleteRequest = deleteRequestBuilder.setStatefulDeallocation(deallocationConfig).setAmiBackup(
+                amiBackup).build();
 
         ElastigroupDeletionRequest.Builder deletionBuilder = ElastigroupDeletionRequest.Builder.get();
         ElastigroupDeletionRequest         deletionRequest = deletionBuilder.setElastigroupId(elastigroupId).setDeleteRequest(deleteRequest).build();
