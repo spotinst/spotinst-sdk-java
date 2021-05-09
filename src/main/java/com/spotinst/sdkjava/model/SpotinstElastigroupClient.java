@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+import com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
@@ -9,8 +10,13 @@ import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
+
+import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractDaysToDate;
+import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractMonthsToDate;
 
 /**
  * Created by talzur on 11/01/2017.
@@ -24,6 +30,7 @@ public class SpotinstElastigroupClient {
     private              ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
     private              ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
     private              ISpotinstElastigroupInstanceHealthinessRepo spotinstElastigroupInstanceHealthinessRepo;
+    private              ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
     //endregion
 
     public ISpotinstElastigroupRepo getSpotinstElastigroupRepo() {
@@ -51,6 +58,15 @@ public class SpotinstElastigroupClient {
         this.spotinstElastigroupInstanceHealthinessRepo =
                 SpotinstRepoManager.getInstance().getSpotinstInstanceHealthinessRepo();
     }
+
+    public ISpotinstEventsLogsRepo getSpotinstElastigroupEventLogRepo() {
+        return this.spotinstElastigroupEventLogRepo;
+    }
+
+    public void setSpotinstElastigroupEventLogRepo(ISpotinstEventsLogsRepo spotinstElastigroupEventLogRepo) {
+        this.spotinstElastigroupEventLogRepo = spotinstElastigroupEventLogRepo;
+    }
+
     //region Constructor
     public SpotinstElastigroupClient(String authToken, String account) {
         this(authToken, account, null);
@@ -136,7 +152,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
-        String groupId = elastigroupStandbyRequest.getElastigroupId();
+        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
                 getSpotinstElastigroupRepo().enterStandby(groupId, authToken, account);
@@ -146,9 +162,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -157,7 +173,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
-        String groupId = elastigroupStandbyRequest.getElastigroupId();
+        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
                 getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
@@ -167,9 +183,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -397,8 +413,8 @@ public class SpotinstElastigroupClient {
     public SuspendedProcesses suspendProcess(ElastigroupSuspendProcessesRequest suspendProcessesRequest) {
         SuspendedProcesses retVal;
 
-        String elastigroupId = suspendProcessesRequest.getElastigroupId();
-        List<ProcessSuspension> suspensions = suspendProcessesRequest.getSuspensions();
+        String                  elastigroupId = suspendProcessesRequest.getElastigroupId();
+        List<ProcessSuspension> suspensions   = suspendProcessesRequest.getSuspensions();
 
         RepoGenericResponse<SuspendedProcesses> suspendProcessesResponse =
                 getSpotinstElastigroupRepo().suspendProcesses(elastigroupId, suspensions, authToken, account);
@@ -409,8 +425,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = suspendProcessesResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(
+                    String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -422,7 +439,7 @@ public class SpotinstElastigroupClient {
         SuspendedProcesses retVal;
 
         String                elastigroupId = request.getElastigroupId();
-        List<ProcessNameEnum> processNames   = request.getProcesses();
+        List<ProcessNameEnum> processNames  = request.getProcesses();
 
         RepoGenericResponse<SuspendedProcesses> removeSuspensionsResponse =
                 getSpotinstElastigroupRepo().removeSuspensions(elastigroupId, processNames, authToken, account);
@@ -433,8 +450,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = removeSuspensionsResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to remove process suspensions. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to remove process suspensions. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -464,6 +482,43 @@ public class SpotinstElastigroupClient {
 
         return retVal;
     }
+
+    public List<EventLog> getEventsLogs(GetEventsLogsRequest getEventsLogsRequest) {
+
+        List<EventLog> retVal = null;
+
+        String                     elastigroupId        = getEventsLogsRequest.getElastigroupId();
+        String                     logsSeverity         = getEventsLogsRequest.getSeverity();
+        String                     logsTimeInterval     = getEventsLogsRequest.getTimeInterval();
+        EventsLogsTimeIntervalEnum logsTimeIntervalEnum = EventsLogsTimeIntervalEnum.fromName(logsTimeInterval);
+
+        Date now = new Date();
+
+        String logsFromDate = getLogsFromDateByTimeInterval(now, logsTimeIntervalEnum);
+        String logsToDate   = TimeUtils.convertDateToISO8601(now);
+
+
+        EventsLogsFilter filter = new EventsLogsFilter();
+        filter.setElastigroupId(elastigroupId);
+        filter.setSeverity(logsSeverity);
+        filter.setFromDate(logsFromDate);
+        filter.setToDate(logsToDate);
+
+        RepoGenericResponse<List<EventLog>> eventsLogsResponse =
+                getSpotinstElastigroupEventLogRepo().getAll(filter, authToken, account);
+        if (eventsLogsResponse.isRequestSucceed()) {
+            retVal = eventsLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = eventsLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get event logs. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
     //endregion
 
 
@@ -472,6 +527,43 @@ public class SpotinstElastigroupClient {
         List<HttpError> httpExceptions = response.getHttpExceptions();
         LOGGER.error(String.format("%s. Errors: %s", errorMessage, httpExceptions));
         throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
+    }
+
+    private String getLogsFromDateByTimeInterval(Date now, EventsLogsTimeIntervalEnum logsTimeInterval) {
+
+        String retVal = null;
+
+
+        if (Objects.isNull(logsTimeInterval)) {
+            Date fromDate = addOrSubtractDaysToDate(now, -1);
+            retVal = TimeUtils.convertDateToISO8601(fromDate);
+        }
+        else {
+            int timeToSubtract = logsTimeInterval.getValue();
+            switch (logsTimeInterval) {
+                case ONE_DAY_INTERVAL:
+                case TWO_DAYS_INTERVAL:
+                case THREE_DAYS_INTERVAL:
+                case ONE_WEEK_INTERVAL:
+                case TWO_WEEKS_INTERVAL: {
+                    Date fromDate = addOrSubtractDaysToDate(now, -timeToSubtract);
+                    retVal = TimeUtils.convertDateToISO8601(fromDate);
+                    break;
+                }
+                case ONE_MONTH_INTERVAL:
+                case TWO_MONTHS_INTERVAL:
+                case THREE_MONTHS_INTERVAL:
+                    Date fromDate = addOrSubtractMonthsToDate(now, -timeToSubtract);
+                    retVal = TimeUtils.convertDateToISO8601(fromDate);
+                    break;
+                default: {
+                    LOGGER.error(String.format("Failed calculate from date for time interval: %s", logsTimeInterval));
+                    break;
+                }
+            }
+        }
+
+        return retVal;
     }
     //endregion
 }
