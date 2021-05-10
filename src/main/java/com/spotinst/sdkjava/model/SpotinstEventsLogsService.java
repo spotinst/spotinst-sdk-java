@@ -53,7 +53,6 @@ public class SpotinstEventsLogsService extends BaseSpotinstService {
             queryParams.put("limit", limit);
         }
 
-
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
 

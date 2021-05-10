@@ -506,6 +506,7 @@ public class SpotinstElastigroupClient {
 
         RepoGenericResponse<List<EventLog>> eventsLogsResponse =
                 getSpotinstElastigroupEventLogRepo().getAll(filter, authToken, account);
+
         if (eventsLogsResponse.isRequestSucceed()) {
             retVal = eventsLogsResponse.getValue();
         }

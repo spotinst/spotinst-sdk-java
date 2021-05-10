@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  */
 //todo daniel : is this should be part of the Elastigroup repo ? this are the goup elasti logs no ? not mandatory - Waiting for an Answer
 // At first I put it inside Elastigroup repo but because the _events_logs_v2 is relevant for all resources and providers it might be a good idea to dedicate a repo.
-// What do you think? Maybe I should rename the function or should I move it to Elastigroup repo?
+// What do you think? Maybe I should rename the function or should I move it to Elastigroup repo? Adiv - leave it as is
 public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
 
     @Override
@@ -28,7 +28,6 @@ public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
                     apiEventsLogs.stream().map(ApiEventsLogsConverter::dalToBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(eventsLogs);
-
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
@@ -37,4 +36,3 @@ public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
         return retVal;
     }
 }
-
