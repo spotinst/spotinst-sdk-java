@@ -234,6 +234,7 @@ public class ElastigroupUsageExample {
         StatefulDeallocationConfig.Builder deallocationConfigBuilder = StatefulDeallocationConfig.Builder.get();
         StatefulDeallocationConfig deallocationConfig = deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
 
+        //todo daniel : what is this ?
         AmiBackupConfig.Builder amiBackupConfigBuilder = AmiBackupConfig.Builder.get();
         AmiBackupConfig         amiBackup              = amiBackupConfigBuilder.setShouldDeleteImages(true).build();
 

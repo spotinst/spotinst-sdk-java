@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by danielsarisrael on 09/05/2021.
  */
+//todo daniel : delete not in use
 public enum EventsLogsTimeIntervalEnum {
 
 
