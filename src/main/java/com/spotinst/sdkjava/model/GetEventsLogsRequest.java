@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
+import com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
 import java.util.Objects;
@@ -11,9 +12,11 @@ import java.util.Objects;
 public class GetEventsLogsRequest {
 
     //region Members
-    private String severity;
-    private String timeInterval;
-    private String elastigroupId;
+    private EventsLogsTimeIntervalEnum timeInterval;
+    private EventsLogsSeverityEnum     severity;
+    private String                     resourceId;
+    private String                     limit;
+    private String                     elastigroupId;
     //endregion
 
     //region Private Constructor
@@ -22,6 +25,38 @@ public class GetEventsLogsRequest {
     //endregion
 
     //region Getters & Setters
+    public EventsLogsTimeIntervalEnum getTimeInterval() {
+        return timeInterval;
+    }
+
+    public void setTimeInterval(EventsLogsTimeIntervalEnum timeInterval) {
+        this.timeInterval = timeInterval;
+    }
+
+    public EventsLogsSeverityEnum getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(EventsLogsSeverityEnum severity) {
+        this.severity = severity;
+    }
+
+    public String getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
     public String getElastigroupId() {
         return elastigroupId;
     }
@@ -29,23 +64,6 @@ public class GetEventsLogsRequest {
     public void setElastigroupId(String elastigroupId) {
         this.elastigroupId = elastigroupId;
     }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
-    public String getTimeInterval() {
-        return timeInterval;
-    }
-
-    public void setTimeInterval(String timeInterval) {
-        this.timeInterval = timeInterval;
-    }
-
     //endregion
 
     //region Builder class
@@ -61,37 +79,38 @@ public class GetEventsLogsRequest {
             return builder;
         }
 
+        public GetEventsLogsRequest.Builder setTimeInterval(final EventsLogsTimeIntervalEnum timeInterval) {
+            getEventsLogsRequest.setTimeInterval(timeInterval);
+            return this;
+        }
+
+        public GetEventsLogsRequest.Builder setSeverity(final EventsLogsSeverityEnum severity) {
+            getEventsLogsRequest.setSeverity(severity);
+            return this;
+        }
+
+        public GetEventsLogsRequest.Builder setResourceId(final String resourceId) {
+            getEventsLogsRequest.setResourceId(resourceId);
+            return this;
+        }
+
+        public GetEventsLogsRequest.Builder setLimit(final String limit) {
+            getEventsLogsRequest.setLimit(limit);
+            return this;
+        }
+
         public GetEventsLogsRequest.Builder setElastigroupId(final String elastigroupId) {
             getEventsLogsRequest.setElastigroupId(elastigroupId);
             return this;
         }
 
-        public GetEventsLogsRequest.Builder setSeverity(final String severity) {
-            getEventsLogsRequest.setSeverity(severity);
-            return this;
-        }
-
-        public GetEventsLogsRequest.Builder setInterval(final String interval) {
-            getEventsLogsRequest.setTimeInterval(interval);
-            return this;
-        }
-
         public GetEventsLogsRequest build() {
-            if (getEventsLogsRequest.getSeverity() != null &&
-                Objects.isNull(EventsLogsSeverityEnum.fromName(getEventsLogsRequest.getSeverity()))) {
-
-                throw new SpotinstValidationException("Invalid Request - severity must be one of the following: ERROR | WARN | INFO | DEBUG");
-            }
-
-            if (getEventsLogsRequest.getTimeInterval() != null &&
-                Objects.isNull(EventsLogsSeverityEnum.fromName(getEventsLogsRequest.getTimeInterval()))) {
-
-                throw new SpotinstValidationException("Invalid Request - time interval must be one of the following: 1d | 2d | 3d | 1w | 2w | 1m | 2m | 3m");
+            if (Objects.isNull(getEventsLogsRequest.getElastigroupId())) {
+                throw new SpotinstValidationException("Invalid Request - elastigroupId must be set");
             }
 
             return getEventsLogsRequest;
         }
-
     }
     //endregion
 }

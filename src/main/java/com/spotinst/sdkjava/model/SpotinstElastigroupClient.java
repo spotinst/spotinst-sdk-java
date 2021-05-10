@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum.ONE_DAY_INTERVAL;
 import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractDaysToDate;
 import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractMonthsToDate;
 
@@ -63,8 +65,8 @@ public class SpotinstElastigroupClient {
         return this.spotinstElastigroupEventLogRepo;
     }
 
-    public void setSpotinstElastigroupEventLogRepo(ISpotinstEventsLogsRepo spotinstElastigroupEventLogRepo) {
-        this.spotinstElastigroupEventLogRepo = spotinstElastigroupEventLogRepo;
+    public void setSpotinstElastigroupEventLogRepo() {
+        this.spotinstElastigroupEventLogRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupEventLogRepo();
     }
 
     //region Constructor
@@ -79,6 +81,7 @@ public class SpotinstElastigroupClient {
         setSpotinstElastigroupRepo();
         setSpotinstElastigroupActiveInstanceRepo();
         setInstanceHealthinessRepo();
+        setSpotinstElastigroupEventLogRepo();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -487,22 +490,28 @@ public class SpotinstElastigroupClient {
 
         List<EventLog> retVal = null;
 
-        String                     elastigroupId        = getEventsLogsRequest.getElastigroupId();
-        String                     logsSeverity         = getEventsLogsRequest.getSeverity();
-        String                     logsTimeInterval     = getEventsLogsRequest.getTimeInterval();
-        EventsLogsTimeIntervalEnum logsTimeIntervalEnum = EventsLogsTimeIntervalEnum.fromName(logsTimeInterval);
+        EventsLogsTimeIntervalEnum logsTimeInterval = getEventsLogsRequest.getTimeInterval();
+        EventsLogsSeverityEnum     logsSeverity     = getEventsLogsRequest.getSeverity();
+        String                     resourceId       = getEventsLogsRequest.getResourceId();
+        String                     limit            = getEventsLogsRequest.getLimit();
+        String                     elastigroupId    = getEventsLogsRequest.getElastigroupId();
 
-        Date now = new Date();
-
-        String logsFromDate = getLogsFromDateByTimeInterval(now, logsTimeIntervalEnum);
+        Date   now          = new Date();
+        String logsFromDate = getLogsFromDateByTimeInterval(now, logsTimeInterval);
         String logsToDate   = TimeUtils.convertDateToISO8601(now);
 
-
         EventsLogsFilter filter = new EventsLogsFilter();
-        filter.setElastigroupId(elastigroupId);
-        filter.setSeverity(logsSeverity);
         filter.setFromDate(logsFromDate);
         filter.setToDate(logsToDate);
+        if (Objects.nonNull(logsSeverity)) {
+            filter.setSeverity(logsSeverity.getName());
+        }
+        else {
+            filter.setSeverity(null);
+        }
+        filter.setResourceId(resourceId);
+        filter.setLimit(limit);
+        filter.setElastigroupId(elastigroupId);
 
         RepoGenericResponse<List<EventLog>> eventsLogsResponse =
                 getSpotinstElastigroupEventLogRepo().getAll(filter, authToken, account);
@@ -533,9 +542,8 @@ public class SpotinstElastigroupClient {
 
         String retVal = null;
 
-
         if (Objects.isNull(logsTimeInterval)) {
-            Date fromDate = addOrSubtractDaysToDate(now, -1);
+            Date fromDate = addOrSubtractDaysToDate(now, -ONE_DAY_INTERVAL.getValue());
             retVal = TimeUtils.convertDateToISO8601(fromDate);
         }
         else {

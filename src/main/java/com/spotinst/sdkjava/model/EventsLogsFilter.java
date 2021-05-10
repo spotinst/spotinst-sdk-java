@@ -6,29 +6,15 @@ package com.spotinst.sdkjava.model;
 public class EventsLogsFilter {
 
     //region Members
-    private String elastigroupId;
-    private String severity;
     private String fromDate;
     private String toDate;
+    private String severity;
+    private String resourceId;
+    private String limit;
+    private String elastigroupId;
     //endregion
 
     //region Getter & Setter methods
-    public String getElastigroupId() {
-        return elastigroupId;
-    }
-
-    public void setElastigroupId(String elastigroupId) {
-        this.elastigroupId = elastigroupId;
-    }
-
-    public String getSeverity() {
-        return severity;
-    }
-
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
-
     public String getFromDate() {
         return fromDate;
     }
@@ -43,6 +29,38 @@ public class EventsLogsFilter {
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+    }
+
+    public String getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(String severity) {
+        this.severity = severity;
+    }
+
+    public String getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
+    }
+
+    public String getElastigroupId() {
+        return elastigroupId;
+    }
+
+    public void setElastigroupId(String elastigroupId) {
+        this.elastigroupId = elastigroupId;
     }
     //endregion
 }

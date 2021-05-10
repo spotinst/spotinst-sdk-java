@@ -16,7 +16,9 @@ import java.util.Map;
  */
 public class SpotinstEventsLogsService extends BaseSpotinstService {
 
-    public static List<ApiEventLog> getEventsLogs(String severity, String fromDate, String toDate, String elastigroupId, String authToken, String account) {
+    public static List<ApiEventLog> getEventsLogs(String fromDate, String toDate, String severity, String resourceId,
+                                                  String limit, String elastigroupId, String authToken,
+                                                  String account) {
         // Init retVal
         List<ApiEventLog> retVal = new LinkedList<>();
 
@@ -26,9 +28,9 @@ public class SpotinstEventsLogsService extends BaseSpotinstService {
 
         Map<String, String> queryParams = new HashMap<String, String>();
 
-        // Add severity Query param
-        if (severity != null) {
-            queryParams.put("severity", severity);
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
         }
         // Add fromDate Query param
         if (fromDate != null) {
@@ -38,30 +40,31 @@ public class SpotinstEventsLogsService extends BaseSpotinstService {
         if (toDate != null) {
             queryParams.put("toDate", toDate);
         }
-        // Add elastigroup Id Query param
-        if (elastigroupId != null) {
-            queryParams.put("resourceId", elastigroupId);
+        // Add severity Query param
+        if (severity != null) {
+            queryParams.put("severity", severity);
         }
-        // Add account Id Query param
-        if (account != null) {
-            queryParams.put("accountId", account);
+        // Add resourceId Query param
+        if (resourceId != null) {
+            queryParams.put("resourceId", resourceId);
         }
-        // Add limit with value 1000 Query param
-        queryParams.put("limit", "1000");
+        // Add limit Query param
+        if (limit != null) {
+            queryParams.put("limit", limit);
+        }
 
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/event/log/v2/search", apiEndpoint, elastigroupId);
+        String uri = String.format("%s/aws/ec2/group/%s/logs", apiEndpoint, elastigroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        EventsLogsApiResponse eventsLogsResponse =
-                getCastedResponse(response, EventsLogsApiResponse.class);
+        EventsLogsApiResponse eventsLogsResponse = getCastedResponse(response, EventsLogsApiResponse.class);
         if (eventsLogsResponse.getResponse().getItems().size() > 0) {
             retVal = eventsLogsResponse.getResponse().getItems();
         }

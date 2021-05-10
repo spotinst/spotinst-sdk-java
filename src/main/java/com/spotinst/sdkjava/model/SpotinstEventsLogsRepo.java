@@ -18,8 +18,9 @@ public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
         try {
             List<EventLog> eventsLogs = new LinkedList<>();
             List<ApiEventLog> apiEventsLogs = SpotinstEventsLogsService
-                    .getEventsLogs(filter.getSeverity(), filter.getFromDate(), filter.getToDate(),
-                                   filter.getElastigroupId(), authToken, account);
+                    .getEventsLogs(filter.getFromDate(), filter.getToDate(), filter.getSeverity(),
+                                   filter.getResourceId(), filter.getLimit(), filter.getElastigroupId(), authToken,
+                                   account);
             for (ApiEventLog apiEventLog : apiEventsLogs) {
 
                 EventLog eventLog = ApiEventsLogsConverter.dalToBl(apiEventLog);

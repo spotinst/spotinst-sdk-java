@@ -12,7 +12,8 @@ public enum EventsLogsSeverityEnum {
     ERROR("ERROR"),
     WARN("WARN"),
     INFO("INFO"),
-    DEBUG("DEBUG");
+    DEBUG("DEBUG"),
+    ALL("ALL");
     //endregion
 
     //region Members
@@ -38,7 +39,8 @@ public enum EventsLogsSeverityEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create events logs severity enum for name : " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create events logs severity enum for name : " + name +
+                         ", but we don't support such type ");
         }
 
         return retVal;
