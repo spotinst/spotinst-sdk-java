@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 /**
  * Created by danielsarisrael on 09/05/2021.
  */
-//todo daniel : is this should be part of the Elastigroup repo ? this are the goup elasti logs no ? not mandatory - Waiting for an Answer
-// At first I put it inside Elastigroup repo but because the _events_logs_v2 is relevant for all resources and providers it might be a good idea to dedicate a repo.
-// What do you think? Maybe I should rename the function or should I move it to Elastigroup repo? Adiv - leave it as is
 public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
 
     @Override
@@ -23,7 +20,7 @@ public class SpotinstEventsLogsRepo implements ISpotinstEventsLogsRepo {
                     .getEventsLogs(filter.getFromDate(), filter.getToDate(), filter.getSeverity(),
                                    filter.getResourceId(), filter.getLimit(), filter.getElastigroupId(), authToken,
                                    account);
-            //todo daniel : look at spotinst elastigroup repo line 125 more elegant way to write this - Done
+
             List<EventLog> eventsLogs =
                     apiEventsLogs.stream().map(ApiEventsLogsConverter::dalToBl).collect(Collectors.toList());
 

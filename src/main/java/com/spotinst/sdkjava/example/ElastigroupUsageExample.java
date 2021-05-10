@@ -18,7 +18,6 @@ public class ElastigroupUsageExample {
     private final static String act_id        = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
-    //todo daniel : remove this  private propertites keep this section as clean as possible - Done
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
     public static void main(String[] args) throws IOException {
@@ -203,8 +202,7 @@ public class ElastigroupUsageExample {
                                            String createdSubscriptionId) {
         // Delete Retrieved event
         SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest         subDelRequest =
-                subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
+        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
         Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
         if (deletionSuccess) {
@@ -232,7 +230,8 @@ public class ElastigroupUsageExample {
 
     private static void deleteElastigroup(SpotinstElastigroupClient client, String elastigroupId) {
         StatefulDeallocationConfig.Builder deallocationConfigBuilder = StatefulDeallocationConfig.Builder.get();
-        StatefulDeallocationConfig deallocationConfig = deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
+        StatefulDeallocationConfig         deallocationConfig        =
+                deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
 
         AmiBackupConfig.Builder amiBackupConfigBuilder = AmiBackupConfig.Builder.get();
         AmiBackupConfig         amiBackup              = amiBackupConfigBuilder.setShouldDeleteImages(true).build();
@@ -354,8 +353,7 @@ public class ElastigroupUsageExample {
         //Build Load Balancer Config
         LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
         LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
-        LoadBalancer                loadBalancer              =
-                lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
+        LoadBalancer loadBalancer = lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
         LoadBalancersConfig loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
 
@@ -406,14 +404,12 @@ public class ElastigroupUsageExample {
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration         capacity        =
-                capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
+        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
 
 
         //build down
         ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
-        ElastigroupDownSpecification         down        =
-                downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
+        ElastigroupDownSpecification down = downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
         ElastigroupHeadroomSpecification headRoom =
@@ -600,15 +596,17 @@ public class ElastigroupUsageExample {
     }
 
     private static void detachLoadBalancer(SpotinstElastigroupClient client, String elastigroupId) {
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancersConfig loadBalancersConfig = loadBalancerConfigBuilder.setLoadBalancers(null).build();
-        ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
+        LoadBalancersConfig.Builder            loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
+        LoadBalancersConfig                    loadBalancersConfig       =
+                loadBalancerConfigBuilder.setLoadBalancers(null).build();
+        ElastigroupLaunchSpecification.Builder launchSpecBuilder         = ElastigroupLaunchSpecification.Builder.get();
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setLoadBalancersConfig(loadBalancersConfig).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpec).build();
+        ElastigroupComputeConfiguration         compute        =
+                computeBuilder.setLaunchSpecification(launchSpec).build();
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
@@ -701,9 +699,8 @@ public class ElastigroupUsageExample {
         ElastigroupSuspendProcessesRequest.Builder requestBuilder = ElastigroupSuspendProcessesRequest.Builder.get();
 
         ProcessSuspension.Builder suspensionBuilder = ProcessSuspension.Builder.get();
-        ProcessSuspension         suspension        =
-                suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
-        List<ProcessSuspension>   suspensions       = Collections.singletonList(suspension);
+        ProcessSuspension suspension = suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
+        List<ProcessSuspension> suspensions = Collections.singletonList(suspension);
         ElastigroupSuspendProcessesRequest request =
                 requestBuilder.setElastigroupId(elastigroupId).setSuspensions(suspensions).build();
 

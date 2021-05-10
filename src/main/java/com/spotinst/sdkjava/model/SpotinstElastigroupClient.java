@@ -511,7 +511,6 @@ public class SpotinstElastigroupClient {
             retVal = eventsLogsResponse.getValue();
         }
         else {
-            //todo daniel : why not using handleFailure() - Done
             String errorMessage = "Error encountered while attempting to get events logs";
             handleFailure(eventsLogsResponse, errorMessage);
         }
