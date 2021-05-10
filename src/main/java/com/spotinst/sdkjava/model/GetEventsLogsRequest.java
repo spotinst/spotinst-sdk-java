@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
-import com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 
 import java.util.Objects;
@@ -12,11 +11,12 @@ import java.util.Objects;
 public class GetEventsLogsRequest {
 
     //region Members
-    private EventsLogsTimeIntervalEnum timeInterval;
-    private EventsLogsSeverityEnum     severity;
-    private String                     resourceId;
-    private String                     limit;
-    private String                     elastigroupId;
+    private String                 fromDate;
+    private String                 toDate;
+    private EventsLogsSeverityEnum severity;
+    private String                 resourceId;
+    private String                 limit;
+    private String                 elastigroupId;
     //endregion
 
     //region Private Constructor
@@ -25,12 +25,20 @@ public class GetEventsLogsRequest {
     //endregion
 
     //region Getters & Setters
-    public EventsLogsTimeIntervalEnum getTimeInterval() {
-        return timeInterval;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setTimeInterval(EventsLogsTimeIntervalEnum timeInterval) {
-        this.timeInterval = timeInterval;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public EventsLogsSeverityEnum getSeverity() {
@@ -79,8 +87,13 @@ public class GetEventsLogsRequest {
             return builder;
         }
 
-        public GetEventsLogsRequest.Builder setTimeInterval(final EventsLogsTimeIntervalEnum timeInterval) {
-            getEventsLogsRequest.setTimeInterval(timeInterval);
+        public GetEventsLogsRequest.Builder setFromDate(final String fromDate) {
+            getEventsLogsRequest.setFromDate(fromDate);
+            return this;
+        }
+
+        public GetEventsLogsRequest.Builder setToDate(final String toDate) {
+            getEventsLogsRequest.setToDate(toDate);
             return this;
         }
 
@@ -107,6 +120,12 @@ public class GetEventsLogsRequest {
         public GetEventsLogsRequest build() {
             if (Objects.isNull(getEventsLogsRequest.getElastigroupId())) {
                 throw new SpotinstValidationException("Invalid Request - elastigroupId must be set");
+            }
+            if (Objects.isNull(getEventsLogsRequest.getFromDate())) {
+                throw new SpotinstValidationException("Invalid Request - fromDate must be set");
+            }
+            if (Objects.isNull(getEventsLogsRequest.getToDate())) {
+                throw new SpotinstValidationException("Invalid Request - toDate must be set");
             }
 
             return getEventsLogsRequest;

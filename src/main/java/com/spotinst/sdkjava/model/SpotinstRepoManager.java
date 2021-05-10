@@ -21,8 +21,8 @@ class SpotinstRepoManager {
     private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
     private ISpotinstElastigroupRepoGcp                 spotinstElastigroupRepoGcp;
     private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
-    private ISpotOceanAzureAksClusterRepo spotOceanAzureAksClusterRepo;
-    private ISpotinstEventsLogsRepo       spotinstElastigroupEventLogRepo;
+    private ISpotOceanAzureAksClusterRepo               spotOceanAzureAksClusterRepo;
+    private ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
     //endregion
 
     //region Constructor

@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
-import com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
@@ -11,14 +10,9 @@ import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.spotinst.sdkjava.enums.EventsLogsTimeIntervalEnum.ONE_DAY_INTERVAL;
-import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractDaysToDate;
-import static com.spotinst.sdkjava.utils.TimeUtils.addOrSubtractMonthsToDate;
 
 /**
  * Created by talzur on 11/01/2017.
@@ -490,19 +484,16 @@ public class SpotinstElastigroupClient {
 
         List<EventLog> retVal = null;
 
-        EventsLogsTimeIntervalEnum logsTimeInterval = getEventsLogsRequest.getTimeInterval();
-        EventsLogsSeverityEnum     logsSeverity     = getEventsLogsRequest.getSeverity();
-        String                     resourceId       = getEventsLogsRequest.getResourceId();
-        String                     limit            = getEventsLogsRequest.getLimit();
-        String                     elastigroupId    = getEventsLogsRequest.getElastigroupId();
-
-        Date   now          = new Date();
-        String logsFromDate = getLogsFromDateByTimeInterval(now, logsTimeInterval);
-        String logsToDate   = TimeUtils.convertDateToISO8601(now);
+        String                 fromDate      = getEventsLogsRequest.getFromDate();
+        String                 toDate        = getEventsLogsRequest.getToDate();
+        EventsLogsSeverityEnum logsSeverity  = getEventsLogsRequest.getSeverity();
+        String                 resourceId    = getEventsLogsRequest.getResourceId();
+        String                 limit         = getEventsLogsRequest.getLimit();
+        String                 elastigroupId = getEventsLogsRequest.getElastigroupId();
 
         EventsLogsFilter filter = new EventsLogsFilter();
-        filter.setFromDate(logsFromDate);
-        filter.setToDate(logsToDate);
+        filter.setFromDate(fromDate);
+        filter.setToDate(toDate);
         if (Objects.nonNull(logsSeverity)) {
             filter.setSeverity(logsSeverity.getName());
         }
@@ -519,12 +510,9 @@ public class SpotinstElastigroupClient {
             retVal = eventsLogsResponse.getValue();
         }
         else {
-            //todo daniel : why not using handleFailure()
-            List<HttpError> httpExceptions = eventsLogsResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to get event logs. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
+            //todo daniel : why not using handleFailure() - Done
+            String errorMessage = "Error encountered while attempting to get events logs";
+            handleFailure(eventsLogsResponse, errorMessage);
         }
 
         return retVal;
@@ -537,45 +525,6 @@ public class SpotinstElastigroupClient {
         List<HttpError> httpExceptions = response.getHttpExceptions();
         LOGGER.error(String.format("%s. Errors: %s", errorMessage, httpExceptions));
         throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
-    }
-
-    //todo daniel : this is a general function to manipulate time stamps, if so
-    // change the name not to include "getlogs" also should not be part of the client  class move to time utils
-    //also Enum class can be a general Enum class describing time interval and not logs view specific
-    private String getLogsFromDateByTimeInterval(Date now, EventsLogsTimeIntervalEnum logsTimeInterval) {
-
-        String retVal = null;
-
-        if (Objects.isNull(logsTimeInterval)) {
-            Date fromDate = addOrSubtractDaysToDate(now, -ONE_DAY_INTERVAL.getValue());
-            retVal = TimeUtils.convertDateToISO8601(fromDate);
-        }
-        else {
-            int timeToSubtract = logsTimeInterval.getValue();
-            switch (logsTimeInterval) {
-                case ONE_DAY_INTERVAL:
-                case TWO_DAYS_INTERVAL:
-                case THREE_DAYS_INTERVAL:
-                case ONE_WEEK_INTERVAL:
-                case TWO_WEEKS_INTERVAL: {
-                    Date fromDate = addOrSubtractDaysToDate(now, -timeToSubtract);
-                    retVal = TimeUtils.convertDateToISO8601(fromDate);
-                    break;
-                }
-                case ONE_MONTH_INTERVAL:
-                case TWO_MONTHS_INTERVAL:
-                case THREE_MONTHS_INTERVAL:
-                    Date fromDate = addOrSubtractMonthsToDate(now, -timeToSubtract);
-                    retVal = TimeUtils.convertDateToISO8601(fromDate);
-                    break;
-                default: {
-                    LOGGER.error(String.format("Failed calculate from date for time interval: %s", logsTimeInterval));
-                    break;
-                }
-            }
-        }
-
-        return retVal;
     }
     //endregion
 }

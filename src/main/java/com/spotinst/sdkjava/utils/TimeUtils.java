@@ -21,24 +21,4 @@ public class TimeUtils {
 
         return retVal;
     }
-
-    public static Date addOrSubtractDaysToDate(Date date, int daysAmount) {
-        Date     retVal;
-        Calendar cal    = Calendar.getInstance();
-
-        cal.setTime(date);
-        cal.add(Calendar.DATE, daysAmount);
-        retVal = cal.getTime();
-        return retVal;
-    }
-
-    public static Date addOrSubtractMonthsToDate(Date date, int monthsAmount) {
-        Date     retVal;
-        Calendar cal    = Calendar.getInstance();
-
-        cal.setTime(date);
-        cal.add(Calendar.MONTH, monthsAmount);
-        retVal = cal.getTime();
-        return retVal;
-    }
 }
