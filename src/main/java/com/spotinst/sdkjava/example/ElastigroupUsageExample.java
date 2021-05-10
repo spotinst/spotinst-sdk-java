@@ -18,11 +18,12 @@ public class ElastigroupUsageExample {
     private final static String                     auth_token         = "your-token";
     private final static String                     act_id             = "your-account-id";
     private final static String                     key_pair_name      = "some-key-pair-name";
+    //todo daniel : remove this  private propertites keep this section as clean as possible
     private final static EventsLogsSeverityEnum     logs_severity      = ALL;
     private final static EventsLogsTimeIntervalEnum logs_time_interval = ONE_DAY_INTERVAL;
     private final static String                     logs_resourceId    = "resourceId";
     private final static String                     logs_limit         = LOGS_MAX_LIMIT;
-
+    // todo daniel : remove to this point
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
     public static void main(String[] args) throws IOException {
@@ -114,6 +115,7 @@ public class ElastigroupUsageExample {
         exitGroupStandby(elastigroupClient, elastigroupId);
 
         // Get Group Events Logs
+        //todo daniel : add your parameters to thr function
         getEventsLogs(elastigroupClient, elastigroupId, logs_time_interval, logs_severity, logs_resourceId, logs_limit);
 
         // Delete elastigroup

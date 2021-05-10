@@ -519,6 +519,7 @@ public class SpotinstElastigroupClient {
             retVal = eventsLogsResponse.getValue();
         }
         else {
+            //todo daniel : why not using handleFailure()
             List<HttpError> httpExceptions = eventsLogsResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to get event logs. Code: %s. Message: %s.",
@@ -538,6 +539,9 @@ public class SpotinstElastigroupClient {
         throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
     }
 
+    //todo daniel : this is a general function to manipulate time stamps, if so
+    // change the name not to include "getlogs" also should not be part of the client  class move to time utils
+    //also Enum class can be a general Enum class describing time interval and not logs view specific
     private String getLogsFromDateByTimeInterval(Date now, EventsLogsTimeIntervalEnum logsTimeInterval) {
 
         String retVal = null;
