@@ -13,7 +13,7 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-//todo sagi : use base class to mutual properties
+
 public class ApiScalingPolicy {
     //region Members
     // Partial Update support
