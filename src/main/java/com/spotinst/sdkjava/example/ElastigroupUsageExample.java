@@ -382,6 +382,36 @@ public class ElastigroupUsageExample {
                 computeBuilder.setInstanceTypes(instanceTypes).setProduct("Linux/UNIX")
                               .setLaunchSpecification(launchSpec).setAvailabilityZones(placements).build();
 
+        // Build group Target Scaling policies
+        PredictiveScale.Builder predictiveScaleBuilder1 = PredictiveScale.Builder.get();
+        PredictiveScale         predictiveScale1        =
+                predictiveScaleBuilder1.setMode(ScalingPredictiveModeEnum.FORECAST_ONLY).build();
+
+        ScalingPolicy.Builder   scalingPolicyBuilder1   = ScalingPolicy.Builder.get();
+        ScalingPolicy           scalingPolicy1          =
+                scalingPolicyBuilder1.setPolicyName("target Scaling Policy 1").setMetricName("CPUUtilization")
+                                     .setNamespace("AWS/EC2").setCooldown(300).setStatistic("average")
+                                     .setUnit("percent").setTarget(50).setPredictive(predictiveScale1).build();
+
+        PredictiveScale.Builder predictiveScaleBuilder2 = PredictiveScale.Builder.get();
+        PredictiveScale         predictiveScale2        =
+                predictiveScaleBuilder2.setMode(ScalingPredictiveModeEnum.FORECAST_AND_SCALE).build();
+
+        ScalingPolicy.Builder   scalingPolicyBuilder2   = ScalingPolicy.Builder.get();
+        ScalingPolicy           scalingPolicy2          =
+                scalingPolicyBuilder2.setPolicyName("target Scaling Policy 2").setMetricName("CPUUtilization")
+                                     .setNamespace("AWS/EC2").setCooldown(300).setStatistic("average").setUnit("bytes")
+                                     .setTarget(500).setPredictive(predictiveScale2).build();
+
+        List<ScalingPolicy> targetScalingPolicies = new ArrayList<>();
+        targetScalingPolicies.add(scalingPolicy1);
+        targetScalingPolicies.add(scalingPolicy2);
+
+        // Build group scaling
+        ElastigroupScalingConfiguration.Builder scalingBuilder = ElastigroupScalingConfiguration.Builder.get();
+        ElastigroupScalingConfiguration         scaling        =
+                scalingBuilder.setTarget(targetScalingPolicies).build();
+
         // Build group strategy persistence
         ElastigroupPersistenceConfiguration.Builder persistenceBuilder =
                 ElastigroupPersistenceConfiguration.Builder.get();

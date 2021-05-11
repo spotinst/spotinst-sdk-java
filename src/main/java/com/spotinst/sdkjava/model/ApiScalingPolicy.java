@@ -32,7 +32,8 @@ public class ApiScalingPolicy {
     private ApiScalingAction          action;
     private String                    operator;
     private Boolean                   isEnabled;
-    //endregion
+    private Integer                   target;
+    private ApiPredictiveScale        predictive;
 
     //region Getters & Setters
 
@@ -82,7 +83,7 @@ public class ApiScalingPolicy {
     }
     //endregion
 
-
+    // region Extended Statistic
     public String getExtendedStatistic() {
         return extendedStatistic;
     }
@@ -96,6 +97,8 @@ public class ApiScalingPolicy {
     public boolean isExtendedStatisticSet() {
         return isSet.contains("extendedStatistic");
     }
+
+    // endregion
 
     //region Unit
     public String getUnit() {
@@ -275,6 +278,34 @@ public class ApiScalingPolicy {
         return isSet.contains("isEnabled");
     }
     //endregion
+
+    // region Target
+    public Integer getTarget() {
+        return target;
+    }
+
+    public void setTarget(Integer target) {
+        isSet.add("target");
+        this.target = target;
+    }
+
+    @JsonIgnore
+    public boolean isTargetSet() {
+        return isSet.contains("target");
+    }
+    // endregion
+
+    // region Predictive
+    public ApiPredictiveScale getPredictive() { return predictive; }
+
+    public void setPredictive(ApiPredictiveScale predictive) {
+        isSet.add("predictive");
+        this.predictive = predictive;
+    }
+
+    @JsonIgnore
+    public boolean isPredictiveSet() { return isSet.contains("predictive"); }
+    // endregion
 
     //endregion
 }
