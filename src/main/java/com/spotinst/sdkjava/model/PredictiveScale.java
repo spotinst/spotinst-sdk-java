@@ -7,6 +7,7 @@ import com.spotinst.sdkjava.enums.ScalingPredictiveModeEnum;
 import java.util.HashSet;
 import java.util.Set;
 
+//todo sagi : add created at
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PredictiveScale {
 
