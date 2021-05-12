@@ -10,9 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
+import static com.spotinst.sdkjava.utils.Constants.*;
+
 public class ElastigroupUsageExample {
-    private final static String auth_token = "your-token";
-    private final static String act_id     = "your-account-id";
+    private final static String auth_token    = "your-token";
+    private final static String act_id        = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -105,6 +108,10 @@ public class ElastigroupUsageExample {
         // Exit Group Standby
         exitGroupStandby(elastigroupClient, elastigroupId);
 
+        // Get Group Events Logs
+        getEventsLogs(elastigroupClient, elastigroupId, LOGS_FROM_DATE_EXAMPLE, LOGS_TO_DATE_EXAMPLE, ALL, null,
+                      LOGS_MAX_LIMIT);
+
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
 
@@ -195,8 +202,7 @@ public class ElastigroupUsageExample {
                                            String createdSubscriptionId) {
         // Delete Retrieved event
         SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest         subDelRequest =
-                subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
+        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
         Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
         if (deletionSuccess) {
@@ -224,17 +230,19 @@ public class ElastigroupUsageExample {
 
     private static void deleteElastigroup(SpotinstElastigroupClient client, String elastigroupId) {
         StatefulDeallocationConfig.Builder deallocationConfigBuilder = StatefulDeallocationConfig.Builder.get();
-        StatefulDeallocationConfig deallocationConfig = deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
+        StatefulDeallocationConfig         deallocationConfig        =
+                deallocationConfigBuilder.setShouldDeleteVolumes(true).build();
 
         AmiBackupConfig.Builder amiBackupConfigBuilder = AmiBackupConfig.Builder.get();
         AmiBackupConfig         amiBackup              = amiBackupConfigBuilder.setShouldDeleteImages(true).build();
 
         ApiDeleteGroupRequest.Builder deleteRequestBuilder = ApiDeleteGroupRequest.Builder.get();
-        ApiDeleteGroupRequest deleteRequest = deleteRequestBuilder.setStatefulDeallocation(deallocationConfig).setAmiBackup(
-                amiBackup).build();
+        ApiDeleteGroupRequest deleteRequest =
+                deleteRequestBuilder.setStatefulDeallocation(deallocationConfig).setAmiBackup(amiBackup).build();
 
         ElastigroupDeletionRequest.Builder deletionBuilder = ElastigroupDeletionRequest.Builder.get();
-        ElastigroupDeletionRequest         deletionRequest = deletionBuilder.setElastigroupId(elastigroupId).setDeleteRequest(deleteRequest).build();
+        ElastigroupDeletionRequest deletionRequest =
+                deletionBuilder.setElastigroupId(elastigroupId).setDeleteRequest(deleteRequest).build();
 
         Boolean successfulDeletion = client.deleteElastigroup(deletionRequest);
         if (successfulDeletion) {
@@ -330,10 +338,10 @@ public class ElastigroupUsageExample {
                 instanceTypesBuilder.setOnDemandType("c3.large").setSpotTypes(spotTypes).build();
 
         // Build group availability Zones
-        ArrayList<Placement> placements = new ArrayList<>();
-        Placement.Builder placementBuilder1 = Placement.Builder.get();
-        Placement.Builder placementBuilder2 = Placement.Builder.get();
-        List<String>      subnetIds        = new ArrayList<>();
+        ArrayList<Placement> placements        = new ArrayList<>();
+        Placement.Builder    placementBuilder1 = Placement.Builder.get();
+        Placement.Builder    placementBuilder2 = Placement.Builder.get();
+        List<String>         subnetIds         = new ArrayList<>();
         subnetIds.add("subnet-020cf6648937b2272");
         Placement placement = placementBuilder1.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
         placements.add(placement);
@@ -345,8 +353,7 @@ public class ElastigroupUsageExample {
         //Build Load Balancer Config
         LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
         LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
-        LoadBalancer                loadBalancer              =
-                lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
+        LoadBalancer loadBalancer = lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
         LoadBalancersConfig loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
 
@@ -362,11 +369,9 @@ public class ElastigroupUsageExample {
         snapshots.setShouldTag(true);
 
         GroupResourceTagSpecification.Builder resourceTagSpecBuilder = GroupResourceTagSpecification.Builder.get();
-        GroupResourceTagSpecification resourceTagSpecification = resourceTagSpecBuilder.setTagAmis(amis)
-                                                                                  .setTagEnis(enis)
-                                                                                  .setTagSnapshot(snapshots)
-                                                                                  .setTagVolume(volumes)
-                                                                                  .build();
+        GroupResourceTagSpecification resourceTagSpecification =
+                resourceTagSpecBuilder.setTagAmis(amis).setTagEnis(enis).setTagSnapshot(snapshots).setTagVolume(volumes)
+                                      .build();
         // Build group launch spec
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         List<String>                           securityGroupIds  = new ArrayList<>();
@@ -374,7 +379,8 @@ public class ElastigroupUsageExample {
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
                                  .setKeyPair(key_pair_name).setDetailedMonitoring(true)
-                                 .setLoadBalancersConfig(loadBalancersConfig).setResourceTagSpecification(resourceTagSpecification).build();
+                                 .setLoadBalancersConfig(loadBalancersConfig)
+                                 .setResourceTagSpecification(resourceTagSpecification).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
@@ -415,7 +421,7 @@ public class ElastigroupUsageExample {
         // Build group strategy persistence
         ElastigroupPersistenceConfiguration.Builder persistenceBuilder =
                 ElastigroupPersistenceConfiguration.Builder.get();
-        ElastigroupPersistenceConfiguration         persistence        =
+        ElastigroupPersistenceConfiguration persistence =
                 persistenceBuilder.setBlockDevicesMode("reattach").setShouldPersistBlockDevices(true)
                                   .setShouldPersistRootDevice(true).build();
 
@@ -424,19 +430,16 @@ public class ElastigroupUsageExample {
         ElastigroupStrategyConfiguration strategy =
                 strategyBuilder.setElastigroupOrientation(ElastigroupOrientationEnum.COST_ORIENTED)
                                .setFallbackToOnDemand(true).setUtilizeReservedInstances(false).setSpotPercentage(100)
-                               .setPersistence(persistence)
-                               .build();
+                               .setPersistence(persistence).build();
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
-        ElastigroupCapacityConfiguration         capacity        =
-                capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
+        ElastigroupCapacityConfiguration capacity = capacityBuilder.setMinimum(0).setMaximum(1).setTarget(1).build();
 
 
         //build down
         ElastigroupDownSpecification.Builder downBuilder = ElastigroupDownSpecification.Builder.get();
-        ElastigroupDownSpecification         down        =
-                downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
+        ElastigroupDownSpecification down = downBuilder.setEvaluationPeriods(4).setMaxScaleDownPercentage(20).build();
         //build headroom
         ElastigroupHeadroomSpecification.Builder headroomBuilder = ElastigroupHeadroomSpecification.Builder.get();
         ElastigroupHeadroomSpecification headRoom =
@@ -560,9 +563,8 @@ public class ElastigroupUsageExample {
         String retVal;
 
         // Build elastigroup clone
-        Elastigroup.Builder cloneElastigroupBuilder = Elastigroup.Builder.get();
-        Elastigroup elastigroupModifications =
-                cloneElastigroupBuilder.setName("Cloned Elastigroup").build();
+        Elastigroup.Builder cloneElastigroupBuilder  = Elastigroup.Builder.get();
+        Elastigroup         elastigroupModifications = cloneElastigroupBuilder.setName("Cloned Elastigroup").build();
 
         // Build elastigroup clone request
         ElastigroupCloneRequest.Builder elastigroupCloneRequestBuilder = ElastigroupCloneRequest.Builder.get();
@@ -590,20 +592,26 @@ public class ElastigroupUsageExample {
         GroupTagSpecification volumes = new GroupTagSpecification();
         volumes.setShouldTag(false);
 
-        GroupResourceTagSpecification.Builder updateResourceTagSpecBuilder = GroupResourceTagSpecification.Builder.get();
-        GroupResourceTagSpecification updateResourceTagSpec = updateResourceTagSpecBuilder.setTagVolume(volumes).build();
+        GroupResourceTagSpecification.Builder updateResourceTagSpecBuilder =
+                GroupResourceTagSpecification.Builder.get();
+        GroupResourceTagSpecification updateResourceTagSpec =
+                updateResourceTagSpecBuilder.setTagVolume(volumes).build();
 
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
-        ElastigroupLaunchSpecification launchSpecification = launchSpecBuilder.setResourceTagSpecification(updateResourceTagSpec).build();
+        ElastigroupLaunchSpecification launchSpecification =
+                launchSpecBuilder.setResourceTagSpecification(updateResourceTagSpec).build();
 
-        ElastigroupComputeConfiguration.Builder updateComputeConfigureBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration updateComputeConfigure = updateComputeConfigureBuilder.setLaunchSpecification(launchSpecification).build();
+        ElastigroupComputeConfiguration.Builder updateComputeConfigureBuilder =
+                ElastigroupComputeConfiguration.Builder.get();
+        ElastigroupComputeConfiguration updateComputeConfigure =
+                updateComputeConfigureBuilder.setLaunchSpecification(launchSpecification).build();
 
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
         Elastigroup elastigroupUpdate =
-                updateElastigroupBuilder.setCapacity(updateCapacity).setCompute(updateComputeConfigure).setName("SpotinstTestGroupU1").build();
+                updateElastigroupBuilder.setCapacity(updateCapacity).setCompute(updateComputeConfigure)
+                                        .setName("SpotinstTestGroupU1").build();
 
         // Build elastigroup update request
         ElastigroupUpdateRequest.Builder elastigroupUpdateRequestBuilder = ElastigroupUpdateRequest.Builder.get();
@@ -621,15 +629,17 @@ public class ElastigroupUsageExample {
     }
 
     private static void detachLoadBalancer(SpotinstElastigroupClient client, String elastigroupId) {
-        LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
-        LoadBalancersConfig loadBalancersConfig = loadBalancerConfigBuilder.setLoadBalancers(null).build();
-        ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
+        LoadBalancersConfig.Builder            loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
+        LoadBalancersConfig                    loadBalancersConfig       =
+                loadBalancerConfigBuilder.setLoadBalancers(null).build();
+        ElastigroupLaunchSpecification.Builder launchSpecBuilder         = ElastigroupLaunchSpecification.Builder.get();
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setLoadBalancersConfig(loadBalancersConfig).build();
 
         // Build group compute
         ElastigroupComputeConfiguration.Builder computeBuilder = ElastigroupComputeConfiguration.Builder.get();
-        ElastigroupComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpec).build();
+        ElastigroupComputeConfiguration         compute        =
+                computeBuilder.setLaunchSpecification(launchSpec).build();
 
         // Build elastigroup update
         Elastigroup.Builder updateElastigroupBuilder = Elastigroup.Builder.get();
@@ -654,7 +664,7 @@ public class ElastigroupUsageExample {
 
         // Build standby elastigroup request
         ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest         postRequest                      =
+        ElastigroupStandbyRequest postRequest =
                 elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
 
         // enter group standby
@@ -669,7 +679,7 @@ public class ElastigroupUsageExample {
 
         // Build standby elastigroup request
         ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest         deleteRequest                    =
+        ElastigroupStandbyRequest deleteRequest =
                 elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
 
         // exit group standby
@@ -722,14 +732,32 @@ public class ElastigroupUsageExample {
         ElastigroupSuspendProcessesRequest.Builder requestBuilder = ElastigroupSuspendProcessesRequest.Builder.get();
 
         ProcessSuspension.Builder suspensionBuilder = ProcessSuspension.Builder.get();
-        ProcessSuspension         suspension        =
-                suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
-        List<ProcessSuspension>   suspensions       = Collections.singletonList(suspension);
+        ProcessSuspension suspension = suspensionBuilder.setName(processName).setTtlInMinutes(null).build();
+        List<ProcessSuspension> suspensions = Collections.singletonList(suspension);
         ElastigroupSuspendProcessesRequest request =
                 requestBuilder.setElastigroupId(elastigroupId).setSuspensions(suspensions).build();
 
         retVal = elastigroupClient.suspendProcess(request);
 
         return retVal;
+    }
+
+    private static void getEventsLogs(SpotinstElastigroupClient client, String elastigroupId, String fromDate,
+                                      String toDate, EventsLogsSeverityEnum logsSeverity, String resourceId,
+                                      String limit) {
+
+        GetEventsLogsRequest.Builder requestBuilder = GetEventsLogsRequest.Builder.get();
+        GetEventsLogsRequest getEventsLogsRequest =
+                requestBuilder.setFromDate(fromDate).setToDate(toDate).setSeverity(logsSeverity)
+                              .setResourceId(resourceId).setLimit(limit).setElastigroupId(elastigroupId).build();
+
+        List<EventLog> eventsLogs = client.getEventsLogs(getEventsLogsRequest);
+
+        System.out.println(String.format("Fetched %s events logs for group", eventsLogs.size()));
+
+        for (EventLog eventLog : eventsLogs) {
+            System.out.println(String.format("%s, %s, %s", eventLog.getCreatedAt(), eventLog.getSeverity(),
+                                             eventLog.getMessage()));
+        }
     }
 }
