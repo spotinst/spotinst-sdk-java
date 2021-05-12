@@ -1,9 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
-import com.spotinst.sdkjava.enums.ElastigroupOrientationEnum;
-import com.spotinst.sdkjava.enums.ScalingActionTypeEnum;
-import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
+import com.spotinst.sdkjava.enums.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -774,6 +771,18 @@ class ElastigroupConverter {
 
                 retVal.setDown(apiDownScalingPolicies);
             }
+
+            if (scaling.isTargetSet()) {
+                List<ApiScalingPolicy> apiTargetScalingPolicies = null;
+
+                if (scaling.getTarget() != null) {
+                    List<ScalingPolicy> target = scaling.getTarget();
+                    apiTargetScalingPolicies =
+                            target.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                }
+
+                retVal.setTarget(apiTargetScalingPolicies);
+            }
         }
 
         return retVal;
@@ -845,6 +854,29 @@ class ElastigroupConverter {
 
             if (scalingPolicy.isIsEnabledSet()) {
                 retVal.setIsEnabled(scalingPolicy.getIsEnabled());
+            }
+
+            if(scalingPolicy.isTargetSet()) {
+                retVal.setTarget(scalingPolicy.getTarget());
+            }
+
+            if (scalingPolicy.isPredictiveSet()) {
+                ApiPredictiveScale apiPredictiveScale = toDal(scalingPolicy.getPredictive());
+                retVal.setPredictive(apiPredictiveScale);
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiPredictiveScale toDal(PredictiveScale predictiveScale) {
+        ApiPredictiveScale retVal = null;
+
+        if (predictiveScale != null) {
+            retVal = new ApiPredictiveScale();
+
+            if (predictiveScale.isModeSet()) {
+                retVal.setMode(predictiveScale.getMode().getName());
             }
         }
 
@@ -1719,6 +1751,15 @@ class ElastigroupConverter {
                 }
             }
 
+            if (scaling.isTargetSet()) {
+                if (scaling.getTarget() != null) {
+                    List<ApiScalingPolicy> apiScalingPolicies = scaling.getTarget();
+                    List<ScalingPolicy> scalingPolicies =
+                            apiScalingPolicies.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setTarget(scalingPolicies);
+                }
+            }
+
             retVal = retValBuilder.build();
         }
 
@@ -1811,6 +1852,14 @@ class ElastigroupConverter {
                 retValBuilder.setIsEnabled(scalingPolicy.getIsEnabled());
             }
 
+            if (scalingPolicy.isTargetSet()) {
+                retValBuilder.setTarget(scalingPolicy.getTarget());
+            }
+
+            if (scalingPolicy.isPredictiveSet()) {
+                retValBuilder.setPredictive(toBl(scalingPolicy.getPredictive()));
+            }
+
             retVal = retValBuilder.build();
 
         }
@@ -1867,6 +1916,23 @@ class ElastigroupConverter {
 
             if (scalingAction.isMaximumSet()) {
                 retVal.setMaximum(scalingAction.getMaximum());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static PredictiveScale toBl(ApiPredictiveScale predictiveScale) {
+        PredictiveScale retVal = null;
+
+        if (predictiveScale != null) {
+            retVal = new PredictiveScale();
+
+            if (predictiveScale.isModeSet()) {
+                if (predictiveScale.getMode() != null) {
+                    ScalingPredictiveModeEnum modeEnum = ScalingPredictiveModeEnum.fromName(predictiveScale.getMode());
+                    retVal.setMode(modeEnum);
+                }
             }
         }
 

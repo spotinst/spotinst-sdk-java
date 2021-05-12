@@ -31,6 +31,8 @@ public class ScalingPolicy {
     private String                 operator;
     private ScalingAction          action;
     private Boolean                isEnabled;
+    private Integer                target;
+    private PredictiveScale        predictive;
     //endregion
 
     //region Getters & Setters
@@ -141,7 +143,6 @@ public class ScalingPolicy {
     }
     //endregion
 
-
     //region Policy Name
     public String getPolicyName() {
         return policyName;
@@ -177,7 +178,6 @@ public class ScalingPolicy {
 
     //endregion
 
-
     //region operator
     public String getOperator() {
         return operator;
@@ -189,7 +189,6 @@ public class ScalingPolicy {
     }
     //endregion
 
-
     //region action
     public ScalingAction getAction() {
         return action;
@@ -200,6 +199,27 @@ public class ScalingPolicy {
         this.action = action;
     }
     //endregion
+
+    // region Target
+    public Integer getTarget() {
+        return target;
+    }
+
+    public void setTarget(Integer target) {
+        isSet.add("target");
+        this.target = target;
+    }
+    // endregion
+
+    //region Predictive Scale
+    public PredictiveScale getPredictive() {
+        return predictive;
+    }
+
+    public void setPredictive(PredictiveScale predictive) {
+        isSet.add("predictive");
+        this.predictive = predictive;
+    }
     //endregion
 
     //region equals and hashCode
@@ -250,6 +270,12 @@ public class ScalingPolicy {
         if (!isEnabled.equals(that.isEnabled)) {
             return false;
         }
+        if (!target.equals(that.target)) {
+            return false;
+        }
+        if (!predictive.equals(that.predictive)) {
+            return false;
+        }
 
         if (!operator.equals(that.operator)) {
             return false;
@@ -274,6 +300,8 @@ public class ScalingPolicy {
         result = 31 * result + action.hashCode();
         result = 31 * result + operator.hashCode();
         result = 31 * result + isEnabled.hashCode();
+        result = 31 * result + target.hashCode();
+        result = 31 * result + predictive.hashCode();
         return result;
     }
     //endregion
@@ -358,6 +386,16 @@ public class ScalingPolicy {
 
         public Builder setEvaluationPeriods(final Integer evaluationPeriods) {
             scalingPolicy.setEvaluationPeriods(evaluationPeriods);
+            return this;
+        }
+
+        public Builder setTarget(final Integer target) {
+            scalingPolicy.setTarget(target);
+            return this;
+        }
+
+        public Builder setPredictive(final PredictiveScale predictive) {
+            scalingPolicy.setPredictive(predictive);
             return this;
         }
 
@@ -460,6 +498,14 @@ public class ScalingPolicy {
     public boolean isIsEnabledSet() {
         return isSet.contains("isEnabled");
     }
+
+    // Is target Set boolean method
+    @JsonIgnore
+    public boolean isTargetSet() { return isSet.contains("target"); }
+
+    // Is Predictive Set boolean method
+    @JsonIgnore
+    public boolean isPredictiveSet() { return isSet.contains("predictive"); }
     //endregion
 
 
