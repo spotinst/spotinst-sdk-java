@@ -535,7 +535,10 @@ public class ElastigroupUsageExample {
         Elastigroup elastigroup =
                 elastigroupBuilder.setName(SPOTINST_TEST_GROUP_NAME).setDescription("descriptive-information")
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
-                                  .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
+                                  // you can either set 'Scaling' or 'thirdPartyIntegration' of ECS with Auto-Scaler, but not both together.
+                                  //.setScaling(scaling)
+                                  .setThirdPartiesIntegration(thirdPartiesIntegration)
+                                  .setScheduling(scheduling)
                                   .build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
