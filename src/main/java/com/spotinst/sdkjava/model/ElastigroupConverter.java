@@ -921,6 +921,10 @@ class ElastigroupConverter {
                 retVal.setMinTargetCapacity(scalingAction.getMinTargetCapacity());
             }
 
+            if (scalingAction.isMaxTargetCapacitySet()) {
+                retVal.setMaxTargetCapacity(scalingAction.getMaxTargetCapacity());
+            }
+
             if (scalingAction.isTargetSet()) {
                 retVal.setTarget(scalingAction.getTarget());
             }
@@ -1904,6 +1908,10 @@ class ElastigroupConverter {
 
             if (scalingAction.isMinTargetCapacitySet()) {
                 retVal.setMinTargetCapacity(scalingAction.getMinTargetCapacity());
+            }
+
+            if (scalingAction.isMaxTargetCapacitySet()) {
+                retVal.setMaxTargetCapacity(scalingAction.getMaxTargetCapacity());
             }
 
             if (scalingAction.isTargetSet()) {

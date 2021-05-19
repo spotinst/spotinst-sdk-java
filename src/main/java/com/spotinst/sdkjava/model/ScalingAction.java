@@ -16,6 +16,7 @@ public class ScalingAction {
     private ScalingActionTypeEnum type;
     private String                adjustment;
     private String                minTargetCapacity;
+    private String                maxTargetCapacity;
     private String                target;
     private String                minimum;
     private String                maximum;
@@ -56,6 +57,15 @@ public class ScalingAction {
     public void setMinTargetCapacity(String minTargetCapacity) {
         isSet.add("minTargetCapacity");
         this.minTargetCapacity = minTargetCapacity;
+    }
+
+    public String getMaxTargetCapacity() {
+        return maxTargetCapacity;
+    }
+
+    public void setMaxTargetCapacity(String maxTargetCapacity) {
+        isSet.add("maxTargetCapacity");
+        this.maxTargetCapacity = maxTargetCapacity;
     }
 
     public String getTarget() {
@@ -130,6 +140,11 @@ public class ScalingAction {
             return this;
         }
 
+        public Builder setMaxTargetCapacity(final String maxTargetCapacity) {
+            scalingAction.setMaxTargetCapacity(maxTargetCapacity);
+            return this;
+        }
+
         public ScalingAction build() {
             // TODO : Validations
             return scalingAction;
@@ -152,6 +167,11 @@ public class ScalingAction {
         return isSet.contains("adjustment");
     }
 
+    // Is maxTargetCapacity Set boolean method
+    @JsonIgnore
+    public boolean isMaxTargetCapacitySet() {
+        return isSet.contains("maxTargetCapacity");
+    }
 
     // Is minTargetCapacity Set boolean method
     @JsonIgnore
