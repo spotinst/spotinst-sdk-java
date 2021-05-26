@@ -18,6 +18,7 @@ public class ApiScalingAction {
     private String      type;
     private String      adjustment;
     private String      minTargetCapacity;
+    private String      maxTargetCapacity;
     private String      target;
     private String      minimum;
     private String      maximum;
@@ -59,6 +60,15 @@ public class ApiScalingAction {
     public void setMinTargetCapacity(String minTargetCapacity) {
         isSet.add("minTargetCapacity");
         this.minTargetCapacity = minTargetCapacity;
+    }
+
+    public String getMaxTargetCapacity() {
+        return maxTargetCapacity;
+    }
+
+    public void setMaxTargetCapacity(String maxTargetCapacity) {
+        isSet.add("maxTargetCapacity");
+        this.maxTargetCapacity = maxTargetCapacity;
     }
 
     public String getTarget() {
@@ -104,6 +114,11 @@ public class ApiScalingAction {
         return isSet.contains("adjustment");
     }
 
+    // Is maxTargetCapacity Set boolean method
+    @JsonIgnore
+    public boolean isMaxTargetCapacitySet() {
+        return isSet.contains("maxTargetCapacity");
+    }
 
     // Is minTargetCapacity Set boolean method
     @JsonIgnore
