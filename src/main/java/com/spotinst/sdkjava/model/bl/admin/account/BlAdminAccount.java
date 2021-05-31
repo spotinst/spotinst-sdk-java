@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.admin.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupInitializeParamsGcp;
 
 import java.util.HashSet;
 import java.util.Set;

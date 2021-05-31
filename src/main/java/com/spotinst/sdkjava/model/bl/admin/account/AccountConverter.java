@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model.bl.admin.account;
 import com.spotinst.sdkjava.model.api.admin.account.*;
 
 
-
 public class AccountConverter {
     //region BL -> DAL
     public static ApiAdminAccount toDal(BlAdminAccount src) {

@@ -22,8 +22,7 @@ public class SpotinstAdminAccountClient {
         this(authToken,  null);
     }
 
-    public SpotinstAdminAccountClient(String authToken,
-                                      List<UserAgentConfig> userAgentConfigurations) {
+    public SpotinstAdminAccountClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
 
         if (userAgentConfigurations != null) {
@@ -32,7 +31,6 @@ public class SpotinstAdminAccountClient {
         }
 
     }
-
 
     //endregion
 
