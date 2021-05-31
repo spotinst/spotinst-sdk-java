@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 public class SpotAdminAccountRepo implements ISpotAdminAccountRepo{
 
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
+    public RepoGenericResponse<Boolean> deleteWithTokenOnly(String identifier, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = SpotAdminAccountService.deleteAdminAccount(identifier, authToken, account);
+            Boolean updated = SpotAdminAccountService.deleteAdminAccount(identifier, authToken);
             retVal = new RepoGenericResponse<>(updated);
 
         }

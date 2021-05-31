@@ -13,8 +13,7 @@ import java.util.Map;
 
 public class SpotAdminAccountService extends BaseSpotinstService {
 
-    public static Boolean deleteAdminAccount(String accountId, String authToken,
-                                           String account) throws SpotinstHttpException {
+    public static Boolean deleteAdminAccount(String accountId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -24,11 +23,6 @@ public class SpotAdminAccountService extends BaseSpotinstService {
         String apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        if (account != null) {
-            queryParams.put("accountId", account);
-        }
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);

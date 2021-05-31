@@ -14,19 +14,17 @@ public class SpotinstAdminAccountClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAdminAccountClient.class);
     //region Members
     private              String authToken;
-    private              String account;
     //endregion
 
 
     //region Constructor
-    public SpotinstAdminAccountClient(String authToken, String account) {
-        this(authToken, account, null);
+    public SpotinstAdminAccountClient(String authToken) {
+        this(authToken,  null);
     }
 
-    public SpotinstAdminAccountClient(String authToken, String account,
+    public SpotinstAdminAccountClient(String authToken,
                                       List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
-        this.account = account;
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -47,7 +45,7 @@ public class SpotinstAdminAccountClient {
         SpotinstRepoManager         managerInstance       = SpotinstRepoManager.getInstance();
         ISpotAdminAccountRepo       repoAdmin              = managerInstance.getSpotAdminAccountRepo();
         RepoGenericResponse<Boolean> accountDeletionResponse =
-                repoAdmin.delete(accountToDeleteId, authToken, account);
+                repoAdmin.deleteWithTokenOnly(accountToDeleteId, authToken);
         if (accountDeletionResponse.isRequestSucceed()) {
             retVal = accountDeletionResponse.getValue();
         }
