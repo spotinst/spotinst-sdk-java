@@ -106,8 +106,8 @@ public class SpotinstClient {
         return spotOceanAzureAksClusterClient;
     }
 
-    public static SpotinstAdminAccountClient getAdminAccountClient(String authToken) {
-        SpotinstAdminAccountClient spotAdminAccountClient = new SpotinstAdminAccountClient(authToken);
+    public static SpotinstAccountAdminClient getAdminAccountClient(String authToken) {
+        SpotinstAccountAdminClient spotAdminAccountClient = new SpotinstAccountAdminClient(authToken);
         return spotAdminAccountClient;
     }
 

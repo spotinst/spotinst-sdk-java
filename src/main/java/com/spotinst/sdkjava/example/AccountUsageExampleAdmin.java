@@ -8,19 +8,18 @@ import java.io.IOException;
 
 public class AccountUsageExampleAdmin {
 
-    // TODO or: use caps in Java
-    private final static String auth_token = "your-token";
+    private final static String authToken = "your-token";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
-        SpotinstAdminAccountClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(auth_token);
+        SpotinstAccountAdminClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(authToken);
 
         // Delete elastigroup
         String accountIdToDelete = "your-account-id-to-delete";
         deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
     }
 
-    private static void deleteAccount(SpotinstAdminAccountClient client, String accountIdToDelete) {
+    private static void deleteAccount(SpotinstAccountAdminClient client, String accountIdToDelete) {
         AccountDeleteRequest.Builder deletionBuilder = AccountDeleteRequest.Builder.get();
         AccountDeleteRequest        deletionRequest =
                 deletionBuilder.setAccountId(accountIdToDelete).build();

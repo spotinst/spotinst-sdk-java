@@ -11,20 +11,19 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 
-// TODO or: SpotinstAccountAdminClient
-public class SpotinstAdminAccountClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAdminAccountClient.class);
+public class SpotinstAccountAdminClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAccountAdminClient.class);
     //region Members
     private              String authToken;
     //endregion
 
 
     //region Constructor
-    public SpotinstAdminAccountClient(String authToken) {
+    public SpotinstAccountAdminClient(String authToken) {
         this(authToken,  null);
     }
 
-    public SpotinstAdminAccountClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
+    public SpotinstAccountAdminClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
 
         if (userAgentConfigurations != null) {
@@ -54,10 +53,9 @@ public class SpotinstAdminAccountClient {
             List<HttpError> httpExceptions = accountDeletionResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
 
-            // TODO or: make sure you return accountId for better logs
             LOGGER.error(
-                    String.format("Error encountered while attempting to delete account. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+                    String.format("Error encountered while attempting to delete account: %s. Code: %s. Message: %s.",
+                                  accountToDeleteId, httpException.getCode(), httpException.getMessage()));
 
             throw new SpotinstHttpException(httpException.getMessage());
         }
