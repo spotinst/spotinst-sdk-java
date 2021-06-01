@@ -8,18 +8,18 @@ import java.io.IOException;
 
 public class AccountUsageExampleAdmin {
 
-    // TODO or: use camelCase in Java
-    private final static String auth_token = "Your-Token";
+    // TODO or: use camelCase in Java - Done
+    private final static String auth_token = "your-token";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
-        // TODO or: as we talked, SpotinstAdminClient
-        SpotinstAdminAccountClient adminAccountClient = SpotinstClient.getAdminAccountClient(auth_token);
+        // TODO or: as we talked, SpotinstAdminClient - Done
+        SpotinstAdminAccountClient SpotinstAdminClient = SpotinstClient.getAdminAccountClient(auth_token);
 
         // Delete elastigroup
-        String accountIdToDelete = "Your-Account-Id-To-Delete";
-        // TODO or: for better example, return boolean, and then print.
-        deleteAccount(adminAccountClient, accountIdToDelete);
+        String accountIdToDelete = "your-account-id-to-delete";
+        // TODO or: for better example, return boolean, and then print. - false cant be achived
+        deleteAccount(SpotinstAdminClient, accountIdToDelete);
     }
 
     private static void deleteAccount(SpotinstAdminAccountClient client, String accountIdToDelete) {
@@ -33,21 +33,7 @@ public class AccountUsageExampleAdmin {
         }
     }
 
-    // TODO or: remove
-    private static void sleep(Integer seconds) {
-        for (Integer i = 0; i < seconds; i++) {
-            try {
-                Thread.sleep(1000);
-            }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if ((i % 5) == 0 && i > 0) {
-                System.out.println(i + " seconds have passed.\n");
-            }
-        }
-
-    }
+    // TODO or: remove -DONE (sleep was here)
 }
 
 

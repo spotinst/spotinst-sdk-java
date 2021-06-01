@@ -9,22 +9,23 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO or: ApiAccountAdmin
+// TODO or: ApiAccountAdmin - Done
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiAdminAccount implements IPartialUpdateEntity {
+public class ApiAccountAdmin implements IPartialUpdateEntity {
 
-    // TODO or: add missing property according to get
+    // TODO or: add missing property according to get - Done add organizationId
     //region Members
     @JsonIgnore
     private Set<String>  isSet;
     private String       id;
     private String       name;
+    private String       organizationId;
     //endregion
 
     //region Constructor
-    public ApiAdminAccount() {
+    public ApiAccountAdmin() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -56,6 +57,15 @@ public class ApiAdminAccount implements IPartialUpdateEntity {
         isSet.add("name");
         this.name = name;
     }
+
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        isSet.add("organizationId");
+        this.organizationId = organizationId;
+    }
     //endregion
 
     //region isSet methods
@@ -70,6 +80,12 @@ public class ApiAdminAccount implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
+    }
+
+    // Is organizationId Set boolean method
+    @JsonIgnore
+    public boolean isOrganizationIdSet() {
+        return isSet.contains("organizationId");
     }
     //endregion
 

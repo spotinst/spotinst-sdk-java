@@ -5,18 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO or: same - change name
-public class BlAdminAccount {
+// TODO or: same - change name - Done
+public class BlAccountAdmin {
     //region Members
-    // TODO or: add missing properties
+    // TODO or: add missing properties - Done added organizationId
     @JsonIgnore
     private Set<String>                    isSet;
     private String                         id;
     private String                         name;
+    private String                         organizationId;
     //endregion
 
     //region Constructor
-    private BlAdminAccount() {
+    private BlAccountAdmin() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -48,14 +49,23 @@ public class BlAdminAccount {
         this.name = name;
     }
 
+    public String getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(String organizationId) {
+        isSet.add("organizationId");
+        this.organizationId = organizationId;
+    }
+
     //endregion
 
     //region Builder class
     public static class Builder {
-        private BlAdminAccount account;
+        private BlAccountAdmin account;
 
         private Builder() {
-            this.account = new BlAdminAccount();
+            this.account = new BlAccountAdmin();
         }
 
         public static Builder get() {
@@ -73,7 +83,12 @@ public class BlAdminAccount {
             return this;
         }
 
-        public BlAdminAccount build() {
+        public Builder setOrganizationId(final String organizationId) {
+            account.setOrganizationId(organizationId);
+            return this;
+        }
+
+        public BlAccountAdmin build() {
             return account;
         }
     }
@@ -87,6 +102,10 @@ public class BlAdminAccount {
     // Is name Set boolean method
     @JsonIgnore
     public boolean isNameSet() { return isSet.contains("name"); }
+
+    // Is organizationId Set boolean method
+    @JsonIgnore
+    public boolean isOrganizationIdSet() { return isSet.contains("organizationId"); }
 
     //endregion
 }

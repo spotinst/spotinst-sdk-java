@@ -38,21 +38,22 @@ public class SpotinstAdminAccountClient {
     //region Methods
     public Boolean deleteAccount(AccountDeleteRequest accountDeletionRequest) {
 
-        Boolean                     retVal;
-        String                      accountToDeleteId     = accountDeletionRequest.getAccountId();
-        SpotinstRepoManager         managerInstance       = SpotinstRepoManager.getInstance();
-        ISpotAdminAccountRepo       repoAdmin              = managerInstance.getSpotAdminAccountRepo();
+        Boolean               retVal;
+        String                accountToDeleteId = accountDeletionRequest.getAccountId();
+        SpotinstRepoManager   managerInstance   = SpotinstRepoManager.getInstance();
+        ISpotAccountAdminRepo repoAdmin         = managerInstance.getSpotAdminAccountRepo();
+        // the in our case the client only gets token thats why the account identifier to delete, and the account who deletes are the same one. (delete in repo gets 3 attributes)
         RepoGenericResponse<Boolean> accountDeletionResponse =
-                repoAdmin.deleteWithTokenOnly(accountToDeleteId, authToken);
+                repoAdmin.delete(accountToDeleteId, authToken, accountToDeleteId);
         if (accountDeletionResponse.isRequestSucceed()) {
             retVal = accountDeletionResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = accountDeletionResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            // TODO or: change error log, please also check all others.
+            // TODO or: change error log, please also check all others. - Done
             LOGGER.error(
-                    String.format("Error encountered while attempting to delete elastigroup. Code: %s. Message: %s.",
+                    String.format("Error encountered while attempting to delete account. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

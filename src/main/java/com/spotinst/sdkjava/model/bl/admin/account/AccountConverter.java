@@ -5,11 +5,11 @@ import com.spotinst.sdkjava.model.api.admin.account.*;
 
 public class AccountConverter {
     //region BL -> DAL
-    public static ApiAdminAccount toDal(BlAdminAccount src) {
-        ApiAdminAccount retVal = null;
+    public static ApiAccountAdmin toDal(BlAccountAdmin src) {
+        ApiAccountAdmin retVal = null;
 
         if (src != null) {
-            retVal = new ApiAdminAccount();
+            retVal = new ApiAccountAdmin();
 
             if (src.isNameSet()) {
                 retVal.setName(src.getName());
@@ -17,6 +17,9 @@ public class AccountConverter {
 
             if (src.isIdSet()) {
                 retVal.setId(src.getId());
+            }
+            if (src.isOrganizationIdSet()) {
+                retVal.setOrganizationId(src.getOrganizationId());
             }
 
         }
@@ -28,11 +31,11 @@ public class AccountConverter {
     //endregion
 
     //region DAL -> BL
-    public static BlAdminAccount toBl(ApiAdminAccount src) {
-        BlAdminAccount retVal = null;
+    public static BlAccountAdmin toBl(ApiAccountAdmin src) {
+        BlAccountAdmin retVal = null;
 
         if (src != null) {
-            BlAdminAccount.Builder accountBuilder = BlAdminAccount.Builder.get();
+            BlAccountAdmin.Builder accountBuilder = BlAccountAdmin.Builder.get();
 
             if (src.isIdSet()) {
                 accountBuilder.setId(src.getId());
@@ -40,6 +43,10 @@ public class AccountConverter {
 
             if (src.isNameSet()) {
                 accountBuilder.setName(src.getName());
+            }
+
+            if (src.isOrganizationIdSet()) {
+                accountBuilder.setOrganizationId(src.getOrganizationId());
             }
 
             retVal = accountBuilder.build();
