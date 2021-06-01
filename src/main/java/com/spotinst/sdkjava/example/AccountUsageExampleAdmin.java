@@ -11,10 +11,10 @@ public class AccountUsageExampleAdmin {
     private final static String authToken = "your-token";
 
     public static void main(String[] args) throws IOException {
-        // Get elastigroup service client
+        // Get account service client
         SpotinstAccountAdminClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(authToken);
 
-        // Delete elastigroup
+        // Delete account
         String accountIdToDelete = "your-account-id-to-delete";
         deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
     }
