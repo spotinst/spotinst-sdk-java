@@ -17,12 +17,13 @@ class SpotinstRepoManager {
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotinstElastigroupInstanceStatusRepoGcp   spotinstInstanceHealthinessRepoGcp;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
-    private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
-    private ISpotinstElastigroupRepoGcp                 spotinstElastigroupRepoGcp;
-    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
-    private ISpotOceanAzureAksClusterRepo               spotOceanAzureAksClusterRepo;
-    private ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
+    private ISpotinstElastigroupRepoAzure           spotinstElastigroupRepoAzure;
+    private ISpotinstElastigroupDeploymentRepoAzure spotinstElastigroupDeploymentRepoAzure;
+    private ISpotinstElastigroupRepoGcp             spotinstElastigroupRepoGcp;
+    private ISpotinstMrScalerOperatorAwsRepo        spotinstMrScalerOperatorAwsRepo;
+    private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
+    private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
+    private ISpotAccountAdminRepo                   spotAdminAccountRepo;
     //endregion
 
     //region Constructor
@@ -41,6 +42,7 @@ class SpotinstRepoManager {
         this.spotinstElastigroupDeploymentRepoAzure = new SpotinstElastigroupDeploymentRepoAzure();
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
+        this.spotAdminAccountRepo = new SpotAccountAdminRepo();
     }
     //endregion
 
@@ -144,6 +146,10 @@ class SpotinstRepoManager {
 
     public ISpotinstEventsLogsRepo getSpotinstElastigroupEventLogRepo() {
         return spotinstElastigroupEventLogRepo;
+    }
+
+    public ISpotAccountAdminRepo getSpotAdminAccountRepo() {
+        return spotAdminAccountRepo;
     }
 
     public void setSpotinstElastigroupEventLogRepo(ISpotinstEventsLogsRepo spotinstElastigroupEventLogRepo) {
