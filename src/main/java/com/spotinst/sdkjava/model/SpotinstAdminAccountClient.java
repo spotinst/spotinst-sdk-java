@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+
 public class SpotinstAdminAccountClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAdminAccountClient.class);
     //region Members
@@ -31,11 +32,10 @@ public class SpotinstAdminAccountClient {
         }
 
     }
-
     //endregion
 
-    //region Methods
 
+    //region Methods
     public Boolean deleteAccount(AccountDeleteRequest accountDeletionRequest) {
 
         Boolean                     retVal;
@@ -50,6 +50,7 @@ public class SpotinstAdminAccountClient {
         else {
             List<HttpError> httpExceptions = accountDeletionResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
+            // TODO or: change error log, please also check all others.
             LOGGER.error(
                     String.format("Error encountered while attempting to delete elastigroup. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));

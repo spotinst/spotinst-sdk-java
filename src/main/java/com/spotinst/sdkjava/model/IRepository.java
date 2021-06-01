@@ -29,6 +29,7 @@ interface IRepository<S, F, I> {
         throw new SpotinstNotSupportedException();
     }
 
+    // TODO or: remove this, use delete and pass to repo same variable twice. Also put comment where you do that.
     default RepoGenericResponse<Boolean> deleteWithTokenOnly(String accountId, String authToken) {
         throw new SpotinstNotSupportedException();
     }

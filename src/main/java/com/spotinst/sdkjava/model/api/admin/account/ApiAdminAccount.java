@@ -9,10 +9,13 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO or: ApiAccountAdmin
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiAdminAccount implements IPartialUpdateEntity {
+
+    // TODO or: add missing property according to get
     //region Members
     @JsonIgnore
     private Set<String>  isSet;
@@ -21,7 +24,6 @@ public class ApiAdminAccount implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-
     public ApiAdminAccount() {
         isSet = new HashSet<>();
     }
@@ -69,7 +71,6 @@ public class ApiAdminAccount implements IPartialUpdateEntity {
     public boolean isNameSet() {
         return isSet.contains("name");
     }
-
     //endregion
 
 }

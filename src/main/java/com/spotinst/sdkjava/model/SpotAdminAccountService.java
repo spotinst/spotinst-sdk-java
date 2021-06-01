@@ -1,5 +1,4 @@
 package com.spotinst.sdkjava.model;
-//TRY here
 
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
@@ -10,6 +9,7 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO or: SpotAccountAdminService
 public class SpotAdminAccountService extends BaseSpotinstService {
 
     public static Boolean deleteAdminAccount(String accountId, String authToken) throws SpotinstHttpException {

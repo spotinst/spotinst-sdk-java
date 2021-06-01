@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO or: same - change name
 public class BlAdminAccount {
     //region Members
+    // TODO or: add missing properties
     @JsonIgnore
     private Set<String>                    isSet;
     private String                         id;
