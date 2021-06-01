@@ -8,18 +8,16 @@ import java.io.IOException;
 
 public class AccountUsageExampleAdmin {
 
-    // TODO or: use camelCase in Java - Done
+    // TODO or: use caps in Java
     private final static String auth_token = "your-token";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
-        // TODO or: as we talked, SpotinstAdminClient - Done
-        SpotinstAdminAccountClient SpotinstAdminClient = SpotinstClient.getAdminAccountClient(auth_token);
+        SpotinstAdminAccountClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(auth_token);
 
         // Delete elastigroup
         String accountIdToDelete = "your-account-id-to-delete";
-        // TODO or: for better example, return boolean, and then print. - false cant be achived
-        deleteAccount(SpotinstAdminClient, accountIdToDelete);
+        deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
     }
 
     private static void deleteAccount(SpotinstAdminAccountClient client, String accountIdToDelete) {
@@ -29,11 +27,10 @@ public class AccountUsageExampleAdmin {
         Boolean successfulDeletion = client.deleteAccount(deletionRequest);
 
         if (successfulDeletion) {
-            System.out.println("Account succesfully deleted: " + accountIdToDelete);
+            System.out.println("Account successfully deleted: " + accountIdToDelete);
         }
     }
 
-    // TODO or: remove -DONE (sleep was here)
 }
 
 

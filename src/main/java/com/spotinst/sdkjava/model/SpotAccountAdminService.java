@@ -9,7 +9,6 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO or: SpotAccountAdminService -Done
 public class SpotAccountAdminService extends BaseSpotinstService {
 
     public static Boolean deleteAccount(String accountId, String authToken) throws SpotinstHttpException {

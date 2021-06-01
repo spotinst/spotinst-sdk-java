@@ -29,6 +29,4 @@ interface IRepository<S, F, I> {
         throw new SpotinstNotSupportedException();
     }
 
-    // TODO or: remove this, use delete and pass to repo same variable twice. Also put comment where you do that.
-    // DONE (deleteWithToken was here)
 }

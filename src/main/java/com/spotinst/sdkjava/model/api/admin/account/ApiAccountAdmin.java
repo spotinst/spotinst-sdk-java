@@ -9,13 +9,11 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO or: ApiAccountAdmin - Done
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiAccountAdmin implements IPartialUpdateEntity {
 
-    // TODO or: add missing property according to get - Done add organizationId
     //region Members
     @JsonIgnore
     private Set<String>  isSet;

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 
+// TODO or: SpotinstAccountAdminClient
 public class SpotinstAdminAccountClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAdminAccountClient.class);
     //region Members
@@ -42,7 +43,8 @@ public class SpotinstAdminAccountClient {
         String                accountToDeleteId = accountDeletionRequest.getAccountId();
         SpotinstRepoManager   managerInstance   = SpotinstRepoManager.getInstance();
         ISpotAccountAdminRepo repoAdmin         = managerInstance.getSpotAdminAccountRepo();
-        // the in our case the client only gets token thats why the account identifier to delete, and the account who deletes are the same one. (delete in repo gets 3 attributes)
+        // the in our case the client only gets token that's why the account identifier to delete,
+        // and the account who deletes are the same one. (delete in repo gets 3 attributes)
         RepoGenericResponse<Boolean> accountDeletionResponse =
                 repoAdmin.delete(accountToDeleteId, authToken, accountToDeleteId);
         if (accountDeletionResponse.isRequestSucceed()) {
@@ -51,10 +53,12 @@ public class SpotinstAdminAccountClient {
         else {
             List<HttpError> httpExceptions = accountDeletionResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            // TODO or: change error log, please also check all others. - Done
+
+            // TODO or: make sure you return accountId for better logs
             LOGGER.error(
                     String.format("Error encountered while attempting to delete account. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
+
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
