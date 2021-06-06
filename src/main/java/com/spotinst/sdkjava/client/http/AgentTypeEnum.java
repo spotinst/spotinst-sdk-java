@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
  */
 public enum AgentTypeEnum {
 
-    SPINNAKER("Spinnaker");
+    SPINNAKER("Spinnaker"),
+    CFN_PUBLIC_REGISTRY("CloudFormationPublicRegistry");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AgentTypeEnum.class);
     private              String name;
