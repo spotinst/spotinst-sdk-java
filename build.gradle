@@ -29,7 +29,7 @@ sourceSets {
 }
 
 dependencies {
-    compile('org.apache.httpcomponents:httpclient:4.5.2',
+    compile('org.apache.httpcomponents:httpclient:4.5.3',
             'com.fasterxml.jackson.core:jackson-core:2.10.0',
             'com.fasterxml.jackson.core:jackson-databind:2.10.0',
             'org.slf4j:slf4j-api:1.7.22',
