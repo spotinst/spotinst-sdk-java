@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+// TODO yael: rename BL objects to follow convention
 public class VolumeConverter {
     //region BL -> DAL
 
@@ -38,6 +38,7 @@ public class VolumeConverter {
                 retVal.setThroughput(toDal(src.getThroughput()));
             }
 
+//            TODO yael: CR checkpoint
             if (src.isVolumeSpecSet()) {
                 retVal.setVolumeSpec(toDal(src.getVolumeSpec()));
             }
@@ -120,6 +121,7 @@ public class VolumeConverter {
             if (volumeSpec.isTagsSet()) {
 
                 if (volumeSpec.getTags() != null) {
+//                    TODO yael: use the converter of the object you're converting (check other conversions)
                     List<ApiAzureStorageVolumeTag> tags =
                             volumeSpec.getTags().stream().map(VolumeConverter::toDal).collect(Collectors.toList());
                     retVal.setTags(tags);

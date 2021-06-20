@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO yael: rename BL objects to follow convention
 public class VolumeAutoResizeResizePolicy {
     //region Members
     @JsonIgnore

@@ -1,6 +1,6 @@
 package com.spotinst.sdkjava.model.bl.spotStorage;
 
-
+// TODO yael: lets use this in example and delete the generic ones
 public class AzureStorageVolumeDeletionRequest {
     //region Members
     private String volumeId;
