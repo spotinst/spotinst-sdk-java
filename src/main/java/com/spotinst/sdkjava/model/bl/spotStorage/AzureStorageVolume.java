@@ -6,25 +6,25 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention
-public class VolumeAzureStorage {
+// TODO yael: rename BL objects to follow convention - done
+public class AzureStorageVolume {
     //region Members
     @JsonIgnore
-    private Set<String>      isSet;
-    private String           id;
-    private String           name;
-    private String           region;
-    private VolumeCapacity   capacity;
-    private VolumeThroughput throughput;
-    private VolumeSpec       volumeSpec;
-    private VolumeAutoResize autoResize;
-    private String           state;
-    private Date             createdAt;
-    private Date             updatedAt;
+    private Set<String>                  isSet;
+    private String                       id;
+    private String                       name;
+    private String                       region;
+    private AzureStorageVolumeCapacity   capacity;
+    private AzureStorageVolumeThroughput throughput;
+    private AzureStorageVolumeSpec       volumeSpec;
+    private AzureStorageVolumeAutoResize autoResize;
+    private String                       state;
+    private Date                         createdAt;
+    private Date                         updatedAt;
     //endregion
 
     //region Constructor
-    private VolumeAzureStorage() {
+    private AzureStorageVolume() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -65,38 +65,38 @@ public class VolumeAzureStorage {
         this.region = region;
     }
 
-    public VolumeCapacity getCapacity() {
+    public AzureStorageVolumeCapacity getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(VolumeCapacity capacity) {
+    public void setCapacity(AzureStorageVolumeCapacity capacity) {
         isSet.add("capacity");
         this.capacity = capacity;
     }
 
-    public VolumeThroughput getThroughput() {
+    public AzureStorageVolumeThroughput getThroughput() {
         return throughput;
     }
 
-    public void setThroughput(VolumeThroughput throughput) {
+    public void setThroughput(AzureStorageVolumeThroughput throughput) {
         isSet.add("throughput");
         this.throughput = throughput;
     }
 
-    public VolumeSpec getVolumeSpec() {
+    public AzureStorageVolumeSpec getVolumeSpec() {
         return volumeSpec;
     }
 
-    public void setVolumeSpec(VolumeSpec volumeSpec) {
+    public void setVolumeSpec(AzureStorageVolumeSpec volumeSpec) {
         isSet.add("volumeSpec");
         this.volumeSpec = volumeSpec;
     }
 
-    public VolumeAutoResize getAutoResize() {
+    public AzureStorageVolumeAutoResize getAutoResize() {
         return autoResize;
     }
 
-    public void setAutoResize(VolumeAutoResize autoResize) {
+    public void setAutoResize(AzureStorageVolumeAutoResize autoResize) {
         isSet.add("autoResize");
         this.autoResize = autoResize;
     }
@@ -133,12 +133,12 @@ public class VolumeAzureStorage {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeAzureStorage volumeAzureStorage;
+        private AzureStorageVolume volumeAzureStorage;
         //endregion
 
 
         private Builder() {
-            this.volumeAzureStorage = new VolumeAzureStorage();
+            this.volumeAzureStorage = new AzureStorageVolume();
         }
 
         public static Builder get() {
@@ -162,22 +162,22 @@ public class VolumeAzureStorage {
             return this;
         }
 
-        public Builder setCapacity(final VolumeCapacity capacity) {
+        public Builder setCapacity(final AzureStorageVolumeCapacity capacity) {
             volumeAzureStorage.setCapacity(capacity);
             return this;
         }
 
-        public Builder setThroughput(final VolumeThroughput throughput) {
+        public Builder setThroughput(final AzureStorageVolumeThroughput throughput) {
             volumeAzureStorage.setThroughput(throughput);
             return this;
         }
 
-        public Builder setVolumeSpec(final VolumeSpec volumeSpec) {
+        public Builder setVolumeSpec(final AzureStorageVolumeSpec volumeSpec) {
             volumeAzureStorage.setVolumeSpec(volumeSpec);
             return this;
         }
 
-        public Builder setAutoResize(final VolumeAutoResize autoResize) {
+        public Builder setAutoResize(final AzureStorageVolumeAutoResize autoResize) {
             volumeAzureStorage.setAutoResize(autoResize);
             return this;
         }
@@ -187,7 +187,7 @@ public class VolumeAzureStorage {
             return this;
         }
 
-        public VolumeAzureStorage build() {
+        public AzureStorageVolume build() {
             // Validations
             return volumeAzureStorage;
         }

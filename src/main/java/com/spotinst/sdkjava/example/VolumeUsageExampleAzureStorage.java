@@ -13,6 +13,7 @@ public class VolumeUsageExampleAzureStorage {
     //    TODO yael: we talked about it
     private final static String auth_token          = "";
     private final static String account_id          = "act-e929c6e7";
+    private static final String VOLUME_NAME          = "spot-volume-name";
 
     public static void main(String[] args) throws IOException {
 
@@ -20,7 +21,7 @@ public class VolumeUsageExampleAzureStorage {
         SpotStorageAzureVolumeClient volumeClient = SpotinstClient.getVolumeClient(auth_token, account_id);
 
         // Create volume
-//        TODO yael: return the object here, and then get its ID
+//        TODO yael: return the object here, and then get its ID - i dont really understand, i did exactly as other examples
         String volumeId = createVolume(volumeClient);
 
         // Sleep for provisioning
@@ -28,7 +29,7 @@ public class VolumeUsageExampleAzureStorage {
         sleep(7);
 
         // Get volume
-        VolumeAzureStorage volume     = getVolume(volumeClient, volumeId);
+        AzureStorageVolume volume     = getVolume(volumeClient, volumeId);
         String             volumeName = volume.getName();
         String             preFormat  = "volumeId: %s - volumeName: %s";
         System.out.println(String.format(preFormat, volumeId, volumeName));
@@ -40,116 +41,116 @@ public class VolumeUsageExampleAzureStorage {
         // List all Volumes
         getAllVolumes(volumeClient);
 
+        // Sleep for provisioning
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
+
+        // Update volume
+        updateVolume(volumeClient, volumeId);
+
+        // Sleep for provisioning
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
+
         // Delete volume
         deleteVolume(volumeClient, volumeId);
 
 //        TODO yael: add updateVolume Example
+
     }
+    /*
+//todo yael- main for deletion only. Shibel- the update part not working yet, so i use this fot testing- i'll delete it when finished
+
+    public static void main(String[] args) throws IOException {
+
+        SpotStorageAzureVolumeClient volumeClient = SpotinstClient.getVolumeClient(auth_token, account_id);
+        String volumeId = "ssv-e63eba2a";
+        deleteVolume(volumeClient, volumeId);
+    }*/
+
 
     private static String createVolume(SpotStorageAzureVolumeClient client) {
         System.out.println("-------------------------start creating volume------------------------");
 
         //build Auto Resize Resize Policy Action
-        VolumeAutoResizeResizePolicyAction.Builder VolumeAutoResizeResizePolicyActionBuilder =
-                VolumeAutoResizeResizePolicyAction.Builder.get();
+        AzureStorageVolumeAutoResizeResizePolicyAction.Builder VolumeAutoResizeResizePolicyActionBuilder =
+                AzureStorageVolumeAutoResizeResizePolicyAction.Builder.get();
 
-        VolumeAutoResizeResizePolicyAction autoResizeResizePolicyAction =
+        AzureStorageVolumeAutoResizeResizePolicyAction autoResizeResizePolicyAction =
                 VolumeAutoResizeResizePolicyActionBuilder.setType("increase").setAdjustmentPercentage(1).build();
 
         //build Auto Resize Resize Policy
-        VolumeAutoResizeResizePolicy.Builder VolumeAutoResizeResizePolicyBuilder =
-                VolumeAutoResizeResizePolicy.Builder.get();
+        AzureStorageVolumeAutoResizeResizePolicy.Builder VolumeAutoResizeResizePolicyBuilder =
+                AzureStorageVolumeAutoResizeResizePolicy.Builder.get();
 
-        VolumeAutoResizeResizePolicy autoResizeResizePolicy =
+        AzureStorageVolumeAutoResizeResizePolicy autoResizeResizePolicy =
                 VolumeAutoResizeResizePolicyBuilder.setAction(autoResizeResizePolicyAction).setConsecutivePeriods(1)
                                                    .setCooldown(300).setOperator("gt").setPeriod(300)
                                                    .setUsagePercentage(1).setPolicyName("policyName").build();
 
-        List<VolumeAutoResizeResizePolicy> autoResizeResizePolicyList = new ArrayList<>();
+        List<AzureStorageVolumeAutoResizeResizePolicy> autoResizeResizePolicyList = new ArrayList<>();
         autoResizeResizePolicyList.add(autoResizeResizePolicy);
 
         //build Auto Resize
-        VolumeAutoResize.Builder VolumeAutoResizeBuilder = VolumeAutoResize.Builder.get();
+        AzureStorageVolumeAutoResize.Builder VolumeAutoResizeBuilder = AzureStorageVolumeAutoResize.Builder.get();
 
-        VolumeAutoResize autoResize = VolumeAutoResizeBuilder.setPolicyType("custom").setMode("recommendation")
-                                                             .setResizePolicies(autoResizeResizePolicyList).build();
+        AzureStorageVolumeAutoResize
+                autoResize = VolumeAutoResizeBuilder.setPolicyType("custom").setMode("recommendation")
+                                                    .setResizePolicies(autoResizeResizePolicyList).build();
 
         //build Tag
-        VolumeTag.Builder VolumeTagBuilder = VolumeTag.Builder.get();
+        AzureStorageVolumeTag.Builder VolumeTagBuilder = AzureStorageVolumeTag.Builder.get();
 
-        VolumeTag tag = VolumeTagBuilder.setTagKey("tagKey1").setTagValue("tagValue1").build();
+        AzureStorageVolumeTag tag = VolumeTagBuilder.setTagKey("tagKey1").setTagValue("tagValue1").build();
 
-        List<VolumeTag> tagList = new ArrayList<>();
+        List<AzureStorageVolumeTag> tagList = new ArrayList<>();
         tagList.add(tag);
 
         //build Spec Network
-        VolumeSpecNetwork.Builder VolumeSpecNetworkBuilder = VolumeSpecNetwork.Builder.get();
+        AzureStorageVolumeSpecNetwork.Builder VolumeSpecNetworkBuilder = AzureStorageVolumeSpecNetwork.Builder.get();
 
-        VolumeSpecNetwork specNetwork = VolumeSpecNetworkBuilder.setVirtualNetworkName("AutomationResourceGroup-vnet")
-                                                                .setResourceGroupName("AutomationResourceGroup")
-                                                                .setSubnetName("storage_subnet").build();
-//        TODO yael: don't keep commented code.
-/*
-        //build Spec Protocol Export Policy Rule
-        VolumeSpecProtocolExportPolicyRule.Builder VolumeSpecProtocolExportPolicyRuleBuilder =
-                VolumeSpecProtocolExportPolicyRule.Builder.get();
+        AzureStorageVolumeSpecNetwork
+                specNetwork = VolumeSpecNetworkBuilder.setVirtualNetworkName("AutomationResourceGroup-vnet")
+                                                      .setResourceGroupName("AutomationResourceGroup")
+                                                      .setSubnetName("storage_subnet").build();
+//        TODO yael: don't keep commented code. - done
 
-        List<String> KerberosRuleAccessesList = new ArrayList<>();
-        KerberosRuleAccessesList.add("string-example");
-
-        VolumeSpecProtocolExportPolicyRule specProtocolExportPolicyRule =
-                VolumeSpecProtocolExportPolicyRuleBuilder.setKerberosRuleAccesses(KerberosRuleAccessesList)
-                                                         .setAccess("string-example")
-                                                         .setAllowedClients("string-example").setIndex(1).setRoot(true)
-                                                         .build();
-
-        List<VolumeSpecProtocolExportPolicyRule> specProtocolExportPolicyRuleList = new ArrayList<>();
-        specProtocolExportPolicyRuleList.add(specProtocolExportPolicyRule);
-
-        //build Spec Protocol Export Policy
-        VolumeSpecProtocolExportPolicy.Builder VolumeSpecProtocolExportPolicyBuilder =
-                VolumeSpecProtocolExportPolicy.Builder.get();
-
-        VolumeSpecProtocolExportPolicy specProtocolExportPolicy =
-                VolumeSpecProtocolExportPolicyBuilder.setRules(specProtocolExportPolicyRuleList).build();
-*/
-        //build Spec Protocol
-        VolumeSpecProtocol.Builder VolumeSpecProtocolBuilder = VolumeSpecProtocol.Builder.get();
+        AzureStorageVolumeSpecProtocol.Builder VolumeSpecProtocolBuilder = AzureStorageVolumeSpecProtocol.Builder.get();
 
         List<String> typesList = new ArrayList<>();
         typesList.add("NFSv3");
 
-        VolumeSpecProtocol specProtocol =
+        AzureStorageVolumeSpecProtocol specProtocol =
                 VolumeSpecProtocolBuilder.setTypes(typesList)
                         //.setExportPolicy(specProtocolExportPolicy)
                                         // .setKerberosEnabled(true).setSecurityStyle("securityStyle")
-                                         .setMountPath("mountPath25").build();
+                                         .setMountPath("mountPath2").build();
 
 
         //build Spec
-        VolumeSpec.Builder VolumeSpecBuilder = VolumeSpec.Builder.get();
+        AzureStorageVolumeSpec.Builder VolumeSpecBuilder = AzureStorageVolumeSpec.Builder.get();
 
-        VolumeSpec spec =
+        AzureStorageVolumeSpec spec =
                 VolumeSpecBuilder.setNetwork(specNetwork).setProtocol(specProtocol).setServiceLevel("premium")
                                  .setTags(tagList).build();
 
         //build Capacity
-        VolumeCapacity.Builder VolumeCapacityBuilder = VolumeCapacity.Builder.get();
+        AzureStorageVolumeCapacity.Builder VolumeCapacityBuilder = AzureStorageVolumeCapacity.Builder.get();
 
-        VolumeCapacity capacity = VolumeCapacityBuilder.setSizeGiB(100).setMinSizeGiB(100).setMaxSizeGiB(100).build();
+        AzureStorageVolumeCapacity
+                capacity = VolumeCapacityBuilder.setSizeGiB(100).setMinSizeGiB(100).setMaxSizeGiB(100).build();
 
         //build Throughput
-        VolumeThroughput.Builder VolumeThroughputBuilder = VolumeThroughput.Builder.get();
+        AzureStorageVolumeThroughput.Builder VolumeThroughputBuilder = AzureStorageVolumeThroughput.Builder.get();
 
-        VolumeThroughput throughput = VolumeThroughputBuilder.setThroughputMibps(1.).build();
+        AzureStorageVolumeThroughput throughput = VolumeThroughputBuilder.setThroughputMibps(1.).build();
 
         //build volume
-        VolumeAzureStorage.Builder VolumeAzureStorageBuilder = VolumeAzureStorage.Builder.get();
+        AzureStorageVolume.Builder VolumeAzureStorageBuilder = AzureStorageVolume.Builder.get();
 
-        VolumeAzureStorage volume =
+        AzureStorageVolume volume =
                 VolumeAzureStorageBuilder.setVolumeSpec(spec).setAutoResize(autoResize).setCapacity(capacity)
-                                         .setName("volumeName5").setRegion("eastus")
-                                         //.setState("state")
+                                         .setName(VOLUME_NAME).setRegion("eastus")
                                          .setThroughput(throughput).build();
 
         // Build volume creation request
@@ -163,39 +164,77 @@ public class VolumeUsageExampleAzureStorage {
         System.out.println(creationRequest.toJson());
         // Create volume
 
-        VolumeAzureStorage createdVolume = client.createVolume(creationRequest);
+        AzureStorageVolume createdVolume = client.createVolume(creationRequest);
         System.out.println("Volume successfully created: " + createdVolume.getId());
 
         // Get volume Id
         return createdVolume.getId();
     }
 
+    private static void updateVolume(SpotStorageAzureVolumeClient client, String volumeId) {
+        System.out.println("-------------------------start updating volume------------------------");
+
+        //build Capacity
+        AzureStorageVolumeCapacity.Builder VolumeCapacityBuilder = AzureStorageVolumeCapacity.Builder.get();
+
+        AzureStorageVolumeCapacity updateCapacity =
+                VolumeCapacityBuilder.setSizeGiB(101).setMinSizeGiB(101).setMaxSizeGiB(101).build();
+
+        //build Throughput
+        AzureStorageVolumeThroughput.Builder VolumeThroughputBuilder = AzureStorageVolumeThroughput.Builder.get();
+
+        AzureStorageVolumeThroughput updateThroughput = VolumeThroughputBuilder.setThroughputMibps(1.5).build();
+
+        // Build volume update
+        AzureStorageVolume.Builder updateVolumeBuilder = AzureStorageVolume.Builder.get();
+        AzureStorageVolume volumeUpdate =
+                updateVolumeBuilder.setCapacity(updateCapacity).setThroughput(updateThroughput)
+                                   //.setName(VOLUME_NAME)
+                                        .build();
+
+        // Build volume update request
+        VolumeUpdateRequest.Builder volumeUpdateRequestBuilder =
+                VolumeUpdateRequest.Builder.get();
+        VolumeUpdateRequest updateRequest =
+                volumeUpdateRequestBuilder.setVolume(volumeUpdate).build();
+
+        // Convert volume update to API object json
+        System.out.println(updateRequest.toJson());
+
+        // Update volume
+        Boolean updateSuccess = client.updateVolume(updateRequest, volumeId);
+        if (updateSuccess) {
+            System.out.println("Volume successfully updated.\n");
+        }
+
+    }
+
     private static void deleteVolume(SpotStorageAzureVolumeClient client, String volumeId) {
+
         System.out.println("-------------------------start deleting volume------------------------");
 
-        VolumeDeletionRequest.Builder deletionBuilder = VolumeDeletionRequest.Builder.get();
-        VolumeDeletionRequest         deletionRequest = deletionBuilder.setVolumeId(volumeId).build();
+        AzureStorageVolumeDeletionRequest.Builder deletionBuilder = AzureStorageVolumeDeletionRequest.Builder.get();
+        AzureStorageVolumeDeletionRequest         deletionRequest = deletionBuilder.setVolumeId(volumeId).build();
 
         Boolean successfulDeletion = client.deleteVolume(deletionRequest);
         if (successfulDeletion) {
             System.out.println("Volume succesfully deleted: " + volumeId);
         }
-
     }
 
-    private static List<VolumeAzureStorage> getAllVolumes(SpotStorageAzureVolumeClient client) {
+    private static List<AzureStorageVolume> getAllVolumes(SpotStorageAzureVolumeClient client) {
         System.out.println("-------------------------start getting all volumes------------------------");
 
         return client.getAllVolumes();
 
     }
 
-    private static VolumeAzureStorage getVolume(SpotStorageAzureVolumeClient client, String volumeId) {
+    private static AzureStorageVolume getVolume(SpotStorageAzureVolumeClient client, String volumeId) {
         System.out.println("-------------------------start getting volume------------------------");
 
         VolumeGetRequest.Builder requestBuilder = VolumeGetRequest.Builder.get();
         VolumeGetRequest         requestById    = requestBuilder.setVolumeId(volumeId).build();
-        VolumeAzureStorage       volume         = client.getVolume(requestById);
+        AzureStorageVolume       volume         = client.getVolume(requestById);
 
         return volume;
 

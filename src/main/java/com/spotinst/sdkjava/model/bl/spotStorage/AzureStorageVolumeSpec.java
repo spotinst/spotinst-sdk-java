@@ -6,18 +6,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VolumeSpec {
+public class AzureStorageVolumeSpec {
     //region Members
     @JsonIgnore
-    private Set<String>        isSet;
-    private VolumeSpecNetwork  network;
-    private VolumeSpecProtocol protocol;
-    private String             serviceLevel;
-    private List<VolumeTag>    tags;
+    private Set<String>                    isSet;
+    private AzureStorageVolumeSpecNetwork  network;
+    private AzureStorageVolumeSpecProtocol protocol;
+    private String                         serviceLevel;
+    private List<AzureStorageVolumeTag>    tags;
     //endregion
 
     //region Constructor
-    private VolumeSpec() {
+    private AzureStorageVolumeSpec() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -31,20 +31,20 @@ public class VolumeSpec {
         this.isSet = isSet;
     }
 
-    public VolumeSpecNetwork getNetwork() {
+    public AzureStorageVolumeSpecNetwork getNetwork() {
         return network;
     }
 
-    public void setNetwork(VolumeSpecNetwork network) {
+    public void setNetwork(AzureStorageVolumeSpecNetwork network) {
         isSet.add("network");
         this.network = network;
     }
 
-    public VolumeSpecProtocol getProtocol() {
+    public AzureStorageVolumeSpecProtocol getProtocol() {
         return protocol;
     }
 
-    public void setProtocol(VolumeSpecProtocol protocol) {
+    public void setProtocol(AzureStorageVolumeSpecProtocol protocol) {
         isSet.add("protocol");
         this.protocol = protocol;
     }
@@ -58,11 +58,11 @@ public class VolumeSpec {
         this.serviceLevel = serviceLevel;
     }
 
-    public List<VolumeTag> getTags() {
+    public List<AzureStorageVolumeTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<VolumeTag> tags) {
+    public void setTags(List<AzureStorageVolumeTag> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -71,12 +71,12 @@ public class VolumeSpec {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeSpec volumeSpec;
+        private AzureStorageVolumeSpec volumeSpec;
         //endregion
 
 
         private Builder() {
-            this.volumeSpec = new VolumeSpec();
+            this.volumeSpec = new AzureStorageVolumeSpec();
         }
 
         public static Builder get() {
@@ -85,12 +85,12 @@ public class VolumeSpec {
         }
 
         //region Build methods
-        public Builder setNetwork(final VolumeSpecNetwork network) {
+        public Builder setNetwork(final AzureStorageVolumeSpecNetwork network) {
             volumeSpec.setNetwork(network);
             return this;
         }
 
-        public Builder setProtocol(final VolumeSpecProtocol protocol) {
+        public Builder setProtocol(final AzureStorageVolumeSpecProtocol protocol) {
             volumeSpec.setProtocol(protocol);
             return this;
         }
@@ -100,12 +100,12 @@ public class VolumeSpec {
             return this;
         }
 
-        public Builder setTags(final List<VolumeTag> tags) {
+        public Builder setTags(final List<AzureStorageVolumeTag> tags) {
             volumeSpec.setTags(tags);
             return this;
         }
 
-        public VolumeSpec build() {
+        public AzureStorageVolumeSpec build() {
             // Validations
             return volumeSpec;
         }

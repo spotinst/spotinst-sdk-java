@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VolumeThroughput {
+public class AzureStorageVolumeThroughput {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -13,7 +13,7 @@ public class VolumeThroughput {
     //endregion
 
     //region Constructor
-    private VolumeThroughput() {
+    private AzureStorageVolumeThroughput() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -41,26 +41,26 @@ public class VolumeThroughput {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeThroughput volumeThroughput;
+        private AzureStorageVolumeThroughput volumeThroughput;
         //endregion
 
 
         private Builder() {
-            this.volumeThroughput = new VolumeThroughput();
+            this.volumeThroughput = new AzureStorageVolumeThroughput();
         }
 
-        public static VolumeThroughput.Builder get() {
-            VolumeThroughput.Builder builder = new VolumeThroughput.Builder();
+        public static AzureStorageVolumeThroughput.Builder get() {
+            AzureStorageVolumeThroughput.Builder builder = new AzureStorageVolumeThroughput.Builder();
             return builder;
         }
 
         //region Build methods
-        public VolumeThroughput.Builder setThroughputMibps(final Double throughputMibps) {
+        public AzureStorageVolumeThroughput.Builder setThroughputMibps(final Double throughputMibps) {
             volumeThroughput.setThroughputMibps(throughputMibps);
             return this;
         }
 
-        public VolumeThroughput build() {
+        public AzureStorageVolumeThroughput build() {
             // Validations
             return volumeThroughput;
         }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VolumeCapacity {
+public class AzureStorageVolumeCapacity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -15,7 +15,7 @@ public class VolumeCapacity {
     //endregion
 
     //region Constructor
-    private VolumeCapacity() {
+    private AzureStorageVolumeCapacity() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -65,12 +65,12 @@ public class VolumeCapacity {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeCapacity volumeCapacity;
+        private AzureStorageVolumeCapacity volumeCapacity;
         //endregion
 
 
         private Builder() {
-            this.volumeCapacity = new VolumeCapacity();
+            this.volumeCapacity = new AzureStorageVolumeCapacity();
         }
 
         public static Builder get() {
@@ -94,7 +94,7 @@ public class VolumeCapacity {
             return this;
         }
 
-        public VolumeCapacity build() {
+        public AzureStorageVolumeCapacity build() {
             // Validations
             return volumeCapacity;
         }

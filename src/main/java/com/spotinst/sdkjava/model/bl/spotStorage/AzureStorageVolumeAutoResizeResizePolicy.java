@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention
-public class VolumeAutoResizeResizePolicy {
+// TODO yael: rename BL objects to follow convention - done
+public class AzureStorageVolumeAutoResizeResizePolicy {
     //region Members
     @JsonIgnore
-    private Set<String>                        isSet;
-    private String                             policyName;
-    private Integer                            usagePercentage;
-    private String                             operator;
-    private VolumeAutoResizeResizePolicyAction action;
-    private Integer                            period;
-    private Integer                            consecutivePeriods;
-    private Integer                            cooldown;
+    private Set<String>                                    isSet;
+    private String                                         policyName;
+    private Integer                                        usagePercentage;
+    private String                                         operator;
+    private AzureStorageVolumeAutoResizeResizePolicyAction action;
+    private Integer                                        period;
+    private Integer                                        consecutivePeriods;
+    private Integer                                        cooldown;
     //endregion
 
     //region Constructor
-    private VolumeAutoResizeResizePolicy() {
+    private AzureStorageVolumeAutoResizeResizePolicy() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -68,11 +68,11 @@ public class VolumeAutoResizeResizePolicy {
     //endregion
 
     //region Action
-    public VolumeAutoResizeResizePolicyAction getAction() {
+    public AzureStorageVolumeAutoResizeResizePolicyAction getAction() {
         return action;
     }
 
-    public void setAction(VolumeAutoResizeResizePolicyAction action) {
+    public void setAction(AzureStorageVolumeAutoResizeResizePolicyAction action) {
         isSet.add("action");
         this.action = action;
     }
@@ -114,12 +114,12 @@ public class VolumeAutoResizeResizePolicy {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeAutoResizeResizePolicy volumeAutoResizeResizePolicy;
+        private AzureStorageVolumeAutoResizeResizePolicy volumeAutoResizeResizePolicy;
         //endregion
 
 
         private Builder() {
-            this.volumeAutoResizeResizePolicy = new VolumeAutoResizeResizePolicy();
+            this.volumeAutoResizeResizePolicy = new AzureStorageVolumeAutoResizeResizePolicy();
         }
 
         public static Builder get() {
@@ -143,7 +143,7 @@ public class VolumeAutoResizeResizePolicy {
             return this;
         }
 
-        public Builder setAction(final VolumeAutoResizeResizePolicyAction action) {
+        public Builder setAction(final AzureStorageVolumeAutoResizeResizePolicyAction action) {
             volumeAutoResizeResizePolicy.setAction(action);
             return this;
         }
@@ -163,7 +163,7 @@ public class VolumeAutoResizeResizePolicy {
             return this;
         }
 
-        public VolumeAutoResizeResizePolicy build() {
+        public AzureStorageVolumeAutoResizeResizePolicy build() {
             // Validations
             return volumeAutoResizeResizePolicy;
         }

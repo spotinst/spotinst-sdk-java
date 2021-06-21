@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VolumeSpecProtocolExportPolicyRule {
+public class AzureStorageVolumeSpecProtocolExportPolicyRule {
     //region Members
     @JsonIgnore
     private Set<String>  isSet;
@@ -18,7 +18,7 @@ public class VolumeSpecProtocolExportPolicyRule {
     //endregion
 
     //region Constructor
-    private VolumeSpecProtocolExportPolicyRule() {
+    private AzureStorageVolumeSpecProtocolExportPolicyRule() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -81,12 +81,12 @@ public class VolumeSpecProtocolExportPolicyRule {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeSpecProtocolExportPolicyRule volumeSpecProtocolExportPolicyRule;
+        private AzureStorageVolumeSpecProtocolExportPolicyRule volumeSpecProtocolExportPolicyRule;
         //endregion
 
 
         private Builder() {
-            this.volumeSpecProtocolExportPolicyRule = new VolumeSpecProtocolExportPolicyRule();
+            this.volumeSpecProtocolExportPolicyRule = new AzureStorageVolumeSpecProtocolExportPolicyRule();
         }
 
         public static Builder get() {
@@ -124,7 +124,7 @@ public class VolumeSpecProtocolExportPolicyRule {
             return this;
         }
 
-        public VolumeSpecProtocolExportPolicyRule build() {
+        public AzureStorageVolumeSpecProtocolExportPolicyRule build() {
             // Validations
             return volumeSpecProtocolExportPolicyRule;
         }

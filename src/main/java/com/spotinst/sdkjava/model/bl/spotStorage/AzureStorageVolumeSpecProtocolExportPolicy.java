@@ -6,15 +6,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VolumeSpecProtocolExportPolicy {
+public class AzureStorageVolumeSpecProtocolExportPolicy {
     //region Members
     @JsonIgnore
-    private Set<String>                              isSet;
-    private List<VolumeSpecProtocolExportPolicyRule> rules;
+    private Set<String>                                          isSet;
+    private List<AzureStorageVolumeSpecProtocolExportPolicyRule> rules;
     //endregion
 
     //region Constructor
-    private VolumeSpecProtocolExportPolicy() {
+    private AzureStorageVolumeSpecProtocolExportPolicy() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -28,11 +28,11 @@ public class VolumeSpecProtocolExportPolicy {
         this.isSet = isSet;
     }
 
-    public List<VolumeSpecProtocolExportPolicyRule> getRules() {
+    public List<AzureStorageVolumeSpecProtocolExportPolicyRule> getRules() {
         return rules;
     }
 
-    public void setRules(List<VolumeSpecProtocolExportPolicyRule> rules) {
+    public void setRules(List<AzureStorageVolumeSpecProtocolExportPolicyRule> rules) {
         isSet.add("rules");
         this.rules = rules;
     }
@@ -41,12 +41,12 @@ public class VolumeSpecProtocolExportPolicy {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeSpecProtocolExportPolicy volumeSpecProtocolExportPolicy;
+        private AzureStorageVolumeSpecProtocolExportPolicy volumeSpecProtocolExportPolicy;
         //endregion
 
 
         private Builder() {
-            this.volumeSpecProtocolExportPolicy = new VolumeSpecProtocolExportPolicy();
+            this.volumeSpecProtocolExportPolicy = new AzureStorageVolumeSpecProtocolExportPolicy();
         }
 
         public static Builder get() {
@@ -55,12 +55,12 @@ public class VolumeSpecProtocolExportPolicy {
         }
 
         //region Build methods
-        public Builder setRules(final List<VolumeSpecProtocolExportPolicyRule> rules) {
+        public Builder setRules(final List<AzureStorageVolumeSpecProtocolExportPolicyRule> rules) {
             volumeSpecProtocolExportPolicy.setRules(rules);
             return this;
         }
 
-        public VolumeSpecProtocolExportPolicy build() {
+        public AzureStorageVolumeSpecProtocolExportPolicy build() {
             // Validations
             return volumeSpecProtocolExportPolicy;
         }

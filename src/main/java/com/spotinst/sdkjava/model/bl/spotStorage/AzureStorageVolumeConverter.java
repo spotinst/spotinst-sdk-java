@@ -7,11 +7,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO yael: rename BL objects to follow convention
-public class VolumeConverter {
+// TODO yael: rename BL objects to follow convention - done
+public class AzureStorageVolumeConverter {
     //region BL -> DAL
 
-    public static ApiAzureStorageVolume toDal(VolumeAzureStorage src) {
+    public static ApiAzureStorageVolume toDal(AzureStorageVolume src) {
 
         ApiAzureStorageVolume retVal = null;
 
@@ -63,7 +63,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeCapacity toDal(VolumeCapacity capacity) {
+    private static ApiAzureStorageVolumeCapacity toDal(AzureStorageVolumeCapacity capacity) {
         ApiAzureStorageVolumeCapacity retVal = null;
 
         if (capacity != null) {
@@ -85,7 +85,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeThroughput toDal(VolumeThroughput throughput) {
+    private static ApiAzureStorageVolumeThroughput toDal(AzureStorageVolumeThroughput throughput) {
         ApiAzureStorageVolumeThroughput retVal = null;
 
         if (throughput != null) {
@@ -99,7 +99,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeSpec toDal(VolumeSpec volumeSpec) {
+    private static ApiAzureStorageVolumeSpec toDal(AzureStorageVolumeSpec volumeSpec) {
 
         ApiAzureStorageVolumeSpec retVal = null;
 
@@ -121,9 +121,9 @@ public class VolumeConverter {
             if (volumeSpec.isTagsSet()) {
 
                 if (volumeSpec.getTags() != null) {
-//                    TODO yael: use the converter of the object you're converting (check other conversions)
+//                    TODO yael: use the converter of the object you're converting (check other conversions) - i think i did it right, cant find the problem
                     List<ApiAzureStorageVolumeTag> tags =
-                            volumeSpec.getTags().stream().map(VolumeConverter::toDal).collect(Collectors.toList());
+                            volumeSpec.getTags().stream().map(AzureStorageVolumeConverter::toDal).collect(Collectors.toList());
                     retVal.setTags(tags);
                 }
                 else {
@@ -136,7 +136,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeAutoResize toDal(VolumeAutoResize volumeAutoResize) {
+    private static ApiAzureStorageVolumeAutoResize toDal(AzureStorageVolumeAutoResize volumeAutoResize) {
         ApiAzureStorageVolumeAutoResize retVal = null;
 
         if (volumeAutoResize != null) {
@@ -153,7 +153,7 @@ public class VolumeConverter {
             if (volumeAutoResize.isResizePoliciesSet()) {
                 if (volumeAutoResize.getResizePolicies() != null) {
                     List<ApiAzureStorageVolumeAutoResizeResizePolicy> policies =
-                            volumeAutoResize.getResizePolicies().stream().map(VolumeConverter::toDal)
+                            volumeAutoResize.getResizePolicies().stream().map(AzureStorageVolumeConverter::toDal)
                                             .collect(Collectors.toList());
                     retVal.setResizePolicies(policies);
                 }
@@ -167,7 +167,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeSpecNetwork toDal(VolumeSpecNetwork volumeSpecNetwork) {
+    private static ApiAzureStorageVolumeSpecNetwork toDal(AzureStorageVolumeSpecNetwork volumeSpecNetwork) {
         ApiAzureStorageVolumeSpecNetwork retVal = null;
 
         if (volumeSpecNetwork != null) {
@@ -189,7 +189,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeSpecProtocol toDal(VolumeSpecProtocol volumeSpecProtocol) {
+    private static ApiAzureStorageVolumeSpecProtocol toDal(AzureStorageVolumeSpecProtocol volumeSpecProtocol) {
         ApiAzureStorageVolumeSpecProtocol retVal = null;
 
         if (volumeSpecProtocol != null) {
@@ -225,7 +225,7 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static ApiAzureStorageVolumeTag toDal(VolumeTag volumeTag) {
+    private static ApiAzureStorageVolumeTag toDal(AzureStorageVolumeTag volumeTag) {
         ApiAzureStorageVolumeTag retVal = null;
 
         if (volumeTag != null) {
@@ -244,7 +244,7 @@ public class VolumeConverter {
     }
 
     private static ApiAzureStorageVolumeSpecProtocolExportPolicy toDal(
-            VolumeSpecProtocolExportPolicy volumeSpecProtocolExportPolicy) {
+            AzureStorageVolumeSpecProtocolExportPolicy volumeSpecProtocolExportPolicy) {
         ApiAzureStorageVolumeSpecProtocolExportPolicy retVal = null;
 
         if (volumeSpecProtocolExportPolicy != null) {
@@ -254,7 +254,7 @@ public class VolumeConverter {
 
                 if (volumeSpecProtocolExportPolicy.getRules() != null) {
                     List<ApiAzureStorageVolumeSpecProtocolExportPolicyRule> resizePolicies =
-                            volumeSpecProtocolExportPolicy.getRules().stream().map(VolumeConverter::toDal)
+                            volumeSpecProtocolExportPolicy.getRules().stream().map(AzureStorageVolumeConverter::toDal)
                                                           .collect(Collectors.toList());
                     retVal.setRules(resizePolicies);
                 }
@@ -269,7 +269,7 @@ public class VolumeConverter {
     }
 
     private static ApiAzureStorageVolumeSpecProtocolExportPolicyRule toDal(
-            VolumeSpecProtocolExportPolicyRule volumeSpecProtocolExportPolicyRule) {
+            AzureStorageVolumeSpecProtocolExportPolicyRule volumeSpecProtocolExportPolicyRule) {
         ApiAzureStorageVolumeSpecProtocolExportPolicyRule retVal = null;
 
         if (volumeSpecProtocolExportPolicyRule != null) {
@@ -309,7 +309,7 @@ public class VolumeConverter {
     }
 
     private static ApiAzureStorageVolumeAutoResizeResizePolicy toDal(
-            VolumeAutoResizeResizePolicy volumeAutoResizeResizePolicy) {
+            AzureStorageVolumeAutoResizeResizePolicy volumeAutoResizeResizePolicy) {
         ApiAzureStorageVolumeAutoResizeResizePolicy retVal = null;
 
         if (volumeAutoResizeResizePolicy != null) {
@@ -348,7 +348,7 @@ public class VolumeConverter {
     }
 
     private static ApiAzureStorageVolumeAutoResizeResizePolicyAction toDal(
-            VolumeAutoResizeResizePolicyAction volumeAutoResizeResizePolicyAction) {
+            AzureStorageVolumeAutoResizeResizePolicyAction volumeAutoResizeResizePolicyAction) {
         ApiAzureStorageVolumeAutoResizeResizePolicyAction retVal = null;
 
         if (volumeAutoResizeResizePolicyAction != null) {
@@ -367,12 +367,12 @@ public class VolumeConverter {
     //endregion
 
     //region DAL -> BL
-    public static VolumeAzureStorage toBl(ApiAzureStorageVolume src) {
+    public static AzureStorageVolume toBl(ApiAzureStorageVolume src) {
 
-        VolumeAzureStorage retVal = null;
+        AzureStorageVolume retVal = null;
 
         if (src != null) {
-            VolumeAzureStorage.Builder builder = VolumeAzureStorage.Builder.get();
+            AzureStorageVolume.Builder builder = AzureStorageVolume.Builder.get();
 
             if (src.isIdSet()) {
                 builder.setId(src.getId());
@@ -422,11 +422,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeCapacity toBl(ApiAzureStorageVolumeCapacity capacity) {
-        VolumeCapacity retVal = null;
+    private static AzureStorageVolumeCapacity toBl(ApiAzureStorageVolumeCapacity capacity) {
+        AzureStorageVolumeCapacity retVal = null;
 
         if (capacity != null) {
-            VolumeCapacity.Builder builder = VolumeCapacity.Builder.get();
+            AzureStorageVolumeCapacity.Builder builder = AzureStorageVolumeCapacity.Builder.get();
 
             if (capacity.isSizeGiBSet()) {
                 builder.setSizeGiB(capacity.getSizeGiB());
@@ -447,11 +447,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeThroughput toBl(ApiAzureStorageVolumeThroughput throughput) {
-        VolumeThroughput retVal = null;
+    private static AzureStorageVolumeThroughput toBl(ApiAzureStorageVolumeThroughput throughput) {
+        AzureStorageVolumeThroughput retVal = null;
 
         if (throughput != null) {
-            VolumeThroughput.Builder builder = VolumeThroughput.Builder.get();
+            AzureStorageVolumeThroughput.Builder builder = AzureStorageVolumeThroughput.Builder.get();
 
             if (throughput.isThroughputMibpsSet()) {
                 builder.setThroughputMibps(throughput.getThroughputMibps());
@@ -464,12 +464,12 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeSpec toBl(ApiAzureStorageVolumeSpec volumeSpec) {
+    private static AzureStorageVolumeSpec toBl(ApiAzureStorageVolumeSpec volumeSpec) {
 
-        VolumeSpec retVal = null;
+        AzureStorageVolumeSpec retVal = null;
 
         if (volumeSpec != null) {
-            VolumeSpec.Builder builder = VolumeSpec.Builder.get();
+            AzureStorageVolumeSpec.Builder builder = AzureStorageVolumeSpec.Builder.get();
 
             if (volumeSpec.isNetworkSet()) {
                 builder.setNetwork(toBl(volumeSpec.getNetwork()));
@@ -487,7 +487,7 @@ public class VolumeConverter {
 
                 if (volumeSpec.getTags() != null) {
                     List<ApiAzureStorageVolumeTag> apiTags = volumeSpec.getTags();
-                    List<VolumeTag> tags = apiTags.stream().map(VolumeConverter::toBl).collect(Collectors.toList());
+                    List<AzureStorageVolumeTag>    tags    = apiTags.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
                     builder.setTags(tags);
                 }
                 else {
@@ -503,11 +503,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeAutoResize toBl(ApiAzureStorageVolumeAutoResize volumeAutoResize) {
-        VolumeAutoResize retVal = null;
+    private static AzureStorageVolumeAutoResize toBl(ApiAzureStorageVolumeAutoResize volumeAutoResize) {
+        AzureStorageVolumeAutoResize retVal = null;
 
         if (volumeAutoResize != null) {
-            VolumeAutoResize.Builder builder = VolumeAutoResize.Builder.get();
+            AzureStorageVolumeAutoResize.Builder builder = AzureStorageVolumeAutoResize.Builder.get();
 
             if (volumeAutoResize.isModeSet()) {
                 builder.setMode(volumeAutoResize.getMode());
@@ -521,8 +521,8 @@ public class VolumeConverter {
                 if (volumeAutoResize.getResizePolicies() != null) {
                     List<ApiAzureStorageVolumeAutoResizeResizePolicy> apiPolicies =
                             volumeAutoResize.getResizePolicies();
-                    List<VolumeAutoResizeResizePolicy> policies =
-                            apiPolicies.stream().map(VolumeConverter::toBl).collect(Collectors.toList());
+                    List<AzureStorageVolumeAutoResizeResizePolicy> policies =
+                            apiPolicies.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
                     builder.setResizePolicies(policies);
                 }
                 else {
@@ -538,11 +538,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeSpecNetwork toBl(ApiAzureStorageVolumeSpecNetwork volumeSpecNetwork) {
-        VolumeSpecNetwork retVal = null;
+    private static AzureStorageVolumeSpecNetwork toBl(ApiAzureStorageVolumeSpecNetwork volumeSpecNetwork) {
+        AzureStorageVolumeSpecNetwork retVal = null;
 
         if (volumeSpecNetwork != null) {
-            VolumeSpecNetwork.Builder builder = VolumeSpecNetwork.Builder.get();
+            AzureStorageVolumeSpecNetwork.Builder builder = AzureStorageVolumeSpecNetwork.Builder.get();
 
             if (volumeSpecNetwork.isResourceGroupNameSet()) {
                 builder.setResourceGroupName(volumeSpecNetwork.getResourceGroupName());
@@ -563,11 +563,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeSpecProtocol toBl(ApiAzureStorageVolumeSpecProtocol volumeSpecProtocol) {
-        VolumeSpecProtocol retVal = null;
+    private static AzureStorageVolumeSpecProtocol toBl(ApiAzureStorageVolumeSpecProtocol volumeSpecProtocol) {
+        AzureStorageVolumeSpecProtocol retVal = null;
 
         if (volumeSpecProtocol != null) {
-            VolumeSpecProtocol.Builder builder = VolumeSpecProtocol.Builder.get();
+            AzureStorageVolumeSpecProtocol.Builder builder = AzureStorageVolumeSpecProtocol.Builder.get();
 
             if (volumeSpecProtocol.isTypesSet()) {
 
@@ -602,11 +602,11 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeTag toBl(ApiAzureStorageVolumeTag volumeTag) {
-        VolumeTag retVal = null;
+    private static AzureStorageVolumeTag toBl(ApiAzureStorageVolumeTag volumeTag) {
+        AzureStorageVolumeTag retVal = null;
 
         if (volumeTag != null) {
-            VolumeTag.Builder builder = VolumeTag.Builder.get();
+            AzureStorageVolumeTag.Builder builder = AzureStorageVolumeTag.Builder.get();
 
             if (volumeTag.isTagKeySet()) {
                 builder.setTagKey(volumeTag.getTagKey());
@@ -623,20 +623,20 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeSpecProtocolExportPolicy toBl(
+    private static AzureStorageVolumeSpecProtocolExportPolicy toBl(
             ApiAzureStorageVolumeSpecProtocolExportPolicy volumeSpecProtocolExportPolicy) {
-        VolumeSpecProtocolExportPolicy retVal = null;
+        AzureStorageVolumeSpecProtocolExportPolicy retVal = null;
 
         if (volumeSpecProtocolExportPolicy != null) {
-            VolumeSpecProtocolExportPolicy.Builder builder = VolumeSpecProtocolExportPolicy.Builder.get();
+            AzureStorageVolumeSpecProtocolExportPolicy.Builder builder = AzureStorageVolumeSpecProtocolExportPolicy.Builder.get();
 
             if (volumeSpecProtocolExportPolicy.isRulesSet()) {
 
                 if (volumeSpecProtocolExportPolicy.getRules() != null) {
                     List<ApiAzureStorageVolumeSpecProtocolExportPolicyRule> apiResizePolicies =
                             volumeSpecProtocolExportPolicy.getRules();
-                    List<VolumeSpecProtocolExportPolicyRule> resizePolicies =
-                            apiResizePolicies.stream().map(VolumeConverter::toBl).collect(Collectors.toList());
+                    List<AzureStorageVolumeSpecProtocolExportPolicyRule> resizePolicies =
+                            apiResizePolicies.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
                     builder.setRules(resizePolicies);
                 }
                 else {
@@ -652,12 +652,12 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeSpecProtocolExportPolicyRule toBl(
+    private static AzureStorageVolumeSpecProtocolExportPolicyRule toBl(
             ApiAzureStorageVolumeSpecProtocolExportPolicyRule volumeSpecProtocolExportPolicyRule) {
-        VolumeSpecProtocolExportPolicyRule retVal = null;
+        AzureStorageVolumeSpecProtocolExportPolicyRule retVal = null;
 
         if (volumeSpecProtocolExportPolicyRule != null) {
-            VolumeSpecProtocolExportPolicyRule.Builder builder = VolumeSpecProtocolExportPolicyRule.Builder.get();
+            AzureStorageVolumeSpecProtocolExportPolicyRule.Builder builder = AzureStorageVolumeSpecProtocolExportPolicyRule.Builder.get();
 
 
             if (volumeSpecProtocolExportPolicyRule.isIndexSet()) {
@@ -694,12 +694,12 @@ public class VolumeConverter {
 
     }
 
-    private static VolumeAutoResizeResizePolicy toBl(
+    private static AzureStorageVolumeAutoResizeResizePolicy toBl(
             ApiAzureStorageVolumeAutoResizeResizePolicy volumeAutoResizeResizePolicy) {
-        VolumeAutoResizeResizePolicy retVal = null;
+        AzureStorageVolumeAutoResizeResizePolicy retVal = null;
 
         if (volumeAutoResizeResizePolicy != null) {
-            VolumeAutoResizeResizePolicy.Builder builder = VolumeAutoResizeResizePolicy.Builder.get();
+            AzureStorageVolumeAutoResizeResizePolicy.Builder builder = AzureStorageVolumeAutoResizeResizePolicy.Builder.get();
 
             if (volumeAutoResizeResizePolicy.isPolicyNameSet()) {
                 builder.setPolicyName(volumeAutoResizeResizePolicy.getPolicyName());
@@ -735,12 +735,12 @@ public class VolumeConverter {
         return retVal;
     }
 
-    private static VolumeAutoResizeResizePolicyAction toBl(
+    private static AzureStorageVolumeAutoResizeResizePolicyAction toBl(
             ApiAzureStorageVolumeAutoResizeResizePolicyAction volumeAutoResizeResizePolicyAction) {
-        VolumeAutoResizeResizePolicyAction retVal = null;
+        AzureStorageVolumeAutoResizeResizePolicyAction retVal = null;
 
         if (volumeAutoResizeResizePolicyAction != null) {
-            VolumeAutoResizeResizePolicyAction.Builder builder = VolumeAutoResizeResizePolicyAction.Builder.get();
+            AzureStorageVolumeAutoResizeResizePolicyAction.Builder builder = AzureStorageVolumeAutoResizeResizePolicyAction.Builder.get();
 
             if (volumeAutoResizeResizePolicyAction.istypeSet()) {
                 builder.setType(volumeAutoResizeResizePolicyAction.getType());

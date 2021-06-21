@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class VolumeSpecNetwork {
+public class AzureStorageVolumeSpecNetwork {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -15,7 +15,7 @@ public class VolumeSpecNetwork {
     //endregion
 
     //region Constructor
-    private VolumeSpecNetwork() {
+    private AzureStorageVolumeSpecNetwork() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -60,12 +60,12 @@ public class VolumeSpecNetwork {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeSpecNetwork volumeSpecNetwork;
+        private AzureStorageVolumeSpecNetwork volumeSpecNetwork;
         //endregion
 
 
         private Builder() {
-            this.volumeSpecNetwork = new VolumeSpecNetwork();
+            this.volumeSpecNetwork = new AzureStorageVolumeSpecNetwork();
         }
 
         public static Builder get() {
@@ -89,7 +89,7 @@ public class VolumeSpecNetwork {
             return this;
         }
 
-        public VolumeSpecNetwork build() {
+        public AzureStorageVolumeSpecNetwork build() {
             // Validations
             return volumeSpecNetwork;
         }

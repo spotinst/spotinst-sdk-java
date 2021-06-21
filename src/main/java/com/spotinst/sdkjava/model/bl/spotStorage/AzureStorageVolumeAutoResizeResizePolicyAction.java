@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention
-public class VolumeAutoResizeResizePolicyAction {
+// TODO yael: rename BL objects to follow convention - done
+public class AzureStorageVolumeAutoResizeResizePolicyAction {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -15,7 +15,7 @@ public class VolumeAutoResizeResizePolicyAction {
     //endregion
 
     //region Constructor
-    private VolumeAutoResizeResizePolicyAction() {
+    private AzureStorageVolumeAutoResizeResizePolicyAction() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -54,12 +54,12 @@ public class VolumeAutoResizeResizePolicyAction {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeAutoResizeResizePolicyAction volumeAutoResizeResizePolicyAction;
+        private AzureStorageVolumeAutoResizeResizePolicyAction volumeAutoResizeResizePolicyAction;
         //endregion
 
 
         private Builder() {
-            this.volumeAutoResizeResizePolicyAction = new VolumeAutoResizeResizePolicyAction();
+            this.volumeAutoResizeResizePolicyAction = new AzureStorageVolumeAutoResizeResizePolicyAction();
         }
 
         public static Builder get() {
@@ -78,7 +78,7 @@ public class VolumeAutoResizeResizePolicyAction {
             return this;
         }
 
-        public VolumeAutoResizeResizePolicyAction build() {
+        public AzureStorageVolumeAutoResizeResizePolicyAction build() {
             // Validations
             return volumeAutoResizeResizePolicyAction;
         }

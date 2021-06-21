@@ -6,19 +6,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VolumeSpecProtocol {
+public class AzureStorageVolumeSpecProtocol {
     //region Members
     @JsonIgnore
-    private Set<String>                    isSet;
-    private List<String>                   types;
-    private String                         mountPath;
-    private VolumeSpecProtocolExportPolicy exportPolicy;
-    private Boolean                        kerberosEnabled;
-    private String                         securityStyle;
+    private Set<String>                                isSet;
+    private List<String>                               types;
+    private String                                     mountPath;
+    private AzureStorageVolumeSpecProtocolExportPolicy exportPolicy;
+    private Boolean                                    kerberosEnabled;
+    private String                                     securityStyle;
     //endregion
 
     //region Constructor
-    private VolumeSpecProtocol() {
+    private AzureStorageVolumeSpecProtocol() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -50,11 +50,11 @@ public class VolumeSpecProtocol {
         this.mountPath = mountPath;
     }
 
-    public VolumeSpecProtocolExportPolicy getExportPolicy() {
+    public AzureStorageVolumeSpecProtocolExportPolicy getExportPolicy() {
         return exportPolicy;
     }
 
-    public void setExportPolicy(VolumeSpecProtocolExportPolicy exportPolicy) {
+    public void setExportPolicy(AzureStorageVolumeSpecProtocolExportPolicy exportPolicy) {
         isSet.add("exportPolicy");
         this.exportPolicy = exportPolicy;
     }
@@ -81,12 +81,12 @@ public class VolumeSpecProtocol {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeSpecProtocol volumeSpecProtocol;
+        private AzureStorageVolumeSpecProtocol volumeSpecProtocol;
         //endregion
 
 
         private Builder() {
-            this.volumeSpecProtocol = new VolumeSpecProtocol();
+            this.volumeSpecProtocol = new AzureStorageVolumeSpecProtocol();
         }
 
         public static Builder get() {
@@ -105,7 +105,7 @@ public class VolumeSpecProtocol {
             return this;
         }
 
-        public Builder setExportPolicy(final VolumeSpecProtocolExportPolicy exportPolicy) {
+        public Builder setExportPolicy(final AzureStorageVolumeSpecProtocolExportPolicy exportPolicy) {
             volumeSpecProtocol.setExportPolicy(exportPolicy);
             return this;
         }
@@ -120,7 +120,7 @@ public class VolumeSpecProtocol {
             return this;
         }
 
-        public VolumeSpecProtocol build() {
+        public AzureStorageVolumeSpecProtocol build() {
             // Validations
             return volumeSpecProtocol;
         }

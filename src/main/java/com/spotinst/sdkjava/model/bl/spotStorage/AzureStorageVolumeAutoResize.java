@@ -6,18 +6,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention
-public class VolumeAutoResize {
+// TODO yael: rename BL objects to follow convention - done
+public class AzureStorageVolumeAutoResize {
     //region Members
     @JsonIgnore
-    private Set<String>                        isSet;
-    private String                             mode;
-    private String                             policyType;
-    private List<VolumeAutoResizeResizePolicy> resizePolicies;
+    private Set<String>                                    isSet;
+    private String                                         mode;
+    private String                                         policyType;
+    private List<AzureStorageVolumeAutoResizeResizePolicy> resizePolicies;
     //endregion
 
     //region Constructor
-    private VolumeAutoResize() {
+    private AzureStorageVolumeAutoResize() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -49,11 +49,11 @@ public class VolumeAutoResize {
         this.policyType = policyType;
     }
 
-    public List<VolumeAutoResizeResizePolicy> getResizePolicies() {
+    public List<AzureStorageVolumeAutoResizeResizePolicy> getResizePolicies() {
         return resizePolicies;
     }
 
-    public void setResizePolicies(List<VolumeAutoResizeResizePolicy> resizePolicies) {
+    public void setResizePolicies(List<AzureStorageVolumeAutoResizeResizePolicy> resizePolicies) {
         isSet.add("resizePolicies");
         this.resizePolicies = resizePolicies;
     }
@@ -62,12 +62,12 @@ public class VolumeAutoResize {
     //region Builder class
     public static class Builder {
         //region Members
-        private VolumeAutoResize volumeAutoResize;
+        private AzureStorageVolumeAutoResize volumeAutoResize;
         //endregion
 
 
         private Builder() {
-            this.volumeAutoResize = new VolumeAutoResize();
+            this.volumeAutoResize = new AzureStorageVolumeAutoResize();
         }
 
         public static Builder get() {
@@ -86,12 +86,12 @@ public class VolumeAutoResize {
             return this;
         }
 
-        public Builder setResizePolicies(final List<VolumeAutoResizeResizePolicy> resizePolicies) {
+        public Builder setResizePolicies(final List<AzureStorageVolumeAutoResizeResizePolicy> resizePolicies) {
             volumeAutoResize.setResizePolicies(resizePolicies);
             return this;
         }
 
-        public VolumeAutoResize build() {
+        public AzureStorageVolumeAutoResize build() {
             // Validations
             return volumeAutoResize;
         }

@@ -11,7 +11,7 @@ import java.util.Map;
 public class AzureStorageVolumeCreationRequest {
     //region Members
     @JsonProperty("volume")
-    private VolumeAzureStorage volume;
+    private AzureStorageVolume volume;
     //endregion
 
     //region Private constructor
@@ -21,11 +21,11 @@ public class AzureStorageVolumeCreationRequest {
 
 
     //region Getters & Setters
-    public VolumeAzureStorage getVolume() {
+    public AzureStorageVolume getVolume() {
         return volume;
     }
 
-    public void setVolume(VolumeAzureStorage volume) {
+    public void setVolume(AzureStorageVolume volume) {
         this.volume = volume;
     }
     //endregion
@@ -43,7 +43,7 @@ public class AzureStorageVolumeCreationRequest {
             return builder;
         }
 
-        public Builder setVolume(final VolumeAzureStorage volume) {
+        public Builder setVolume(final AzureStorageVolume volume) {
             volumeCreationRequestStorage.setVolume(volume);
             return this;
         }
@@ -57,7 +57,7 @@ public class AzureStorageVolumeCreationRequest {
 
     //region Json methods
     public String toJson() {
-        ApiAzureStorageVolume apiVolumeToCreate = VolumeConverter.toDal(volume);
+        ApiAzureStorageVolume apiVolumeToCreate = AzureStorageVolumeConverter.toDal(volume);
 
         Map<String, ApiAzureStorageVolume> groupRequest = new HashMap<>();
         groupRequest.put("volume", apiVolumeToCreate);

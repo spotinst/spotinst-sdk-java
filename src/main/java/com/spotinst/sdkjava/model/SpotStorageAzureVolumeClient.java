@@ -5,7 +5,8 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.spotStorage.AzureStorageVolumeCreationRequest;
-import com.spotinst.sdkjava.model.bl.spotStorage.VolumeAzureStorage;
+import com.spotinst.sdkjava.model.bl.spotStorage.AzureStorageVolume;
+import com.spotinst.sdkjava.model.bl.spotStorage.AzureStorageVolumeDeletionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,14 +41,14 @@ public class SpotStorageAzureVolumeClient {
     //endregion
 
     //region Methods
-    public VolumeAzureStorage createVolume(AzureStorageVolumeCreationRequest azureStorageVolumeCreationRequest) {
+    public AzureStorageVolume createVolume(AzureStorageVolumeCreationRequest azureStorageVolumeCreationRequest) {
 
-        VolumeAzureStorage retVal;
+        AzureStorageVolume retVal;
 
-        VolumeAzureStorage                      volumeToCreate   = azureStorageVolumeCreationRequest.getVolume();
+        AzureStorageVolume                      volumeToCreate   = azureStorageVolumeCreationRequest.getVolume();
         SpotinstRepoManager                     managerInstance  = SpotinstRepoManager.getInstance();
         ISpotStorageAzureVolumeRepo             repoGcp          = managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<VolumeAzureStorage> creationResponse = repoGcp.create(volumeToCreate, authToken, account);
+        RepoGenericResponse<AzureStorageVolume> creationResponse = repoGcp.create(volumeToCreate, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -67,7 +68,7 @@ public class SpotStorageAzureVolumeClient {
 
         Boolean retVal;
 
-        VolumeAzureStorage           volumeToUpdate  = volumeUpdateRequest.getVolume();
+        AzureStorageVolume           volumeToUpdate  = volumeUpdateRequest.getVolume();
         SpotinstRepoManager          managerInstance = SpotinstRepoManager.getInstance();
         ISpotStorageAzureVolumeRepo  repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<Boolean> updateResponse  = repoGcp.update(volumeId, volumeToUpdate, authToken, account);
@@ -84,7 +85,7 @@ public class SpotStorageAzureVolumeClient {
         return retVal;
     }
 
-    public Boolean deleteVolume(VolumeDeletionRequest volumeDeletionRequest) {
+    public Boolean deleteVolume(AzureStorageVolumeDeletionRequest volumeDeletionRequest) {
 
         Boolean                      retVal;
         String                       volumeToDeleteId       = volumeDeletionRequest.getVolumeId();
@@ -105,13 +106,13 @@ public class SpotStorageAzureVolumeClient {
         return retVal;
     }
 
-    public List<VolumeAzureStorage> getAllVolumes() {
-        List<VolumeAzureStorage> retVal;
+    public List<AzureStorageVolume> getAllVolumes() {
+        List<AzureStorageVolume> retVal;
 
         SpotinstRepoManager                           managerInstance            = SpotinstRepoManager.getInstance();
         ISpotStorageAzureVolumeRepo                   repoGcp                    =
                 managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<List<VolumeAzureStorage>> volumesRepoGenericResponse =
+        RepoGenericResponse<List<AzureStorageVolume>> volumesRepoGenericResponse =
                 repoGcp.getAll(null, authToken, account);
         if (volumesRepoGenericResponse.isRequestSucceed()) {
             retVal = volumesRepoGenericResponse.getValue();
@@ -137,14 +138,14 @@ public class SpotStorageAzureVolumeClient {
         return retVal;
     }
 
-    public VolumeAzureStorage getVolume(VolumeGetRequest volumeGetRequest) {
+    public AzureStorageVolume getVolume(VolumeGetRequest volumeGetRequest) {
 
-        VolumeAzureStorage retVal;
+        AzureStorageVolume retVal;
 
         String                      volumeId        = volumeGetRequest.getVolumeId();
         SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
         ISpotStorageAzureVolumeRepo repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<VolumeAzureStorage> volumeAzureStorageRepoGenericResponse =
+        RepoGenericResponse<AzureStorageVolume> volumeAzureStorageRepoGenericResponse =
                 repoGcp.get(volumeId, authToken, account);
 
         if (volumeAzureStorageRepoGenericResponse.isRequestSucceed()) {

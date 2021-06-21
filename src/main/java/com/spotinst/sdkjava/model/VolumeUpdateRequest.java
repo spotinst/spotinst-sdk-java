@@ -3,8 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.spotStorage.ApiAzureStorageVolume;
-import com.spotinst.sdkjava.model.bl.spotStorage.VolumeAzureStorage;
-import com.spotinst.sdkjava.model.bl.spotStorage.VolumeConverter;
+import com.spotinst.sdkjava.model.bl.spotStorage.AzureStorageVolume;
+import com.spotinst.sdkjava.model.bl.spotStorage.AzureStorageVolumeConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class VolumeUpdateRequest {
     //region Members
     @JsonProperty("group")
-    private VolumeAzureStorage volumeAzureStorage;
+    private AzureStorageVolume volumeAzureStorage;
     //endregion
 
     //region Private Constructor
@@ -23,11 +23,11 @@ public class VolumeUpdateRequest {
 
     //region Getters & Setters
 
-    public VolumeAzureStorage getVolume() {
+    public AzureStorageVolume getVolume() {
         return volumeAzureStorage;
     }
 
-    public void setVolume(VolumeAzureStorage volume) {
+    public void setVolume(AzureStorageVolume volume) {
         this.volumeAzureStorage = volume;
     }
 
@@ -44,7 +44,7 @@ public class VolumeUpdateRequest {
             return builder;
         }
 
-        public Builder setVolume(final VolumeAzureStorage volume) {
+        public Builder setVolume(final AzureStorageVolume volume) {
             volumeCreationRequest.setVolume(volume);
             return this;
         }
@@ -57,7 +57,7 @@ public class VolumeUpdateRequest {
 
     //region Json methods
     public String toJson() {
-        ApiAzureStorageVolume apiElastigroupToCreate = VolumeConverter.toDal(volumeAzureStorage);
+        ApiAzureStorageVolume apiElastigroupToCreate = AzureStorageVolumeConverter.toDal(volumeAzureStorage);
 
         Map<String, ApiAzureStorageVolume> groupRequest = new HashMap<>();
         groupRequest.put("group", apiElastigroupToCreate);
