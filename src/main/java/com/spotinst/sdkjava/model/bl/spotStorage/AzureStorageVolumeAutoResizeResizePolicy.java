@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention - done
 public class AzureStorageVolumeAutoResizeResizePolicy {
     //region Members
     @JsonIgnore

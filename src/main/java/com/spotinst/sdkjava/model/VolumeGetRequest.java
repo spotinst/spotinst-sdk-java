@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstValidationException;
 import org.apache.commons.lang3.StringUtils;
 
+// TODO yael: is this class necessary?
 public class VolumeGetRequest {
     //region Members
     private String volumeId;

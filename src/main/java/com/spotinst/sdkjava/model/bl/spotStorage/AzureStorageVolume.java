@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention - done
 public class AzureStorageVolume {
     //region Members
     @JsonIgnore

@@ -36,8 +36,6 @@ public class SpotStorageAzureVolumeClient {
         }
 
     }
-
-
     //endregion
 
     //region Methods
@@ -47,6 +45,7 @@ public class SpotStorageAzureVolumeClient {
 
         AzureStorageVolume                      volumeToCreate   = azureStorageVolumeCreationRequest.getVolume();
         SpotinstRepoManager                     managerInstance  = SpotinstRepoManager.getInstance();
+//        TODO yael: variable name
         ISpotStorageAzureVolumeRepo             repoGcp          = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<AzureStorageVolume> creationResponse = repoGcp.create(volumeToCreate, authToken, account);
 
@@ -70,6 +69,8 @@ public class SpotStorageAzureVolumeClient {
 
         AzureStorageVolume           volumeToUpdate  = volumeUpdateRequest.getVolume();
         SpotinstRepoManager          managerInstance = SpotinstRepoManager.getInstance();
+//        TODO yael: variable name
+//        TODO yael: CC (if block)
         ISpotStorageAzureVolumeRepo  repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<Boolean> updateResponse  = repoGcp.update(volumeId, volumeToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
@@ -86,10 +87,11 @@ public class SpotStorageAzureVolumeClient {
     }
 
     public Boolean deleteVolume(AzureStorageVolumeDeletionRequest volumeDeletionRequest) {
-
+        //        TODO yael: CC (if block)
         Boolean                      retVal;
         String                       volumeToDeleteId       = volumeDeletionRequest.getVolumeId();
         SpotinstRepoManager          managerInstance        = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name
         ISpotStorageAzureVolumeRepo  repoGcp                = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<Boolean> volumeDeletionResponse = repoGcp.delete(volumeToDeleteId, authToken, account);
         if (volumeDeletionResponse.isRequestSucceed()) {
@@ -108,8 +110,9 @@ public class SpotStorageAzureVolumeClient {
 
     public List<AzureStorageVolume> getAllVolumes() {
         List<AzureStorageVolume> retVal;
-
+        //        TODO yael: CC (if block)
         SpotinstRepoManager                           managerInstance            = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name
         ISpotStorageAzureVolumeRepo                   repoGcp                    =
                 managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<List<AzureStorageVolume>> volumesRepoGenericResponse =
@@ -125,6 +128,7 @@ public class SpotStorageAzureVolumeClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
+//        TODO yael: what is the purpose of this?
         System.out.println("GET- List All Volumes:");
 
         if (retVal.size() == 0) { // No groups for this account
@@ -144,6 +148,7 @@ public class SpotStorageAzureVolumeClient {
 
         String                      volumeId        = volumeGetRequest.getVolumeId();
         SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name
         ISpotStorageAzureVolumeRepo repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<AzureStorageVolume> volumeAzureStorageRepoGenericResponse =
                 repoGcp.get(volumeId, authToken, account);

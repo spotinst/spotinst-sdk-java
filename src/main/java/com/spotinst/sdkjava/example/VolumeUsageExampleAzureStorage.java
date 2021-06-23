@@ -10,7 +10,6 @@ import java.util.List;
 
 public class VolumeUsageExampleAzureStorage {
 
-    //    TODO yael: we talked about it
     private final static String auth_token          = "";
     private final static String account_id          = "act-e929c6e7";
     private static final String VOLUME_NAME          = "spot-volume-name";
@@ -22,6 +21,7 @@ public class VolumeUsageExampleAzureStorage {
 
         // Create volume
 //        TODO yael: return the object here, and then get its ID - i dont really understand, i did exactly as other examples
+//        TODO yael: instead of return createdVolume.getId(), return createdVolume;
         String volumeId = createVolume(volumeClient);
 
         // Sleep for provisioning
@@ -113,7 +113,6 @@ public class VolumeUsageExampleAzureStorage {
                 specNetwork = VolumeSpecNetworkBuilder.setVirtualNetworkName("AutomationResourceGroup-vnet")
                                                       .setResourceGroupName("AutomationResourceGroup")
                                                       .setSubnetName("storage_subnet").build();
-//        TODO yael: don't keep commented code. - done
 
         AzureStorageVolumeSpecProtocol.Builder VolumeSpecProtocolBuilder = AzureStorageVolumeSpecProtocol.Builder.get();
 

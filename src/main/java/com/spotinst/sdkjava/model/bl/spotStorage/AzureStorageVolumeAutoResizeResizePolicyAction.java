@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention - done
 public class AzureStorageVolumeAutoResizeResizePolicyAction {
     //region Members
     @JsonIgnore
@@ -89,11 +88,13 @@ public class AzureStorageVolumeAutoResizeResizePolicyAction {
     //region isSet methods
     // Is type Set boolean method
     @JsonIgnore
+//    TODO yael: coding conventions: isTypeSet
     public boolean istypeSet() {
         return isSet.contains("type");
     }
 
     // Is adjustmentPercentage Set boolean method
+    //    TODO yael: coding conventions: isAdjustment..
     @JsonIgnore
     public boolean isadjustmentPercentageSet() {
         return isSet.contains("adjustmentPercentage");

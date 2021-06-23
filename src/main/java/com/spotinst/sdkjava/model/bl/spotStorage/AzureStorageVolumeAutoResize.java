@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-// TODO yael: rename BL objects to follow convention - done
 public class AzureStorageVolumeAutoResize {
     //region Members
     @JsonIgnore

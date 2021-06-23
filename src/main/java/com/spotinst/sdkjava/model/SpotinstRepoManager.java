@@ -24,7 +24,7 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
-    private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
+    private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
     //endregion
 
     //region Constructor

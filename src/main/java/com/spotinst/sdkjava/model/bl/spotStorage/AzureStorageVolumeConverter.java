@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO yael: rename BL objects to follow convention - done
 public class AzureStorageVolumeConverter {
     //region BL -> DAL
 
@@ -38,7 +37,6 @@ public class AzureStorageVolumeConverter {
                 retVal.setThroughput(toDal(src.getThroughput()));
             }
 
-//            TODO yael: CR checkpoint
             if (src.isVolumeSpecSet()) {
                 retVal.setVolumeSpec(toDal(src.getVolumeSpec()));
             }
@@ -121,7 +119,6 @@ public class AzureStorageVolumeConverter {
             if (volumeSpec.isTagsSet()) {
 
                 if (volumeSpec.getTags() != null) {
-//                    TODO yael: use the converter of the object you're converting (check other conversions) - i think i did it right, cant find the problem
                     List<ApiAzureStorageVolumeTag> tags =
                             volumeSpec.getTags().stream().map(AzureStorageVolumeConverter::toDal).collect(Collectors.toList());
                     retVal.setTags(tags);
@@ -150,6 +147,7 @@ public class AzureStorageVolumeConverter {
                 retVal.setPolicyType(volumeAutoResize.getPolicyType());
             }
 
+//            TODO yael: coding conventions
             if (volumeAutoResize.isResizePoliciesSet()) {
                 if (volumeAutoResize.getResizePolicies() != null) {
                     List<ApiAzureStorageVolumeAutoResizeResizePolicy> policies =
@@ -571,6 +569,7 @@ public class AzureStorageVolumeConverter {
 
             if (volumeSpecProtocol.isTypesSet()) {
 
+//                TODO yael: CC - switch this conditional, positive first
                 if (volumeSpecProtocol.getTypes() == null) {
                     builder.setTypes(null);
                 }
@@ -677,6 +676,8 @@ public class AzureStorageVolumeConverter {
             }
 
             if (volumeSpecProtocolExportPolicyRule.isKerberosRuleAccessesSet()) {
+
+//                TODO yael: CC - switch this conditional, positive (!= null) first
 
                 if (volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses() == null) {
                     builder.setKerberosRuleAccesses(null);
