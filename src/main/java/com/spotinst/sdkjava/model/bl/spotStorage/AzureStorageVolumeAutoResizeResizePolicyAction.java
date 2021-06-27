@@ -88,15 +88,15 @@ public class AzureStorageVolumeAutoResizeResizePolicyAction {
     //region isSet methods
     // Is type Set boolean method
     @JsonIgnore
-//    TODO yael: coding conventions: isTypeSet
-    public boolean istypeSet() {
+//    TODO yael: coding conventions: isTypeSet - done
+    public boolean isTypeSet() {
         return isSet.contains("type");
     }
 
     // Is adjustmentPercentage Set boolean method
-    //    TODO yael: coding conventions: isAdjustment..
+    //    TODO yael: coding conventions: isAdjustment - done
     @JsonIgnore
-    public boolean isadjustmentPercentageSet() {
+    public boolean isAdjustmentPercentageSet() {
         return isSet.contains("adjustmentPercentage");
     }
     //endregion

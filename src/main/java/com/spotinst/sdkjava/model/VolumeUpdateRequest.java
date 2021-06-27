@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class VolumeUpdateRequest {
     //region Members
-//    TODO yael: in update request we send the volume as group?
-    @JsonProperty("group")
+//    TODO yael: in update request we send the volume as group? - done
+    @JsonProperty("volume")
     private AzureStorageVolume volumeAzureStorage;
     //endregion
 
@@ -58,12 +58,12 @@ public class VolumeUpdateRequest {
 
     //region Json methods
     public String toJson() {
-//        TODO yael: variable name
-        ApiAzureStorageVolume apiElastigroupToCreate = AzureStorageVolumeConverter.toDal(volumeAzureStorage);
+//        TODO yael: variable name - done
+        ApiAzureStorageVolume volumeToCreate = AzureStorageVolumeConverter.toDal(volumeAzureStorage);
 
         Map<String, ApiAzureStorageVolume> groupRequest = new HashMap<>();
-        //    TODO yael: in update request we send the volume as group?
-        groupRequest.put("group", apiElastigroupToCreate);
+        //    TODO yael: in update request we send the volume as group? - done
+        groupRequest.put("volume", volumeToCreate);
         String volumeJson = JsonMapper.toJson(groupRequest);
 
         return volumeJson;

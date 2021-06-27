@@ -10,9 +10,10 @@ import java.util.List;
 
 public class VolumeUsageExampleAzureStorage {
 
-    private final static String auth_token          = "";
-    private final static String account_id          = "act-e929c6e7";
-    private static final String VOLUME_NAME          = "spot-volume-name";
+    private final static String auth_token  = "";
+    private final static String account_id  = "";
+    private static final String VOLUME_NAME = "spot-volume-name";
+    private static final String MOUNT_PATH  = "mountPath";
 
     public static void main(String[] args) throws IOException {
 
@@ -20,9 +21,10 @@ public class VolumeUsageExampleAzureStorage {
         SpotStorageAzureVolumeClient volumeClient = SpotinstClient.getVolumeClient(auth_token, account_id);
 
         // Create volume
-//        TODO yael: return the object here, and then get its ID - i dont really understand, i did exactly as other examples
-//        TODO yael: instead of return createdVolume.getId(), return createdVolume;
-        String volumeId = createVolume(volumeClient);
+//        TODO yael: return the object here, and then get its ID - i dont really understand, i did exactly as other examples - done
+//        TODO yael: instead of return createdVolume.getId(), return createdVolume - done
+        AzureStorageVolume newVolume = createVolume(volumeClient);
+        String volumeId = newVolume.getId();
 
         // Sleep for provisioning
         System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
@@ -55,21 +57,12 @@ public class VolumeUsageExampleAzureStorage {
         // Delete volume
         deleteVolume(volumeClient, volumeId);
 
-//        TODO yael: add updateVolume Example
+//        TODO yael: add updateVolume Example - done
 
     }
-    /*
-//todo yael- main for deletion only. Shibel- the update part not working yet, so i use this fot testing- i'll delete it when finished
-
-    public static void main(String[] args) throws IOException {
-
-        SpotStorageAzureVolumeClient volumeClient = SpotinstClient.getVolumeClient(auth_token, account_id);
-        String volumeId = "ssv-e63eba2a";
-        deleteVolume(volumeClient, volumeId);
-    }*/
 
 
-    private static String createVolume(SpotStorageAzureVolumeClient client) {
+    private static AzureStorageVolume createVolume(SpotStorageAzureVolumeClient client) {
         System.out.println("-------------------------start creating volume------------------------");
 
         //build Auto Resize Resize Policy Action
@@ -123,7 +116,7 @@ public class VolumeUsageExampleAzureStorage {
                 VolumeSpecProtocolBuilder.setTypes(typesList)
                         //.setExportPolicy(specProtocolExportPolicy)
                                         // .setKerberosEnabled(true).setSecurityStyle("securityStyle")
-                                         .setMountPath("mountPath2").build();
+                                         .setMountPath(MOUNT_PATH).build();
 
 
         //build Spec
@@ -166,8 +159,8 @@ public class VolumeUsageExampleAzureStorage {
         AzureStorageVolume createdVolume = client.createVolume(creationRequest);
         System.out.println("Volume successfully created: " + createdVolume.getId());
 
-        // Get volume Id
-        return createdVolume.getId();
+        // Get volume
+        return createdVolume;
     }
 
     private static void updateVolume(SpotStorageAzureVolumeClient client, String volumeId) {

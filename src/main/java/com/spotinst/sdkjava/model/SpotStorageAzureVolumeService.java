@@ -87,12 +87,12 @@ public class SpotStorageAzureVolumeService extends BaseSpotinstService {
         return retVal;
     }
 
-//    TODO yael: does this return only a boolean?
+//    TODO yael: does this return only a boolean? - done
     public static Boolean updateVolume(String volumeId, ApiAzureStorageVolume apiAzureStorageVolume, String authToken,
                                        String account) throws SpotinstHttpException {
 
         //Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -113,10 +113,10 @@ public class SpotStorageAzureVolumeService extends BaseSpotinstService {
         String uri = String.format("%s/azure/storage/volume/%s", apiEndpoint, volumeId);
 
         // Write to json
-//        TODO yael: variable name
-        Map<String, ApiAzureStorageVolume> groupRequest = new HashMap<>();
-        groupRequest.put("volume", apiAzureStorageVolume);
-        String body = JsonMapper.toJson(groupRequest);
+//        TODO yael: variable name - done
+        Map<String, ApiAzureStorageVolume> volumeRequest = new HashMap<>();
+        volumeRequest.put("volume", apiAzureStorageVolume);
+        String body = JsonMapper.toJson(volumeRequest);
 
         // Send the request.
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);

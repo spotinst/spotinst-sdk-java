@@ -23,7 +23,7 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
 
             ApiAzureStorageVolume         apiVolumeToCreate = AzureStorageVolumeConverter.toDal(volumeToCreate);
             SpotStorageAzureVolumeService volumeService     = new SpotStorageAzureVolumeService();
-//            TODO yael: use static reference
+//            TODO yael: use static reference - i don't think it's possible, or i just didnt understand your meaning
             ApiAzureStorageVolume apiCreatedVolume = volumeService.createVolume(apiVolumeToCreate, authToken, account);
 
 
@@ -38,13 +38,13 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
     }
 
 
-//    TODO yael: better to call the first param volumeId
+//    TODO yael: better to call the first param volumeId - done
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
+    public RepoGenericResponse<Boolean> delete(String volumeId, String authToken, String accountId) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = SpotStorageAzureVolumeService.deleteVolume(identifier, authToken, account);
+            Boolean updated = SpotStorageAzureVolumeService.deleteVolume(volumeId, authToken, accountId);
             retVal = new RepoGenericResponse<>(updated);
 
         }
@@ -55,7 +55,7 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
         return retVal;
     }
 
-//    TODO yael: verify that an update operation does return boolean only and not an object (as per the signature)
+//    TODO yael: verify that an update operation does return boolean only and not an object (as per the signature) - done
     @Override
     public RepoGenericResponse<Boolean> update(String volumeId, AzureStorageVolume volumeUpdate, String authToken,
                                                String account) {
@@ -92,20 +92,20 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
 
     @Override
     public RepoGenericResponse<List<AzureStorageVolume>> getAll(Void filter, String authToken, String account) {
-        RepoGenericResponse<List<AzureStorageVolume>> retVal;
+        RepoGenericResponse<List<AzureStorageVolume>> retValues;
 
         try {
-//            TODO yael: plural names
-            List<ApiAzureStorageVolume> apiVolume = SpotStorageAzureVolumeService.getAllVolumes(authToken, account);
+//            TODO yael: plural names - done
+            List<ApiAzureStorageVolume> apiVolumes = SpotStorageAzureVolumeService.getAllVolumes(authToken, account);
             List<AzureStorageVolume> volumes =
-                    apiVolume.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
-            retVal = new RepoGenericResponse<>(volumes);
+                    apiVolumes.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
+            retValues = new RepoGenericResponse<>(volumes);
         }
         catch (SpotinstHttpException e) {
-            retVal = ExceptionHelper.handleHttpException(e);
+            retValues = ExceptionHelper.handleHttpException(e);
         }
 
-        return retVal;
+        return retValues;
     }
 
 }

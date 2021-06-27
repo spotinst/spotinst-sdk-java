@@ -147,8 +147,9 @@ public class AzureStorageVolumeConverter {
                 retVal.setPolicyType(volumeAutoResize.getPolicyType());
             }
 
-//            TODO yael: coding conventions
+//            TODO yael: coding conventions - done
             if (volumeAutoResize.isResizePoliciesSet()) {
+
                 if (volumeAutoResize.getResizePolicies() != null) {
                     List<ApiAzureStorageVolumeAutoResizeResizePolicy> policies =
                             volumeAutoResize.getResizePolicies().stream().map(AzureStorageVolumeConverter::toDal)
@@ -352,11 +353,11 @@ public class AzureStorageVolumeConverter {
         if (volumeAutoResizeResizePolicyAction != null) {
             retVal = new ApiAzureStorageVolumeAutoResizeResizePolicyAction();
 
-            if (volumeAutoResizeResizePolicyAction.istypeSet()) {
+            if (volumeAutoResizeResizePolicyAction.isTypeSet()) {
                 retVal.setType(volumeAutoResizeResizePolicyAction.getType());
             }
 
-            if (volumeAutoResizeResizePolicyAction.isadjustmentPercentageSet()) {
+            if (volumeAutoResizeResizePolicyAction.isAdjustmentPercentageSet()) {
                 retVal.setAdjustmentPercentage(volumeAutoResizeResizePolicyAction.getAdjustmentPercentage());
             }
         }
@@ -569,12 +570,12 @@ public class AzureStorageVolumeConverter {
 
             if (volumeSpecProtocol.isTypesSet()) {
 
-//                TODO yael: CC - switch this conditional, positive first
-                if (volumeSpecProtocol.getTypes() == null) {
-                    builder.setTypes(null);
+//                TODO yael: CC - switch this conditional, positive first - done
+                if (volumeSpecProtocol.getTypes() != null) {
+                    builder.setTypes(new LinkedList<>(volumeSpecProtocol.getTypes()));
                 }
                 else {
-                    builder.setTypes(new LinkedList<>(volumeSpecProtocol.getTypes()));
+                    builder.setTypes(null);
                 }
             }
 
@@ -677,14 +678,13 @@ public class AzureStorageVolumeConverter {
 
             if (volumeSpecProtocolExportPolicyRule.isKerberosRuleAccessesSet()) {
 
-//                TODO yael: CC - switch this conditional, positive (!= null) first
+//                TODO yael: CC - switch this conditional, positive (!= null) first - done
 
-                if (volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses() == null) {
-                    builder.setKerberosRuleAccesses(null);
+                if (volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses() != null) {
+                    new LinkedList<>(volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses());
                 }
                 else {
-                    builder.setKerberosRuleAccesses(
-                            new LinkedList<>(volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses()));
+                    builder.setKerberosRuleAccesses(null);
                 }
             }
 

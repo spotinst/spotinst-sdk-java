@@ -43,11 +43,12 @@ public class SpotStorageAzureVolumeClient {
 
         AzureStorageVolume retVal;
 
-        AzureStorageVolume                      volumeToCreate   = azureStorageVolumeCreationRequest.getVolume();
-        SpotinstRepoManager                     managerInstance  = SpotinstRepoManager.getInstance();
-//        TODO yael: variable name
-        ISpotStorageAzureVolumeRepo             repoGcp          = managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<AzureStorageVolume> creationResponse = repoGcp.create(volumeToCreate, authToken, account);
+        AzureStorageVolume  volumeToCreate  = azureStorageVolumeCreationRequest.getVolume();
+        SpotinstRepoManager managerInstance = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name - done
+        ISpotStorageAzureVolumeRepo volumeRepo = managerInstance.getSpotStorageAzureVolumeRepo();
+        RepoGenericResponse<AzureStorageVolume> creationResponse =
+                volumeRepo.create(volumeToCreate, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -67,12 +68,13 @@ public class SpotStorageAzureVolumeClient {
 
         Boolean retVal;
 
-        AzureStorageVolume           volumeToUpdate  = volumeUpdateRequest.getVolume();
-        SpotinstRepoManager          managerInstance = SpotinstRepoManager.getInstance();
-//        TODO yael: variable name
-//        TODO yael: CC (if block)
-        ISpotStorageAzureVolumeRepo  repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<Boolean> updateResponse  = repoGcp.update(volumeId, volumeToUpdate, authToken, account);
+        AzureStorageVolume  volumeToUpdate  = volumeUpdateRequest.getVolume();
+        SpotinstRepoManager managerInstance = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name - done
+        //        TODO yael: CC (if block) - done
+        ISpotStorageAzureVolumeRepo  volumeRepo     = managerInstance.getSpotStorageAzureVolumeRepo();
+        RepoGenericResponse<Boolean> updateResponse = volumeRepo.update(volumeId, volumeToUpdate, authToken, account);
+
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -87,13 +89,14 @@ public class SpotStorageAzureVolumeClient {
     }
 
     public Boolean deleteVolume(AzureStorageVolumeDeletionRequest volumeDeletionRequest) {
-        //        TODO yael: CC (if block)
-        Boolean                      retVal;
-        String                       volumeToDeleteId       = volumeDeletionRequest.getVolumeId();
-        SpotinstRepoManager          managerInstance        = SpotinstRepoManager.getInstance();
-        //        TODO yael: variable name
-        ISpotStorageAzureVolumeRepo  repoGcp                = managerInstance.getSpotStorageAzureVolumeRepo();
-        RepoGenericResponse<Boolean> volumeDeletionResponse = repoGcp.delete(volumeToDeleteId, authToken, account);
+        //        TODO yael: CC (if block) - done
+        Boolean             retVal;
+        String              volumeToDeleteId = volumeDeletionRequest.getVolumeId();
+        SpotinstRepoManager managerInstance  = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name - done
+        ISpotStorageAzureVolumeRepo  volumeRepo             = managerInstance.getSpotStorageAzureVolumeRepo();
+        RepoGenericResponse<Boolean> volumeDeletionResponse = volumeRepo.delete(volumeToDeleteId, authToken, account);
+
         if (volumeDeletionResponse.isRequestSucceed()) {
             retVal = volumeDeletionResponse.getValue();
         }
@@ -110,13 +113,13 @@ public class SpotStorageAzureVolumeClient {
 
     public List<AzureStorageVolume> getAllVolumes() {
         List<AzureStorageVolume> retVal;
-        //        TODO yael: CC (if block)
-        SpotinstRepoManager                           managerInstance            = SpotinstRepoManager.getInstance();
-        //        TODO yael: variable name
-        ISpotStorageAzureVolumeRepo                   repoGcp                    =
-                managerInstance.getSpotStorageAzureVolumeRepo();
+        //        TODO yael: CC (if block) - done
+        SpotinstRepoManager managerInstance = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name - done
+        ISpotStorageAzureVolumeRepo volumeRepo = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<List<AzureStorageVolume>> volumesRepoGenericResponse =
-                repoGcp.getAll(null, authToken, account);
+                volumeRepo.getAll(null, authToken, account);
+
         if (volumesRepoGenericResponse.isRequestSucceed()) {
             retVal = volumesRepoGenericResponse.getValue();
         }
@@ -128,15 +131,15 @@ public class SpotStorageAzureVolumeClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-//        TODO yael: what is the purpose of this?
+        //        TODO yael: what is the purpose of this? - to print all the volumes (?)
         System.out.println("GET- List All Volumes:");
 
-        if (retVal.size() == 0) { // No groups for this account
-            System.out.println("No group found for this account");
+        if (retVal.size() == 0) { // No volume for this account
+            System.out.println("No volume found for this account");
         }
 
         for (int i = 0; i < retVal.size(); i++) {
-            System.out.println("Group number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
+            System.out.println("volume number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
         }
 
         return retVal;
@@ -146,12 +149,12 @@ public class SpotStorageAzureVolumeClient {
 
         AzureStorageVolume retVal;
 
-        String                      volumeId        = volumeGetRequest.getVolumeId();
-        SpotinstRepoManager         managerInstance = SpotinstRepoManager.getInstance();
-        //        TODO yael: variable name
-        ISpotStorageAzureVolumeRepo repoGcp         = managerInstance.getSpotStorageAzureVolumeRepo();
+        String              volumeId        = volumeGetRequest.getVolumeId();
+        SpotinstRepoManager managerInstance = SpotinstRepoManager.getInstance();
+        //        TODO yael: variable name - done
+        ISpotStorageAzureVolumeRepo volumeRepo = managerInstance.getSpotStorageAzureVolumeRepo();
         RepoGenericResponse<AzureStorageVolume> volumeAzureStorageRepoGenericResponse =
-                repoGcp.get(volumeId, authToken, account);
+                volumeRepo.get(volumeId, authToken, account);
 
         if (volumeAzureStorageRepoGenericResponse.isRequestSucceed()) {
             LOGGER.info(String.format("get successfully the group %s", volumeId));
