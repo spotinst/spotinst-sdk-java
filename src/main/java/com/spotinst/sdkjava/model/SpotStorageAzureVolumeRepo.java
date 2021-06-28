@@ -24,7 +24,9 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
             ApiAzureStorageVolume         apiVolumeToCreate = AzureStorageVolumeConverter.toDal(volumeToCreate);
             SpotStorageAzureVolumeService volumeService     = new SpotStorageAzureVolumeService();
 //            TODO yael: use static reference - i don't think it's possible, or i just didnt understand your meaning
+//              - it's like you did in the delete method - SpotStorageAzureVolumeService.createVolume()
             ApiAzureStorageVolume apiCreatedVolume = volumeService.createVolume(apiVolumeToCreate, authToken, account);
+
 
 
             AzureStorageVolume createVolume = AzureStorageVolumeConverter.toBl(apiCreatedVolume);
@@ -38,7 +40,6 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
     }
 
 
-//    TODO yael: better to call the first param volumeId - done
     @Override
     public RepoGenericResponse<Boolean> delete(String volumeId, String authToken, String accountId) {
         RepoGenericResponse<Boolean> retVal;
@@ -55,7 +56,6 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
         return retVal;
     }
 
-//    TODO yael: verify that an update operation does return boolean only and not an object (as per the signature) - done
     @Override
     public RepoGenericResponse<Boolean> update(String volumeId, AzureStorageVolume volumeUpdate, String authToken,
                                                String account) {
@@ -95,7 +95,6 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
         RepoGenericResponse<List<AzureStorageVolume>> retValues;
 
         try {
-//            TODO yael: plural names - done
             List<ApiAzureStorageVolume> apiVolumes = SpotStorageAzureVolumeService.getAllVolumes(authToken, account);
             List<AzureStorageVolume> volumes =
                     apiVolumes.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
@@ -105,6 +104,7 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
             retValues = ExceptionHelper.handleHttpException(e);
         }
 
+//        TODO yael: retVal stays retVal
         return retValues;
     }
 

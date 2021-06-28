@@ -21,8 +21,6 @@ public class VolumeUsageExampleAzureStorage {
         SpotStorageAzureVolumeClient volumeClient = SpotinstClient.getVolumeClient(auth_token, account_id);
 
         // Create volume
-//        TODO yael: return the object here, and then get its ID - i dont really understand, i did exactly as other examples - done
-//        TODO yael: instead of return createdVolume.getId(), return createdVolume - done
         AzureStorageVolume newVolume = createVolume(volumeClient);
         String volumeId = newVolume.getId();
 
@@ -56,8 +54,6 @@ public class VolumeUsageExampleAzureStorage {
 
         // Delete volume
         deleteVolume(volumeClient, volumeId);
-
-//        TODO yael: add updateVolume Example - done
 
     }
 

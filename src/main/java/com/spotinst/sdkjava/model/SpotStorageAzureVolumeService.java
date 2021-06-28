@@ -87,7 +87,6 @@ public class SpotStorageAzureVolumeService extends BaseSpotinstService {
         return retVal;
     }
 
-//    TODO yael: does this return only a boolean? - done
     public static Boolean updateVolume(String volumeId, ApiAzureStorageVolume apiAzureStorageVolume, String authToken,
                                        String account) throws SpotinstHttpException {
 
@@ -113,7 +112,6 @@ public class SpotStorageAzureVolumeService extends BaseSpotinstService {
         String uri = String.format("%s/azure/storage/volume/%s", apiEndpoint, volumeId);
 
         // Write to json
-//        TODO yael: variable name - done
         Map<String, ApiAzureStorageVolume> volumeRequest = new HashMap<>();
         volumeRequest.put("volume", apiAzureStorageVolume);
         String body = JsonMapper.toJson(volumeRequest);

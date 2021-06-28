@@ -147,7 +147,6 @@ public class AzureStorageVolumeConverter {
                 retVal.setPolicyType(volumeAutoResize.getPolicyType());
             }
 
-//            TODO yael: coding conventions - done
             if (volumeAutoResize.isResizePoliciesSet()) {
 
                 if (volumeAutoResize.getResizePolicies() != null) {
@@ -570,7 +569,6 @@ public class AzureStorageVolumeConverter {
 
             if (volumeSpecProtocol.isTypesSet()) {
 
-//                TODO yael: CC - switch this conditional, positive first - done
                 if (volumeSpecProtocol.getTypes() != null) {
                     builder.setTypes(new LinkedList<>(volumeSpecProtocol.getTypes()));
                 }
@@ -677,8 +675,6 @@ public class AzureStorageVolumeConverter {
             }
 
             if (volumeSpecProtocolExportPolicyRule.isKerberosRuleAccessesSet()) {
-
-//                TODO yael: CC - switch this conditional, positive (!= null) first - done
 
                 if (volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses() != null) {
                     new LinkedList<>(volumeSpecProtocolExportPolicyRule.getKerberosRuleAccesses());
