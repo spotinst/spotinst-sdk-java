@@ -24,9 +24,8 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
             ApiAzureStorageVolume         apiVolumeToCreate = AzureStorageVolumeConverter.toDal(volumeToCreate);
             SpotStorageAzureVolumeService volumeService     = new SpotStorageAzureVolumeService();
 //            TODO yael: use static reference - i don't think it's possible, or i just didnt understand your meaning
-//              - it's like you did in the delete method - SpotStorageAzureVolumeService.createVolume()
-            ApiAzureStorageVolume apiCreatedVolume = volumeService.createVolume(apiVolumeToCreate, authToken, account);
-
+//              - it's like you did in the delete method - SpotStorageAzureVolumeService.createVolume() - done
+            ApiAzureStorageVolume apiCreatedVolume = SpotStorageAzureVolumeService.createVolume(apiVolumeToCreate, authToken, account);
 
 
             AzureStorageVolume createVolume = AzureStorageVolumeConverter.toBl(apiCreatedVolume);
@@ -92,20 +91,20 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
 
     @Override
     public RepoGenericResponse<List<AzureStorageVolume>> getAll(Void filter, String authToken, String account) {
-        RepoGenericResponse<List<AzureStorageVolume>> retValues;
+        RepoGenericResponse<List<AzureStorageVolume>> retVal;
 
         try {
             List<ApiAzureStorageVolume> apiVolumes = SpotStorageAzureVolumeService.getAllVolumes(authToken, account);
             List<AzureStorageVolume> volumes =
                     apiVolumes.stream().map(AzureStorageVolumeConverter::toBl).collect(Collectors.toList());
-            retValues = new RepoGenericResponse<>(volumes);
+            retVal = new RepoGenericResponse<>(volumes);
         }
         catch (SpotinstHttpException e) {
-            retValues = ExceptionHelper.handleHttpException(e);
+            retVal = ExceptionHelper.handleHttpException(e);
         }
 
-//        TODO yael: retVal stays retVal
-        return retValues;
+//        TODO yael: retVal stays retVal - done
+        return retVal;
     }
 
 }

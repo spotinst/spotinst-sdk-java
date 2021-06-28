@@ -13,7 +13,7 @@ public class VolumeUsageExampleAzureStorage {
     private final static String auth_token  = "";
     private final static String account_id  = "";
     private static final String VOLUME_NAME = "spot-volume-name";
-    private static final String MOUNT_PATH  = "mountPath";
+    private static final String MOUNT_PATH  = "mountPath1";
 
     public static void main(String[] args) throws IOException {
 

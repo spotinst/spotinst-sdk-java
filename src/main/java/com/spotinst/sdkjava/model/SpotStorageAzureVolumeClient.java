@@ -127,16 +127,7 @@ public class SpotStorageAzureVolumeClient {
 
         //        TODO yael: what is the purpose of this? - to print all the volumes (?)
         //          - no need to do this inside of a method. If someone wants to print them they can
-        //            call this method and print them themselves.
-        System.out.println("GET- List All Volumes:");
-
-        if (retVal.size() == 0) { // No volume for this account
-            System.out.println("No volume found for this account");
-        }
-
-        for (int i = 0; i < retVal.size(); i++) {
-            System.out.println("volume number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getId());
-        }
+        //            call this method and print them themselves. - done, deleted
 
         return retVal;
     }
