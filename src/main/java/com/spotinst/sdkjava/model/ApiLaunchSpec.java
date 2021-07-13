@@ -19,9 +19,9 @@ import java.util.Set;
 class ApiLaunchSpec implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                 isSet;
-    private String                      healthCheckType;
-    private Integer                     healthCheckGracePeriod;
+    private Set<String>                      isSet;
+    private String                           healthCheckType;
+    private Integer                          healthCheckGracePeriod;
     private List<String>                     securityGroupIds;
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
@@ -34,6 +34,7 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     private List<ApiTag>                     tags;
     private ApiGroupResourceTagSpecification resourceTagSpecification;
     private ApiLoadBalancersConfig           loadBalancersConfig;
+    private ApiItf                           itf;
     //endregion
 
     //region Constructor
@@ -177,6 +178,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
     }
+
+    public ApiItf getItf() {
+        return itf;
+    }
+
+    public void setItf(ApiItf itf) {
+        isSet.add("itf");
+        this.itf = itf;
+    }
     //endregion
 
     //region isSet methods
@@ -268,9 +278,12 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         return isSet.contains("tags");
     }
 
+    // Is loadBalancersConfig Set boolean method
     @JsonIgnore
-    public boolean isLoadBalancersConfigSet() {
-        return isSet.contains("loadBalancersConfig");
-    }
+    public boolean isLoadBalancersConfigSet() { return isSet.contains("loadBalancersConfig"); }
+
+    // Is itf Set boolean method
+    @JsonIgnore
+    public boolean isItfSet() { return isSet.contains("itf"); }
     //endregion
 }

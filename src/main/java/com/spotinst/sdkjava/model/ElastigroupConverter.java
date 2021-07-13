@@ -431,6 +431,10 @@ class ElastigroupConverter {
                     retVal.setTags(optimizerTags);
                 }
             }
+
+            if (launchSpecification.isItfSet()) {
+                retVal.setItf(toDal(launchSpecification.getItf()));
+            }
         }
 
         return retVal;
@@ -547,6 +551,156 @@ class ElastigroupConverter {
         }
 
         retVal.setLoadBalancers(apiLoadBalancers);
+
+        return retVal;
+    }
+
+    private static ApiItf toDal(ElastigroupItf itf) {
+        ApiItf retVal           = new ApiItf();
+
+        if (itf != null) {
+            retVal = new ApiItf();
+
+            if (itf.isMigrationHealthinessThresholdSet()) {
+                retVal.setMigrationHealthinessThreshold(itf.getMigrationHealthinessThreshold());
+            }
+
+            if (itf.isFixedTargetGroupsSet()) {
+                retVal.setFixedTargetGroups(itf.getFixedTargetGroups());
+            }
+
+            if (itf.isWeightStrategySet()) {
+                retVal.setWeightStrategy(itf.getWeightStrategy());
+            }
+
+            if (itf.isTargetGroupConfigSet()) {
+                retVal.setTargetGroupConfig(toDal(itf.getTargetGroupConfig()));
+            }
+
+            if (itf.isListenerRulesSet()) {
+                if (itf.getListenerRules() != null) {
+                    List<ApiListenerRules> optListenerRules =
+                            itf.getListenerRules().stream().map(ElastigroupConverter::toDal)
+                                   .collect(Collectors.toList());
+                    retVal.setListenerRules(optListenerRules);
+                }
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiListenerRules toDal(ElastigroupListenerRules listenerRules) {
+        ApiListenerRules retVal = null;
+
+        if (listenerRules != null) {
+            retVal = new ApiListenerRules();
+
+            if (listenerRules.isRuleArnSet()) {
+                retVal.setRuleArn(listenerRules.getRuleArn());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiTargetGroupConfig toDal(ElastigroupTargetGroupConfig targetGroupConfig) {
+        ApiTargetGroupConfig retVal = null;
+
+        if (targetGroupConfig != null) {
+            retVal = new ApiTargetGroupConfig();
+
+            if (targetGroupConfig.isHealthCheckIntervalSecondsSet()) {
+                retVal.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
+            }
+
+            if (targetGroupConfig.isHealthCheckPathSet()) {
+                retVal.setHealthCheckPath(targetGroupConfig.getHealthCheckPath());
+            }
+
+            if (targetGroupConfig.isHealthCheckPortSet()) {
+                retVal.setHealthCheckPort(targetGroupConfig.getHealthCheckPort());
+            }
+
+            if (targetGroupConfig.isHealthCheckProtocolSet()) {
+                retVal.setHealthCheckProtocol(targetGroupConfig.getHealthCheckProtocol());
+            }
+
+            if (targetGroupConfig.isHealthCheckTimeoutSecondsSet()) {
+                retVal.setHealthCheckTimeoutSeconds(targetGroupConfig.getHealthCheckTimeoutSeconds());
+            }
+
+            if (targetGroupConfig.isHealthyThresholdCountSet()) {
+                retVal.setHealthyThresholdCount(targetGroupConfig.getHealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isUnhealthyThresholdCountSet()) {
+                retVal.setUnhealthyThresholdCount(targetGroupConfig.getUnhealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isPortSet()) {
+                retVal.setPort(targetGroupConfig.getPort());
+            }
+
+            if (targetGroupConfig.isProtocolSet()) {
+                retVal.setProtocol(targetGroupConfig.getProtocol());
+            }
+
+            if (targetGroupConfig.isProtocolVersionSet()) {
+                retVal.setProtocolVersion(targetGroupConfig.getProtocolVersion());
+            }
+
+            if (targetGroupConfig.isTagsSet()) {
+                if (targetGroupConfig.getTags() != null) {
+                    List<ApiItfTags> optItfTags =
+                            targetGroupConfig.getTags().stream().map(ElastigroupConverter::toDal)
+                               .collect(Collectors.toList());
+                    retVal.setTags(optItfTags);
+                }
+            }
+
+            if (targetGroupConfig.isMatcherSet()) {
+                retVal.setMatcher(toDal(targetGroupConfig.getMatcher()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiMatcher toDal(ElastigroupMatcher matcher) {
+        ApiMatcher retVal = null;
+
+        if (matcher != null) {
+            retVal = new ApiMatcher();
+
+            if (matcher.isHttpCodeSet()) {
+                retVal.setHttpCode(matcher.getHttpCode());
+            }
+
+            if (matcher.isGrpcCodeSet()) {
+                retVal.setGrpcCode(matcher.getGrpcCode());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiItfTags toDal(ElastigroupItfTags tags) {
+        ApiItfTags retVal = null;
+
+        if (tags != null) {
+            retVal = new ApiItfTags();
+
+            if (tags.isTagKeySet()) {
+                retVal.setTagKey(tags.getTagKey());
+            }
+
+            if (tags.isTagValueSet()) {
+                retVal.setTagValue(tags.getTagValue());
+            }
+        }
 
         return retVal;
     }

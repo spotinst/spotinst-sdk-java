@@ -27,6 +27,7 @@ public class ElastigroupLaunchSpecification {
     private GroupResourceTagSpecification resourceTagSpecification;
     private List<BlockDeviceMapping> blockDeviceMappings;
     private LoadBalancersConfig      loadBalancersConfig;
+    private ElastigroupItf           itf;
     //endregion
 
     //region Constructor
@@ -172,6 +173,14 @@ public class ElastigroupLaunchSpecification {
         this.loadBalancersConfig = loadBalancersConfig;
     }
 
+    public ElastigroupItf getItf() {
+        return itf;
+    }
+
+    public void setItf(ElastigroupItf itf) {
+        isSet.add("itf");
+        this.itf = itf;
+    }
     //endregion
 
     //region Builder class
@@ -254,6 +263,11 @@ public class ElastigroupLaunchSpecification {
 
         public Builder setResourceTagSpecification(final GroupResourceTagSpecification resourceTagSpecification) {
             launchSpecification.setResourceTagSpecification(resourceTagSpecification);
+            return this;
+        }
+
+        public Builder setItf(final ElastigroupItf itf) {
+            launchSpecification.setItf(itf);
             return this;
         }
 
@@ -356,6 +370,12 @@ public class ElastigroupLaunchSpecification {
     @JsonIgnore
     public boolean isLoadBalancersConfigSet() {
         return isSet.contains("loadBalancersConfig");
+    }
+
+    // Is itf Set boolean method
+    @JsonIgnore
+    public boolean isItfSet() {
+        return isSet.contains("itf");
     }
     //endregion
 }
