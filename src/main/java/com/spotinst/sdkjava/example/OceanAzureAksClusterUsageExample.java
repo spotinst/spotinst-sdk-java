@@ -15,7 +15,7 @@ import static java.lang.Thread.sleep;
 public class OceanAzureAksClusterUsageExample {
 
     private final static String auth_token = "";
-        private final static String act_id     = "";
+    private final static String act_id     = "";
 
     public static void main(String[] args) throws InterruptedException {
         SpotOceanAzureAksClusterClient clusterClient = SpotinstClient.getOceanAzureAksClusterClient(auth_token, act_id);
@@ -24,9 +24,9 @@ public class OceanAzureAksClusterUsageExample {
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
-//        getCluster(clusterClient, clusterId);
-//        updateCluster(clusterClient, clusterId);
-//        listClusters(clusterClient);
+        getCluster(clusterClient, clusterId);
+        updateCluster(clusterClient, clusterId);
+        listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
 
     }
