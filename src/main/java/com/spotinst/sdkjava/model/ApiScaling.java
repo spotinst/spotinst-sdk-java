@@ -20,9 +20,11 @@ public class ApiScaling implements IPartialUpdateEntity {
     private Set<String>            isSet = new HashSet<>();
     private List<ApiScalingPolicy> up;
     private List<ApiScalingPolicy> down;
+    private List<ApiScalingPolicy> target;
     //endregion
 
     //region Getters & Setters
+    //region Up
     public List<ApiScalingPolicy> getUp() {
         return up;
     }
@@ -36,7 +38,9 @@ public class ApiScaling implements IPartialUpdateEntity {
     public boolean isUpSet() {
         return isSet.contains("up");
     }
+    //endregion
 
+    //region Down
     public List<ApiScalingPolicy> getDown() {
         return down;
     }
@@ -50,6 +54,23 @@ public class ApiScaling implements IPartialUpdateEntity {
     public boolean isDownSet() {
         return isSet.contains("down");
     }
+    //endregion
+
+    //region Target
+    public List<ApiScalingPolicy> getTarget() {
+        return target;
+    }
+
+    public void setTarget(List<ApiScalingPolicy> target) {
+        isSet.add("target");
+        this.target = target;
+    }
+
+    @JsonIgnore
+    public boolean isTargetSet() {
+        return isSet.contains("target");
+    }
+    //endregion
 
     @Override
     @JsonIgnore

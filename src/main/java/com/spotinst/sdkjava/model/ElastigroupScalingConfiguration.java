@@ -16,6 +16,7 @@ public class ElastigroupScalingConfiguration {
     private Set<String> isSet;
     private List<ScalingPolicy> up;
     private List<ScalingPolicy> down;
+    private List<ScalingPolicy> target;
     //endregion
 
     //region Constructor
@@ -60,6 +61,18 @@ public class ElastigroupScalingConfiguration {
 
     //endregion
 
+    //region Target
+    public List<ScalingPolicy> getTarget() {
+        return target;
+    }
+
+    public void setTarget(List<ScalingPolicy> target) {
+        isSet.add("target");
+        this.target = target;
+    }
+
+    //endregion
+
     //endregion
 
     //region Object overrides
@@ -71,7 +84,8 @@ public class ElastigroupScalingConfiguration {
         ElastigroupScalingConfiguration elastigroupScalingConfiguration = (ElastigroupScalingConfiguration) o;
 
         if (up != null ? !up.equals(elastigroupScalingConfiguration.up) : elastigroupScalingConfiguration.up != null) return false;
-        return !(down != null ? !down.equals(elastigroupScalingConfiguration.down) : elastigroupScalingConfiguration.down != null);
+        if (down != null ? !down.equals(elastigroupScalingConfiguration.down) : elastigroupScalingConfiguration.down != null) return false;
+        return !(target != null ? !target.equals(elastigroupScalingConfiguration.target) : elastigroupScalingConfiguration.target != null);
 
     }
 
@@ -79,6 +93,7 @@ public class ElastigroupScalingConfiguration {
     public int hashCode() {
         int result = up != null ? up.hashCode() : 0;
         result = 31 * result + (down != null ? down.hashCode() : 0);
+        result = 31 * result + (target != null ? target.hashCode() : 0);
         return result;
     }
     //endregion
@@ -106,6 +121,11 @@ public class ElastigroupScalingConfiguration {
             return this;
         }
 
+        public Builder setTarget(final List<ScalingPolicy> targetScalingPolicies) {
+            elastigroupScalingConfiguration.setTarget(targetScalingPolicies);
+            return this;
+        }
+
         public ElastigroupScalingConfiguration build() {
             // TODO : Validations
             return elastigroupScalingConfiguration;
@@ -123,6 +143,12 @@ public class ElastigroupScalingConfiguration {
     @JsonIgnore
     public boolean isDownSet() {
         return isSet.contains("down");
+    }
+
+    // Is target Set boolean method
+    @JsonIgnore
+    public boolean isTargetSet() {
+        return isSet.contains("target");
     }
 
     //endregion

@@ -24,6 +24,10 @@ class ApiElastigroupActiveInstanceConverter {
         retVal.setStatus(apiElastigroupActiveInstance.getStatus());
         retVal.setProduct(apiElastigroupActiveInstance.getProduct());
         retVal.setSpotInstanceRequestId(apiElastigroupActiveInstance.getSpotInstanceRequestId());
+        retVal.setGroupId(apiElastigroupActiveInstance.getGroupId());
+        retVal.setPublicIp(apiElastigroupActiveInstance.getPublicIp());
+        retVal.setPrivateIp(apiElastigroupActiveInstance.getPrivateIp());
+        retVal.setIpv6Address(apiElastigroupActiveInstance.getIpv6Address());
         return retVal;
     }
 }

@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by talzur on 11/01/2017.
@@ -24,6 +26,7 @@ public class SpotinstElastigroupClient {
     private              ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
     private              ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
     private              ISpotinstElastigroupInstanceHealthinessRepo spotinstElastigroupInstanceHealthinessRepo;
+    private              ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
     //endregion
 
     public ISpotinstElastigroupRepo getSpotinstElastigroupRepo() {
@@ -51,6 +54,15 @@ public class SpotinstElastigroupClient {
         this.spotinstElastigroupInstanceHealthinessRepo =
                 SpotinstRepoManager.getInstance().getSpotinstInstanceHealthinessRepo();
     }
+
+    public ISpotinstEventsLogsRepo getSpotinstElastigroupEventLogRepo() {
+        return this.spotinstElastigroupEventLogRepo;
+    }
+
+    public void setSpotinstElastigroupEventLogRepo() {
+        this.spotinstElastigroupEventLogRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupEventLogRepo();
+    }
+
     //region Constructor
     public SpotinstElastigroupClient(String authToken, String account) {
         this(authToken, account, null);
@@ -63,6 +75,7 @@ public class SpotinstElastigroupClient {
         setSpotinstElastigroupRepo();
         setSpotinstElastigroupActiveInstanceRepo();
         setInstanceHealthinessRepo();
+        setSpotinstElastigroupEventLogRepo();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -136,7 +149,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
-        String groupId = elastigroupStandbyRequest.getElastigroupId();
+        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
                 getSpotinstElastigroupRepo().enterStandby(groupId, authToken, account);
@@ -146,9 +159,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -157,7 +170,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
         Boolean retVal;
-        String groupId = elastigroupStandbyRequest.getElastigroupId();
+        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
                 getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
@@ -167,9 +180,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -397,8 +410,8 @@ public class SpotinstElastigroupClient {
     public SuspendedProcesses suspendProcess(ElastigroupSuspendProcessesRequest suspendProcessesRequest) {
         SuspendedProcesses retVal;
 
-        String elastigroupId = suspendProcessesRequest.getElastigroupId();
-        List<ProcessSuspension> suspensions = suspendProcessesRequest.getSuspensions();
+        String                  elastigroupId = suspendProcessesRequest.getElastigroupId();
+        List<ProcessSuspension> suspensions   = suspendProcessesRequest.getSuspensions();
 
         RepoGenericResponse<SuspendedProcesses> suspendProcessesResponse =
                 getSpotinstElastigroupRepo().suspendProcesses(elastigroupId, suspensions, authToken, account);
@@ -409,8 +422,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = suspendProcessesResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(
+                    String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -422,7 +436,7 @@ public class SpotinstElastigroupClient {
         SuspendedProcesses retVal;
 
         String                elastigroupId = request.getElastigroupId();
-        List<ProcessNameEnum> processNames   = request.getProcesses();
+        List<ProcessNameEnum> processNames  = request.getProcesses();
 
         RepoGenericResponse<SuspendedProcesses> removeSuspensionsResponse =
                 getSpotinstElastigroupRepo().removeSuspensions(elastigroupId, processNames, authToken, account);
@@ -433,8 +447,9 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = removeSuspensionsResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to remove process suspensions. Code: %s. Message: %s.",
-                                       httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to remove process suspensions. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -460,6 +475,44 @@ public class SpotinstElastigroupClient {
                     "Error encountered while attempting to get process suspensions. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<EventLog> getEventsLogs(GetEventsLogsRequest getEventsLogsRequest) {
+
+        List<EventLog> retVal = null;
+
+        String                 fromDate      = getEventsLogsRequest.getFromDate();
+        String                 toDate        = getEventsLogsRequest.getToDate();
+        EventsLogsSeverityEnum logsSeverity  = getEventsLogsRequest.getSeverity();
+        String                 resourceId    = getEventsLogsRequest.getResourceId();
+        String                 limit         = getEventsLogsRequest.getLimit();
+        String                 elastigroupId = getEventsLogsRequest.getElastigroupId();
+
+        EventsLogsFilter filter = new EventsLogsFilter();
+        filter.setFromDate(fromDate);
+        filter.setToDate(toDate);
+        if (Objects.nonNull(logsSeverity)) {
+            filter.setSeverity(logsSeverity.getName());
+        }
+        else {
+            filter.setSeverity(null);
+        }
+        filter.setResourceId(resourceId);
+        filter.setLimit(limit);
+        filter.setElastigroupId(elastigroupId);
+
+        RepoGenericResponse<List<EventLog>> eventsLogsResponse =
+                getSpotinstElastigroupEventLogRepo().getAll(filter, authToken, account);
+
+        if (eventsLogsResponse.isRequestSucceed()) {
+            retVal = eventsLogsResponse.getValue();
+        }
+        else {
+            String errorMessage = "Error encountered while attempting to get events logs";
+            handleFailure(eventsLogsResponse, errorMessage);
         }
 
         return retVal;

@@ -17,6 +17,10 @@ class ApiElastigroupActiveInstance {
     private String instanceType;
     private String product;
     private String availabilityZone;
+    private String groupId;
+    private String privateIp;
+    private String publicIp;
+    private String ipv6Address;
     private String status;
     private Date   createdAt;
     //endregion
@@ -77,6 +81,38 @@ class ApiElastigroupActiveInstance {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getPrivateIp() {
+        return privateIp;
+    }
+
+    public void setPrivateIp(String privateIp) {
+        this.privateIp = privateIp;
+    }
+
+    public String getPublicIp() {
+        return publicIp;
+    }
+
+    public void setPublicIp(String publicIp) {
+        this.publicIp = publicIp;
+    }
+
+    public String getIpv6Address() {
+        return ipv6Address;
+    }
+
+    public void setIpv6Address(String ipv6Address) {
+        this.ipv6Address = ipv6Address;
     }
 
     //endregion
