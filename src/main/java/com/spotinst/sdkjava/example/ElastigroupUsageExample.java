@@ -14,8 +14,8 @@ import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
 import static com.spotinst.sdkjava.utils.Constants.*;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token    = "your-token";
-    private final static String act_id        = "your-account-id";
+    private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
+    private final static String act_id        = "act-7c46c6df";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -26,7 +26,7 @@ public class ElastigroupUsageExample {
 
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
-
+/*
         // Enter Group Standby
         enterGroupStandby(elastigroupClient, elastigroupId);
 
@@ -111,7 +111,8 @@ public class ElastigroupUsageExample {
         // Get Group Events Logs
         getEventsLogs(elastigroupClient, elastigroupId, LOGS_FROM_DATE_EXAMPLE, LOGS_TO_DATE_EXAMPLE, ALL, null,
                       LOGS_MAX_LIMIT);
-
+*/
+        sleep(10);
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
 
@@ -367,6 +368,41 @@ public class ElastigroupUsageExample {
         enis.setShouldTag(true);
         GroupTagSpecification snapshots = new GroupTagSpecification();
         snapshots.setShouldTag(true);
+
+        //Build targetGroupConfig
+        ElastigroupTargetGroupConfig.Builder targetGroupConfigBuilder = ElastigroupTargetGroupConfig.Builder.get();
+        ElastigroupItfTags.Builder tagsBuilder = ElastigroupItfTags.Builder.get();
+        ElastigroupItfTags tags = tagsBuilder.setTagKey("creator").setTagValue("zach").build();
+
+        ElastigroupMatcher.Builder matcherBuilder = ElastigroupMatcher.Builder.get();
+        ElastigroupMatcher matcher = matcherBuilder.setHttpCode("200,200-300").setGrpcCode(null).build();
+
+
+        ElastigroupTargetGroupConfig targetGroupConfig = targetGroupConfigBuilder.setTags(Collections.singletonList(tags))
+                                                                                 .setHealthCheckIntervalSeconds(30)
+                                                                                 .setHealthCheckPath("/zach")
+                                                                                 .setHealthCheckPort(80)
+                                                                                 .setHealthCheckProtocol("HTTP")
+                                                                                 .setHealthCheckTimeoutSeconds(30)
+                                                                                 .setHealthyThresholdCount(5)
+                                                                                 .setUnhealthyThresholdCount(2)
+                                                                                 .setMatcher(matcher)
+                                                                                 .setPort(8081)
+                                                                                 .setProtocol("HTTPS")
+                                                                                 .setProtocolVersion("HTTP1")
+                                                                                 .build();
+
+        //build itf
+        ElastigroupItf.Builder itfBuilder = ElastigroupItf.Builder.get();
+        ElastigroupListenerRules.Builder listenerRulesBuilder = ElastigroupListenerRules.Builder.get();
+        ElastigroupListenerRules listenerRules = listenerRulesBuilder.setRuleArnType("ruleArn").build();
+
+        ElastigroupItf itf = itfBuilder.setFixedTargetGroups(false)
+                                       .setWeightStrategy("custom")
+                                       .setMigrationHealthinessThreshold(50)
+                                       .setListenerRules(Collections.singletonList(listenerRules))
+                                       .setTargetGroupConfig(targetGroupConfig).build();
+
 
         GroupResourceTagSpecification.Builder resourceTagSpecBuilder = GroupResourceTagSpecification.Builder.get();
         GroupResourceTagSpecification resourceTagSpecification =
