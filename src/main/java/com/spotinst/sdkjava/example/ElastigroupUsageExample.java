@@ -14,8 +14,8 @@ import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
 import static com.spotinst.sdkjava.utils.Constants.*;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-    private final static String act_id        = "act-7c46c6df";
+    private final static String auth_token    = "-";
+    private final static String act_id        = "-";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
