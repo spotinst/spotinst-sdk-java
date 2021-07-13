@@ -578,28 +578,28 @@ public class ClusterConverterAks {
 
             if (launchSpecificationAks.isTagsSet()){
 
-            if (launchSpecificationAks.getTags() != null){
+                if (launchSpecificationAks.getTags() != null){
                 List<ClusterTagAks> tags = launchSpecificationAks.getTags().stream()
                         .map(ClusterConverterAks::toBl).collect(Collectors.toList());
 
                 builder.setTags(tags);
                 }
-                else{
+                else {
                     builder.setTags(null);
 
                 }
             }
+            if (launchSpecificationAks.isManagedServiceIdentitiesSet()) {
 
-            if (launchSpecificationAks.getManagedServiceIdentities() != null){
-                List<ClusterMsiAks> managedServiceIdentities = launchSpecificationAks.getManagedServiceIdentities().stream()
-                        .map(ClusterConverterAks::toBl).collect(Collectors.toList());
-
-                builder.setManagedServiceIdentities(managedServiceIdentities);
+                if (launchSpecificationAks.getManagedServiceIdentities() != null){
+                    List<ClusterMsiAks> managedServiceIdentities = launchSpecificationAks.getManagedServiceIdentities().stream()
+                                                                                         .map(ClusterConverterAks::toBl).collect(Collectors.toList());
+                    builder.setManagedServiceIdentities(managedServiceIdentities);
                 }
-                else{
+                else {
                     builder.setTags(null);
-
                 }
+            }
 
             retVal = builder.build();
 

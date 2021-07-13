@@ -134,6 +134,11 @@ public class ApiClusterLaunchSpecificationAks implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
+    public boolean isManagedServiceIdentitiesSet() {
+        return isSet.contains("managedServiceIdentities");
+    }
+
+    @JsonIgnore
     public boolean isImageSet() {
         return isSet.contains("image");
     }
