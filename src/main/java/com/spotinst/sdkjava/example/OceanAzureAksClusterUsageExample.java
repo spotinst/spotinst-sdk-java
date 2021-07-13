@@ -29,9 +29,6 @@ public class OceanAzureAksClusterUsageExample {
         listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
 
-
-
-
     }
 
     private static String createCluster(SpotOceanAzureAksClusterClient client) {
@@ -81,18 +78,22 @@ public class OceanAzureAksClusterUsageExample {
 
         //Build marketplace
         ClusterMarketplaceAks.Builder marketplaceAksBuilder = ClusterMarketplaceAks.Builder.get();
-        ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("aks").setPublisher("microsoft-aks").setSku("aks-ubuntu-1804-gen2-2021-q1")
-                .setVersion("2021.03.29").build();
+        ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("UbuntuServer").setPublisher("Canonical").setSku("18.04-LTS")
+                .setVersion("latest").build();
 
         //Build image
         ClusterImageAks.Builder imageAksBuilder = ClusterImageAks.Builder.get();
         ClusterImageAks imageAks = imageAksBuilder.setMarketplace(clusterMarketplace).build();
 
+        ClusterMsiAks.Builder msiAksBuilder = ClusterMsiAks.Builder.get();
+        ClusterMsiAks msiAks = msiAksBuilder.setName("AutomationApi-agentpool").setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
+        List<ClusterMsiAks> listMsi = Arrays.asList(msiAks);
+
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
         ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
                                                                 .setLogin(loginAks).setLoadBalancersConfig(loadBalancersConfigAks).setOsDisk(osDiskAks).setTags(tags)
-                                                                .setNetwork(networkAks).setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
+                                                                .setNetwork(networkAks).setManagedServiceIdentities(listMsi).setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
 
         //Build Cluster
         ClusterVirtualNodeGroupTemplateAks.Builder virtualNodeGroupTemplateAksBuilder = ClusterVirtualNodeGroupTemplateAks.Builder.get();

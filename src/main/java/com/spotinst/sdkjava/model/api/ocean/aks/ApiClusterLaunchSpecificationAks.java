@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.bl.ocean.aks.ApiClusterMsiAks;
 
 
 import java.util.HashSet;
@@ -19,6 +20,7 @@ public class ApiClusterLaunchSpecificationAks implements IPartialUpdateEntity {
     private Set<String>                         isSet;
     private List<ApiClusterExtensionAks>        extensions;
     private ApiClusterImageAks                  image;
+    private List<ApiClusterMsiAks>              managedServiceIdentities;
     private ApiClusterLoadBalancersConfigAks    loadBalancersConfig;
     private ApiClusterLoginAks                  login;
     private ApiClusterNetworkAks                network;
@@ -116,9 +118,24 @@ public class ApiClusterLaunchSpecificationAks implements IPartialUpdateEntity {
         this.tags = tags;
     }
 
+    public List<ApiClusterMsiAks> getManagedServiceIdentities() {
+        return managedServiceIdentities;
+    }
+
+    public void setManagedServiceIdentities(List<ApiClusterMsiAks> msiAks) {
+
+        isSet.add("managedServiceIdentities");
+        this.managedServiceIdentities = msiAks;
+    }
+
     @JsonIgnore
     public boolean isExtensionsSet() {
         return isSet.contains("extensions");
+    }
+
+    @JsonIgnore
+    public boolean isManagedServiceIdentitiesSet() {
+        return isSet.contains("managedServiceIdentities");
     }
 
     @JsonIgnore
