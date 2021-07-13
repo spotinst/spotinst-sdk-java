@@ -14,8 +14,8 @@ import static java.lang.Thread.sleep;
 
 public class OceanAzureAksClusterUsageExample {
 
-    private final static String auth_token = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-        private final static String act_id     = "act-e929c6e7";
+    private final static String auth_token = "";
+        private final static String act_id     = "";
 
     public static void main(String[] args) throws InterruptedException {
         SpotOceanAzureAksClusterClient clusterClient = SpotinstClient.getOceanAzureAksClusterClient(auth_token, act_id);
@@ -88,6 +88,7 @@ public class OceanAzureAksClusterUsageExample {
         ClusterMsiAks.Builder msiAksBuilder = ClusterMsiAks.Builder.get();
         ClusterMsiAks msiAks = msiAksBuilder.setName("AutomationApi-agentpool").setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
         List<ClusterMsiAks> listMsi = Arrays.asList(msiAks);
+
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
         ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
