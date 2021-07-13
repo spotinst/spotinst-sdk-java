@@ -128,12 +128,18 @@ public class ClusterConverterAks {
 
             if(launchSpecificationAks.isManagedServiceIdentitiesSet()){
 
-                List<ApiClusterMsiAks> managedServiceIdentities = launchSpecificationAks
-                        .getManagedServiceIdentities()
-                        .stream().map(ClusterConverterAks::toDal)
-                        .collect(Collectors.toList());
+                if (launchSpecificationAks.getManagedServiceIdentities() != null) {
+                    List<ApiClusterMsiAks> managedServiceIdentities = launchSpecificationAks
+                            .getManagedServiceIdentities()
+                            .stream().map(ClusterConverterAks::toDal)
+                            .collect(Collectors.toList());
 
-                retVal.setManagedServiceIdentities(managedServiceIdentities);
+                    retVal.setManagedServiceIdentities(managedServiceIdentities);
+                }
+                else {
+                    retVal.setManagedServiceIdentities(null);
+                }
+
             }
 
             if (launchSpecificationAks.isTagsSet()){
@@ -419,7 +425,7 @@ public class ClusterConverterAks {
     }
 
     private static ApiClusterMsiAks toDal(ClusterMsiAks msiAks){
-        ApiClusterMsiAks retVal = null;
+            ApiClusterMsiAks retVal = null;
 
         if (msiAks != null) {
             retVal = new ApiClusterMsiAks();
