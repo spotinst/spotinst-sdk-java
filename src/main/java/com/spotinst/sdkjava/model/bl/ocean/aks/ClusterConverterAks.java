@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 
+import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
 
@@ -123,6 +124,16 @@ public class ClusterConverterAks {
 
             if (launchSpecificationAks.isOsDiskSet()){
                 retVal.setOsDisk(toDal(launchSpecificationAks.getOsDisk()));
+            }
+
+            if(launchSpecificationAks.isManagedServiceIdentitiesSet()){
+
+                List<ApiClusterMsiAks> managedServiceIdentities = launchSpecificationAks
+                        .getManagedServiceIdentities()
+                        .stream().map(ClusterConverterAks::toDal)
+                        .collect(Collectors.toList());
+
+                retVal.setManagedServiceIdentities(managedServiceIdentities);
             }
 
             if (launchSpecificationAks.isTagsSet()){
@@ -407,6 +418,24 @@ public class ClusterConverterAks {
         return retVal;
     }
 
+    private static ApiClusterMsiAks toDal(ClusterMsiAks msiAks){
+        ApiClusterMsiAks retVal = null;
+
+        if (msiAks != null) {
+            retVal = new ApiClusterMsiAks();
+
+            if (msiAks.isNameSet()) {
+                retVal.setName(msiAks.getName());
+            }
+
+            if (msiAks.isResourceGroupNameSet()){
+                retVal.setResourceGroupName(msiAks.getResourceGroupName());
+            }
+        }
+
+        return retVal;
+    }
+
     private static ApiClusterTagAks toDal(ClusterTagAks tag){
         ApiClusterTagAks retVal = null;
 
@@ -554,6 +583,17 @@ public class ClusterConverterAks {
 
                 }
             }
+
+            if (launchSpecificationAks.getManagedServiceIdentities() != null){
+                List<ClusterMsiAks> managedServiceIdentities = launchSpecificationAks.getManagedServiceIdentities().stream()
+                        .map(ClusterConverterAks::toBl).collect(Collectors.toList());
+
+                builder.setManagedServiceIdentities(managedServiceIdentities);
+                }
+                else{
+                    builder.setTags(null);
+
+                }
 
             retVal = builder.build();
 
@@ -858,6 +898,26 @@ public class ClusterConverterAks {
 
             if (tag.isTagValueSet()){
                 builder.setTagValue(tag.getTagValue());
+                }
+
+                retVal = builder.build();
+            }
+        return retVal;
+    }
+
+    private static ClusterMsiAks toBl(ApiClusterMsiAks msiAks){
+        ClusterMsiAks retVal = null;
+
+        if (msiAks != null){
+
+            ClusterMsiAks.Builder builder = ClusterMsiAks.Builder.get();
+            if (msiAks.isNameSet()){
+
+                builder.setName(msiAks.getName());
+                }
+
+            if (msiAks.isResourceGroupNameSet()){
+                builder.setResourceGroupName(msiAks.getResourceGroupName());
                 }
 
                 retVal = builder.build();

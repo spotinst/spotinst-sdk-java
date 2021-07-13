@@ -14,8 +14,8 @@ import static java.lang.Thread.sleep;
 
 public class OceanAzureAksClusterUsageExample {
 
-    private final static String auth_token = "your-token";
-    private final static String act_id     = "act-id";
+    private final static String auth_token = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
+        private final static String act_id     = "act-e929c6e7";
 
     public static void main(String[] args) throws InterruptedException {
         SpotOceanAzureAksClusterClient clusterClient = SpotinstClient.getOceanAzureAksClusterClient(auth_token, act_id);
@@ -24,13 +24,10 @@ public class OceanAzureAksClusterUsageExample {
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
-        getCluster(clusterClient, clusterId);
-        updateCluster(clusterClient, clusterId);
-        listClusters(clusterClient);
+//        getCluster(clusterClient, clusterId);
+//        updateCluster(clusterClient, clusterId);
+//        listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
-
-
-
 
     }
 
@@ -81,18 +78,21 @@ public class OceanAzureAksClusterUsageExample {
 
         //Build marketplace
         ClusterMarketplaceAks.Builder marketplaceAksBuilder = ClusterMarketplaceAks.Builder.get();
-        ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("aks").setPublisher("microsoft-aks").setSku("aks-ubuntu-1804-gen2-2021-q1")
-                .setVersion("2021.03.29").build();
+        ClusterMarketplaceAks clusterMarketplace = marketplaceAksBuilder.setOffer("UbuntuServer").setPublisher("Canonical").setSku("18.04-LTS")
+                .setVersion("latest").build();
 
         //Build image
         ClusterImageAks.Builder imageAksBuilder = ClusterImageAks.Builder.get();
         ClusterImageAks imageAks = imageAksBuilder.setMarketplace(clusterMarketplace).build();
 
+        ClusterMsiAks.Builder msiAksBuilder = ClusterMsiAks.Builder.get();
+        ClusterMsiAks msiAks = msiAksBuilder.setName("AutomationApi-agentpool").setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
+        List<ClusterMsiAks> listMsi = Arrays.asList(msiAks);
         //Build launchSpecification
         ClusterLaunchSpecificationAks.Builder launchSpecificationAksBuilder = ClusterLaunchSpecificationAks.Builder.get();
         ClusterLaunchSpecificationAks launchSpecificationAks = launchSpecificationAksBuilder.setExtensions(extensions).setImage(imageAks)
                                                                 .setLogin(loginAks).setLoadBalancersConfig(loadBalancersConfigAks).setOsDisk(osDiskAks).setTags(tags)
-                                                                .setNetwork(networkAks).setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
+                                                                .setNetwork(networkAks).setManagedServiceIdentities(listMsi).setResourceGroupName("MC_AutomationApiRG_AutomationApi_eastus").build();
 
         //Build Cluster
         ClusterVirtualNodeGroupTemplateAks.Builder virtualNodeGroupTemplateAksBuilder = ClusterVirtualNodeGroupTemplateAks.Builder.get();
