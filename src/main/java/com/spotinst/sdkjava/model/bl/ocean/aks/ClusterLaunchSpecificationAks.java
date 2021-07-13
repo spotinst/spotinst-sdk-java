@@ -15,8 +15,8 @@ public class ClusterLaunchSpecificationAks {
     private Set<String>                         isSet;
     private List<ClusterExtensionAks>           extensions;
     private ClusterImageAks                     image;
-    private List<ClusterMsiAks>                 managedServiceIdentities;
     private ClusterLoadBalancersConfigAks       loadBalancersConfig;
+    private List<ClusterMsiAks>                 managedServiceIdentities;
     private ClusterLoginAks                     login;
     private ClusterNetworkAks                   network;
     private ClusterOsDiskAks                    osDisk;
