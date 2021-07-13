@@ -14,8 +14,8 @@ import static java.lang.Thread.sleep;
 
 public class OceanAzureAksClusterUsageExample {
 
-    private final static String auth_token = "";
-    private final static String act_id     = "";
+    private final static String auth_token = "your-token";
+    private final static String act_id     = "act-id";
 
     public static void main(String[] args) throws InterruptedException {
         SpotOceanAzureAksClusterClient clusterClient = SpotinstClient.getOceanAzureAksClusterClient(auth_token, act_id);
