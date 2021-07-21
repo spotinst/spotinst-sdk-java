@@ -45,6 +45,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
+        this.spotinstOceanGKECreateLaunchSpecRepo = new SpotinstOceanGKELaunchSpecRepo();
     }
     //endregion
 

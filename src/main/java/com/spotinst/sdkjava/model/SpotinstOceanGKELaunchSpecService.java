@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,13 +36,14 @@ public class SpotinstOceanGKELaunchSpecService extends BaseSpotinstService {
         String body = JsonMapper.toJson(groupRequest);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group", apiEndpoint);
+        String uri = String.format("%s/ocean/gcp/k8s/launchSpec", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = getCastedResponse(response, OceanGKECreateLaunchSpecRes.class);
+        OceanGKECreateLaunchSpecResponse
+                oceanGKECreateLaunchSpecRes = getCastedResponse(response, OceanGKECreateLaunchSpecResponse.class);
 
 
         if (oceanGKECreateLaunchSpecRes.getResponse().getCount() > 0) {

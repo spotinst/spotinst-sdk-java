@@ -1,8 +1,14 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OceanGKECreateLaunchSpecRequest {
 
@@ -41,5 +47,15 @@ public class OceanGKECreateLaunchSpecRequest {
             return oceanGKECreateLaunchSpecRequest;
         }
 
+    }
+
+    public String toJson() {
+        ApiOceanGKELaunchSpec apiOceanGKELaunchSpec = OceanGKELaunchSpecConverter.toDal(oceanGKECreateLaunchSpecRes);
+
+        Map<String, ApiOceanGKELaunchSpec> createLaunchSpecRequest = new HashMap<>();
+        createLaunchSpecRequest.put("group", apiOceanGKELaunchSpec);
+        String retVal = JsonMapper.toJson(createLaunchSpecRequest);
+
+        return retVal;
     }
 }

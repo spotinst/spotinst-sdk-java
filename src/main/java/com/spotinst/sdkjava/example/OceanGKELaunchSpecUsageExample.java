@@ -15,44 +15,39 @@ public class OceanGKELaunchSpecUsageExample {
 
     private final static String auth_token    = "337ef881fe540a521363fe652c59dd0af246384185049c897f54293538912f43";
     private final static String account_id        = "act-7d8b3fee";
-    private final static String key_pair_name = "some-key-pair-name";
 
     public static void main(String[] args) throws IOException {
 
         SpotinstOceanGKELaunchSpecClientTest
                 spotinstOceanGKELaunchSpecClientTest = SpotinstClient.getSpotinstOceanGKELaunchSpecClientTest(auth_token, account_id);
-
+        String LaunchSpecName = createElastigroup(spotinstOceanGKELaunchSpecClientTest);
 
     }
 
     private static String  createElastigroup(SpotinstOceanGKELaunchSpecClientTest client) {
 
         //Build Instance Type
-        LaunchSpecReq.Builder launchSpecReq = LaunchSpecReq.Builder.get();
-
-        List<String> PreemtibleList = new ArrayList<>();
-        PreemtibleList.add("n1-standard-1");
-
-        LaunchSpecReq oceanId = launchSpecReq.setOceanId("").build();
-        LaunchSpecReq sourceImage = launchSpecReq.setSourceImage("").build();
-
+        //LaunchSpecReq.Builder launchSpecReq = LaunchSpecReq.Builder.get();
 
         // Build gcp elastigroup creation request
         OceanGKECreateLaunchSpecRequest.Builder oceanGKECreateLaunchSpecRequest =
                 OceanGKECreateLaunchSpecRequest.Builder.get();
 
-        OceanGKECreateLaunchSpecRequest creationRequestGcp=
-                oceanGKECreateLaunchSpecRequest.setOceanGKECreateLaunchSpec()
+        OceanGKECreateLaunchSpecRes.Builder oceanGKECreateLaunchSpecResBuilder = OceanGKECreateLaunchSpecRes.Builder.get();
+        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-0ce40c35")
+                                                                                                    .setSourceImage("https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/container-v1-3-v20160517").build();
+        OceanGKECreateLaunchSpecRequest creationRequest=
+                oceanGKECreateLaunchSpecRequest.setOceanGKECreateLaunchSpec(oceanGKECreateLaunchSpecRes).build();
 
         // Convert elastigroup to API object json
-        System.out.println(creationRequestGcp.toJson());
+        System.out.println(creationRequest.toJson());
         // Create elastigroup
 
-        ElastigroupGcp createdElastigroup = client.createElastigroup(creationRequestGcp);
-        System.out.println("Elastigroup successfully created: " + createdElastigroup.getId());
+        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpec = client.createOceanGKELaunchSpec(creationRequest);
+        System.out.println("GKE Launch Spec successfully created: " + oceanGKECreateLaunchSpec.getName());
 
         // Get elastigroup Id
-        return createdElastigroup.getId();
+        return oceanGKECreateLaunchSpec.getName();
 
     }
 }
