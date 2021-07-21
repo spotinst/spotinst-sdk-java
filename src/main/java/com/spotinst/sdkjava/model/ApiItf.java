@@ -19,12 +19,12 @@ import java.util.Set;
 class ApiItf implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>            isSet;
-    private String                 weightStrategy;
-    private Integer                migrationHealthinessThreshold;
-    private Boolean                fixedTargetGroups;
-    private ApiTargetGroupConfig   targetGroupConfig;
-    private List<ApiListenerRules> listenerRules;
+    private Set<String>               isSet;
+    private String                    weightStrategy;
+    private Integer                   migrationHealthinessThreshold;
+    private Boolean                   fixedTargetGroups;
+    private ApiTargetGroupConfig      targetGroupConfig;
+    private List<ApiItfLoadBalancers> loadBalancers;
     //endregion
 
     //region Constructor
@@ -79,13 +79,13 @@ class ApiItf implements IPartialUpdateEntity {
         this.targetGroupConfig = targetGroupConfig;
     }
 
-    public List<ApiListenerRules> getListenerRules() {
-        return listenerRules;
+    public List<ApiItfLoadBalancers> getLoadBalancers() {
+        return loadBalancers;
     }
 
-    public void setListenerRules(List<ApiListenerRules> listenerRules) {
-        isSet.add("listenerRules");
-        this.listenerRules = listenerRules;
+    public void setLoadBalancers(List<ApiItfLoadBalancers> loadBalancers) {
+        isSet.add("loadBalancers");
+        this.loadBalancers = loadBalancers;
     }
 
     //endregion
@@ -94,34 +94,23 @@ class ApiItf implements IPartialUpdateEntity {
 
     // Is weightStrategy Set boolean method
     @JsonIgnore
-    public boolean isWeightStrategySet() {
-        return isSet.contains("weightStrategy");
-    }
+    public boolean isWeightStrategySet() { return isSet.contains("weightStrategy"); }
 
     // Is migrationHealthinessThreshold Set boolean method
     @JsonIgnore
-    public boolean isMigrationHealthinessThresholdSet() {
-        return isSet.contains("migrationHealthinessThreshold");
-    }
+    public boolean isMigrationHealthinessThresholdSet() { return isSet.contains("migrationHealthinessThreshold"); }
 
     // Is fixedTargetGroups Set boolean method
     @JsonIgnore
-    public boolean isFixedTargetGroupsSet() {
-        return isSet.contains("fixedTargetGroups");
-    }
-
+    public boolean isFixedTargetGroupsSet() { return isSet.contains("fixedTargetGroups"); }
 
     // Is targetGroupConfig Set boolean method
     @JsonIgnore
-    public boolean isTargetGroupConfigSet() {
-        return isSet.contains("targetGroupConfig");
-    }
+    public boolean isTargetGroupConfigSet() { return isSet.contains("targetGroupConfig"); }
 
-    // Is listenerRules Set boolean method
+    // Is loadBalancers Set boolean method
     @JsonIgnore
-    public boolean isListenerRulesSet() {
-        return isSet.contains("listenerRules");
-    }
+    public boolean isLoadBalancersSet() { return isSet.contains("loadBalancers"); }
 
     //endregion
 }

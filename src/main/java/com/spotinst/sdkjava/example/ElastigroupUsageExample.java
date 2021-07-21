@@ -343,11 +343,11 @@ public class ElastigroupUsageExample {
         Placement.Builder    placementBuilder1 = Placement.Builder.get();
         Placement.Builder    placementBuilder2 = Placement.Builder.get();
         List<String>         subnetIds         = new ArrayList<>();
-        subnetIds.add("subnet-020cf6648937b2272");
+        subnetIds.add("subnet-4333093a");
         Placement placement = placementBuilder1.setAvailabilityZoneName("us-west-2a").setSubnetIds(subnetIds).build();
         placements.add(placement);
         List<String> subnets2 = new LinkedList<>();
-        subnets2.add("subnet-01972f2531cb1ca4b");
+        subnets2.add("subnet-8ab89cc1");
         Placement placement2 = placementBuilder2.setAvailabilityZoneName("us-west-2b").setSubnetIds(subnets2).build();
         placements.add(placement2);
 
@@ -411,11 +411,12 @@ public class ElastigroupUsageExample {
         // Build group launch spec
         ElastigroupLaunchSpecification.Builder launchSpecBuilder = ElastigroupLaunchSpecification.Builder.get();
         List<String>                           securityGroupIds  = new ArrayList<>();
-        securityGroupIds.add("sg-060d199c638390fa1");
+        securityGroupIds.add("sg-a22000e8");
         ElastigroupLaunchSpecification launchSpec =
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
                                  .setKeyPair(key_pair_name).setDetailedMonitoring(true)
                                  .setLoadBalancersConfig(loadBalancersConfig)
+                                 .setItf(itf)
                                  .setResourceTagSpecification(resourceTagSpecification).build();
 
         // Build group compute
@@ -547,7 +548,7 @@ public class ElastigroupUsageExample {
 
         tasksList.add(task2);
         SimpleDateFormat formatter    = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        String           dateInString = "2021-05-18T02:00:00Z";
+        String           dateInString = "2021-08-18T02:00:00Z";
         Date             date         = null;
         try {
             date = formatter.parse(dateInString);

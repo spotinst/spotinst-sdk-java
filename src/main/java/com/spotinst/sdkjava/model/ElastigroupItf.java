@@ -12,12 +12,12 @@ import java.util.Set;
 public class ElastigroupItf {
     //region Members
     @JsonIgnore
-    private Set<String>                    isSet;
-    private String                         weightStrategy;
-    private Integer                        migrationHealthinessThreshold;
-    private Boolean                        fixedTargetGroups;
-    private ElastigroupTargetGroupConfig   targetGroupConfig;
-    private List<ElastigroupListenerRules> listenerRules;
+    private Set<String>                       isSet;
+    private String                            weightStrategy;
+    private Integer                           migrationHealthinessThreshold;
+    private Boolean                           fixedTargetGroups;
+    private ElastigroupTargetGroupConfig      targetGroupConfig;
+    private List<ElastigroupItfLoadBalancers> loadBalancers;
     //endregion
 
     //region Constructor
@@ -73,13 +73,13 @@ public class ElastigroupItf {
         this.targetGroupConfig = targetGroupConfig;
     }
 
-    public List<ElastigroupListenerRules> getListenerRules() {
-        return listenerRules;
+    public List<ElastigroupItfLoadBalancers> getLoadBalancers() {
+        return loadBalancers;
     }
 
-    public void setListenerRules(List<ElastigroupListenerRules> listenerRules) {
-        isSet.add("listenerRules");
-        this.listenerRules = listenerRules;
+    public void setLoadBalancers(List<ElastigroupItfLoadBalancers> loadBalancers) {
+        isSet.add("loadBalancers");
+        this.loadBalancers = loadBalancers;
     }
 
     //endregion
@@ -117,8 +117,8 @@ public class ElastigroupItf {
             return this;
         }
 
-        public Builder setListenerRules(final List<ElastigroupListenerRules> listenerRules) {
-            itf.setListenerRules(listenerRules);
+        public Builder setLoadBalancers(final List<ElastigroupItfLoadBalancers> loadBalancers) {
+            itf.setLoadBalancers(loadBalancers);
             return this;
         }
 
@@ -154,10 +154,10 @@ public class ElastigroupItf {
         return isSet.contains("targetGroupConfig");
     }
 
-    // Is listenerRules Set boolean method
+    // Is loadBalancers Set boolean method
     @JsonIgnore
-    public boolean isListenerRulesSet() {
-        return isSet.contains("listenerRules");
+    public boolean isLoadBalancersSet() {
+        return isSet.contains("loadBalancers");
     }
     //endregion
 }

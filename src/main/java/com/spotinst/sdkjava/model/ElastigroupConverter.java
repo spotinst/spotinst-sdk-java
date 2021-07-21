@@ -577,15 +577,36 @@ class ElastigroupConverter {
                 retVal.setTargetGroupConfig(toDal(itf.getTargetGroupConfig()));
             }
 
-            if (itf.isListenerRulesSet()) {
-                if (itf.getListenerRules() != null) {
-                    List<ApiListenerRules> optListenerRules =
-                            itf.getListenerRules().stream().map(ElastigroupConverter::toDal)
+            if (itf.isLoadBalancersSet()) {
+                if (itf.getLoadBalancers() != null) {
+                    List<ApiItfLoadBalancers> optItfLoadBalancers =
+                            itf.getLoadBalancers().stream().map(ElastigroupConverter::toDal)
                                    .collect(Collectors.toList());
-                    retVal.setListenerRules(optListenerRules);
+                    retVal.setLoadBalancers(optItfLoadBalancers);
                 }
             }
 
+        }
+
+        return retVal;
+    }
+
+    private static ApiItfLoadBalancers toDal(ElastigroupItfLoadBalancers loadBalancers) {
+        ApiItfLoadBalancers retVal = null;
+
+        if (loadBalancers != null) {
+            retVal = new ApiItfLoadBalancers();
+
+            if (loadBalancers.isLoadBalancerArnSet()) {
+                retVal.setLoadBalancerArn(loadBalancers.getLoadBalancerArn());
+            }
+
+            if (loadBalancers.getListenerRules() != null){
+                List<ApiListenerRules> optListenerRules =
+                                       loadBalancers.getListenerRules().stream().map(ElastigroupConverter::toDal)
+                                       .collect(Collectors.toList());
+                retVal.setListenerRules(optListenerRules);
+            }
         }
 
         return retVal;
@@ -1601,10 +1622,53 @@ class ElastigroupConverter {
                     retValBuilder.setTags(tags);
                 }
             }
+            if (launchSpecification.isItfSet()){
+                if (launchSpecification.getItf() != null) {
+                    retValBuilder.setItf(toBl(launchSpecification.getItf()));
+                }
+            }
 
             retVal = retValBuilder.build();
         }
 
+
+        return retVal;
+    }
+
+    private static ElastigroupItf toBl(ApiItf itf) {
+        ElastigroupItf retVal = null;
+
+        if (itf != null){
+            ElastigroupItf.Builder retValBuilder = ElastigroupItf.Builder.get();
+
+            if (itf.isFixedTargetGroupsSet()) {
+                retValBuilder.setFixedTargetGroups(itf.getFixedTargetGroups());
+            }
+
+            if (itf.isWeightStrategySet()) {
+                retValBuilder.setWeightStrategy(itf.getWeightStrategy());
+            }
+
+            if (itf.isMigrationHealthinessThresholdSet()) {
+                retValBuilder.setMigrationHealthinessThreshold(itf.getMigrationHealthinessThreshold());
+            }
+
+            if (itf.isTargetGroupConfigSet()) {
+                if (itf.getTargetGroupConfig() != null) {
+                    retValBuilder.setTargetGroupConfig(toBl(itf.getTargetGroupConfig()));
+                }
+            }
+
+            if (itf.isLoadBalancersSet()) {
+                if (itf.getLoadBalancers() != null) {
+                    List<ApiItfLoadBalancers> apiItfLoadBalancers = itf.getLoadBalancers();
+                    List<ElastigroupItfLoadBalancers> itfLoadBalancers =
+                                                      apiItfLoadBalancers.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setLoadBalancers(itfLoadBalancers);
+                }
+            }
+            retVal = retValBuilder.build();
+        }
 
         return retVal;
     }
