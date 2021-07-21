@@ -37,6 +37,7 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
     private OceanGKEStorage                storage;
 
 
+
     public ApiOceanGKELaunchSpec() {
         isSet = new HashSet<>();
     }

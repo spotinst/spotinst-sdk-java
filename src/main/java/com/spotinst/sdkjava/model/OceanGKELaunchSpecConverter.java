@@ -79,7 +79,7 @@ public class OceanGKELaunchSpecConverter {
     public static OceanGKECreateLaunchSpecRes toBl(ApiOceanGKELaunchSpec apiOceanGKELaunchSpec) {
         OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = null;
 
-        if (oceanGKECreateLaunchSpecRes != null) {
+        if (apiOceanGKELaunchSpec != null) {
             OceanGKECreateLaunchSpecRes.Builder oceanGKECreateLaunchSpecBuilder = OceanGKECreateLaunchSpecRes.Builder.get();
 
             if (apiOceanGKELaunchSpec.isNameSet()) {

@@ -12,9 +12,9 @@ public class SpotinstOceanGKELaunchSpecRepo implements ISpotinstOceanGKECreateLa
 
         try {
             ApiOceanGKELaunchSpec apiOceanGKELaunchSpec = OceanGKELaunchSpecConverter.toDal(oceanGKECreateLaunchSpecRes);
-            ApiOceanGKELaunchSpec apiCreatedElastigroup =
+            ApiOceanGKELaunchSpec apiOceanGKELaunchSpecification =
                     SpotinstOceanGKELaunchSpecService.createLaunchSpec(apiOceanGKELaunchSpec, authToken, account);
-            OceanGKECreateLaunchSpecRes CreatedLaunchSpec = OceanGKELaunchSpecConverter.toBl(apiCreatedElastigroup);
+            OceanGKECreateLaunchSpecRes CreatedLaunchSpec = OceanGKELaunchSpecConverter.toBl(apiOceanGKELaunchSpecification);
             retVal = new RepoGenericResponse<>(CreatedLaunchSpec);
         }
         catch (SpotinstHttpException ex) {

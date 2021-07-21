@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class SpotinstOceanGKELaunchSpecService extends BaseSpotinstService {
 
-    public static ApiOceanGKELaunchSpec createLaunchSpec(ApiOceanGKELaunchSpec groupToCreate, String authToken,
+    public static ApiOceanGKELaunchSpec createLaunchSpec(ApiOceanGKELaunchSpec launchSpecToCreate, String authToken,
                                                    String account) throws SpotinstHttpException {
         // Init retVal
         ApiOceanGKELaunchSpec retVal = null;
@@ -32,7 +32,7 @@ public class SpotinstOceanGKELaunchSpecService extends BaseSpotinstService {
 
         // Write to json
         Map<String, ApiOceanGKELaunchSpec> groupRequest = new HashMap<>();
-        groupRequest.put("group", groupToCreate);
+        groupRequest.put("launchSpec", launchSpecToCreate);
         String body = JsonMapper.toJson(groupRequest);
 
         // Build URI

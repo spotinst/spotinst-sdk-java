@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class OceanGKECreateLaunchSpecRequest {
 
-    @JsonProperty("group")
+    @JsonProperty("launchSpec")
     private OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes;
 
     public OceanGKECreateLaunchSpecRes getOceanGKECreateLaunchSpecRes() {
@@ -53,7 +53,7 @@ public class OceanGKECreateLaunchSpecRequest {
         ApiOceanGKELaunchSpec apiOceanGKELaunchSpec = OceanGKELaunchSpecConverter.toDal(oceanGKECreateLaunchSpecRes);
 
         Map<String, ApiOceanGKELaunchSpec> createLaunchSpecRequest = new HashMap<>();
-        createLaunchSpecRequest.put("group", apiOceanGKELaunchSpec);
+        createLaunchSpecRequest.put("launchSpec", apiOceanGKELaunchSpec);
         String retVal = JsonMapper.toJson(createLaunchSpecRequest);
 
         return retVal;
