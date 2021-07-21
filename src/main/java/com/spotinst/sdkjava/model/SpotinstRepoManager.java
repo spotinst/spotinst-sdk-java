@@ -24,6 +24,8 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
+    private ISpotinstOceanGKECreateLaunchSpecRepo spotinstOceanGKECreateLaunchSpecRepo;
+
     //endregion
 
     //region Constructor
@@ -156,5 +158,7 @@ class SpotinstRepoManager {
         this.spotinstElastigroupEventLogRepo = spotinstElastigroupEventLogRepo;
     }
     //endregion
-
+    public ISpotinstOceanGKECreateLaunchSpecRepo getSpotinstOceanGKECreateLaunchSpecRepoGcp() {
+        return spotinstOceanGKECreateLaunchSpecRepo;
+    }
 }
