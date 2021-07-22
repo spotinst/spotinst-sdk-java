@@ -16,6 +16,7 @@ public class ClusterLaunchSpecificationAks {
     private List<ClusterExtensionAks>           extensions;
     private ClusterImageAks                     image;
     private ClusterLoadBalancersConfigAks       loadBalancersConfig;
+    private List<ClusterMsiAks>                 managedServiceIdentities;
     private ClusterLoginAks                     login;
     private ClusterNetworkAks                   network;
     private ClusterOsDiskAks                    osDisk;
@@ -33,6 +34,15 @@ public class ClusterLaunchSpecificationAks {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public List<ClusterMsiAks> getManagedServiceIdentities() {
+        return managedServiceIdentities;
+    }
+
+    public void setManagedServiceIdentities(List<ClusterMsiAks> managedServiceIdentities) {
+        isSet.add("managedServiceIdentities");
+        this.managedServiceIdentities = managedServiceIdentities;
     }
 
     public List<ClusterExtensionAks> getExtensions() {
@@ -139,6 +149,11 @@ public class ClusterLaunchSpecificationAks {
     }
 
     @JsonIgnore
+    public boolean isManagedServiceIdentitiesSet() {
+        return isSet.contains("managedServiceIdentities");
+    }
+
+    @JsonIgnore
     public boolean isOsDiskSet() {
         return isSet.contains("osDisk");
     }
@@ -196,6 +211,11 @@ public class ClusterLaunchSpecificationAks {
         }
         public Builder setTags(final List<ClusterTagAks> tags) {
             clusterLaunchSpecificationAks.setTags(tags);
+            return this;
+        }
+
+        public Builder setManagedServiceIdentities(final List<ClusterMsiAks> managedServiceIdentities) {
+            clusterLaunchSpecificationAks.setManagedServiceIdentities(managedServiceIdentities);
             return this;
         }
 
