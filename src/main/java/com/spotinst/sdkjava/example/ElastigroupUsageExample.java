@@ -394,13 +394,18 @@ public class ElastigroupUsageExample {
 
         //build itf
         ElastigroupItf.Builder itfBuilder = ElastigroupItf.Builder.get();
+
         ElastigroupListenerRules.Builder listenerRulesBuilder = ElastigroupListenerRules.Builder.get();
-        ElastigroupListenerRules listenerRules = listenerRulesBuilder.setRuleArnType("ruleArn").build();
+        ElastigroupListenerRules listenerRules = listenerRulesBuilder.setRuleArnType("ruleArnTest").build();
+
+        ElastigroupItfLoadBalancers.Builder itfLoadBalancersBuilder = ElastigroupItfLoadBalancers.Builder.get();
+        ElastigroupItfLoadBalancers itfLoadBalancers = itfLoadBalancersBuilder.setListenerRules(Collections.singletonList(listenerRules))
+                .setLoadBalancerArn("lbArnTest").build();
 
         ElastigroupItf itf = itfBuilder.setFixedTargetGroups(false)
                                        .setWeightStrategy("custom")
                                        .setMigrationHealthinessThreshold(50)
-                                       .setListenerRules(Collections.singletonList(listenerRules))
+                                       .setLoadBalancers(Collections.singletonList(itfLoadBalancers))
                                        .setTargetGroupConfig(targetGroupConfig).build();
 
 

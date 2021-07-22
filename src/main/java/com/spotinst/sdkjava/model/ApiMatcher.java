@@ -26,7 +26,7 @@ public class ApiMatcher implements IPartialUpdateEntity {
 
     //region Getters & Setters
 
-    public String getName() {
+    public String getHttpCode() {
         return httpCode;
     }
 
@@ -35,9 +35,7 @@ public class ApiMatcher implements IPartialUpdateEntity {
         this.httpCode = httpCode;
     }
 
-
-
-    public String getArn() {
+    public String getGrpcCode() {
         return grpcCode;
     }
 

@@ -1661,11 +1661,154 @@ class ElastigroupConverter {
 
             if (itf.isLoadBalancersSet()) {
                 if (itf.getLoadBalancers() != null) {
-                    List<ApiItfLoadBalancers> apiItfLoadBalancers = itf.getLoadBalancers();
-                    List<ElastigroupItfLoadBalancers> itfLoadBalancers =
-                                                      apiItfLoadBalancers.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                    retValBuilder.setLoadBalancers(itfLoadBalancers);
+                    List<ElastigroupItfLoadBalancers> blItfLoadBalancers =
+                                                      itf.getLoadBalancers().stream().map(ElastigroupConverter::toBl)
+                                                      .collect(Collectors.toList());
+                    retValBuilder.setLoadBalancers(blItfLoadBalancers);
                 }
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static  ElastigroupItfLoadBalancers toBl (ApiItfLoadBalancers itfLoadBalancers) {
+        ElastigroupItfLoadBalancers retVal = null;
+
+        if (itfLoadBalancers != null) {
+            ElastigroupItfLoadBalancers.Builder retValBuilder = ElastigroupItfLoadBalancers.Builder.get();
+
+            if (itfLoadBalancers.isLoadBalancerArnSet()){
+                retValBuilder.setLoadBalancerArn(itfLoadBalancers.getLoadBalancerArn());
+            }
+
+            if (itfLoadBalancers.isListenerRulesSet()) {
+                if (itfLoadBalancers.getListenerRules() != null) {
+                    List<ElastigroupListenerRules> blListenerRules =
+                                                   itfLoadBalancers.getListenerRules().stream().map(ElastigroupConverter::toBl)
+                                                   .collect(Collectors.toList());
+                    retValBuilder.setListenerRules(blListenerRules);
+                }
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupListenerRules toBl (ApiListenerRules listenerRules) {
+        ElastigroupListenerRules retVal = null;
+
+        if (listenerRules != null) {
+            ElastigroupListenerRules.Builder retValBuilder = ElastigroupListenerRules.Builder.get();
+
+            if (listenerRules.isRuleArnSet()) {
+                retValBuilder.setRuleArnType(listenerRules.getRuleArn());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupTargetGroupConfig toBl (ApiTargetGroupConfig targetGroupConfig) {
+        ElastigroupTargetGroupConfig retVal = null;
+
+        if (targetGroupConfig != null) {
+            ElastigroupTargetGroupConfig.Builder retValBuilder = ElastigroupTargetGroupConfig.Builder.get();
+
+            if (targetGroupConfig.isHealthCheckIntervalSecondsSet()) {
+                retValBuilder.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
+            }
+
+            if (targetGroupConfig.isHealthCheckPathSet()) {
+                retValBuilder.setHealthCheckPath(targetGroupConfig.getHealthCheckPath());
+            }
+
+            if (targetGroupConfig.isHealthCheckPortSet()) {
+                retValBuilder.setHealthCheckPort(targetGroupConfig.getHealthCheckPort());
+            }
+
+            if (targetGroupConfig.isHealthCheckProtocolSet()) {
+                retValBuilder.setHealthCheckProtocol(targetGroupConfig.getHealthCheckProtocol());
+            }
+
+            if (targetGroupConfig.isHealthCheckTimeoutSecondsSet()) {
+                retValBuilder.setHealthCheckTimeoutSeconds(targetGroupConfig.getHealthCheckTimeoutSeconds());
+            }
+
+            if (targetGroupConfig.isHealthyThresholdCountSet()) {
+                retValBuilder.setHealthyThresholdCount(targetGroupConfig.getHealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isUnhealthyThresholdCountSet()) {
+                retValBuilder.setUnhealthyThresholdCount(targetGroupConfig.getUnhealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isPortSet()) {
+                retValBuilder.setPort(targetGroupConfig.getPort());
+            }
+
+            if (targetGroupConfig.isProtocolSet()) {
+                retValBuilder.setProtocol(targetGroupConfig.getProtocol());
+            }
+
+            if (targetGroupConfig.isProtocolVersionSet()) {
+                retValBuilder.setProtocolVersion(targetGroupConfig.getProtocolVersion());
+            }
+
+            if (targetGroupConfig.isMatcherSet()) {
+                if (targetGroupConfig.getMatcher() != null) {
+                    retValBuilder.setMatcher(toBl(targetGroupConfig.getMatcher()));
+                }
+            }
+
+            if (targetGroupConfig.isTagsSet()) {
+                if (targetGroupConfig.getTags() != null) {
+                    List<ElastigroupItfTags> blItfTags =
+                                             targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
+                                             .collect(Collectors.toList());
+                    retValBuilder.setTags(blItfTags);
+                }
+            }
+            retVal =retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupMatcher toBl(ApiMatcher matcher) {
+        ElastigroupMatcher retVal = null;
+
+        if (matcher != null) {
+            ElastigroupMatcher.Builder retValBuilder = ElastigroupMatcher.Builder.get();
+
+            if(matcher.isGrpcCodeSet()) {
+               retValBuilder.setGrpcCode(matcher.getGrpcCode());
+            }
+
+            if(matcher.isHttpCodeSet()) {
+                retValBuilder.setHttpCode(matcher.getHttpCode());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupItfTags toBl(ApiItfTags itfTags) {
+        ElastigroupItfTags retVal = null;
+
+        if (itfTags != null) {
+            ElastigroupItfTags.Builder retValBuilder = ElastigroupItfTags.Builder.get();
+
+            if (itfTags.isTagKeySet()) {
+                retValBuilder.setTagKey(itfTags.getTagKey());
+            }
+
+            if (itfTags.isTagValueSet()) {
+                retValBuilder.setTagValue(itfTags.getTagValue());
             }
             retVal = retValBuilder.build();
         }
