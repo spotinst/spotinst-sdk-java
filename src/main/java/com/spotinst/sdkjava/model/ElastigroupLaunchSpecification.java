@@ -21,6 +21,7 @@ public class ElastigroupLaunchSpecification {
     private String                   imageId;
     private String                   keyPair;
     private String                   userData;
+    private String                   healthCheckUnhealthyDurationBeforeReplacement;
     private IamRole                  iamRole;
     private List<NetworkInterface>   networkInterfaces;
     private List<Tag>                tags;
@@ -145,6 +146,13 @@ public class ElastigroupLaunchSpecification {
         this.userData = userData;
     }
 
+    public String getHealthCheckUnhealthyDurationBeforeReplacement() { return healthCheckUnhealthyDurationBeforeReplacement; }
+
+    public void setHealthCheckUnhealthyDurationBeforeReplacement(String healthCheckUnhealthyDurationBeforeReplacement) {
+        isSet.add("healthCheckUnhealthyDurationBeforeReplacement");
+        this.healthCheckUnhealthyDurationBeforeReplacement = healthCheckUnhealthyDurationBeforeReplacement;
+    }
+
     public List<Tag> getTags() {
         return tags;
     }
@@ -219,6 +227,11 @@ public class ElastigroupLaunchSpecification {
 
         public Builder setUserData(final String userData) {
             launchSpecification.setUserData(userData);
+            return this;
+        }
+
+        public Builder setHealthCheckUnhealthyDurationBeforeReplacement(final String healthCheckUnhealthyDurationBeforeReplacement) {
+            launchSpecification.setHealthCheckUnhealthyDurationBeforeReplacement(healthCheckUnhealthyDurationBeforeReplacement);
             return this;
         }
 
@@ -356,6 +369,12 @@ public class ElastigroupLaunchSpecification {
     @JsonIgnore
     public boolean isLoadBalancersConfigSet() {
         return isSet.contains("loadBalancersConfig");
+    }
+
+    // Is healthCheckUnhealthyDurationBeforeReplacement Set boolean method
+    @JsonIgnore
+    public boolean isHealthCheckUnhealthyDurationBeforeReplacementSet() {
+        return isSet.contains("healthCheckUnhealthyDurationBeforeReplacement");
     }
     //endregion
 }

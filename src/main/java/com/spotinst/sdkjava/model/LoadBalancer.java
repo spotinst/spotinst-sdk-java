@@ -16,6 +16,10 @@ public class LoadBalancer {
     private String      name;
     private String      arn;
     private LbTypeEnum  type;
+    private String      balancerId;
+    private String      targetSetId;
+    private Boolean     azAwerness; //check spelling
+    private Boolean     autoWeight;
     //endregion
 
     //region Getters & Setters
@@ -61,6 +65,43 @@ public class LoadBalancer {
         isSet.add("type");
         this.type = type;
     }
+
+    public String getBalancerId() {
+        return balancerId;
+    }
+
+    public void setBalancerId(String balancerId) {
+        isSet.add("balancerId");
+        this.balancerId = balancerId;
+    }
+
+    public String getTargetSetId() {
+        return targetSetId;
+    }
+
+    public void setTargetSetId(String targetSetId) {
+        isSet.add("targetSetId");
+        this.targetSetId = targetSetId;
+    }
+
+    public Boolean getAzAwerness() {
+        return azAwerness;
+    }
+
+    public void setAzAwerness(Boolean azAwerness) {
+        isSet.add("azAwerness");
+        this.azAwerness = azAwerness;
+    }
+
+    public Boolean getAutoWeight() {
+        return autoWeight;
+    }
+
+    public void setAutoWeight(Boolean autoWeight) {
+        isSet.add("autoWeight");
+        this.autoWeight = autoWeight;
+    }
+
     //endregion
 
     //region Builder class
@@ -83,6 +124,26 @@ public class LoadBalancer {
 
         public LoadBalancer.Builder setArn(final String arn) {
             loadBalancer.setArn(arn);
+            return this;
+        }
+
+        public LoadBalancer.Builder setBalancerId(final String balancerId) {
+            loadBalancer.setBalancerId(balancerId);
+            return this;
+        }
+
+        public LoadBalancer.Builder setTargetSetId(final String targetSetId) {
+            loadBalancer.setTargetSetId(targetSetId);
+            return this;
+        }
+
+        public LoadBalancer.Builder setAzAwerness(final Boolean azAwerness) {
+            loadBalancer.setAzAwerness(azAwerness);
+            return this;
+        }
+
+        public LoadBalancer.Builder setAutoWeight(final Boolean autoWeight) {
+            loadBalancer.setAutoWeight(autoWeight);
             return this;
         }
 
@@ -113,5 +174,17 @@ public class LoadBalancer {
     public boolean isTypeSet() {
         return isSet.contains("type");
     }
+
+    @JsonIgnore
+    public boolean isBalancerIdSet() { return isSet.contains("balancerId"); }
+
+    @JsonIgnore
+    public boolean isTargetSetIdSet() { return isSet.contains("targetSetId"); }
+
+    @JsonIgnore
+    public boolean isAzAwernessSet() { return isSet.contains("azAwerness"); }
+
+    @JsonIgnore
+    public boolean isAutoWeightSet() { return isSet.contains("autoWeight"); }
     //endregion
 }
