@@ -8,14 +8,14 @@ import java.io.IOException;
 
 public class AccountUsageExampleAdmin {
 
-    private final static String authToken = "";
+    private final static String authToken = "your-token";
 
     public static void main(String[] args) throws IOException {
         // Get account service client
         SpotinstAccountAdminClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(authToken);
 
         // -------------------- List all accounts Example ---------------------------
-        String yourCloudAccountId = "085875695241"; // This parameter can be Null, if all the accounts in the organization to be listed.
+        String yourCloudAccountId = "you-cloud-account-id"; // This parameter can be Null, if all the accounts in the organization to be listed.
         List<BlAccountAdmin> accountList = listAllAccounts(spotinstAccountAdminClient, yourCloudAccountId);
 
         System.out.println("Total Accounts Found - " + accountList.size());
@@ -30,8 +30,8 @@ public class AccountUsageExampleAdmin {
         }
 
         // -------------------- Delete account Example ---------------------------
-        // String accountIdToDelete = "your-account-id-to-delete";
-        //deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
+        String accountIdToDelete = "you-account-id-to-delete";
+        deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
 
     }
 
