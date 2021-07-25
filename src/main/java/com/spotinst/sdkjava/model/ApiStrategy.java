@@ -25,6 +25,7 @@ class ApiStrategy implements IPartialUpdateEntity {
     private Boolean             utilizeReservedInstances;
     private Boolean             fallbackToOd;
     private ApiGroupPersistence persistence;
+    private ApiRevertToSpot     revertToSpot;
 
     //region Constructor
 
@@ -105,6 +106,15 @@ class ApiStrategy implements IPartialUpdateEntity {
         isSet.add("persistence");
         this.persistence = persistence;
     }
+
+    public ApiRevertToSpot getRevertToSpot() {
+        return revertToSpot;
+    }
+
+    public void setRevertToSpot(ApiRevertToSpot revertToSpot) {
+        isSet.add("revertToSpot");
+        this.revertToSpot = revertToSpot;
+    }
     //endregion
 
     //region isSet methods
@@ -153,6 +163,12 @@ class ApiStrategy implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isPersistenceSet() {
         return isSet.contains("persistence");
+    }
+
+    // Is revertToSpot Set boolean method
+    @JsonIgnore
+    public boolean isRevertToSpotSet() {
+        return isSet.contains("revertToSpot");
     }
     //endregion
 }

@@ -11,6 +11,7 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     @JsonIgnore
     private Set<String>                 isSet;
     private ElastigroupEcsSpecification ecs;
+    private ElastigroupCodeDeploy       codeDeploy;
     //endregion
 
     //region Constructor
@@ -29,6 +30,15 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     public void setEcs(ElastigroupEcsSpecification ecs) {
         isSet.add("ecs");
         this.ecs = ecs;
+    }
+
+    public ElastigroupCodeDeploy getCodeDeploy() {
+        return codeDeploy;
+    }
+
+    public void setCodeDeploy(ElastigroupCodeDeploy codeDeploy) {
+        isSet.add("codeDeploy");
+        this.codeDeploy = codeDeploy;
     }
 
     public Set<String> getIsSet() {
@@ -58,6 +68,11 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
             return this;
         }
 
+        public Builder setCodeDeploy(final ElastigroupCodeDeploy codeDeploy) {
+            ThirdPartiesIntegration.setCodeDeploy(codeDeploy);
+            return this;
+        }
+
         public ElastigroupThirdPartiesIntegrationConfiguration build() {
             return ThirdPartiesIntegration;
         }
@@ -69,6 +84,12 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     @JsonIgnore
     public boolean isEcsSet() {
         return isSet.contains("ecs");
+    }
+
+    // Is codeDeploy Set boolean method
+    @JsonIgnore
+    public boolean isCodeDeploySet() {
+        return isSet.contains("codeDeploy");
     }
 
     //endregion
