@@ -14,8 +14,8 @@ import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
 import static com.spotinst.sdkjava.utils.Constants.*;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token    = "-";
-    private final static String act_id        = "-";
+    private final static String auth_token    = "your-token";
+    private final static String act_id        = "your-account-id";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -354,7 +354,10 @@ public class ElastigroupUsageExample {
         //Build Load Balancer Config
         LoadBalancersConfig.Builder loadBalancerConfigBuilder = LoadBalancersConfig.Builder.get();
         LoadBalancer.Builder        lbBuilder                 = LoadBalancer.Builder.get();
-        LoadBalancer loadBalancer = lbBuilder.setType(LbTypeEnum.CLASSIC).setName("spotapp-dev-v1").build();
+        LoadBalancer loadBalancer = lbBuilder.setType(LbTypeEnum.CLASSIC).setName("MyTargetGroup")
+                                             .setArn("arn:aws:elasticloadbalancing:us-west-2:922761411234:targetgroup/MyTargetGroup/1fe63217f8ff1234")
+                                             .setBalancerId(null).setTargetSetId(null)
+                                             .setAzAwareness(null).setAutoWeight(null).build();
         LoadBalancersConfig loadBalancersConfig =
                 loadBalancerConfigBuilder.setLoadBalancers(Collections.singletonList(loadBalancer)).build();
 
@@ -421,6 +424,7 @@ public class ElastigroupUsageExample {
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
                                  .setKeyPair(key_pair_name).setDetailedMonitoring(true)
                                  .setLoadBalancersConfig(loadBalancersConfig)
+                                 .setHealthCheckUnhealthyDurationBeforeReplacement("60")
                                  .setItf(itf)
                                  .setResourceTagSpecification(resourceTagSpecification).build();
 
@@ -467,12 +471,19 @@ public class ElastigroupUsageExample {
                 persistenceBuilder.setBlockDevicesMode("reattach").setShouldPersistBlockDevices(true)
                                   .setShouldPersistRootDevice(true).build();
 
+        //build revertToSpot
+        ElastigroupRevertToSpot.Builder revertToSpotBuilder = ElastigroupRevertToSpot.Builder.get();
+        List<String> timeWindows = new ArrayList<>();
+        timeWindows.add("Mon:03:00-Wed:02:30");
+        ElastigroupRevertToSpot revertToSpot = revertToSpotBuilder.setPerformAt("timeWindow").setTimeWindow(timeWindows).build();
+
+
         // Build group strategy
         ElastigroupStrategyConfiguration.Builder strategyBuilder = ElastigroupStrategyConfiguration.Builder.get();
         ElastigroupStrategyConfiguration strategy =
                 strategyBuilder.setElastigroupOrientation(ElastigroupOrientationEnum.COST_ORIENTED)
                                .setFallbackToOnDemand(true).setUtilizeReservedInstances(false).setSpotPercentage(100)
-                               .setPersistence(persistence).build();
+                               .setPersistence(persistence).setRevertToSpot(revertToSpot).build();
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();
@@ -523,11 +534,24 @@ public class ElastigroupUsageExample {
         ElastigroupEcsSpecification ecs =
                 ecsBuilder.setAutoScale(autoscale).setClusterName("sali-ecs").setOptimizeImages(optimizeImages)
                           .setBatch(batch).build();
+
+        //build deploymentGroups
+        ElastigroupDeploymentGroups.Builder deploymentGroupsBuilder = ElastigroupDeploymentGroups.Builder.get();
+        ElastigroupDeploymentGroups deploymentGroups = deploymentGroupsBuilder.setapplicationName("test-app")
+                                                                              .setDeploymentGroupName("test-grp").build();
+        List<ElastigroupDeploymentGroups> deploymentGroupsList = new ArrayList<>();
+        deploymentGroupsList.add(deploymentGroups);
+
+        //build codeDeploy
+        ElastigroupCodeDeploy.Builder codeDeployBuilder = ElastigroupCodeDeploy.Builder.get();
+        ElastigroupCodeDeploy codeDeploy = codeDeployBuilder.setCleanUpOnFailure(false).setTerminateInstanceOnFailure(false)
+                                                            .setDeploymentGroups(deploymentGroupsList).build();
+
         //build group third party integration ECS
         ElastigroupThirdPartiesIntegrationConfiguration.Builder thirdPartiesIntegrationBuilder =
                 ElastigroupThirdPartiesIntegrationConfiguration.Builder.get();
         ElastigroupThirdPartiesIntegrationConfiguration thirdPartiesIntegration =
-                thirdPartiesIntegrationBuilder.setEcs(ecs).build();
+                thirdPartiesIntegrationBuilder.setEcs(ecs).setCodeDeploy(codeDeploy).build();
         //build task
         TasksConfiguration.Builder tasksBuilder = TasksConfiguration.Builder.get();
         List<TasksConfiguration>   tasksList    = new ArrayList<>();
