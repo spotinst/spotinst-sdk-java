@@ -18,7 +18,7 @@ public class LoadBalancer {
     private LbTypeEnum  type;
     private String      balancerId;
     private String      targetSetId;
-    private Boolean     azAwerness; //check spelling
+    private Boolean     azAwareness;
     private Boolean     autoWeight;
     //endregion
 
@@ -84,13 +84,13 @@ public class LoadBalancer {
         this.targetSetId = targetSetId;
     }
 
-    public Boolean getAzAwerness() {
-        return azAwerness;
+    public Boolean getAzAwareness() {
+        return azAwareness;
     }
 
-    public void setAzAwerness(Boolean azAwerness) {
-        isSet.add("azAwerness");
-        this.azAwerness = azAwerness;
+    public void setAzAwareness(Boolean azAwareness) {
+        isSet.add("azAwareness");
+        this.azAwareness = azAwareness;
     }
 
     public Boolean getAutoWeight() {
@@ -137,8 +137,8 @@ public class LoadBalancer {
             return this;
         }
 
-        public LoadBalancer.Builder setAzAwerness(final Boolean azAwerness) {
-            loadBalancer.setAzAwerness(azAwerness);
+        public LoadBalancer.Builder setAzAwareness(final Boolean azAwareness) {
+            loadBalancer.setAzAwareness(azAwareness);
             return this;
         }
 
@@ -182,7 +182,7 @@ public class LoadBalancer {
     public boolean isTargetSetIdSet() { return isSet.contains("targetSetId"); }
 
     @JsonIgnore
-    public boolean isAzAwernessSet() { return isSet.contains("azAwerness"); }
+    public boolean isAzAwarenessSet() { return isSet.contains("azAwareness"); }
 
     @JsonIgnore
     public boolean isAutoWeightSet() { return isSet.contains("autoWeight"); }

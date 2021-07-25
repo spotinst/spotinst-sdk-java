@@ -19,16 +19,16 @@ import java.util.Set;
 class ApiLaunchSpec implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                 isSet;
-    private String                      healthCheckType;
-    private Integer                     healthCheckGracePeriod;
+    private Set<String>                      isSet;
+    private String                           healthCheckType;
+    private Integer                          healthCheckGracePeriod;
     private List<String>                     securityGroupIds;
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
     private String                           imageId;
     private ApiIamRole                       iamRole;
     private String                           keyPair;
-    private String                   healthCheckUnhealthyDurationBeforeReplacement;
+    private String                           healthCheckUnhealthyDurationBeforeReplacement;
     private String                           userData;
     private List<ApiBlockDevice>             blockDeviceMappings;
     private List<ApiNetworkInterface>        networkInterfaces;
@@ -143,7 +143,9 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         this.userData = userData;
     }
 
-    public String getHealthCheckUnhealthyDurationBeforeReplacement() { return healthCheckUnhealthyDurationBeforeReplacement; }
+    public String getHealthCheckUnhealthyDurationBeforeReplacement() {
+        return healthCheckUnhealthyDurationBeforeReplacement;
+    }
 
     public void setHealthCheckUnhealthyDurationBeforeReplacement(String healthCheckUnhealthyDurationBeforeReplacement) {
         isSet.add("healthCheckUnhealthyDurationBeforeReplacement");

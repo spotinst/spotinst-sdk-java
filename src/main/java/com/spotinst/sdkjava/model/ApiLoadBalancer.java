@@ -25,7 +25,7 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     private String      type;
     private String      balancerId;
     private String      targetSetId;
-    private Boolean     azAwerness; //check spelling
+    private Boolean     azAwareness;
     private Boolean     autoWeight;
     //endregion
 
@@ -95,17 +95,17 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isTargetSetIdSet() { return isSet.contains("targetSetId"); }
 
-    public Boolean getAzAwerness() {
-        return azAwerness;
+    public Boolean getAzAwareness() {
+        return azAwareness;
     }
 
-    public void setAzAwerness(Boolean azAwerness) {
-        isSet.add("azAwerness");
-        this.azAwerness = azAwerness;
+    public void setAzAwareness(Boolean azAwareness) {
+        isSet.add("azAwareness");
+        this.azAwareness = azAwareness;
     }
 
     @JsonIgnore
-    public boolean isAzAwernessSet() { return isSet.contains("azAwerness"); }
+    public boolean isAzAwarenessSet() { return isSet.contains("azAwareness"); }
 
     public Boolean getAutoWeight() {
         return autoWeight;
