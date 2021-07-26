@@ -28,6 +28,7 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     private String                           imageId;
     private ApiIamRole                       iamRole;
     private String                           keyPair;
+    //    TODO or: integer
     private String                           healthCheckUnhealthyDurationBeforeReplacement;
     private String                           userData;
     private List<ApiBlockDevice>             blockDeviceMappings;

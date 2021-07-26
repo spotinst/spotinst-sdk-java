@@ -12,6 +12,7 @@ public class ElastigroupCodeDeploy {
     private Set<String>                       isSet;
     private Boolean                           cleanUpOnFailure;
     private Boolean                           terminateInstanceOnFailure;
+//    TODO or: rename obj to ElastigroupDeploymentGroups
     private List<ElastigroupDeploymentGroups> deploymentGroups;
     //endregion
 
@@ -61,6 +62,7 @@ public class ElastigroupCodeDeploy {
     //endregion
     //region Builder class
     public static class Builder {
+//        TODO or: wrong member name
         private ElastigroupCodeDeploy ecs;
 
         private Builder() {

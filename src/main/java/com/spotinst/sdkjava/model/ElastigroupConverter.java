@@ -138,6 +138,7 @@ class ElastigroupConverter {
 
     private static ApiCodeDeploy toDal(ElastigroupCodeDeploy codeDeploy) {
         ApiCodeDeploy retVal = null;
+
         if (codeDeploy != null) {
             retVal = new ApiCodeDeploy();
 
@@ -158,22 +159,27 @@ class ElastigroupConverter {
                 }
             }
         }
+
         return retVal;
 
     }
 
     private static ApiDeploymentGroups toDal(ElastigroupDeploymentGroups deploymentGroups) {
         ApiDeploymentGroups retVal = null;
+
         if (deploymentGroups != null) {
             retVal = new ApiDeploymentGroups();
+
             if (deploymentGroups.isApplicationNameSet()) {
                 retVal.setApplicationName(deploymentGroups.getApplicationName());
             }
+
             if (deploymentGroups.isDeploymentGroupNameSet()) {
                 retVal.setDeploymentGroupName(deploymentGroups.getDeploymentGroupName());
             }
 
         }
+
         return retVal;
 
     }
@@ -606,6 +612,7 @@ class ElastigroupConverter {
     }
 
     private static ApiItf toDal(ElastigroupItf itf) {
+//        TODO or: don't init if it's null
         ApiItf retVal           = new ApiItf();
 
         if (itf != null) {
@@ -641,6 +648,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    // TODO or and shibel: CR checkpoint
     private static ApiItfLoadBalancers toDal(ElastigroupItfLoadBalancers loadBalancers) {
         ApiItfLoadBalancers retVal = null;
 

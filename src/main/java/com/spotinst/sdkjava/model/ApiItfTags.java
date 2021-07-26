@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+
+// TODO or: add its parent object as well (targetGroupConfig)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -27,7 +29,7 @@ public class ApiItfTags implements IPartialUpdateEntity {
         isSet = new HashSet<>();
     }
     //endregion
-
+    // TODO or: this isn't needed
     ApiItfTags(String tagKey, String tagValue) {
         isSet = new HashSet<>();
         this.setTagKey(tagKey);
