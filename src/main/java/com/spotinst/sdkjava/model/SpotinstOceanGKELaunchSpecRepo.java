@@ -2,25 +2,19 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKELaunchSpec;
 
 public class SpotinstOceanGKELaunchSpecRepo implements ISpotinstOceanGKECreateLaunchSpecRepo {
 
     @Override
-    public RepoGenericResponse<OceanGKECreateLaunchSpecRes> create(OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes, String authToken, String account) {
-        RepoGenericResponse<OceanGKECreateLaunchSpecRes> retVal;
+    public RepoGenericResponse<OceanGKELaunchSpec> create(OceanGKELaunchSpec oceanGKECreateLaunchSpecRes, String authToken, String account) {
+        RepoGenericResponse<OceanGKELaunchSpec> retVal;
 
         try {
             ApiOceanGKELaunchSpec apiOceanGKELaunchSpec = OceanGKELaunchSpecConverter.toDal(oceanGKECreateLaunchSpecRes);
             ApiOceanGKELaunchSpec apiOceanGKELaunchSpecification =
                     SpotinstOceanGKELaunchSpecService.createLaunchSpec(apiOceanGKELaunchSpec, authToken, account);
-            OceanGKECreateLaunchSpecRes CreatedLaunchSpec = OceanGKELaunchSpecConverter.toBl(apiOceanGKELaunchSpecification);
+            OceanGKELaunchSpec CreatedLaunchSpec = OceanGKELaunchSpecConverter.toBl(apiOceanGKELaunchSpecification);
             retVal = new RepoGenericResponse<>(CreatedLaunchSpec);
         }
         catch (SpotinstHttpException ex) {
@@ -31,14 +25,14 @@ public class SpotinstOceanGKELaunchSpecRepo implements ISpotinstOceanGKECreateLa
     }
 
     @Override
-    public RepoGenericResponse<OceanGKECreateLaunchSpecRes> get(String launchSpecId,String authToken, String account) {
-        RepoGenericResponse<OceanGKECreateLaunchSpecRes> retVal;
+    public RepoGenericResponse<OceanGKELaunchSpec> get(String launchSpecId,String authToken, String account) {
+        RepoGenericResponse<OceanGKELaunchSpec> retVal;
 
         try {
             ApiOceanGKELaunchSpec apiOceanGKELaunchSpec =
                     SpotinstOceanGKELaunchSpecService.getALaunchSpec(authToken, account,launchSpecId);
 
-            OceanGKECreateLaunchSpecRes launchSpecs =OceanGKELaunchSpecConverter.toBl(apiOceanGKELaunchSpec);
+            OceanGKELaunchSpec launchSpecs =OceanGKELaunchSpecConverter.toBl(apiOceanGKELaunchSpec);
             retVal = new RepoGenericResponse<>(launchSpecs);
         }
         catch (SpotinstHttpException e) {
@@ -49,7 +43,7 @@ public class SpotinstOceanGKELaunchSpecRepo implements ISpotinstOceanGKECreateLa
     }
 
     @Override
-    public RepoGenericResponse<Boolean> update(String launchSpecId, OceanGKECreateLaunchSpecRes launchSpecToUpdate, String authToken,
+    public RepoGenericResponse<Boolean> update(String launchSpecId, OceanGKELaunchSpec launchSpecToUpdate, String authToken,
                                                String account) {
         RepoGenericResponse<Boolean> retVal;
 

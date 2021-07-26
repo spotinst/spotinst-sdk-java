@@ -1,18 +1,14 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.client.http.UserAgentConfig;
-import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKELaunchSpec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class SpotinstOceanGKELaunchSpecClientTest {
+public class SpotInstOceanGKELaunchSpecClient {
 
     private static final Logger LOGGER =
             LoggerFactory.getLogger(SpotinstElastigroupClientGcp.class);
@@ -20,19 +16,19 @@ public class SpotinstOceanGKELaunchSpecClientTest {
     private               String authToken;
     private               String account;
 
-    public SpotinstOceanGKELaunchSpecClientTest(String authToken, String account) {
+    public SpotInstOceanGKELaunchSpecClient(String authToken, String account) {
 
         this.authToken = authToken;
         this.account = account;
     }
 
-    public OceanGKECreateLaunchSpecRes createOceanGKELaunchSpec(OceanGKECreateLaunchSpecRequest oceanGKECreateLaunchSpecRequest){
+    public OceanGKELaunchSpec createOceanGKELaunchSpec(OceanGKECreateLaunchSpecRequest oceanGKECreateLaunchSpecRequest){
 
-        OceanGKECreateLaunchSpecRes retVal;
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
+        OceanGKELaunchSpec retVal;
+        OceanGKELaunchSpec oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
         SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
         ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
-        RepoGenericResponse<OceanGKECreateLaunchSpecRes> creationResponse    =
+        RepoGenericResponse<OceanGKELaunchSpec> creationResponse    =
                 repoGcp.create(oceanGKECreateLaunchSpecRes, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
@@ -51,11 +47,11 @@ public class SpotinstOceanGKELaunchSpecClientTest {
 
     }
 
-    public OceanGKECreateLaunchSpecRes getALaunchSpec(String oceanId){
-        OceanGKECreateLaunchSpecRes retVal = null;
+    public OceanGKELaunchSpec getALaunchSpec(String oceanId){
+        OceanGKELaunchSpec retVal = null;
         SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
         ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
-        RepoGenericResponse<OceanGKECreateLaunchSpecRes> creationResponse    =
+        RepoGenericResponse<OceanGKELaunchSpec> creationResponse    =
                 repoGcp.get(oceanId,authToken,account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -74,7 +70,7 @@ public class SpotinstOceanGKELaunchSpecClientTest {
     public Boolean updateOceanGKELaunchSpec(OceanGKECreateLaunchSpecRequest updateLaunchSpecRequest,String launchSpecId){
 
         Boolean retVal;
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
+        OceanGKELaunchSpec oceanGKECreateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
         SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
         ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
         RepoGenericResponse<Boolean> creationResponse    =

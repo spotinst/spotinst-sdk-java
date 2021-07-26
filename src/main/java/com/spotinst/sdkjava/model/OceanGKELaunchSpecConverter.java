@@ -1,17 +1,14 @@
 package com.spotinst.sdkjava.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.api.gcp.ApiCapacityGcp;
 import com.spotinst.sdkjava.model.bl.gcp.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 public class OceanGKELaunchSpecConverter {
 
-    public static ApiOceanGKELaunchSpec toDal(OceanGKECreateLaunchSpecRes src) {
+    public static ApiOceanGKELaunchSpec toDal(OceanGKELaunchSpec src) {
         ApiOceanGKELaunchSpec apiGroup = null;
 
         if (src != null) {
@@ -279,11 +276,11 @@ public class OceanGKELaunchSpecConverter {
         return labelsListToReturn;
     }
 
-    public static OceanGKECreateLaunchSpecRes toBl(ApiOceanGKELaunchSpec apiOceanGKELaunchSpec) {
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = null;
+    public static OceanGKELaunchSpec toBl(ApiOceanGKELaunchSpec apiOceanGKELaunchSpec) {
+        OceanGKELaunchSpec oceanGKECreateLaunchSpecRes = null;
 
         if (apiOceanGKELaunchSpec != null) {
-            OceanGKECreateLaunchSpecRes.Builder oceanGKECreateLaunchSpecBuilder = OceanGKECreateLaunchSpecRes.Builder.get();
+            OceanGKELaunchSpec.Builder oceanGKECreateLaunchSpecBuilder = OceanGKELaunchSpec.Builder.get();
 
             if (apiOceanGKELaunchSpec.isIdSet()) {
                 oceanGKECreateLaunchSpecBuilder.setId(apiOceanGKELaunchSpec.getId());

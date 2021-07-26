@@ -2,10 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKELaunchSpec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,13 +10,13 @@ import java.util.Map;
 public class OceanGKECreateLaunchSpecRequest {
 
     @JsonProperty("launchSpec")
-    private OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes;
+    private OceanGKELaunchSpec oceanGKECreateLaunchSpecRes;
 
-    public OceanGKECreateLaunchSpecRes getOceanGKECreateLaunchSpecRes() {
+    public OceanGKELaunchSpec getOceanGKECreateLaunchSpecRes() {
         return oceanGKECreateLaunchSpecRes;
     }
 
-    public void setOceanGKECreateLaunchSpecRes(OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes) {
+    public void setOceanGKECreateLaunchSpecRes(OceanGKELaunchSpec oceanGKECreateLaunchSpecRes) {
         this.oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecRes;
     }
 
@@ -38,7 +35,7 @@ public class OceanGKECreateLaunchSpecRequest {
             return builder;
         }
 
-        public Builder setOceanGKECreateLaunchSpec(final OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes) {
+        public Builder setOceanGKECreateLaunchSpec(final OceanGKELaunchSpec oceanGKECreateLaunchSpecRes) {
             oceanGKECreateLaunchSpecRequest.setOceanGKECreateLaunchSpecRes(oceanGKECreateLaunchSpecRes);
             return this;
         }

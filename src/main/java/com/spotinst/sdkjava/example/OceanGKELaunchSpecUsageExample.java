@@ -1,10 +1,8 @@
 package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.gcp.*;
-import org.apache.logging.log4j.core.util.Assert;
 
 import java.io.IOException;
 import java.util.*;
@@ -16,37 +14,55 @@ public class OceanGKELaunchSpecUsageExample {
 
     public static void main(String[] args) throws IOException {
 
-        SpotinstOceanGKELaunchSpecClientTest
-                spotinstOceanGKELaunchSpecClientTest = SpotinstClient.getSpotinstOceanGKELaunchSpecClientTest(auth_token, account_id);
-        String launchSpecId = createGKELaunchSpec(spotinstOceanGKELaunchSpecClientTest,"Test_LaunchSpec4");
+        // Create a Launch Spec
+        System.out.println("--------------Create a launch spec----------------------");
+        SpotInstOceanGKELaunchSpecClient
+                spotInstOceanGKELaunchSpecClient = SpotinstClient.getSpotinstOceanGKELaunchSpecClientTest(auth_token, account_id);
+        String launchSpecId = createGKELaunchSpec(spotInstOceanGKELaunchSpecClient,"Test_LaunchSpec4");
         if(launchSpecId == null){
             System.out.println("Failed to create Launch spec so exiting from the script");
             System.exit(0);
         }
-        OceanGKECreateLaunchSpecRes res = getALaunchSpecs(spotinstOceanGKELaunchSpecClientTest,launchSpecId);
-        System.out.println("Below are the recent fetch launch spec details");
-        System.out.println("Launch Spec ID: "+res.getId());
-        updateALaunchSpec(spotinstOceanGKELaunchSpecClientTest,res.getId(),"Update_Test_LaunchSpec4");
-        System.out.println("New name after update : "+getALaunchSpecs(spotinstOceanGKELaunchSpecClientTest,launchSpecId).getName());
-        deleteALaunchSpec(spotinstOceanGKELaunchSpecClientTest,res.getId());
 
+        // Get created launch spec
+        System.out.println("--------------Get a launch spec----------------------");
+        OceanGKELaunchSpec res = getALaunchSpecs(spotInstOceanGKELaunchSpecClient,launchSpecId);
+        if(res != null){
+            System.out.println("Launch Spec ID: "+res.getId());
+        }else{
+            System.out.println("Failed to get Launch spec so exiting from the script");
+            System.exit(0);
+        }
+
+        // Updates a launch spec
+        System.out.println("--------------Update a launch spec----------------------");
+        updateALaunchSpec(spotInstOceanGKELaunchSpecClient,res.getId(),"Update_Test_LaunchSpec4");
+        System.out.println("New name after update : "+getALaunchSpecs(spotInstOceanGKELaunchSpecClient,launchSpecId).getName());
+
+        // Delete a launch spec
+        System.out.println("--------------Delete a launch spec----------------------");
+        deleteALaunchSpec(spotInstOceanGKELaunchSpecClient,res.getId());
     }
 
-    private static String  createGKELaunchSpec(SpotinstOceanGKELaunchSpecClientTest client,String launchSpecname) {
+    private static String  createGKELaunchSpec(SpotInstOceanGKELaunchSpecClient client,String launchSpecName) {
 
 
+        // Create request object to bind the request
         OceanGKECreateLaunchSpecRequest.Builder oceanGKECreateLaunchSpecRequest =
                 OceanGKECreateLaunchSpecRequest.Builder.get();
 
+        // Form a metadata request builder
         OceanGKEMetadata.Builder builder = OceanGKEMetadata.Builder.get();
         builder.setKey("Key1");
         builder.setValue("Value1");
         OceanGKEMetadata metadata = builder.build();
-        List<OceanGKEMetadata> oceanGKEMetadatas = new ArrayList<>();
-        oceanGKEMetadatas.add(metadata);
+        List<OceanGKEMetadata> oceanGKEMetadata = new ArrayList<>();
+        oceanGKEMetadata.add(metadata);
 
-
+        // Form a instance type request builder
         List<String> instanceTypes = Arrays.asList(new String[]{"n1-standard-1","n1-standard-2"});
+
+        // Form a taints request builder
         List<OceanGKETaints> taints = new ArrayList<>();
         OceanGKETaints taintsBuilder = OceanGKETaints.Builder.get().setKey("taintKey")
                                                                     .setValue("taintValue")
@@ -54,6 +70,7 @@ public class OceanGKELaunchSpecUsageExample {
         taints.add(taintsBuilder);
 
 
+        // Form a labels request builder
         List<OceanGKELabels> labels = new ArrayList<>();
         OceanGKELabels oceanGKELabels = OceanGKELabels.Builder.get().setKey("env").setValue("test").build();
         labels.add(oceanGKELabels);
@@ -67,19 +84,24 @@ public class OceanGKELaunchSpecUsageExample {
         OceanGKEAutoScale autoScale = OceanGKEAutoScale.Builder.get().setHeadrooms(headRoomsList).build();
 
 
+        // Form a resource limits request builder
         OceanGKEResourceLimits resourceLimits = OceanGKEResourceLimits.Builder.get().setMaxInstanceCount(5).build();
 
+        // Form a shield instance config request builder
         OceanGKEShieldedInstanceConfig shieldedInstanceConfig = OceanGKEShieldedInstanceConfig.Builder.get().setEnableSecureBoot(true).setEnableIntegrityMonitoring(true).build();
 
+        // Form a strategy request builder
         OceanGKEStrategy strategy = OceanGKEStrategy.Builder.get().setPreemptiblePercentage(80).build();
 
+        // Form a storage request builder
         OceanGKEStorage storage = OceanGKEStorage.Builder.get().setLocalSsdCount(2).build();
 
-        OceanGKECreateLaunchSpecRes.Builder oceanGKECreateLaunchSpecResBuilder = OceanGKECreateLaunchSpecRes.Builder.get();
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-23da368e")
+        // Build Ocean GKE launch spec
+        OceanGKELaunchSpec.Builder oceanGKECreateLaunchSpecResBuilder = OceanGKELaunchSpec.Builder.get();
+        OceanGKELaunchSpec oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-23da368e")
                                                                                                     .setServiceAccount("serviceAccount")
                                                                                                     .setRootVolumeType("pd-standard")
-                                                                                                    .setName(launchSpecname)
+                                                                                                    .setName(launchSpecName)
                                                                                                     .setSourceImage("https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/container-v1-3-v20160517")
                                                                                                     .setInstanceTypes(instanceTypes)
                                                                                                     .setTaints(taints)
@@ -89,28 +111,34 @@ public class OceanGKELaunchSpecUsageExample {
                                                                                                     .setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig)
                                                                                                     .setStrategy(strategy)
                                                                                                     .setStorage(storage)
-                                                                                                    .setMetadata(oceanGKEMetadatas).build();
+                                                                                                    .setMetadata(oceanGKEMetadata).build();
         OceanGKECreateLaunchSpecRequest creationRequest=
                 oceanGKECreateLaunchSpecRequest.setOceanGKECreateLaunchSpec(oceanGKECreateLaunchSpecRes).build();
 
+        // Convert launch spec to API object json
         System.out.println(creationRequest.toJson());
 
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpec = client.createOceanGKELaunchSpec(creationRequest);
+        //create launch spec
+        OceanGKELaunchSpec oceanGKECreateLaunchSpec = client.createOceanGKELaunchSpec(creationRequest);
         System.out.println("GKE Launch Spec successfully created: " + oceanGKECreateLaunchSpec.getName());
 
         return oceanGKECreateLaunchSpec.getId();
 
     }
 
-    private static OceanGKECreateLaunchSpecRes getALaunchSpecs(SpotinstOceanGKELaunchSpecClientTest client,String LaunchSpecId){
+    private static OceanGKELaunchSpec getALaunchSpecs(SpotInstOceanGKELaunchSpecClient client,String LaunchSpecId){
+
+        //Get a launch spec
         return client.getALaunchSpec(LaunchSpecId);
     }
 
-    private static void updateALaunchSpec(SpotinstOceanGKELaunchSpecClientTest client,String launchSpecId,String newName){
+    private static void updateALaunchSpec(SpotInstOceanGKELaunchSpecClient client,String launchSpecId,String newName){
 
+        // Create launch spec request object
         OceanGKECreateLaunchSpecRequest.Builder oceanGKEUpdateLaunchSpecRequest =
                 OceanGKECreateLaunchSpecRequest.Builder.get();
 
+        // Form metadata builder to update
         OceanGKEMetadata.Builder builder = OceanGKEMetadata.Builder.get();
         builder.setKey("UKey1");
         builder.setValue("UValue1");
@@ -119,6 +147,7 @@ public class OceanGKELaunchSpecUsageExample {
         oceanGKEMetadatas.add(metadata);
 
 
+        // Form taints builder to update
         List<OceanGKETaints> taints = new ArrayList<>();
         OceanGKETaints taintsBuilder = OceanGKETaints.Builder.get().setKey("UtaintKey")
                                                              .setValue("UtaintValue")
@@ -126,8 +155,9 @@ public class OceanGKELaunchSpecUsageExample {
         taints.add(taintsBuilder);
 
 
-        OceanGKECreateLaunchSpecRes.Builder oceanGKECreateLaunchSpecResBuilder = OceanGKECreateLaunchSpecRes.Builder.get();
-        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setName(newName)
+        //Create launch spec object
+        OceanGKELaunchSpec.Builder oceanGKECreateLaunchSpecResBuilder = OceanGKELaunchSpec.Builder.get();
+        OceanGKELaunchSpec oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setName(newName)
                                                                                                     .setTaints(taints)
                                                                                                     .setMetadata(oceanGKEMetadatas).build();
         OceanGKECreateLaunchSpecRequest updateRequest=
@@ -135,6 +165,7 @@ public class OceanGKELaunchSpecUsageExample {
 
         System.out.println(updateRequest.toJson());
 
+        // Update the launch spec
         Boolean updateSuccess = client.updateOceanGKELaunchSpec(updateRequest,launchSpecId);
 
         if(updateSuccess){
@@ -142,7 +173,9 @@ public class OceanGKELaunchSpecUsageExample {
         }
     }
 
-    private static void deleteALaunchSpec(SpotinstOceanGKELaunchSpecClientTest client, String launchSpecId) {
+    private static void deleteALaunchSpec(SpotInstOceanGKELaunchSpecClient client, String launchSpecId) {
+
+        // Delete a launch spec
         Boolean successfulDeletion = client.deleteALaunchSpec(launchSpecId);
         if (successfulDeletion) {
             System.out.println("Launch Spec with id:" + launchSpecId+" deleted successfully");

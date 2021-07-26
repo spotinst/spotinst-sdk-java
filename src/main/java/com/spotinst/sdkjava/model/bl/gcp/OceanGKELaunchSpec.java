@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class OceanGKECreateLaunchSpecRes {
+public class OceanGKELaunchSpec {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -30,7 +30,7 @@ public class OceanGKECreateLaunchSpecRes {
     private OceanGKEStorage storage;
 
 
-    private OceanGKECreateLaunchSpecRes() {
+    private OceanGKELaunchSpec() {
         isSet = new HashSet<>();
     }
 
@@ -193,104 +193,104 @@ public class OceanGKECreateLaunchSpecRes {
 
     public static class Builder {
         //region Members
-        private OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes;
+        private OceanGKELaunchSpec oceanGKECreateLaunchSpecRes;
         //endregion
 
 
         private Builder() {
-            this.oceanGKECreateLaunchSpecRes = new OceanGKECreateLaunchSpecRes();
+            this.oceanGKECreateLaunchSpecRes = new OceanGKELaunchSpec();
         }
 
-        public static OceanGKECreateLaunchSpecRes.Builder get() {
-            OceanGKECreateLaunchSpecRes.Builder builder = new OceanGKECreateLaunchSpecRes.Builder();
+        public static OceanGKELaunchSpec.Builder get() {
+            OceanGKELaunchSpec.Builder builder = new OceanGKELaunchSpec.Builder();
             return builder;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setId(final String launchSpecId) {
+        public OceanGKELaunchSpec.Builder setId(final String launchSpecId) {
             oceanGKECreateLaunchSpecRes.setId(launchSpecId);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setOceanId(final String oceanId) {
+        public OceanGKELaunchSpec.Builder setOceanId(final String oceanId) {
             oceanGKECreateLaunchSpecRes.setOceanId(oceanId);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setName(final String name) {
+        public OceanGKELaunchSpec.Builder setName(final String name) {
             oceanGKECreateLaunchSpecRes.setName(name);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setSourceImage(final String description) {
+        public OceanGKELaunchSpec.Builder setSourceImage(final String description) {
             oceanGKECreateLaunchSpecRes.setSourceImage(description);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setServiceAccount(final String region) {
+        public OceanGKELaunchSpec.Builder setServiceAccount(final String region) {
             oceanGKECreateLaunchSpecRes.setServiceAccount(region);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setRootVolumeSize(final int rootVolumeSize) {
+        public OceanGKELaunchSpec.Builder setRootVolumeSize(final int rootVolumeSize) {
             oceanGKECreateLaunchSpecRes.setRootVolumeSize(rootVolumeSize);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setStrategy(final OceanGKEStrategy strategy) {
+        public OceanGKELaunchSpec.Builder setStrategy(final OceanGKEStrategy strategy) {
             oceanGKECreateLaunchSpecRes.setStrategy(strategy);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setRootVolumeType(final String rootVolumeType) {
+        public OceanGKELaunchSpec.Builder setRootVolumeType(final String rootVolumeType) {
             oceanGKECreateLaunchSpecRes.setRootVolumeType(rootVolumeType);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setMetadata(final List<OceanGKEMetadata> metadata) {
+        public OceanGKELaunchSpec.Builder setMetadata(final List<OceanGKEMetadata> metadata) {
             oceanGKECreateLaunchSpecRes.setMetadata(metadata);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setInstanceTypes(final List<String> instanceTypes) {
+        public OceanGKELaunchSpec.Builder setInstanceTypes(final List<String> instanceTypes) {
             oceanGKECreateLaunchSpecRes.setInstanceTypes(instanceTypes);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setRestrictScaleDown(final boolean restrictScaleDown) {
+        public OceanGKELaunchSpec.Builder setRestrictScaleDown(final boolean restrictScaleDown) {
             oceanGKECreateLaunchSpecRes.setRestrictScaleDown(restrictScaleDown);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setTaints(final List<OceanGKETaints> taints) {
+        public OceanGKELaunchSpec.Builder setTaints(final List<OceanGKETaints> taints) {
             oceanGKECreateLaunchSpecRes.setTaints(taints);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setLabels(final List<OceanGKELabels> labels) {
+        public OceanGKELaunchSpec.Builder setLabels(final List<OceanGKELabels> labels) {
             oceanGKECreateLaunchSpecRes.setLabels(labels);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setResourceLimits(final OceanGKEResourceLimits resourceLimits) {
+        public OceanGKELaunchSpec.Builder setResourceLimits(final OceanGKEResourceLimits resourceLimits) {
             oceanGKECreateLaunchSpecRes.setResourceLimits(resourceLimits);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setOceanGKEShieldedInstanceConfig(final OceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
+        public OceanGKELaunchSpec.Builder setOceanGKEShieldedInstanceConfig(final OceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
             oceanGKECreateLaunchSpecRes.setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setAutoScales(final OceanGKEAutoScale autoScales) {
+        public OceanGKELaunchSpec.Builder setAutoScales(final OceanGKEAutoScale autoScales) {
             oceanGKECreateLaunchSpecRes.setAutoScale(autoScales);
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setStorage(final OceanGKEStorage storage) {
+        public OceanGKELaunchSpec.Builder setStorage(final OceanGKEStorage storage) {
             oceanGKECreateLaunchSpecRes.setStorage(storage);
             return this;
         }
-        public OceanGKECreateLaunchSpecRes build() {
+        public OceanGKELaunchSpec build() {
             // Validations
             return oceanGKECreateLaunchSpecRes;
         }
