@@ -26,7 +26,7 @@ public class ElastigroupUsageExample {
 
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
-/*
+
         // Enter Group Standby
         enterGroupStandby(elastigroupClient, elastigroupId);
 
@@ -111,8 +111,7 @@ public class ElastigroupUsageExample {
         // Get Group Events Logs
         getEventsLogs(elastigroupClient, elastigroupId, LOGS_FROM_DATE_EXAMPLE, LOGS_TO_DATE_EXAMPLE, ALL, null,
                       LOGS_MAX_LIMIT);
-*/
-        sleep(10);
+
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
 
