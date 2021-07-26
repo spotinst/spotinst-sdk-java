@@ -41,6 +41,7 @@ public class ElastigroupDeploymentGroup {
     }
 
     public void setDeploymentGroupName(String DeploymentGroupName) {
+        //    TODO or: correct property name
         isSet.add("DeploymentGroupName");
         this.deploymentGroupName = DeploymentGroupName;
     }
@@ -60,6 +61,7 @@ public class ElastigroupDeploymentGroup {
             return builder;
         }
 
+//        TODO or: follow camelCase.
         public Builder setapplicationName (final String applicationName){
             deploymentGroups.setApplicationName(applicationName);
             return this;
@@ -83,6 +85,7 @@ public class ElastigroupDeploymentGroup {
     }
 
     // Is deploymentGroupName Set boolean method
+//    TODO or: correct property name
     @JsonIgnore
     public boolean isDeploymentGroupNameSet() {
         return isSet.contains("DeploymentGroupName");

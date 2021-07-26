@@ -648,7 +648,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    // TODO or and shibel: CR checkpoint
+//    TODO or: singular form for the object itself
     private static ApiItfLoadBalancers toDal(ElastigroupItfLoadBalancers loadBalancers) {
         ApiItfLoadBalancers retVal = null;
 
@@ -659,7 +659,9 @@ class ElastigroupConverter {
                 retVal.setLoadBalancerArn(loadBalancers.getLoadBalancerArn());
             }
 
+//            TODO or: check if isSet
             if (loadBalancers.getListenerRules() != null){
+//                TODO or: singular form for object itself
                 List<ApiListenerRules> optListenerRules =
                                        loadBalancers.getListenerRules().stream().map(ElastigroupConverter::toDal)
                                        .collect(Collectors.toList());
@@ -1395,6 +1397,7 @@ class ElastigroupConverter {
 
         if (apiDeploymentGroup != null) {
             ElastigroupDeploymentGroup.Builder blDeploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
+
             if (apiDeploymentGroup.isApplicationNameSet()) {
                 blDeploymentGroupsBuilder.setapplicationName(apiDeploymentGroup.getApplicationName());
             }
@@ -1402,6 +1405,7 @@ class ElastigroupConverter {
             if (apiDeploymentGroup.isDeploymentGroupNameSet()) {
                 blDeploymentGroupsBuilder.setDeploymentGroupName(apiDeploymentGroup.getDeploymentGroupName());
             }
+
             blDeploymentGroups = blDeploymentGroupsBuilder.build();
         }
 
@@ -1772,6 +1776,7 @@ class ElastigroupConverter {
                 }
             }
             if (launchSpecification.isItfSet()){
+//                TODO or: allow setting to null
                 if (launchSpecification.getItf() != null) {
                     retValBuilder.setItf(toBl(launchSpecification.getItf()));
                 }
@@ -1803,6 +1808,7 @@ class ElastigroupConverter {
             }
 
             if (itf.isTargetGroupConfigSet()) {
+//                TODO or: allow setting to null
                 if (itf.getTargetGroupConfig() != null) {
                     retValBuilder.setTargetGroupConfig(toBl(itf.getTargetGroupConfig()));
                 }
@@ -1810,6 +1816,7 @@ class ElastigroupConverter {
 
             if (itf.isLoadBalancersSet()) {
                 if (itf.getLoadBalancers() != null) {
+//                    TODO or: object itself is singular
                     List<ElastigroupItfLoadBalancers> blItfLoadBalancers =
                                                       itf.getLoadBalancers().stream().map(ElastigroupConverter::toBl)
                                                       .collect(Collectors.toList());
@@ -1908,13 +1915,12 @@ class ElastigroupConverter {
             }
 
             if (targetGroupConfig.isMatcherSet()) {
-                if (targetGroupConfig.getMatcher() != null) {
-                    retValBuilder.setMatcher(toBl(targetGroupConfig.getMatcher()));
-                }
+                retValBuilder.setMatcher(toBl(targetGroupConfig.getMatcher()));
             }
 
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
+//                    TODO or: object itself should be singular
                     List<ElastigroupTargetGroupConfigTags> blItfTags =
                                              targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
                                              .collect(Collectors.toList());
@@ -1946,6 +1952,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
+//    TODO or: param name
     private static ElastigroupTargetGroupConfigTags toBl(ApiTargetGroupConfigTags itfTags) {
         ElastigroupTargetGroupConfigTags retVal = null;
 
@@ -2206,13 +2213,16 @@ class ElastigroupConverter {
         return retVal;
     }
 
+//    TODO or: add missing field.
     private static ElastigroupRevertToSpot toBl(ApiRevertToSpot apiRevertToSpot) {
         ElastigroupRevertToSpot blRevertToSpot = null;
 
         if (apiRevertToSpot != null) {
             ElastigroupRevertToSpot.Builder blRevertToSpotBuilder = ElastigroupRevertToSpot.Builder.get();
+
             if (apiRevertToSpot.isTimeWindowSet()) {
                 if (apiRevertToSpot.getTimeWindows() != null) {
+//                    TODO or: fix setter name
                     blRevertToSpotBuilder.setTimeWindow(new LinkedList<>(apiRevertToSpot.getTimeWindows()));
                 }
             }

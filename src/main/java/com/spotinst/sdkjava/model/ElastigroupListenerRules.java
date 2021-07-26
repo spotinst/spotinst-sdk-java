@@ -55,6 +55,7 @@ public class ElastigroupListenerRules {
             return builder;
         }
 
+//        TODO or: fix setter name
         public Builder setRuleArnType(final String ruleArnType) {
             listenerRules.setRuleArn(ruleArnType);
             return this;

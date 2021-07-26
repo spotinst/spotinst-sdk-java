@@ -23,8 +23,6 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
 
             ApiAzureStorageVolume         apiVolumeToCreate = AzureStorageVolumeConverter.toDal(volumeToCreate);
             SpotStorageAzureVolumeService volumeService     = new SpotStorageAzureVolumeService();
-//            TODO yael: use static reference - i don't think it's possible, or i just didnt understand your meaning
-//              - it's like you did in the delete method - SpotStorageAzureVolumeService.createVolume() - done
             ApiAzureStorageVolume apiCreatedVolume = SpotStorageAzureVolumeService.createVolume(apiVolumeToCreate, authToken, account);
 
 
@@ -103,7 +101,6 @@ public class SpotStorageAzureVolumeRepo implements ISpotStorageAzureVolumeRepo {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
-//        TODO yael: retVal stays retVal - done
         return retVal;
     }
 

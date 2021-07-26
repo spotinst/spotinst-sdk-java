@@ -9,9 +9,9 @@ import java.util.Set;
 public class ElastigroupTargetGroupConfig {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private String                           healthCheckPath;
-    private Integer                          healthCheckIntervalSeconds;
+    private Set<String>                            isSet;
+    private String                                 healthCheckPath;
+    private Integer                                healthCheckIntervalSeconds;
     private Integer                                healthCheckPort;
     private Integer                                healthCheckTimeoutSeconds;
     private String                                 healthCheckProtocol;
@@ -41,6 +41,7 @@ public class ElastigroupTargetGroupConfig {
         this.isSet = isSet;
     }
 
+//    TODO or: check if this methods should be private/package-private
     public String getHealthCheckPath() {
         return healthCheckPath;
     }
@@ -233,7 +234,9 @@ public class ElastigroupTargetGroupConfig {
 
     // Is healthCheckPath Set boolean method
     @JsonIgnore
-    public boolean isHealthCheckPathSet() { return isSet.contains("healthCheckPath"); }
+    public boolean isHealthCheckPathSet() {
+        return isSet.contains("healthCheckPath");
+    }
 
     // Is healthCheckIntervalSeconds Set boolean method
     @JsonIgnore

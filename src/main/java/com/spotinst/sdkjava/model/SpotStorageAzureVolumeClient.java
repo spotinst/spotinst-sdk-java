@@ -125,10 +125,6 @@ public class SpotStorageAzureVolumeClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        //        TODO yael: what is the purpose of this? - to print all the volumes (?)
-        //          - no need to do this inside of a method. If someone wants to print them they can
-        //            call this method and print them themselves. - done, deleted
-
         return retVal;
     }
 
