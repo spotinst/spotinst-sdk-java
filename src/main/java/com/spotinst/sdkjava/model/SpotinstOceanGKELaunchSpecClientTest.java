@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.OceanGKECreateLaunchSpecRes;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,7 @@ public class SpotinstOceanGKELaunchSpecClientTest {
             List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
-                    String.format("Error encountered while attempting to create elastigroup. Code: %s. Message: %s.",
+                    String.format("Error encountered while attempting to create a launch spec. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -49,4 +50,73 @@ public class SpotinstOceanGKELaunchSpecClientTest {
         return retVal;
 
     }
+
+    public OceanGKECreateLaunchSpecRes getALaunchSpec(String oceanId){
+        OceanGKECreateLaunchSpecRes retVal = null;
+        SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
+        RepoGenericResponse<OceanGKECreateLaunchSpecRes> creationResponse    =
+                repoGcp.get(oceanId,authToken,account);
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to fetch a  launch spec. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateOceanGKELaunchSpec(OceanGKECreateLaunchSpecRequest updateLaunchSpecRequest,String launchSpecId){
+
+        Boolean retVal;
+        OceanGKECreateLaunchSpecRes oceanGKECreateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
+        SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
+        RepoGenericResponse<Boolean> creationResponse    =
+                repoGcp.update(launchSpecId,oceanGKECreateLaunchSpecRes, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update a launch Spec. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean deleteALaunchSpec(String launchSpecId){
+
+        Boolean retVal;
+        SpotinstRepoManager                 managerInstance     = SpotinstRepoManager.getInstance();
+        ISpotinstOceanGKECreateLaunchSpecRepo         repoGcp             = managerInstance.getSpotinstOceanGKECreateLaunchSpecRepoGcp();
+        RepoGenericResponse<Boolean> creationResponse    =
+                repoGcp.delete(launchSpecId, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete a launch Spec. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
 }

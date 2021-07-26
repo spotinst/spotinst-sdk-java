@@ -1,16 +1,17 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKEStorage;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class OceanGKEStorage {
+public class ApiOceanGKEStorage {
 
     private Set<String> isSet;
     private int         localSsdCount;
 
-    public OceanGKEStorage(){isSet = new HashSet<>();
+    private ApiOceanGKEStorage(){isSet = new HashSet<>();
     }
     public int getLocalSsdCount() {
         return localSsdCount;
@@ -22,24 +23,24 @@ public class OceanGKEStorage {
     }
 
     public static class Builder {
-        private OceanGKEStorage gkeStorage;
+        private ApiOceanGKEStorage apiGkeStorage;
 
         private Builder() {
-            this.gkeStorage = new OceanGKEStorage();
+            this.apiGkeStorage = new ApiOceanGKEStorage();
         }
 
-        public static OceanGKEStorage.Builder get() {
-            OceanGKEStorage.Builder builder = new OceanGKEStorage.Builder();
+        public static ApiOceanGKEStorage.Builder get() {
+            ApiOceanGKEStorage.Builder builder = new ApiOceanGKEStorage.Builder();
             return builder;
         }
 
-        public OceanGKEStorage.Builder setLocalSsdCount(final int localSsdCount) {
-            gkeStorage.setLocalSsdCount(localSsdCount);
+        public ApiOceanGKEStorage.Builder setLocalSsdCount(final int localSsdCount) {
+            apiGkeStorage.setLocalSsdCount(localSsdCount);
             return this;
         }
 
-        public OceanGKEStorage build() {
-            return gkeStorage;
+        public ApiOceanGKEStorage build() {
+            return apiGkeStorage;
         }
     }
 

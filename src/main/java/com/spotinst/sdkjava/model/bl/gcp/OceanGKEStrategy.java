@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class OceanGKEStrategy {
@@ -9,14 +10,7 @@ public class OceanGKEStrategy {
     private int preemptiblePercentage;
     private Set<String> isSet;
 
-
-
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
+    public OceanGKEStrategy(){isSet = new HashSet<>();
     }
 
     public int getPreemptiblePercentage() {
@@ -35,21 +29,15 @@ public class OceanGKEStrategy {
             this.gkeStartergy = new OceanGKEStrategy();
         }
 
-        public static OceanGKEShieldedInstanceConfig.Builder get() {
+        public static OceanGKEStrategy.Builder get() {
             OceanGKEStrategy.Builder builder = new OceanGKEStrategy.Builder();
             return builder;
         }
 
-        public OceanGKEStrategy.Builder setEnableSecureBoot(final boolean enableSecureBoot) {
-            gkeStartergy.setEnableSecureBoot(enableSecureBoot);
+        public OceanGKEStrategy.Builder setPreemptiblePercentage(final int preemptiblePercentage) {
+            gkeStartergy.setPreemptiblePercentage(preemptiblePercentage);
             return this;
         }
-
-        public OceanGKEStrategy.Builder setEnableIntegrityMonitoring(final boolean enableIntegrityMonitoring) {
-            gkeStartergy.setEnableIntegrityMonitoring(enableIntegrityMonitoring);
-            return this;
-        }
-
 
         public OceanGKEStrategy build() {
             return gkeStartergy;
@@ -58,8 +46,8 @@ public class OceanGKEStrategy {
 
 
     @JsonIgnore
-    public boolean isEnableSecureBootSet() {
-        return isSet.contains("enableSecureBoot");
+    public boolean isPreemptiblePercentageSet() {
+        return isSet.contains("preemptiblePercentage");
     }
 
 

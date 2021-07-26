@@ -12,15 +12,7 @@ public class OceanGKEAutoScale {
 
     private Set<String> isSet;
 
-    private OceanGKEAutoScale(){isSet = new HashSet<>();
-    }
-
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
+    public OceanGKEAutoScale(){isSet = new HashSet<>();
     }
 
     public List<OceanGKEHeadRooms> getHeadrooms(){
@@ -28,7 +20,7 @@ public class OceanGKEAutoScale {
     }
 
     public void setHeadrooms(List<OceanGKEHeadRooms> headrooms){
-
+        isSet.add("headrooms");
         this.headrooms = headrooms;
     }
 

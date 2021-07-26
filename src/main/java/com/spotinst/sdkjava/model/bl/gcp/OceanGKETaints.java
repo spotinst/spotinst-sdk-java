@@ -12,15 +12,8 @@ public class OceanGKETaints {
     private String      value;
     private String      effect;
 
-    private OceanGKETaints(){isSet = new HashSet<>();}
+    public OceanGKETaints(){isSet = new HashSet<>();}
 
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
     public String getKey(){
         return key;
     }
@@ -31,7 +24,7 @@ public class OceanGKETaints {
     }
 
     public String getValue(){
-        return key;
+        return value;
     }
 
     public void setValue(String value) {
@@ -40,7 +33,7 @@ public class OceanGKETaints {
     }
 
     public String getEffect(){
-        return key;
+        return effect;
     }
 
     public void setEffect(String effect) {

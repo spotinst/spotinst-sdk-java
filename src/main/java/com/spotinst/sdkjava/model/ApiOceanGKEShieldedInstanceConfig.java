@@ -1,18 +1,18 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKEShieldedInstanceConfig;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class OceanGKEShieldedInstanceConfig {
-
+public class ApiOceanGKEShieldedInstanceConfig {
 
     private Set<String> isSet;
     private boolean     enableSecureBoot;
     private boolean     enableIntegrityMonitoring;
 
-    public OceanGKEShieldedInstanceConfig(){isSet = new HashSet<>();
+    private ApiOceanGKEShieldedInstanceConfig(){isSet = new HashSet<>();
     }
     public boolean getEnableSecureBoot() {
         return enableSecureBoot;
@@ -34,30 +34,30 @@ public class OceanGKEShieldedInstanceConfig {
 
 
     public static class Builder {
-        private OceanGKEShieldedInstanceConfig gkeShieldedInstanceConfig;
+        private ApiOceanGKEShieldedInstanceConfig apiGkeShieldedInstanceConfig;
 
         private Builder() {
-            this.gkeShieldedInstanceConfig = new OceanGKEShieldedInstanceConfig();
+            this.apiGkeShieldedInstanceConfig = new ApiOceanGKEShieldedInstanceConfig();
         }
 
-        public static OceanGKEShieldedInstanceConfig.Builder get() {
-            OceanGKEShieldedInstanceConfig.Builder builder = new OceanGKEShieldedInstanceConfig.Builder();
+        public static ApiOceanGKEShieldedInstanceConfig.Builder get() {
+            ApiOceanGKEShieldedInstanceConfig.Builder builder = new ApiOceanGKEShieldedInstanceConfig.Builder();
             return builder;
         }
 
-        public OceanGKEShieldedInstanceConfig.Builder setEnableSecureBoot(final boolean enableSecureBoot) {
-            gkeShieldedInstanceConfig.setEnableSecureBoot(enableSecureBoot);
+        public ApiOceanGKEShieldedInstanceConfig.Builder setEnableSecureBoot(final boolean enableSecureBoot) {
+            apiGkeShieldedInstanceConfig.setEnableSecureBoot(enableSecureBoot);
             return this;
         }
 
-        public OceanGKEShieldedInstanceConfig.Builder setEnableIntegrityMonitoring(final boolean enableIntegrityMonitoring) {
-            gkeShieldedInstanceConfig.setEnableIntegrityMonitoring(enableIntegrityMonitoring);
+        public ApiOceanGKEShieldedInstanceConfig.Builder setEnableIntegrityMonitoring(final boolean enableIntegrityMonitoring) {
+            apiGkeShieldedInstanceConfig.setEnableIntegrityMonitoring(enableIntegrityMonitoring);
             return this;
         }
 
 
-        public OceanGKEShieldedInstanceConfig build() {
-            return gkeShieldedInstanceConfig;
+        public ApiOceanGKEShieldedInstanceConfig build() {
+            return apiGkeShieldedInstanceConfig;
         }
     }
 

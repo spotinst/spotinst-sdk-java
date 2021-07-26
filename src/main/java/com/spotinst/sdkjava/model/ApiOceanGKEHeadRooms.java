@@ -1,20 +1,20 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKEHeadRooms;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class OceanGKEHeadRooms {
+public class ApiOceanGKEHeadRooms {
 
-
-     private int cpuPerUnit;
-     private int memoryPerUnit;
-     private int gpuPerUnit;
-     private int numOfUnits;
+    private int         cpuPerUnit;
+    private int         memoryPerUnit;
+    private int         gpuPerUnit;
+    private int         numOfUnits;
     private Set<String> isSet;
 
-    public OceanGKEHeadRooms(){isSet = new HashSet<>();
+    private ApiOceanGKEHeadRooms(){isSet = new HashSet<>();
     }
     public int getCpuPerUnit(){
         return cpuPerUnit;
@@ -53,37 +53,37 @@ public class OceanGKEHeadRooms {
     }
 
     public static class Builder {
-        private OceanGKEHeadRooms gkeHeadRooms;
+        private ApiOceanGKEHeadRooms apiGkeHeadRooms;
 
         private Builder() {
-            this.gkeHeadRooms = new OceanGKEHeadRooms();
+            this.apiGkeHeadRooms = new ApiOceanGKEHeadRooms();
         }
 
-        public static OceanGKEHeadRooms.Builder get() {
-            OceanGKEHeadRooms.Builder builder = new OceanGKEHeadRooms.Builder();
+        public static ApiOceanGKEHeadRooms.Builder get() {
+            ApiOceanGKEHeadRooms.Builder builder = new ApiOceanGKEHeadRooms.Builder();
             return builder;
         }
 
-        public OceanGKEHeadRooms.Builder setCpuPerUnit(final int cpuPerUnit) {
-            gkeHeadRooms.setCpuPerUnit(cpuPerUnit);
+        public ApiOceanGKEHeadRooms.Builder setCpuPerUnit(final int cpuPerUnit) {
+            apiGkeHeadRooms.setCpuPerUnit(cpuPerUnit);
             return this;
         }
 
-        public OceanGKEHeadRooms.Builder setMemoryPerUnit(final int memoryPerUnit) {
-            gkeHeadRooms.setMemoryPerUnit(memoryPerUnit);
+        public ApiOceanGKEHeadRooms.Builder setMemoryPerUnit(final int memoryPerUnit) {
+            apiGkeHeadRooms.setMemoryPerUnit(memoryPerUnit);
             return this;
         }
-        public OceanGKEHeadRooms.Builder setGpuPerUnit(final int gpuPerUnit) {
-            gkeHeadRooms.setGpuPerUnit(gpuPerUnit);
+        public ApiOceanGKEHeadRooms.Builder setGpuPerUnit(final int gpuPerUnit) {
+            apiGkeHeadRooms.setGpuPerUnit(gpuPerUnit);
             return this;
         }
 
-        public OceanGKEHeadRooms.Builder setNumOfUnits(final int numOfUnits) {
-            gkeHeadRooms.setNumOfUnits(numOfUnits);
+        public ApiOceanGKEHeadRooms.Builder setNumOfUnits(final int numOfUnits) {
+            apiGkeHeadRooms.setNumOfUnits(numOfUnits);
             return this;
         }
-        public OceanGKEHeadRooms build() {
-            return gkeHeadRooms;
+        public ApiOceanGKEHeadRooms build() {
+            return apiGkeHeadRooms;
         }
     }
 

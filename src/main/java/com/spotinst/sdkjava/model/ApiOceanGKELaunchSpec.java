@@ -19,6 +19,7 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                    isSet;
+    private String id;
     private String                         oceanId;
     private String                         name;
     private String                         sourceImage;
@@ -26,27 +27,39 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
     private int                            rootVolumeSize;
     private String                         rootVolumeType;
     private boolean                        restrictScaleDown;
-    private List<OceanGKEMetadata>         metadata;
+    private List<ApiOceanGKEMetadata>         metadata;
     private List<String>                   instanceTypes;
-    private List<OceanGKETaints>           taints;
-    private List<OceanGKELabels>           labels;
-    private OceanGKEAutoScale              autoScale;
-    private OceanGKEResourceLimits         resourceLimits;
-    private OceanGKEShieldedInstanceConfig oceanGKEShieldedInstanceConfig;
-    private OceanGKEStrategy               strategy;
-    private OceanGKEStorage                storage;
+    private List<ApiOceanGKETaints>           taints;
+    private List<ApiOceanGKELabels>           labels;
+    private ApiOceanGKEAutoScale              autoScale;
+    private ApiOceanGKEResourceLimits         resourceLimits;
+    private ApiOceanGKEShieldedInstanceConfig shieldedInstanceConfig;
+    private ApiOceanGKEStrategy               strategy;
+    private ApiOceanGKEStorage                storage;
 
 
 
     public ApiOceanGKELaunchSpec() {
         isSet = new HashSet<>();
     }
+
+
+    @Override
     public Set<String> getIsSet() {
         return isSet;
     }
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String launchSpecId) {
+        this.id = launchSpecId;
+        isSet.add("id");
     }
 
     public String getOceanId() {
@@ -115,11 +128,11 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
         isSet.add("restrictScaleDown");
     }
 
-    public List<OceanGKEMetadata> getMetadata() {
+    public List<ApiOceanGKEMetadata> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(List<OceanGKEMetadata> metadata) {
+    public void setMetadata(List<ApiOceanGKEMetadata> metadata) {
         this.metadata = metadata;
         isSet.add("metadata");
     }
@@ -133,69 +146,178 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
         isSet.add("instanceTypes");
     }
 
-    public List<OceanGKETaints> getTaints() {
+    public List<ApiOceanGKETaints> getTaints() {
         return taints;
     }
 
-    public void setTaints(List<OceanGKETaints> taints) {
+    public void setTaints(List<ApiOceanGKETaints> taints) {
         this.taints = taints;
         isSet.add("taints");
     }
 
-    public List<OceanGKELabels> getLabels() {
+    public List<ApiOceanGKELabels> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<OceanGKELabels> labels) {
+    public void setLabels(List<ApiOceanGKELabels> labels) {
         this.labels = labels;
         isSet.add("labels");
     }
 
-    public OceanGKEAutoScale getAutoScale() {
+    public ApiOceanGKEAutoScale getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(OceanGKEAutoScale autoScale) {
+    public void setAutoScale(ApiOceanGKEAutoScale autoScale) {
         this.autoScale = autoScale;
         isSet.add("autoScale");
     }
 
-    public OceanGKEResourceLimits getResourceLimits() {
+    public ApiOceanGKEResourceLimits getResourceLimits() {
         return resourceLimits;
     }
 
-    public void setResourceLimits(OceanGKEResourceLimits resourceLimits) {
+    public void setResourceLimits(ApiOceanGKEResourceLimits resourceLimits) {
         this.resourceLimits = resourceLimits;
     }
 
-    public OceanGKEShieldedInstanceConfig getOceanGKEShieldedInstanceConfig() {
-        return oceanGKEShieldedInstanceConfig;
+    public ApiOceanGKEShieldedInstanceConfig getOceanGKEShieldedInstanceConfig() {
+        return shieldedInstanceConfig;
     }
 
-    public void setOceanGKEShieldedInstanceConfig(OceanGKEShieldedInstanceConfig oceanGKEShieldedInstanceConfig) {
-        this.oceanGKEShieldedInstanceConfig = oceanGKEShieldedInstanceConfig;
-        isSet.add("oceanGKEShieldedInstanceConfig");
+    public void setOceanGKEShieldedInstanceConfig(ApiOceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
+        this.shieldedInstanceConfig = shieldedInstanceConfig;
+        isSet.add("shieldedInstanceConfig");
     }
 
-    public OceanGKEStrategy getStrategy() {
+    public ApiOceanGKEStrategy getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(OceanGKEStrategy strategy) {
+    public void setStrategy(ApiOceanGKEStrategy strategy) {
         this.strategy = strategy;
         isSet.add("strategy");
 
     }
 
-    public OceanGKEStorage getStorage() {
+    public ApiOceanGKEStorage getStorage() {
         return storage;
     }
 
-    public void setStorage(OceanGKEStorage storage) {
+    public void setStorage(ApiOceanGKEStorage storage) {
         this.storage = storage;
         isSet.add("storage");
     }
 
+    public static class Builder {
+        //region Members
+        private ApiOceanGKELaunchSpec apiOceanGKELaunchSpec;
+        //endregion
+
+
+        private Builder() {
+            this.apiOceanGKELaunchSpec = new ApiOceanGKELaunchSpec();
+        }
+
+        public static ApiOceanGKELaunchSpec.Builder get() {
+            ApiOceanGKELaunchSpec.Builder builder = new ApiOceanGKELaunchSpec.Builder();
+            return builder;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setId(final String launchSpecId) {
+            apiOceanGKELaunchSpec.setId(launchSpecId);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setOceanId(final String oceanId) {
+            apiOceanGKELaunchSpec.setOceanId(oceanId);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setName(final String name) {
+            apiOceanGKELaunchSpec.setName(name);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setSourceImage(final String description) {
+            apiOceanGKELaunchSpec.setSourceImage(description);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setServiceAccount(final String region) {
+            apiOceanGKELaunchSpec.setServiceAccount(region);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setRootVolumeSize(final int rootVolumeSize) {
+            apiOceanGKELaunchSpec.setRootVolumeSize(rootVolumeSize);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setStrategy(final ApiOceanGKEStrategy strategy) {
+            apiOceanGKELaunchSpec.setStrategy(strategy);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setRootVolumeType(final String rootVolumeType) {
+            apiOceanGKELaunchSpec.setRootVolumeType(rootVolumeType);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setMetadata(final List<ApiOceanGKEMetadata> metadata) {
+            apiOceanGKELaunchSpec.setMetadata(metadata);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setInstanceTypes(final List<String> instanceTypes) {
+            apiOceanGKELaunchSpec.setInstanceTypes(instanceTypes);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setRestrictScaleDown(final boolean restrictScaleDown) {
+            apiOceanGKELaunchSpec.setRestrictScaleDown(restrictScaleDown);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setTaints(final List<ApiOceanGKETaints> taints) {
+            apiOceanGKELaunchSpec.setTaints(taints);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setLabels(final List<ApiOceanGKELabels> labels) {
+            apiOceanGKELaunchSpec.setLabels(labels);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setResourceLimits(final ApiOceanGKEResourceLimits resourceLimits) {
+            apiOceanGKELaunchSpec.setResourceLimits(resourceLimits);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setOceanGKEShieldedInstanceConfig(final ApiOceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
+            apiOceanGKELaunchSpec.setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setAutoScales(final ApiOceanGKEAutoScale autoScales) {
+            apiOceanGKELaunchSpec.setAutoScale(autoScales);
+            return this;
+        }
+
+        public ApiOceanGKELaunchSpec.Builder setStorage(final ApiOceanGKEStorage storage) {
+            apiOceanGKELaunchSpec.setStorage(storage);
+            return this;
+        }
+        public ApiOceanGKELaunchSpec build() {
+            // Validations
+            return apiOceanGKELaunchSpec;
+        }
+        //endregion
+    }
+
+
+    @JsonIgnore
+    public boolean isIdSet() { return isSet.contains("id"); }
 
     @JsonIgnore
     public boolean isOceanIdSet() { return isSet.contains("oceanId"); }
@@ -237,7 +359,7 @@ public class ApiOceanGKELaunchSpec implements IPartialUpdateEntity {
     public boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
-    public boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("oceanGKEShieldedInstanceConfig"); }
+    public boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
 
     @JsonIgnore
     public boolean isStrategySet() { return isSet.contains("strategy"); }

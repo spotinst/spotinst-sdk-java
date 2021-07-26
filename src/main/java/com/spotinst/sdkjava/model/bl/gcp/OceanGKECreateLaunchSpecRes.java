@@ -12,6 +12,7 @@ public class OceanGKECreateLaunchSpecRes {
     @JsonIgnore
     private Set<String> isSet;
     private String oceanId;
+    private String id;
     private String                         name;
     private String                         sourceImage;
     private String                         serviceAccount;
@@ -24,7 +25,7 @@ public class OceanGKECreateLaunchSpecRes {
     private List<OceanGKELabels>           labels;
     private OceanGKEAutoScale              autoScale;
     private OceanGKEResourceLimits         resourceLimits;
-    private OceanGKEShieldedInstanceConfig oceanGKEShieldedInstanceConfig;
+    private OceanGKEShieldedInstanceConfig shieldedInstanceConfig;
     private OceanGKEStrategy strategy;
     private OceanGKEStorage storage;
 
@@ -32,12 +33,14 @@ public class OceanGKECreateLaunchSpecRes {
     private OceanGKECreateLaunchSpecRes() {
         isSet = new HashSet<>();
     }
-    public Set<String> getIsSet() {
-        return isSet;
+
+    public String getId() {
+        return id;
     }
 
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
+    public void setId(String launchSpecId) {
+        this.id = launchSpecId;
+        isSet.add("id");
     }
 
     public String getOceanId() {
@@ -160,12 +163,12 @@ public class OceanGKECreateLaunchSpecRes {
     }
 
     public OceanGKEShieldedInstanceConfig getOceanGKEShieldedInstanceConfig() {
-        return oceanGKEShieldedInstanceConfig;
+        return shieldedInstanceConfig;
     }
 
-    public void setOceanGKEShieldedInstanceConfig(OceanGKEShieldedInstanceConfig oceanGKEShieldedInstanceConfig) {
-        this.oceanGKEShieldedInstanceConfig = oceanGKEShieldedInstanceConfig;
-        isSet.add("oceanGKEShieldedInstanceConfig");
+    public void setOceanGKEShieldedInstanceConfig(OceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
+        this.shieldedInstanceConfig = shieldedInstanceConfig;
+        isSet.add("shieldedInstanceConfig");
     }
 
     public OceanGKEStrategy getStrategy() {
@@ -201,6 +204,11 @@ public class OceanGKECreateLaunchSpecRes {
         public static OceanGKECreateLaunchSpecRes.Builder get() {
             OceanGKECreateLaunchSpecRes.Builder builder = new OceanGKECreateLaunchSpecRes.Builder();
             return builder;
+        }
+
+        public OceanGKECreateLaunchSpecRes.Builder setId(final String launchSpecId) {
+            oceanGKECreateLaunchSpecRes.setId(launchSpecId);
+            return this;
         }
 
         public OceanGKECreateLaunchSpecRes.Builder setOceanId(final String oceanId) {
@@ -268,8 +276,8 @@ public class OceanGKECreateLaunchSpecRes {
             return this;
         }
 
-        public OceanGKECreateLaunchSpecRes.Builder setOceanGKEShieldedInstanceConfig(final OceanGKEShieldedInstanceConfig oceanGKEShieldedInstanceConfig) {
-            oceanGKECreateLaunchSpecRes.setOceanGKEShieldedInstanceConfig(oceanGKEShieldedInstanceConfig);
+        public OceanGKECreateLaunchSpecRes.Builder setOceanGKEShieldedInstanceConfig(final OceanGKEShieldedInstanceConfig shieldedInstanceConfig) {
+            oceanGKECreateLaunchSpecRes.setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig);
             return this;
         }
 
@@ -288,6 +296,9 @@ public class OceanGKECreateLaunchSpecRes {
         }
         //endregion
     }
+
+    @JsonIgnore
+    public boolean isIdSet() { return isSet.contains("id"); }
 
     @JsonIgnore
     public boolean isOceanIdSet() { return isSet.contains("oceanId"); }
@@ -329,7 +340,7 @@ public class OceanGKECreateLaunchSpecRes {
     public boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
-    public boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("oceanGKEShieldedInstanceConfig"); }
+    public boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
 
     @JsonIgnore
     public boolean isStrategySet() { return isSet.contains("strategy"); }

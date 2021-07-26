@@ -1,27 +1,27 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKEMetadata;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class OceanGKEMetadata {
+public class ApiOceanGKEMetadata {
 
-    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
-    public OceanGKEMetadata() {
+    public ApiOceanGKEMetadata() {
         isSet = new HashSet<>();
     }
+
     public String getKey(){
         return key;
     }
 
     public void setKey(String key){
-        isSet.add("key");
         this.key = key;
     }
 
@@ -30,33 +30,32 @@ public class OceanGKEMetadata {
     }
 
     public void setValue(String value) {
-        isSet.add("value");
         this.value = value;
     }
 
     public static class Builder {
-        private OceanGKEMetadata gkeMetadata;
+        private ApiOceanGKEMetadata apiGkeMetadata;
 
         private Builder() {
-            this.gkeMetadata = new OceanGKEMetadata();
+            this.apiGkeMetadata = new ApiOceanGKEMetadata();
         }
 
-        public static OceanGKEMetadata.Builder get() {
-            OceanGKEMetadata.Builder builder = new OceanGKEMetadata.Builder();
+        public static ApiOceanGKEMetadata.Builder get() {
+            ApiOceanGKEMetadata.Builder builder = new ApiOceanGKEMetadata.Builder();
             return builder;
         }
 
-        public OceanGKEMetadata.Builder setKey(final String key) {
-            gkeMetadata.setKey(key);
+        public ApiOceanGKEMetadata.Builder setKey(final String key) {
+            apiGkeMetadata.setKey(key);
             return this;
         }
 
-        public OceanGKEMetadata.Builder setValue(final String value) {
-            gkeMetadata.setValue(value);
+        public ApiOceanGKEMetadata.Builder setValue(final String value) {
+            apiGkeMetadata.setValue(value);
             return this;
         }
-        public OceanGKEMetadata build() {
-            return gkeMetadata;
+        public ApiOceanGKEMetadata build() {
+            return apiGkeMetadata;
         }
     }
 

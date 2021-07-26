@@ -1,20 +1,18 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.gcp.OceanGKELabels;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class OceanGKEMetadata {
+public class ApiOceanGKELabels {
 
-    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
-    public OceanGKEMetadata() {
-        isSet = new HashSet<>();
+    public ApiOceanGKELabels(){isSet = new HashSet<>();
     }
     public String getKey(){
         return key;
@@ -35,28 +33,28 @@ public class OceanGKEMetadata {
     }
 
     public static class Builder {
-        private OceanGKEMetadata gkeMetadata;
+        private ApiOceanGKELabels apiGkeLabels;
 
         private Builder() {
-            this.gkeMetadata = new OceanGKEMetadata();
+            this.apiGkeLabels = new ApiOceanGKELabels();
         }
 
-        public static OceanGKEMetadata.Builder get() {
-            OceanGKEMetadata.Builder builder = new OceanGKEMetadata.Builder();
+        public static ApiOceanGKELabels.Builder get() {
+            ApiOceanGKELabels.Builder builder = new ApiOceanGKELabels.Builder();
             return builder;
         }
 
-        public OceanGKEMetadata.Builder setKey(final String key) {
-            gkeMetadata.setKey(key);
+        public ApiOceanGKELabels.Builder setKey(final String key) {
+            apiGkeLabels.setKey(key);
             return this;
         }
 
-        public OceanGKEMetadata.Builder setValue(final String value) {
-            gkeMetadata.setValue(value);
+        public ApiOceanGKELabels.Builder setValue(final String value) {
+            apiGkeLabels.setValue(value);
             return this;
         }
-        public OceanGKEMetadata build() {
-            return gkeMetadata;
+        public ApiOceanGKELabels build() {
+            return apiGkeLabels;
         }
     }
 
@@ -65,11 +63,9 @@ public class OceanGKEMetadata {
     public boolean isKeySet() {
         return isSet.contains("key");
     }
-
     @JsonIgnore
     public boolean isValueSet() {
         return isSet.contains("value");
     }
-    //endregion
 
 }

@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model.bl.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class OceanGKEResourceLimits {
@@ -10,15 +11,8 @@ public class OceanGKEResourceLimits {
 
     private Set<String> isSet;
 
-
-    public Set<String> getIsSet() {
-        return isSet;
+    public OceanGKEResourceLimits(){isSet = new HashSet<>();
     }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
-
     public int getMaxInstanceCount(){
         return maxInstanceCount;
     }

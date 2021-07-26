@@ -11,16 +11,8 @@ public class OceanGKELabels {
     private String      key;
     private String      value;
 
-    private OceanGKELabels(){isSet = new HashSet<>();
+    public OceanGKELabels(){isSet = new HashSet<>();
     }
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
-
     public String getKey(){
         return key;
     }
@@ -31,7 +23,7 @@ public class OceanGKELabels {
     }
 
     public String getValue(){
-        return key;
+        return value;
     }
 
     public void setValue(String value) {
