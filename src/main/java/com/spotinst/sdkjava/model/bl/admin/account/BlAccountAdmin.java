@@ -9,9 +9,11 @@ public class BlAccountAdmin {
     //region Members
     @JsonIgnore
     private Set<String>                    isSet;
-    private String                         id;
+    private String                         accountId;
     private String                         name;
     private String                         organizationId;
+    private String                         cloudProvider;
+    private String                         providerExternalId;
     //endregion
 
     //region Constructor
@@ -29,17 +31,17 @@ public class BlAccountAdmin {
         this.isSet = isSet;
     }
 
-    public String getId() {
-        return id;
+    public String getAccountId() {
+        return this.accountId;
     }
 
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
+    public void setAccountId(String accountId) {
+        isSet.add("accountId");
+        this.accountId = accountId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -48,12 +50,30 @@ public class BlAccountAdmin {
     }
 
     public String getOrganizationId() {
-        return organizationId;
+        return this.organizationId;
     }
 
     public void setOrganizationId(String organizationId) {
         isSet.add("organizationId");
         this.organizationId = organizationId;
+    }
+
+    public String getCloudProvider() {
+        return this.cloudProvider;
+    }
+
+    public void setCloudProvider(String cloudProvider) {
+        isSet.add("cloudProvider");
+        this.cloudProvider = cloudProvider;
+    }
+
+    public String getProviderExternalId() {
+        return this.providerExternalId;
+    }
+
+    public void setProviderExternalId(String providerExternalId) {
+        isSet.add("providerExternalId");
+        this.providerExternalId = providerExternalId;
     }
 
     //endregion
@@ -71,8 +91,8 @@ public class BlAccountAdmin {
             return builder;
         }
 
-        public Builder setId(final String id) {
-            account.setId(id);
+        public Builder setAccountId(final String accountId) {
+            account.setAccountId(accountId);
             return this;
         }
 
@@ -86,6 +106,16 @@ public class BlAccountAdmin {
             return this;
         }
 
+        public Builder setCloudProvider(final String cloudProvider) {
+            account.setCloudProvider(cloudProvider);
+            return this;
+        }
+
+        public Builder setProviderExternalId(final String providerExternalId) {
+            account.setProviderExternalId(providerExternalId);
+            return this;
+        }
+
         public BlAccountAdmin build() {
             return account;
         }
@@ -93,17 +123,35 @@ public class BlAccountAdmin {
     //endregion
 
     //region isSet methods
-    // Is id Set boolean method
+    // Is accountId Set boolean method
     @JsonIgnore
-    public boolean isIdSet() { return isSet.contains("id"); }
+    public boolean isAccountIdSet() {
+        return isSet.contains("accountId");
+    }
 
     // Is name Set boolean method
     @JsonIgnore
-    public boolean isNameSet() { return isSet.contains("name"); }
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
 
     // Is organizationId Set boolean method
     @JsonIgnore
-    public boolean isOrganizationIdSet() { return isSet.contains("organizationId"); }
+    public boolean isOrganizationIdSet() {
+        return isSet.contains("organizationId");
+    }
+
+    // Is cloudProvider Set boolean method
+    @JsonIgnore
+    public boolean isCloudProviderSet() {
+        return isSet.contains("cloudProvider");
+    }
+
+    // Is providerExternalId Set boolean method
+    @JsonIgnore
+    public boolean isProviderExternalIdSet() {
+        return isSet.contains("providerExternalId");
+    }
 
     //endregion
 }
