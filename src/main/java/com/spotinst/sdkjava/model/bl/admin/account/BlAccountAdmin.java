@@ -125,23 +125,33 @@ public class BlAccountAdmin {
     //region isSet methods
     // Is accountId Set boolean method
     @JsonIgnore
-    public boolean isAccountIdSet() { return isSet.contains("accountId"); }
+    public boolean isAccountIdSet() {
+        return isSet.contains("accountId");
+    }
 
     // Is name Set boolean method
     @JsonIgnore
-    public boolean isNameSet() { return isSet.contains("name"); }
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
 
     // Is organizationId Set boolean method
     @JsonIgnore
-    public boolean isOrganizationIdSet() { return isSet.contains("organizationId"); }
+    public boolean isOrganizationIdSet() {
+        return isSet.contains("organizationId");
+    }
 
     // Is cloudProvider Set boolean method
     @JsonIgnore
-    public boolean isCloudProviderSet() { return isSet.contains("cloudProvider"); }
+    public boolean isCloudProviderSet() {
+        return isSet.contains("cloudProvider");
+    }
 
     // Is providerExternalId Set boolean method
     @JsonIgnore
-    public boolean isProviderExternalIdSet() { return isSet.contains("providerExternalId"); }
+    public boolean isProviderExternalIdSet() {
+        return isSet.contains("providerExternalId");
+    }
 
     //endregion
 }
