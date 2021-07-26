@@ -43,7 +43,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Handle the response.
         AccountAdminApiResponse allAccountsResponse = getCastedResponse(response, AccountAdminApiResponse.class);
 
-        if (allAccountsResponse != null && allAccountsResponse.getResponse().getCount() > 0) {
+        if (allAccountsResponse.getResponse().getCount() > 0) {
             retVal = allAccountsResponse.getResponse().getItems();
         }
 
