@@ -9,8 +9,8 @@ import java.util.*;
 
 public class OceanGKELaunchSpecUsageExample {
 
-    private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-    private final static String account_id        = "act-7d8b3fee";
+    private final static String auth_token    = "auth_token";
+    private final static String account_id        = "act-id";
 
     public static void main(String[] args) throws IOException {
 
