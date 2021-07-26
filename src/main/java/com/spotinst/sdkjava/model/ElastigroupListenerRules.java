@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/26/15.
- */
 public class ElastigroupListenerRules {
     //region Members
     @JsonIgnore

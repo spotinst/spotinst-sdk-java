@@ -9,11 +9,11 @@ import java.util.Set;
 public class ElastigroupCodeDeploy {
     //region Members
     @JsonIgnore
-    private Set<String>                       isSet;
-    private Boolean                           cleanUpOnFailure;
-    private Boolean                           terminateInstanceOnFailure;
-//    TODO or: rename obj to ElastigroupDeploymentGroups
-    private List<ElastigroupDeploymentGroups> deploymentGroups;
+    private Set<String>                      isSet;
+    private Boolean                          cleanUpOnFailure;
+    private Boolean                          terminateInstanceOnFailure;
+//    TODO or: rename obj to ElastigroupDeploymentGroup - DONE
+    private List<ElastigroupDeploymentGroup> deploymentGroups;
     //endregion
 
     //region Constructor
@@ -50,11 +50,11 @@ public class ElastigroupCodeDeploy {
         this.terminateInstanceOnFailure = terminateInstanceOnFailure;
     }
 
-    public List<ElastigroupDeploymentGroups> getDeploymentGroups() {
+    public List<ElastigroupDeploymentGroup> getDeploymentGroups() {
         return deploymentGroups;
     }
 
-    public void setDeploymentGroups(List<ElastigroupDeploymentGroups> deploymentGroups) {
+    public void setDeploymentGroups(List<ElastigroupDeploymentGroup> deploymentGroups) {
         isSet.add("deploymentGroups");
         this.deploymentGroups = deploymentGroups;
     }
@@ -62,11 +62,11 @@ public class ElastigroupCodeDeploy {
     //endregion
     //region Builder class
     public static class Builder {
-//        TODO or: wrong member name
-        private ElastigroupCodeDeploy ecs;
+//        TODO or: wrong member name - DONE from ecs changed to codeDeploy
+        private ElastigroupCodeDeploy codeDeploy;
 
         private Builder() {
-            this.ecs = new ElastigroupCodeDeploy();
+            this.codeDeploy = new ElastigroupCodeDeploy();
         }
 
         public static Builder get() {
@@ -75,22 +75,22 @@ public class ElastigroupCodeDeploy {
         }
 
         public Builder setCleanUpOnFailure(final Boolean cleanUpOnFailure) {
-            ecs.setCleanUpOnFailure(cleanUpOnFailure);
+            codeDeploy.setCleanUpOnFailure(cleanUpOnFailure);
             return this;
         }
 
         public Builder setTerminateInstanceOnFailure(final Boolean terminateInstanceOnFailure) {
-            ecs.setTerminateInstanceOnFailure(terminateInstanceOnFailure);
+            codeDeploy.setTerminateInstanceOnFailure(terminateInstanceOnFailure);
             return this;
         }
 
-        public Builder setDeploymentGroups(final List<ElastigroupDeploymentGroups> deploymentGroups) {
-            ecs.setDeploymentGroups(deploymentGroups);
+        public Builder setDeploymentGroups(final List<ElastigroupDeploymentGroup> deploymentGroups) {
+            codeDeploy.setDeploymentGroups(deploymentGroups);
             return this;
         }
 
         public ElastigroupCodeDeploy build() {
-            return ecs;
+            return codeDeploy;
         }
     }
     //endregion

@@ -21,7 +21,7 @@ public class ElastigroupLaunchSpecification {
     private String                   imageId;
     private String                   keyPair;
     private String                   userData;
-    private String                   healthCheckUnhealthyDurationBeforeReplacement;
+    private Integer                  healthCheckUnhealthyDurationBeforeReplacement;
     private IamRole                  iamRole;
     private List<NetworkInterface>   networkInterfaces;
     private List<Tag>                tags;
@@ -147,9 +147,9 @@ public class ElastigroupLaunchSpecification {
         this.userData = userData;
     }
 
-    public String getHealthCheckUnhealthyDurationBeforeReplacement() { return healthCheckUnhealthyDurationBeforeReplacement; }
+    public Integer getHealthCheckUnhealthyDurationBeforeReplacement() { return healthCheckUnhealthyDurationBeforeReplacement; }
 
-    public void setHealthCheckUnhealthyDurationBeforeReplacement(String healthCheckUnhealthyDurationBeforeReplacement) {
+    public void setHealthCheckUnhealthyDurationBeforeReplacement(Integer healthCheckUnhealthyDurationBeforeReplacement) {
         isSet.add("healthCheckUnhealthyDurationBeforeReplacement");
         this.healthCheckUnhealthyDurationBeforeReplacement = healthCheckUnhealthyDurationBeforeReplacement;
     }
@@ -239,7 +239,7 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
-        public Builder setHealthCheckUnhealthyDurationBeforeReplacement(final String healthCheckUnhealthyDurationBeforeReplacement) {
+        public Builder setHealthCheckUnhealthyDurationBeforeReplacement(final Integer healthCheckUnhealthyDurationBeforeReplacement) {
             launchSpecification.setHealthCheckUnhealthyDurationBeforeReplacement(healthCheckUnhealthyDurationBeforeReplacement);
             return this;
         }

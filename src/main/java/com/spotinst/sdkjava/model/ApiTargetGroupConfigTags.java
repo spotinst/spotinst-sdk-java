@@ -9,26 +9,28 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+// TODO or: add its parent object as well (targetGroupConfig) - DONE
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiDeploymentGroups implements IPartialUpdateEntity {
+public class ApiTargetGroupConfigTags implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String      applicationName;
-    private String      deploymentGroupName;
-
+    private String      tagKey;
+    private String      tagValue;
     //endregion
 
     //region Constructors
-    public ApiDeploymentGroups() {
+
+    public ApiTargetGroupConfigTags() {
         isSet = new HashSet<>();
     }
-
     //endregion
+    // TODO or: this isn't needed - DONE (unneeded constructor)
 
     //region Getters & Setters
+
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -37,37 +39,37 @@ public class ApiDeploymentGroups implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getApplicationName() {
-        return applicationName;
+    public String getTagKey() {
+        return tagKey;
     }
 
-    public void setApplicationName(String applicationName) {
-        isSet.add("applicationName");
-        this.applicationName = applicationName;
+    public void setTagKey(String tagKey) {
+        isSet.add("tagKey");
+        this.tagKey = tagKey;
     }
 
-    public String getDeploymentGroupName() {
-        return deploymentGroupName;
+    public String getTagValue() {
+        return tagValue;
     }
 
-    public void setDeploymentGroupName(String deploymentGroupName) {
-        isSet.add("deploymentGroupName");
-        this.deploymentGroupName = deploymentGroupName;
+    public void setTagValue(String tagValue) {
+        isSet.add("tagValue");
+        this.tagValue = tagValue;
     }
 
     //endregion
 
     //region isSet methods
-    // Is applicationName Set boolean method
+    // Is tagKey Set boolean method
     @JsonIgnore
-    public boolean isApplicationNameSet() {
-        return isSet.contains("applicationName");
+    public boolean isTagKeySet() {
+        return isSet.contains("tagKey");
     }
 
-    // Is deploymentGroupName Set boolean method
+    // Is tagValue Set boolean method
     @JsonIgnore
-    public boolean isDeploymentGroupNameSet() {
-        return isSet.contains("deploymentGroupName");
+    public boolean isTagValueSet() {
+        return isSet.contains("tagValue");
     }
 
     //endregion

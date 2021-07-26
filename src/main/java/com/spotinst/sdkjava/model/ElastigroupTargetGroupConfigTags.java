@@ -3,13 +3,10 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-/**
- * Created by ohadmuchnik on 14/07/2016.
- */
-public class ElastigroupItfTags {
+
+public class ElastigroupTargetGroupConfigTags {
     @JsonIgnore
     private Set<String> isSet;
     private String tagKey;
@@ -17,7 +14,7 @@ public class ElastigroupItfTags {
 
     //region Constructor
 
-    private ElastigroupItfTags() {
+    private ElastigroupTargetGroupConfigTags() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -50,10 +47,10 @@ public class ElastigroupItfTags {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupItfTags itfTags;
+        private ElastigroupTargetGroupConfigTags itfTags;
 
         private Builder() {
-            this.itfTags = new ElastigroupItfTags();
+            this.itfTags = new ElastigroupTargetGroupConfigTags();
         }
 
         public static Builder get() {
@@ -71,7 +68,7 @@ public class ElastigroupItfTags {
             return this;
         }
 
-        public ElastigroupItfTags build() {
+        public ElastigroupTargetGroupConfigTags build() {
             return itfTags;
         }
     }

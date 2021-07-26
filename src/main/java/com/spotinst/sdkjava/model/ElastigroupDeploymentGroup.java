@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupDeploymentGroups {
+public class ElastigroupDeploymentGroup {
     //region Members
-    // Partial Update support
     @JsonIgnore
     private Set<String> isSet;
     private String      applicationName;
@@ -15,7 +14,7 @@ public class ElastigroupDeploymentGroups {
     //endregion
 
     //region Constructors
-    private ElastigroupDeploymentGroups() {
+    private ElastigroupDeploymentGroup() {
         isSet = new HashSet<>();
     }
     //region Getters & Setters
@@ -50,10 +49,10 @@ public class ElastigroupDeploymentGroups {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupDeploymentGroups deploymentGroups;
+        private ElastigroupDeploymentGroup deploymentGroups;
 
         private Builder() {
-            this.deploymentGroups = new ElastigroupDeploymentGroups();
+            this.deploymentGroups = new ElastigroupDeploymentGroup();
         }
 
         public static Builder get() {
@@ -71,7 +70,7 @@ public class ElastigroupDeploymentGroups {
             return this;
         }
 
-        public ElastigroupDeploymentGroups build(){return deploymentGroups;}
+        public ElastigroupDeploymentGroup build(){return deploymentGroups;}
 
     }
     //endregion

@@ -19,7 +19,7 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     //region Members
     // Partial Update support
     @JsonIgnore
-    private Set<String> isSet = new HashSet<>();
+    private Set<String> isSet;
     private String      name;
     private String      arn;
     private String      type;
@@ -29,7 +29,18 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     private Boolean     autoWeight;
     //endregion
 
+    //region Constructor
+
+    public ApiLoadBalancer() {
+        isSet = new HashSet<>();
+    }
+    //endregion
+
     //region Getters & Setters
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
 
     public String getName() {
         return name;
@@ -119,9 +130,5 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isAutoWeightSet() { return isSet.contains("autoWeight"); }
 
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
-    }
     //endregion
 }

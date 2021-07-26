@@ -19,16 +19,16 @@ class ApiTargetGroupConfig implements IPartialUpdateEntity {
     private Set<String>                      isSet;
     private String                           healthCheckPath;
     private Integer                          healthCheckIntervalSeconds;
-    private Integer                          healthCheckPort;
-    private Integer                          healthCheckTimeoutSeconds;
-    private String                           healthCheckProtocol;
-    private Integer                          healthyThresholdCount;
-    private Integer                          unhealthyThresholdCount;
-    private Integer                          port;
-    private String                           protocol;
-    private String                           protocolVersion;
-    private List<ApiItfTags>                 tags;
-    private ApiMatcher                       matcher;
+    private Integer                        healthCheckPort;
+    private Integer                        healthCheckTimeoutSeconds;
+    private String                         healthCheckProtocol;
+    private Integer                        healthyThresholdCount;
+    private Integer                        unhealthyThresholdCount;
+    private Integer                        port;
+    private String                         protocol;
+    private String                         protocolVersion;
+    private List<ApiTargetGroupConfigTags> tags;
+    private ApiMatcher                     matcher;
     //endregion
 
     //region Constructor
@@ -137,11 +137,11 @@ class ApiTargetGroupConfig implements IPartialUpdateEntity {
         this.protocolVersion = protocolVersion;
     }
 
-    public List<ApiItfTags> getTags() {
+    public List<ApiTargetGroupConfigTags> getTags() {
         return tags;
     }
 
-    public void setTags(List<ApiItfTags> tags) {
+    public void setTags(List<ApiTargetGroupConfigTags> tags) {
         isSet.add("tags");
         this.tags = tags;
     }

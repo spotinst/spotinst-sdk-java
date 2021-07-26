@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class ElastigroupRevertToSpot {
     //region Members
-    // Partial Update support
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> timeWindows;

@@ -152,7 +152,7 @@ class ElastigroupConverter {
 
             if (codeDeploy.isDeploymentGroupsSet()) {
                 if (codeDeploy.getDeploymentGroups() != null) {
-                    List<ApiDeploymentGroups> deploymentGroups =
+                    List<ApiDeploymentGroup> deploymentGroups =
                                               codeDeploy.getDeploymentGroups().stream().map(ElastigroupConverter::toDal)
                                               .collect(Collectors.toList());
                     retVal.setDeploymentGroups(deploymentGroups);
@@ -164,11 +164,11 @@ class ElastigroupConverter {
 
     }
 
-    private static ApiDeploymentGroups toDal(ElastigroupDeploymentGroups deploymentGroups) {
-        ApiDeploymentGroups retVal = null;
+    private static ApiDeploymentGroup toDal(ElastigroupDeploymentGroup deploymentGroups) {
+        ApiDeploymentGroup retVal = null;
 
         if (deploymentGroups != null) {
-            retVal = new ApiDeploymentGroups();
+            retVal = new ApiDeploymentGroup();
 
             if (deploymentGroups.isApplicationNameSet()) {
                 retVal.setApplicationName(deploymentGroups.getApplicationName());
@@ -612,8 +612,8 @@ class ElastigroupConverter {
     }
 
     private static ApiItf toDal(ElastigroupItf itf) {
-//        TODO or: don't init if it's null
-        ApiItf retVal           = new ApiItf();
+//        TODO or: don't init if it's null DONE
+        ApiItf retVal = null;
 
         if (itf != null) {
             retVal = new ApiItf();
@@ -732,7 +732,7 @@ class ElastigroupConverter {
 
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
-                    List<ApiItfTags> optItfTags =
+                    List<ApiTargetGroupConfigTags> optItfTags =
                             targetGroupConfig.getTags().stream().map(ElastigroupConverter::toDal)
                                .collect(Collectors.toList());
                     retVal.setTags(optItfTags);
@@ -766,11 +766,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiItfTags toDal(ElastigroupItfTags tags) {
-        ApiItfTags retVal = null;
+    private static ApiTargetGroupConfigTags toDal(ElastigroupTargetGroupConfigTags tags) {
+        ApiTargetGroupConfigTags retVal = null;
 
         if (tags != null) {
-            retVal = new ApiItfTags();
+            retVal = new ApiTargetGroupConfigTags();
 
             if (tags.isTagKeySet()) {
                 retVal.setTagKey(tags.getTagKey());
@@ -1378,7 +1378,7 @@ class ElastigroupConverter {
 
             if (apiCodeDeploy.isDeploymentGroupsSet()) {
                 if (apiCodeDeploy.getDeploymentGroups() != null) {
-                    List<ElastigroupDeploymentGroups> deploymentGroups=
+                    List<ElastigroupDeploymentGroup> deploymentGroups=
                                                       apiCodeDeploy.getDeploymentGroups().stream().map(ElastigroupConverter::toBl)
                                                       .collect(Collectors.toList());
                     blCodeDeployBuilder.setDeploymentGroups(deploymentGroups);
@@ -1390,17 +1390,17 @@ class ElastigroupConverter {
         return blCodeDeploy;
     }
 
-    private static ElastigroupDeploymentGroups toBl(ApiDeploymentGroups apiDeploymentGroups) {
-        ElastigroupDeploymentGroups blDeploymentGroups = null;
+    private static ElastigroupDeploymentGroup toBl(ApiDeploymentGroup apiDeploymentGroup) {
+        ElastigroupDeploymentGroup blDeploymentGroups = null;
 
-        if (apiDeploymentGroups != null) {
-            ElastigroupDeploymentGroups.Builder blDeploymentGroupsBuilder = ElastigroupDeploymentGroups.Builder.get();
-            if (apiDeploymentGroups.isApplicationNameSet()) {
-                blDeploymentGroupsBuilder.setapplicationName(apiDeploymentGroups.getApplicationName());
+        if (apiDeploymentGroup != null) {
+            ElastigroupDeploymentGroup.Builder blDeploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
+            if (apiDeploymentGroup.isApplicationNameSet()) {
+                blDeploymentGroupsBuilder.setapplicationName(apiDeploymentGroup.getApplicationName());
             }
 
-            if (apiDeploymentGroups.isDeploymentGroupNameSet()) {
-                blDeploymentGroupsBuilder.setDeploymentGroupName(apiDeploymentGroups.getDeploymentGroupName());
+            if (apiDeploymentGroup.isDeploymentGroupNameSet()) {
+                blDeploymentGroupsBuilder.setDeploymentGroupName(apiDeploymentGroup.getDeploymentGroupName());
             }
             blDeploymentGroups = blDeploymentGroupsBuilder.build();
         }
@@ -1915,7 +1915,7 @@ class ElastigroupConverter {
 
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
-                    List<ElastigroupItfTags> blItfTags =
+                    List<ElastigroupTargetGroupConfigTags> blItfTags =
                                              targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
                                              .collect(Collectors.toList());
                     retValBuilder.setTags(blItfTags);
@@ -1946,11 +1946,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupItfTags toBl(ApiItfTags itfTags) {
-        ElastigroupItfTags retVal = null;
+    private static ElastigroupTargetGroupConfigTags toBl(ApiTargetGroupConfigTags itfTags) {
+        ElastigroupTargetGroupConfigTags retVal = null;
 
         if (itfTags != null) {
-            ElastigroupItfTags.Builder retValBuilder = ElastigroupItfTags.Builder.get();
+            ElastigroupTargetGroupConfigTags.Builder retValBuilder = ElastigroupTargetGroupConfigTags.Builder.get();
 
             if (itfTags.isTagKeySet()) {
                 retValBuilder.setTagKey(itfTags.getTagKey());

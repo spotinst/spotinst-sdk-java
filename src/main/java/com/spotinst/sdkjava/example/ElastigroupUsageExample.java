@@ -372,9 +372,9 @@ public class ElastigroupUsageExample {
         snapshots.setShouldTag(true);
 
         //Build targetGroupConfig
-        ElastigroupTargetGroupConfig.Builder targetGroupConfigBuilder = ElastigroupTargetGroupConfig.Builder.get();
-        ElastigroupItfTags.Builder tagsBuilder = ElastigroupItfTags.Builder.get();
-        ElastigroupItfTags tags = tagsBuilder.setTagKey("creator").setTagValue("zach").build();
+        ElastigroupTargetGroupConfig.Builder     targetGroupConfigBuilder = ElastigroupTargetGroupConfig.Builder.get();
+        ElastigroupTargetGroupConfigTags.Builder tagsBuilder              = ElastigroupTargetGroupConfigTags.Builder.get();
+        ElastigroupTargetGroupConfigTags         tags                     = tagsBuilder.setTagKey("creator").setTagValue("zach").build();
 
         ElastigroupMatcher.Builder matcherBuilder = ElastigroupMatcher.Builder.get();
         ElastigroupMatcher matcher = matcherBuilder.setHttpCode("200,200-300").setGrpcCode(null).build();
@@ -423,7 +423,7 @@ public class ElastigroupUsageExample {
                 launchSpecBuilder.setSecurityGroupIds(securityGroupIds).setImageId("ami-28e07e50")
                                  .setKeyPair(key_pair_name).setDetailedMonitoring(true)
                                  .setLoadBalancersConfig(loadBalancersConfig)
-                                 .setHealthCheckUnhealthyDurationBeforeReplacement("60")
+                                 .setHealthCheckUnhealthyDurationBeforeReplacement(60)
                                  .setItf(itf)
                                  .setResourceTagSpecification(resourceTagSpecification).build();
 
@@ -535,10 +535,10 @@ public class ElastigroupUsageExample {
                           .setBatch(batch).build();
 
         //build deploymentGroups
-        ElastigroupDeploymentGroups.Builder deploymentGroupsBuilder = ElastigroupDeploymentGroups.Builder.get();
-        ElastigroupDeploymentGroups deploymentGroups = deploymentGroupsBuilder.setapplicationName("test-app")
-                                                                              .setDeploymentGroupName("test-grp").build();
-        List<ElastigroupDeploymentGroups> deploymentGroupsList = new ArrayList<>();
+        ElastigroupDeploymentGroup.Builder deploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
+        ElastigroupDeploymentGroup deploymentGroups = deploymentGroupsBuilder.setapplicationName("test-app")
+                                                                             .setDeploymentGroupName("test-grp").build();
+        List<ElastigroupDeploymentGroup> deploymentGroupsList = new ArrayList<>();
         deploymentGroupsList.add(deploymentGroups);
 
         //build codeDeploy

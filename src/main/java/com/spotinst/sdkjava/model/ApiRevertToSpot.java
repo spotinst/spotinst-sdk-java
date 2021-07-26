@@ -15,7 +15,6 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiRevertToSpot implements IPartialUpdateEntity {
     //region Members
-    // Partial Update support
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> timeWindows;

@@ -6,25 +6,22 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 public class ElastigroupTargetGroupConfig {
     //region Members
     @JsonIgnore
     private Set<String>                      isSet;
     private String                           healthCheckPath;
     private Integer                          healthCheckIntervalSeconds;
-    private Integer                          healthCheckPort;
-    private Integer                          healthCheckTimeoutSeconds;
-    private String                           healthCheckProtocol;
-    private Integer                          healthyThresholdCount;
-    private Integer                          unhealthyThresholdCount;
-    private Integer                          port;
-    private String                           protocol;
-    private String                           protocolVersion;
-    private List<ElastigroupItfTags>         tags;
-    private ElastigroupMatcher               matcher;
+    private Integer                                healthCheckPort;
+    private Integer                                healthCheckTimeoutSeconds;
+    private String                                 healthCheckProtocol;
+    private Integer                                healthyThresholdCount;
+    private Integer                                unhealthyThresholdCount;
+    private Integer                                port;
+    private String                                 protocol;
+    private String                                 protocolVersion;
+    private List<ElastigroupTargetGroupConfigTags> tags;
+    private ElastigroupMatcher                     matcher;
     //endregion
 
     //region Constructor
@@ -134,11 +131,11 @@ public class ElastigroupTargetGroupConfig {
         this.protocolVersion = protocolVersion;
     }
 
-    public List<ElastigroupItfTags> getTags() {
+    public List<ElastigroupTargetGroupConfigTags> getTags() {
         return tags;
     }
 
-    public void setTags(List<ElastigroupItfTags> tags) {
+    public void setTags(List<ElastigroupTargetGroupConfigTags> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -217,7 +214,7 @@ public class ElastigroupTargetGroupConfig {
             return this;
         }
 
-        public Builder setTags(final List<ElastigroupItfTags> tags) {
+        public Builder setTags(final List<ElastigroupTargetGroupConfigTags> tags) {
             targetGroupConfig.setTags(tags);
             return this;
         }

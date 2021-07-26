@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by ohadmuchnik on 12/07/2016.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")

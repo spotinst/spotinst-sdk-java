@@ -9,24 +9,30 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by yossi.elman on 12/03/20.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiMatcher implements IPartialUpdateEntity {
     //region Members
 
-    // Partial Update support
-//    TODO or: use constructor for initializing isSet.
+//    TODO or: use constructor for initializing isSet. Done
     @JsonIgnore
-    private Set<String> isSet = new HashSet<>();
+    private Set<String> isSet;
     private String      httpCode;
     private String      grpcCode;
     //endregion
 
+    //region Constructor
+    public ApiMatcher() {
+        isSet = new HashSet<>();
+    }
+
+    //endregion
+
     //region Getters & Setters
+    public Set<String> getIsSet() {
+        return isSet;
+    }
 
     public String getHttpCode() {
         return httpCode;
@@ -44,12 +50,6 @@ public class ApiMatcher implements IPartialUpdateEntity {
     public void setGrpcCode(String grpcCode) {
         isSet.add("grpcCode");
         this.grpcCode = grpcCode;
-    }
-
-
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
     }
 
     @JsonIgnore

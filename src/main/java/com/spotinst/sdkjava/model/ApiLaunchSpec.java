@@ -28,8 +28,8 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     private String                           imageId;
     private ApiIamRole                       iamRole;
     private String                           keyPair;
-    //    TODO or: integer
-    private String                           healthCheckUnhealthyDurationBeforeReplacement;
+    //    TODO or: integer DONE
+    private Integer                          healthCheckUnhealthyDurationBeforeReplacement;
     private String                           userData;
     private List<ApiBlockDevice>             blockDeviceMappings;
     private List<ApiNetworkInterface>        networkInterfaces;
@@ -145,11 +145,11 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         this.userData = userData;
     }
 
-    public String getHealthCheckUnhealthyDurationBeforeReplacement() {
+    public Integer getHealthCheckUnhealthyDurationBeforeReplacement() {
         return healthCheckUnhealthyDurationBeforeReplacement;
     }
 
-    public void setHealthCheckUnhealthyDurationBeforeReplacement(String healthCheckUnhealthyDurationBeforeReplacement) {
+    public void setHealthCheckUnhealthyDurationBeforeReplacement(Integer healthCheckUnhealthyDurationBeforeReplacement) {
         isSet.add("healthCheckUnhealthyDurationBeforeReplacement");
         this.healthCheckUnhealthyDurationBeforeReplacement = healthCheckUnhealthyDurationBeforeReplacement;
     }

@@ -16,10 +16,10 @@ import java.util.Set;
 class ApiCodeDeploy implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>               isSet;
-    private Boolean                   cleanUpOnFailure;
-    private Boolean                   terminateInstanceOnFailure;
-    private List<ApiDeploymentGroups> deploymentGroups;
+    private Set<String>              isSet;
+    private Boolean                  cleanUpOnFailure;
+    private Boolean                  terminateInstanceOnFailure;
+    private List<ApiDeploymentGroup> deploymentGroups;
     //endregion
 
     public ApiCodeDeploy() {
@@ -36,11 +36,11 @@ class ApiCodeDeploy implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiDeploymentGroups> getDeploymentGroups() {
+    public List<ApiDeploymentGroup> getDeploymentGroups() {
         return deploymentGroups;
     }
 
-    public void setDeploymentGroups(List<ApiDeploymentGroups> deploymentGroups) {
+    public void setDeploymentGroups(List<ApiDeploymentGroup> deploymentGroups) {
         isSet.add("deploymentGroups");
         this.deploymentGroups = deploymentGroups;
     }
