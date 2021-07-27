@@ -49,7 +49,6 @@ public class ElastigroupRevertToSpot {
     //endregion
     //region Builder class
     public static class Builder {
-//        TODO or: param name - DONE was optimizeImage and now revertToSpot
         private ElastigroupRevertToSpot revertToSpot;
 
         private Builder() {
@@ -66,7 +65,6 @@ public class ElastigroupRevertToSpot {
             return this;
         }
 
-//        TODO or: setter name (param name) - Done added "s" at the end
         public Builder setTimeWindows(final List<String> timeWindow) {
             revertToSpot.setTimeWindows(timeWindow);
             return this;

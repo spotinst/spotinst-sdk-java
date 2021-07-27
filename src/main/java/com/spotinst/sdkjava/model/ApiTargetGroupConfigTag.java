@@ -9,7 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO or: add its parent object as well (targetGroupConfig) - DONE
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -22,15 +21,12 @@ public class ApiTargetGroupConfigTag implements IPartialUpdateEntity {
     //endregion
 
     //region Constructors
-
     public ApiTargetGroupConfigTag() {
         isSet = new HashSet<>();
     }
     //endregion
-    // TODO or: this isn't needed - DONE (unneeded constructor)
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -56,7 +52,6 @@ public class ApiTargetGroupConfigTag implements IPartialUpdateEntity {
         isSet.add("tagValue");
         this.tagValue = tagValue;
     }
-
     //endregion
 
     //region isSet methods

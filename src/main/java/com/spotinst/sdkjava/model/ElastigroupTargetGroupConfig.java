@@ -41,7 +41,6 @@ public class ElastigroupTargetGroupConfig {
         this.isSet = isSet;
     }
 
-//    TODO or: check if this methods should be private/package-private - DONE - public
     public String getHealthCheckPath() {
         return healthCheckPath;
     }

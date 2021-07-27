@@ -86,7 +86,6 @@ public class ElastigroupItfLoadBalancer {
     public boolean isLoadBalancerArnSet() { return isSet.contains("loadBalancerArn"); }
 
     // Is listenerRules Set boolean method
-//    TODO or: this means it's missing in converter - DONE added isSet check in coverter
     @JsonIgnore
     public boolean isListenerRulesSet() {
         return isSet.contains("listenerRules");

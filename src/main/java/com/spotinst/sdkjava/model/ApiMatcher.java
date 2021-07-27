@@ -14,8 +14,6 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiMatcher implements IPartialUpdateEntity {
     //region Members
-
-//    TODO or: use constructor for initializing isSet. Done
     @JsonIgnore
     private Set<String> isSet;
     private String      httpCode;
