@@ -372,9 +372,9 @@ public class ElastigroupUsageExample {
         snapshots.setShouldTag(true);
 
         //Build targetGroupConfig
-        ElastigroupTargetGroupConfig.Builder     targetGroupConfigBuilder = ElastigroupTargetGroupConfig.Builder.get();
-        ElastigroupTargetGroupConfigTags.Builder tagsBuilder              = ElastigroupTargetGroupConfigTags.Builder.get();
-        ElastigroupTargetGroupConfigTags         tags                     = tagsBuilder.setTagKey("creator").setTagValue("zach").build();
+        ElastigroupTargetGroupConfig.Builder    targetGroupConfigBuilder = ElastigroupTargetGroupConfig.Builder.get();
+        ElastigroupTargetGroupConfigTag.Builder tagsBuilder              = ElastigroupTargetGroupConfigTag.Builder.get();
+        ElastigroupTargetGroupConfigTag         tags                     = tagsBuilder.setTagKey("creator").setTagValue("zach").build();
 
         ElastigroupMatcher.Builder matcherBuilder = ElastigroupMatcher.Builder.get();
         ElastigroupMatcher matcher = matcherBuilder.setHttpCode("200,200-300").setGrpcCode(null).build();
@@ -397,12 +397,12 @@ public class ElastigroupUsageExample {
         //build itf
         ElastigroupItf.Builder itfBuilder = ElastigroupItf.Builder.get();
 
-        ElastigroupListenerRules.Builder listenerRulesBuilder = ElastigroupListenerRules.Builder.get();
-        ElastigroupListenerRules listenerRules = listenerRulesBuilder.setRuleArnType("ruleArnTest").build();
+        ElastigroupListenerRule.Builder listenerRulesBuilder = ElastigroupListenerRule.Builder.get();
+        ElastigroupListenerRule         listenerRules        = listenerRulesBuilder.setRuleArn("ruleArnTest").build();
 
-        ElastigroupItfLoadBalancers.Builder itfLoadBalancersBuilder = ElastigroupItfLoadBalancers.Builder.get();
-        ElastigroupItfLoadBalancers itfLoadBalancers = itfLoadBalancersBuilder.setListenerRules(Collections.singletonList(listenerRules))
-                .setLoadBalancerArn("lbArnTest").build();
+        ElastigroupItfLoadBalancer.Builder itfLoadBalancersBuilder = ElastigroupItfLoadBalancer.Builder.get();
+        ElastigroupItfLoadBalancer itfLoadBalancers = itfLoadBalancersBuilder.setListenerRules(Collections.singletonList(listenerRules))
+                                                          .setLoadBalancerArn("lbArnTest").build();
 
         ElastigroupItf itf = itfBuilder.setFixedTargetGroups(false)
                                        .setWeightStrategy("custom")
@@ -474,7 +474,7 @@ public class ElastigroupUsageExample {
         ElastigroupRevertToSpot.Builder revertToSpotBuilder = ElastigroupRevertToSpot.Builder.get();
         List<String> timeWindows = new ArrayList<>();
         timeWindows.add("Mon:03:00-Wed:02:30");
-        ElastigroupRevertToSpot revertToSpot = revertToSpotBuilder.setPerformAt("timeWindow").setTimeWindow(timeWindows).build();
+        ElastigroupRevertToSpot revertToSpot = revertToSpotBuilder.setPerformAt("timeWindow").setTimeWindows(timeWindows).build();
 
 
         // Build group strategy
@@ -536,7 +536,7 @@ public class ElastigroupUsageExample {
 
         //build deploymentGroups
         ElastigroupDeploymentGroup.Builder deploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
-        ElastigroupDeploymentGroup deploymentGroups = deploymentGroupsBuilder.setapplicationName("test-app")
+        ElastigroupDeploymentGroup deploymentGroups = deploymentGroupsBuilder.setApplicationName("test-app")
                                                                              .setDeploymentGroupName("test-grp").build();
         List<ElastigroupDeploymentGroup> deploymentGroupsList = new ArrayList<>();
         deploymentGroupsList.add(deploymentGroups);

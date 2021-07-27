@@ -13,7 +13,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiTargetGroupConfigTags implements IPartialUpdateEntity {
+public class ApiTargetGroupConfigTag implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -23,7 +23,7 @@ public class ApiTargetGroupConfigTags implements IPartialUpdateEntity {
 
     //region Constructors
 
-    public ApiTargetGroupConfigTags() {
+    public ApiTargetGroupConfigTag() {
         isSet = new HashSet<>();
     }
     //endregion

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupListenerRules {
+public class ElastigroupListenerRule {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -14,7 +14,7 @@ public class ElastigroupListenerRules {
 
     //region Constructors
 
-    private ElastigroupListenerRules() {
+    private ElastigroupListenerRule() {
         isSet = new HashSet<>();
     }
 
@@ -44,10 +44,10 @@ public class ElastigroupListenerRules {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupListenerRules listenerRules;
+        private ElastigroupListenerRule listenerRules;
 
         private Builder() {
-            this.listenerRules = new ElastigroupListenerRules();
+            this.listenerRules = new ElastigroupListenerRule();
         }
 
         public static Builder get() {
@@ -55,14 +55,14 @@ public class ElastigroupListenerRules {
             return builder;
         }
 
-//        TODO or: fix setter name
-        public Builder setRuleArnType(final String ruleArnType) {
-            listenerRules.setRuleArn(ruleArnType);
+//        TODO or: fix setter name - DONE - it was RuleArn"Type"   by mistake
+        public Builder setRuleArn(final String ruleArn) {
+            listenerRules.setRuleArn(ruleArn);
             return this;
         }
 
 
-        public ElastigroupListenerRules build() {
+        public ElastigroupListenerRule build() {
             return listenerRules;
         }
     }

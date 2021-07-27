@@ -15,17 +15,17 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiItfLoadBalancers implements IPartialUpdateEntity {
+class ApiItfLoadBalancer implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>            isSet;
-    private String                 loadBalancerArn;
-    private List<ApiListenerRules> listenerRules;
+    private Set<String>           isSet;
+    private String                loadBalancerArn;
+    private List<ApiListenerRule> listenerRules;
     //endregion
 
     //region Constructor
 
-    public ApiItfLoadBalancers() {
+    public ApiItfLoadBalancer() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -48,11 +48,11 @@ class ApiItfLoadBalancers implements IPartialUpdateEntity {
         this.loadBalancerArn = loadBalancerArn;
     }
 
-    public List<ApiListenerRules> getListenerRules() {
+    public List<ApiListenerRule> getListenerRules() {
         return listenerRules;
     }
 
-    public void setListenerRules(List<ApiListenerRules> listenerRules) {
+    public void setListenerRules(List<ApiListenerRule> listenerRules) {
         isSet.add("listenerRules");
         this.listenerRules = listenerRules;
     }

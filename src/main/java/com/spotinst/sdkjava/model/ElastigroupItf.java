@@ -9,12 +9,12 @@ import java.util.Set;
 public class ElastigroupItf {
     //region Members
     @JsonIgnore
-    private Set<String>                       isSet;
-    private String                            weightStrategy;
-    private Integer                           migrationHealthinessThreshold;
-    private Boolean                           fixedTargetGroups;
-    private ElastigroupTargetGroupConfig      targetGroupConfig;
-    private List<ElastigroupItfLoadBalancers> loadBalancers;
+    private Set<String>                      isSet;
+    private String                           weightStrategy;
+    private Integer                          migrationHealthinessThreshold;
+    private Boolean                          fixedTargetGroups;
+    private ElastigroupTargetGroupConfig     targetGroupConfig;
+    private List<ElastigroupItfLoadBalancer> loadBalancers;
     //endregion
 
     //region Constructor
@@ -70,11 +70,11 @@ public class ElastigroupItf {
         this.targetGroupConfig = targetGroupConfig;
     }
 
-    public List<ElastigroupItfLoadBalancers> getLoadBalancers() {
+    public List<ElastigroupItfLoadBalancer> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<ElastigroupItfLoadBalancers> loadBalancers) {
+    public void setLoadBalancers(List<ElastigroupItfLoadBalancer> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }
@@ -114,7 +114,7 @@ public class ElastigroupItf {
             return this;
         }
 
-        public Builder setLoadBalancers(final List<ElastigroupItfLoadBalancers> loadBalancers) {
+        public Builder setLoadBalancers(final List<ElastigroupItfLoadBalancer> loadBalancers) {
             itf.setLoadBalancers(loadBalancers);
             return this;
         }

@@ -16,12 +16,12 @@ import java.util.Set;
 class ApiItf implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>               isSet;
-    private String                    weightStrategy;
-    private Integer                   migrationHealthinessThreshold;
-    private Boolean                   fixedTargetGroups;
-    private ApiTargetGroupConfig      targetGroupConfig;
-    private List<ApiItfLoadBalancers> loadBalancers;
+    private Set<String>              isSet;
+    private String                   weightStrategy;
+    private Integer                  migrationHealthinessThreshold;
+    private Boolean                  fixedTargetGroups;
+    private ApiTargetGroupConfig     targetGroupConfig;
+    private List<ApiItfLoadBalancer> loadBalancers;
     //endregion
 
     //region Constructor
@@ -76,11 +76,11 @@ class ApiItf implements IPartialUpdateEntity {
         this.targetGroupConfig = targetGroupConfig;
     }
 
-    public List<ApiItfLoadBalancers> getLoadBalancers() {
+    public List<ApiItfLoadBalancer> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<ApiItfLoadBalancers> loadBalancers) {
+    public void setLoadBalancers(List<ApiItfLoadBalancer> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }

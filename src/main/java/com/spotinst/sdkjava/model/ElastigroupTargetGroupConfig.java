@@ -13,15 +13,15 @@ public class ElastigroupTargetGroupConfig {
     private String                                 healthCheckPath;
     private Integer                                healthCheckIntervalSeconds;
     private Integer                                healthCheckPort;
-    private Integer                                healthCheckTimeoutSeconds;
-    private String                                 healthCheckProtocol;
-    private Integer                                healthyThresholdCount;
-    private Integer                                unhealthyThresholdCount;
-    private Integer                                port;
-    private String                                 protocol;
-    private String                                 protocolVersion;
-    private List<ElastigroupTargetGroupConfigTags> tags;
-    private ElastigroupMatcher                     matcher;
+    private Integer                               healthCheckTimeoutSeconds;
+    private String                                healthCheckProtocol;
+    private Integer                               healthyThresholdCount;
+    private Integer                               unhealthyThresholdCount;
+    private Integer                               port;
+    private String                                protocol;
+    private String                                protocolVersion;
+    private List<ElastigroupTargetGroupConfigTag> tags;
+    private ElastigroupMatcher                    matcher;
     //endregion
 
     //region Constructor
@@ -41,7 +41,7 @@ public class ElastigroupTargetGroupConfig {
         this.isSet = isSet;
     }
 
-//    TODO or: check if this methods should be private/package-private
+//    TODO or: check if this methods should be private/package-private - DONE - public
     public String getHealthCheckPath() {
         return healthCheckPath;
     }
@@ -132,11 +132,11 @@ public class ElastigroupTargetGroupConfig {
         this.protocolVersion = protocolVersion;
     }
 
-    public List<ElastigroupTargetGroupConfigTags> getTags() {
+    public List<ElastigroupTargetGroupConfigTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<ElastigroupTargetGroupConfigTags> tags) {
+    public void setTags(List<ElastigroupTargetGroupConfigTag> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -215,7 +215,7 @@ public class ElastigroupTargetGroupConfig {
             return this;
         }
 
-        public Builder setTags(final List<ElastigroupTargetGroupConfigTags> tags) {
+        public Builder setTags(final List<ElastigroupTargetGroupConfigTag> tags) {
             targetGroupConfig.setTags(tags);
             return this;
         }

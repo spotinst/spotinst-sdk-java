@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-public class ElastigroupTargetGroupConfigTags {
+public class ElastigroupTargetGroupConfigTag {
     @JsonIgnore
     private Set<String> isSet;
     private String tagKey;
@@ -14,7 +14,7 @@ public class ElastigroupTargetGroupConfigTags {
 
     //region Constructor
 
-    private ElastigroupTargetGroupConfigTags() {
+    private ElastigroupTargetGroupConfigTag() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -47,10 +47,10 @@ public class ElastigroupTargetGroupConfigTags {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupTargetGroupConfigTags itfTags;
+        private ElastigroupTargetGroupConfigTag itfTags;
 
         private Builder() {
-            this.itfTags = new ElastigroupTargetGroupConfigTags();
+            this.itfTags = new ElastigroupTargetGroupConfigTag();
         }
 
         public static Builder get() {
@@ -68,7 +68,7 @@ public class ElastigroupTargetGroupConfigTags {
             return this;
         }
 
-        public ElastigroupTargetGroupConfigTags build() {
+        public ElastigroupTargetGroupConfigTag build() {
             return itfTags;
         }
     }

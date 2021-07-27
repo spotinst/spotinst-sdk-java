@@ -636,7 +636,7 @@ class ElastigroupConverter {
 
             if (itf.isLoadBalancersSet()) {
                 if (itf.getLoadBalancers() != null) {
-                    List<ApiItfLoadBalancers> optItfLoadBalancers =
+                    List<ApiItfLoadBalancer> optItfLoadBalancers =
                             itf.getLoadBalancers().stream().map(ElastigroupConverter::toDal)
                                    .collect(Collectors.toList());
                     retVal.setLoadBalancers(optItfLoadBalancers);
@@ -648,35 +648,36 @@ class ElastigroupConverter {
         return retVal;
     }
 
-//    TODO or: singular form for the object itself
-    private static ApiItfLoadBalancers toDal(ElastigroupItfLoadBalancers loadBalancers) {
-        ApiItfLoadBalancers retVal = null;
+//    TODO or: singular form for the object itself - Done
+    private static ApiItfLoadBalancer toDal(ElastigroupItfLoadBalancer loadBalancers) {
+        ApiItfLoadBalancer retVal = null;
 
         if (loadBalancers != null) {
-            retVal = new ApiItfLoadBalancers();
+            retVal = new ApiItfLoadBalancer();
 
             if (loadBalancers.isLoadBalancerArnSet()) {
                 retVal.setLoadBalancerArn(loadBalancers.getLoadBalancerArn());
             }
 
-//            TODO or: check if isSet
-            if (loadBalancers.getListenerRules() != null){
-//                TODO or: singular form for object itself
-                List<ApiListenerRules> optListenerRules =
-                                       loadBalancers.getListenerRules().stream().map(ElastigroupConverter::toDal)
-                                       .collect(Collectors.toList());
-                retVal.setListenerRules(optListenerRules);
+//            TODO or: check if isSet - DONE - added isSet check
+            if (loadBalancers.isListenerRulesSet()) {
+                if (loadBalancers.getListenerRules() != null) {
+                    //                TODO or: singular form for object itself - DONE - was listenerRules
+                    List<ApiListenerRule> optListenerRules =
+                            loadBalancers.getListenerRules().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setListenerRules(optListenerRules);
+                }
             }
         }
 
         return retVal;
     }
 
-    private static ApiListenerRules toDal(ElastigroupListenerRules listenerRules) {
-        ApiListenerRules retVal = null;
+    private static ApiListenerRule toDal(ElastigroupListenerRule listenerRules) {
+        ApiListenerRule retVal = null;
 
         if (listenerRules != null) {
-            retVal = new ApiListenerRules();
+            retVal = new ApiListenerRule();
 
             if (listenerRules.isRuleArnSet()) {
                 retVal.setRuleArn(listenerRules.getRuleArn());
@@ -734,7 +735,7 @@ class ElastigroupConverter {
 
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
-                    List<ApiTargetGroupConfigTags> optItfTags =
+                    List<ApiTargetGroupConfigTag> optItfTags =
                             targetGroupConfig.getTags().stream().map(ElastigroupConverter::toDal)
                                .collect(Collectors.toList());
                     retVal.setTags(optItfTags);
@@ -768,11 +769,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiTargetGroupConfigTags toDal(ElastigroupTargetGroupConfigTags tags) {
-        ApiTargetGroupConfigTags retVal = null;
+    private static ApiTargetGroupConfigTag toDal(ElastigroupTargetGroupConfigTag tags) {
+        ApiTargetGroupConfigTag retVal = null;
 
         if (tags != null) {
-            retVal = new ApiTargetGroupConfigTags();
+            retVal = new ApiTargetGroupConfigTag();
 
             if (tags.isTagKeySet()) {
                 retVal.setTagKey(tags.getTagKey());
@@ -1399,7 +1400,7 @@ class ElastigroupConverter {
             ElastigroupDeploymentGroup.Builder blDeploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
 
             if (apiDeploymentGroup.isApplicationNameSet()) {
-                blDeploymentGroupsBuilder.setapplicationName(apiDeploymentGroup.getApplicationName());
+                blDeploymentGroupsBuilder.setApplicationName(apiDeploymentGroup.getApplicationName());
             }
 
             if (apiDeploymentGroup.isDeploymentGroupNameSet()) {
@@ -1816,8 +1817,8 @@ class ElastigroupConverter {
 
             if (itf.isLoadBalancersSet()) {
                 if (itf.getLoadBalancers() != null) {
-//                    TODO or: object itself is singular
-                    List<ElastigroupItfLoadBalancers> blItfLoadBalancers =
+//                    TODO or: object itself is singular - DONE renamed
+                    List<ElastigroupItfLoadBalancer> blItfLoadBalancers =
                                                       itf.getLoadBalancers().stream().map(ElastigroupConverter::toBl)
                                                       .collect(Collectors.toList());
                     retValBuilder.setLoadBalancers(blItfLoadBalancers);
@@ -1829,11 +1830,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static  ElastigroupItfLoadBalancers toBl (ApiItfLoadBalancers itfLoadBalancers) {
-        ElastigroupItfLoadBalancers retVal = null;
+    private static ElastigroupItfLoadBalancer toBl(ApiItfLoadBalancer itfLoadBalancers) {
+        ElastigroupItfLoadBalancer retVal = null;
 
         if (itfLoadBalancers != null) {
-            ElastigroupItfLoadBalancers.Builder retValBuilder = ElastigroupItfLoadBalancers.Builder.get();
+            ElastigroupItfLoadBalancer.Builder retValBuilder = ElastigroupItfLoadBalancer.Builder.get();
 
             if (itfLoadBalancers.isLoadBalancerArnSet()){
                 retValBuilder.setLoadBalancerArn(itfLoadBalancers.getLoadBalancerArn());
@@ -1841,7 +1842,7 @@ class ElastigroupConverter {
 
             if (itfLoadBalancers.isListenerRulesSet()) {
                 if (itfLoadBalancers.getListenerRules() != null) {
-                    List<ElastigroupListenerRules> blListenerRules =
+                    List<ElastigroupListenerRule> blListenerRules =
                                                    itfLoadBalancers.getListenerRules().stream().map(ElastigroupConverter::toBl)
                                                    .collect(Collectors.toList());
                     retValBuilder.setListenerRules(blListenerRules);
@@ -1853,14 +1854,14 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupListenerRules toBl (ApiListenerRules listenerRules) {
-        ElastigroupListenerRules retVal = null;
+    private static ElastigroupListenerRule toBl(ApiListenerRule listenerRules) {
+        ElastigroupListenerRule retVal = null;
 
         if (listenerRules != null) {
-            ElastigroupListenerRules.Builder retValBuilder = ElastigroupListenerRules.Builder.get();
+            ElastigroupListenerRule.Builder retValBuilder = ElastigroupListenerRule.Builder.get();
 
             if (listenerRules.isRuleArnSet()) {
-                retValBuilder.setRuleArnType(listenerRules.getRuleArn());
+                retValBuilder.setRuleArn(listenerRules.getRuleArn());
             }
             retVal = retValBuilder.build();
         }
@@ -1920,8 +1921,8 @@ class ElastigroupConverter {
 
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
-//                    TODO or: object itself should be singular
-                    List<ElastigroupTargetGroupConfigTags> blItfTags =
+//                    TODO or: object itself should be singular - DONE
+                    List<ElastigroupTargetGroupConfigTag> blItfTags =
                                              targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
                                              .collect(Collectors.toList());
                     retValBuilder.setTags(blItfTags);
@@ -1952,19 +1953,19 @@ class ElastigroupConverter {
         return retVal;
     }
 
-//    TODO or: param name
-    private static ElastigroupTargetGroupConfigTags toBl(ApiTargetGroupConfigTags itfTags) {
-        ElastigroupTargetGroupConfigTags retVal = null;
+//    TODO or: param name - DONE - was itfTags
+    private static ElastigroupTargetGroupConfigTag toBl(ApiTargetGroupConfigTag targetGroupConfigTags) {
+        ElastigroupTargetGroupConfigTag retVal = null;
 
-        if (itfTags != null) {
-            ElastigroupTargetGroupConfigTags.Builder retValBuilder = ElastigroupTargetGroupConfigTags.Builder.get();
+        if (targetGroupConfigTags != null) {
+            ElastigroupTargetGroupConfigTag.Builder retValBuilder = ElastigroupTargetGroupConfigTag.Builder.get();
 
-            if (itfTags.isTagKeySet()) {
-                retValBuilder.setTagKey(itfTags.getTagKey());
+            if (targetGroupConfigTags.isTagKeySet()) {
+                retValBuilder.setTagKey(targetGroupConfigTags.getTagKey());
             }
 
-            if (itfTags.isTagValueSet()) {
-                retValBuilder.setTagValue(itfTags.getTagValue());
+            if (targetGroupConfigTags.isTagValueSet()) {
+                retValBuilder.setTagValue(targetGroupConfigTags.getTagValue());
             }
             retVal = retValBuilder.build();
         }
@@ -2213,23 +2214,27 @@ class ElastigroupConverter {
         return retVal;
     }
 
-//    TODO or: add missing field.
+//    TODO or: add missing field. - DONE added performAt
     private static ElastigroupRevertToSpot toBl(ApiRevertToSpot apiRevertToSpot) {
-        ElastigroupRevertToSpot blRevertToSpot = null;
+        ElastigroupRevertToSpot retVal = null;
 
         if (apiRevertToSpot != null) {
-            ElastigroupRevertToSpot.Builder blRevertToSpotBuilder = ElastigroupRevertToSpot.Builder.get();
+            ElastigroupRevertToSpot.Builder retValBuilder = ElastigroupRevertToSpot.Builder.get();
+
+            if (apiRevertToSpot.isPerformAtSet()){
+                retValBuilder.setPerformAt(apiRevertToSpot.getPerformAt());
+            }
 
             if (apiRevertToSpot.isTimeWindowSet()) {
                 if (apiRevertToSpot.getTimeWindows() != null) {
-//                    TODO or: fix setter name
-                    blRevertToSpotBuilder.setTimeWindow(new LinkedList<>(apiRevertToSpot.getTimeWindows()));
+//                    TODO or: fix setter name - DONE - added "s" at the end
+                    retValBuilder.setTimeWindows(new LinkedList<>(apiRevertToSpot.getTimeWindows()));
                 }
             }
 
-            blRevertToSpot = blRevertToSpotBuilder.build();
+            retVal = retValBuilder.build();
         }
-        return blRevertToSpot;
+        return retVal;
     }
 
     private static ElastigroupPersistenceConfiguration toBl(ApiGroupPersistence persistence) {

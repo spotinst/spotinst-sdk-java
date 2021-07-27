@@ -49,11 +49,11 @@ public class ElastigroupRevertToSpot {
     //endregion
     //region Builder class
     public static class Builder {
-//        TODO or: param name
-        private ElastigroupRevertToSpot optimizeImages;
+//        TODO or: param name - DONE was optimizeImage and now revertToSpot
+        private ElastigroupRevertToSpot revertToSpot;
 
         private Builder() {
-            this.optimizeImages = new ElastigroupRevertToSpot();
+            this.revertToSpot = new ElastigroupRevertToSpot();
         }
 
         public static Builder get() {
@@ -62,18 +62,18 @@ public class ElastigroupRevertToSpot {
         }
 
         public Builder setPerformAt(final String performAt) {
-            optimizeImages.setPerformAt(performAt);
+            revertToSpot.setPerformAt(performAt);
             return this;
         }
 
-//        TODO or: setter name (param name)
-        public Builder setTimeWindow(final List<String> timeWindow) {
-            optimizeImages.setTimeWindows(timeWindow);
+//        TODO or: setter name (param name) - Done added "s" at the end
+        public Builder setTimeWindows(final List<String> timeWindow) {
+            revertToSpot.setTimeWindows(timeWindow);
             return this;
         }
 
         public ElastigroupRevertToSpot build() {
-            return optimizeImages;
+            return revertToSpot;
         }
 
     }

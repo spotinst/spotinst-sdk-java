@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiListenerRules implements IPartialUpdateEntity {
+class ApiListenerRule implements IPartialUpdateEntity {
     //region Members
 
     @JsonIgnore
@@ -23,7 +23,7 @@ class ApiListenerRules implements IPartialUpdateEntity {
 
     //region Constructor
 
-    public ApiListenerRules() {
+    public ApiListenerRule() {
         isSet = new HashSet<>();
     }
 

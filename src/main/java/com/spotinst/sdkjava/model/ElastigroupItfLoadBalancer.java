@@ -6,17 +6,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ElastigroupItfLoadBalancers {
+public class ElastigroupItfLoadBalancer {
     //region Members
     @JsonIgnore
-    private Set<String>                    isSet;
-    private String                         loadBalancerArn;
-    private List<ElastigroupListenerRules> listenerRules;
+    private Set<String>                   isSet;
+    private String                        loadBalancerArn;
+    private List<ElastigroupListenerRule> listenerRules;
     //endregion
 
     //region Constructor
 
-    private ElastigroupItfLoadBalancers() {
+    private ElastigroupItfLoadBalancer() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -40,11 +40,11 @@ public class ElastigroupItfLoadBalancers {
         this.loadBalancerArn = loadBalancerArn;
     }
 
-    public List<ElastigroupListenerRules> getListenerRules() {
+    public List<ElastigroupListenerRule> getListenerRules() {
         return listenerRules;
     }
 
-    public void setListenerRules(List<ElastigroupListenerRules> listenerRules) {
+    public void setListenerRules(List<ElastigroupListenerRule> listenerRules) {
         isSet.add("listenerRules");
         this.listenerRules = listenerRules;
     }
@@ -53,10 +53,10 @@ public class ElastigroupItfLoadBalancers {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupItfLoadBalancers itf;
+        private ElastigroupItfLoadBalancer itf;
 
         private Builder() {
-            this.itf = new ElastigroupItfLoadBalancers();
+            this.itf = new ElastigroupItfLoadBalancer();
         }
 
         public static Builder get() {
@@ -69,12 +69,12 @@ public class ElastigroupItfLoadBalancers {
             return this;
         }
 
-        public Builder setListenerRules(final List<ElastigroupListenerRules> listenerRules) {
+        public Builder setListenerRules(final List<ElastigroupListenerRule> listenerRules) {
             itf.setListenerRules(listenerRules);
             return this;
         }
 
-        public ElastigroupItfLoadBalancers build() {
+        public ElastigroupItfLoadBalancer build() {
             return itf;
         }
     }
@@ -86,7 +86,7 @@ public class ElastigroupItfLoadBalancers {
     public boolean isLoadBalancerArnSet() { return isSet.contains("loadBalancerArn"); }
 
     // Is listenerRules Set boolean method
-//    TODO or: this means it's missing in converter
+//    TODO or: this means it's missing in converter - DONE added isSet check in coverter
     @JsonIgnore
     public boolean isListenerRulesSet() {
         return isSet.contains("listenerRules");
