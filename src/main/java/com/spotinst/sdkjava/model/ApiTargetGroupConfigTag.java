@@ -12,23 +12,21 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
+public class ApiTargetGroupConfigTag implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>   isSet;
-    private ApiEcs        ecs;
-    private ApiCodeDeploy codeDeploy;
+    private Set<String> isSet;
+    private String      tagKey;
+    private String      tagValue;
     //endregion
 
-    //region Constructor
-
-    public ApiThirdPartiesIntegration() {
+    //region Constructors
+    public ApiTargetGroupConfigTag() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -37,38 +35,37 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiEcs getEcs() {
-        return ecs;
+    public String getTagKey() {
+        return tagKey;
     }
 
-    public void setEcs(ApiEcs ecs) {
-        isSet.add("ecs");
-        this.ecs = ecs;
+    public void setTagKey(String tagKey) {
+        isSet.add("tagKey");
+        this.tagKey = tagKey;
     }
 
-    public ApiCodeDeploy getCodeDeploy() {
-        return codeDeploy;
+    public String getTagValue() {
+        return tagValue;
     }
 
-    public void setCodeDeploy(ApiCodeDeploy codeDeploy) {
-        isSet.add("codeDeploy");
-        this.codeDeploy = codeDeploy;
+    public void setTagValue(String tagValue) {
+        isSet.add("tagValue");
+        this.tagValue = tagValue;
     }
-
     //endregion
+
     //region isSet methods
-    // Is ecs Set boolean method
+    // Is tagKey Set boolean method
     @JsonIgnore
-    public boolean isEcsSet() {
-        return isSet.contains("ecs");
+    public boolean isTagKeySet() {
+        return isSet.contains("tagKey");
     }
 
-
-    // Is codeDeploy Set boolean method
+    // Is tagValue Set boolean method
     @JsonIgnore
-    public boolean isCodeDeploySet() {
-        return isSet.contains("codeDeploy");
+    public boolean isTagValueSet() {
+        return isSet.contains("tagValue");
     }
+
     //endregion
-
 }

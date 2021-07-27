@@ -12,19 +12,21 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
+class ApiListenerRule implements IPartialUpdateEntity {
     //region Members
+
     @JsonIgnore
-    private Set<String>   isSet;
-    private ApiEcs        ecs;
-    private ApiCodeDeploy codeDeploy;
+    private Set<String>  isSet;
+    private String       ruleArn;
+
     //endregion
 
     //region Constructor
 
-    public ApiThirdPartiesIntegration() {
+    public ApiListenerRule() {
         isSet = new HashSet<>();
     }
+
     //endregion
 
     //region Getters & Setters
@@ -37,38 +39,23 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiEcs getEcs() {
-        return ecs;
+    public String getRuleArn() {
+        return ruleArn;
     }
 
-    public void setEcs(ApiEcs ecs) {
-        isSet.add("ecs");
-        this.ecs = ecs;
-    }
-
-    public ApiCodeDeploy getCodeDeploy() {
-        return codeDeploy;
-    }
-
-    public void setCodeDeploy(ApiCodeDeploy codeDeploy) {
-        isSet.add("codeDeploy");
-        this.codeDeploy = codeDeploy;
+    public void setRuleArn(String ruleArn) {
+        isSet.add("ruleArn");
+        this.ruleArn = ruleArn;
     }
 
     //endregion
+    
     //region isSet methods
-    // Is ecs Set boolean method
+    // Is ruleArn Set boolean method
     @JsonIgnore
-    public boolean isEcsSet() {
-        return isSet.contains("ecs");
+    public boolean isRuleArnSet() {
+        return isSet.contains("ruleArn");
     }
 
-
-    // Is codeDeploy Set boolean method
-    @JsonIgnore
-    public boolean isCodeDeploySet() {
-        return isSet.contains("codeDeploy");
-    }
     //endregion
-
 }

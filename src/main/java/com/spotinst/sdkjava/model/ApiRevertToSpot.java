@@ -7,28 +7,29 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
+public class ApiRevertToSpot implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>   isSet;
-    private ApiEcs        ecs;
-    private ApiCodeDeploy codeDeploy;
+    private Set<String>  isSet;
+    private List<String> timeWindows;
+    private String       performAt;
+
     //endregion
 
     //region Constructor
-
-    public ApiThirdPartiesIntegration() {
+    public ApiRevertToSpot() {
         isSet = new HashSet<>();
     }
+
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -37,38 +38,37 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiEcs getEcs() {
-        return ecs;
+    public List<String> getTimeWindows() {
+        return timeWindows;
     }
 
-    public void setEcs(ApiEcs ecs) {
-        isSet.add("ecs");
-        this.ecs = ecs;
+    public void setTimeWindows(List<String> timeWindows) {
+        isSet.add("timeWindows");
+        this.timeWindows = timeWindows;
     }
 
-    public ApiCodeDeploy getCodeDeploy() {
-        return codeDeploy;
+    public String getPerformAt() {
+        return performAt;
     }
 
-    public void setCodeDeploy(ApiCodeDeploy codeDeploy) {
-        isSet.add("codeDeploy");
-        this.codeDeploy = codeDeploy;
+    public void setPerformAt(String performAt) {
+        isSet.add("performAt");
+        this.performAt = performAt;
     }
 
     //endregion
+
     //region isSet methods
-    // Is ecs Set boolean method
+
+    // Is timeWindow Set boolean method
     @JsonIgnore
-    public boolean isEcsSet() {
-        return isSet.contains("ecs");
+    public boolean isTimeWindowSet() {
+        return isSet.contains("timeWindows");
     }
 
-
-    // Is codeDeploy Set boolean method
+    // Is performAt Set boolean method
     @JsonIgnore
-    public boolean isCodeDeploySet() {
-        return isSet.contains("codeDeploy");
+    public boolean isPerformAtSet() {
+        return isSet.contains("performAt");
     }
-    //endregion
-
 }

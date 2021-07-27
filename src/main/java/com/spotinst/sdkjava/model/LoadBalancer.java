@@ -16,6 +16,10 @@ public class LoadBalancer {
     private String      name;
     private String      arn;
     private LbTypeEnum  type;
+    private String      balancerId;
+    private String      targetSetId;
+    private Boolean     azAwareness;
+    private Boolean     autoWeight;
     //endregion
 
     //region Getters & Setters
@@ -61,6 +65,43 @@ public class LoadBalancer {
         isSet.add("type");
         this.type = type;
     }
+
+    public String getBalancerId() {
+        return balancerId;
+    }
+
+    public void setBalancerId(String balancerId) {
+        isSet.add("balancerId");
+        this.balancerId = balancerId;
+    }
+
+    public String getTargetSetId() {
+        return targetSetId;
+    }
+
+    public void setTargetSetId(String targetSetId) {
+        isSet.add("targetSetId");
+        this.targetSetId = targetSetId;
+    }
+
+    public Boolean getAzAwareness() {
+        return azAwareness;
+    }
+
+    public void setAzAwareness(Boolean azAwareness) {
+        isSet.add("azAwareness");
+        this.azAwareness = azAwareness;
+    }
+
+    public Boolean getAutoWeight() {
+        return autoWeight;
+    }
+
+    public void setAutoWeight(Boolean autoWeight) {
+        isSet.add("autoWeight");
+        this.autoWeight = autoWeight;
+    }
+
     //endregion
 
     //region Builder class
@@ -83,6 +124,26 @@ public class LoadBalancer {
 
         public LoadBalancer.Builder setArn(final String arn) {
             loadBalancer.setArn(arn);
+            return this;
+        }
+
+        public LoadBalancer.Builder setBalancerId(final String balancerId) {
+            loadBalancer.setBalancerId(balancerId);
+            return this;
+        }
+
+        public LoadBalancer.Builder setTargetSetId(final String targetSetId) {
+            loadBalancer.setTargetSetId(targetSetId);
+            return this;
+        }
+
+        public LoadBalancer.Builder setAzAwareness(final Boolean azAwareness) {
+            loadBalancer.setAzAwareness(azAwareness);
+            return this;
+        }
+
+        public LoadBalancer.Builder setAutoWeight(final Boolean autoWeight) {
+            loadBalancer.setAutoWeight(autoWeight);
             return this;
         }
 
@@ -113,5 +174,17 @@ public class LoadBalancer {
     public boolean isTypeSet() {
         return isSet.contains("type");
     }
+
+    @JsonIgnore
+    public boolean isBalancerIdSet() { return isSet.contains("balancerId"); }
+
+    @JsonIgnore
+    public boolean isTargetSetIdSet() { return isSet.contains("targetSetId"); }
+
+    @JsonIgnore
+    public boolean isAzAwarenessSet() { return isSet.contains("azAwareness"); }
+
+    @JsonIgnore
+    public boolean isAutoWeightSet() { return isSet.contains("autoWeight"); }
     //endregion
 }

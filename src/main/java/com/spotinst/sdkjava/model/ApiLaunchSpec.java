@@ -19,21 +19,23 @@ import java.util.Set;
 class ApiLaunchSpec implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                 isSet;
-    private String                      healthCheckType;
-    private Integer                     healthCheckGracePeriod;
+    private Set<String>                      isSet;
+    private String                           healthCheckType;
+    private Integer                          healthCheckGracePeriod;
     private List<String>                     securityGroupIds;
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
     private String                           imageId;
     private ApiIamRole                       iamRole;
     private String                           keyPair;
+    private Integer                          healthCheckUnhealthyDurationBeforeReplacement;
     private String                           userData;
     private List<ApiBlockDevice>             blockDeviceMappings;
     private List<ApiNetworkInterface>        networkInterfaces;
     private List<ApiTag>                     tags;
     private ApiGroupResourceTagSpecification resourceTagSpecification;
     private ApiLoadBalancersConfig           loadBalancersConfig;
+    private ApiItf                           itf;
     //endregion
 
     //region Constructor
@@ -142,6 +144,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         this.userData = userData;
     }
 
+    public Integer getHealthCheckUnhealthyDurationBeforeReplacement() {
+        return healthCheckUnhealthyDurationBeforeReplacement;
+    }
+
+    public void setHealthCheckUnhealthyDurationBeforeReplacement(Integer healthCheckUnhealthyDurationBeforeReplacement) {
+        isSet.add("healthCheckUnhealthyDurationBeforeReplacement");
+        this.healthCheckUnhealthyDurationBeforeReplacement = healthCheckUnhealthyDurationBeforeReplacement;
+    }
+
     public List<ApiBlockDevice> getBlockDeviceMappings() {
         return blockDeviceMappings;
     }
@@ -176,6 +187,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     public void setLoadBalancersConfig(ApiLoadBalancersConfig loadBalancersConfig) {
         isSet.add("loadBalancersConfig");
         this.loadBalancersConfig = loadBalancersConfig;
+    }
+
+    public ApiItf getItf() {
+        return itf;
+    }
+
+    public void setItf(ApiItf itf) {
+        isSet.add("itf");
+        this.itf = itf;
     }
     //endregion
 
@@ -268,9 +288,20 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         return isSet.contains("tags");
     }
 
+    // Is loadBalancersConfig Set boolean method
     @JsonIgnore
     public boolean isLoadBalancersConfigSet() {
         return isSet.contains("loadBalancersConfig");
     }
+
+    // Is healthCheckUnhealthyDurationBeforeReplacement Set boolean method
+    @JsonIgnore
+    public boolean isHealthCheckUnhealthyDurationBeforeReplacementSet() {
+        return isSet.contains("healthCheckUnhealthyDurationBeforeReplacement");
+    }
+
+    // Is itf Set boolean method
+    @JsonIgnore
+    public boolean isItfSet() { return isSet.contains("itf"); }
     //endregion
 }

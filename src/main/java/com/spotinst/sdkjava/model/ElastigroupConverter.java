@@ -127,9 +127,61 @@ class ElastigroupConverter {
             if (thirdPartiesIntegration.isEcsSet()) {
                 retVal.setEcs(toDal(thirdPartiesIntegration.getEcs()));
             }
+
+            if (thirdPartiesIntegration.isCodeDeploySet()) {
+                retVal.setCodeDeploy(toDal(thirdPartiesIntegration.getCodeDeploy()));
+            }
         }
 
         return retVal;
+    }
+
+    private static ApiCodeDeploy toDal(ElastigroupCodeDeploy codeDeploy) {
+        ApiCodeDeploy retVal = null;
+
+        if (codeDeploy != null) {
+            retVal = new ApiCodeDeploy();
+
+            if (codeDeploy.isCleanUpOnFailureSet()) {
+                retVal.setCleanUpOnFailure(codeDeploy.getCleanUpOnFailure());
+            }
+
+            if (codeDeploy.isTerminateInstanceOnFailureSet()) {
+                retVal.setTerminateInstanceOnFailure(codeDeploy.getTerminateInstanceOnFailure());
+            }
+
+            if (codeDeploy.isDeploymentGroupsSet()) {
+                if (codeDeploy.getDeploymentGroups() != null) {
+                    List<ApiDeploymentGroup> deploymentGroups =
+                                              codeDeploy.getDeploymentGroups().stream().map(ElastigroupConverter::toDal)
+                                              .collect(Collectors.toList());
+                    retVal.setDeploymentGroups(deploymentGroups);
+                }
+            }
+        }
+
+        return retVal;
+
+    }
+
+    private static ApiDeploymentGroup toDal(ElastigroupDeploymentGroup deploymentGroups) {
+        ApiDeploymentGroup retVal = null;
+
+        if (deploymentGroups != null) {
+            retVal = new ApiDeploymentGroup();
+
+            if (deploymentGroups.isApplicationNameSet()) {
+                retVal.setApplicationName(deploymentGroups.getApplicationName());
+            }
+
+            if (deploymentGroups.isDeploymentGroupNameSet()) {
+                retVal.setDeploymentGroupName(deploymentGroups.getDeploymentGroupName());
+            }
+
+        }
+
+        return retVal;
+
     }
 
     private static ApiEcs toDal(ElastigroupEcsSpecification ecs) {
@@ -384,6 +436,10 @@ class ElastigroupConverter {
                 retVal.setImageId(launchSpecification.getImageId());
             }
 
+            if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
+                retVal.setHealthCheckUnhealthyDurationBeforeReplacement(launchSpecification.getHealthCheckUnhealthyDurationBeforeReplacement());
+            }
+
             if (launchSpecification.isIamRoleSet()) {
                 retVal.setIamRole(toDal(launchSpecification.getIamRole()));
             }
@@ -430,6 +486,10 @@ class ElastigroupConverter {
                                                                     .collect(Collectors.toList());
                     retVal.setTags(optimizerTags);
                 }
+            }
+
+            if (launchSpecification.isItfSet()) {
+                retVal.setItf(toDal(launchSpecification.getItf()));
             }
         }
 
@@ -551,6 +611,178 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    private static ApiItf toDal(ElastigroupItf itf) {
+        ApiItf retVal = null;
+
+        if (itf != null) {
+            retVal = new ApiItf();
+
+            if (itf.isMigrationHealthinessThresholdSet()) {
+                retVal.setMigrationHealthinessThreshold(itf.getMigrationHealthinessThreshold());
+            }
+
+            if (itf.isFixedTargetGroupsSet()) {
+                retVal.setFixedTargetGroups(itf.getFixedTargetGroups());
+            }
+
+            if (itf.isWeightStrategySet()) {
+                retVal.setWeightStrategy(itf.getWeightStrategy());
+            }
+
+            if (itf.isTargetGroupConfigSet()) {
+                retVal.setTargetGroupConfig(toDal(itf.getTargetGroupConfig()));
+            }
+
+            if (itf.isLoadBalancersSet()) {
+                if (itf.getLoadBalancers() != null) {
+                    List<ApiItfLoadBalancer> optItfLoadBalancers =
+                            itf.getLoadBalancers().stream().map(ElastigroupConverter::toDal)
+                                   .collect(Collectors.toList());
+                    retVal.setLoadBalancers(optItfLoadBalancers);
+                }
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiItfLoadBalancer toDal(ElastigroupItfLoadBalancer loadBalancer) {
+        ApiItfLoadBalancer retVal = null;
+
+        if (loadBalancer != null) {
+            retVal = new ApiItfLoadBalancer();
+
+            if (loadBalancer.isLoadBalancerArnSet()) {
+                retVal.setLoadBalancerArn(loadBalancer.getLoadBalancerArn());
+            }
+
+            if (loadBalancer.isListenerRulesSet()) {
+                if (loadBalancer.getListenerRules() != null) {
+                    List<ApiListenerRule> optListenerRules =
+                            loadBalancer.getListenerRules().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setListenerRules(optListenerRules);
+                }
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiListenerRule toDal(ElastigroupListenerRule listenerRule) {
+        ApiListenerRule retVal = null;
+
+        if (listenerRule != null) {
+            retVal = new ApiListenerRule();
+
+            if (listenerRule.isRuleArnSet()) {
+                retVal.setRuleArn(listenerRule.getRuleArn());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiTargetGroupConfig toDal(ElastigroupTargetGroupConfig targetGroupConfig) {
+        ApiTargetGroupConfig retVal = null;
+
+        if (targetGroupConfig != null) {
+            retVal = new ApiTargetGroupConfig();
+
+            if (targetGroupConfig.isHealthCheckIntervalSecondsSet()) {
+                retVal.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
+            }
+
+            if (targetGroupConfig.isHealthCheckPathSet()) {
+                retVal.setHealthCheckPath(targetGroupConfig.getHealthCheckPath());
+            }
+
+            if (targetGroupConfig.isHealthCheckPortSet()) {
+                retVal.setHealthCheckPort(targetGroupConfig.getHealthCheckPort());
+            }
+
+            if (targetGroupConfig.isHealthCheckProtocolSet()) {
+                retVal.setHealthCheckProtocol(targetGroupConfig.getHealthCheckProtocol());
+            }
+
+            if (targetGroupConfig.isHealthCheckTimeoutSecondsSet()) {
+                retVal.setHealthCheckTimeoutSeconds(targetGroupConfig.getHealthCheckTimeoutSeconds());
+            }
+
+            if (targetGroupConfig.isHealthyThresholdCountSet()) {
+                retVal.setHealthyThresholdCount(targetGroupConfig.getHealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isUnhealthyThresholdCountSet()) {
+                retVal.setUnhealthyThresholdCount(targetGroupConfig.getUnhealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isPortSet()) {
+                retVal.setPort(targetGroupConfig.getPort());
+            }
+
+            if (targetGroupConfig.isProtocolSet()) {
+                retVal.setProtocol(targetGroupConfig.getProtocol());
+            }
+
+            if (targetGroupConfig.isProtocolVersionSet()) {
+                retVal.setProtocolVersion(targetGroupConfig.getProtocolVersion());
+            }
+
+            if (targetGroupConfig.isTagsSet()) {
+                if (targetGroupConfig.getTags() != null) {
+                    List<ApiTargetGroupConfigTag> optItfTags =
+                            targetGroupConfig.getTags().stream().map(ElastigroupConverter::toDal)
+                               .collect(Collectors.toList());
+                    retVal.setTags(optItfTags);
+                }
+            }
+
+            if (targetGroupConfig.isMatcherSet()) {
+                retVal.setMatcher(toDal(targetGroupConfig.getMatcher()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiMatcher toDal(ElastigroupMatcher matcher) {
+        ApiMatcher retVal = null;
+
+        if (matcher != null) {
+            retVal = new ApiMatcher();
+
+            if (matcher.isHttpCodeSet()) {
+                retVal.setHttpCode(matcher.getHttpCode());
+            }
+
+            if (matcher.isGrpcCodeSet()) {
+                retVal.setGrpcCode(matcher.getGrpcCode());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiTargetGroupConfigTag toDal(ElastigroupTargetGroupConfigTag tags) {
+        ApiTargetGroupConfigTag retVal = null;
+
+        if (tags != null) {
+            retVal = new ApiTargetGroupConfigTag();
+
+            if (tags.isTagKeySet()) {
+                retVal.setTagKey(tags.getTagKey());
+            }
+
+            if (tags.isTagValueSet()) {
+                retVal.setTagValue(tags.getTagValue());
+            }
+        }
+
+        return retVal;
+    }
+
     private static ApiLoadBalancer toDal(LoadBalancer loadBalancer) {
         ApiLoadBalancer retVal = null;
 
@@ -563,6 +795,22 @@ class ElastigroupConverter {
 
             if (loadBalancer.isArnSet()) {
                 retVal.setArn(loadBalancer.getArn());
+            }
+
+            if (loadBalancer.isBalancerIdSet()) {
+                retVal.setBalancerId(loadBalancer.getBalancerId());
+            }
+
+            if (loadBalancer.isTargetSetIdSet()) {
+                retVal.setTargetSetId(loadBalancer.getTargetSetId());
+            }
+
+            if (loadBalancer.isAzAwarenessSet()) {
+                retVal.setAzAwareness(loadBalancer.getAzAwareness());
+            }
+
+            if (loadBalancer.isAutoWeightSet()) {
+                retVal.setAutoWeight(loadBalancer.getAutoWeight());
             }
 
             if (loadBalancer.isTypeSet() && loadBalancer.getType() != null) {
@@ -684,6 +932,29 @@ class ElastigroupConverter {
 
             if (strategy.isPersistenceSet()) {
                 retVal.setPersistence(toDal(strategy.getPersistence()));
+            }
+
+            if (strategy.isRevertToSpotSet()) {
+                retVal.setRevertToSpot(toDal(strategy.getRevertToSpot()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiRevertToSpot toDal(ElastigroupRevertToSpot revertToSpot) {
+        ApiRevertToSpot retVal = null;
+
+        if (revertToSpot != null) {
+            retVal = new ApiRevertToSpot();
+            if (revertToSpot.isPerformAtSet()) {
+                retVal.setPerformAt(revertToSpot.getPerformAt());
+            }
+
+            if (revertToSpot.isTimeWindowSet()) {
+                if (revertToSpot.getTimeWindows() != null) {
+                    retVal.setTimeWindows(new LinkedList<>(revertToSpot.getTimeWindows()));
+                }
             }
         }
 
@@ -1082,11 +1353,61 @@ class ElastigroupConverter {
             if (apiThirdPartiesIntegration.isEcsSet()) {
                 blThirdPartiesIntegrationBuilder.setEcs(toBl(apiThirdPartiesIntegration.getEcs()));
             }
+
+            if (apiThirdPartiesIntegration.isCodeDeploySet()) {
+                blThirdPartiesIntegrationBuilder.setCodeDeploy(toBl(apiThirdPartiesIntegration.getCodeDeploy()));
+            }
             blThirdPartiesIntegration = blThirdPartiesIntegrationBuilder.build();
         }
         return blThirdPartiesIntegration;
     }
 
+    private static ElastigroupCodeDeploy toBl(ApiCodeDeploy apiCodeDeploy){
+        ElastigroupCodeDeploy blCodeDeploy = null;
+
+        if (apiCodeDeploy != null) {
+            ElastigroupCodeDeploy.Builder blCodeDeployBuilder = ElastigroupCodeDeploy.Builder.get();
+            if (apiCodeDeploy.isCleanUpOnFailureSet()) {
+                blCodeDeployBuilder.setCleanUpOnFailure(apiCodeDeploy.getCleanUpOnFailure());
+            }
+
+            if (apiCodeDeploy.isTerminateInstanceOnFailureSet()) {
+                blCodeDeployBuilder.setTerminateInstanceOnFailure(apiCodeDeploy.getTerminateInstanceOnFailure());
+            }
+
+            if (apiCodeDeploy.isDeploymentGroupsSet()) {
+                if (apiCodeDeploy.getDeploymentGroups() != null) {
+                    List<ElastigroupDeploymentGroup> deploymentGroups=
+                                                      apiCodeDeploy.getDeploymentGroups().stream().map(ElastigroupConverter::toBl)
+                                                      .collect(Collectors.toList());
+                    blCodeDeployBuilder.setDeploymentGroups(deploymentGroups);
+                }
+            }
+            blCodeDeploy = blCodeDeployBuilder.build();
+        }
+
+        return blCodeDeploy;
+    }
+
+    private static ElastigroupDeploymentGroup toBl(ApiDeploymentGroup apiDeploymentGroup) {
+        ElastigroupDeploymentGroup blDeploymentGroups = null;
+
+        if (apiDeploymentGroup != null) {
+            ElastigroupDeploymentGroup.Builder blDeploymentGroupsBuilder = ElastigroupDeploymentGroup.Builder.get();
+
+            if (apiDeploymentGroup.isApplicationNameSet()) {
+                blDeploymentGroupsBuilder.setApplicationName(apiDeploymentGroup.getApplicationName());
+            }
+
+            if (apiDeploymentGroup.isDeploymentGroupNameSet()) {
+                blDeploymentGroupsBuilder.setDeploymentGroupName(apiDeploymentGroup.getDeploymentGroupName());
+            }
+
+            blDeploymentGroups = blDeploymentGroupsBuilder.build();
+        }
+
+        return blDeploymentGroups;
+    }
 
     private static ElastigroupOptimizeImages toBl(ApiOptimizeImages apiOptimizeImages) {
         ElastigroupOptimizeImages blOptimizeImages = null;
@@ -1404,6 +1725,10 @@ class ElastigroupConverter {
                 retValBuilder.setImageId(launchSpecification.getImageId());
             }
 
+            if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
+                retValBuilder.setHealthCheckUnhealthyDurationBeforeReplacement(launchSpecification.getHealthCheckUnhealthyDurationBeforeReplacement());
+            }
+
             if (launchSpecification.isIamRoleSet()) {
                 retValBuilder.setIamRole(toBl(launchSpecification.getIamRole()));
             }
@@ -1447,10 +1772,190 @@ class ElastigroupConverter {
                     retValBuilder.setTags(tags);
                 }
             }
+            if (launchSpecification.isItfSet()){
+                    retValBuilder.setItf(toBl(launchSpecification.getItf()));
+            }
 
             retVal = retValBuilder.build();
         }
 
+
+        return retVal;
+    }
+
+    private static ElastigroupItf toBl(ApiItf itf) {
+        ElastigroupItf retVal = null;
+
+        if (itf != null){
+            ElastigroupItf.Builder retValBuilder = ElastigroupItf.Builder.get();
+
+            if (itf.isFixedTargetGroupsSet()) {
+                retValBuilder.setFixedTargetGroups(itf.getFixedTargetGroups());
+            }
+
+            if (itf.isWeightStrategySet()) {
+                retValBuilder.setWeightStrategy(itf.getWeightStrategy());
+            }
+
+            if (itf.isMigrationHealthinessThresholdSet()) {
+                retValBuilder.setMigrationHealthinessThreshold(itf.getMigrationHealthinessThreshold());
+            }
+
+            if (itf.isTargetGroupConfigSet()) {
+                retValBuilder.setTargetGroupConfig(toBl(itf.getTargetGroupConfig()));
+            }
+
+            if (itf.isLoadBalancersSet()) {
+                if (itf.getLoadBalancers() != null) {
+                    List<ElastigroupItfLoadBalancer> blItfLoadBalancers =
+                                                      itf.getLoadBalancers().stream().map(ElastigroupConverter::toBl)
+                                                      .collect(Collectors.toList());
+                    retValBuilder.setLoadBalancers(blItfLoadBalancers);
+                }
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupItfLoadBalancer toBl(ApiItfLoadBalancer itfLoadBalancer) {
+        ElastigroupItfLoadBalancer retVal = null;
+
+        if (itfLoadBalancer != null) {
+            ElastigroupItfLoadBalancer.Builder retValBuilder = ElastigroupItfLoadBalancer.Builder.get();
+
+            if (itfLoadBalancer.isLoadBalancerArnSet()){
+                retValBuilder.setLoadBalancerArn(itfLoadBalancer.getLoadBalancerArn());
+            }
+
+            if (itfLoadBalancer.isListenerRulesSet()) {
+                if (itfLoadBalancer.getListenerRules() != null) {
+                    List<ElastigroupListenerRule> blListenerRules =
+                                                   itfLoadBalancer.getListenerRules().stream().map(ElastigroupConverter::toBl)
+                                                   .collect(Collectors.toList());
+                    retValBuilder.setListenerRules(blListenerRules);
+                }
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupListenerRule toBl(ApiListenerRule listenerRules) {
+        ElastigroupListenerRule retVal = null;
+
+        if (listenerRules != null) {
+            ElastigroupListenerRule.Builder retValBuilder = ElastigroupListenerRule.Builder.get();
+
+            if (listenerRules.isRuleArnSet()) {
+                retValBuilder.setRuleArn(listenerRules.getRuleArn());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupTargetGroupConfig toBl (ApiTargetGroupConfig targetGroupConfig) {
+        ElastigroupTargetGroupConfig retVal = null;
+
+        if (targetGroupConfig != null) {
+            ElastigroupTargetGroupConfig.Builder retValBuilder = ElastigroupTargetGroupConfig.Builder.get();
+
+            if (targetGroupConfig.isHealthCheckIntervalSecondsSet()) {
+                retValBuilder.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
+            }
+
+            if (targetGroupConfig.isHealthCheckPathSet()) {
+                retValBuilder.setHealthCheckPath(targetGroupConfig.getHealthCheckPath());
+            }
+
+            if (targetGroupConfig.isHealthCheckPortSet()) {
+                retValBuilder.setHealthCheckPort(targetGroupConfig.getHealthCheckPort());
+            }
+
+            if (targetGroupConfig.isHealthCheckProtocolSet()) {
+                retValBuilder.setHealthCheckProtocol(targetGroupConfig.getHealthCheckProtocol());
+            }
+
+            if (targetGroupConfig.isHealthCheckTimeoutSecondsSet()) {
+                retValBuilder.setHealthCheckTimeoutSeconds(targetGroupConfig.getHealthCheckTimeoutSeconds());
+            }
+
+            if (targetGroupConfig.isHealthyThresholdCountSet()) {
+                retValBuilder.setHealthyThresholdCount(targetGroupConfig.getHealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isUnhealthyThresholdCountSet()) {
+                retValBuilder.setUnhealthyThresholdCount(targetGroupConfig.getUnhealthyThresholdCount());
+            }
+
+            if (targetGroupConfig.isPortSet()) {
+                retValBuilder.setPort(targetGroupConfig.getPort());
+            }
+
+            if (targetGroupConfig.isProtocolSet()) {
+                retValBuilder.setProtocol(targetGroupConfig.getProtocol());
+            }
+
+            if (targetGroupConfig.isProtocolVersionSet()) {
+                retValBuilder.setProtocolVersion(targetGroupConfig.getProtocolVersion());
+            }
+
+            if (targetGroupConfig.isMatcherSet()) {
+                retValBuilder.setMatcher(toBl(targetGroupConfig.getMatcher()));
+            }
+
+            if (targetGroupConfig.isTagsSet()) {
+                if (targetGroupConfig.getTags() != null) {
+                    List<ElastigroupTargetGroupConfigTag> blItfTags =
+                                             targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
+                                             .collect(Collectors.toList());
+                    retValBuilder.setTags(blItfTags);
+                }
+            }
+            retVal =retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupMatcher toBl(ApiMatcher matcher) {
+        ElastigroupMatcher retVal = null;
+
+        if (matcher != null) {
+            ElastigroupMatcher.Builder retValBuilder = ElastigroupMatcher.Builder.get();
+
+            if(matcher.isGrpcCodeSet()) {
+               retValBuilder.setGrpcCode(matcher.getGrpcCode());
+            }
+
+            if(matcher.isHttpCodeSet()) {
+                retValBuilder.setHttpCode(matcher.getHttpCode());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupTargetGroupConfigTag toBl(ApiTargetGroupConfigTag targetGroupConfigTag) {
+        ElastigroupTargetGroupConfigTag retVal = null;
+
+        if (targetGroupConfigTag != null) {
+            ElastigroupTargetGroupConfigTag.Builder retValBuilder = ElastigroupTargetGroupConfigTag.Builder.get();
+
+            if (targetGroupConfigTag.isTagKeySet()) {
+                retValBuilder.setTagKey(targetGroupConfigTag.getTagKey());
+            }
+
+            if (targetGroupConfigTag.isTagValueSet()) {
+                retValBuilder.setTagValue(targetGroupConfigTag.getTagValue());
+            }
+            retVal = retValBuilder.build();
+        }
 
         return retVal;
     }
@@ -1544,6 +2049,22 @@ class ElastigroupConverter {
 
             if (loadBalancer.isArnSet()) {
                 retValBuilder.setArn(loadBalancer.getArn());
+            }
+
+            if (loadBalancer.isBalancerIdSet()) {
+                retValBuilder.setBalancerId(loadBalancer.getBalancerId());
+            }
+
+            if (loadBalancer.isTargetSetIdSet()) {
+                retValBuilder.setTargetSetId(loadBalancer.getTargetSetId());
+            }
+
+            if (loadBalancer.isAzAwarenessSet()) {
+                retValBuilder.setAzAwareness(loadBalancer.getAzAwareness());
+            }
+
+            if (loadBalancer.isAutoWeightSet()) {
+                retValBuilder.setAutoWeight(loadBalancer.getAutoWeight());
             }
 
             retVal = retValBuilder.build();
@@ -1670,9 +2191,34 @@ class ElastigroupConverter {
                 retValBuilder.setPersistence(toBl(strategy.getPersistence()));
             }
 
+            if (strategy.isRevertToSpotSet()) {
+                retValBuilder.setRevertToSpot(toBl(strategy.getRevertToSpot()));
+            }
+
             retVal = retValBuilder.build();
         }
 
+        return retVal;
+    }
+
+    private static ElastigroupRevertToSpot toBl(ApiRevertToSpot apiRevertToSpot) {
+        ElastigroupRevertToSpot retVal = null;
+
+        if (apiRevertToSpot != null) {
+            ElastigroupRevertToSpot.Builder retValBuilder = ElastigroupRevertToSpot.Builder.get();
+
+            if (apiRevertToSpot.isPerformAtSet()){
+                retValBuilder.setPerformAt(apiRevertToSpot.getPerformAt());
+            }
+
+            if (apiRevertToSpot.isTimeWindowSet()) {
+                if (apiRevertToSpot.getTimeWindows() != null) {
+                    retValBuilder.setTimeWindows(new LinkedList<>(apiRevertToSpot.getTimeWindows()));
+                }
+            }
+
+            retVal = retValBuilder.build();
+        }
         return retVal;
     }
 
