@@ -111,7 +111,10 @@ public class SpotinstClient {
         return spotAdminAccountClient;
     }
 
-
+    public static SpotOceanEcsClusterClient getOceanEcsClusterClient(String authToken, String account) {
+        SpotOceanEcsClusterClient spotOceanEcsClusterClient = new SpotOceanEcsClusterClient(authToken, account);
+        return spotOceanEcsClusterClient;
+    }
 
     //endregion
 }
