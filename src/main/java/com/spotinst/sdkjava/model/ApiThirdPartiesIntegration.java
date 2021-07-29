@@ -15,8 +15,9 @@ import java.util.Set;
 class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private ApiEcs      ecs;
+    private Set<String>   isSet;
+    private ApiEcs        ecs;
+    private ApiCodeDeploy codeDeploy;
     //endregion
 
     //region Constructor
@@ -45,14 +46,29 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.ecs = ecs;
     }
 
+    public ApiCodeDeploy getCodeDeploy() {
+        return codeDeploy;
+    }
+
+    public void setCodeDeploy(ApiCodeDeploy codeDeploy) {
+        isSet.add("codeDeploy");
+        this.codeDeploy = codeDeploy;
+    }
+
     //endregion
     //region isSet methods
-    // Is deviceName Set boolean method
+    // Is ecs Set boolean method
     @JsonIgnore
     public boolean isEcsSet() {
         return isSet.contains("ecs");
     }
 
+
+    // Is codeDeploy Set boolean method
+    @JsonIgnore
+    public boolean isCodeDeploySet() {
+        return isSet.contains("codeDeploy");
+    }
     //endregion
 
 }

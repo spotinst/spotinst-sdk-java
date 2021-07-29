@@ -111,6 +111,10 @@ public class SpotinstClient {
         return spotAdminAccountClient;
     }
 
+    public static SpotStorageAzureVolumeClient getVolumeClient(String authToken, String account) {
+        SpotStorageAzureVolumeClient spotStorageAzureVolumeClient = new SpotStorageAzureVolumeClient(authToken, account);
+        return spotStorageAzureVolumeClient;
+    }
     public static SpotOceanEcsClusterClient getOceanEcsClusterClient(String authToken, String account) {
         SpotOceanEcsClusterClient spotOceanEcsClusterClient = new SpotOceanEcsClusterClient(authToken, account);
         return spotOceanEcsClusterClient;

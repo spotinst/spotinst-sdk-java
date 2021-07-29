@@ -12,14 +12,15 @@ import java.util.Set;
 public class ElastigroupStrategyConfiguration {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer spotPercentage;
-    private Integer onDemandCount;
-    private Integer drainingTimeout;
-    private Boolean utilizeReservedInstances;
-    private Boolean fallbackToOd;
-    private ElastigroupOrientationEnum elastigroupOrientation;
+    private Set<String>                         isSet;
+    private Integer                             spotPercentage;
+    private Integer                             onDemandCount;
+    private Integer                             drainingTimeout;
+    private Boolean                             utilizeReservedInstances;
+    private Boolean                             fallbackToOd;
+    private ElastigroupOrientationEnum          elastigroupOrientation;
     private ElastigroupPersistenceConfiguration persistence;
+    private ElastigroupRevertToSpot             revertToSpot;
     //endregion
 
     //region Constructor
@@ -100,6 +101,15 @@ public class ElastigroupStrategyConfiguration {
         isSet.add("persistence");
         this.persistence = persistence;
     }
+
+    public ElastigroupRevertToSpot getRevertToSpot() {
+        return revertToSpot;
+    }
+
+    public void setRevertToSpot(ElastigroupRevertToSpot revertToSpot) {
+        isSet.add("revertToSpot");
+        this.revertToSpot = revertToSpot;
+    }
     //endregion
 
     //region Builder class
@@ -147,6 +157,11 @@ public class ElastigroupStrategyConfiguration {
 
         public Builder setPersistence(final ElastigroupPersistenceConfiguration persistence) {
             strategy.setPersistence(persistence);
+            return this;
+        }
+
+        public Builder setRevertToSpot(final ElastigroupRevertToSpot revertToSpot) {
+            strategy.setRevertToSpot(revertToSpot);
             return this;
         }
 
@@ -204,6 +219,12 @@ public class ElastigroupStrategyConfiguration {
     @JsonIgnore
     public boolean isPersistenceSet() {
         return isSet.contains("persistence");
+    }
+
+    // Is revertToSpot Set boolean method
+    @JsonIgnore
+    public boolean isRevertToSpotSet() {
+        return isSet.contains("revertToSpot");
     }
 
     //endregion

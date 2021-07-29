@@ -15,13 +15,21 @@ public class AccountConverter {
                 retVal.setName(src.getName());
             }
 
-            if (src.isIdSet()) {
-                retVal.setId(src.getId());
+            if (src.isAccountIdSet()) {
+                retVal.setAccountId(src.getAccountId());
             }
+
             if (src.isOrganizationIdSet()) {
                 retVal.setOrganizationId(src.getOrganizationId());
             }
 
+            if (src.isCloudProviderSet()) {
+                retVal.setCloudProvider(src.getCloudProvider());
+            }
+
+            if (src.isProviderExternalIdSet()) {
+                retVal.setProviderExternalId(src.getProviderExternalId());
+            }
         }
 
         return retVal;
@@ -37,8 +45,8 @@ public class AccountConverter {
         if (src != null) {
             BlAccountAdmin.Builder accountBuilder = BlAccountAdmin.Builder.get();
 
-            if (src.isIdSet()) {
-                accountBuilder.setId(src.getId());
+            if (src.isAccountIdSet()) {
+                accountBuilder.setAccountId(src.getAccountId());
             }
 
             if (src.isNameSet()) {
@@ -47,6 +55,14 @@ public class AccountConverter {
 
             if (src.isOrganizationIdSet()) {
                 accountBuilder.setOrganizationId(src.getOrganizationId());
+            }
+
+            if (src.isCloudProviderSet()) {
+                accountBuilder.setCloudProvider(src.getCloudProvider());
+            }
+
+            if (src.isProviderExternalIdSet()) {
+                accountBuilder.setProviderExternalId(src.getProviderExternalId());
             }
 
             retVal = accountBuilder.build();

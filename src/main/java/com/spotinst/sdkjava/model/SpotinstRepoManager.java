@@ -6,7 +6,7 @@ package com.spotinst.sdkjava.model;
  */
 class SpotinstRepoManager {
 
-    private static SpotinstRepoManager instance = new SpotinstRepoManager();
+    private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
 
     //region Members
     private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
@@ -25,6 +25,7 @@ class SpotinstRepoManager {
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
     private ISpotOceanEcsClusterLaunchSpecRepo      spotOceanEcsClusterLaunchSpecRepo;
+    private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
     //endregion
 
     //region Constructor
@@ -45,6 +46,7 @@ class SpotinstRepoManager {
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
         this.spotOceanEcsClusterLaunchSpecRepo = new SpotOceanEcsClusterLaunchSpecRepo();
+        this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
     }
     //endregion
 
@@ -166,6 +168,10 @@ class SpotinstRepoManager {
             ISpotOceanEcsClusterLaunchSpecRepo spotOceanEcsClusterLaunchSpecRepo) {
         this.spotOceanEcsClusterLaunchSpecRepo = spotOceanEcsClusterLaunchSpecRepo;
     }
+    public ISpotStorageAzureVolumeRepo getSpotStorageAzureVolumeRepo() {
+        return spotStorageAzureVolumeRepo;
+    }
+
     //endregion
 
 }

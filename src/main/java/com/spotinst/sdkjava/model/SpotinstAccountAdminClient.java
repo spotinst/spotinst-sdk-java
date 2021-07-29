@@ -34,6 +34,32 @@ public class SpotinstAccountAdminClient {
     }
     //endregion
 
+    //region Methods
+    public List<BlAccountAdmin> listAllAccounts(ListAllAccountsRequest listAllAccountsRequest) {
+
+        List<BlAccountAdmin> retVal;
+        String cloudAccountId = listAllAccountsRequest.getCloudAccountId();
+        SpotinstRepoManager managerInstance = SpotinstRepoManager.getInstance();
+        ISpotAccountAdminRepo repoAdmin = managerInstance.getSpotAdminAccountRepo();
+
+        RepoGenericResponse<List<BlAccountAdmin>> listAccountResponse =
+                repoAdmin.getAll(null, authToken, cloudAccountId);
+
+        if (listAccountResponse.isRequestSucceed()) {
+            retVal = listAccountResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listAccountResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the list of accounts. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 
     //region Methods
     public Boolean deleteAccount(AccountDeleteRequest accountDeletionRequest) {
@@ -46,6 +72,7 @@ public class SpotinstAccountAdminClient {
         // and the account who deletes are the same one. (delete in repo gets 3 attributes)
         RepoGenericResponse<Boolean> accountDeletionResponse =
                 repoAdmin.delete(accountToDeleteId, authToken, accountToDeleteId);
+
         if (accountDeletionResponse.isRequestSucceed()) {
             retVal = accountDeletionResponse.getValue();
         }

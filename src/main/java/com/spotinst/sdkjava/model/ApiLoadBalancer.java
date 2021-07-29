@@ -19,13 +19,28 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     //region Members
     // Partial Update support
     @JsonIgnore
-    private Set<String> isSet = new HashSet<>();
+    private Set<String> isSet;
     private String      name;
     private String      arn;
     private String      type;
+    private String      balancerId;
+    private String      targetSetId;
+    private Boolean     azAwareness;
+    private Boolean     autoWeight;
+    //endregion
+
+    //region Constructor
+
+    public ApiLoadBalancer() {
+        isSet = new HashSet<>();
+    }
     //endregion
 
     //region Getters & Setters
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
 
     public String getName() {
         return name;
@@ -65,13 +80,55 @@ public class ApiLoadBalancer implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isTypeSet() {
-        return isSet.contains("type");
+    public boolean isTypeSet() { return isSet.contains("type"); }
+
+    public String getBalancerId() {
+        return balancerId;
     }
 
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
+    public void setBalancerId(String balancerId) {
+        isSet.add("balancerId");
+        this.balancerId = balancerId;
     }
+
+    @JsonIgnore
+    public boolean isBalancerIdSet() { return isSet.contains("balancerId"); }
+
+    public String getTargetSetId() {
+        return targetSetId;
+    }
+
+    public void setTargetSetId(String targetSetId) {
+        isSet.add("targetSetId");
+        this.targetSetId = targetSetId;
+    }
+
+    @JsonIgnore
+    public boolean isTargetSetIdSet() { return isSet.contains("targetSetId"); }
+
+    public Boolean getAzAwareness() {
+        return azAwareness;
+    }
+
+    public void setAzAwareness(Boolean azAwareness) {
+        isSet.add("azAwareness");
+        this.azAwareness = azAwareness;
+    }
+
+    @JsonIgnore
+    public boolean isAzAwarenessSet() { return isSet.contains("azAwareness"); }
+
+    public Boolean getAutoWeight() {
+        return autoWeight;
+    }
+
+    public void setAutoWeight(Boolean autoWeight) {
+        isSet.add("autoWeight");
+        this.autoWeight = autoWeight;
+    }
+
+    @JsonIgnore
+    public boolean isAutoWeightSet() { return isSet.contains("autoWeight"); }
+
     //endregion
 }
