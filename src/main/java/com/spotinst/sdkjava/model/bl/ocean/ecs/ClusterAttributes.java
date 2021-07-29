@@ -19,7 +19,6 @@ public class ClusterAttributes {
     }
     //endregion
 
-
     public Set<String> getIsSet() {
         return isSet;
     }

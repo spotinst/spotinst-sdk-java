@@ -1,6 +1,7 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.ocean.ecs;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
 
@@ -13,9 +14,9 @@ public class OceanEcsLaunchSpecExample {
     private final static String       auth_token     = "auth_token";
     private final static String       act_id         = "act_id";
     private final static String       ocean_id       = "ocean_id";
-    private final static String       image_id       = "image_id";
+    private final static String       image_id       = "ami-123";
     private final static List<String> subnetIds      = Arrays.asList("subnet-1");
-    private final static List<String> securityGroups = Arrays.asList("sg-1");
+    private final static List<String> securityGroups = Arrays.asList("sg-1","sg-2");
 
     public static void main(String[] args) {
         SpotOceanEcsClusterClient clusterClient = SpotinstClient.getOceanEcsClusterClient(auth_token, act_id);
@@ -24,18 +25,21 @@ public class OceanEcsLaunchSpecExample {
         String launchSpecId = createLaunchSpec(clusterClient);
 
         System.out.println("----------Updation of launch specs--------------");
-        Boolean isLaunchSpecUpdated = updateLaunchSpec(clusterClient, launchSpecId);
+        updateLaunchSpecName(clusterClient, launchSpecId);
+        updateLaunchSpecAutoScaleConfiguration(clusterClient, launchSpecId);
+        updateLaunchSpec(clusterClient, launchSpecId);
 
         System.out.println("----------Get launch specs--------------");
         ClusterLaunchSpecification launchSpec = getLaunchSpec(clusterClient, launchSpecId);
-        System.out.println(String.format("Launch spec name for Id %s is %s", launchSpecId, launchSpec.getName()));
+        // Convert launch specification response to json
+        System.out.println(JsonMapper.toJson(launchSpec));
 
         System.out.println("----------List of launch specs--------------");
-        List<ClusterLaunchSpecification> allLaunchSpec = ListLaunchSpec(clusterClient);
+        List<ClusterLaunchSpecification> allLaunchSpecs = listLaunchSpec(clusterClient);
 
-        for (ClusterLaunchSpecification launchSpecs : allLaunchSpec) {
-            System.out.println(String.format("LaunchSpec Id: %s, LaunchSpec Name: %s", launchSpecs.getId(),
-                                             launchSpecs.getName()));
+        for (ClusterLaunchSpecification myLaunchSpec : allLaunchSpecs) {
+            System.out.println(String.format("LaunchSpec Id: %s, LaunchSpec Name: %s", myLaunchSpec.getId(),
+                                             myLaunchSpec.getName()));
         }
 
         System.out.println("----------Deletion of launch specs--------------");
@@ -149,7 +153,7 @@ public class OceanEcsLaunchSpecExample {
         return launchSpecification;
     }
 
-    private static List<ClusterLaunchSpecification> ListLaunchSpec(SpotOceanEcsClusterClient client) {
+    private static List<ClusterLaunchSpecification> listLaunchSpec(SpotOceanEcsClusterClient client) {
         return client.getAllLaunchSpec();
     }
 
@@ -231,4 +235,61 @@ public class OceanEcsLaunchSpecExample {
         }
         return isLaunchSpecUpdated;
     }
+
+    private static Boolean updateLaunchSpecName(SpotOceanEcsClusterClient client, String launchSpecId) {
+        // Build launch specification
+        ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
+        ClusterLaunchSpecification launchSpec = launchSpecBuilder.setName("RenameSpec").build();
+        OceanEcsClusterLaunchSpecRequest.Builder launchSpecUpdateRequestBuilder =
+                OceanEcsClusterLaunchSpecRequest.Builder.get();
+
+        // Build launch specification request
+        OceanEcsClusterLaunchSpecRequest launchSpecUpdateRequest =
+                launchSpecUpdateRequestBuilder.setLaunchSpec(launchSpec).build();
+
+        // Update launch specification
+        Boolean isLaunchSpecUpdated = client.updateLaunchSpec(launchSpecUpdateRequest, launchSpecId);
+
+        if (isLaunchSpecUpdated) {
+            System.out.println(String.format("Launch specification successfully updated: %s", launchSpecId));
+        }
+        return isLaunchSpecUpdated;
+    }
+
+    private static Boolean updateLaunchSpecAutoScaleConfiguration(SpotOceanEcsClusterClient client, String launchSpecId) {
+        //Build Headrooms
+        ClusterHeadroomsSpecification.Builder headroomBuilder = ClusterHeadroomsSpecification.Builder.get();
+        ClusterHeadroomsSpecification headroom1 = headroomBuilder.setCpuPerUnit(512)
+                                                                 .setMemoryPerUnit(1024)
+                                                                 .setNumOfUnits(2)
+                                                                 .build();
+        List<ClusterHeadroomsSpecification> headrooms = Collections.singletonList(headroom1);
+
+        //Build autoscale specification
+        ClusterAutoScaleSpecification.Builder autoScaleBuilder = ClusterAutoScaleSpecification.Builder.get();
+        ClusterAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
+
+       // Build launch specification to update autoscale configuration
+        ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
+        ClusterLaunchSpecification launchSpec = launchSpecBuilder.setAutoScale(autoScale)
+                                                                 .build();
+        OceanEcsClusterLaunchSpecRequest.Builder launchSpecUpdateRequestBuilder =
+                OceanEcsClusterLaunchSpecRequest.Builder.get();
+
+        // Build launch specification request
+        OceanEcsClusterLaunchSpecRequest launchSpecUpdateRequest =
+                launchSpecUpdateRequestBuilder.setLaunchSpec(launchSpec).build();
+
+        // Convert launch specification request to API object json
+        System.out.println(launchSpecUpdateRequest.toJson());
+
+        // Update launch specification
+        Boolean isLaunchSpecUpdated = client.updateLaunchSpec(launchSpecUpdateRequest, launchSpecId);
+
+        if (isLaunchSpecUpdated) {
+            System.out.println(String.format("Launch specification successfully updated: %s", launchSpecId));
+        }
+        return isLaunchSpecUpdated;
+    }
+
 }
