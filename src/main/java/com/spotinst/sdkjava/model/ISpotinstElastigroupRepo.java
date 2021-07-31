@@ -35,4 +35,10 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account,
                                         ApiDeleteGroupRequest deleteRequest);
+
+    RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+                                                 String authToken, String instanceId);
+
+    RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+                                              String authToken, String instanceId);
 }
