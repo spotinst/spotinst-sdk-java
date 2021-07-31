@@ -13,6 +13,7 @@ public class ClusterIamInstanceProfileSpec {
     @JsonIgnore
     private Set<String> isSet;
     private String      arn;
+    private String      name;
 
     private ClusterIamInstanceProfileSpec() {
         isSet = new HashSet<>();
@@ -35,6 +36,15 @@ public class ClusterIamInstanceProfileSpec {
         this.arn = arn;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
+    }
+
     public static class Builder {
         private ClusterIamInstanceProfileSpec iamInstanceProfile;
 
@@ -52,6 +62,11 @@ public class ClusterIamInstanceProfileSpec {
             return this;
         }
 
+        public Builder setName(final String name) {
+            iamInstanceProfile.setArn(name);
+            return this;
+        }
+
         public ClusterIamInstanceProfileSpec build() {
             return iamInstanceProfile;
         }
@@ -60,5 +75,10 @@ public class ClusterIamInstanceProfileSpec {
     @JsonIgnore
     public boolean isArnSet() {
         return isSet.contains("arn");
+    }
+
+    @JsonIgnore
+    public boolean isNameSet() {
+        return isSet.contains("name");
     }
 }

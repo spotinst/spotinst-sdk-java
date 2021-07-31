@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiClusterDynamicVolumeSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,14 +18,16 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 class ApiEbsDevice implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     deleteOnTermination;
-    private Boolean     encrypted;
-    private Integer     iops;
-    private String      snapshotId;
-    private Integer     volumeSize;
-    private String      volumeType;
-    private Integer     throughput;
+    private Set<String>                 isSet;
+    private Boolean                     deleteOnTermination;
+    private ApiClusterDynamicVolumeSize dynamicVolumeSize;
+    private Boolean                     encrypted;
+    private Integer                     iops;
+    private String                      kmsKeyId;
+    private String                      snapshotId;
+    private Integer                     volumeSize;
+    private String                      volumeType;
+    private Integer                     throughput;
 
     //region Constructor
     public ApiEbsDevice() {
@@ -50,6 +53,15 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         this.deleteOnTermination = deleteOnTermination;
     }
 
+    public ApiClusterDynamicVolumeSize getDynamicVolumeSize() {
+        return dynamicVolumeSize;
+    }
+
+    public void setDynamicVolumeSize(ApiClusterDynamicVolumeSize dynamicVolumeSize) {
+        isSet.add("dynamicVolumeSize");
+        this.dynamicVolumeSize = dynamicVolumeSize;
+    }
+
     public Boolean getEncrypted() {
         return encrypted;
     }
@@ -66,6 +78,15 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     public void setIops(Integer iops) {
         isSet.add("iops");
         this.iops = iops;
+    }
+
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+
+    public void setKmsKeyId(String kmsKeyId) {
+        isSet.add("kmsKeyId");
+        this.kmsKeyId = kmsKeyId;
     }
 
     public String getSnapshotId() {
@@ -112,6 +133,10 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         return isSet.contains("deleteOnTermination");
     }
 
+    @JsonIgnore
+    public boolean isDynamicVolumeSizeSet() {
+        return isSet.contains("dynamicVolumeSize");
+    }
 
     // Is encrypted Set boolean method
     @JsonIgnore
@@ -126,6 +151,10 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         return isSet.contains("iops");
     }
 
+    @JsonIgnore
+    public boolean isMsKeyIdSet() {
+        return isSet.contains("kmsKeyId");
+    }
 
     // Is snapshotId Set boolean method
     @JsonIgnore

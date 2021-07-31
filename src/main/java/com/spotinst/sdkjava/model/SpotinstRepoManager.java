@@ -25,6 +25,7 @@ class SpotinstRepoManager {
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
     private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
+    private ISpotOceanK8sVirtualNodeGroupRepo       spotOceanK8sVirtualNodeGroupRepo;
     //endregion
 
     //region Constructor
@@ -45,6 +46,7 @@ class SpotinstRepoManager {
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
+        this.spotOceanK8sVirtualNodeGroupRepo = new OceanK8sVirtualNodeGroupRepo();
     }
     //endregion
 
@@ -161,6 +163,14 @@ class SpotinstRepoManager {
         return spotStorageAzureVolumeRepo;
     }
 
+    public ISpotOceanK8sVirtualNodeGroupRepo getOceanK8sVirtualNodeGroupRepo() {
+        return spotOceanK8sVirtualNodeGroupRepo;
+    }
+
+    public void setOceanK8sVirtualNodeGroupRepo(
+            ISpotOceanK8sVirtualNodeGroupRepo spotOceanK8sVirtualNodeGroupRepo) {
+        this.spotOceanK8sVirtualNodeGroupRepo = spotOceanK8sVirtualNodeGroupRepo;
+    }
     //endregion
 
 }

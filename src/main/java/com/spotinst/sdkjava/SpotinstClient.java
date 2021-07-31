@@ -116,5 +116,10 @@ public class SpotinstClient {
         return spotStorageAzureVolumeClient;
     }
 
+    public static OceanK8sVirtualNodeGroupClient getOceanK8sVirtualNodeGroupClient(String authToken, String account) {
+        OceanK8sVirtualNodeGroupClient oceanK8sVirtualNodeGroupClient = new OceanK8sVirtualNodeGroupClient(authToken, account);
+        return oceanK8sVirtualNodeGroupClient;
+    }
+
     //endregion
 }
