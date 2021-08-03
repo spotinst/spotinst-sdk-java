@@ -2,11 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.RepoGenericResponse;
-import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
-import com.spotinst.sdkjava.model.SpotinstRepoManager;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.ISpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
