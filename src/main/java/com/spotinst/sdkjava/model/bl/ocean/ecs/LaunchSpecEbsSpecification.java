@@ -5,24 +5,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterEbsSpecification {
+public class LaunchSpecEbsSpecification {
     //region Members
     @JsonIgnore
-    private Set<String>              isSet;
-    private Boolean                  deleteOnTermination;
-    private ClusterDynamicVolumeSize dynamicVolumeSize;
-    private Boolean                  encrypted;
-    private Integer                  iops;
-    private String                   kmsKeyId;
-    private String                   snapshotId;
-    private Integer                  throughput;
-    private Integer                  volumeSize;
-    private String                   volumeType;
+    private Set<String>                 isSet;
+    private Boolean                     deleteOnTermination;
+    private LaunchSpecDynamicVolumeSize dynamicVolumeSize;
+    private Boolean                     encrypted;
+    private Integer                     iops;
+    private String                      kmsKeyId;
+    private String                      snapshotId;
+    private Integer                     throughput;
+    private Integer                     volumeSize;
+    private String                      volumeType;
 
     //endregion
 
     //region Constructors
-    private ClusterEbsSpecification() {
+    private LaunchSpecEbsSpecification() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -44,11 +44,11 @@ public class ClusterEbsSpecification {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public ClusterDynamicVolumeSize getDynamicVolumeSize() {
+    public LaunchSpecDynamicVolumeSize getDynamicVolumeSize() {
         return dynamicVolumeSize;
     }
 
-    public void setDynamicVolumeSize(ClusterDynamicVolumeSize dynamicVolumeSize) {
+    public void setDynamicVolumeSize(LaunchSpecDynamicVolumeSize dynamicVolumeSize) {
         isSet.add("dynamicVolumeSize");
         this.dynamicVolumeSize = dynamicVolumeSize;
     }
@@ -118,10 +118,10 @@ public class ClusterEbsSpecification {
 
     public static class Builder {
 
-        private ClusterEbsSpecification clusterEbsSpecification;
+        private LaunchSpecEbsSpecification launchSpecEbsSpecification;
 
         private Builder() {
-            this.clusterEbsSpecification = new ClusterEbsSpecification();
+            this.launchSpecEbsSpecification = new LaunchSpecEbsSpecification();
         }
 
         public static Builder get() {
@@ -130,52 +130,52 @@ public class ClusterEbsSpecification {
         }
 
         public Builder setDeleteOnTermination(final Boolean deleteOnTermination) {
-            clusterEbsSpecification.setDeleteOnTermination(deleteOnTermination);
+            launchSpecEbsSpecification.setDeleteOnTermination(deleteOnTermination);
             return this;
         }
 
-        public Builder setDynamicVolumeSize(final ClusterDynamicVolumeSize dynamicVolumeSize) {
-            clusterEbsSpecification.setDynamicVolumeSize(dynamicVolumeSize);
+        public Builder setDynamicVolumeSize(final LaunchSpecDynamicVolumeSize dynamicVolumeSize) {
+            launchSpecEbsSpecification.setDynamicVolumeSize(dynamicVolumeSize);
             return this;
         }
 
         public Builder setEncrypted(final Boolean encrypted) {
-            clusterEbsSpecification.setEncrypted(encrypted);
+            launchSpecEbsSpecification.setEncrypted(encrypted);
             return this;
         }
 
         public Builder setIops(final Integer iops) {
-            clusterEbsSpecification.setIops(iops);
+            launchSpecEbsSpecification.setIops(iops);
             return this;
         }
 
         public Builder setKmsKeyId(final String kmsKeyId) {
-            clusterEbsSpecification.setKmsKeyId(kmsKeyId);
+            launchSpecEbsSpecification.setKmsKeyId(kmsKeyId);
             return this;
         }
 
         public Builder setSnapshotId(final String snapshotId) {
-            clusterEbsSpecification.setSnapshotId(snapshotId);
+            launchSpecEbsSpecification.setSnapshotId(snapshotId);
             return this;
         }
 
         public Builder setThroughput(final Integer throughput) {
-            clusterEbsSpecification.setThroughput(throughput);
+            launchSpecEbsSpecification.setThroughput(throughput);
             return this;
         }
 
         public Builder setVolumeSize(final Integer volumeSize) {
-            clusterEbsSpecification.setVolumeSize(volumeSize);
+            launchSpecEbsSpecification.setVolumeSize(volumeSize);
             return this;
         }
 
         public Builder setVolumeType(final String volumeType) {
-            clusterEbsSpecification.setVolumeType(volumeType);
+            launchSpecEbsSpecification.setVolumeType(volumeType);
             return this;
         }
 
-        public ClusterEbsSpecification build() {
-            return clusterEbsSpecification;
+        public LaunchSpecEbsSpecification build() {
+            return launchSpecEbsSpecification;
         }
     }
 
@@ -200,7 +200,7 @@ public class ClusterEbsSpecification {
     }
 
     @JsonIgnore
-    public boolean isMsKeyIdSet() {
+    public boolean isKmsKeyIdSet() {
         return isSet.contains("kmsKeyId");
     }
 

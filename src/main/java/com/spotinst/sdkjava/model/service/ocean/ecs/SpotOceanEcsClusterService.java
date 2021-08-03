@@ -1,11 +1,11 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.service.ocean.ecs;
 
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.responses.ClusterEcsLaunchSpecApiResponse;
+import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsLaunchSpecApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SpotOceanEcsClusterService extends BaseSpotinstService {
-    public static ApiClusterLaunchSpecification createLaunchSpecification(
+    public static ApiClusterLaunchSpecification createLaunchSpec (
             ApiClusterLaunchSpecification launchSpecsToCreate, String authToken,
             String account) throws SpotinstHttpException {
         // Init retVal
@@ -46,8 +46,8 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        ClusterEcsLaunchSpecApiResponse launchSpecCreateResponse =
-                getCastedResponse(response, ClusterEcsLaunchSpecApiResponse.class);
+        OceanEcsLaunchSpecApiResponse launchSpecCreateResponse =
+                getCastedResponse(response, OceanEcsLaunchSpecApiResponse.class);
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
             retVal = launchSpecCreateResponse.getResponse().getItems().get(0);
@@ -56,7 +56,7 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateLaunchSpecification(String oceanLaunchSpecId,
+    public static Boolean updateLaunchSpec(String oceanLaunchSpecId,
                                                     ApiClusterLaunchSpecification launchSpecsToUpdate, String authToken,
                                                     String account) throws SpotinstHttpException {
         // Init retVal
@@ -88,8 +88,8 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         // Handle the response.
-        ClusterEcsLaunchSpecApiResponse launchUpdateResponse =
-                getCastedResponse(response, ClusterEcsLaunchSpecApiResponse.class);
+        OceanEcsLaunchSpecApiResponse launchUpdateResponse =
+                getCastedResponse(response, OceanEcsLaunchSpecApiResponse.class);
 
         if (launchUpdateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -99,7 +99,7 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
     }
 
 
-    public static Boolean deleteLaunchSpecification(String oceanLaunchSpecId, String authToken,
+    public static Boolean deleteLaunchSpec(String oceanLaunchSpecId, String authToken,
                                                     String account) throws SpotinstHttpException {
         // Init retVal
         Boolean retVal = false;
@@ -133,7 +133,7 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiClusterLaunchSpecification getLaunchSpecification(String oceanLaunchSpecId, String authToken,
+    public static ApiClusterLaunchSpecification getLaunchSpec(String oceanLaunchSpecId, String authToken,
                                                                        String account) throws SpotinstHttpException {
         // Init retVal
         ApiClusterLaunchSpecification retVal = null;
@@ -159,8 +159,8 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ClusterEcsLaunchSpecApiResponse launchSpecCreateResponse =
-                getCastedResponse(response, ClusterEcsLaunchSpecApiResponse.class);
+        OceanEcsLaunchSpecApiResponse launchSpecCreateResponse =
+                getCastedResponse(response, OceanEcsLaunchSpecApiResponse.class);
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
             retVal = launchSpecCreateResponse.getResponse().getItems().get(0);
@@ -169,7 +169,7 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiClusterLaunchSpecification> getAllLaunchSpecification(String authToken,
+    public static List<ApiClusterLaunchSpecification> getAllLaunchSpec(String authToken,
                                                                                 String account) throws SpotinstHttpException {
         // Init retVal
         List<ApiClusterLaunchSpecification> retVal = new LinkedList<>();
@@ -195,8 +195,8 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ClusterEcsLaunchSpecApiResponse launchSpecCreateResponse =
-                getCastedResponse(response, ClusterEcsLaunchSpecApiResponse.class);
+        OceanEcsLaunchSpecApiResponse launchSpecCreateResponse =
+                getCastedResponse(response, OceanEcsLaunchSpecApiResponse.class);
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
             retVal = launchSpecCreateResponse.getResponse().getItems();

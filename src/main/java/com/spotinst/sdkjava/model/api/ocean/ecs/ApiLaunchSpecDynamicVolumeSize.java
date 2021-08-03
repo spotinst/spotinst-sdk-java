@@ -1,18 +1,25 @@
-package com.spotinst.sdkjava.model.bl.ocean.ecs;
+package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterDynamicVolumeSize {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiLaunchSpecDynamicVolumeSize implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     baseSize;
     private String      resource;
     private Integer     sizePerResourceUnit;
 
-    private ClusterDynamicVolumeSize() {
+    public ApiLaunchSpecDynamicVolumeSize() {
         isSet = new HashSet<>();
     }
 
@@ -49,39 +56,6 @@ public class ClusterDynamicVolumeSize {
     public void setSizePerResourceUnit(Integer sizePerResourceUnit) {
         isSet.add("sizePerResourceUnit");
         this.sizePerResourceUnit = sizePerResourceUnit;
-    }
-
-    public static class Builder {
-
-        private ClusterDynamicVolumeSize clusterDynamicVolumeSize;
-
-        private Builder() {
-            this.clusterDynamicVolumeSize = new ClusterDynamicVolumeSize();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setBaseSize(final Integer baseSize) {
-            clusterDynamicVolumeSize.setBaseSize(baseSize);
-            return this;
-        }
-
-        public Builder setResource(final String resource) {
-            clusterDynamicVolumeSize.setResource(resource);
-            return this;
-        }
-
-        public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
-            clusterDynamicVolumeSize.setSizePerResourceUnit(sizePerResourceUnit);
-            return this;
-        }
-
-        public ClusterDynamicVolumeSize build() {
-            return clusterDynamicVolumeSize;
-        }
     }
 
     @JsonIgnore

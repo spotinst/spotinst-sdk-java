@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterDynamicVolumeSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,24 +12,24 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterEbsSpecification implements IPartialUpdateEntity {
+public class ApiLaunchSpecEbsSpecification implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                 isSet;
-    private Boolean                     deleteOnTermination;
-    private ApiClusterDynamicVolumeSize dynamicVolumeSize;
-    private Boolean                     encrypted;
-    private Integer                     iops;
-    private String                      kmsKeyId;
-    private String                      snapshotId;
-    private Integer                     throughput;
-    private Integer                     volumeSize;
-    private String                      volumeType;
+    private Set<String>                    isSet;
+    private Boolean                        deleteOnTermination;
+    private ApiLaunchSpecDynamicVolumeSize dynamicVolumeSize;
+    private Boolean                        encrypted;
+    private Integer                        iops;
+    private String                         kmsKeyId;
+    private String                         snapshotId;
+    private Integer                        throughput;
+    private Integer                        volumeSize;
+    private String                         volumeType;
 
     //endregion
 
     //region Constructors
-    public ApiClusterEbsSpecification() {
+    public ApiLaunchSpecEbsSpecification() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -52,11 +51,11 @@ public class ApiClusterEbsSpecification implements IPartialUpdateEntity {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public ApiClusterDynamicVolumeSize getDynamicVolumeSize() {
+    public ApiLaunchSpecDynamicVolumeSize getDynamicVolumeSize() {
         return dynamicVolumeSize;
     }
 
-    public void setDynamicVolumeSize(ApiClusterDynamicVolumeSize dynamicVolumeSize) {
+    public void setDynamicVolumeSize(ApiLaunchSpecDynamicVolumeSize dynamicVolumeSize) {
         isSet.add("dynamicVolumeSize");
         this.dynamicVolumeSize = dynamicVolumeSize;
     }
@@ -145,7 +144,7 @@ public class ApiClusterEbsSpecification implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isMsKeyIdSet() {
+    public boolean isKmsKeyIdSet() {
         return isSet.contains("kmsKeyId");
     }
 

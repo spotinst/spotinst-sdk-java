@@ -4,6 +4,7 @@ package com.spotinst.sdkjava;
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 
 import java.util.List;
 

@@ -12,6 +12,8 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
+
+//Headroom class is used in launch specification and cluster classes
 public class ApiClusterHeadroomsSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;

@@ -2,20 +2,24 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
+import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
+import com.spotinst.sdkjava.model.SpotinstRepoManager;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
+import com.spotinst.sdkjava.model.ISpotOceanEcsLaunchSpecRepo;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class SpotOceanEcsClusterClient {
-    private static final Logger                             LOGGER =
+    private static final Logger                      LOGGER =
             LoggerFactory.getLogger(SpotOceanK8sClusterClient.class);
     //Members
-    private              String                             authToken;
-    private              String                             account;
-    private              ISpotOceanEcsClusterLaunchSpecRepo spotOceanEcsClusterLaunchSpecRepo;
+    private              String                      authToken;
+    private              String                      account;
+    private              ISpotOceanEcsLaunchSpecRepo spotOceanEcsClusterLaunchSpecRepo;
 
     //Constructor
     public SpotOceanEcsClusterClient(String authToken, String account) {
@@ -25,7 +29,7 @@ public class SpotOceanEcsClusterClient {
         setSpotinstOceanClusterRepo();
     }
 
-    public ISpotOceanEcsClusterLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
+    public ISpotOceanEcsLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
         return spotOceanEcsClusterLaunchSpecRepo;
     }
 

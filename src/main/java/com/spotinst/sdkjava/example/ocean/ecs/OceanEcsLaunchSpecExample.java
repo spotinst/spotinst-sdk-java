@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +56,8 @@ public class OceanEcsLaunchSpecExample {
         List<ClusterHeadroomsSpecification> headrooms = Collections.singletonList(headroom1);
 
         //Build autoscale specification
-        ClusterAutoScaleSpecification.Builder autoScaleBuilder = ClusterAutoScaleSpecification.Builder.get();
-        ClusterAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
+        LaunchSpecAutoScaleSpecification.Builder autoScaleBuilder = LaunchSpecAutoScaleSpecification.Builder.get();
+        LaunchSpecAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
 
         //Build array of attributes
         ClusterAttributes.Builder    attributesBuilder1 = ClusterAttributes.Builder.get();
@@ -69,42 +70,42 @@ public class OceanEcsLaunchSpecExample {
         attributes.add(attributes1);
         attributes.add(attributes2);
 
-        ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder = ClusterIamInstanceProfileSpec.Builder.get();
-        ClusterIamInstanceProfileSpec         iamInstanceProfile        =
+        LaunchSpecIamInstanceProfileSpecification.Builder iamInstanceProfileBuilder = LaunchSpecIamInstanceProfileSpecification.Builder.get();
+        LaunchSpecIamInstanceProfileSpecification iamInstanceProfile        =
                 iamInstanceProfileBuilder.setArn("arn:aws:iam::abc1234").build();
 
         //Build tags
-        ClusterTagsSepcification.Builder tagBuilder = ClusterTagsSepcification.Builder.get();
-        ClusterTagsSepcification         tag1       = tagBuilder.setTagKey("Creator").setTagValue("Jack").build();
-        List<ClusterTagsSepcification>   tags       = Collections.singletonList(tag1);
+        LaunchSpecTagsSepcification.Builder tagBuilder = LaunchSpecTagsSepcification.Builder.get();
+        LaunchSpecTagsSepcification         tag1       = tagBuilder.setTagKey("Creator").setTagValue("Jack").build();
+        List<LaunchSpecTagsSepcification>   tags       = Collections.singletonList(tag1);
 
         //Build instance metadata options
-        ClusterInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
-                ClusterInstanceMetadataOptions.Builder.get();
-        ClusterInstanceMetadataOptions         instanceMetadataOptions        =
+        LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
+                LaunchSpecInstanceMetadataOptions.Builder.get();
+        LaunchSpecInstanceMetadataOptions instanceMetadataOptions        =
                 instanceMetadataOptionsBuilder.setHttpPutResponseHopLimit(12).setHttpTokens("optional").build();
 
         //Build dynamic volumesize mapping
-        ClusterDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
-        ClusterDynamicVolumeSize         dynamicVolumeSize        =
+        LaunchSpecDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = LaunchSpecDynamicVolumeSize.Builder.get();
+        LaunchSpecDynamicVolumeSize dynamicVolumeSize        =
                 dynamicVolumeSizeBuilder.setBaseSize(50).setResource("CPU").setSizePerResourceUnit(20).build();
 
         //Build ebs specification
-        ClusterEbsSpecification.Builder ebsBuilder = ClusterEbsSpecification.Builder.get();
-        ClusterEbsSpecification         ebs        = ebsBuilder.setThroughput(400)
-                                                               .setDeleteOnTermination(false)
-                                                               .setEncrypted(false)
-                                                               .setIops(1)
-                                                               .setKmsKeyId("alias/aws/ebs")
-                                                               .setSnapshotId("snap-abc")
-                                                               .setVolumeType("gp3")
-                                                               .setDynamicVolumeSize(dynamicVolumeSize)
-                                                               .build();
+        LaunchSpecEbsSpecification.Builder ebsBuilder = LaunchSpecEbsSpecification.Builder.get();
+        LaunchSpecEbsSpecification ebs        = ebsBuilder.setThroughput(400)
+                                                          .setDeleteOnTermination(false)
+                                                          .setEncrypted(false)
+                                                          .setIops(1)
+                                                          .setKmsKeyId("alias/aws/ebs")
+                                                          .setSnapshotId("snap-abc")
+                                                          .setVolumeType("gp3")
+                                                          .setDynamicVolumeSize(dynamicVolumeSize)
+                                                          .build();
 
         //Build block device mappings
-        ClusterBlockDeviceMappings.Builder blockDeviceBuilder1  = ClusterBlockDeviceMappings.Builder.get();
-        ClusterBlockDeviceMappings         blockDeviceMappings1 = blockDeviceBuilder1.setDeviceName("/dev/xvda").setEbs(ebs).build();
-        List<ClusterBlockDeviceMappings>   blockDeviceMappings  = Collections.singletonList(blockDeviceMappings1);
+        LaunchSpecBlockDeviceMappings.Builder blockDeviceBuilder1  = LaunchSpecBlockDeviceMappings.Builder.get();
+        LaunchSpecBlockDeviceMappings         blockDeviceMappings1 = blockDeviceBuilder1.setDeviceName("/dev/xvda").setEbs(ebs).build();
+        List<LaunchSpecBlockDeviceMappings>   blockDeviceMappings  = Collections.singletonList(blockDeviceMappings1);
 
         // Build launch specification
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
@@ -179,32 +180,32 @@ public class OceanEcsLaunchSpecExample {
         List<ClusterHeadroomsSpecification> headrooms = Collections.singletonList(headroom1);
 
         //Build autoscale specification
-        ClusterAutoScaleSpecification.Builder autoScaleBuilder = ClusterAutoScaleSpecification.Builder.get();
-        ClusterAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
+        LaunchSpecAutoScaleSpecification.Builder autoScaleBuilder = LaunchSpecAutoScaleSpecification.Builder.get();
+        LaunchSpecAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
 
         //Build instance metadata options
-        ClusterInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
-                ClusterInstanceMetadataOptions.Builder.get();
-        ClusterInstanceMetadataOptions         instanceMetadataOptions        =
+        LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
+                LaunchSpecInstanceMetadataOptions.Builder.get();
+        LaunchSpecInstanceMetadataOptions instanceMetadataOptions        =
                 instanceMetadataOptionsBuilder.setHttpPutResponseHopLimit(12).setHttpTokens("optional").build();
 
         //Build dynamic volumesize mapping
-        ClusterDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
-        ClusterDynamicVolumeSize         dynamicVolumeSize        =
+        LaunchSpecDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = LaunchSpecDynamicVolumeSize.Builder.get();
+        LaunchSpecDynamicVolumeSize dynamicVolumeSize        =
                 dynamicVolumeSizeBuilder.setBaseSize(10).setResource("CPU").setSizePerResourceUnit(2).build();
 
         //Build ebs specification
-        ClusterEbsSpecification.Builder ebsBuilder = ClusterEbsSpecification.Builder.get();
-        ClusterEbsSpecification         ebs        = ebsBuilder.setThroughput(125)
-                                                               .setDeleteOnTermination(false)
-                                                               .setEncrypted(false)
-                                                               .setIops(1)
-                                                               .setKmsKeyId("alias/aws/ebs")
-                                                               .setSnapshotId("snap-123")
-                                                               .setVolumeType("gp2")
-                                                               .setVolumeSize(0)
-                                                               .setDynamicVolumeSize(dynamicVolumeSize)
-                                                               .build();
+        LaunchSpecEbsSpecification.Builder ebsBuilder = LaunchSpecEbsSpecification.Builder.get();
+        LaunchSpecEbsSpecification ebs        = ebsBuilder.setThroughput(125)
+                                                          .setDeleteOnTermination(false)
+                                                          .setEncrypted(false)
+                                                          .setIops(1)
+                                                          .setKmsKeyId("alias/aws/ebs")
+                                                          .setSnapshotId("snap-123")
+                                                          .setVolumeType("gp2")
+                                                          .setVolumeSize(0)
+                                                          .setDynamicVolumeSize(dynamicVolumeSize)
+                                                          .build();
 
         // Build launch specification
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
@@ -266,8 +267,8 @@ public class OceanEcsLaunchSpecExample {
         List<ClusterHeadroomsSpecification> headrooms = Collections.singletonList(headroom1);
 
         //Build autoscale specification
-        ClusterAutoScaleSpecification.Builder autoScaleBuilder = ClusterAutoScaleSpecification.Builder.get();
-        ClusterAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
+        LaunchSpecAutoScaleSpecification.Builder autoScaleBuilder = LaunchSpecAutoScaleSpecification.Builder.get();
+        LaunchSpecAutoScaleSpecification         autoScale        = autoScaleBuilder.setHeadrooms(headrooms).build();
 
        // Build launch specification to update autoscale configuration
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();

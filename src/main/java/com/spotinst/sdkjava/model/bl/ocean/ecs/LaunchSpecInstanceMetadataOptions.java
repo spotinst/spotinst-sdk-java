@@ -1,24 +1,17 @@
-package com.spotinst.sdkjava.model.api.ocean.ecs;
+package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterInstanceMetadataOptions implements IPartialUpdateEntity {
+public class LaunchSpecInstanceMetadataOptions {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     httpPutResponseHopLimit;
     private String      httpTokens;
 
-    public ApiClusterInstanceMetadataOptions() {
+    private LaunchSpecInstanceMetadataOptions() {
         isSet = new HashSet<>();
     }
 
@@ -46,6 +39,34 @@ public class ApiClusterInstanceMetadataOptions implements IPartialUpdateEntity {
     public void setHttpTokens(String httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
+    }
+
+    public static class Builder {
+
+        private LaunchSpecInstanceMetadataOptions launchSpecInstanceMetadataOptions;
+
+        private Builder() {
+            this.launchSpecInstanceMetadataOptions = new LaunchSpecInstanceMetadataOptions();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setHttpPutResponseHopLimit(final Integer httpPutResponseHopLimit) {
+            launchSpecInstanceMetadataOptions.setHttpPutResponseHopLimit(httpPutResponseHopLimit);
+            return this;
+        }
+
+        public Builder setHttpTokens(final String httpTokens) {
+            launchSpecInstanceMetadataOptions.setHttpTokens(httpTokens);
+            return this;
+        }
+
+        public LaunchSpecInstanceMetadataOptions build() {
+            return launchSpecInstanceMetadataOptions;
+        }
     }
 
     @JsonIgnore

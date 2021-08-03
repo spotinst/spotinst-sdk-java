@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterBlockDeviceMappings {
+public class LaunchSpecBlockDeviceMappings {
     //region Members
     @JsonIgnore
-    private Set<String>             isSet;
-    private String                  deviceName;
-    private ClusterEbsSpecification ebs;
+    private Set<String>                isSet;
+    private String                     deviceName;
+    private LaunchSpecEbsSpecification ebs;
 
-    private ClusterBlockDeviceMappings() {
+    private LaunchSpecBlockDeviceMappings() {
         isSet = new HashSet<>();
     }
 
@@ -33,21 +33,21 @@ public class ClusterBlockDeviceMappings {
         this.deviceName = deviceName;
     }
 
-    public ClusterEbsSpecification getEbs() {
+    public LaunchSpecEbsSpecification getEbs() {
         return ebs;
     }
 
-    public void setEbs(ClusterEbsSpecification ebs) {
+    public void setEbs(LaunchSpecEbsSpecification ebs) {
         isSet.add("ebs");
         this.ebs = ebs;
     }
 
     public static class Builder {
 
-        private ClusterBlockDeviceMappings clusterBlockDeviceMappings;
+        private LaunchSpecBlockDeviceMappings launchSpecBlockDeviceMappings;
 
         private Builder() {
-            this.clusterBlockDeviceMappings = new ClusterBlockDeviceMappings();
+            this.launchSpecBlockDeviceMappings = new LaunchSpecBlockDeviceMappings();
         }
 
         public static Builder get() {
@@ -56,17 +56,17 @@ public class ClusterBlockDeviceMappings {
         }
 
         public Builder setDeviceName(final String deviceName) {
-            clusterBlockDeviceMappings.setDeviceName(deviceName);
+            launchSpecBlockDeviceMappings.setDeviceName(deviceName);
             return this;
         }
 
-        public Builder setEbs(final ClusterEbsSpecification ebs) {
-            clusterBlockDeviceMappings.setEbs(ebs);
+        public Builder setEbs(final LaunchSpecEbsSpecification ebs) {
+            launchSpecBlockDeviceMappings.setEbs(ebs);
             return this;
         }
 
-        public ClusterBlockDeviceMappings build() {
-            return clusterBlockDeviceMappings;
+        public LaunchSpecBlockDeviceMappings build() {
+            return launchSpecBlockDeviceMappings;
         }
     }
 

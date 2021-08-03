@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterTagsSepcification implements IPartialUpdateEntity {
+public class ApiLaunchSpecTagsSepcification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      tagKey;
@@ -20,12 +20,12 @@ public class ApiClusterTagsSepcification implements IPartialUpdateEntity {
 
 
     //region Constructors
-    public ApiClusterTagsSepcification() {
+    public ApiLaunchSpecTagsSepcification() {
         isSet = new HashSet<>();
     }
     //endregion
 
-    public ApiClusterTagsSepcification(String tagKey, String tagValue) {
+    public ApiLaunchSpecTagsSepcification(String tagKey, String tagValue) {
         isSet = new HashSet<>();
         this.setTagKey(tagKey);
         this.setTagValue(tagValue);

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.converters;
+package com.spotinst.sdkjava.model.converters.ocean.ecs;
 
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class OceanEcsLaunchSpecConverter {
     //region BL -> DAL
+
     public static ApiClusterLaunchSpecification toDal(ClusterLaunchSpecification launchSpecification) {
         ApiClusterLaunchSpecification retVal = null;
 
@@ -36,13 +37,13 @@ public class OceanEcsLaunchSpecConverter {
                 retVal.setAutoScale(toDal(launchSpecification.getAutoScale()));
             }
             if (launchSpecification.isBlockDeviceMappingsSet()) {
-                List<ApiClusterBlockDeviceMappings> blockDeviceMappings =
+                List<ApiLaunchSpecBlockDeviceMappings> blockDeviceMappings =
                         launchSpecification.getBlockDeviceMappings().stream().map(OceanEcsLaunchSpecConverter::toDal)
                                            .collect(Collectors.toList());
                 retVal.setBlockDeviceMappings(blockDeviceMappings);
             }
             if (launchSpecification.isIamInstanceProfileSet()) {
-                ApiClusterIamInstanceProfileSpec instanceProfileSpecs =
+                ApiLaunchSpecIamInstanceProfileSpecification instanceProfileSpecs =
                         toDal(launchSpecification.getIamInstanceProfile());
                 retVal.setIamInstanceProfile(instanceProfileSpecs);
             }
@@ -62,7 +63,7 @@ public class OceanEcsLaunchSpecConverter {
                 retVal.setSubnetIds(launchSpecification.getSubnetIds());
             }
             if (launchSpecification.isTagsSet()) {
-                List<ApiClusterTagsSepcification> tags =
+                List<ApiLaunchSpecTagsSepcification> tags =
                         launchSpecification.getTags().stream().map(OceanEcsLaunchSpecConverter::toDal)
                                            .collect(Collectors.toList());
                 retVal.setTags(tags);
@@ -86,11 +87,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterAutoScaleSpecification toDal(ClusterAutoScaleSpecification autoScaler) {
-        ApiClusterAutoScaleSpecification retval = null;
+    private static ApiLaunchSpecAutoScaleSpecification toDal(LaunchSpecAutoScaleSpecification autoScaler) {
+        ApiLaunchSpecAutoScaleSpecification retval = null;
 
         if (autoScaler != null) {
-            retval = new ApiClusterAutoScaleSpecification();
+            retval = new ApiLaunchSpecAutoScaleSpecification();
 
             if (autoScaler.isHeadroomSet()) {
                 List<ApiClusterHeadroomsSpecification> headrooms =
@@ -122,11 +123,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterBlockDeviceMappings toDal(ClusterBlockDeviceMappings blockDeviceMappings) {
-        ApiClusterBlockDeviceMappings retVal = null;
+    private static ApiLaunchSpecBlockDeviceMappings toDal(LaunchSpecBlockDeviceMappings blockDeviceMappings) {
+        ApiLaunchSpecBlockDeviceMappings retVal = null;
 
         if (blockDeviceMappings != null) {
-            retVal = new ApiClusterBlockDeviceMappings();
+            retVal = new ApiLaunchSpecBlockDeviceMappings();
 
             if (blockDeviceMappings.isDeviceNameSet()) {
                 retVal.setDeviceName(blockDeviceMappings.getDeviceName());
@@ -138,11 +139,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterEbsSpecification toDal(ClusterEbsSpecification ebs) {
-        ApiClusterEbsSpecification retVal = null;
+    private static ApiLaunchSpecEbsSpecification toDal(LaunchSpecEbsSpecification ebs) {
+        ApiLaunchSpecEbsSpecification retVal = null;
 
         if (ebs != null) {
-            retVal = new ApiClusterEbsSpecification();
+            retVal = new ApiLaunchSpecEbsSpecification();
 
             if (ebs.isDeleteOnTerminationSet()) {
                 retVal.setDeleteOnTermination(ebs.getDeleteOnTermination());
@@ -156,7 +157,7 @@ public class OceanEcsLaunchSpecConverter {
             if (ebs.isIopsSet()) {
                 retVal.setIops(ebs.getIops());
             }
-            if (ebs.isMsKeyIdSet()) {
+            if (ebs.isKmsKeyIdSet()) {
                 retVal.setKmsKeyId(ebs.getKmsKeyId());
             }
             if (ebs.isSnapshotIdSet()) {
@@ -175,11 +176,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterDynamicVolumeSize toDal(ClusterDynamicVolumeSize dynamicVolumeSize) {
-        ApiClusterDynamicVolumeSize retVal = null;
+    private static ApiLaunchSpecDynamicVolumeSize toDal(LaunchSpecDynamicVolumeSize dynamicVolumeSize) {
+        ApiLaunchSpecDynamicVolumeSize retVal = null;
 
         if (dynamicVolumeSize != null) {
-            retVal = new ApiClusterDynamicVolumeSize();
+            retVal = new ApiLaunchSpecDynamicVolumeSize();
 
             if (dynamicVolumeSize.isBaseSizeSet()) {
                 retVal.setBaseSize(dynamicVolumeSize.getBaseSize());
@@ -194,11 +195,12 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterIamInstanceProfileSpec toDal(ClusterIamInstanceProfileSpec instanceProfile) {
-        ApiClusterIamInstanceProfileSpec retVal = null;
+    private static ApiLaunchSpecIamInstanceProfileSpecification toDal(
+            LaunchSpecIamInstanceProfileSpecification instanceProfile) {
+        ApiLaunchSpecIamInstanceProfileSpecification retVal = null;
 
         if (instanceProfile != null) {
-            retVal = new ApiClusterIamInstanceProfileSpec();
+            retVal = new ApiLaunchSpecIamInstanceProfileSpecification();
 
             if (instanceProfile.isArnSet()) {
                 retVal.setArn(instanceProfile.getArn());
@@ -210,11 +212,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterInstanceMetadataOptions toDal(ClusterInstanceMetadataOptions instanceMetadataOptions) {
-        ApiClusterInstanceMetadataOptions retVal = null;
+    private static ApiLaunchSpecInstanceMetadataOptions toDal(LaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
+        ApiLaunchSpecInstanceMetadataOptions retVal = null;
 
         if (instanceMetadataOptions != null) {
-            retVal = new ApiClusterInstanceMetadataOptions();
+            retVal = new ApiLaunchSpecInstanceMetadataOptions();
 
             if (instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
                 retVal.setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
@@ -226,12 +228,12 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiClusterTagsSepcification toDal(ClusterTagsSepcification tag) {
-        ApiClusterTagsSepcification retVal = null;
+    private static ApiLaunchSpecTagsSepcification toDal(LaunchSpecTagsSepcification tag) {
+        ApiLaunchSpecTagsSepcification retVal = null;
 
         if (tag != null) {
             if (tag.isTagKeySet() && tag.isTagValueSet()) {
-                retVal = new ApiClusterTagsSepcification(tag.getTagKey(), tag.getTagValue());
+                retVal = new ApiLaunchSpecTagsSepcification(tag.getTagKey(), tag.getTagValue());
             }
         }
         return retVal;
@@ -266,13 +268,14 @@ public class OceanEcsLaunchSpecConverter {
                 clusterLaunchSpecBuilder.setAutoScale(toBl(launchSpecification.getAutoScale()));
             }
             if (launchSpecification.isBlockDeviceMappingsSet()) {
-                List<ClusterBlockDeviceMappings> blockDeviceMappings =
+                List<LaunchSpecBlockDeviceMappings> blockDeviceMappings =
                         launchSpecification.getBlockDeviceMappings().stream().map(OceanEcsLaunchSpecConverter::toBl)
                                            .collect(Collectors.toList());
                 clusterLaunchSpecBuilder.setBlockDeviceMappings(blockDeviceMappings);
             }
             if (launchSpecification.isIamInstanceProfileSet()) {
-                ClusterIamInstanceProfileSpec instanceProfileSpecs = toBl(launchSpecification.getIamInstanceProfile());
+                LaunchSpecIamInstanceProfileSpecification
+                        instanceProfileSpecs = toBl(launchSpecification.getIamInstanceProfile());
                 clusterLaunchSpecBuilder.setIamInstanceProfile(instanceProfileSpecs);
             }
             if (launchSpecification.isInstanceMetadataOptionsSet()) {
@@ -292,7 +295,7 @@ public class OceanEcsLaunchSpecConverter {
                 clusterLaunchSpecBuilder.setSubnetIds(launchSpecification.getSubnetIds());
             }
             if (launchSpecification.isTagsSet()) {
-                List<ClusterTagsSepcification> tags =
+                List<LaunchSpecTagsSepcification> tags =
                         launchSpecification.getTags().stream().map(OceanEcsLaunchSpecConverter::toBl)
                                            .collect(Collectors.toList());
                 clusterLaunchSpecBuilder.setTags(tags);
@@ -320,11 +323,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterAutoScaleSpecification toBl(ApiClusterAutoScaleSpecification autoScaler) {
-        ClusterAutoScaleSpecification retval = null;
+    private static LaunchSpecAutoScaleSpecification toBl(ApiLaunchSpecAutoScaleSpecification autoScaler) {
+        LaunchSpecAutoScaleSpecification retval = null;
 
         if (autoScaler != null) {
-            ClusterAutoScaleSpecification.Builder autoScaleBuilder = ClusterAutoScaleSpecification.Builder.get();
+            LaunchSpecAutoScaleSpecification.Builder autoScaleBuilder = LaunchSpecAutoScaleSpecification.Builder.get();
 
             if (autoScaler.isHeadroomSet()) {
                 List<ClusterHeadroomsSpecification> headrooms =
@@ -357,11 +360,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterBlockDeviceMappings toBl(ApiClusterBlockDeviceMappings blockDeviceMappings) {
-        ClusterBlockDeviceMappings retVal = null;
+    private static LaunchSpecBlockDeviceMappings toBl(ApiLaunchSpecBlockDeviceMappings blockDeviceMappings) {
+        LaunchSpecBlockDeviceMappings retVal = null;
 
         if (blockDeviceMappings != null) {
-            ClusterBlockDeviceMappings.Builder blockDeviceMappingsBuilder = ClusterBlockDeviceMappings.Builder.get();
+            LaunchSpecBlockDeviceMappings.Builder blockDeviceMappingsBuilder = LaunchSpecBlockDeviceMappings.Builder.get();
 
             if (blockDeviceMappings.isDeviceNameSet()) {
                 blockDeviceMappingsBuilder.setDeviceName(blockDeviceMappings.getDeviceName());
@@ -374,11 +377,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterEbsSpecification toBl(ApiClusterEbsSpecification ebs) {
-        ClusterEbsSpecification retVal = null;
+    private static LaunchSpecEbsSpecification toBl(ApiLaunchSpecEbsSpecification ebs) {
+        LaunchSpecEbsSpecification retVal = null;
 
         if (ebs != null) {
-            ClusterEbsSpecification.Builder ebsBuilder = ClusterEbsSpecification.Builder.get();
+            LaunchSpecEbsSpecification.Builder ebsBuilder = LaunchSpecEbsSpecification.Builder.get();
 
             if (ebs.isDeleteOnTerminationSet()) {
                 ebsBuilder.setDeleteOnTermination(ebs.getDeleteOnTermination());
@@ -392,7 +395,7 @@ public class OceanEcsLaunchSpecConverter {
             if (ebs.isIopsSet()) {
                 ebsBuilder.setIops(ebs.getIops());
             }
-            if (ebs.isMsKeyIdSet()) {
+            if (ebs.isKmsKeyIdSet()) {
                 ebsBuilder.setKmsKeyId(ebs.getKmsKeyId());
             }
             if (ebs.isSnapshotIdSet()) {
@@ -412,11 +415,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterDynamicVolumeSize toBl(ApiClusterDynamicVolumeSize dynamicVolumeSize) {
-        ClusterDynamicVolumeSize retVal = null;
+    private static LaunchSpecDynamicVolumeSize toBl(ApiLaunchSpecDynamicVolumeSize dynamicVolumeSize) {
+        LaunchSpecDynamicVolumeSize retVal = null;
 
         if (dynamicVolumeSize != null) {
-            ClusterDynamicVolumeSize.Builder volumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
+            LaunchSpecDynamicVolumeSize.Builder volumeSizeBuilder = LaunchSpecDynamicVolumeSize.Builder.get();
 
             if (dynamicVolumeSize.isBaseSizeSet()) {
                 volumeSizeBuilder.setBaseSize(dynamicVolumeSize.getBaseSize());
@@ -432,12 +435,12 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterIamInstanceProfileSpec toBl(ApiClusterIamInstanceProfileSpec instanceProfile) {
-        ClusterIamInstanceProfileSpec retVal = null;
+    private static LaunchSpecIamInstanceProfileSpecification toBl(ApiLaunchSpecIamInstanceProfileSpecification instanceProfile) {
+        LaunchSpecIamInstanceProfileSpecification retVal = null;
 
         if (instanceProfile != null) {
-            ClusterIamInstanceProfileSpec.Builder IamInstanceProfileSpecBuilder =
-                    ClusterIamInstanceProfileSpec.Builder.get();
+            LaunchSpecIamInstanceProfileSpecification.Builder IamInstanceProfileSpecBuilder =
+                    LaunchSpecIamInstanceProfileSpecification.Builder.get();
 
             if (instanceProfile.isArnSet()) {
                 IamInstanceProfileSpecBuilder.setArn(instanceProfile.getArn());
@@ -450,12 +453,12 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterInstanceMetadataOptions toBl(ApiClusterInstanceMetadataOptions instanceMetadataOptions) {
-        ClusterInstanceMetadataOptions retVal = null;
+    private static LaunchSpecInstanceMetadataOptions toBl(ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
+        LaunchSpecInstanceMetadataOptions retVal = null;
 
         if (instanceMetadataOptions != null) {
-            ClusterInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
-                    ClusterInstanceMetadataOptions.Builder.get();
+            LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
+                    LaunchSpecInstanceMetadataOptions.Builder.get();
 
             if (instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
                 instanceMetadataOptionsBuilder
@@ -469,11 +472,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ClusterTagsSepcification toBl(ApiClusterTagsSepcification tag) {
-        ClusterTagsSepcification retVal = null;
+    private static LaunchSpecTagsSepcification toBl(ApiLaunchSpecTagsSepcification tag) {
+        LaunchSpecTagsSepcification retVal = null;
 
         if (tag != null) {
-            ClusterTagsSepcification.Builder tagBuilder = ClusterTagsSepcification.Builder.get();
+            LaunchSpecTagsSepcification.Builder tagBuilder = LaunchSpecTagsSepcification.Builder.get();
 
             if (tag.isTagKeySet() && tag.isTagValueSet()) {
                 tagBuilder.setTagKey(tag.getTagKey());

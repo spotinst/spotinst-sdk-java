@@ -8,22 +8,22 @@ import java.util.Set;
 
 public class ClusterLaunchSpecification {
     @JsonIgnore
-    private Set<String>                      isSet;
-    private List<ClusterAttributes>          attributes;
-    private ClusterAutoScaleSpecification    autoScale;
-    private List<ClusterBlockDeviceMappings> blockDeviceMappings;
-    private ClusterIamInstanceProfileSpec    iamInstanceProfile;
-    private String                           imageId;
-    private ClusterInstanceMetadataOptions   instanceMetadataOptions;
-    private List<String>                     instanceTypes;
-    private String                           name;
-    private String                           oceanId;
-    private Boolean                          restrictScaleDown;
-    private List<String>                     securityGroupIds;
-    private List<String>                     subnetIds;
-    private List<ClusterTagsSepcification>   tags;
-    private String                           userData;
-    private String                           id;
+    private Set<String>                               isSet;
+    private List<ClusterAttributes>                   attributes;
+    private LaunchSpecAutoScaleSpecification          autoScale;
+    private List<LaunchSpecBlockDeviceMappings>       blockDeviceMappings;
+    private LaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
+    private String                            imageId;
+    private LaunchSpecInstanceMetadataOptions instanceMetadataOptions;
+    private List<String>                      instanceTypes;
+    private String                            name;
+    private String                            oceanId;
+    private Boolean                           restrictScaleDown;
+    private List<String>                      securityGroupIds;
+    private List<String>                      subnetIds;
+    private List<LaunchSpecTagsSepcification> tags;
+    private String                            userData;
+    private String                            id;
 
     private ClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -46,29 +46,29 @@ public class ClusterLaunchSpecification {
         this.attributes = attributes;
     }
 
-    public ClusterAutoScaleSpecification getAutoScale() {
+    public LaunchSpecAutoScaleSpecification getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(ClusterAutoScaleSpecification autoScale) {
+    public void setAutoScale(LaunchSpecAutoScaleSpecification autoScale) {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
 
-    public List<ClusterBlockDeviceMappings> getBlockDeviceMappings() {
+    public List<LaunchSpecBlockDeviceMappings> getBlockDeviceMappings() {
         return blockDeviceMappings;
     }
 
-    public void setBlockDeviceMappings(List<ClusterBlockDeviceMappings> blockDeviceMappings) {
+    public void setBlockDeviceMappings(List<LaunchSpecBlockDeviceMappings> blockDeviceMappings) {
         isSet.add("blockDeviceMappings");
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public ClusterIamInstanceProfileSpec getIamInstanceProfile() {
+    public LaunchSpecIamInstanceProfileSpecification getIamInstanceProfile() {
         return iamInstanceProfile;
     }
 
-    public void setIamInstanceProfile(ClusterIamInstanceProfileSpec iamInstanceProfile) {
+    public void setIamInstanceProfile(LaunchSpecIamInstanceProfileSpecification iamInstanceProfile) {
         isSet.add("iamInstanceProfile");
         this.iamInstanceProfile = iamInstanceProfile;
     }
@@ -82,11 +82,11 @@ public class ClusterLaunchSpecification {
         this.imageId = imageId;
     }
 
-    public ClusterInstanceMetadataOptions getInstanceMetadataOptions() {
+    public LaunchSpecInstanceMetadataOptions getInstanceMetadataOptions() {
         return instanceMetadataOptions;
     }
 
-    public void setInstanceMetadataOptions(ClusterInstanceMetadataOptions instanceMetadataOptions) {
+    public void setInstanceMetadataOptions(LaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
         isSet.add("instanceMetadataOptions");
         this.instanceMetadataOptions = instanceMetadataOptions;
     }
@@ -145,11 +145,11 @@ public class ClusterLaunchSpecification {
         this.subnetIds = subnetIds;
     }
 
-    public List<ClusterTagsSepcification> getTags() {
+    public List<LaunchSpecTagsSepcification> getTags() {
         return tags;
     }
 
-    public void setTags(List<ClusterTagsSepcification> tags) {
+    public void setTags(List<LaunchSpecTagsSepcification> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -190,17 +190,17 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setAutoScale(final ClusterAutoScaleSpecification autoScale) {
+        public Builder setAutoScale(final LaunchSpecAutoScaleSpecification autoScale) {
             launchspec.setAutoScale(autoScale);
             return this;
         }
 
-        public Builder setBlockDeviceMappings(final List<ClusterBlockDeviceMappings> blockDeviceMappings) {
+        public Builder setBlockDeviceMappings(final List<LaunchSpecBlockDeviceMappings> blockDeviceMappings) {
             launchspec.setBlockDeviceMappings(blockDeviceMappings);
             return this;
         }
 
-        public Builder setIamInstanceProfile(final ClusterIamInstanceProfileSpec iamInstanceProfile) {
+        public Builder setIamInstanceProfile(final LaunchSpecIamInstanceProfileSpecification iamInstanceProfile) {
             launchspec.setIamInstanceProfile(iamInstanceProfile);
             return this;
         }
@@ -235,7 +235,7 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setTags(final List<ClusterTagsSepcification> tags) {
+        public Builder setTags(final List<LaunchSpecTagsSepcification> tags) {
             launchspec.setTags(tags);
             return this;
         }
@@ -250,7 +250,7 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setInstanceMetadataOptions(final ClusterInstanceMetadataOptions instanceMetadataOptions) {
+        public Builder setInstanceMetadataOptions(final LaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
             launchspec.setInstanceMetadataOptions(instanceMetadataOptions);
             return this;
         }

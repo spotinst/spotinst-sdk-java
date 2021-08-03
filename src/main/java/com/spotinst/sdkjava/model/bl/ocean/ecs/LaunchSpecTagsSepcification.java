@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterTagsSepcification {
+public class LaunchSpecTagsSepcification {
     @JsonIgnore
     private Set<String> isSet;
     private String      tagKey;
@@ -13,7 +13,7 @@ public class ClusterTagsSepcification {
 
 
     //region Constructors
-    private ClusterTagsSepcification() {
+    private LaunchSpecTagsSepcification() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -47,10 +47,10 @@ public class ClusterTagsSepcification {
 
     public static class Builder {
 
-        private ClusterTagsSepcification clusterTagsSepcification;
+        private LaunchSpecTagsSepcification launchSpecTagsSepcification;
 
         private Builder() {
-            this.clusterTagsSepcification = new ClusterTagsSepcification();
+            this.launchSpecTagsSepcification = new LaunchSpecTagsSepcification();
         }
 
         public static Builder get() {
@@ -59,17 +59,17 @@ public class ClusterTagsSepcification {
         }
 
         public Builder setTagKey(final String tagKey) {
-            clusterTagsSepcification.setTagKey(tagKey);
+            launchSpecTagsSepcification.setTagKey(tagKey);
             return this;
         }
 
         public Builder setTagValue(final String tagValue) {
-            clusterTagsSepcification.setTagValue(tagValue);
+            launchSpecTagsSepcification.setTagValue(tagValue);
             return this;
         }
 
-        public ClusterTagsSepcification build() {
-            return clusterTagsSepcification;
+        public LaunchSpecTagsSepcification build() {
+            return launchSpecTagsSepcification;
         }
     }
 

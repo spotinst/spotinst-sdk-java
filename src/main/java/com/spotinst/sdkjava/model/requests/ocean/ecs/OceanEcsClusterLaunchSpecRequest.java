@@ -1,9 +1,10 @@
-package com.spotinst.sdkjava.model.bl.ocean.ecs;
+package com.spotinst.sdkjava.model.requests.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.converters.OceanEcsLaunchSpecConverter;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
+import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsLaunchSpecConverter;
 
 import java.util.HashMap;
 import java.util.Map;

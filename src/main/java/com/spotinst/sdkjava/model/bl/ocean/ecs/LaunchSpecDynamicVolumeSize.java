@@ -1,25 +1,18 @@
-package com.spotinst.sdkjava.model.api.ocean.ecs;
+package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterDynamicVolumeSize implements IPartialUpdateEntity {
+public class LaunchSpecDynamicVolumeSize {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     baseSize;
     private String      resource;
     private Integer     sizePerResourceUnit;
 
-    public ApiClusterDynamicVolumeSize() {
+    private LaunchSpecDynamicVolumeSize() {
         isSet = new HashSet<>();
     }
 
@@ -56,6 +49,39 @@ public class ApiClusterDynamicVolumeSize implements IPartialUpdateEntity {
     public void setSizePerResourceUnit(Integer sizePerResourceUnit) {
         isSet.add("sizePerResourceUnit");
         this.sizePerResourceUnit = sizePerResourceUnit;
+    }
+
+    public static class Builder {
+
+        private LaunchSpecDynamicVolumeSize launchSpecDynamicVolumeSize;
+
+        private Builder() {
+            this.launchSpecDynamicVolumeSize = new LaunchSpecDynamicVolumeSize();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setBaseSize(final Integer baseSize) {
+            launchSpecDynamicVolumeSize.setBaseSize(baseSize);
+            return this;
+        }
+
+        public Builder setResource(final String resource) {
+            launchSpecDynamicVolumeSize.setResource(resource);
+            return this;
+        }
+
+        public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
+            launchSpecDynamicVolumeSize.setSizePerResourceUnit(sizePerResourceUnit);
+            return this;
+        }
+
+        public LaunchSpecDynamicVolumeSize build() {
+            return launchSpecDynamicVolumeSize;
+        }
     }
 
     @JsonIgnore

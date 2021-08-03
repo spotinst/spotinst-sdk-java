@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 
+import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
+
 /**
  * Created by talzur on 12/01/2017.
  */
@@ -9,9 +11,9 @@ class SpotinstRepoManager {
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
 
     //region Members
-    private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
-    private ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
+    private ISpotinstElastigroupRepo                spotinstElastigroupRepo;
+    private ISpotinstElastigroupActiveInstanceRepo  spotinstElastigroupActiveInstanceRepo;
+    private ISpotinstSubscriptionRepo               spotinstSubscriptionRepo;
     private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
@@ -24,7 +26,7 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
-    private ISpotOceanEcsClusterLaunchSpecRepo      spotOceanEcsClusterLaunchSpecRepo;
+    private ISpotOceanEcsLaunchSpecRepo             spotOceanEcsClusterLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
     //endregion
 
@@ -45,7 +47,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
-        this.spotOceanEcsClusterLaunchSpecRepo = new SpotOceanEcsClusterLaunchSpecRepo();
+        this.spotOceanEcsClusterLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
     }
     //endregion
@@ -160,12 +162,12 @@ class SpotinstRepoManager {
         this.spotinstElastigroupEventLogRepo = spotinstElastigroupEventLogRepo;
     }
 
-    public ISpotOceanEcsClusterLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
+    public ISpotOceanEcsLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
         return spotOceanEcsClusterLaunchSpecRepo;
     }
 
     public void setSpotOceanEcsClusterLaunchSpecRepo(
-            ISpotOceanEcsClusterLaunchSpecRepo spotOceanEcsClusterLaunchSpecRepo) {
+            ISpotOceanEcsLaunchSpecRepo spotOceanEcsClusterLaunchSpecRepo) {
         this.spotOceanEcsClusterLaunchSpecRepo = spotOceanEcsClusterLaunchSpecRepo;
     }
     public ISpotStorageAzureVolumeRepo getSpotStorageAzureVolumeRepo() {

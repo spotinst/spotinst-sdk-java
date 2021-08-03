@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterIamInstanceProfileSpec;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,22 +15,22 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                         isSet;
-    private List<ApiClusterAttributes>          attributes;
-    private ApiClusterAutoScaleSpecification    autoScale;
-    private List<ApiClusterBlockDeviceMappings> blockDeviceMappings;
-    private ApiClusterIamInstanceProfileSpec    iamInstanceProfile;
-    private String                              imageId;
-    private ApiClusterInstanceMetadataOptions   instanceMetadataOptions;
-    private List<String>                        instanceTypes;
-    private String                              name;
-    private String                              oceanId;
-    private Boolean                             restrictScaleDown;
-    private List<String>                        securityGroupIds;
-    private List<String>                        subnetIds;
-    private List<ApiClusterTagsSepcification>   tags;
-    private String                              userData;
-    private String                              id;
+    private Set<String>                                  isSet;
+    private List<ApiClusterAttributes>                   attributes;
+    private ApiLaunchSpecAutoScaleSpecification          autoScale;
+    private List<ApiLaunchSpecBlockDeviceMappings>       blockDeviceMappings;
+    private ApiLaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
+    private String                                       imageId;
+    private ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions;
+    private List<String>                         instanceTypes;
+    private String                               name;
+    private String                               oceanId;
+    private Boolean                              restrictScaleDown;
+    private List<String>                         securityGroupIds;
+    private List<String>                         subnetIds;
+    private List<ApiLaunchSpecTagsSepcification> tags;
+    private String                               userData;
+    private String                               id;
 
     public ApiClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -55,29 +53,29 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.attributes = attributes;
     }
 
-    public ApiClusterAutoScaleSpecification getAutoScale() {
+    public ApiLaunchSpecAutoScaleSpecification getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(ApiClusterAutoScaleSpecification autoScale) {
+    public void setAutoScale(ApiLaunchSpecAutoScaleSpecification autoScale) {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
 
-    public List<ApiClusterBlockDeviceMappings> getBlockDeviceMappings() {
+    public List<ApiLaunchSpecBlockDeviceMappings> getBlockDeviceMappings() {
         return blockDeviceMappings;
     }
 
-    public void setBlockDeviceMappings(List<ApiClusterBlockDeviceMappings> blockDeviceMappings) {
+    public void setBlockDeviceMappings(List<ApiLaunchSpecBlockDeviceMappings> blockDeviceMappings) {
         isSet.add("blockDeviceMappings");
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public ApiClusterIamInstanceProfileSpec getIamInstanceProfile() {
+    public ApiLaunchSpecIamInstanceProfileSpecification getIamInstanceProfile() {
         return iamInstanceProfile;
     }
 
-    public void setIamInstanceProfile(ApiClusterIamInstanceProfileSpec iamInstanceProfile) {
+    public void setIamInstanceProfile(ApiLaunchSpecIamInstanceProfileSpecification iamInstanceProfile) {
         isSet.add("iamInstanceProfile");
         this.iamInstanceProfile = iamInstanceProfile;
     }
@@ -91,11 +89,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.imageId = imageId;
     }
 
-    public ApiClusterInstanceMetadataOptions getInstanceMetadataOptions() {
+    public ApiLaunchSpecInstanceMetadataOptions getInstanceMetadataOptions() {
         return instanceMetadataOptions;
     }
 
-    public void setInstanceMetadataOptions(ApiClusterInstanceMetadataOptions instanceMetadataOptions) {
+    public void setInstanceMetadataOptions(ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
         isSet.add("instanceMetadataOptions");
         this.instanceMetadataOptions = instanceMetadataOptions;
     }
@@ -154,11 +152,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.subnetIds = subnetIds;
     }
 
-    public List<ApiClusterTagsSepcification> getTags() {
+    public List<ApiLaunchSpecTagsSepcification> getTags() {
         return tags;
     }
 
-    public void setTags(List<ApiClusterTagsSepcification> tags) {
+    public void setTags(List<ApiLaunchSpecTagsSepcification> tags) {
         isSet.add("tags");
         this.tags = tags;
     }

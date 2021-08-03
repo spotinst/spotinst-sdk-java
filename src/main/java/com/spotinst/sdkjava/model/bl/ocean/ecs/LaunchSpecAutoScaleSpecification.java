@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ClusterAutoScaleSpecification {
+public class LaunchSpecAutoScaleSpecification {
 
     @JsonIgnore
     private Set<String>                         isSet;
     private List<ClusterHeadroomsSpecification> headrooms;
 
-    private ClusterAutoScaleSpecification() {
+    private LaunchSpecAutoScaleSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -34,10 +34,10 @@ public class ClusterAutoScaleSpecification {
     }
 
     public static class Builder {
-        private ClusterAutoScaleSpecification autoScale;
+        private LaunchSpecAutoScaleSpecification autoScale;
 
         public Builder() {
-            this.autoScale = new ClusterAutoScaleSpecification();
+            this.autoScale = new LaunchSpecAutoScaleSpecification();
         }
 
         public static Builder get() {
@@ -49,7 +49,7 @@ public class ClusterAutoScaleSpecification {
             return this;
         }
 
-        public ClusterAutoScaleSpecification build() {
+        public LaunchSpecAutoScaleSpecification build() {
             return autoScale;
         }
     }

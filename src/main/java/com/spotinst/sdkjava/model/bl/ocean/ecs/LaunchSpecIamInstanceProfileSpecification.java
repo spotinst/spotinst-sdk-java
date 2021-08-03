@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterIamInstanceProfileSpec {
+public class LaunchSpecIamInstanceProfileSpecification {
     @JsonIgnore
     private Set<String> isSet;
     private String      arn;
     private String      name;
 
-    private ClusterIamInstanceProfileSpec() {
+    private LaunchSpecIamInstanceProfileSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -42,14 +42,14 @@ public class ClusterIamInstanceProfileSpec {
     }
 
     public static class Builder {
-        private ClusterIamInstanceProfileSpec iamInstanceProfile;
+        private LaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
 
         private Builder() {
-            this.iamInstanceProfile = new ClusterIamInstanceProfileSpec();
+            this.iamInstanceProfile = new LaunchSpecIamInstanceProfileSpecification();
         }
 
         public static Builder get() {
-            Builder builder = new ClusterIamInstanceProfileSpec.Builder();
+            Builder builder = new LaunchSpecIamInstanceProfileSpecification.Builder();
             return builder;
         }
 
@@ -63,7 +63,7 @@ public class ClusterIamInstanceProfileSpec {
             return this;
         }
 
-        public ClusterIamInstanceProfileSpec build() {
+        public LaunchSpecIamInstanceProfileSpecification build() {
             return iamInstanceProfile;
         }
     }

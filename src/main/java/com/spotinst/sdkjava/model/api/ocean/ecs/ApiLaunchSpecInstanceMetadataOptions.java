@@ -1,17 +1,24 @@
-package com.spotinst.sdkjava.model.bl.ocean.ecs;
+package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClusterInstanceMetadataOptions {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiLaunchSpecInstanceMetadataOptions implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     httpPutResponseHopLimit;
     private String      httpTokens;
 
-    private ClusterInstanceMetadataOptions() {
+    public ApiLaunchSpecInstanceMetadataOptions() {
         isSet = new HashSet<>();
     }
 
@@ -39,34 +46,6 @@ public class ClusterInstanceMetadataOptions {
     public void setHttpTokens(String httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
-    }
-
-    public static class Builder {
-
-        private ClusterInstanceMetadataOptions clusterInstanceMetadataOptions;
-
-        private Builder() {
-            this.clusterInstanceMetadataOptions = new ClusterInstanceMetadataOptions();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setHttpPutResponseHopLimit(final Integer httpPutResponseHopLimit) {
-            clusterInstanceMetadataOptions.setHttpPutResponseHopLimit(httpPutResponseHopLimit);
-            return this;
-        }
-
-        public Builder setHttpTokens(final String httpTokens) {
-            clusterInstanceMetadataOptions.setHttpTokens(httpTokens);
-            return this;
-        }
-
-        public ClusterInstanceMetadataOptions build() {
-            return clusterInstanceMetadataOptions;
-        }
     }
 
     @JsonIgnore

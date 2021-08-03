@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterEbsSpecification;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,14 +12,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterBlockDeviceMappings implements IPartialUpdateEntity {
+public class ApiLaunchSpecBlockDeviceMappings implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                isSet;
-    private String                     deviceName;
-    private ApiClusterEbsSpecification ebs;
+    private Set<String>                   isSet;
+    private String                        deviceName;
+    private ApiLaunchSpecEbsSpecification ebs;
 
-    public ApiClusterBlockDeviceMappings() {
+    public ApiLaunchSpecBlockDeviceMappings() {
         isSet = new HashSet<>();
     }
 
@@ -41,11 +40,11 @@ public class ApiClusterBlockDeviceMappings implements IPartialUpdateEntity {
         this.deviceName = deviceName;
     }
 
-    public ApiClusterEbsSpecification getEbs() {
+    public ApiLaunchSpecEbsSpecification getEbs() {
         return ebs;
     }
 
-    public void setEbs(ApiClusterEbsSpecification ebs) {
+    public void setEbs(ApiLaunchSpecEbsSpecification ebs) {
         isSet.add("ebs");
         this.ebs = ebs;
     }
