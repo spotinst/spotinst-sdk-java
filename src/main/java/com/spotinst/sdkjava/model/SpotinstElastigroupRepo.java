@@ -311,6 +311,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
                                                      String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
+
         try {
             Boolean success = SpotinstElastigroupService.lockInstance(lockRequest, authToken, instanceId);
             retVal = new RepoGenericResponse<>(success);
@@ -318,6 +319,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 
@@ -325,12 +327,15 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
                                                        String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
+
         try {
             Boolean success = SpotinstElastigroupService.unlockInstance(unlockRequest, authToken, instanceId);
             retVal = new RepoGenericResponse<>(success);
-        } catch (SpotinstHttpException ex) {
+        }
+        catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 }
