@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 
+import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGKELaunchSpecRepo;
+
 /**
  * Created by talzur on 12/01/2017.
  */
@@ -24,7 +26,7 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
-    private ISpotinstOceanGKECreateLaunchSpecRepo spotinstOceanGKECreateLaunchSpecRepo;
+    private ISpotOceanGKELaunchSpecRepo             spotinstOceanGKELaunchSpecRepo;
 
     //endregion
 
@@ -45,7 +47,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
-        this.spotinstOceanGKECreateLaunchSpecRepo = new SpotinstOceanGKELaunchSpecRepo();
+        this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGKELaunchSpecRepo();
     }
     //endregion
 
@@ -159,7 +161,7 @@ class SpotinstRepoManager {
         this.spotinstElastigroupEventLogRepo = spotinstElastigroupEventLogRepo;
     }
     //endregion
-    public ISpotinstOceanGKECreateLaunchSpecRepo getSpotinstOceanGKECreateLaunchSpecRepoGcp() {
-        return spotinstOceanGKECreateLaunchSpecRepo;
+    public ISpotOceanGKELaunchSpecRepo getSpotinstOceanGKELaunchSpecRepoGcp() {
+        return spotinstOceanGKELaunchSpecRepo;
     }
 }

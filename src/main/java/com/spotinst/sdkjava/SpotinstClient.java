@@ -13,8 +13,9 @@ import java.util.List;
 public class SpotinstClient {
 
     //region Methods
-    public static SpotInstOceanGKELaunchSpecClient getSpotinstOceanGKELaunchSpecClientTest(String authToken, String account) {
-        SpotInstOceanGKELaunchSpecClient spotinstOceanGKELaunchSpecClientTest = new SpotInstOceanGKELaunchSpecClient(authToken, account);
+    public static SpotOceanGKELaunchSpecClient getSpotOceanGKELaunchSpecClient(String authToken, String account) {
+        SpotOceanGKELaunchSpecClient
+                spotinstOceanGKELaunchSpecClientTest = new SpotOceanGKELaunchSpecClient(authToken, account);
         return spotinstOceanGKELaunchSpecClientTest;
     }
     @Deprecated
