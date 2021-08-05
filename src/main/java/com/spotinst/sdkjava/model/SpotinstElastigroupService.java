@@ -378,6 +378,74 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+                                       String authToken, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", lockRequest.getAccountId());
+        queryParams.put("ttlInMinutes", lockRequest.getTtlInMinutes().toString());
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instance/%s/lock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse lockResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (lockResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+                                       String authToken, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", unlockRequest.getAccountId());
+        queryParams.put("ttlInMinutes", unlockRequest.getTtlInMinutes().toString());
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instance/%s/unlock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse unlockResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (unlockResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
     public static Boolean enterGroupStandby(String groupId, String authToken,
                                             String account) throws SpotinstHttpException {
         //Init retVal
@@ -412,6 +480,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return retVal;
     }
+
+
 
     public static Boolean exitGroupStandby(String groupId, String authToken,
                                            String account) throws SpotinstHttpException {

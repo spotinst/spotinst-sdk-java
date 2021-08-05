@@ -306,4 +306,36 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+                                                     String authToken, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupService.lockInstance(lockRequest, authToken, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+                                                       String authToken, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupService.unlockInstance(unlockRequest, authToken, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }

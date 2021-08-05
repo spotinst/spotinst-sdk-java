@@ -94,6 +94,7 @@ public class SpotinstElastigroupClient {
 
         RepoGenericResponse<Elastigroup> creationResponse =
                 getSpotinstElastigroupRepo().create(elastigroupToCreate, authToken, account);
+
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -115,6 +116,7 @@ public class SpotinstElastigroupClient {
         Elastigroup elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstElastigroupRepo().update(elastigroupId, elastigroupToUpdate, authToken, account);
+
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -174,6 +176,7 @@ public class SpotinstElastigroupClient {
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
                 getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
+
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -196,6 +199,7 @@ public class SpotinstElastigroupClient {
         ApiDeleteGroupRequest deleteRequest         = elastigroupDeletionRequest.getDeleteRequest();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
                 getSpotinstElastigroupRepo().delete(elastigroupToDeleteId, authToken, account, deleteRequest);
+
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
         }
@@ -234,6 +238,47 @@ public class SpotinstElastigroupClient {
             LOGGER.error("No instances to detach.");
         }
 
+        return retVal;
+    }
+
+    public Boolean lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest, String instanceId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepo().lockInstance(lockRequest, authToken, instanceId);
+
+        if (lockResponse.isRequestSucceed()) {
+            retVal = lockResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = lockResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to lock instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest, String instanceId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepo().unlockInstance(unlockRequest, authToken, instanceId);
+
+        if (unlockResponse.isRequestSucceed()) {
+            retVal = unlockResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = unlockResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to unlock instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
 
         return retVal;
     }
@@ -249,6 +294,7 @@ public class SpotinstElastigroupClient {
         filter.setElastigroupId(elastigroupId);
         RepoGenericResponse<List<ElastigroupActiveInstance>> instancesResponse =
                 getSpotinstElastigroupActiveInstanceRepo().getAll(filter, authToken, account);
+
         if (instancesResponse.isRequestSucceed()) {
             retVal = instancesResponse.getValue();
         }
@@ -308,6 +354,7 @@ public class SpotinstElastigroupClient {
 
         RepoGenericResponse<List<Elastigroup>> elastigroupsRepoGenericResponse =
                 getSpotinstElastigroupRepo().getAll(filter, authToken, account);
+
         if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupsRepoGenericResponse.getValue();
         }
@@ -331,6 +378,7 @@ public class SpotinstElastigroupClient {
 
         RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
                 getSpotinstElastigroupRepo().get(elastigroupId, authToken, account);
+
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupRepoGenericResponse.getValue();
         }
@@ -494,6 +542,7 @@ public class SpotinstElastigroupClient {
         EventsLogsFilter filter = new EventsLogsFilter();
         filter.setFromDate(fromDate);
         filter.setToDate(toDate);
+
         if (Objects.nonNull(logsSeverity)) {
             filter.setSeverity(logsSeverity.getName());
         }
