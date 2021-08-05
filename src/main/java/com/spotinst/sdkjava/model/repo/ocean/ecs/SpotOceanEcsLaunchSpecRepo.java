@@ -30,6 +30,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 
@@ -45,6 +46,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 
@@ -62,6 +64,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 
@@ -78,6 +81,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 
@@ -95,6 +99,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
+
         return retVal;
     }
 }

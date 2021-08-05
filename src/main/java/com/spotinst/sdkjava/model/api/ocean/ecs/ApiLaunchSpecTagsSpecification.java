@@ -1,11 +1,18 @@
-package com.spotinst.sdkjava.model.bl.ocean.ecs;
+package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class LaunchSpecTagsSepcification {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiLaunchSpecTagsSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      tagKey;
@@ -13,11 +20,16 @@ public class LaunchSpecTagsSepcification {
 
 
     //region Constructors
-    private LaunchSpecTagsSepcification() {
+    public ApiLaunchSpecTagsSpecification() {
         isSet = new HashSet<>();
     }
     //endregion
 
+    public ApiLaunchSpecTagsSpecification(String tagKey, String tagValue) {
+        isSet = new HashSet<>();
+        this.setTagKey(tagKey);
+        this.setTagValue(tagValue);
+    }
 
     public Set<String> getIsSet() {
         return isSet;
@@ -43,34 +55,6 @@ public class LaunchSpecTagsSepcification {
     public void setTagValue(String tagValue) {
         isSet.add("tagValue");
         this.tagValue = tagValue;
-    }
-
-    public static class Builder {
-
-        private LaunchSpecTagsSepcification launchSpecTagsSepcification;
-
-        private Builder() {
-            this.launchSpecTagsSepcification = new LaunchSpecTagsSepcification();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setTagKey(final String tagKey) {
-            launchSpecTagsSepcification.setTagKey(tagKey);
-            return this;
-        }
-
-        public Builder setTagValue(final String tagValue) {
-            launchSpecTagsSepcification.setTagValue(tagValue);
-            return this;
-        }
-
-        public LaunchSpecTagsSepcification build() {
-            return launchSpecTagsSepcification;
-        }
     }
 
     @JsonIgnore

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class SpotOceanEcsClusterClient {
     private static final Logger                      LOGGER =
-            LoggerFactory.getLogger(SpotOceanK8sClusterClient.class);
+            LoggerFactory.getLogger(SpotOceanEcsClusterClient.class);
     //Members
     private              String                      authToken;
     private              String                      account;
@@ -54,6 +54,7 @@ public class SpotOceanEcsClusterClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -76,6 +77,7 @@ public class SpotOceanEcsClusterClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -96,6 +98,7 @@ public class SpotOceanEcsClusterClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -116,6 +119,7 @@ public class SpotOceanEcsClusterClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -136,6 +140,7 @@ public class SpotOceanEcsClusterClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 }

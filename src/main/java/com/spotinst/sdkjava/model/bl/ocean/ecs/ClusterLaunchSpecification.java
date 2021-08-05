@@ -13,17 +13,17 @@ public class ClusterLaunchSpecification {
     private LaunchSpecAutoScaleSpecification          autoScale;
     private List<LaunchSpecBlockDeviceMappings>       blockDeviceMappings;
     private LaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
-    private String                            imageId;
-    private LaunchSpecInstanceMetadataOptions instanceMetadataOptions;
-    private List<String>                      instanceTypes;
-    private String                            name;
-    private String                            oceanId;
-    private Boolean                           restrictScaleDown;
-    private List<String>                      securityGroupIds;
-    private List<String>                      subnetIds;
-    private List<LaunchSpecTagsSepcification> tags;
-    private String                            userData;
-    private String                            id;
+    private String                                    imageId;
+    private LaunchSpecInstanceMetadataOptions         instanceMetadataOptions;
+    private List<String>                              instanceTypes;
+    private String                                    name;
+    private String                                    oceanId;
+    private Boolean                                   restrictScaleDown;
+    private List<String>                              securityGroupIds;
+    private List<String>                              subnetIds;
+    private List<LaunchSpecTagsSpecification>         tags;
+    private String                                    userData;
+    private String                                    id;
 
     private ClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -145,11 +145,11 @@ public class ClusterLaunchSpecification {
         this.subnetIds = subnetIds;
     }
 
-    public List<LaunchSpecTagsSepcification> getTags() {
+    public List<LaunchSpecTagsSpecification> getTags() {
         return tags;
     }
 
-    public void setTags(List<LaunchSpecTagsSepcification> tags) {
+    public void setTags(List<LaunchSpecTagsSpecification> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
@@ -235,7 +235,7 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setTags(final List<LaunchSpecTagsSepcification> tags) {
+        public Builder setTags(final List<LaunchSpecTagsSpecification> tags) {
             launchspec.setTags(tags);
             return this;
         }

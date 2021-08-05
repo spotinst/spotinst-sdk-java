@@ -63,7 +63,7 @@ public class OceanEcsLaunchSpecConverter {
                 retVal.setSubnetIds(launchSpecification.getSubnetIds());
             }
             if (launchSpecification.isTagsSet()) {
-                List<ApiLaunchSpecTagsSepcification> tags =
+                List<ApiLaunchSpecTagsSpecification> tags =
                         launchSpecification.getTags().stream().map(OceanEcsLaunchSpecConverter::toDal)
                                            .collect(Collectors.toList());
                 retVal.setTags(tags);
@@ -228,12 +228,12 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static ApiLaunchSpecTagsSepcification toDal(LaunchSpecTagsSepcification tag) {
-        ApiLaunchSpecTagsSepcification retVal = null;
+    private static ApiLaunchSpecTagsSpecification toDal(LaunchSpecTagsSpecification tag) {
+        ApiLaunchSpecTagsSpecification retVal = null;
 
         if (tag != null) {
             if (tag.isTagKeySet() && tag.isTagValueSet()) {
-                retVal = new ApiLaunchSpecTagsSepcification(tag.getTagKey(), tag.getTagValue());
+                retVal = new ApiLaunchSpecTagsSpecification(tag.getTagKey(), tag.getTagValue());
             }
         }
         return retVal;
@@ -295,7 +295,7 @@ public class OceanEcsLaunchSpecConverter {
                 clusterLaunchSpecBuilder.setSubnetIds(launchSpecification.getSubnetIds());
             }
             if (launchSpecification.isTagsSet()) {
-                List<LaunchSpecTagsSepcification> tags =
+                List<LaunchSpecTagsSpecification> tags =
                         launchSpecification.getTags().stream().map(OceanEcsLaunchSpecConverter::toBl)
                                            .collect(Collectors.toList());
                 clusterLaunchSpecBuilder.setTags(tags);
@@ -472,11 +472,11 @@ public class OceanEcsLaunchSpecConverter {
         return retVal;
     }
 
-    private static LaunchSpecTagsSepcification toBl(ApiLaunchSpecTagsSepcification tag) {
-        LaunchSpecTagsSepcification retVal = null;
+    private static LaunchSpecTagsSpecification toBl(ApiLaunchSpecTagsSpecification tag) {
+        LaunchSpecTagsSpecification retVal = null;
 
         if (tag != null) {
-            LaunchSpecTagsSepcification.Builder tagBuilder = LaunchSpecTagsSepcification.Builder.get();
+            LaunchSpecTagsSpecification.Builder tagBuilder = LaunchSpecTagsSpecification.Builder.get();
 
             if (tag.isTagKeySet() && tag.isTagValueSet()) {
                 tagBuilder.setTagKey(tag.getTagKey());

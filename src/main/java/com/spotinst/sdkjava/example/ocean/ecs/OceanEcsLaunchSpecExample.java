@@ -75,9 +75,9 @@ public class OceanEcsLaunchSpecExample {
                 iamInstanceProfileBuilder.setArn("arn:aws:iam::abc1234").build();
 
         //Build tags
-        LaunchSpecTagsSepcification.Builder tagBuilder = LaunchSpecTagsSepcification.Builder.get();
-        LaunchSpecTagsSepcification         tag1       = tagBuilder.setTagKey("Creator").setTagValue("Jack").build();
-        List<LaunchSpecTagsSepcification>   tags       = Collections.singletonList(tag1);
+        LaunchSpecTagsSpecification.Builder tagBuilder = LaunchSpecTagsSpecification.Builder.get();
+        LaunchSpecTagsSpecification         tag1       = tagBuilder.setTagKey("Creator").setTagValue("Jack").build();
+        List<LaunchSpecTagsSpecification>   tags       = Collections.singletonList(tag1);
 
         //Build instance metadata options
         LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =

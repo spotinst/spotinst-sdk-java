@@ -20,7 +20,7 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private ApiLaunchSpecAutoScaleSpecification          autoScale;
     private List<ApiLaunchSpecBlockDeviceMappings>       blockDeviceMappings;
     private ApiLaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
-    private String                                       imageId;
+    private String                               imageId;
     private ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions;
     private List<String>                         instanceTypes;
     private String                               name;
@@ -28,7 +28,7 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private Boolean                              restrictScaleDown;
     private List<String>                         securityGroupIds;
     private List<String>                         subnetIds;
-    private List<ApiLaunchSpecTagsSepcification> tags;
+    private List<ApiLaunchSpecTagsSpecification> tags;
     private String                               userData;
     private String                               id;
 
@@ -152,11 +152,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.subnetIds = subnetIds;
     }
 
-    public List<ApiLaunchSpecTagsSepcification> getTags() {
+    public List<ApiLaunchSpecTagsSpecification> getTags() {
         return tags;
     }
 
-    public void setTags(List<ApiLaunchSpecTagsSepcification> tags) {
+    public void setTags(List<ApiLaunchSpecTagsSpecification> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
