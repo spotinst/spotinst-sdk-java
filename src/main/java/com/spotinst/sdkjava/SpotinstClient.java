@@ -4,6 +4,7 @@ package com.spotinst.sdkjava;
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 
 import java.util.List;
 
@@ -114,6 +115,10 @@ public class SpotinstClient {
     public static SpotStorageAzureVolumeClient getVolumeClient(String authToken, String account) {
         SpotStorageAzureVolumeClient spotStorageAzureVolumeClient = new SpotStorageAzureVolumeClient(authToken, account);
         return spotStorageAzureVolumeClient;
+    }
+    public static SpotOceanEcsClusterClient getOceanEcsClusterClient(String authToken, String account) {
+        SpotOceanEcsClusterClient spotOceanEcsClusterClient = new SpotOceanEcsClusterClient(authToken, account);
+        return spotOceanEcsClusterClient;
     }
 
     //endregion
