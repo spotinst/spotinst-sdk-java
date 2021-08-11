@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.ocean.kubernetes;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;

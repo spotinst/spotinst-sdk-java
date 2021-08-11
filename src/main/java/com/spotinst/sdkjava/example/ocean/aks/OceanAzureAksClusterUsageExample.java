@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.ocean.aks;
 
 
 import com.spotinst.sdkjava.SpotinstClient;
