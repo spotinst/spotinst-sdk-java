@@ -41,8 +41,8 @@ public class K8sVngInstanceMetadataOptions {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
     }
-	
-	public static class Builder {
+
+    public static class Builder {
         private K8sVngInstanceMetadataOptions instanceMetadataOptions;
 
         private Builder() {
@@ -62,6 +62,10 @@ public class K8sVngInstanceMetadataOptions {
         public Builder setHttpTokens(final K8sVngHttpTokensEnum httpTokens) {
             instanceMetadataOptions.setHttpTokens(httpTokens);
             return this;
+        }
+
+        public K8sVngInstanceMetadataOptions build() {
+            return instanceMetadataOptions;
         }
     }
 

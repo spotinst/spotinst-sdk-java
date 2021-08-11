@@ -19,7 +19,7 @@ public class ApiK8sVngInstanceMetadataOptions implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>       isSet;
     private Integer           httpPutResponseHopLimit;
-    private K8sVngHttpTokensEnum httpTokens;
+    private String            httpTokens;
 
     public ApiK8sVngInstanceMetadataOptions() {
         isSet = new HashSet<>();
@@ -42,11 +42,11 @@ public class ApiK8sVngInstanceMetadataOptions implements IPartialUpdateEntity {
         this.httpPutResponseHopLimit = httpPutResponseHopLimit;
     }
 
-    public K8sVngHttpTokensEnum getHttpTokens() {
+    public String getHttpTokens() {
         return httpTokens;
     }
 
-    public void setHttpTokens(K8sVngHttpTokensEnum httpTokens) {
+    public void setHttpTokens(String httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
     }

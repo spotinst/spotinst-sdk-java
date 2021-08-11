@@ -67,8 +67,8 @@ public class OceanK8sVirtualNodeGroupRepo implements ISpotOceanK8sVirtualNodeGro
             ApiK8sVirtualNodeGroup apiK8sVirtualNodeGroup = OceanK8sVirtualNodeGroupService
                     .getK8sVirtualNodeGroup(identifier, authToken, account);
 
-            K8sVirtualNodeGroup oceanK8sCluster = OceanK8sVirtalNodeGroupConverter.toBl(apiK8sVirtualNodeGroup);
-            retVal = new RepoGenericResponse<>(oceanK8sCluster);
+            K8sVirtualNodeGroup oceanK8sVirtualNodeGroup = OceanK8sVirtalNodeGroupConverter.toBl(apiK8sVirtualNodeGroup);
+            retVal = new RepoGenericResponse<>(oceanK8sVirtualNodeGroup);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

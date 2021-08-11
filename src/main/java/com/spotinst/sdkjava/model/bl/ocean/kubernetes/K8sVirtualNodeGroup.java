@@ -11,27 +11,27 @@ import java.util.Set;
 
 public class K8sVirtualNodeGroup {
     @JsonIgnore
-    private Set<String>                   isSet;
-    private String                        id;
-    private String                        name;
-    private Boolean                       associatePublicIpAddress;
-    private ClusterHeadroomSpecification  headroom;
-    private List<BlockDeviceMapping>      blockDeviceMappings;
-    private List<Tag>                     tags;
-    private ClusterIamInstanceProfileSpec iamInstanceProfile;
-    private String                        imageId;
-    private K8sVngInstanceMetadataOptions instanceMetadataOptions;
-    private ClusterInstanceTypes          instanceTypes;
-    private String                        oceanId;
-    private List<String>                  spotTypes;
-    private Boolean                       restrictScaleDown;
-    private Integer                       rootVolumeSize;
-    private List<String>                  securityGroupIds;
-    private Integer               		  spotPercentage;
-    private List<String>         		  subnetIds;
-    private String                        userData;
-    private Date                          createdAt;
-    private Date                          updatedAt;
+    private Set<String>                         isSet;
+    private String                              id;
+    private String                              name;
+    private Boolean                             associatePublicIpAddress;
+    private VirtualNodeGroupAutoScaleSpec       autoScale;
+    private List<BlockDeviceMapping>            blockDeviceMappings;
+    private List<Tag>                           tags;
+    private ClusterIamInstanceProfileSpec       iamInstanceProfile;
+    private String                              imageId;
+    private K8sVngInstanceMetadataOptions       instanceMetadataOptions;
+    private List<String>                        instanceTypes;
+    private String                              oceanId;
+    private List<String>                        spotTypes;
+    private Boolean                             restrictScaleDown;
+    private Integer                             rootVolumeSize;
+    private List<String>                        securityGroupIds;
+    private ClusterStrategyConfiguration        strategy;
+    private List<String>         		        subnetIds;
+    private String                              userData;
+    private Date                                createdAt;
+    private Date                                updatedAt;
 
     private K8sVirtualNodeGroup() {
         isSet = new HashSet<>();
@@ -72,13 +72,13 @@ public class K8sVirtualNodeGroup {
         this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
-    public ClusterHeadroomSpecification getHeadroom() {
-        return headroom;
+    public VirtualNodeGroupAutoScaleSpec getAutoScale() {
+        return autoScale;
     }
 
-    public void setHeadroom(ClusterHeadroomSpecification headroom) {
-        isSet.add("headroom");
-        this.headroom = headroom;
+    public void setAutoScale(VirtualNodeGroupAutoScaleSpec autoScale) {
+        isSet.add("autoScale");
+        this.autoScale = autoScale;
     }
 
     public List<BlockDeviceMapping> getBlockDeviceMappings() {
@@ -127,11 +127,11 @@ public class K8sVirtualNodeGroup {
         this.instanceMetadataOptions = instanceMetadataOptions;
     }
 
-    public ClusterInstanceTypes getInstanceTypes() {
+    public List<String> getInstanceTypes() {
         return instanceTypes;
     }
 
-    public void setInstanceTypes(ClusterInstanceTypes instanceTypes) {
+    public void setInstanceTypes(List<String> instanceTypes) {
         isSet.add("instanceTypes");
 
         this.instanceTypes = instanceTypes;
@@ -151,7 +151,7 @@ public class K8sVirtualNodeGroup {
     }
 
     public void setSpotTypes(List<String> spotTypes) {
-        isSet.add("spotTypes");
+        isSet.add("preferredSpotTypes");
         this.spotTypes = spotTypes;
     }
 
@@ -182,13 +182,13 @@ public class K8sVirtualNodeGroup {
         this.securityGroupIds = securityGroupIds;
     }
 
-    public Integer getSpotPercentage() {
-        return spotPercentage;
+    public ClusterStrategyConfiguration getStrategy() {
+        return strategy;
     }
 
-    public void setSpotPercentage(Integer spotPercentage) {
-        isSet.add("spotPercentage");
-        this.spotPercentage = spotPercentage;
+    public void setStrategy(ClusterStrategyConfiguration strategy) {
+        isSet.add("strategy");
+        this.strategy = strategy;
     }
 
     public List<String> getSubnetIds() {
@@ -254,8 +254,8 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public Builder setHeadroom(final ClusterHeadroomSpecification headroom) {
-            launchSpecification.setHeadroom(headroom);
+        public Builder setAutoScale(final VirtualNodeGroupAutoScaleSpec autoScale) {
+            launchSpecification.setAutoScale(autoScale);
             return this;
         }
 
@@ -284,13 +284,13 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public Builder setInstanceTypes(final ClusterInstanceTypes instanceTypes) {
+        public Builder setInstanceTypes(final List<String> instanceTypes) {
             launchSpecification.setInstanceTypes(instanceTypes);
             return this;
         }
 
         public Builder setOceanId(final String oceanId) {
-            launchSpecification.setImageId(oceanId);
+            launchSpecification.setOceanId(oceanId);
             return this;
         }
 
@@ -314,8 +314,8 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public Builder setSpotPercentage(final Integer spotPercentage) {
-            launchSpecification.setSpotPercentage(spotPercentage);
+        public Builder setStrategy(final ClusterStrategyConfiguration strategy) {
+            launchSpecification.setStrategy(strategy);
             return this;
         }
 
@@ -350,8 +350,8 @@ public class K8sVirtualNodeGroup {
     }
 
     @JsonIgnore
-    public boolean isHeadroomSet() {
-        return isSet.contains("headroom");
+    public boolean isAutoScaleSet() {
+        return isSet.contains("autoScale");
     }
 
     @JsonIgnore
@@ -391,7 +391,7 @@ public class K8sVirtualNodeGroup {
 
     @JsonIgnore
     public boolean isSpotTypesSet() {
-        return isSet.contains("spotTypes");
+        return isSet.contains("preferredSpotTypes");
     }
 
     @JsonIgnore
@@ -410,8 +410,8 @@ public class K8sVirtualNodeGroup {
     }
 
     @JsonIgnore
-    public boolean isSpotPercentageSet() {
-        return isSet.contains("spotPercentage");
+    public boolean isStrategySet() {
+        return isSet.contains("strategy");
     }
 
     @JsonIgnore

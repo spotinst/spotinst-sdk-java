@@ -23,23 +23,23 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     private String                           id;
     private String                           name;
     private Boolean                          associatePublicIpAddress;
-    private ApiClusterHeadroomSpecification  headroom;
+    private ApiVirtualNodeGroupAutoScaleSpec autoScale;
     private List<ApiBlockDevice>             blockDeviceMappings;
     private List<ApiTag>                     tags;
     private ApiClusterIamInstanceProfileSpec iamInstanceProfile;
     private String                           imageId;
     private ApiK8sVngInstanceMetadataOptions instanceMetadataOptions;
-    private ApiClusterInstanceTypes          instanceTypes;
+    private List<String>                     instanceTypes;
     private String                           oceanId;
     private List<String>                     spotTypes;
     private Boolean                          restrictScaleDown;
     private Integer                          rootVolumeSize;
-    private List<String>                  		securityGroupIds;
-    private Integer               		  		spotPercentage;
-    private List<String>         		  		subnetIds;
-    private String                        		userData;
-    private Date                          		createdAt;
-    private Date                          		updatedAt;	
+    private List<String>                  	 securityGroupIds;
+    private ApiClusterStrategyConfiguration  strategy;
+    private List<String>         		  	 subnetIds;
+    private String                        	 userData;
+    private Date                          	 createdAt;
+    private Date                          	 updatedAt;
 
     public ApiK8sVirtualNodeGroup() {
         isSet = new HashSet<>();
@@ -80,13 +80,13 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
-    public ApiClusterHeadroomSpecification getHeadroom() {
-        return headroom;
+    public ApiVirtualNodeGroupAutoScaleSpec getAutoScale() {
+        return autoScale;
     }
 
-    public void setHeadroom(ApiClusterHeadroomSpecification headroom) {
-        isSet.add("headroom");
-        this.headroom = headroom;
+    public void setAutoScale(ApiVirtualNodeGroupAutoScaleSpec autoScale) {
+        isSet.add("autoScale");
+        this.autoScale = autoScale;
     }
 
     public List<ApiBlockDevice> getBlockDeviceMappings() {
@@ -135,11 +135,11 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.instanceMetadataOptions = instanceMetadataOptions;
     }
 
-    public ApiClusterInstanceTypes getInstanceTypes() {
+    public List<String> getInstanceTypes() {
         return instanceTypes;
     }
 
-    public void setInstanceTypes(ApiClusterInstanceTypes instanceTypes) {
+    public void setInstanceTypes(List<String> instanceTypes) {
         isSet.add("instanceTypes");
 
         this.instanceTypes = instanceTypes;
@@ -159,7 +159,7 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     public void setSpotTypes(List<String> spotTypes) {
-        isSet.add("spotTypes");
+        isSet.add("preferredSpotTypes");
         this.spotTypes = spotTypes;
     }
 
@@ -190,13 +190,13 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.securityGroupIds = securityGroupIds;
     }
 
-    public Integer getSpotPercentage() {
-        return spotPercentage;
+    public ApiClusterStrategyConfiguration getStrategy() {
+        return strategy;
     }
 
-    public void setSpotPercentage(Integer spotPercentage) {
-        isSet.add("spotPercentage");
-        this.spotPercentage = spotPercentage;
+    public void setStrategy(ApiClusterStrategyConfiguration strategy) {
+        isSet.add("strategy");
+        this.strategy = strategy;
     }
 
     public List<String> getSubnetIds() {
@@ -250,8 +250,7 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isHeadroomSet() {
-        return isSet.contains("headroom");
+    public boolean isAutoScaleSet() { return isSet.contains("autoScale");
     }
 
     @JsonIgnore
@@ -291,7 +290,7 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
 
     @JsonIgnore
     public boolean isSpotTypesSet() {
-        return isSet.contains("spotTypes");
+        return isSet.contains("preferredSpotTypes");
     }
 
     @JsonIgnore
@@ -310,8 +309,8 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isSpotPercentageSet() {
-        return isSet.contains("spotPercentage");
+    public boolean isStrategySet() {
+        return isSet.contains("strategy");
     }
 
     @JsonIgnore

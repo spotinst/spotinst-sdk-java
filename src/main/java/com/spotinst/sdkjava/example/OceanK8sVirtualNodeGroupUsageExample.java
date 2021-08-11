@@ -2,52 +2,58 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.spotinst.sdkjava.enums.K8sVngHttpTokensEnum;
 import com.spotinst.sdkjava.model.BlockDeviceMapping;
 import com.spotinst.sdkjava.model.EbsDevice;
-import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
+import com.spotinst.sdkjava.model.OceanK8sVirtualNodeGroupClient;
 import com.spotinst.sdkjava.model.Tag;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterDynamicVolumeSize;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterHeadroomSpecification;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterIamInstanceProfileSpec;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class OceanK8sVirtualNodeGroupUsageExample {
-	private final static String auth_token = "auth_token";
-    private final static String accountId  = "accountId";
+    private final static String auth_token = "auth_token";
+    private final static String accountId  = "act-id";
 
-	private final static Integer    initialNodes	= 1;
-	private final static String     deviceName      = "deviceName";
-	private final static String     snapshotId      = "snap-abcdefghi111110"
+    private final static Integer    initialNodes	= 1;
+    private final static String     deviceName      = "deviceName";
+    private final static String     snapshotId      = "snap-vngtest";
 
     // Fill in the correct values from your account
-    private final static String       controllerClusterId        = "your-sdk-Cluster-id";
-    private final static String       launchSpecificationImageId = "your-launchSpec-image-id";
-    private final static List<String> securityGroups             = Arrays.asList("sg-1", "sg-2");
-    private final static String       region                     = "chosen-region";
-    private final static String       kmsKeyId                    = "alias/aws/ebs";
-    private final static List<String> subnetIds                  = Arrays.asList("subnet-1", "subnet-2");
+    private final static String       userData                   = "IyEvYmluL2Jhc2gKIyBDb3B5cmlnaHQgMjAxNiBUaGUgS3ViZXJuZXRlcyBBdXRob3JzIEFsbCByaWdo";
+    private final static String       imageId                    = "ami-01234";
+    private final static List<String> securityGroups             = Arrays.asList("sg-01234");
+    private final static String       oceanId                    = "o-4abcd";
+    private final static String       kmsKeyId                   = "alias/aws/ebs";
+    private final static List<String> subnetIds                  = Arrays.asList("subnet-2b", "subnet-2c");
+    private final static List<String> preferredSpotTypes                  = Arrays.asList("c3.2xlarge", "c4.2xlarge");
+    private final static List<String> instanceTypes              = Arrays.asList("c4.xlarge","c3.xlarge");
     private final static String       arnRole                    = "your-arn-role";
-    private final static String       iamRoleName                = "VirtualNodeGroup-Test"
+    private final static String       iamRoleName                = "VirtualNodeGroup-Test";
 
     public static void main(String[] args) {
-        SpotOceanK8sClusterClient clusterClient = SpotinstClient.getOceanClusterClient(auth_token, accountId);
+        OceanK8sVirtualNodeGroupClient clusterClient = SpotinstClient.getOceanK8sVirtualNodeGroupClient(auth_token, accountId);
 
         String launchSpecId = createVirtualNodeGroup(clusterClient);
         getVirtualNodeGroup(clusterClient,launchSpecId);
-        updateVirtualNodeGroup(clusterClient, launchSpecId);
-        deleteVirtualNodeGroup(clusterClient, launchSpecId);
+        updateVirtualNodeGroup(clusterClient,launchSpecId);
+        deleteVirtualNodeGroup(clusterClient,launchSpecId);
     }
 
-    private static String createVirtualNodeGroup(SpotOceanK8sClusterClient client) {
+    private static String createVirtualNodeGroup(OceanK8sVirtualNodeGroupClient client) {
         System.out.println("-------------------------start creating ocean virtual node group------------------------");
 
-        //Build autoScale
+        //Build headroom
         ClusterHeadroomSpecification.Builder headroomSpecBuilder = ClusterHeadroomSpecification.Builder.get();
         ClusterHeadroomSpecification headroom =
-                headroomSpecBuilder.setCpuPerUnit(2000).setGpuPerUnit(0).setMemoryPerUnit(0).setNumOfUnits(2).build();
+                headroomSpecBuilder.setCpuPerUnit(1024).setGpuPerUnit(0).setMemoryPerUnit(512).setNumOfUnits(2).build();
+        List<ClusterHeadroomSpecification> headroomList = Collections.singletonList(headroom);
+
+        //Build autoscale specification
+        VirtualNodeGroupAutoScaleSpec.Builder autoScaleBuilder = VirtualNodeGroupAutoScaleSpec.Builder.get();
+        VirtualNodeGroupAutoScaleSpec         autoScale        = autoScaleBuilder.setHeadrooms(headroomList).build();
 
         //Build dynamicVolumeSize
         ClusterDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
@@ -55,22 +61,22 @@ public class OceanK8sVirtualNodeGroupUsageExample {
 
         //Build ebsDevice
         EbsDevice.Builder ebsDeviceBuilder = EbsDevice.Builder.get();
-        EbsDevice         ebsDevice        = ebsDeviceBuilder.setThroughput(125)
-                                            .setSnapshotId(snapshotId)
-                                            .setDeleteOnTermination(false)
-                                            .setEncrypted(false)
-                                            .setIops(1)
-                                            .setKmsKeyId(kmsKeyId)
-                                            .setSnapshotId(snapshotId)
-                                            .setVolumeType(AwsVolumeTypeEnum.GP2)
-                                            .setVolumeSize(0)
-                                            .setDynamicVolumeSize(dynamicVolumeSize)
-                                            .build();
+        EbsDevice         ebsDevice        = ebsDeviceBuilder.setThroughput(null)
+                                                             .setSnapshotId(snapshotId)
+                                                             .setDeleteOnTermination(false)
+                                                             .setEncrypted(false)
+                                                             .setIops(1)
+                                                             .setKmsKeyId(kmsKeyId)
+                                                             .setSnapshotId(snapshotId)
+                                                             .setVolumeType(AwsVolumeTypeEnum.GP2)
+                                                             .setVolumeSize(null)
+                                                             .setDynamicVolumeSize(dynamicVolumeSize)
+                                                             .build();
 
         //Build blockDeviceMappings
         BlockDeviceMapping.Builder blockDeviceMappingBuilder = BlockDeviceMapping.Builder.get();
-
         BlockDeviceMapping blockDeviceMapping = blockDeviceMappingBuilder.setDeviceName(deviceName).setEbsDevice(ebsDevice).build();
+        List<BlockDeviceMapping> blockDeviceMappingList = Collections.singletonList(blockDeviceMapping);
 
         //Build tags
         Tag.Builder tagsBuilder = Tag.Builder.get();
@@ -84,94 +90,165 @@ public class OceanK8sVirtualNodeGroupUsageExample {
         ClusterIamInstanceProfileSpec iamInstanceProfile = iamInstanceProfileBuilder.setArn(arnRole).setName(iamRoleName).build();
 
         //Build instanceMetadataOptions
-        
-
-        ClusterResourceLimitsSpecification.Builder resourceLimitSpecBuilder =
-                ClusterResourceLimitsSpecification.Builder.get();
-        ClusterResourceLimitsSpecification resourceLimits =
-                resourceLimitSpecBuilder.setMaxMemoryGib(5).setMaxVCpu(2000).build();
-
-        ClusterAutoScalerConfiguration.Builder clusterAutoScalerBuilder = ClusterAutoScalerConfiguration.Builder.get();
-        ClusterAutoScalerConfiguration autoScaler =
-                clusterAutoScalerBuilder.setIsAutoConfig(false).setCooldown(180).setDown(down)
-                                        .setAutoHeadroomPercentage(null).setHeadroom(headroom).setIsEnabled(false)
-                                        .setResourceLimits(resourceLimits).build();
-
-        //Build capacity
-        ClusterCapacityConfiguration.Builder capacityBuilder = ClusterCapacityConfiguration.Builder.get();
-        ClusterCapacityConfiguration capacity = capacityBuilder.setMaximum(0).setMinimum(0).setTarget(0).build();
+        K8sVngInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder = K8sVngInstanceMetadataOptions.Builder.get();
+        K8sVngInstanceMetadataOptions instanceMetadataOptions = instanceMetadataOptionsBuilder.setHttpPutResponseHopLimit(12)
+                                                                                              .setHttpTokens(K8sVngHttpTokensEnum.OPTIONAL)
+                                                                                              .build();
 
         //Build strategy
         ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
-        ClusterStrategyConfiguration strategy =
-                strategyBuilder.setFallbackToOnDemand(false).setUtilizeReservedInstances(true).setDrainingTimeout(60)
-                               .setGracePeriod(600).build();
+        ClusterStrategyConfiguration         strategy        = strategyBuilder.setSpotPercentage(70).build();
 
-        //Build compute
+        //Build Virtual Node Group
+        K8sVirtualNodeGroup.Builder k8sVirtualNodeGroupBuilder = K8sVirtualNodeGroup.Builder.get();
+        K8sVirtualNodeGroup k8sVirtualNodeGroup = k8sVirtualNodeGroupBuilder
+                .setName("Java-SDK-Testing")
+                .setAssociatePublicIpAddress(false)
+                .setAutoScale(autoScale)
+                .setBlockDeviceMappings(blockDeviceMappingList)
+                .setTags(tagsList)
+                .setIamInstanceProfile(iamInstanceProfile)
+                .setImageId(imageId)
+                .setInstanceMetadataOptions(instanceMetadataOptions)
+                .setInstanceTypes(instanceTypes)
+                .setOceanId(oceanId)
+                .setSpotTypes(preferredSpotTypes)
+                .setRestrictScaleDown(false)
+                .setRootVolumeSize(null)
+                .setSecurityGroupIds(securityGroups)
+                .setStrategy(null)
+                .setSubnetIds(subnetIds)
+                .setUserData(userData).build();
+
+        //Build virtual node group creation request
+        K8sVirtualNodeGroupCreationRequest.Builder virtualNodeGroupCreationRequestBuilder = K8sVirtualNodeGroupCreationRequest.Builder.get();
+        K8sVirtualNodeGroupCreationRequest creationRequest               =
+                virtualNodeGroupCreationRequestBuilder.setlaunchSpec(k8sVirtualNodeGroup).build();
+
+        //Convert virtual node group to API object json
+        System.out.println(creationRequest.toJson());
+
+        //Create virtual node group
+        K8sVirtualNodeGroup createdVirtualNodeGroup = client.createK8sVirtualNodeGroup(creationRequest);
+        System.out.println("Virtual Node Group Created Successfully: " + createdVirtualNodeGroup.getId());
+
+        return createdVirtualNodeGroup.getId();
+    }
+
+    private static K8sVirtualNodeGroup getVirtualNodeGroup(OceanK8sVirtualNodeGroupClient client, String launchSpecId){
+        System.out.println("-------------------------start getting ocean virtual node group------------------------");
+        K8sVirtualNodeGroupGetRequest.Builder getBuilder = K8sVirtualNodeGroupGetRequest.Builder.get();
+        K8sVirtualNodeGroupGetRequest         getRequest = getBuilder.setOceanLaunchSpecId(launchSpecId).build();
+
+        K8sVirtualNodeGroup k8sVirtualNodeGroup = client.getK8sVirtualNodeGroup(getRequest);
+        if (k8sVirtualNodeGroup != null) {
+            System.out.println("Get Virtual Node Group Successfully: " + k8sVirtualNodeGroup.getId());
+        }
+        return k8sVirtualNodeGroup;
+    }
+
+    private static void updateVirtualNodeGroup(OceanK8sVirtualNodeGroupClient client, String launchSpecId) {
+        System.out.println("-------------------------start updating ocean virtual node group------------------------");
+
+        //Build headroom
+        ClusterHeadroomSpecification.Builder headroomSpecBuilder = ClusterHeadroomSpecification.Builder.get();
+        ClusterHeadroomSpecification headroom =
+                headroomSpecBuilder.setCpuPerUnit(1024).setGpuPerUnit(0).setMemoryPerUnit(512).setNumOfUnits(2).build();
+        List<ClusterHeadroomSpecification> headroomList = Collections.singletonList(headroom);
+
+        //Build autoscale specification
+        VirtualNodeGroupAutoScaleSpec.Builder autoScaleBuilder = VirtualNodeGroupAutoScaleSpec.Builder.get();
+        VirtualNodeGroupAutoScaleSpec         autoScale        = autoScaleBuilder.setHeadrooms(headroomList).build();
+
+        //Build dynamicVolumeSize
+        ClusterDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
+        ClusterDynamicVolumeSize dynamicVolumeSize =
+                dynamicVolumeSizeBuilder.setBaseSize(50).setResource("CPU").setSizePerResourceUnit(20).build();
+
+        //Build ebsDevice
+        EbsDevice.Builder ebsDeviceBuilder = EbsDevice.Builder.get();
+        EbsDevice ebsDevice = ebsDeviceBuilder.setThroughput(null)
+                                              .setSnapshotId(snapshotId)
+                                              .setDeleteOnTermination(false)
+                                              .setEncrypted(false)
+                                              .setIops(1)
+                                              .setKmsKeyId(kmsKeyId)
+                                              .setSnapshotId(snapshotId)
+                                              .setVolumeType(AwsVolumeTypeEnum.GP2)
+                                              .setVolumeSize(null)
+                                              .setDynamicVolumeSize(dynamicVolumeSize)
+                                              .build();
+
+        //Build blockDeviceMappings
+        BlockDeviceMapping.Builder blockDeviceMappingBuilder = BlockDeviceMapping.Builder.get();
+        BlockDeviceMapping blockDeviceMapping = blockDeviceMappingBuilder.setDeviceName(deviceName)
+                                                .setEbsDevice(ebsDevice).build();
+        List<BlockDeviceMapping> blockDeviceMappingList = Collections.singletonList(blockDeviceMapping);
+
+        //Build tags
         Tag.Builder tagsBuilder = Tag.Builder.get();
 
         Tag       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("testingSdkOcean").build();
         List<Tag> tagsList = Collections.singletonList(tag1);
 
-
+        //Build iamInstanceProfile
         ClusterIamInstanceProfileSpec.Builder iamInstanceProfileBuilder = ClusterIamInstanceProfileSpec.Builder.get();
-        ClusterIamInstanceProfileSpec iamInstanceProfileSpec = iamInstanceProfileBuilder.setArn(arnRole).build();
 
-        ClusterLaunchSpecification.Builder launchSpecificationBuilder = ClusterLaunchSpecification.Builder.get();
-        ClusterLaunchSpecification launchSpecification =
-                launchSpecificationBuilder.setSecurityGroupIds(securityGroups).setAssociatePublicIpAddress(true)
-                                          .setEbsOptimized(false).setMonitoring(false).setRootVolumeSize(73)
-                                          .setIamInstanceProfile(iamInstanceProfileSpec)
-                                          .setImageId(launchSpecificationImageId).setTags(tagsList).setKeyPair(keyPair)
+        ClusterIamInstanceProfileSpec iamInstanceProfile =
+                iamInstanceProfileBuilder.setArn(arnRole).setName(iamRoleName).build();
+
+        //Build instanceMetadataOptions
+        K8sVngInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder = K8sVngInstanceMetadataOptions.Builder.get();
+        K8sVngInstanceMetadataOptions instanceMetadataOptions = instanceMetadataOptionsBuilder
+                                                                .setHttpPutResponseHopLimit(12)
+                                                                .setHttpTokens(K8sVngHttpTokensEnum.OPTIONAL).build();
+
+        //Build strategy
+        ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
+        ClusterStrategyConfiguration         strategy        = strategyBuilder.setSpotPercentage(70).build();
+
+        //Build Virtual Node Group
+        K8sVirtualNodeGroup.Builder k8sVirtualNodeGroupBuilder = K8sVirtualNodeGroup.Builder.get();
+        K8sVirtualNodeGroup k8sVirtualNodeGroup =
+                k8sVirtualNodeGroupBuilder.setName("Java-SDK-Update")
+                                          .setAssociatePublicIpAddress(false)
+                                          .setAutoScale(autoScale)
+                                          .setBlockDeviceMappings(blockDeviceMappingList)
+                                          .setTags(tagsList)
+                                          .setIamInstanceProfile(iamInstanceProfile)
+                                          .setImageId(imageId)
+                                          .setInstanceMetadataOptions(instanceMetadataOptions)
+                                          .setInstanceTypes(instanceTypes)
+                                          .setOceanId(null)
+                                          .setSpotTypes(preferredSpotTypes)
+                                          .setRestrictScaleDown(false)
+                                          .setRootVolumeSize(null)
+                                          .setSecurityGroupIds(securityGroups)
+                                          .setStrategy(null)
+                                          .setSubnetIds(subnetIds)
+                                          .setUserData(userData)
                                           .build();
 
-        ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
+        K8sVirtualNodeGroupUpdateRequest.Builder updateBuilder = K8sVirtualNodeGroupUpdateRequest.Builder.get();
+        K8sVirtualNodeGroupUpdateRequest         updateRequest = updateBuilder.setVirtualNodeGroup(k8sVirtualNodeGroup).build();
 
-        List<String> whiteList = Arrays.asList("c4.xlarge");
+        //Convert virtual node group to API object json
+        System.out.println(updateRequest.toJson());
 
-        ClusterInstanceTypes instanceTypes = instanceTypesBuilder.setWhitelist(whiteList).build();
+        Boolean successUpdate = client.updateK8sVirtualNodeGroup(updateRequest, launchSpecId);
+        if (successUpdate) {
+            System.out.println("Virtual Node Group Updated Successfully: " + launchSpecId);
+        }
+    }
 
+    private static void deleteVirtualNodeGroup(OceanK8sVirtualNodeGroupClient client, String launchSpecId) {
+        System.out.println("-------------------------start deleting ocean virtual node group------------------------");
+        K8sVirtualNodeGroupDeleteRequest.Builder deletionBuilder = K8sVirtualNodeGroupDeleteRequest.Builder.get();
+        K8sVirtualNodeGroupDeleteRequest         deletionRequest = deletionBuilder.setOceanLaunchSpecId(launchSpecId).build();
 
-        ClusterComputeConfiguration.Builder computeBuilder = ClusterComputeConfiguration.Builder.get();
-        ClusterComputeConfiguration compute =
-                computeBuilder.setInstanceTypes(instanceTypes).setLaunchSpecification(launchSpecification)
-                              .setSubnetIds(subnetIds).build();
-
-        //Build scheduling
-        List<String> timeWindows = Arrays.asList("Mon:12:00-Tue:12:00", "Fri:12:00-Sat:12:00");
-
-        ClusterShutdownHoursSpecification.Builder shutDownSpecBuilder = ClusterShutdownHoursSpecification.Builder.get();
-        ClusterShutdownHoursSpecification shutDownHours =
-                shutDownSpecBuilder.setEnabled(true).setTimeWindows(timeWindows).build();
-
-        ClusterTasksSpecification.Builder tasksBuilder = ClusterTasksSpecification.Builder.get();
-
-        ClusterTasksSpecification task1 =
-                tasksBuilder.setIsEnabled(true).setCronExpression("0 1 * * *").setTaskType("clusterRoll").build();
-        List<ClusterTasksSpecification> tasksList = Collections.singletonList(task1);
-
-        ClusterSchedulingConfiguration.Builder schedulingBuilder = ClusterSchedulingConfiguration.Builder.get();
-        ClusterSchedulingConfiguration scheduling =
-                schedulingBuilder.setShutdownHours(shutDownHours).setTasks(tasksList).build();
-
-        // Build cluster
-        OceanK8sCluster.Builder oceanBuilder = OceanK8sCluster.Builder.get();
-        OceanK8sCluster oceanK8sCluster =
-                oceanBuilder.setName("Java-SDK-Testing").setRegion(region).setControllerClusterId(controllerClusterId)
-                            .setAutoScaler(autoScaler).setStrategy(strategy).setCapacity(capacity).setCompute(compute)
-                            .setScheduling(scheduling).build();
-        // Build cluster creation request
-        K8sClusterCreationRequest.Builder clusterCreationRequestBuilder = K8sClusterCreationRequest.Builder.get();
-        K8sClusterCreationRequest creationRequest               =
-                clusterCreationRequestBuilder.setCluster(oceanK8sCluster).build();
-
-        // Convert cluster to API object json
-        System.out.println(creationRequest.toJson());
-
-        // Create cluster
-        OceanK8sCluster createdCluster = client.createK8sCluster(creationRequest);
-        System.out.println("Cluster successfully created: " + createdCluster.getId());
-
-        return createdCluster.getId();
+        Boolean successfulDeletion = client.deleteK8sVirtualNodeGroup(deletionRequest);
+        if (successfulDeletion) {
+            System.out.println("Virtual Node Group Deleted Successfully: " + launchSpecId);
+        }
     }
 }

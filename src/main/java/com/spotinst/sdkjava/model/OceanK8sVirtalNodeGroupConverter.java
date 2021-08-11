@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.spotinst.sdkjava.enums.K8sVngHttpTokensEnum;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 
@@ -23,8 +24,8 @@ public class OceanK8sVirtalNodeGroupConverter {
 			if (launchSpec.isAssociatePublicIpAddressSet()) {
                 retVal.setAssociatePublicIpAddress(launchSpec.getAssociatePublicIpAddress());
             }
-			if (launchSpec.isHeadroomSet()) {
-                retVal.setHeadroom(toDal(launchSpec.getHeadroom()));
+			if (launchSpec.isAutoScaleSet()) {
+                retVal.setAutoScale(toDal(launchSpec.getAutoScale()));
             }
 			if (launchSpec.isBlockDeviceMappingsSet()) {
 			    if (launchSpec.getBlockDeviceMappings() != null) {
@@ -54,7 +55,7 @@ public class OceanK8sVirtalNodeGroupConverter {
                 }
             }
             if (launchSpec.isInstanceTypesSet()) {
-                retVal.setInstanceTypes(toDal(launchSpec.getInstanceTypes()));
+                retVal.setInstanceTypes(launchSpec.getInstanceTypes());
             }
             if (launchSpec.isOceanIdSet()) {
                 retVal.setOceanId(launchSpec.getOceanId());
@@ -71,8 +72,8 @@ public class OceanK8sVirtalNodeGroupConverter {
             if (launchSpec.isSecurityGroupIdsSet()) {
                 retVal.setSecurityGroupIds(launchSpec.getSecurityGroupIds());
             }
-            if (launchSpec.isSpotPercentageSet()) {
-                retVal.setSpotPercentage(launchSpec.getSpotPercentage());
+            if (launchSpec.isStrategySet()) {
+                retVal.setStrategy(toDal(launchSpec.getStrategy()));
             }
             if (launchSpec.isSubnetIdsSet()) {
                 retVal.setSubnetIds(launchSpec.getSubnetIds());
@@ -83,6 +84,23 @@ public class OceanK8sVirtalNodeGroupConverter {
         }
 
         return retVal;
+    }
+
+    private static ApiVirtualNodeGroupAutoScaleSpec toDal(VirtualNodeGroupAutoScaleSpec autoScaler) {
+        ApiVirtualNodeGroupAutoScaleSpec retval = null;
+
+        if (autoScaler != null) {
+            retval = new ApiVirtualNodeGroupAutoScaleSpec();
+
+            if (autoScaler.isHeadroomSet()) {
+                List<ApiClusterHeadroomSpecification> headrooms =
+                        autoScaler.getHeadrooms().stream().map(OceanK8sVirtalNodeGroupConverter::toDal)
+                                  .collect(Collectors.toList());
+                retval.setHeadrooms(headrooms);
+            }
+        }
+
+        return retval;
     }
 
     private static ApiClusterHeadroomSpecification toDal(ClusterHeadroomSpecification headroom) {
@@ -208,122 +226,142 @@ public class OceanK8sVirtalNodeGroupConverter {
                 retVal.setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
             }
             if(instanceMetadataOptions.isHttpTokensSet()) {
-                retVal.setHttpTokens(instanceMetadataOptions.getHttpTokens());
+                retVal.setHttpTokens(instanceMetadataOptions.getHttpTokens().getName());
             }
         }
 
         return retVal;
     }
 
-    private static ApiClusterInstanceTypes toDal(ClusterInstanceTypes instanceTypes) {
-        ApiClusterInstanceTypes retVal = null;
+    private static ApiClusterStrategyConfiguration toDal (ClusterStrategyConfiguration strategy) {
+        ApiClusterStrategyConfiguration retVal = null;
 
-        if (instanceTypes != null) {
-            retVal = new ApiClusterInstanceTypes();
+        if(strategy != null) {
+            retVal = new ApiClusterStrategyConfiguration();
 
-            if (instanceTypes.isBlacklistSet()) {
-                retVal.setBlacklist(instanceTypes.getBlacklist());
-            }
-            if (instanceTypes.isWhitelistSet()) {
-                retVal.setWhitelist(instanceTypes.getWhitelist());
+            if(strategy.isSpotPercentageSet()) {
+                retVal.setSpotPercentage(strategy.getSpotPercentage());
             }
         }
 
         return retVal;
     }
-
     //Dal-> Bl
     public static K8sVirtualNodeGroup toBl (ApiK8sVirtualNodeGroup apiLaunchSpec) {
         K8sVirtualNodeGroup retVal = null;
 
         if (apiLaunchSpec != null) {
+            K8sVirtualNodeGroup.Builder launchSpecBuilder = K8sVirtualNodeGroup.Builder.get();
+
             if (apiLaunchSpec.isIdSet()) {
-                retVal.setId(apiLaunchSpec.getId());
+                launchSpecBuilder.setId(apiLaunchSpec.getId());
             }
             if (apiLaunchSpec.isNameSet()) {
-                retVal.setName(apiLaunchSpec.getName());
+                launchSpecBuilder.setName(apiLaunchSpec.getName());
             }
             if (apiLaunchSpec.isAssociatePublicIpAddressSet()) {
-                retVal.setAssociatePublicIpAddress(apiLaunchSpec.getAssociatePublicIpAddress());
+                launchSpecBuilder.setAssociatePublicIpAddress(apiLaunchSpec.getAssociatePublicIpAddress());
             }
-            if (apiLaunchSpec.isHeadroomSet()) {
-                retVal.setHeadroom(toBl(apiLaunchSpec.getHeadroom()));
+            if (apiLaunchSpec.isAutoScaleSet()) {
+                launchSpecBuilder.setAutoScale(toBl(apiLaunchSpec.getAutoScale()));
             }
             if (apiLaunchSpec.isBlockDeviceMappingsSet()) {
                 if (apiLaunchSpec.getBlockDeviceMappings() != null) {
                     List<BlockDeviceMapping> blockDeviceList = apiLaunchSpec.getBlockDeviceMappings().stream().map(OceanK8sVirtalNodeGroupConverter::toBl)
                                                                      .collect(Collectors.toList());
-                    retVal.setBlockDeviceMappings(blockDeviceList);
+                    launchSpecBuilder.setBlockDeviceMappings(blockDeviceList);
                 }
             }
             if (apiLaunchSpec.isTagsSet()) {
                 if (apiLaunchSpec.getTags() != null) {
                     List<Tag> tagList = apiLaunchSpec.getTags().stream().map(OceanK8sVirtalNodeGroupConverter::toBl)
                                                      .collect(Collectors.toList());
-                    retVal.setTags(tagList);
+                    launchSpecBuilder.setTags(tagList);
                 }
             }
             if (apiLaunchSpec.isIamInstanceProfileSet()) {
                 if (apiLaunchSpec.getIamInstanceProfile() != null) {
-                    retVal.setIamInstanceProfile(toBl(apiLaunchSpec.getIamInstanceProfile()));
+                    launchSpecBuilder.setIamInstanceProfile(toBl(apiLaunchSpec.getIamInstanceProfile()));
                 }
             }
             if (apiLaunchSpec.isImageIdSet()) {
-                retVal.setImageId(apiLaunchSpec.getImageId());
+                launchSpecBuilder.setImageId(apiLaunchSpec.getImageId());
             }
             if (apiLaunchSpec.isInstanceMetadataOptionsSet()) {
                 if (apiLaunchSpec.getInstanceMetadataOptions() != null) {
-                    retVal.setInstanceMetadataOptions(toBl(apiLaunchSpec.getInstanceMetadataOptions()));
+                    launchSpecBuilder.setInstanceMetadataOptions(toBl(apiLaunchSpec.getInstanceMetadataOptions()));
                 }
             }
             if (apiLaunchSpec.isInstanceTypesSet()) {
-                retVal.setInstanceTypes(toBl(apiLaunchSpec.getInstanceTypes()));
+                launchSpecBuilder.setInstanceTypes(apiLaunchSpec.getInstanceTypes());
             }
             if (apiLaunchSpec.isOceanIdSet()) {
-                retVal.setOceanId(apiLaunchSpec.getOceanId());
+                launchSpecBuilder.setOceanId(apiLaunchSpec.getOceanId());
             }
             if (apiLaunchSpec.isSpotTypesSet()) {
-                retVal.setSpotTypes(apiLaunchSpec.getSpotTypes());
+                launchSpecBuilder.setSpotTypes(apiLaunchSpec.getSpotTypes());
             }
             if (apiLaunchSpec.isRestrictScaleDownSet()) {
-                retVal.setRestrictScaleDown(apiLaunchSpec.getRestrictScaleDown());
+                launchSpecBuilder.setRestrictScaleDown(apiLaunchSpec.getRestrictScaleDown());
             }
             if (apiLaunchSpec.isRootVolumeSizeSet()) {
-                retVal.setRootVolumeSize(apiLaunchSpec.getRootVolumeSize());
+                launchSpecBuilder.setRootVolumeSize(apiLaunchSpec.getRootVolumeSize());
             }
             if (apiLaunchSpec.isSecurityGroupIdsSet()) {
-                retVal.setSecurityGroupIds(apiLaunchSpec.getSecurityGroupIds());
+                launchSpecBuilder.setSecurityGroupIds(apiLaunchSpec.getSecurityGroupIds());
             }
-            if (apiLaunchSpec.isSpotPercentageSet()) {
-                retVal.setSpotPercentage(apiLaunchSpec.getSpotPercentage());
+            if (apiLaunchSpec.isStrategySet()) {
+                launchSpecBuilder.setStrategy(toBl(apiLaunchSpec.getStrategy()));
             }
             if (apiLaunchSpec.isSubnetIdsSet()) {
-                retVal.setSubnetIds(apiLaunchSpec.getSubnetIds());
+                launchSpecBuilder.setSubnetIds(apiLaunchSpec.getSubnetIds());
             }
             if (apiLaunchSpec.isUserDataSet()) {
-                retVal.setUserData(apiLaunchSpec.getUserData());
+                launchSpecBuilder.setUserData(apiLaunchSpec.getUserData());
             }
+
+            retVal = launchSpecBuilder.build();
         }
 
         return retVal;
     }
 
+    private static VirtualNodeGroupAutoScaleSpec toBl(ApiVirtualNodeGroupAutoScaleSpec autoScaler) {
+        VirtualNodeGroupAutoScaleSpec retval = null;
+
+        if (autoScaler != null) {
+            VirtualNodeGroupAutoScaleSpec.Builder autoScaleBuilder = VirtualNodeGroupAutoScaleSpec.Builder.get();
+
+            if (autoScaler.isHeadroomSet()) {
+                List<ClusterHeadroomSpecification> headrooms =
+                        autoScaler.getHeadrooms().stream().map(OceanK8sVirtalNodeGroupConverter::toBl)
+                                  .collect(Collectors.toList());
+                autoScaleBuilder.setHeadrooms(headrooms);
+            }
+            retval = autoScaleBuilder.build();
+        }
+        return retval;
+    }
+
     private static ClusterHeadroomSpecification toBl(ApiClusterHeadroomSpecification apiHeadroom) {
         ClusterHeadroomSpecification retVal = null;
         if (apiHeadroom != null) {
+            ClusterHeadroomSpecification.Builder headroomBuilder = ClusterHeadroomSpecification.Builder.get();
 
             if (apiHeadroom.isCpuPerUnitSet()) {
-                retVal.setCpuPerUnit(apiHeadroom.getCpuPerUnit());
+                headroomBuilder.setCpuPerUnit(apiHeadroom.getCpuPerUnit());
             }
             if (apiHeadroom.isMemoryPerUnitSet()) {
-                retVal.setMemoryPerUnit(apiHeadroom.getMemoryPerUnit());
+                headroomBuilder.setMemoryPerUnit(apiHeadroom.getMemoryPerUnit());
             }
             if (apiHeadroom.isGpuPerUnitSet()) {
-                retVal.setGpuPerUnit(apiHeadroom.getGpuPerUnit());
+                headroomBuilder.setGpuPerUnit(apiHeadroom.getGpuPerUnit());
             }
             if (apiHeadroom.isNumOfUnitsSet()) {
-                retVal.setNumOfUnits(apiHeadroom.getNumOfUnits());
+                headroomBuilder.setNumOfUnits(apiHeadroom.getNumOfUnits());
             }
+
+            retVal = headroomBuilder.build();
         }
         return retVal;
     }
@@ -331,12 +369,16 @@ public class OceanK8sVirtalNodeGroupConverter {
     private static BlockDeviceMapping toBl (ApiBlockDevice apiBlockDeviceMapping) {
         BlockDeviceMapping retVal = null;
         if (apiBlockDeviceMapping != null) {
+            BlockDeviceMapping.Builder blockDeviceMappingBuilder = BlockDeviceMapping.Builder.get();
+
             if (apiBlockDeviceMapping.isDeviceNameSet()) {
-                retVal.setDeviceName(apiBlockDeviceMapping.getDeviceName());
+                blockDeviceMappingBuilder.setDeviceName(apiBlockDeviceMapping.getDeviceName());
             }
             if (apiBlockDeviceMapping.isEbsSet()) {
-                retVal.setEbsDevice(toBl(apiBlockDeviceMapping.getEbs()));
+                blockDeviceMappingBuilder.setEbsDevice(toBl(apiBlockDeviceMapping.getEbs()));
             }
+
+            retVal = blockDeviceMappingBuilder.build();
         }
         return retVal;
     }
@@ -344,33 +386,37 @@ public class OceanK8sVirtalNodeGroupConverter {
     private static EbsDevice toBl (ApiEbsDevice apiEbsDevice) {
         EbsDevice retVal = null;
         if (apiEbsDevice != null) {
+            EbsDevice.Builder ebsDeviceBuilder = EbsDevice.Builder.get();
+
             if (apiEbsDevice.isDeleteOnTerminationSet()) {
-                retVal.setDeleteOnTermination(apiEbsDevice.getDeleteOnTermination());
+                ebsDeviceBuilder.setDeleteOnTermination(apiEbsDevice.getDeleteOnTermination());
             }
             if (apiEbsDevice.isDynamicVolumeSizeSet()) {
-                retVal.setDynamicVolumeSize(toBl(apiEbsDevice.getDynamicVolumeSize()));
+                ebsDeviceBuilder.setDynamicVolumeSize(toBl(apiEbsDevice.getDynamicVolumeSize()));
             }
             if (apiEbsDevice.isEncryptedSet()) {
-                retVal.setEncrypted(apiEbsDevice.getEncrypted());
+                ebsDeviceBuilder.setEncrypted(apiEbsDevice.getEncrypted());
             }
             if (apiEbsDevice.isIopsSet()) {
-                retVal.setIops(apiEbsDevice.getIops());
+                ebsDeviceBuilder.setIops(apiEbsDevice.getIops());
             }
             if (apiEbsDevice.isMsKeyIdSet()) {
-                retVal.setKmsKeyId(apiEbsDevice.getKmsKeyId());
+                ebsDeviceBuilder.setKmsKeyId(apiEbsDevice.getKmsKeyId());
             }
             if (apiEbsDevice.isSnapshotIdSet()) {
-                retVal.setSnapshotId(apiEbsDevice.getSnapshotId());
+                ebsDeviceBuilder.setSnapshotId(apiEbsDevice.getSnapshotId());
             }
             if (apiEbsDevice.isThroughputSet()) {
-                retVal.setThroughput(apiEbsDevice.getThroughput());
+                ebsDeviceBuilder.setThroughput(apiEbsDevice.getThroughput());
             }
             if (apiEbsDevice.isVolumeSizeSet()) {
-                retVal.setVolumeSize(apiEbsDevice.getVolumeSize());
+                ebsDeviceBuilder.setVolumeSize(apiEbsDevice.getVolumeSize());
             }
             if (apiEbsDevice.isVolumeTypeSet()) {
-                retVal.setVolumeType(AwsVolumeTypeEnum.fromName(apiEbsDevice.getVolumeType()));
+                ebsDeviceBuilder.setVolumeType(AwsVolumeTypeEnum.fromName(apiEbsDevice.getVolumeType()));
             }
+
+            retVal = ebsDeviceBuilder.build();
         }
         return retVal;
     }
@@ -378,15 +424,19 @@ public class OceanK8sVirtalNodeGroupConverter {
     private static ClusterDynamicVolumeSize toBl (ApiClusterDynamicVolumeSize apiDynamicVolumeSize) {
         ClusterDynamicVolumeSize retVal = null;
         if (apiDynamicVolumeSize != null) {
+            ClusterDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = ClusterDynamicVolumeSize.Builder.get();
+
             if (apiDynamicVolumeSize.isBaseSizeSet()) {
-                retVal.setBaseSize(apiDynamicVolumeSize.getBaseSize());
+                dynamicVolumeSizeBuilder.setBaseSize(apiDynamicVolumeSize.getBaseSize());
             }
             if (apiDynamicVolumeSize.isResourceSet()) {
-                retVal.setResource(apiDynamicVolumeSize.getResource());
+                dynamicVolumeSizeBuilder.setResource(apiDynamicVolumeSize.getResource());
             }
             if (apiDynamicVolumeSize.isSizePerResourceUnitSet()) {
-                retVal.setSizePerResourceUnit(apiDynamicVolumeSize.getSizePerResourceUnit());
+                dynamicVolumeSizeBuilder.setSizePerResourceUnit(apiDynamicVolumeSize.getSizePerResourceUnit());
             }
+
+            retVal = dynamicVolumeSizeBuilder.build();
         }
         return retVal;
     }
@@ -408,39 +458,46 @@ public class OceanK8sVirtalNodeGroupConverter {
         ClusterIamInstanceProfileSpec retVal = null;
 
         if (iamInstanceProfileSpec != null) {
+            ClusterIamInstanceProfileSpec.Builder iamInstanceProfileSpecBuilder = ClusterIamInstanceProfileSpec.Builder.get();
             if (iamInstanceProfileSpec.isArnSet()) {
-                retVal.setArn(iamInstanceProfileSpec.getArn());
+                iamInstanceProfileSpecBuilder.setArn(iamInstanceProfileSpec.getArn());
             }
+
+            retVal = iamInstanceProfileSpecBuilder.build();
         }
 
         return retVal;
     }
 
-    private static K8sVngInstanceMetadataOptions toBl (ApiK8sVngInstanceMetadataOptions ApiInstanceMetadataOptions) {
+    private static K8sVngInstanceMetadataOptions toBl (ApiK8sVngInstanceMetadataOptions apiInstanceMetadataOptions) {
         K8sVngInstanceMetadataOptions retVal = null;
 
-        if (ApiInstanceMetadataOptions != null) {
-            if(ApiInstanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
-                retVal.setHttpPutResponseHopLimit(ApiInstanceMetadataOptions.getHttpPutResponseHopLimit());
+        if (apiInstanceMetadataOptions != null) {
+            K8sVngInstanceMetadataOptions.Builder vngInstanceMetadataOptions = K8sVngInstanceMetadataOptions.Builder.get();
+
+            if(apiInstanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
+                vngInstanceMetadataOptions.setHttpPutResponseHopLimit(apiInstanceMetadataOptions.getHttpPutResponseHopLimit());
             }
-            if(ApiInstanceMetadataOptions.isHttpTokensSet()) {
-                retVal.setHttpTokens(ApiInstanceMetadataOptions.getHttpTokens());
+            if(apiInstanceMetadataOptions.isHttpTokensSet()) {
+                vngInstanceMetadataOptions.setHttpTokens(K8sVngHttpTokensEnum.fromName(apiInstanceMetadataOptions.getHttpTokens()));
             }
+
+            retVal = vngInstanceMetadataOptions.build();
         }
 
         return retVal;
     }
 
-    private static ClusterInstanceTypes toBl(ApiClusterInstanceTypes apiInstanceTypes) {
-        ClusterInstanceTypes retVal = null;
+    private static ClusterStrategyConfiguration toBl (ApiClusterStrategyConfiguration apiStrategy) {
+        ClusterStrategyConfiguration retVal = null;
 
-        if (apiInstanceTypes != null) {
-            if (apiInstanceTypes.isBlacklistSet()) {
-                retVal.setBlacklist(apiInstanceTypes.getBlacklist());
+        if(apiStrategy != null) {
+            ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
+            if(apiStrategy.isSpotPercentageSet()) {
+                strategyBuilder.setSpotPercentage(apiStrategy.getSpotPercentage());
             }
-            if (apiInstanceTypes.isWhitelistSet()) {
-                retVal.setWhitelist(apiInstanceTypes.getWhitelist());
-            }
+
+            retVal = strategyBuilder.build();
         }
 
         return retVal;
