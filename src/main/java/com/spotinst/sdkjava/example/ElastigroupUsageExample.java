@@ -117,6 +117,11 @@ public class ElastigroupUsageExample {
 
         // Get Deleted Elastigroup
         getAllElastigroupsIncludeDeleted(elastigroupClient);
+
+        // Lock/Unlock Instance
+        lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "LOCK");
+        lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "UNLOCK");
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -687,6 +692,33 @@ public class ElastigroupUsageExample {
 
         if (updateSuccess) {
             System.out.println("Group successfully exited standby mode.");
+        }
+    }
+
+    private static void lockUnlockInstance(SpotinstElastigroupClient client, String accountId, Integer ttlInMinutes, String instanceId, String Operation) {
+
+        Boolean success = false;
+
+        // Build lock/unlock request
+        ElastigroupInstanceLockUnlockRequest.Builder elastigroupLockUnlockRequestBuilder = ElastigroupInstanceLockUnlockRequest.Builder.get();
+
+        elastigroupLockUnlockRequestBuilder.setAccountId(accountId);
+        elastigroupLockUnlockRequestBuilder.setTtlInMinutes(ttlInMinutes);
+        ElastigroupInstanceLockUnlockRequest request = elastigroupLockUnlockRequestBuilder.build();
+
+        if(Operation == "LOCK") {
+            success = client.lockInstance(request, instanceId);
+        }
+
+        if(Operation == "UNLOCK") {
+            success = client.unlockInstance(request, instanceId);
+        }
+
+        if (success) {
+            System.out.println("Elastigroup Instance Lock/Unlock request succeeded");
+        }
+        else {
+            System.out.println("Elastigroup Instance Lock/Unlock request failed");
         }
     }
 
