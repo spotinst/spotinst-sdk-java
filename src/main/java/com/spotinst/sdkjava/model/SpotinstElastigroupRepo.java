@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -308,7 +310,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequest lockRequest,
                                                      String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -324,7 +326,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
                                                        String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
 

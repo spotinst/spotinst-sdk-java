@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -699,26 +701,27 @@ public class ElastigroupUsageExample {
 
         Boolean success = false;
 
-        // Build lock/unlock request
-        ElastigroupInstanceLockUnlockRequest.Builder elastigroupLockUnlockRequestBuilder = ElastigroupInstanceLockUnlockRequest.Builder.get();
-
-        elastigroupLockUnlockRequestBuilder.setAccountId(accountId);
-        elastigroupLockUnlockRequestBuilder.setTtlInMinutes(ttlInMinutes);
-        ElastigroupInstanceLockUnlockRequest request = elastigroupLockUnlockRequestBuilder.build();
-
         if(Operation == "LOCK") {
+            // Build lock request
+            ElastigroupInstanceLockRequest.Builder elastigroupLockRequestBuilder = ElastigroupInstanceLockRequest.Builder.get();
+            ElastigroupInstanceLockRequest request =  elastigroupLockRequestBuilder.setAccountId(accountId)
+                                                            .setTtlInMinutes(ttlInMinutes).build();
+
             success = client.lockInstance(request, instanceId);
         }
+        else if(Operation == "UNLOCK") {
+            // Build unlock request
+            ElastigroupInstanceUnLockRequest.Builder elastigroupUnLockRequestBuilder = ElastigroupInstanceUnLockRequest.Builder.get();
+            ElastigroupInstanceUnLockRequest request = elastigroupUnLockRequestBuilder.setAccountId(accountId).build();
 
-        if(Operation == "UNLOCK") {
             success = client.unlockInstance(request, instanceId);
         }
 
         if (success) {
-            System.out.println("Elastigroup Instance Lock/Unlock request succeeded");
+            System.out.println(String.format("Elastigroup Instance %s request succeeded", Operation));
         }
         else {
-            System.out.println("Elastigroup Instance Lock/Unlock request failed");
+            System.out.println(String.format("Elastigroup Instance %s request failed", Operation));
         }
     }
 
