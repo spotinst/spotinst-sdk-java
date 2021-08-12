@@ -15,6 +15,7 @@ public class ApiClusterStrategyConfiguration {
     private Boolean     utilizeReservedInstances;
     private Integer     drainingTimeout;
     private Integer     spotPercentage;
+    private Boolean     utilizeCommitments;
 
     public ApiClusterStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -44,6 +45,15 @@ public class ApiClusterStrategyConfiguration {
     public void setUtilizeReservedInstances(Boolean utilizeReservedInstances) {
         isSet.add("utilizeReservedInstances");
         this.utilizeReservedInstances = utilizeReservedInstances;
+    }
+
+    public Boolean getUtilizeCommitments(){
+        return utilizeCommitments;
+    }
+
+    public void setUtilizeCommitments(Boolean utilizeCommitments){
+        isSet.add("utilizeCommitments");
+        this.utilizeCommitments = utilizeCommitments;
     }
 
     public Boolean getFallbackToOd() {
@@ -77,6 +87,11 @@ public class ApiClusterStrategyConfiguration {
     @JsonIgnore
     public boolean isUtilizeReservedInstancesSet() {
         return isSet.contains("utilizeReservedInstances");
+    }
+
+    @JsonIgnore
+    public boolean isUtilizeCommitments() {
+        return isSet.contains("utilizeCommitments");
     }
 
     @JsonIgnore

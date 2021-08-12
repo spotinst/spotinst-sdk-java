@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +10,9 @@ public class ClusterComputeConfiguration {
     @JsonIgnore
     private Set<String>                       isSet;
     private List<String>                      subnetIds;
-    private ClusterOptimizeImageConfiguration optimizeImage;
+    private ClusterOptimizeImageConfiguration optimizeImages;
     private ClusterLaunchSpecification        launchSpecification;
+    private ClusterInstanceTypes              instanceTypes;
 
     private ClusterComputeConfiguration() {
         isSet = new HashSet<>();
@@ -44,13 +44,22 @@ public class ClusterComputeConfiguration {
         this.launchSpecification = launchSpecification;
     }
 
-    public ClusterOptimizeImageConfiguration getOptimizeImage() {
-        return optimizeImage;
+    public ClusterInstanceTypes getInstanceTypes() {
+        return instanceTypes;
     }
 
-    public void setOptimizeImage(ClusterOptimizeImageConfiguration optimizeImage) {
-        isSet.add("optimizeImage");
-        this.optimizeImage = optimizeImage;
+    public void setInstanceTypes(ClusterInstanceTypes instanceTypes) {
+        isSet.add("instanceTypes");
+        this.instanceTypes = instanceTypes;
+    }
+
+    public ClusterOptimizeImageConfiguration getOptimizeImage() {
+        return optimizeImages;
+    }
+
+    public void setOptimizeImages(ClusterOptimizeImageConfiguration optimizeImage) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImage;
     }
 
     public static class Builder {
@@ -70,13 +79,18 @@ public class ClusterComputeConfiguration {
             return this;
         }
 
-        public Builder setOptimizeImage(final ClusterOptimizeImageConfiguration optimizeImage) {
-            compute.setOptimizeImage(optimizeImage);
+        public Builder setOptimizeImages(final ClusterOptimizeImageConfiguration optimizeImages) {
+            compute.setOptimizeImages(optimizeImages);
             return this;
         }
 
         public Builder setLaunchSpecification(final ClusterLaunchSpecification launchSpecification) {
             compute.setLaunchSpecification(launchSpecification);
+            return this;
+        }
+
+        public Builder setInstanceTypes(final ClusterInstanceTypes instanceTypes) {
+            compute.setInstanceTypes(instanceTypes);
             return this;
         }
 
@@ -92,8 +106,13 @@ public class ClusterComputeConfiguration {
     }
 
     @JsonIgnore
-    public boolean isOptimizeImageSet() {
-        return isSet.contains("optimizeImage");
+    public boolean isInstanceTypesSet() {
+        return isSet.contains("instanceTypes");
+    }
+
+    @JsonIgnore
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
     }
 
     @JsonIgnore

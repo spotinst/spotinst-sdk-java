@@ -17,14 +17,14 @@ public class ApiClusterOptimizeImageConfiguration {
         isSet = new HashSet<>();
     }
 
-    public Set<String> getIsSet() {
+   /* public Set<String> getIsSet() {
         return isSet;
     }
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
+*/
 
     public Boolean getShouldOptimizeEcsAmi() {
         return shouldOptimizeEcsAmi;
@@ -55,7 +55,7 @@ public class ApiClusterOptimizeImageConfiguration {
 
     @JsonIgnore
     public boolean isShouldOptimizeEcsAmiSet() {
-        return isSet.contains("isEnabled");
+        return isSet.contains("shouldOptimizeEcsAmi");
     }
 
     @JsonIgnore

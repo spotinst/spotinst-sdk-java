@@ -19,8 +19,9 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                          isSet;
     private List<String>                         subnetIds;
-    private ApiClusterOptimizeImageConfiguration optimizeImage;
+    private ApiClusterOptimizeImageConfiguration optimizeImages;
     private ApiClusterLaunchSpecification        launchSpecification;
+    private ApiClusterInstanceTypes              instanceTypes;
 
     public ApiClusterComputeConfiguration() {
         isSet = new HashSet<>();
@@ -52,15 +53,23 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
         this.launchSpecification = launchSpecification;
     }
 
-    public ApiClusterOptimizeImageConfiguration getOptimizeImage() {
-        return optimizeImage;
+    public ApiClusterInstanceTypes getInstanceTypes() {
+        return instanceTypes;
     }
 
-    public void setOptimizeImage(ApiClusterOptimizeImageConfiguration optimizeImage) {
-        isSet.add("optimizeImage");
-        this.optimizeImage = optimizeImage;
+    public void setInstanceTypes(ApiClusterInstanceTypes instanceTypes) {
+        isSet.add("instanceTypes");
+        this.instanceTypes = instanceTypes;
     }
 
+    public ApiClusterOptimizeImageConfiguration getOptimizeImages() {
+        return optimizeImages;
+    }
+
+    public void setOptimizeImages(ApiClusterOptimizeImageConfiguration optimizeImages) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImages;
+    }
 
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
@@ -68,8 +77,13 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isOptimizeImageSet() {
-        return isSet.contains("optimizeImage");
+    public boolean isInstanceTypesSet() {
+        return isSet.contains("instanceTypes");
+    }
+
+    @JsonIgnore
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
     }
 
     @JsonIgnore

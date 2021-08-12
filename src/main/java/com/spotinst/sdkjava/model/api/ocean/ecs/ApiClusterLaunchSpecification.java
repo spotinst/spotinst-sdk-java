@@ -31,6 +31,8 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private List<ApiLaunchSpecTagsSpecification> tags;
     private String                               userData;
     private String                               id;
+    private String                               keyPair;
+    private Boolean                              associatePublicIpAddress;
 
     public ApiClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -134,6 +136,15 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.restrictScaleDown = restrictScaleDown;
     }
 
+    public Boolean getAssociatePublicIpAddress() {
+        return associatePublicIpAddress;
+    }
+
+    public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
+        isSet.add("associatePublicIpAddress");
+        this.associatePublicIpAddress = associatePublicIpAddress;
+    }
+
     public List<String> getSecurityGroupIds() {
         return securityGroupIds;
     }
@@ -168,6 +179,15 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     public void setUserData(String userData) {
         isSet.add("userData");
         this.userData = userData;
+    }
+
+    public String getKeyPair() {
+        return keyPair;
+    }
+
+    public void setKeypair(String keyPair) {
+        isSet.add("keyPair");
+        this.keyPair = keyPair;
     }
 
     public String getId() {
@@ -253,5 +273,16 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     public boolean isUserDataSet() {
         return isSet.contains("userData");
     }
+
+    @JsonIgnore
+    public boolean isKeyPairSet() {
+        return isSet.contains("keyPair");
+    }
+
+    @JsonIgnore
+    public boolean isAssociatePublicIpAddressSet() {
+        return isSet.contains("associatePublicIpAddress");
+    }
+
 }
 

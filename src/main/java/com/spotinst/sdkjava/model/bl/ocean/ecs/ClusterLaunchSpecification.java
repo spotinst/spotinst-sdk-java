@@ -24,6 +24,8 @@ public class ClusterLaunchSpecification {
     private List<LaunchSpecTagsSpecification>         tags;
     private String                                    userData;
     private String                                    id;
+    private String                                    keyPair;
+    private Boolean                                   associatePublicIpAddress;
 
     private ClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -163,6 +165,24 @@ public class ClusterLaunchSpecification {
         this.userData = userData;
     }
 
+    public String getKeyPair() {
+        return keyPair;
+    }
+
+    public void setKeyPair(String keyPair) {
+        isSet.add("keyPair");
+        this.keyPair = keyPair;
+    }
+
+    public Boolean getAssociatePublicIpAddress() {
+        return associatePublicIpAddress;
+    }
+
+    public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
+        isSet.add("associatePublicIpAddress");
+        this.associatePublicIpAddress = associatePublicIpAddress;
+    }
+
     public String getId() {
         return id;
     }
@@ -247,6 +267,16 @@ public class ClusterLaunchSpecification {
 
         public Builder setUserData(final String userData) {
             launchspec.setUserData(userData);
+            return this;
+        }
+
+        public Builder setKeyPair(final String keyPair){
+            launchspec.setKeyPair(keyPair);
+            return this;
+        }
+
+        public Builder setAssociatePublicIpAddress(final Boolean associatePublicIpAddress) {
+            launchspec.setAssociatePublicIpAddress(associatePublicIpAddress);
             return this;
         }
 
@@ -339,5 +369,11 @@ public class ClusterLaunchSpecification {
     public boolean isUserDataSet() {
         return isSet.contains("userData");
     }
-}
 
+    @JsonIgnore
+    public boolean isKeyPairSet() { return isSet.contains("keyPair"); }
+
+    @JsonIgnore
+    public boolean isAssociatePublicIpAddressSet() { return isSet.contains("associatePublicIpAddress"); }
+
+}
