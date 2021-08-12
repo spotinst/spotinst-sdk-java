@@ -11,15 +11,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class OceanEcsClusterUsageExample {
-    private final static String         auth_token                  = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
-    private final static String         act_id                      = "act-7c46c6df";
-    private final static String         image_id                    = "ami-082b5a644766e0e6f";
-    private final static String         region                      = "us-west-2";
-    private final static String         keyPair                     = "AutomationKeyPair";
-    private final static List<String>   securityGroups              = Arrays.asList("sg-a22000e8");
-    private final static List<String>   subnetIds                   = Arrays.asList("subnet-4333093a", "subnet-8ab89cc1", "subnet-42f1e418");
-    private final static String         userData                    = "dXNlcmJhc2g2NGVuY29kZWQ=";
-    private final static List<String>   whiteListInstanceTypes      = Arrays.asList("t3.medium", "m4.xlarge", "m4.2xlarge");
+    private final static String         auth_token                  = "auth_token";
+    private final static String         act_id                      = "act_id";
+    private final static String         image_id                    = "ami-123";
+    private final static String         region                      = "region";
+    private final static String         keyPair                     = "keyPair";
+    private final static List<String>   securityGroups              = Arrays.asList("sg-1");
+    private final static List<String>   subnetIds                   = Arrays.asList("subnet-1", "subnet-2");
+    private final static List<String>   whiteListInstanceTypes      = Arrays.asList("type1", "type2", "type3");
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -58,7 +57,7 @@ public class OceanEcsClusterUsageExample {
 
       //Build Attributes
        ClusterAttributes.Builder    attributesBuilder1 = ClusterAttributes.Builder.get();
-       ClusterAttributes            attributes        = attributesBuilder1.setKey("creator").setValue("bansiben@netapp.com").build();
+       ClusterAttributes            attributes        = attributesBuilder1.setKey("key2").setValue("value2").build();
 
       // Build down
       ClusterDownSpecification.Builder downSpecBuilder = ClusterDownSpecification.Builder.get();
@@ -90,7 +89,7 @@ public class OceanEcsClusterUsageExample {
 
        LaunchSpecIamInstanceProfileSpecification.Builder iamInstanceProfileBuilder = LaunchSpecIamInstanceProfileSpecification.Builder.get();
        LaunchSpecIamInstanceProfileSpecification iamInstanceProfile        =
-               iamInstanceProfileBuilder.setArn("arn:aws:iam::842422002533:instance-profile/ecsInstanceRole").build();
+               iamInstanceProfileBuilder.setArn("arn:aws:iam::abc1234").build();
 
        //Build tags
        LaunchSpecTagsSpecification.Builder tagBuilder = LaunchSpecTagsSpecification.Builder.get();
@@ -124,7 +123,7 @@ public class OceanEcsClusterUsageExample {
        // Build launch specification
        ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
        ClusterLaunchSpecification launchSpec = launchSpecBuilder.setImageId(image_id)
-                                                                .setUserData(userData)
+                                                                .setUserData("dXNlcmJhc2g2NGVuY29kZWQ=")
                                                                 .setKeyPair(keyPair)
                                                                 .setSecurityGroupIds(securityGroups)
                                                                 .setInstanceMetadataOptions(instanceMetadataOptions)
@@ -229,7 +228,7 @@ public class OceanEcsClusterUsageExample {
 
         //Build Attributes
         ClusterAttributes.Builder    attributesBuilder1 = ClusterAttributes.Builder.get();
-        ClusterAttributes            attributes        = attributesBuilder1.setKey("creator").setValue("bansi").build();
+        ClusterAttributes            attributes        = attributesBuilder1.setKey("key1").setValue("value1").build();
 
         // Build down
         ClusterDownSpecification.Builder downSpecBuilder = ClusterDownSpecification.Builder.get();
@@ -279,7 +278,7 @@ public class OceanEcsClusterUsageExample {
         // Build launch specification
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
         ClusterLaunchSpecification launchSpec = launchSpecBuilder.setImageId(image_id)
-                                                                 .setUserData(userData)
+                                                                 .setUserData("dXNlcmJhc2g2NGVuY29kZWQ=")
                                                                  .setKeyPair(keyPair)
                                                                  .setSecurityGroupIds(securityGroups)
                                                                  .setInstanceMetadataOptions(instanceMetadataOptions)
