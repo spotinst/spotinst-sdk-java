@@ -6,6 +6,8 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -241,7 +243,7 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest, String instanceId) {
+    public Boolean lockInstance(ElastigroupInstanceLockRequest lockRequest, String instanceId) {
 
         Boolean retVal = false;
 
@@ -262,7 +264,7 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest, String instanceId) {
+    public Boolean unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest, String instanceId) {
 
         Boolean retVal = false;
 
