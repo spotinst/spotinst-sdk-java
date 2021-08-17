@@ -5,6 +5,8 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -378,7 +380,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+    public static Boolean lockInstance(ElastigroupInstanceLockRequest lockRequest,
                                        String authToken, String instanceId) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = false;
@@ -412,8 +414,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
-                                       String authToken, String instanceId) throws SpotinstHttpException {
+    public static Boolean unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
+                                         String authToken, String instanceId) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = false;
 
@@ -426,7 +428,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Add account Id Query param
         queryParams.put("accountId", unlockRequest.getAccountId());
-        queryParams.put("ttlInMinutes", unlockRequest.getTtlInMinutes().toString());
 
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);

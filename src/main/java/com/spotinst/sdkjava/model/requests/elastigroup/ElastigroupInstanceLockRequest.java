@@ -1,6 +1,6 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.requests.elastigroup;
 
-public class ElastigroupInstanceLockUnlockRequest {
+public class ElastigroupInstanceLockRequest {
     //region Members
     private String accountId;
     private Integer ttlInMinutes;
@@ -8,7 +8,7 @@ public class ElastigroupInstanceLockUnlockRequest {
 
     //region Private Constructor
 
-    private ElastigroupInstanceLockUnlockRequest() {
+    private ElastigroupInstanceLockRequest() {
     }
 
     //endregion
@@ -30,31 +30,32 @@ public class ElastigroupInstanceLockUnlockRequest {
     public void setTtlInMinutes(Integer ttlValue) {
         this.ttlInMinutes = ttlValue;
     }
+    //endregion
 
     //Builder class
     public static class Builder {
-        private ElastigroupInstanceLockUnlockRequest elastigroupInstanceLockUnlockRequest;
+        private ElastigroupInstanceLockRequest elastigroupInstanceLockUnlockRequest;
 
         private Builder() {
-            this.elastigroupInstanceLockUnlockRequest = new ElastigroupInstanceLockUnlockRequest();
+            this.elastigroupInstanceLockUnlockRequest = new ElastigroupInstanceLockRequest();
         }
 
-        public static ElastigroupInstanceLockUnlockRequest.Builder get() {
-            ElastigroupInstanceLockUnlockRequest.Builder builder = new ElastigroupInstanceLockUnlockRequest.Builder();
+        public static ElastigroupInstanceLockRequest.Builder get() {
+            ElastigroupInstanceLockRequest.Builder builder = new ElastigroupInstanceLockRequest.Builder();
             return builder;
         }
 
-        public ElastigroupInstanceLockUnlockRequest.Builder setAccountId(final String accountId) {
+        public ElastigroupInstanceLockRequest.Builder setAccountId(final String accountId) {
             elastigroupInstanceLockUnlockRequest.setAccountId(accountId);
             return this;
         }
 
-        public ElastigroupInstanceLockUnlockRequest.Builder setTtlInMinutes(final Integer ttlValue) {
+        public ElastigroupInstanceLockRequest.Builder setTtlInMinutes(final Integer ttlValue) {
             elastigroupInstanceLockUnlockRequest.setTtlInMinutes(ttlValue);
             return this;
         }
 
-        public ElastigroupInstanceLockUnlockRequest build() {
+        public ElastigroupInstanceLockRequest build() {
             return elastigroupInstanceLockUnlockRequest;
         }
     }
