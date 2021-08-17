@@ -1,6 +1,9 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
@@ -8,7 +11,8 @@ import java.util.HashSet;
 /**
  * Created by Bansi Chapla on 20/07/2021.
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OceanEcsCluster {
 
     @JsonIgnore
