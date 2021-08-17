@@ -1,28 +1,32 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
-public class ManagedInstance {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ManagedInstance implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
     private Set<String>     isSet;
     private Compute         compute;
     private String          description;
-    private HealthCheck healthCheck;
+    private HealthCheck     healthCheck;
     private Integrations    integrations;
     private String          name;
-    private Persistence persistence;
+    private Persistence     persistence;
     private String          region;
     private Scheduling      scheduling;
     private Strategy        strategy;
+    private String          id;
 
     //endregion
 
@@ -123,6 +127,15 @@ public class ManagedInstance {
         this.strategy = strategy;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
+    }
+
     //endregion
 
     //region Builder class
@@ -180,6 +193,11 @@ public class ManagedInstance {
 
         public Builder setStrategy(final Strategy strategy) {
             managedInstance.setStrategy(strategy);
+            return this;
+        }
+
+        public Builder setId(final String id) {
+            managedInstance.setId(id);
             return this;
         }
 
@@ -243,6 +261,11 @@ public class ManagedInstance {
     @JsonIgnore
     public boolean isStrategySet() {
         return isSet.contains("strategy");
+    }
+
+    @JsonIgnore
+    public boolean isIdSet() {
+        return isSet.contains("id");
     }
     //endregion
 

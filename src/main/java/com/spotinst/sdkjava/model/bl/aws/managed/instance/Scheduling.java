@@ -1,15 +1,15 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Scheduling {
 
     //region Members
@@ -35,7 +35,7 @@ public class Scheduling {
         this.isSet = isSet;
     }
 
-    public List<Tasks> tasks() {
+    public List<Tasks> getTasks() {
         return tasks;
     }
 

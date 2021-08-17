@@ -1,21 +1,21 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Integrations {
 
     //region Members
     @JsonIgnore
     private Set<String>             isSet;
     private LoadBalancersConfig     loadBalancersConfig;
-    private Route53 route53;
+    private Route53                 route53;
 
     //endregion
 
@@ -88,7 +88,7 @@ public class Integrations {
     //region isSet methods
     // Is loadBalancersConfig Set boolean method
     @JsonIgnore
-    public boolean isLoadBalancersConfig() {
+    public boolean isLoadBalancersConfigSet() {
         return isSet.contains("loadBalancersConfig");
     }
 

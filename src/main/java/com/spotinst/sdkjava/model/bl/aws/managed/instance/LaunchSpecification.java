@@ -1,16 +1,19 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
-public class LaunchSpecification {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class LaunchSpecification implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -18,9 +21,9 @@ public class LaunchSpecification {
     private List<BlockDeviceMappings>   blockDeviceMappings;
     private CreditSpecification         creditSpecification;
     private Boolean                     ebsOptimized;
-    private IamRole iamRole;
+    private IamRole                     iamRole;
     private String                      imageId;
-    private InstanceTypes instanceTypes;
+    private InstanceTypes               instanceTypes;
     private String                      keyPair;
     private Boolean                     monitoring;
     private List<NetworkInterfaces>     networkInterfaces;

@@ -2,14 +2,12 @@ package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TagSpecification {
 
@@ -21,7 +19,7 @@ public class TagSpecification {
     //endregion
 
     //region Constructor
-    private TagSpecification() {
+    public TagSpecification() {
         isSet = new HashSet<>();
     }
     //endregion

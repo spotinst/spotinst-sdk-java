@@ -9,9 +9,6 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
@@ -25,7 +22,7 @@ public class IamRole implements IPartialUpdateEntity {
 
     //region Constructor
 
-    public IamRole() {
+    private IamRole() {
         isSet = new HashSet<>();
     }
     //endregion

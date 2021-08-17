@@ -1,12 +1,16 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.bl.aws.managed.instance.LaunchSpecification;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiCompute {
 
     @JsonIgnore
@@ -18,7 +22,7 @@ public class ApiCompute {
     private List<String>            subnetIds;
     private String                  vpcId;
 
-    private ApiCompute() {
+    public ApiCompute() {
         isSet = new HashSet<>();
     }
 

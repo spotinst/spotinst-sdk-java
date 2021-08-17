@@ -1,14 +1,14 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/09/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiAmiBackup {
 
     //region Members
@@ -16,7 +16,7 @@ public class ApiAmiBackup {
     private Set<String> isSet;
     private Boolean     shouldDeleteImages;
 
-    private ApiAmiBackup() {
+    public ApiAmiBackup() {
         isSet = new HashSet<>();
     }
     //endregion

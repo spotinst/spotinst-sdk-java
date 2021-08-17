@@ -1,15 +1,16 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
-/**
- * Created by chandra on 08/06/2021.
- */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InstanceTypes {
 
     //region Members
@@ -53,13 +54,6 @@ public class InstanceTypes {
         this.types = types;
     }
 
-    @Override
-    public int hashCode() {
-        int result = preferredType != null ? preferredType.hashCode() : 0;
-        result = 31 * result + (types != null ? types.hashCode() : 0);
-        return result;
-    }
-
     //region Builder class
     public static class Builder {
         private InstanceTypes instanceTypes;
@@ -81,6 +75,11 @@ public class InstanceTypes {
         public Builder setTypes(final List<String> types) {
             instanceTypes.setTypes(types);
             return this;
+        }
+
+        public InstanceTypes build() {
+            // TODO : Validations
+            return instanceTypes;
         }
     }
     //endregion

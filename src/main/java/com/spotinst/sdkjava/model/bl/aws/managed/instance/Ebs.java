@@ -1,13 +1,14 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/2021.
- */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Ebs {
 
     //region Members
@@ -79,31 +80,6 @@ public class Ebs {
     public void setVolumeType(String volumeType) {
         isSet.add("volumeType");
         this.volumeType = volumeType;
-    }
-
-    //endregion
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Ebs ebs = (Ebs) o;
-
-        if (deleteOnTermination != ebs.deleteOnTermination) return false;
-        if (iops != null ? !iops.equals(ebs.iops) : ebs.iops != null) return false;
-        if (volumeSize != null ? !volumeSize.equals(ebs.volumeSize) : ebs.volumeSize != null) return false;
-        return volumeType == ebs.volumeType;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (deleteOnTermination ? 1 : 0);
-        result = 31 * result + (iops != null ? iops.hashCode() : 0);
-        result = 31 * result + (volumeSize != null ? volumeSize.hashCode() : 0);
-        result = 31 * result + (volumeType != null ? volumeType.hashCode() : 0);
-        return result;
     }
 
     //region Builder class

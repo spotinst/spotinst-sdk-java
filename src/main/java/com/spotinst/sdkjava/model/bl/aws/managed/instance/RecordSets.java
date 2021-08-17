@@ -1,14 +1,14 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecordSets {
 
     //region Members
@@ -44,7 +44,7 @@ public class RecordSets {
         this.name = name;
     }
 
-    public Boolean getAutoWeight() {
+    public Boolean getUsePublicIp() {
         return usePublicIp;
     }
 

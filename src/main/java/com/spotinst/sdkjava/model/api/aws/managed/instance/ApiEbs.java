@@ -1,11 +1,15 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiEbs {
 
     @JsonIgnore
@@ -16,7 +20,7 @@ public class ApiEbs {
     private Integer         volumeSize;
     private String          volumeType;
 
-    private ApiEbs() {
+    public ApiEbs() {
         isSet = new HashSet<>();
     }
 

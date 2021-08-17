@@ -7,16 +7,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResourceTagSpecification {
 
     //region Members
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnore
     private Set<String>  isSet;
     private TagSpecification volumes;

@@ -1,12 +1,19 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.model.bl.aws.managed.instance.Compute;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiManagedInstance {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiManagedInstance implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>     isSet;
@@ -17,10 +24,11 @@ public class ApiManagedInstance {
     private String          name;
     private ApiPersistence  persistence;
     private String          region;
-    private ApiScheduling      scheduling;
-    private ApiStrategy        strategy;
+    private ApiScheduling   scheduling;
+    private ApiStrategy     strategy;
+    private String          id;
 
-    private ApiManagedInstance() {
+    public ApiManagedInstance() {
         isSet = new HashSet<>();
     }
 
@@ -113,6 +121,15 @@ public class ApiManagedInstance {
         this.strategy = strategy;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
+    }
+
     @JsonIgnore
     public boolean isComputeSet() {
         return isSet.contains("compute");
@@ -156,6 +173,11 @@ public class ApiManagedInstance {
     @JsonIgnore
     public boolean isStrategySet() {
         return isSet.contains("strategy");
+    }
+
+    @JsonIgnore
+    public boolean isIdSet() {
+        return isSet.contains("id");
     }
 
     }

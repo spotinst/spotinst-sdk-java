@@ -1,15 +1,15 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.bl.aws.managed.instance.Ebs;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiBlockDeviceMappings {
 
     //region Members
@@ -21,7 +21,7 @@ public class ApiBlockDeviceMappings {
 
     //region Constructor
 
-    private ApiBlockDeviceMappings() {
+    public ApiBlockDeviceMappings() {
         isSet = new HashSet<>();
     }
     //endregion

@@ -1,11 +1,15 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiLaunchSpecification {
 
     @JsonIgnore
@@ -18,15 +22,15 @@ public class ApiLaunchSpecification {
     private ApiInstanceTypes                instanceTypes;
     private String                          keyPair;
     private Boolean                         monitoring;
-    private List<ApiNetworkInterfaces>         networkInterfaces;
-    private ApiResourceTagSpecification        resourceTagSpecification;
+    private List<ApiNetworkInterfaces>      networkInterfaces;
+    private ApiResourceTagSpecification     resourceTagSpecification;
     private List<String>                    securityGroupIds;
     private String                          shutdownScript;
-    private List<ApiTags>                      tags;
+    private List<ApiTags>                   tags;
     private String                          tenancy;
     private String                          userData;
 
-    private ApiLaunchSpecification() {
+    public ApiLaunchSpecification() {
         isSet = new HashSet<>();
     }
 

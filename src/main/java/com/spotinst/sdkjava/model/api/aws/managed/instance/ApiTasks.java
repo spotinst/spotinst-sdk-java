@@ -1,21 +1,30 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
+import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiTasks {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private String      cronExpression;
-    private String      frequency;
-    private Boolean     isEnabled;
-    private String      startTime;
-    private String      taskType;
+    private Set<String>             isSet;
+    private String                  cronExpression;
+    private String                  frequency;
+    private Boolean                 isEnabled;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    private Date                    startTime;
+    private String                  taskType;
 
-    private ApiTasks() {
+    public ApiTasks() {
         isSet = new HashSet<>();
     }
 
@@ -54,11 +63,11 @@ public class ApiTasks {
         this.isEnabled = isEnabled;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         isSet.add("startTime");
         this.startTime = startTime;
     }

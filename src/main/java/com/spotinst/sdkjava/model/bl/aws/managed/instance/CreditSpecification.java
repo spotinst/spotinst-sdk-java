@@ -1,14 +1,15 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreditSpecification {
 
     //region Members
@@ -39,27 +40,6 @@ public class CreditSpecification {
     public void setCpuCredits(String cpuCredits) {
         isSet.add("cpuCredits");
         this.cpuCredits = cpuCredits;
-    }
-
-//For future use
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        CreditSpecification creditSpecification = (CreditSpecification) o;
-//
-//        if (cpuCredits != null ? !cpuCredits.equals(creditSpecification.cpuCredits) : creditSpecification.cpuCredits != null) {
-//            return false;
-//        }
-//        return true;
-//
-//    }
-
-    @Override
-    public int hashCode() {
-        int result = cpuCredits != null ? cpuCredits.hashCode() : 0;
-        return result;
     }
 
     //region Builder class

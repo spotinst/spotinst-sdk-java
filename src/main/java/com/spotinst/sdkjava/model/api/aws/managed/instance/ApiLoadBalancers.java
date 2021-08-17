@@ -1,10 +1,14 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiLoadBalancers {
 
     @JsonIgnore
@@ -17,7 +21,7 @@ public class ApiLoadBalancers {
     private String      targetSetId;
     private String      type;
 
-    private ApiLoadBalancers() {
+    public ApiLoadBalancers() {
         isSet = new HashSet<>();
     }
 

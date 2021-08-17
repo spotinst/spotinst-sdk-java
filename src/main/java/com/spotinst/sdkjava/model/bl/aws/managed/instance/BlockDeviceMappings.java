@@ -1,15 +1,18 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
-public class BlockDeviceMappings {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class BlockDeviceMappings implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -51,26 +54,7 @@ public class BlockDeviceMappings {
         this.ebs = ebs;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        BlockDeviceMappings that = (BlockDeviceMappings) o;
-
-        if (deviceName != null ? !deviceName.equals(that.deviceName) : that.deviceName != null) return false;
-        return !(ebs != null ? !ebs.equals(that.ebs) : that.ebs != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = deviceName != null ? deviceName.hashCode() : 0;
-        result = 31 * result + (ebs != null ? ebs.hashCode() : 0);
-        return result;
-    }
-
-    //region Builder class
+   //region Builder class
     public static class Builder {
         private BlockDeviceMappings blockDeviceMappings;
 

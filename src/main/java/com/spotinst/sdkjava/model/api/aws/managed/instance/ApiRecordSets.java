@@ -1,10 +1,14 @@
 package com.spotinst.sdkjava.model.api.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiRecordSets {
 
     @JsonIgnore
@@ -12,7 +16,7 @@ public class ApiRecordSets {
     private String      name;
     private Boolean     usePublicIp;
 
-    private ApiRecordSets() {
+    public ApiRecordSets() {
         isSet = new HashSet<>();
     }
 
@@ -33,7 +37,7 @@ public class ApiRecordSets {
         this.name = name;
     }
 
-    public Boolean getAutoWeight() {
+    public Boolean getUsePublicIp() {
         return usePublicIp;
     }
 

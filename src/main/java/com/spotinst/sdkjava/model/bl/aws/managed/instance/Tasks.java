@@ -1,24 +1,27 @@
 package com.spotinst.sdkjava.model.bl.aws.managed.instance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
+import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by chandra on 08/06/21.
- */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Tasks {
 
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private String      cronExpression;
-    private String      frequency;
-    private Boolean     isEnabled;
-    private String      startTime;
-    private String      taskType;
+    private Set<String>                  isSet;
+    private String                       cronExpression;
+    private RecurrenceFrequencyEnum      frequency;
+    private Boolean                      isEnabled;
+    private Date                         startTime;
+    private SchedulingTaskTypeEnum       taskType;
 
     //endregion
 
@@ -47,11 +50,11 @@ public class Tasks {
         this.cronExpression = cronExpression;
     }
 
-    public String getFrequency() {
+    public RecurrenceFrequencyEnum getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(String frequency) {
+    public void setFrequency(RecurrenceFrequencyEnum frequency) {
         isSet.add("frequency");
         this.frequency = frequency;
     }
@@ -65,20 +68,20 @@ public class Tasks {
         this.isEnabled = isEnabled;
     }
 
-    public String getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Date startTime) {
         isSet.add("startTime");
         this.startTime = startTime;
     }
 
-    public String getTaskType() {
+    public SchedulingTaskTypeEnum getTaskType() {
         return taskType;
     }
 
-    public void setTaskType(String taskType) {
+    public void setTaskType(SchedulingTaskTypeEnum taskType) {
         isSet.add("taskType");
         this.taskType = taskType;
     }
@@ -102,7 +105,7 @@ public class Tasks {
             return this;
         }
 
-        public Builder setFrequency(final String frequency) {
+        public Builder setFrequency(final RecurrenceFrequencyEnum frequency) {
             tasks.setFrequency(frequency);
             return this;
         }
@@ -112,12 +115,12 @@ public class Tasks {
             return this;
         }
 
-        public Builder setStartTime(final String startTime) {
+        public Builder setStartTime(final Date startTime) {
             tasks.setStartTime(startTime);
             return this;
         }
 
-        public Builder setTaskType(final String taskType) {
+        public Builder setTaskType(final SchedulingTaskTypeEnum taskType) {
             tasks.setTaskType(taskType);
             return this;
         }

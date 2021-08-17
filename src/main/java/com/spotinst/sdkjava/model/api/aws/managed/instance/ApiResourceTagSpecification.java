@@ -8,18 +8,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResourceTagSpecification {
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnore
-    private Set<String>  isSet;
+    private Set<String>         isSet;
     private ApiTagSpecification volumes;
     private ApiTagSpecification snapshots;
     private ApiTagSpecification enis;
     private ApiTagSpecification amis;
 
-    private ApiResourceTagSpecification() {
+    public ApiResourceTagSpecification() {
         isSet = new HashSet<>();
     }
 
