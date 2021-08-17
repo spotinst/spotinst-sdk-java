@@ -31,8 +31,6 @@ public class ApiOceanEcsCluster implements IPartialUpdateEntity {
     private ApiClusterComputeConfiguration         compute;
     private ApiClusterSchedulingConfiguration      scheduling;
     private ApiClusterStrategyConfiguration        strategy;
-    private Date                                   createdAt;
-    private Date                                   updatedAt;
 
     public ApiOceanEcsCluster() {
         isSet = new HashSet<>();
@@ -127,25 +125,6 @@ public class ApiOceanEcsCluster implements IPartialUpdateEntity {
         this.strategy = strategy;
     }
 
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        isSet.add("updatedAt");
-        this.updatedAt = updatedAt;
-    }
-
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");
@@ -189,16 +168,6 @@ public class ApiOceanEcsCluster implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSchedulingSet() {
         return isSet.contains("scheduling");
-    }
-
-    @JsonIgnore
-    public boolean isCreatedAtSet() {
-        return isSet.contains("createdAt");
-    }
-
-    @JsonIgnore
-    public boolean isUpdatedAtSet() {
-        return isSet.contains("updatedAt");
     }
 
 }

@@ -21,7 +21,6 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     private List<String>                         subnetIds;
     private ApiClusterOptimizeImageConfiguration optimizeImages;
     private ApiClusterLaunchSpecification        launchSpecification;
-    private ApiClusterInstanceTypes              instanceTypes;
 
     public ApiClusterComputeConfiguration() {
         isSet = new HashSet<>();
@@ -53,15 +52,6 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
         this.launchSpecification = launchSpecification;
     }
 
-    public ApiClusterInstanceTypes getInstanceTypes() {
-        return instanceTypes;
-    }
-
-    public void setInstanceTypes(ApiClusterInstanceTypes instanceTypes) {
-        isSet.add("instanceTypes");
-        this.instanceTypes = instanceTypes;
-    }
-
     public ApiClusterOptimizeImageConfiguration getOptimizeImages() {
         return optimizeImages;
     }
@@ -74,11 +64,6 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
-    }
-
-    @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
     }
 
     @JsonIgnore

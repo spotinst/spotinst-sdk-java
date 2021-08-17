@@ -162,6 +162,7 @@ public class SpotOceanEcsClusterClient {
         OceanEcsCluster clusterToCreate = oceanEcsClusterCreationRequest.getCluster();
 
         RepoGenericResponse<OceanEcsCluster> creationResponse = getSpotOceanEcsClusterRepo().create(clusterToCreate, authToken, account);
+
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -182,6 +183,7 @@ public class SpotOceanEcsClusterClient {
         OceanEcsCluster clusterToUpdate = EcsClusterUpdateRequest.getCluster();
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotOceanEcsClusterRepo().update(clusterId, clusterToUpdate, authToken, account);
+
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -192,6 +194,7 @@ public class SpotOceanEcsClusterClient {
                                        httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+
         return retVal;
     }
 
@@ -201,6 +204,7 @@ public class SpotOceanEcsClusterClient {
         String          clusterToGet = oceanEcsClusterGetRequest.getClusterId();
         RepoGenericResponse<OceanEcsCluster> clusterRes =
                 getSpotOceanEcsClusterRepo().get(clusterToGet, authToken, account);
+
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();
         }
@@ -240,6 +244,7 @@ public class SpotOceanEcsClusterClient {
         List<OceanEcsCluster> retVal;
 
         RepoGenericResponse<List<OceanEcsCluster>> clusterRes = getSpotOceanEcsClusterRepo().getAll(null, authToken, account);
+
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();
         }

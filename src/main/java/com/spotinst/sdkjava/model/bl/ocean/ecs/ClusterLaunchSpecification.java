@@ -1,11 +1,14 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterLaunchSpecification {
     @JsonIgnore
     private Set<String>                               isSet;
@@ -15,7 +18,6 @@ public class ClusterLaunchSpecification {
     private LaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
     private String                                    imageId;
     private LaunchSpecInstanceMetadataOptions         instanceMetadataOptions;
-    private List<String>                              instanceTypes;
     private String                                    name;
     private String                                    oceanId;
     private Boolean                                   restrictScaleDown;
@@ -24,8 +26,6 @@ public class ClusterLaunchSpecification {
     private List<LaunchSpecTagsSpecification>         tags;
     private String                                    userData;
     private String                                    id;
-    private String                                    keyPair;
-    private Boolean                                   associatePublicIpAddress;
 
     private ClusterLaunchSpecification() {
         isSet = new HashSet<>();
@@ -93,15 +93,6 @@ public class ClusterLaunchSpecification {
         this.instanceMetadataOptions = instanceMetadataOptions;
     }
 
-    public List<String> getInstanceTypes() {
-        return instanceTypes;
-    }
-
-    public void setInstanceTypes(List<String> instanceTypes) {
-        isSet.add("instanceTypes");
-        this.instanceTypes = instanceTypes;
-    }
-
     public String getName() {
         return name;
     }
@@ -163,24 +154,6 @@ public class ClusterLaunchSpecification {
     public void setUserData(String userData) {
         isSet.add("userData");
         this.userData = userData;
-    }
-
-    public String getKeyPair() {
-        return keyPair;
-    }
-
-    public void setKeyPair(String keyPair) {
-        isSet.add("keyPair");
-        this.keyPair = keyPair;
-    }
-
-    public Boolean getAssociatePublicIpAddress() {
-        return associatePublicIpAddress;
-    }
-
-    public void setAssociatePublicIpAddress(Boolean associatePublicIpAddress) {
-        isSet.add("associatePublicIpAddress");
-        this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
     public String getId() {
@@ -270,23 +243,8 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setKeyPair(final String keyPair){
-            launchspec.setKeyPair(keyPair);
-            return this;
-        }
-
-        public Builder setAssociatePublicIpAddress(final Boolean associatePublicIpAddress) {
-            launchspec.setAssociatePublicIpAddress(associatePublicIpAddress);
-            return this;
-        }
-
         public Builder setInstanceMetadataOptions(final LaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
             launchspec.setInstanceMetadataOptions(instanceMetadataOptions);
-            return this;
-        }
-
-        public Builder setInstanceTypes(final List<String> instanceTypes) {
-            launchspec.setInstanceTypes(instanceTypes);
             return this;
         }
 
@@ -331,11 +289,6 @@ public class ClusterLaunchSpecification {
     }
 
     @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
-    }
-
-    @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
     }
@@ -369,11 +322,5 @@ public class ClusterLaunchSpecification {
     public boolean isUserDataSet() {
         return isSet.contains("userData");
     }
-
-    @JsonIgnore
-    public boolean isKeyPairSet() { return isSet.contains("keyPair"); }
-
-    @JsonIgnore
-    public boolean isAssociatePublicIpAddressSet() { return isSet.contains("associatePublicIpAddress"); }
 
 }

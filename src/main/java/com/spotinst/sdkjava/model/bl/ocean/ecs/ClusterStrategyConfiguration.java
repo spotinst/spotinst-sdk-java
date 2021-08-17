@@ -1,10 +1,13 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterStrategyConfiguration {
     @JsonIgnore
     private Set<String> isSet;
@@ -12,7 +15,6 @@ public class ClusterStrategyConfiguration {
     private Boolean     utilizeReservedInstances;
     private Integer     drainingTimeout;
     private Integer     spotPercentage;
-    private Boolean     utilizeCommitments;
 
     private ClusterStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -42,13 +44,6 @@ public class ClusterStrategyConfiguration {
     public void setUtilizeReservedInstances(Boolean utilizeReservedInstances) {
         isSet.add("utilizeReservedInstances");
         this.utilizeReservedInstances = utilizeReservedInstances;
-    }
-
-    public Boolean getUtilizeCommitments() { return utilizeCommitments; }
-
-    public void setUtilizeCommitments(Boolean utilizeCommitments){
-        isSet.add("utilizeCommitments");
-        this.utilizeCommitments = utilizeCommitments;
     }
 
     public Boolean getFallbackToOd() {
@@ -91,11 +86,6 @@ public class ClusterStrategyConfiguration {
             return this;
         }
 
-        public Builder setUtilizeCommitments (final Boolean utilizeCommitments){
-            strategy.setUtilizeCommitments(utilizeCommitments);
-            return this;
-        }
-
         public Builder setDrainingTimeout(final Integer drainingTimeout) {
             strategy.setDrainingTimeout(drainingTimeout);
             return this;
@@ -125,9 +115,6 @@ public class ClusterStrategyConfiguration {
     public boolean isUtilizeReservedInstancesSet() {
         return isSet.contains("utilizeReservedInstances");
     }
-
-    @JsonIgnore
-    public boolean isUtilizeCommitments() { return isSet.contains("utilizeCommitments"); }
 
     @JsonIgnore
     public boolean isspotPercentageSet() {

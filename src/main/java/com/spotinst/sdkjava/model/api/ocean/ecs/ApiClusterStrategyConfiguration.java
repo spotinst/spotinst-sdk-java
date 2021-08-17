@@ -1,21 +1,25 @@
 package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiClusterStrategyConfiguration {
+public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     fallbackToOd;
     private Boolean     utilizeReservedInstances;
     private Integer     drainingTimeout;
     private Integer     spotPercentage;
-    private Boolean     utilizeCommitments;
 
     public ApiClusterStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -45,15 +49,6 @@ public class ApiClusterStrategyConfiguration {
     public void setUtilizeReservedInstances(Boolean utilizeReservedInstances) {
         isSet.add("utilizeReservedInstances");
         this.utilizeReservedInstances = utilizeReservedInstances;
-    }
-
-    public Boolean getUtilizeCommitments(){
-        return utilizeCommitments;
-    }
-
-    public void setUtilizeCommitments(Boolean utilizeCommitments){
-        isSet.add("utilizeCommitments");
-        this.utilizeCommitments = utilizeCommitments;
     }
 
     public Boolean getFallbackToOd() {

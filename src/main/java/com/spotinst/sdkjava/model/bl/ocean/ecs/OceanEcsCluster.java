@@ -22,8 +22,6 @@ public class OceanEcsCluster {
     private ClusterComputeConfiguration            compute;
     private ClusterSchedulingConfiguration         scheduling;
     private ClusterStrategyConfiguration           strategy;
-    private Date                                   createdAt;
-    private Date                                   updatedAt;
 
     private OceanEcsCluster() {
         isSet = new HashSet<>();
@@ -115,25 +113,6 @@ public class OceanEcsCluster {
     public void setStrategy(ClusterStrategyConfiguration strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
-    }
-
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        isSet.add("updatedAt");
-        this.updatedAt = updatedAt;
     }
 
     public static class Builder {
@@ -237,16 +216,6 @@ public class OceanEcsCluster {
     @JsonIgnore
     public boolean isSchedulingSet() {
         return isSet.contains("scheduling");
-    }
-
-    @JsonIgnore
-    public boolean isCreatedAtSet() {
-        return isSet.contains("createdAt");
-    }
-
-    @JsonIgnore
-    public boolean isUpdatedAtSet() {
-        return isSet.contains("updatedAt");
     }
 
 }

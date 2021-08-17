@@ -163,25 +163,6 @@ public class OceanEcsConverter {
             if (compute.isOptimizeImagesSet()) {
                 retVal.setOptimizeImages(toDal(compute.getOptimizeImage()));
             }
-            if(compute.isInstanceTypesSet()){
-                retVal.setInstanceTypes(toDal(compute.getInstanceTypes()));
-            }
-        }
-        return retVal;
-    }
-
-    private static ApiClusterInstanceTypes toDal(ClusterInstanceTypes instanceTypes) {
-        ApiClusterInstanceTypes retVal = null;
-
-        if (instanceTypes != null) {
-            retVal = new ApiClusterInstanceTypes();
-
-            if (instanceTypes.isWhitelistSet()) {
-                retVal.setWhitelist(instanceTypes.getWhitelist());
-            }
-            if (instanceTypes.isBlacklistSet()) {
-                retVal.setBlacklist(instanceTypes.getBlacklist());
-            }
         }
         return retVal;
     }
@@ -281,9 +262,6 @@ public class OceanEcsConverter {
             if (strategy.isUtilizeReservedInstancesSet()) {
                 retVal.setUtilizeReservedInstances(strategy.getUtilizeReservedInstances());
             }
-            if(strategy.isUtilizeCommitments()){
-                retVal.setUtilizeCommitments(strategy.getUtilizeCommitments());
-            }
             if (strategy.isspotPercentageSet()) {
                 retVal.setspotPercentage(strategy.getspotPercentage());
             }
@@ -332,14 +310,8 @@ public class OceanEcsConverter {
             if (launchSpecification.isInstanceMetadataOptionsSet()) {
                 retVal.setInstanceMetadataOptions(toDal(launchSpecification.getInstanceMetadataOptions()));
             }
-            if (launchSpecification.isInstanceTypesSet()) {
-                retVal.setInstanceTypes(launchSpecification.getInstanceTypes());
-            }
             if (launchSpecification.isRestrictScaleDownSet()) {
                 retVal.setRestrictScaleDown(launchSpecification.getRestrictScaleDown());
-            }
-            if(launchSpecification.isAssociatePublicIpAddressSet()){
-                retVal.setAssociatePublicIpAddress(launchSpecification.getAssociatePublicIpAddress());
             }
             if (launchSpecification.isSecurityGroupIdsSet()) {
                 retVal.setSecurityGroupIds(launchSpecification.getSecurityGroupIds());
@@ -355,9 +327,6 @@ public class OceanEcsConverter {
             }
             if (launchSpecification.isUserDataSet()) {
                 retVal.setUserData(launchSpecification.getUserData());
-            }
-            if(launchSpecification.isKeyPairSet()){
-                retVal.setKeypair(launchSpecification.getKeyPair());
             }
         }
         return retVal;
@@ -567,13 +536,13 @@ public class OceanEcsConverter {
             cluster = clusterBuilder.build();
 
             // createdAt is not taken from builder since it cannot be set when creating/updating an cluster
-            if (src.isCreatedAtSet()) {
+            /*if (src.isCreatedAtSet()) {
                 cluster.setCreatedAt(src.getCreatedAt());
             }
 
             if (src.isUpdatedAtSet()) {
                 cluster.setUpdatedAt(src.getUpdatedAt());
-            }
+            }*/
         }
         return cluster;
     }
@@ -731,30 +700,7 @@ public class OceanEcsConverter {
             if (apicompute.isOptimizeImagesSet()) {
                 computeBuilder.setOptimizeImages(toBl(apicompute.getOptimizeImages()));
             }
-            if(apicompute.isInstanceTypesSet()){
-                computeBuilder.setInstanceTypes(toBl(apicompute.getInstanceTypes()));
-            }
             retVal = computeBuilder.build();
-        }
-
-        return retVal;
-    }
-
-    private static ClusterInstanceTypes toBl(ApiClusterInstanceTypes instanceTypes) {
-        ClusterInstanceTypes retVal = null;
-
-        if (instanceTypes != null) {
-            ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
-
-
-            if (instanceTypes.isWhitelistSet()) {
-                instanceTypesBuilder.setWhitelist(instanceTypes.getWhitelist());
-            }
-            if (instanceTypes.isBlacklistSet()) {
-                instanceTypesBuilder.setBlacklist(instanceTypes.getBlacklist());
-            }
-
-            retVal = instanceTypesBuilder.build();
         }
 
         return retVal;
@@ -790,9 +736,6 @@ public class OceanEcsConverter {
             }
             if (apiStrategy.isUtilizeReservedInstancesSet()) {
                 strategyBuilder.setUtilizeReservedInstances(apiStrategy.getUtilizeReservedInstances());
-            }
-            if(apiStrategy.isUtilizeCommitments()){
-                strategyBuilder.setUtilizeCommitments(apiStrategy.getUtilizeCommitments());
             }
             if (apiStrategy.isFallbackToOdSet()) {
                 strategyBuilder.setFallbackToOnDemand(apiStrategy.getFallbackToOd());
@@ -876,14 +819,8 @@ public class OceanEcsConverter {
                 clusterLaunchSpecBuilder
                         .setInstanceMetadataOptions(toBl(launchSpecification.getInstanceMetadataOptions()));
             }
-            if (launchSpecification.isInstanceTypesSet()) {
-                clusterLaunchSpecBuilder.setInstanceTypes(launchSpecification.getInstanceTypes());
-            }
             if (launchSpecification.isRestrictScaleDownSet()) {
                 clusterLaunchSpecBuilder.setRestrictScaleDown(launchSpecification.getRestrictScaleDown());
-            }
-            if (launchSpecification.isAssociatePublicIpAddressSet()) {
-                clusterLaunchSpecBuilder.setAssociatePublicIpAddress(launchSpecification.getAssociatePublicIpAddress());
             }
             if (launchSpecification.isSecurityGroupIdsSet()) {
                 clusterLaunchSpecBuilder.setSecurityGroupIds(launchSpecification.getSecurityGroupIds());
@@ -899,9 +836,6 @@ public class OceanEcsConverter {
             }
             if (launchSpecification.isUserDataSet()) {
                 clusterLaunchSpecBuilder.setUserData(launchSpecification.getUserData());
-            }
-            if(launchSpecification.isKeyPairSet()){
-                clusterLaunchSpecBuilder.setKeyPair(launchSpecification.getKeyPair());
             }
             retVal = clusterLaunchSpecBuilder.build();
         }

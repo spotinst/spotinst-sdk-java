@@ -11,14 +11,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class OceanEcsClusterUsageExample {
+
     private final static String         auth_token                  = "auth_token";
     private final static String         act_id                      = "act_id";
     private final static String         image_id                    = "ami-123";
     private final static String         region                      = "region";
-    private final static String         keyPair                     = "keyPair";
     private final static List<String>   securityGroups              = Arrays.asList("sg-1");
     private final static List<String>   subnetIds                   = Arrays.asList("subnet-1", "subnet-2");
-    private final static List<String>   whiteListInstanceTypes      = Arrays.asList("type1", "type2", "type3");
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -124,23 +123,17 @@ public class OceanEcsClusterUsageExample {
        ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
        ClusterLaunchSpecification launchSpec = launchSpecBuilder.setImageId(image_id)
                                                                 .setUserData("dXNlcmJhc2g2NGVuY29kZWQ=")
-                                                                .setKeyPair(keyPair)
                                                                 .setSecurityGroupIds(securityGroups)
                                                                 .setInstanceMetadataOptions(instanceMetadataOptions)
                                                                 .setIamInstanceProfile(iamInstanceProfile)
                                                                 .setBlockDeviceMappings(blockDeviceMappings)
-                                                                .setAssociatePublicIpAddress(false)
                                                                 .setTags(tags)
                                                                 .build();
-       //Build Instance Types
-       ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
-       ClusterInstanceTypes instanceTypes = instanceTypesBuilder.setWhitelist(whiteListInstanceTypes).build();
 
        //Build compute
        ClusterComputeConfiguration.Builder computeBuilder = ClusterComputeConfiguration.Builder.get();
        ClusterComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpec).setSubnetIds(subnetIds)
                                                            .setOptimizeImages(optimizeImage)
-                                                           .setInstanceTypes(instanceTypes)
                                                            .build();
 
       //Build Capacity
@@ -163,7 +156,7 @@ public class OceanEcsClusterUsageExample {
 
       //Build Strategy
       ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
-      ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(120).setFallbackToOnDemand(true).setspotPercentage(50).setUtilizeReservedInstances(true).setUtilizeCommitments(true).build();
+      ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(120).setFallbackToOnDemand(true).setspotPercentage(50).setUtilizeReservedInstances(true).build();
 
       // Build Ocean Ecs Cluster
       OceanEcsCluster.Builder ocenEcsBuilder = OceanEcsCluster.Builder.get();
@@ -279,11 +272,9 @@ public class OceanEcsClusterUsageExample {
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
         ClusterLaunchSpecification launchSpec = launchSpecBuilder.setImageId(image_id)
                                                                  .setUserData("dXNlcmJhc2g2NGVuY29kZWQ=")
-                                                                 .setKeyPair(keyPair)
                                                                  .setSecurityGroupIds(securityGroups)
                                                                  .setInstanceMetadataOptions(instanceMetadataOptions)
                                                                  .setBlockDeviceMappings(blockDeviceMappings)
-                                                                 .setAssociatePublicIpAddress(false)
                                                                  .build();
         //Build compute
         ClusterComputeConfiguration.Builder computeBuilder = ClusterComputeConfiguration.Builder.get();
@@ -293,7 +284,7 @@ public class OceanEcsClusterUsageExample {
 
         //Build Strategy
         ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
-        ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(120).setFallbackToOnDemand(true).setspotPercentage(50).setUtilizeReservedInstances(true).setUtilizeCommitments(true).build();
+        ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(120).setFallbackToOnDemand(true).setspotPercentage(50).setUtilizeReservedInstances(true).build();
 
         OceanEcsCluster oceanEcsClusterUpdate =
                 updateOceanClusterBuilder.setAutoScaler(autoScaler).setCompute(compute).setStrategy(strategy).build();
