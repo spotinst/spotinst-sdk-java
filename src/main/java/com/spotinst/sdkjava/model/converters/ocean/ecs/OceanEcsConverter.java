@@ -639,12 +639,15 @@ public class OceanEcsConverter {
                     schedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
+            if(apiScheduling.isShutdownHoursSet()){
+                retVal.setShutdownHours(toBl(apiScheduling.getShutdownHours()));
+            }
             retVal = schedulingConfigurationBuilder.build();
         }
         return retVal;
     }
 
-    private static ClusterShutdownHoursSpecification toDal(ApiClusterShutdownHoursSpecification apiClusterShutdownHoursSpecification) {
+    private static ClusterShutdownHoursSpecification toBl(ApiClusterShutdownHoursSpecification apiClusterShutdownHoursSpecification) {
         ClusterShutdownHoursSpecification retVal = null;
 
         if (apiClusterShutdownHoursSpecification != null) {
