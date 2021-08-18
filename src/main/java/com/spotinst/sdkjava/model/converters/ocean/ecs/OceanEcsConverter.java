@@ -640,7 +640,7 @@ public class OceanEcsConverter {
                 }
             }
             if(apiScheduling.isShutdownHoursSet()){
-                retVal.setShutdownHours(toBl(apiScheduling.getShutdownHours()));
+                schedulingConfigurationBuilder.setShutdownHours(toBl(apiScheduling.getShutdownHours()));
             }
             retVal = schedulingConfigurationBuilder.build();
         }
