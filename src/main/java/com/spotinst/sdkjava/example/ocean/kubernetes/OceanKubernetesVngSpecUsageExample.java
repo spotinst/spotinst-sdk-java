@@ -38,7 +38,7 @@ public class OceanKubernetesVngSpecUsageExample {
 
         String launchSpecId = createK8sVng(vngClient);
         getK8sVng(vngClient,launchSpecId);
-        listK8sVng(vngClient);
+        //listK8sVng(vngClient);
         updateK8sVng(vngClient,launchSpecId);
         deleteK8sVng(vngClient,launchSpecId);
     }

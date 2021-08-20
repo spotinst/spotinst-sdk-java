@@ -113,6 +113,7 @@ public class K8sVngClient {
 
     public List<K8sVngSpec> listK8sVngSpec() {
         List<K8sVngSpec> retVal;
+
         RepoGenericResponse<List<K8sVngSpec>> clusterRes = getK8sVngRepo().getAll(null, authToken, account);
 
         if (clusterRes.isRequestSucceed()) {

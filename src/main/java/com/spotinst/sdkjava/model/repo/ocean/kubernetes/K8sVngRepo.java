@@ -3,11 +3,14 @@ package com.spotinst.sdkjava.model.repo.ocean.kubernetes;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
-import com.spotinst.sdkjava.model.K8sVngSpecService;
+import com.spotinst.sdkjava.model.service.ocean.kubernetes.K8sVngSpecService;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sVngSpec;
 import com.spotinst.sdkjava.model.converters.K8sVngConverter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class K8sVngRepo implements ISpotK8sVngRepo {
 
@@ -82,16 +85,16 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         return retVal;
     }
 
-    public RepoGenericResponse<K8sVngSpec> getAll(String identifier, String authToken, String account) {
-        RepoGenericResponse<K8sVngSpec> retVal;
+	@Override
+    public RepoGenericResponse<List<K8sVngSpec>> getAll(Void filter, String authToken, String account) {
+        RepoGenericResponse<List<K8sVngSpec>> retVal;
 
         try {
-            ApiK8sVngSpec apiK8sVngSpec = K8sVngSpecService.listK8sVng(identifier, authToken, account);
-
-            K8sVngSpec k8sVngSpec = K8sVngConverter.toBl(apiK8sVngSpec);
+            List<ApiK8sVngSpec> apiGetAllVng = K8sVngSpecService.getAllVng(authToken, account);
+            List<K8sVngSpec> k8sVngSpec = apiGetAllVng.stream().map(K8sVngConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(k8sVngSpec);
         }
-
+		
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }

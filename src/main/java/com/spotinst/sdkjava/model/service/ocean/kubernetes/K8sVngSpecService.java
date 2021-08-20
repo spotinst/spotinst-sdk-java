@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.service.ocean.kubernetes;
 
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sVngApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -162,12 +163,11 @@ public class K8sVngSpecService extends BaseSpotinstService {
 
         return retVal;
     }
-
-    public static ApiK8sVngSpec listK8sVng(String oceanId, String authToken,
-                                                 String account) throws SpotinstHttpException {
-
+	
+	public static List<ApiK8sVngSpec> getAllVng(String authToken, String account) throws SpotinstHttpException {
+		
         // Init retVal
-        ApiK8sVngSpec retVal = new ApiK8sVngSpec();
+        List<ApiK8sVngSpec> retVal = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -180,20 +180,21 @@ public class K8sVngSpecService extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
-        // Get the headers for AWS.
+        // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/ocean/aws/k8s/launchSpec", apiEndpoint, oceanId);
+        String uri = String.format("%s/ocean/aws/ecs/launchSpec", apiEndpoint);
 
-        // Send the request.
+        // Send the request
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        K8sVngApiResponse vngApiResponse = getCastedResponse(response, K8sVngApiResponse.class);
+        K8sVngApiResponse vngCreateResponse =
+                getCastedResponse(response, K8sVngApiResponse.class);
 
-        if (vngApiResponse.getResponse().getCount() > 0) {
-            retVal = vngApiResponse.getResponse().getItems().get(0);
+        if (vngCreateResponse.getResponse().getCount() > 0) {
+            retVal = vngCreateResponse.getResponse().getItems();
         }
 
         return retVal;
