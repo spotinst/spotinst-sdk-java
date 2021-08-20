@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ApiVirtualNodeGroupAutoScaleSpec {
+public class ApiK8sVngAutoScaleSpec {
 
     @JsonIgnore
     private Set<String>                         isSet;
-    private List<ApiClusterHeadroomSpecification>  headrooms;
+    private List<ApiK8sVngHeadroomSpec>  headrooms;
 
-    public ApiVirtualNodeGroupAutoScaleSpec() {
+    public ApiK8sVngAutoScaleSpec() {
         isSet = new HashSet<>();
     }
 
@@ -24,11 +24,11 @@ public class ApiVirtualNodeGroupAutoScaleSpec {
         this.isSet = isSet;
     }
 
-    public List<ApiClusterHeadroomSpecification> getHeadrooms() {
+    public List<ApiK8sVngHeadroomSpec> getHeadrooms() {
         return headrooms;
     }
 
-    public void setHeadrooms(List<ApiClusterHeadroomSpecification> headrooms) {
+    public void setHeadrooms(List<ApiK8sVngHeadroomSpec> headrooms) {
         isSet.add("headrooms");
         this.headrooms = headrooms;
     }

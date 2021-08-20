@@ -6,13 +6,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class VirtualNodeGroupAutoScaleSpec {
+public class K8sVngAutoScaleSpec {
 
     @JsonIgnore
-    private Set<String>                         isSet;
-    private List<ClusterHeadroomSpecification> headrooms;
+    private Set<String>                 isSet;
+    private List<K8sVngHeadroomSpec>    headrooms;
 
-    private VirtualNodeGroupAutoScaleSpec() {
+    private K8sVngAutoScaleSpec() {
         isSet = new HashSet<>();
     }
 
@@ -24,32 +24,32 @@ public class VirtualNodeGroupAutoScaleSpec {
         this.isSet = isSet;
     }
 
-    public List<ClusterHeadroomSpecification> getHeadrooms() {
+    public List<K8sVngHeadroomSpec> getHeadrooms() {
         return headrooms;
     }
 
-    public void setHeadrooms(List<ClusterHeadroomSpecification> headrooms) {
+    public void setHeadrooms(List<K8sVngHeadroomSpec> headrooms) {
         isSet.add("headrooms");
         this.headrooms = headrooms;
     }
 
     public static class Builder {
-        private VirtualNodeGroupAutoScaleSpec autoScale;
+        private K8sVngAutoScaleSpec autoScale;
 
         public Builder() {
-            this.autoScale = new VirtualNodeGroupAutoScaleSpec();
+            this.autoScale = new K8sVngAutoScaleSpec();
         }
 
         public static Builder get() {
             return new Builder();
         }
 
-        public Builder setHeadrooms(List<ClusterHeadroomSpecification> headrooms) {
+        public Builder setHeadrooms(List<K8sVngHeadroomSpec> headrooms) {
             autoScale.setHeadrooms(headrooms);
             return this;
         }
 
-        public VirtualNodeGroupAutoScaleSpec build() {
+        public K8sVngAutoScaleSpec build() {
             return autoScale;
         }
     }

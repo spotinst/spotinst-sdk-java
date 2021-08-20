@@ -1,39 +1,41 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.BlockDeviceMapping;
-import com.spotinst.sdkjava.model.Tag;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class K8sVirtualNodeGroup {
+public class K8sVngSpec {
     @JsonIgnore
-    private Set<String>                         isSet;
-    private String                              id;
-    private String                              name;
-    private Boolean                             associatePublicIpAddress;
-    private VirtualNodeGroupAutoScaleSpec       autoScale;
-    private List<BlockDeviceMapping>            blockDeviceMappings;
-    private List<Tag>                           tags;
-    private ClusterIamInstanceProfileSpec       iamInstanceProfile;
-    private String                              imageId;
-    private K8sVngInstanceMetadataOptions       instanceMetadataOptions;
-    private List<String>                        instanceTypes;
-    private String                              oceanId;
-    private List<String>                        spotTypes;
-    private Boolean                             restrictScaleDown;
-    private Integer                             rootVolumeSize;
-    private List<String>                        securityGroupIds;
-    private ClusterStrategyConfiguration        strategy;
-    private List<String>         		        subnetIds;
-    private String                              userData;
-    private Date                                createdAt;
-    private Date                                updatedAt;
+    private Set<String>                     isSet;
+    private String                          id;
+    private String                          name;
+    private Boolean                         associatePublicIpAddress;
+    private K8sVngAutoScaleSpec       		autoScale;
+    private List<K8sVngBlockDevice>         blockDeviceMappings;
+	private K8sVngElasticIpPool			 	elasticIpPool;
+    private K8sVngIamInstanceProfileSpec	iamInstanceProfile;
+    private String                          imageId;
+    private K8sVngInstanceMetadataOptions	instanceMetadataOptions;
+    private List<String>                    instanceTypes;
+	private List<K8sVngLabels>			 	labels;
+    private String                          oceanId;
+    private List<String>                    preferredSpotTypes;
+	private K8sVngResourceLimits			resourceLimits;
+    private Boolean                         restrictScaleDown;
+    private Integer                         rootVolumeSize;
+    private List<String>                    securityGroupIds;
+    private K8sVngStrategySpec        		strategy;
+    private List<K8sVngTaints>              taints;
+    private List<String>         		    subnetIds;
+	private List<K8sVngTag>                 tags;
+    private String                          userData;
+    private Date                            createdAt;
+    private Date                            updatedAt;
 
-    private K8sVirtualNodeGroup() {
+    private K8sVngSpec() {
         isSet = new HashSet<>();
     }
 
@@ -72,38 +74,47 @@ public class K8sVirtualNodeGroup {
         this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
-    public VirtualNodeGroupAutoScaleSpec getAutoScale() {
+    public K8sVngAutoScaleSpec getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(VirtualNodeGroupAutoScaleSpec autoScale) {
+    public void setAutoScale(K8sVngAutoScaleSpec autoScale) {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
 
-    public List<BlockDeviceMapping> getBlockDeviceMappings() {
+    public List<K8sVngBlockDevice> getBlockDevices() {
         return blockDeviceMappings;
     }
 
-    public void setBlockDeviceMappings(List<BlockDeviceMapping> blockDeviceMappings) {
+    public void setK8sVngBlockDevices(List<K8sVngBlockDevice> blockDeviceMappings) {
         isSet.add("blockDeviceMappings");
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public List<Tag> getTags() {
+    public K8sVngElasticIpPool getElasticIpPool() {
+        return elasticIpPool;
+    }
+
+    public void setElasticIpPool(K8sVngElasticIpPool elasticIpPool) {
+        isSet.add("elasticIpPool");
+        this.elasticIpPool = elasticIpPool;
+    }
+
+    public List<K8sVngTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(List<K8sVngTag> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
 
-    public ClusterIamInstanceProfileSpec getIamInstanceProfile() {
+    public K8sVngIamInstanceProfileSpec getIamInstanceProfile() {
         return iamInstanceProfile;
     }
 
-    public void setIamInstanceProfile(ClusterIamInstanceProfileSpec iamInstanceProfile) {
+    public void setIamInstanceProfile(K8sVngIamInstanceProfileSpec iamInstanceProfile) {
         isSet.add("iamInstanceProfile");
 
         this.iamInstanceProfile = iamInstanceProfile;
@@ -133,8 +144,16 @@ public class K8sVirtualNodeGroup {
 
     public void setInstanceTypes(List<String> instanceTypes) {
         isSet.add("instanceTypes");
-
         this.instanceTypes = instanceTypes;
+    }
+
+    public List<K8sVngLabels> getLabels() {
+        return labels;
+    }
+    
+    public void setLabels(List<K8sVngLabels> labels) {
+        isSet.add("labels");
+        this.labels = labels;
     }
 
     public String getOceanId() {
@@ -146,15 +165,23 @@ public class K8sVirtualNodeGroup {
         this.oceanId = oceanId;
     }
 
-    public List<String> getSpotTypes() {
-        return spotTypes;
+    public List<String> getPreferredSpotTypes() {
+        return preferredSpotTypes;
     }
 
-    public void setSpotTypes(List<String> spotTypes) {
+    public void setPreferredSpotTypes(List<String> preferredSpotTypes) {
         isSet.add("preferredSpotTypes");
-        this.spotTypes = spotTypes;
+        this.preferredSpotTypes = preferredSpotTypes;
     }
 
+    public K8sVngResourceLimits getResourceLimits() {
+        return resourceLimits;
+    }
+
+    public void setResourceLimits(K8sVngResourceLimits resourceLimits) {
+        isSet.add("resourceLimits");
+        this.resourceLimits = resourceLimits;
+    }
     public Boolean getRestrictScaleDown() {
         return restrictScaleDown;
     }
@@ -182,13 +209,22 @@ public class K8sVirtualNodeGroup {
         this.securityGroupIds = securityGroupIds;
     }
 
-    public ClusterStrategyConfiguration getStrategy() {
+    public K8sVngStrategySpec getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(ClusterStrategyConfiguration strategy) {
+    public void setStrategy(K8sVngStrategySpec strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
+    }
+
+    public List<K8sVngTaints> getTaints() {
+        return taints;
+    }
+
+    public void setTaints(List<K8sVngTaints> taints) {
+        isSet.add("taints");
+        this.taints =taints;
     }
 
     public List<String> getSubnetIds() {
@@ -228,10 +264,10 @@ public class K8sVirtualNodeGroup {
     }
 
     public static class Builder {
-        private K8sVirtualNodeGroup launchSpecification;
+        private K8sVngSpec launchSpecification;
 
         private Builder() {
-            this.launchSpecification = new K8sVirtualNodeGroup();
+            this.launchSpecification = new K8sVngSpec();
         }
 
         public static Builder get() {
@@ -254,22 +290,27 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public Builder setAutoScale(final VirtualNodeGroupAutoScaleSpec autoScale) {
+        public Builder setAutoScale(final K8sVngAutoScaleSpec autoScale) {
             launchSpecification.setAutoScale(autoScale);
             return this;
         }
 
-        public Builder setBlockDeviceMappings(final List<BlockDeviceMapping> blockDeviceMappings) {
-            launchSpecification.setBlockDeviceMappings(blockDeviceMappings);
+        public Builder setBlockDevices(final List<K8sVngBlockDevice> blockDeviceMappings) {
+            launchSpecification.setK8sVngBlockDevices(blockDeviceMappings);
             return this;
         }
 
-        public Builder setTags(final List<Tag> tags) {
+        public Builder setElasticIpPool(final K8sVngElasticIpPool elasticIpPool) {
+            launchSpecification.setElasticIpPool(elasticIpPool);
+            return this;
+        }
+
+        public Builder setTags(final List<K8sVngTag> tags) {
             launchSpecification.setTags(tags);
             return this;
         }
 
-        public Builder setIamInstanceProfile(final ClusterIamInstanceProfileSpec iamInstanceProfile) {
+        public Builder setIamInstanceProfile(final K8sVngIamInstanceProfileSpec iamInstanceProfile) {
             launchSpecification.setIamInstanceProfile(iamInstanceProfile);
             return this;
         }
@@ -289,13 +330,23 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
+        public Builder setLabels(final List<K8sVngLabels> labels) {
+            launchSpecification.setLabels(labels);
+            return this;
+        }
+
         public Builder setOceanId(final String oceanId) {
             launchSpecification.setOceanId(oceanId);
             return this;
         }
 
-        public Builder setSpotTypes(final List<String> spotTypes) {
-            launchSpecification.setSpotTypes(spotTypes);
+        public Builder setPreferredSpotTypes(final List<String> preferredSpotTypes) {
+            launchSpecification.setPreferredSpotTypes(preferredSpotTypes);
+            return this;
+        }
+
+        public Builder setResourceLimits(final  K8sVngResourceLimits resourceLimits) {
+            launchSpecification.setResourceLimits(resourceLimits);
             return this;
         }
 
@@ -314,8 +365,13 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public Builder setStrategy(final ClusterStrategyConfiguration strategy) {
+        public Builder setStrategy(final K8sVngStrategySpec strategy) {
             launchSpecification.setStrategy(strategy);
+            return this;
+        }
+
+        public Builder setTaints(final List<K8sVngTaints> taints) {
+            launchSpecification.setTaints(taints);
             return this;
         }
 
@@ -329,7 +385,7 @@ public class K8sVirtualNodeGroup {
             return this;
         }
 
-        public K8sVirtualNodeGroup build() {
+        public K8sVngSpec build() {
             // Validations
             return launchSpecification;
         }
@@ -355,10 +411,14 @@ public class K8sVirtualNodeGroup {
     }
 
     @JsonIgnore
-    public boolean isBlockDeviceMappingsSet() {
+    public boolean isBlockDevicesSet() {
         return isSet.contains("blockDeviceMappings");
     }
 
+    @JsonIgnore
+    public boolean isElasticIpPoolSet() {
+        return isSet.contains("elasticIpPool");
+    }
     @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
@@ -385,13 +445,23 @@ public class K8sVirtualNodeGroup {
     }
 
     @JsonIgnore
+    public boolean isLabelsSet() {
+        return isSet.contains("labels");
+    }
+
+    @JsonIgnore
     public boolean isOceanIdSet() {
         return isSet.contains("oceanId");
     }
 
     @JsonIgnore
-    public boolean isSpotTypesSet() {
+    public boolean isPreferredSpotTypesSet() {
         return isSet.contains("preferredSpotTypes");
+    }
+
+    @JsonIgnore
+    public boolean isResourceLimitsSet() {
+        return isSet.contains("resourceLimits");
     }
 
     @JsonIgnore
@@ -412,6 +482,11 @@ public class K8sVirtualNodeGroup {
     @JsonIgnore
     public boolean isStrategySet() {
         return isSet.contains("strategy");
+    }
+
+    @JsonIgnore
+    public boolean isTaintsSet() {
+        return isSet.contains("taints");
     }
 
     @JsonIgnore

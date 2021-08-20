@@ -11,24 +11,24 @@ class SpotinstRepoManager {
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
 
     //region Members
-    private ISpotinstElastigroupRepo                spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo  spotinstElastigroupActiveInstanceRepo;
-    private ISpotinstSubscriptionRepo               spotinstSubscriptionRepo;
+    private ISpotinstElastigroupRepo                	spotinstElastigroupRepo;
+    private ISpotinstElastigroupActiveInstanceRepo  	spotinstElastigroupActiveInstanceRepo;
+    private ISpotinstSubscriptionRepo               	spotinstSubscriptionRepo;
     private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotinstElastigroupInstanceStatusRepoGcp   spotinstInstanceHealthinessRepoGcp;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private ISpotinstElastigroupRepoAzure           spotinstElastigroupRepoAzure;
-    private ISpotinstElastigroupDeploymentRepoAzure spotinstElastigroupDeploymentRepoAzure;
-    private ISpotinstElastigroupRepoGcp             spotinstElastigroupRepoGcp;
-    private ISpotinstMrScalerOperatorAwsRepo        spotinstMrScalerOperatorAwsRepo;
-    private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
-    private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
-    private ISpotAccountAdminRepo                   spotAdminAccountRepo;
-    private ISpotOceanEcsLaunchSpecRepo             spotOceanEcsLaunchSpecRepo;
-    private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
-    private ISpotOceanK8sVirtualNodeGroupRepo       spotOceanK8sVirtualNodeGroupRepo;
+    private ISpotinstElastigroupRepoAzure           	spotinstElastigroupRepoAzure;
+    private ISpotinstElastigroupDeploymentRepoAzure 	spotinstElastigroupDeploymentRepoAzure;
+    private ISpotinstElastigroupRepoGcp             	spotinstElastigroupRepoGcp;
+    private ISpotinstMrScalerOperatorAwsRepo        	spotinstMrScalerOperatorAwsRepo;
+    private ISpotOceanAzureAksClusterRepo           	spotOceanAzureAksClusterRepo;
+    private ISpotinstEventsLogsRepo                 	spotinstElastigroupEventLogRepo;
+    private ISpotAccountAdminRepo                   	spotAdminAccountRepo;
+    private ISpotOceanEcsLaunchSpecRepo             	spotOceanEcsLaunchSpecRepo;
+    private ISpotStorageAzureVolumeRepo             	spotStorageAzureVolumeRepo;
+    private ISpotK8sVngRepo       						spotK8sVngRepo;
     //endregion
 
     //region Constructor
@@ -50,7 +50,7 @@ class SpotinstRepoManager {
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
-        this.spotOceanK8sVirtualNodeGroupRepo = new OceanK8sVirtualNodeGroupRepo();
+        this.spotK8sVngRepo = new K8sVngRepo();
     }
     //endregion
 
@@ -176,13 +176,12 @@ class SpotinstRepoManager {
         return spotStorageAzureVolumeRepo;
     }
 
-    public ISpotOceanK8sVirtualNodeGroupRepo getOceanK8sVirtualNodeGroupRepo() {
-        return spotOceanK8sVirtualNodeGroupRepo;
+    public ISpotK8sVngRepo getK8sVngRepo() {
+        return spotK8sVngRepo;
     }
 
-    public void setOceanK8sVirtualNodeGroupRepo(
-            ISpotOceanK8sVirtualNodeGroupRepo spotOceanK8sVirtualNodeGroupRepo) {
-        this.spotOceanK8sVirtualNodeGroupRepo = spotOceanK8sVirtualNodeGroupRepo;
+    public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
+        this.spotK8sVngRepo = k8sVngRepo;
     }
     //endregion
 

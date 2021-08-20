@@ -121,9 +121,9 @@ public class SpotinstClient {
         return spotOceanEcsClusterClient;
     }
 
-    public static OceanK8sVirtualNodeGroupClient getOceanK8sVirtualNodeGroupClient(String authToken, String account) {
-        OceanK8sVirtualNodeGroupClient oceanK8sVirtualNodeGroupClient = new OceanK8sVirtualNodeGroupClient(authToken, account);
-        return oceanK8sVirtualNodeGroupClient;
+    public static K8sVngClient getK8sVngClient(String authToken, String account) {
+        K8sVngClient k8sVngClient = new K8sVngClient(authToken, account);
+        return k8sVngClient;
     }
 
     //endregion

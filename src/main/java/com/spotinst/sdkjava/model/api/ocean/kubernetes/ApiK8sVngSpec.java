@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
-import com.spotinst.sdkjava.model.ApiBlockDevice;
-import com.spotinst.sdkjava.model.ApiTag;
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -17,31 +14,35 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
+public class ApiK8sVngSpec implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                      isSet;
     private String                           id;
     private String                           name;
     private Boolean                          associatePublicIpAddress;
-    private ApiVirtualNodeGroupAutoScaleSpec autoScale;
-    private List<ApiBlockDevice>             blockDeviceMappings;
-    private List<ApiTag>                     tags;
-    private ApiClusterIamInstanceProfileSpec iamInstanceProfile;
+    private ApiK8sVngAutoScaleSpec 			 autoScale;
+    private List<ApiK8sVngBlockDevice>       blockDeviceMappings;
+    private ApiK8sVngElasticIpPool			 elasticIpPool;
+    private ApiK8sVngIamInstanceProfileSpec  iamInstanceProfile;
     private String                           imageId;
     private ApiK8sVngInstanceMetadataOptions instanceMetadataOptions;
     private List<String>                     instanceTypes;
+    private List<ApiK8sVngLabels>			 labels;
     private String                           oceanId;
-    private List<String>                     spotTypes;
+    private List<String>                     preferredSpotTypes;
+    private ApiK8sVngResourceLimits			 resourceLimits;
     private Boolean                          restrictScaleDown;
     private Integer                          rootVolumeSize;
     private List<String>                  	 securityGroupIds;
-    private ApiClusterStrategyConfiguration  strategy;
+    private ApiK8sVngStrategySpec  			 strategy;
+    private List<ApiK8sVngTaints>            taints;
     private List<String>         		  	 subnetIds;
+    private List<ApiK8sVngTag>               tags;
     private String                        	 userData;
     private Date                          	 createdAt;
     private Date                          	 updatedAt;
 
-    public ApiK8sVirtualNodeGroup() {
+    public ApiK8sVngSpec() {
         isSet = new HashSet<>();
     }
 
@@ -80,38 +81,56 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.associatePublicIpAddress = associatePublicIpAddress;
     }
 
-    public ApiVirtualNodeGroupAutoScaleSpec getAutoScale() {
+    public ApiK8sVngAutoScaleSpec getAutoScale() {
         return autoScale;
     }
 
-    public void setAutoScale(ApiVirtualNodeGroupAutoScaleSpec autoScale) {
+    public void setAutoScale(ApiK8sVngAutoScaleSpec autoScale) {
         isSet.add("autoScale");
         this.autoScale = autoScale;
     }
 
-    public List<ApiBlockDevice> getBlockDeviceMappings() {
+    public List<ApiK8sVngBlockDevice> getBlockDeviceMappings() {
         return blockDeviceMappings;
     }
 
-    public void setBlockDeviceMappings(List<ApiBlockDevice> blockDeviceMappings) {
+    public void setBlockDeviceMappings(List<ApiK8sVngBlockDevice> blockDeviceMappings) {
         isSet.add("blockDeviceMappings");
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public List<ApiTag> getTags() {
+    public List<ApiK8sVngLabels> getLabels() {
+        return labels;
+    }
+
+    public void setLabels (List<ApiK8sVngLabels> labels) {
+        isSet.add("labels");
+        this.labels = labels;
+    }
+
+    public ApiK8sVngElasticIpPool getElasticIpPool() {
+        return elasticIpPool;
+    }
+
+    public void setElasticIpPool(ApiK8sVngElasticIpPool elasticIpPool) {
+        isSet.add("elasticIpPool");
+        this.elasticIpPool = elasticIpPool;
+    }
+
+    public List<ApiK8sVngTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<ApiTag> tags) {
+    public void setTags(List<ApiK8sVngTag> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
 
-    public ApiClusterIamInstanceProfileSpec getIamInstanceProfile() {
+    public ApiK8sVngIamInstanceProfileSpec getIamInstanceProfile() {
         return iamInstanceProfile;
     }
 
-    public void setIamInstanceProfile(ApiClusterIamInstanceProfileSpec iamInstanceProfile) {
+    public void setIamInstanceProfile(ApiK8sVngIamInstanceProfileSpec iamInstanceProfile) {
         isSet.add("iamInstanceProfile");
 
         this.iamInstanceProfile = iamInstanceProfile;
@@ -154,13 +173,13 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.oceanId = oceanId;
     }
 
-    public List<String> getSpotTypes() {
-        return spotTypes;
+    public List<String> getPreferredSpotTypes() {
+        return preferredSpotTypes;
     }
 
-    public void setSpotTypes(List<String> spotTypes) {
+    public void setPreferredSpotTypes(List<String> preferredSpotTypes) {
         isSet.add("preferredSpotTypes");
-        this.spotTypes = spotTypes;
+        this.preferredSpotTypes = preferredSpotTypes;
     }
 
     public Boolean getRestrictScaleDown() {
@@ -190,13 +209,30 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
         this.securityGroupIds = securityGroupIds;
     }
 
-    public ApiClusterStrategyConfiguration getStrategy() {
+    public ApiK8sVngResourceLimits getResourceLimits() {
+        return resourceLimits;
+    }
+
+    public void setResourceLimits(ApiK8sVngResourceLimits resourceLimits) {
+        isSet.add("resourceLimits");
+        this.resourceLimits = resourceLimits;
+    }
+    public ApiK8sVngStrategySpec getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(ApiClusterStrategyConfiguration strategy) {
+    public void setStrategy(ApiK8sVngStrategySpec strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
+    }
+
+    public List<ApiK8sVngTaints> getTaints() {
+        return taints;
+    }
+
+    public void setTaints(List<ApiK8sVngTaints> taints) {
+        isSet.add("taints");
+        this.taints = taints;
     }
 
     public List<String> getSubnetIds() {
@@ -259,6 +295,15 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
+    public boolean isLabelsSet() {
+        return isSet.contains("labels");
+    }
+    @JsonIgnore
+    public boolean isElasticIpPoolSet() {
+        return isSet.contains("elasticIpPool");
+    }
+
+    @JsonIgnore
     public boolean isTagsSet() {
         return isSet.contains("tags");
     }
@@ -289,7 +334,7 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isSpotTypesSet() {
+    public boolean isPreferredSpotTypesSet() {
         return isSet.contains("preferredSpotTypes");
     }
 
@@ -309,8 +354,18 @@ public class ApiK8sVirtualNodeGroup implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
+    public boolean isResourceLimitsSet() {
+        return isSet.contains("resourceLimits");
+    }
+
+    @JsonIgnore
     public boolean isStrategySet() {
         return isSet.contains("strategy");
+    }
+
+    @JsonIgnore
+    public boolean isTaintsSet() {
+        return isSet.contains("taints");
     }
 
     @JsonIgnore

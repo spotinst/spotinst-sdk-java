@@ -1,10 +1,10 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-public class K8sVirtualNodeGroupDeleteRequest {
+public class K8sVngDeleteRequest {
 
     private String oceanLaunchSpecId;
 
-    private K8sVirtualNodeGroupDeleteRequest() {
+    private K8sVngDeleteRequest() {
     }
 
     public String getOceanLaunchSpecId() {
@@ -19,10 +19,10 @@ public class K8sVirtualNodeGroupDeleteRequest {
 
     //Builder class
     public static class Builder {
-        private K8sVirtualNodeGroupDeleteRequest virtualNodeGroupDeletionRequest;
+        private K8sVngDeleteRequest vngDeleteRequest;
 
         private Builder() {
-            this.virtualNodeGroupDeletionRequest = new K8sVirtualNodeGroupDeleteRequest();
+            this.vngDeleteRequest = new K8sVngDeleteRequest();
         }
 
         public static Builder get() {
@@ -31,12 +31,12 @@ public class K8sVirtualNodeGroupDeleteRequest {
         }
 
         public Builder setOceanLaunchSpecId(final String oceanLaunchSpecId) {
-            virtualNodeGroupDeletionRequest.setOceanLaunchSpecId(oceanLaunchSpecId);
+            vngDeleteRequest.setOceanLaunchSpecId(oceanLaunchSpecId);
             return this;
         }
 
-        public K8sVirtualNodeGroupDeleteRequest build() {
-            return virtualNodeGroupDeletionRequest;
+        public K8sVngDeleteRequest build() {
+            return vngDeleteRequest;
         }
 
     }

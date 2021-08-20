@@ -19,7 +19,6 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     private Boolean                    utilizeReservedInstances;
     private Integer                    drainingTimeout;
     private Integer                    gracePeriod;
-    private Integer                    spotPercentage;
 
     public ApiClusterStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -69,15 +68,6 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
         this.gracePeriod = gracePeriod;
     }
 
-    public Integer getSpotPercentage() {
-        return spotPercentage;
-    }
-
-    public void setSpotPercentage(Integer spotPercentage) {
-        isSet.add("spotPercentage");
-        this.spotPercentage = spotPercentage;
-    }
-
     @JsonIgnore
     public boolean isFallbackToOdSet() {
         return isSet.contains("fallbackToOd");
@@ -96,10 +86,5 @@ public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isGracePeriodSet() {
         return isSet.contains("gracePeriod");
-    }
-
-    @JsonIgnore
-    public boolean isSpotPercentageSet() {
-        return isSet.contains("spotPercentage");
     }
 }

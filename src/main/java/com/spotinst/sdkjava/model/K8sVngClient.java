@@ -8,34 +8,34 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class OceanK8sVirtualNodeGroupClient {
-    private static final Logger                 LOGGER = LoggerFactory.getLogger(OceanK8sVirtualNodeGroupClient.class);
+public class K8sVngClient {
+    private static final Logger     LOGGER = LoggerFactory.getLogger(K8sVngClient.class);
 
-    private String                              authToken;
-    private String                              account;
-    private ISpotOceanK8sVirtualNodeGroupRepo   oceanK8sVirtualNodeGroupRepo;
+    private String                  authToken;
+    private String                  account;
+    private ISpotK8sVngRepo   		K8sVngRepo;
 
-    public ISpotOceanK8sVirtualNodeGroupRepo getOceanK8sVirtualNodeGroupRepo() {
-        return oceanK8sVirtualNodeGroupRepo;
+    public ISpotK8sVngRepo getK8sVngRepo() {
+        return K8sVngRepo;
     }
 
-    public OceanK8sVirtualNodeGroupClient(String authToken, String account) {
+    public K8sVngClient(String authToken, String account) {
         this.authToken = authToken;
         this.account = account;
 
-        setOceanK8sVirtualNodeGroupRepo();
+        setK8sVngRepo();
     }
 
-    public void setOceanK8sVirtualNodeGroupRepo() {
-        this.oceanK8sVirtualNodeGroupRepo = SpotinstRepoManager.getInstance().getOceanK8sVirtualNodeGroupRepo();
+    public void setK8sVngRepo() {
+        this.K8sVngRepo = SpotinstRepoManager.getInstance().getK8sVngRepo();
     }
 
-    public K8sVirtualNodeGroup createK8sVirtualNodeGroup(K8sVirtualNodeGroupCreationRequest oceanVirtualNodeGroup) {
-        K8sVirtualNodeGroup retVal;
+    public K8sVngSpec createK8sVng(K8sVngCreationRequest k8sVngSpec) {
+        K8sVngSpec retVal;
 
-        K8sVirtualNodeGroup virtualNodeGroupToCreate = oceanVirtualNodeGroup.getLaunchSpec();
+        K8sVngSpec vngToCreate = k8sVngSpec.getVngLaunchSpec();
 
-        RepoGenericResponse<K8sVirtualNodeGroup> creationResponse = getOceanK8sVirtualNodeGroupRepo().create(virtualNodeGroupToCreate, authToken, account);
+        RepoGenericResponse<K8sVngSpec> creationResponse = getK8sVngRepo().create(vngToCreate, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -51,11 +51,11 @@ public class OceanK8sVirtualNodeGroupClient {
         return retVal;
     }
 
-    public Boolean updateK8sVirtualNodeGroup(K8sVirtualNodeGroupUpdateRequest k8sVirtualNodeGroupUpdateRequest, String launchSpecId) {
+    public Boolean updateK8sVng(K8sVngUpdateRequest k8sVngUpdateRequest, String launchSpecId) {
         Boolean retVal;
 
-        K8sVirtualNodeGroup virtualNodeGroupToUpdate = k8sVirtualNodeGroupUpdateRequest.getVirtualNodeGroup();
-        RepoGenericResponse<Boolean> updateResponse = getOceanK8sVirtualNodeGroupRepo().update(launchSpecId, virtualNodeGroupToUpdate, authToken, account);
+        K8sVngSpec vngToUpdate = k8sVngUpdateRequest.getVngLaunchSpec();
+        RepoGenericResponse<Boolean> updateResponse = getK8sVngRepo().update(launchSpecId, vngToUpdate, authToken, account);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -70,10 +70,10 @@ public class OceanK8sVirtualNodeGroupClient {
         return retVal;
     }
 
-    public Boolean deleteK8sVirtualNodeGroup(K8sVirtualNodeGroupDeleteRequest virtualNodeGroupDeletionRequest) {
+    public Boolean deleteK8sVngSpec(K8sVngDeleteRequest vngDeletionRequest) {
         Boolean                      retVal;
-        String                       launchSpecIdToDelete     = virtualNodeGroupDeletionRequest.getOceanLaunchSpecId();
-        RepoGenericResponse<Boolean> clusterDeletionResponse  = getOceanK8sVirtualNodeGroupRepo().delete(launchSpecIdToDelete, authToken, account);
+        String                       launchSpecIdToDelete     = vngDeletionRequest.getOceanLaunchSpecId();
+        RepoGenericResponse<Boolean> clusterDeletionResponse  = getK8sVngRepo().delete(launchSpecIdToDelete, authToken, account);
 
         if (clusterDeletionResponse.isRequestSucceed()) {
             retVal = clusterDeletionResponse.getValue();
@@ -90,10 +90,10 @@ public class OceanK8sVirtualNodeGroupClient {
         return retVal;
     }
 
-    public K8sVirtualNodeGroup getK8sVirtualNodeGroup(K8sVirtualNodeGroupGetRequest oceanK8sVirtualNodeGroupGetRequest) {
-        K8sVirtualNodeGroup retVal;
-        String          virtualNodeGroupToGet = oceanK8sVirtualNodeGroupGetRequest.getOceanLaunchSpecId();
-        RepoGenericResponse<K8sVirtualNodeGroup> clusterRes = getOceanK8sVirtualNodeGroupRepo().get(virtualNodeGroupToGet, authToken, account);
+    public K8sVngSpec getK8sVngSpec(K8sVngGetRequest k8sVngSpecGetRequest) {
+        K8sVngSpec retVal;
+        String          vngToGet = k8sVngSpecGetRequest.getOceanLaunchSpecId();
+        RepoGenericResponse<K8sVngSpec> clusterRes = getK8sVngRepo().get(vngToGet, authToken, account);
 
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();
@@ -103,6 +103,25 @@ public class OceanK8sVirtualNodeGroupClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to get ocean Virtual Node Group. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<K8sVngSpec> listK8sVngSpec() {
+        List<K8sVngSpec> retVal;
+        RepoGenericResponse<List<K8sVngSpec>> clusterRes = getK8sVngRepo().getAll(null, authToken, account);
+
+        if (clusterRes.isRequestSucceed()) {
+            retVal = clusterRes.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = clusterRes.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to list ocean Virtual Node Group. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
