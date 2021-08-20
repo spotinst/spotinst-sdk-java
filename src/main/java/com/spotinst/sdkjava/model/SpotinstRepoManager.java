@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
+import com.spotinst.sdkjava.model.repo.ocean.kubernetes.K8sVngRepo;
 
 /**
  * Created by talzur on 12/01/2017.

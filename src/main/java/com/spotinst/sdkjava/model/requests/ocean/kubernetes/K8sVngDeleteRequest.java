@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
+package com.spotinst.sdkjava.model.requests.ocean.kubernetes;
 
 public class K8sVngDeleteRequest {
 

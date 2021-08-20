@@ -1,8 +1,9 @@
-package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
+package com.spotinst.sdkjava.model.requests.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sVngSpec;
 import com.spotinst.sdkjava.model.converters.K8sVngConverter;
 
 import java.util.HashMap;

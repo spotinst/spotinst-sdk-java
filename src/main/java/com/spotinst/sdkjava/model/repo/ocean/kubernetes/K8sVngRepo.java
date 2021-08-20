@@ -1,7 +1,10 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.repo.ocean.kubernetes;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
+import com.spotinst.sdkjava.model.K8sVngSpecService;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sVngSpec;
 import com.spotinst.sdkjava.model.converters.K8sVngConverter;

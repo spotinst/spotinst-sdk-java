@@ -5,6 +5,10 @@ import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.enums.K8sVngHttpTokensEnum;
 import com.spotinst.sdkjava.model.K8sVngClient;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngCreationRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngGetRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngUpdateRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -125,7 +129,7 @@ public class OceanKubernetesVngSpecUsageExample {
 
         //Build virtual node group creation request
         K8sVngCreationRequest.Builder vngCreationRequestBuilder = K8sVngCreationRequest.Builder.get();
-        K8sVngCreationRequest creationRequest = vngCreationRequestBuilder.setVngLaunchSpec(k8sVng).build();
+        K8sVngCreationRequest         creationRequest           = vngCreationRequestBuilder.setVngLaunchSpec(k8sVng).build();
 
         //Convert virtual node group to API object json
         System.out.println(creationRequest.toJson());
@@ -140,7 +144,7 @@ public class OceanKubernetesVngSpecUsageExample {
     private static K8sVngSpec getK8sVng(K8sVngClient client, String launchSpecId){
         System.out.println("-------------------------start getting ocean virtual node group------------------------");
         K8sVngGetRequest.Builder getBuilder = K8sVngGetRequest.Builder.get();
-        K8sVngGetRequest  getRequest = getBuilder.setOceanLaunchSpecId(launchSpecId).build();
+        K8sVngGetRequest         getRequest = getBuilder.setOceanLaunchSpecId(launchSpecId).build();
 
         K8sVngSpec k8sVng = client.getK8sVngSpec(getRequest);
         if (k8sVng != null) {
