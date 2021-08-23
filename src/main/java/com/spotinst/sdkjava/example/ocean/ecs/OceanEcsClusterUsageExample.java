@@ -214,7 +214,7 @@ public class OceanEcsClusterUsageExample {
         }
     }
 
-    private static void updateClusterCapacity(SpotOceanEcsClusterClient client, String clusterId) {
+    private static void updateCluster(SpotOceanEcsClusterClient client, String clusterId) {
 
         // Build cluster update
         OceanEcsCluster.Builder updateOceanClusterBuilder = OceanEcsCluster.Builder.get();
@@ -303,7 +303,7 @@ public class OceanEcsClusterUsageExample {
         }
     }
 
-    private static void updateCluster(SpotOceanEcsClusterClient client, String clusterId) {
+    private static void updateClusterCapacity(SpotOceanEcsClusterClient client, String clusterId) {
          // Build cluster update
         OceanEcsCluster.Builder updateOceanClusterBuilder = OceanEcsCluster.Builder.get();
 
