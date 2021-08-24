@@ -3,10 +3,11 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
-import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
-import com.spotinst.sdkjava.model.SpotManagedInstanceClient;
-import com.spotinst.sdkjava.model.bl.aws.managed.instance.*;
-import com.spotinst.sdkjava.model.requests.aws.managed.instance.AwsManagedInstanceRequest;
+import com.spotinst.sdkjava.enums.RecurrenceFrequencyEnum;
+import com.spotinst.sdkjava.model.SpotAwsManagedInstanceClient;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ public class AwsManagedInstanceUsageExample {
     private final static List<String> timeWindows    = Arrays.asList("Mon:12:00-Tue:12:00", "Fri:12:00-Sat:12:00");
 
     public static void main(String[] args) {
-        SpotManagedInstanceClient managedInstanceClient = SpotinstClient.getManagedInstanceClient(auth_token, act_id);
+        SpotAwsManagedInstanceClient managedInstanceClient = SpotinstClient.getManagedInstanceClient(auth_token, act_id);
 
         System.out.println("----------Creation of ManagedInstance--------------");
         String managedInstanceId = createManagedInstance(managedInstanceClient);
@@ -49,20 +50,16 @@ public class AwsManagedInstanceUsageExample {
         deleteManagedInstance(managedInstanceClient, managedInstanceId);
 
         System.out.println("----------Pausing ManagedInstance--------------");
-        pauseManagedInstance(managedInstanceClient, "smi-f1113e1e");
+        pauseManagedInstance(managedInstanceClient, managedInstanceId);
 
         System.out.println("----------Resuming ManagedInstance--------------");
-        resumeManagedInstance(managedInstanceClient, "smi-f1113e1e");
+        resumeManagedInstance(managedInstanceClient, managedInstanceId);
 
         System.out.println("----------Recycling ManagedInstance--------------");
-        recycleManagedInstance(managedInstanceClient, "smi-d868ff10");
+        recycleManagedInstance(managedInstanceClient, managedInstanceId);
     }
 
-    private static String createManagedInstance(SpotManagedInstanceClient client) {
-
-        //Build Ami Backup
-        AmiBackup.Builder amiBackupBuilder = AmiBackup.Builder.get();
-        AmiBackup         amiBackup        = amiBackupBuilder.setShouldDeleteImages(true).build();
+    private static String createManagedInstance(SpotAwsManagedInstanceClient client) {
 
         //Build IamRole
         IamRole.Builder iamRoleBuilder = IamRole.Builder.get();
@@ -78,16 +75,6 @@ public class AwsManagedInstanceUsageExample {
         CreditSpecification.Builder creditSpecificationBuilder =
                 CreditSpecification.Builder.get();
         CreditSpecification creditSpecification                = creditSpecificationBuilder.setCpuCredits("standard").build();
-
-        //Build deallocation config
-        DeallocationConfig.Builder deallocationConfigBuilder = DeallocationConfig.Builder.get();
-        DeallocationConfig deallocationConfig        =
-                deallocationConfigBuilder.setShouldTerminateInstance(false)
-                        .setShouldDeleteVolumes(false)
-                        .setShouldDeleteSnapshots(false)
-                        .setShouldDeleteNetworkInterfaces(false)
-                        .setShouldDeleteImages(false)
-                        .build();
 
         //Build ebs
         Ebs.Builder ebsBuilder = Ebs.Builder.get();
@@ -303,7 +290,7 @@ public class AwsManagedInstanceUsageExample {
         return managedInstanceId;
     }
 
-    private static Boolean updateManagedInstanceName(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static Boolean updateManagedInstanceName(SpotAwsManagedInstanceClient client, String managedInstanceId) {
         //Build ManagedInstance
         ManagedInstance.Builder managedInstanceBuilder = ManagedInstance.Builder.get();
         ManagedInstance managedInstance = managedInstanceBuilder.setName("RenameManagedInstance").build();
@@ -323,7 +310,7 @@ public class AwsManagedInstanceUsageExample {
         return isManagedInstanceUpdated;
     }
 
-    private static Boolean updateManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static Boolean updateManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
 
         //Build HealthCheck
         HealthCheck.Builder healthCheckBuilder = HealthCheck.Builder.get();
@@ -374,25 +361,25 @@ public class AwsManagedInstanceUsageExample {
     }
 
 
-    private static ManagedInstance getManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static ManagedInstance getManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
         AwsManagedInstanceRequest.Builder getBuilder = AwsManagedInstanceRequest.Builder.get();
-        AwsManagedInstanceRequest                getRequest = getBuilder.setManagedInstanceId(managedInstanceId).build();
+        AwsManagedInstanceRequest getRequest = getBuilder.setManagedInstanceId(managedInstanceId).build();
 
         ManagedInstance managedInstance = client.getManagedInstance(getRequest);
 
         if (managedInstance != null) {
-            System.out.println("Get managedInstance successful: " + managedInstance.getId());
+            System.out.println("Get managedinstance successful: " + managedInstance.getId());
         }
         return managedInstance;
     }
 
-    private static List<ManagedInstance> listManagedInstance(SpotManagedInstanceClient client) {
-        return client.getAllManagedInstance();
+    private static List<ManagedInstance> listManagedInstance(SpotAwsManagedInstanceClient client) {
+        return client.getAllManagedInstances();
     }
 
-    private static Boolean pauseManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static Boolean pauseManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
         AwsManagedInstanceRequest.Builder pauseBuilder       = AwsManagedInstanceRequest.Builder.get();
-        AwsManagedInstanceRequest         pauseRequest       =
+        AwsManagedInstanceRequest pauseRequest       =
                 pauseBuilder.setManagedInstanceId(managedInstanceId).build();
         Boolean                                  isManagedInstancePaused = client.pauseManagedInstance(pauseRequest);
 
@@ -402,9 +389,9 @@ public class AwsManagedInstanceUsageExample {
         return isManagedInstancePaused;
     }
 
-    private static Boolean resumeManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static Boolean resumeManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
         AwsManagedInstanceRequest.Builder resumeBuilder       = AwsManagedInstanceRequest.Builder.get();
-        AwsManagedInstanceRequest         resumeRequest       =
+        AwsManagedInstanceRequest resumeRequest       =
                 resumeBuilder.setManagedInstanceId(managedInstanceId).build();
         Boolean                                  isManagedInstanceResumed = client.resumeManagedInstance(resumeRequest);
 
@@ -414,9 +401,9 @@ public class AwsManagedInstanceUsageExample {
         return isManagedInstanceResumed;
     }
 
-    private static Boolean recycleManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
+    private static Boolean recycleManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
         AwsManagedInstanceRequest.Builder recycleBuilder       = AwsManagedInstanceRequest.Builder.get();
-        AwsManagedInstanceRequest         recycleRequest       =
+        AwsManagedInstanceRequest recycleRequest       =
                 recycleBuilder.setManagedInstanceId(managedInstanceId).build();
         Boolean                                  isManagedInstanceRecycled = client.recycleManagedInstance(recycleRequest);
 
@@ -426,10 +413,27 @@ public class AwsManagedInstanceUsageExample {
         return isManagedInstanceRecycled;
     }
 
-    private static Boolean deleteManagedInstance(SpotManagedInstanceClient client, String managedInstanceId) {
-        AwsManagedInstanceRequest.Builder deleteBuilder       = AwsManagedInstanceRequest.Builder.get();
-        AwsManagedInstanceRequest         deleteRequest       =
-                deleteBuilder.setManagedInstanceId(managedInstanceId).build();
+    private static Boolean deleteManagedInstance(SpotAwsManagedInstanceClient client, String managedInstanceId) {
+        //Build Ami Backup
+        AmiBackup.Builder amiBackupBuilder = AmiBackup.Builder.get();
+        AmiBackup         amiBackup        = amiBackupBuilder.setShouldDeleteImages(true).build();
+
+        //Build deallocation config
+        DeallocationConfig.Builder deallocationConfigBuilder = DeallocationConfig.Builder.get();
+        DeallocationConfig deallocationConfig        =
+                deallocationConfigBuilder.setShouldTerminateInstance(true)
+                        .setShouldDeleteVolumes(true)
+                        .setShouldDeleteSnapshots(true)
+                        .setShouldDeleteNetworkInterfaces(true)
+                        .setShouldDeleteImages(true)
+                        .build();
+
+        AwsManagedInstanceDeletionRequest.Builder deleteBuilder       = AwsManagedInstanceDeletionRequest.Builder.get();
+        AwsManagedInstanceDeletionRequest deleteRequest       =
+                deleteBuilder.setDeallocationConfig(deallocationConfig)
+                        .setAmiBackup(amiBackup)
+                        .setManagedInstanceId(managedInstanceId)
+                        .build();
         Boolean                                  isManagedInstanceDeleted = client.deleteManagedInstance(deleteRequest);
 
         if (isManagedInstanceDeleted) {

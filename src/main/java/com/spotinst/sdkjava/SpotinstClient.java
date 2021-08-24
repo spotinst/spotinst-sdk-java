@@ -121,9 +121,9 @@ public class SpotinstClient {
         return spotOceanEcsClusterClient;
     }
 
-    public static SpotManagedInstanceClient getManagedInstanceClient(String authToken, String account) {
-        SpotManagedInstanceClient spotManagedInstanceClient = new SpotManagedInstanceClient(authToken, account);
-        return spotManagedInstanceClient;
+    public static SpotAwsManagedInstanceClient getManagedInstanceClient(String authToken, String account) {
+        SpotAwsManagedInstanceClient spotAwsManagedInstanceClient = new SpotAwsManagedInstanceClient(authToken, account);
+        return spotAwsManagedInstanceClient;
     }
 
     //endregion
