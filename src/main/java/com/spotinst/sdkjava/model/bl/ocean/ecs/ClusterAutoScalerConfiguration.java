@@ -196,7 +196,7 @@ public class ClusterAutoScalerConfiguration {
     }
 
     @JsonIgnore
-    public boolean isResourceLimits() {
+    public boolean isResourceLimitsSet() {
         return isSet.contains("resourceLimits");
     }
 

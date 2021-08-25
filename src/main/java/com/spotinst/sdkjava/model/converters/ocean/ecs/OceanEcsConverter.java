@@ -63,7 +63,7 @@ public class OceanEcsConverter {
             if (autoScaler.isCooldownSet()) {
                 retval.setCooldown(autoScaler.getCooldown());
             }
-            if (autoScaler.isResourceLimits()) {
+            if (autoScaler.isResourceLimitsSet()) {
                 retval.setResourceLimits(toDal(autoScaler.getResourceLimits()));
             }
             if (autoScaler.isDownSet()) {
@@ -562,7 +562,7 @@ public class OceanEcsConverter {
             if (apiAutoScaler.isCooldownSet()) {
                 autoScalerBuilder.setCooldown(apiAutoScaler.getCooldown());
             }
-            if (apiAutoScaler.isResourceLimits()) {
+            if (apiAutoScaler.isResourceLimitsSet()) {
                 autoScalerBuilder.setResourceLimits(toBl(apiAutoScaler.getResourceLimits()));
             }
             if (apiAutoScaler.isDownSet()) {

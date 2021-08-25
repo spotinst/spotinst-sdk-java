@@ -140,9 +140,7 @@ public class ApiClusterAutoScalerConfiguration implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isResourceLimits() {
-        return isSet.contains("resourceLimits");
-    }
+    public boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
     public boolean isDownSet() {

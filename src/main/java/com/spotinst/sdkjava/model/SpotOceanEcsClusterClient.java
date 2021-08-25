@@ -25,25 +25,15 @@ public class SpotOceanEcsClusterClient {
     public SpotOceanEcsClusterClient(String authToken, String account) {
         this.authToken = authToken;
         this.account = account;
-        setSpotinstOceanClusterRepo();
-        setSpotinstOceanEcsClusterRepo();
+        this.spotOceanEcsClusterLaunchSpecRepo = SpotinstRepoManager.getInstance().getSpotOceanEcsClusterLaunchSpecRepo();
+        this.spotOceanEcsClusterRepo = SpotinstRepoManager.getInstance().getSpotinstOceanEcsClusterRepo();
     }
 
-    public ISpotOceanEcsClusterRepo getSpotOceanEcsClusterRepo() {
+    private ISpotOceanEcsClusterRepo getSpotOceanEcsClusterRepo() {
         return spotOceanEcsClusterRepo; }
 
-    public void setSpotinstOceanEcsClusterRepo(){
-        this.spotOceanEcsClusterRepo =
-                SpotinstRepoManager.getInstance().getSpotinstOceanEcsClusterRepo();
-    }
-
-    public ISpotOceanEcsLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
+    private ISpotOceanEcsLaunchSpecRepo getSpotOceanEcsClusterLaunchSpecRepo() {
         return spotOceanEcsClusterLaunchSpecRepo;
-    }
-
-    public void setSpotinstOceanClusterRepo() {
-        this.spotOceanEcsClusterLaunchSpecRepo =
-                SpotinstRepoManager.getInstance().getSpotOceanEcsClusterLaunchSpecRepo();
     }
 
     //Methods
@@ -156,8 +146,7 @@ public class SpotOceanEcsClusterClient {
         return retVal;
     }
 
-    public  OceanEcsCluster createOceanEcsCluster(OceanEcsClusterRequest oceanEcsClusterCreationRequest)
-    {
+    public  OceanEcsCluster createOceanEcsCluster(OceanEcsClusterRequest oceanEcsClusterCreationRequest){
         OceanEcsCluster retVal;
         OceanEcsCluster clusterToCreate = oceanEcsClusterCreationRequest.getCluster();
 
@@ -261,4 +250,3 @@ public class SpotOceanEcsClusterClient {
     }
 
 }
-

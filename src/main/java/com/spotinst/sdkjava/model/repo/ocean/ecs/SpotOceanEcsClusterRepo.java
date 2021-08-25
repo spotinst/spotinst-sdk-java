@@ -41,9 +41,9 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
         ApiOceanEcsCluster apiOceanEcsCluster = OceanEcsConverter.toDal(clusterUpdate);
 
         try {
-            Boolean success = SpotOceanEcsClusterService
+            Boolean isSucceeded  = SpotOceanEcsClusterService
                     .updateEcsCluster(clusterId, apiOceanEcsCluster, authToken, account);
-            retVal = new RepoGenericResponse<>(success);
+            retVal = new RepoGenericResponse<>(isSucceeded );
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
@@ -74,8 +74,8 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean delete = SpotOceanEcsClusterService.deleteEcsCluster(identifier, authToken, account);
-            retVal = new RepoGenericResponse<>(delete);
+            Boolean isDeleted  = SpotOceanEcsClusterService.deleteEcsCluster(identifier, authToken, account);
+            retVal = new RepoGenericResponse<>(isDeleted );
 
         }
         catch (SpotinstHttpException e) {
@@ -102,6 +102,4 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
 
         return retVal;
     }
-
-
 }

@@ -230,7 +230,7 @@ public class OceanEcsClusterUsageExample {
         // Build autoHeadroomPercentage
         ClusterHeadroomsSpecification.Builder headroomSpecBuilder = ClusterHeadroomsSpecification.Builder.get();
         ClusterHeadroomsSpecification headroom =
-                headroomSpecBuilder.setCpuPerUnit(2000).setMemoryPerUnit(0).setNumOfUnits(1).build();
+                headroomSpecBuilder.setCpuPerUnit(4000).setMemoryPerUnit(1).setNumOfUnits(1).build();
 
         // Build ResourceLimit Specification
         ClusterResourceLimitsSpecification.Builder resourceLimitSpecBuilder =ClusterResourceLimitsSpecification.Builder.get();
@@ -239,43 +239,59 @@ public class OceanEcsClusterUsageExample {
         //Build autoscale specification
         ClusterAutoScalerConfiguration.Builder clusterAutoScalerBuilder = ClusterAutoScalerConfiguration.Builder.get();
         ClusterAutoScalerConfiguration autoScaler =
-                clusterAutoScalerBuilder.setAttributes(attributes).setIsAutoConfig(false).setCooldown(180).setDown(down)
-                                        .setAutoHeadroomPercentage(50).setHeadroom(headroom).setIsEnabled(true).setEnableAutomaticAndManualHeadroom(false)
-                                        .setResourceLimits(resourceLimits).setShouldScaleDownNonServiceTasks(false)
+                clusterAutoScalerBuilder.setAttributes(attributes).setIsAutoConfig(true).setCooldown(240).setDown(down)
+                                        .setAutoHeadroomPercentage(25).setHeadroom(headroom).setIsEnabled(false).setEnableAutomaticAndManualHeadroom(true)
+                                        .setResourceLimits(resourceLimits).setShouldScaleDownNonServiceTasks(true)
                                         .build();
 
         //Build OptimizeImage
         List<String> timeWindows = Arrays.asList("Mon:10:00-Tue:10:00", "Sat:10:00-Sat:10:00");
         ClusterOptimizeImageConfiguration.Builder clusterOptimizeImageBuilder = ClusterOptimizeImageConfiguration.Builder.get();
         ClusterOptimizeImageConfiguration optimizeImage = clusterOptimizeImageBuilder.setTimeWindows(timeWindows)
-                                                                                     .setPerformAt("timeWindow").setShouldOptimizeEcsAmi(true).build();
+                                                                                     .setPerformAt("timeWindow").setShouldOptimizeEcsAmi(false).build();
         //Build instance metadata options
-        LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
-                LaunchSpecInstanceMetadataOptions.Builder.get();
+        LaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder = LaunchSpecInstanceMetadataOptions.Builder.get();
         LaunchSpecInstanceMetadataOptions instanceMetadataOptions        =
-                instanceMetadataOptionsBuilder.setHttpPutResponseHopLimit(18).setHttpTokens("optional").build();
+                instanceMetadataOptionsBuilder.setHttpPutResponseHopLimit(18).setHttpTokens("required").build();
 
         //Build ebs specification
         LaunchSpecEbsSpecification.Builder ebsBuilder = LaunchSpecEbsSpecification.Builder.get();
-        LaunchSpecEbsSpecification ebs        = ebsBuilder.setDeleteOnTermination(true)
-                                                          .setEncrypted(false)
+        LaunchSpecEbsSpecification ebs        = ebsBuilder.setDeleteOnTermination(false)
+                                                          .setEncrypted(true)
                                                           .setVolumeType("gp2")
                                                           .setVolumeSize(50)
                                                           .build();
 
         //Build block device mappings
         LaunchSpecBlockDeviceMappings.Builder blockDeviceBuilder1  = LaunchSpecBlockDeviceMappings.Builder.get();
-        LaunchSpecBlockDeviceMappings         blockDeviceMappings1 = blockDeviceBuilder1.setDeviceName("/dev/xvda").setEbs(ebs).build();
+        LaunchSpecBlockDeviceMappings         blockDeviceMappings1 = blockDeviceBuilder1.setDeviceName("/dev/xvdb").setEbs(ebs).build();
         List<LaunchSpecBlockDeviceMappings>   blockDeviceMappings  = Collections.singletonList(blockDeviceMappings1);
+
+        LaunchSpecTagsSpecification.Builder tagBuilder = LaunchSpecTagsSpecification.Builder.get();
+        LaunchSpecTagsSpecification         tag2       = tagBuilder.setTagKey("Creator").setTagValue("Automation_Creator").build();
+        List<LaunchSpecTagsSpecification>   tags       = Collections.singletonList(tag2);
 
         // Build launch specification
         ClusterLaunchSpecification.Builder launchSpecBuilder = ClusterLaunchSpecification.Builder.get();
         ClusterLaunchSpecification launchSpec = launchSpecBuilder.setImageId(image_id)
-                                                                 .setUserData("dXNlcmJhc2g2NGVuY29kZWQ=")
+                                                                 .setUserData("QXV0b21hdGlvbiB1c2VyIGRhdGE=")
                                                                  .setSecurityGroupIds(securityGroups)
                                                                  .setInstanceMetadataOptions(instanceMetadataOptions)
                                                                  .setBlockDeviceMappings(blockDeviceMappings)
-                                                                 .build();
+                                                                 .setTags(tags).build();
+        //Build Capacity
+        ClusterCapacityConfiguration.Builder capacityBuilder = ClusterCapacityConfiguration.Builder.get();
+        ClusterCapacityConfiguration capacity = capacityBuilder.setMaximum(200).setMinimum(10).setTarget(20).build();
+
+        //Build Scheduling
+        ClusterTasksConfiguration.Builder tasksBuilder = ClusterTasksConfiguration.Builder.get();
+
+        ClusterTasksConfiguration task =
+                tasksBuilder.setIsEnabled(false).setCronExpression("1 1 * * *").setTaskType("clusterRoll").build();
+        List<ClusterTasksConfiguration> tasksList = Collections.singletonList(task);
+        ClusterSchedulingConfiguration.Builder schedulingBuilder = ClusterSchedulingConfiguration.Builder.get();
+        ClusterSchedulingConfiguration scheduling = schedulingBuilder.setTasks(tasksList).build();
+
         //Build compute
         ClusterComputeConfiguration.Builder computeBuilder = ClusterComputeConfiguration.Builder.get();
         ClusterComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpec).setSubnetIds(subnetIds)
@@ -284,10 +300,10 @@ public class OceanEcsClusterUsageExample {
 
         //Build Strategy
         ClusterStrategyConfiguration.Builder strategyBuilder = ClusterStrategyConfiguration.Builder.get();
-        ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(120).setFallbackToOnDemand(true).setspotPercentage(50).setUtilizeReservedInstances(true).build();
+        ClusterStrategyConfiguration strategy = strategyBuilder.setDrainingTimeout(240).setFallbackToOnDemand(false).setspotPercentage(0).setUtilizeReservedInstances(false).build();
 
         OceanEcsCluster oceanEcsClusterUpdate =
-                updateOceanClusterBuilder.setAutoScaler(autoScaler).setCompute(compute).setStrategy(strategy).build();
+                updateOceanClusterBuilder.setCapacity(capacity).setAutoScaler(autoScaler).setScheduling(scheduling).setCompute(compute).setStrategy(strategy).build();
 
         OceanEcsClusterRequest.Builder clusterUpdateRequestBuilder = OceanEcsClusterRequest.Builder.get();
         OceanEcsClusterRequest updateRequest               =
