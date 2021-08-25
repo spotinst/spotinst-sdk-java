@@ -2067,6 +2067,10 @@ class ElastigroupConverter {
                 retValBuilder.setAutoWeight(loadBalancer.getAutoWeight());
             }
 
+            if (loadBalancer.isTypeSet()) {
+                retValBuilder.setType(LbTypeEnum.fromName(loadBalancer.getType()));
+            }
+
             retVal = retValBuilder.build();
         }
 
