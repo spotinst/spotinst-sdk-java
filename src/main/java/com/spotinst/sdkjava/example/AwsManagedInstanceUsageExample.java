@@ -79,11 +79,11 @@ public class AwsManagedInstanceUsageExample {
         //Build ebs
         Ebs.Builder ebsBuilder = Ebs.Builder.get();
         Ebs ebs                = ebsBuilder
-                //.setThroughput(150)
+                .setThroughput(null)
                 .setDeleteOnTermination(true)
                 .setIops(100)
-                .setVolumeSize(16)
-                .setVolumeType("gp2")
+                .setVolumeSize(8)
+                .setVolumeType("gp3")
                 .build();
 
         //Build BlockDevice Mappings
