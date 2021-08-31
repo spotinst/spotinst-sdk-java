@@ -124,7 +124,8 @@ public class OceanGKELaunchSpecUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification
-                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-23da368e")
+                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-3f432e3e")
+                                                                                .setRestrictScaleDown(false)
                                                                                 .setServiceAccount("serviceAccount")
                                                                                 .setRootVolumeType("pd-standard")
                                                                                 .setName(launchSpecName)
@@ -154,7 +155,7 @@ public class OceanGKELaunchSpecUsageExample {
 
     private static List<LaunchSpecSpecification> getAllLaunchSpecs(SpotOceanGKELaunchSpecClient client) {
 
-        return client.getAllLaunchSpec("o-23da368e");
+        return client.getAllLaunchSpec("o-3f432e3e");
 
     }
     private static LaunchSpecSpecification getALaunchSpecs(SpotOceanGKELaunchSpecClient client, String LaunchSpecId){

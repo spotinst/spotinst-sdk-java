@@ -17,9 +17,11 @@ public class OceanGKELaunchSpecConverter {
             if (src.isIdSet()) {
                 apiLaunchSpec.setId(src.getId());
             }
+
             if (src.isNameSet()) {
                 apiLaunchSpec.setName(src.getName());
             }
+
             if (src.isOceanIdSet()) {
                 apiLaunchSpec.setOceanId(src.getOceanId());
             }
@@ -43,6 +45,7 @@ public class OceanGKELaunchSpecConverter {
             if (src.isRestrictScaleDown()) {
                 apiLaunchSpec.setRestrictScaleDown(src.getRestrictScaleDown());
             }
+
             if (src.isMetadataSet()) {
 
                 List<ApiLaunchSpecMetadataSpecification> metadata =
@@ -50,17 +53,18 @@ public class OceanGKELaunchSpecConverter {
                            .collect(Collectors.toList());
                 apiLaunchSpec.setMetadata(metadata);
             }
+
             if (src.isInstanceTypesSet()) {
                 apiLaunchSpec.setInstanceTypes(src.getInstanceTypes());
             }
 
             if (src.isTaintsSet()) {
 
-                List<ApiLaunchSpecTaintsSpecification> taints =
+                List<ApiLaunchSpecTaintsSpecification> taint =
                         src.getTaints().stream().map(OceanGKELaunchSpecConverter::toDal)
                            .collect(Collectors.toList());
 
-                apiLaunchSpec.setTaints(taints);
+                apiLaunchSpec.setTaints(taint);
             }
 
             if (src.isLabelsSet()) {
@@ -93,30 +97,33 @@ public class OceanGKELaunchSpecConverter {
         return apiLaunchSpec;
     }
 
-    private static ApiLaunchSpecTaintsSpecification toDal(LaunchSpecTaintsSpecification taints) {
+    private static ApiLaunchSpecTaintsSpecification toDal(LaunchSpecTaintsSpecification taint) {
 
         ApiLaunchSpecTaintsSpecification apiLaunchSpecTaintsSpecification = new ApiLaunchSpecTaintsSpecification();
 
-        if(taints.isKeySet()){
-            apiLaunchSpecTaintsSpecification.setKey(taints.getKey());
+        if(taint.isKeySet()){
+            apiLaunchSpecTaintsSpecification.setKey(taint.getKey());
         }
-        if(taints.isEffectSet()){
-            apiLaunchSpecTaintsSpecification.setEffect(taints.getEffect());
+
+        if(taint.isEffectSet()){
+            apiLaunchSpecTaintsSpecification.setEffect(taint.getEffect());
         }
-        if(taints.isValueSet()){
-            apiLaunchSpecTaintsSpecification.setValue(taints.getValue());
+
+        if(taint.isValueSet()){
+            apiLaunchSpecTaintsSpecification.setValue(taint.getValue());
         }
         return apiLaunchSpecTaintsSpecification;
     }
 
-    private static ApiLaunchSpecLabelsSpecification toDal(LaunchSpecLabelsSpecification labels){
+    private static ApiLaunchSpecLabelsSpecification toDal(LaunchSpecLabelsSpecification label){
 
         ApiLaunchSpecLabelsSpecification apiLaunchSpecLabelsSpecification = new ApiLaunchSpecLabelsSpecification();
-        if(labels.isKeySet()){
-            apiLaunchSpecLabelsSpecification.setKey(labels.getKey());
+        if(label.isKeySet()){
+            apiLaunchSpecLabelsSpecification.setKey(label.getKey());
         }
-        if(labels.isValueSet()){
-            apiLaunchSpecLabelsSpecification.setValue(labels.getValue());
+
+        if(label.isValueSet()){
+            apiLaunchSpecLabelsSpecification.setValue(label.getValue());
         }
 
         return apiLaunchSpecLabelsSpecification;
@@ -138,68 +145,73 @@ public class OceanGKELaunchSpecConverter {
         return autoScaleListToReturn;
     }
 
-    private static ApiLaunchSpecHeadRoomsSpecification toDal(LaunchSpecHeadroomsSpecification headRooms) {
+    private static ApiLaunchSpecHeadRoomsSpecification toDal(LaunchSpecHeadroomsSpecification headroom) {
 
         ApiLaunchSpecHeadRoomsSpecification
                 headRoomsListToReturn =  new ApiLaunchSpecHeadRoomsSpecification();
 
-        if(headRooms.isCpuPerUnitSet()){
-            headRoomsListToReturn.setCpuPerUnit(headRooms.getCpuPerUnit());
+        if(headroom.isCpuPerUnitSet()){
+            headRoomsListToReturn.setCpuPerUnit(headroom.getCpuPerUnit());
         }
-        if(headRooms.isGpuPerUnitSet()){
-            headRoomsListToReturn.setGpuPerUnit(headRooms.getGpuPerUnit());
+
+        if(headroom.isGpuPerUnitSet()){
+            headRoomsListToReturn.setGpuPerUnit(headroom.getGpuPerUnit());
         }
-        if(headRooms.isMemoryPerUnitSet()){
-            headRoomsListToReturn.setMemoryPerUnit(headRooms.getMemoryPerUnit());
+
+        if(headroom.isMemoryPerUnitSet()){
+            headRoomsListToReturn.setMemoryPerUnit(headroom.getMemoryPerUnit());
         }
-        if(headRooms.isNumOfUnitsSet()){
-            headRoomsListToReturn.setNumOfUnits(headRooms.getMemoryPerUnit());
+
+        if(headroom.isNumOfUnitsSet()){
+            headRoomsListToReturn.setNumOfUnits(headroom.getMemoryPerUnit());
         }
 
         return headRoomsListToReturn;
     }
 
-    private static ApiLaunchSpecResourceLimitSpecification toDal(LaunchSpecResourceLimitsSpecification restourceLimit){
+    private static ApiLaunchSpecResourceLimitSpecification toDal(LaunchSpecResourceLimitsSpecification resourceLimit){
         ApiLaunchSpecResourceLimitSpecification
-                restourceLimitToReturn = new ApiLaunchSpecResourceLimitSpecification();
+                resourceLimitToReturn = new ApiLaunchSpecResourceLimitSpecification();
 
-        if(restourceLimit.isMaxInstanceCountSet()){
-            restourceLimitToReturn.setMaxInstanceCount(restourceLimit.getMaxInstanceCount());
+        if(resourceLimit.isMaxInstanceCountSet()){
+            resourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
         }
 
-        return restourceLimitToReturn;
+        return resourceLimitToReturn;
     }
 
     private static ApiLaunchSpecResourceShieldedInstanceSpecification toDal(
             LaunchSpecShieldedInstanceConfigSpecification shieldedInstance){
-        ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceList =  new ApiLaunchSpecResourceShieldedInstanceSpecification();
+        ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig =  new ApiLaunchSpecResourceShieldedInstanceSpecification();
 
         if(shieldedInstance.isEnableIntegrityMonitoringSet()){
-            shieldedInstanceList.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
-        }
-        if(shieldedInstance.isEnableSecureBootSet()){
-            shieldedInstanceList.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
+            shieldedInstanceConfig.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
         }
 
-        return shieldedInstanceList;
+        if(shieldedInstance.isEnableSecureBootSet()){
+            shieldedInstanceConfig.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
+        }
+
+        return shieldedInstanceConfig;
     }
 
-    private static ApiLaunchSpecStrategySpecification toDal(LaunchSpecStrategySpecification startegy){
-        ApiLaunchSpecStrategySpecification startegyList = new ApiLaunchSpecStrategySpecification();
+    private static ApiLaunchSpecStrategySpecification toDal(LaunchSpecStrategySpecification strategy){
+        ApiLaunchSpecStrategySpecification strategyList = new ApiLaunchSpecStrategySpecification();
 
-        if(startegy.isPreemptiblePercentageSet()){
-            startegyList.setPreemptiblePercentage(startegy.getPreemptiblePercentage());
+        if(strategy.isPreemptiblePercentageSet()){
+            strategyList.setPreemptiblePercentage(strategy.getPreemptiblePercentage());
         }
-        return startegyList;
+
+        return strategyList;
     }
 
     private static ApiLaunchSpecStorageSpecification toDal(LaunchSpecStorageSpecification storage){
-        ApiLaunchSpecStorageSpecification storageList = new ApiLaunchSpecStorageSpecification();
+        ApiLaunchSpecStorageSpecification storageSpec = new ApiLaunchSpecStorageSpecification();
 
         if(storage.isLocalSsdCountSet()){
-            storageList.setLocalSsdCount(storage.getLocalSsdCount());
+            storageSpec.setLocalSsdCount(storage.getLocalSsdCount());
         }
-        return storageList;
+        return storageSpec;
     }
 
     private static ApiLaunchSpecMetadataSpecification toDal(LaunchSpecMetadataSpecification metadata){
@@ -209,6 +221,7 @@ public class OceanGKELaunchSpecConverter {
         if(metadata.isKeySet()){
             apiLaunchSpecMetadataSpecification.setKey(metadata.getKey());
         }
+
         if(metadata.isValueSet()){
             apiLaunchSpecMetadataSpecification.setValue(metadata.getValue());
         }
@@ -217,37 +230,40 @@ public class OceanGKELaunchSpecConverter {
     }
 
 
-    private static LaunchSpecTaintsSpecification toBl(ApiLaunchSpecTaintsSpecification taints) {
+    private static LaunchSpecTaintsSpecification toBl(ApiLaunchSpecTaintsSpecification taint) {
 
         LaunchSpecTaintsSpecification launchSpecTaintsSpecification = new LaunchSpecTaintsSpecification();
 
-        if(taints.isEffectSet()){
-            launchSpecTaintsSpecification.setEffect(taints.getEffect());
+        if(taint.isEffectSet()){
+            launchSpecTaintsSpecification.setEffect(taint.getEffect());
         }
-        if(taints.isKeySet()){
-            launchSpecTaintsSpecification.setKey(taints.getKey());
+
+        if(taint.isKeySet()){
+            launchSpecTaintsSpecification.setKey(taint.getKey());
         }
-        if(taints.isValueSet()){
-            launchSpecTaintsSpecification.setValue(taints.getValue());
+
+        if(taint.isValueSet()){
+            launchSpecTaintsSpecification.setValue(taint.getValue());
         }
+
         return launchSpecTaintsSpecification;
     }
 
-    private static LaunchSpecLabelsSpecification toBl(ApiLaunchSpecLabelsSpecification labels){
+    private static LaunchSpecLabelsSpecification toBl(ApiLaunchSpecLabelsSpecification label){
 
         LaunchSpecLabelsSpecification launchSpecLabelsSpecification = new LaunchSpecLabelsSpecification();
 
-        if(labels.isKeySet()){
-            launchSpecLabelsSpecification.setKey(labels.getKey());
+        if(label.isKeySet()){
+            launchSpecLabelsSpecification.setKey(label.getKey());
         }
-        if(labels.isValueSet()){
-            launchSpecLabelsSpecification.setValue((labels.getValue()));
+        if(label.isValueSet()){
+            launchSpecLabelsSpecification.setValue((label.getValue()));
         }
         return launchSpecLabelsSpecification;
     }
 
     public static LaunchSpecSpecification toBl(ApiLaunchSpecSpecification apiLaunchSpecSpecification) {
-        LaunchSpecSpecification oceanGKECreateLaunchSpecRes = null;
+        LaunchSpecSpecification launchSpec = null;
 
         if (apiLaunchSpecSpecification != null) {
             LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecBuilder = LaunchSpecSpecification.Builder.get();
@@ -255,9 +271,11 @@ public class OceanGKELaunchSpecConverter {
             if (apiLaunchSpecSpecification.isIdSet()) {
                 oceanGKECreateLaunchSpecBuilder.setId(apiLaunchSpecSpecification.getId());
             }
+
             if (apiLaunchSpecSpecification.isNameSet()) {
                 oceanGKECreateLaunchSpecBuilder.setName(apiLaunchSpecSpecification.getName());
             }
+
             if (apiLaunchSpecSpecification.isOceanIdSet()) {
                 oceanGKECreateLaunchSpecBuilder.setOceanId(apiLaunchSpecSpecification.getOceanId());
             }
@@ -281,6 +299,7 @@ public class OceanGKELaunchSpecConverter {
             if (apiLaunchSpecSpecification.isRestrictScaleDown()) {
                 oceanGKECreateLaunchSpecBuilder.setRestrictScaleDown(apiLaunchSpecSpecification.getRestrictScaleDown());
             }
+
             if (apiLaunchSpecSpecification.isMetadataSet()) {
 
                 List<LaunchSpecMetadataSpecification> metadata =
@@ -289,26 +308,27 @@ public class OceanGKELaunchSpecConverter {
 
                 oceanGKECreateLaunchSpecBuilder.setMetadata(metadata);
             }
+
             if (apiLaunchSpecSpecification.isInstanceTypesSet()) {
                 oceanGKECreateLaunchSpecBuilder.setInstanceTypes(apiLaunchSpecSpecification.getInstanceTypes());
             }
 
             if (apiLaunchSpecSpecification.isTaintsSet()) {
 
-                List<LaunchSpecTaintsSpecification> taints =
+                List<LaunchSpecTaintsSpecification> taint =
                         apiLaunchSpecSpecification.getTaints().stream().map(OceanGKELaunchSpecConverter::toBl)
                                                   .collect(Collectors.toList());
 
-                oceanGKECreateLaunchSpecBuilder.setTaints(taints);
+                oceanGKECreateLaunchSpecBuilder.setTaints(taint);
             }
 
             if (apiLaunchSpecSpecification.isLabelsSet()) {
 
-                List<LaunchSpecLabelsSpecification> labels =
+                List<LaunchSpecLabelsSpecification> label =
                         apiLaunchSpecSpecification.getLabels().stream().map(OceanGKELaunchSpecConverter::toBl)
                                                   .collect(Collectors.toList());
 
-                oceanGKECreateLaunchSpecBuilder.setLabels(labels);
+                oceanGKECreateLaunchSpecBuilder.setLabels(label);
             }
 
             if (apiLaunchSpecSpecification.isAutoScaleSet()) {
@@ -331,10 +351,10 @@ public class OceanGKELaunchSpecConverter {
             if (apiLaunchSpecSpecification.isStorageSet()) {
                 oceanGKECreateLaunchSpecBuilder.setStorage(toBl(apiLaunchSpecSpecification.getStorage()));
             }
-            oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecBuilder.build();
+            launchSpec = oceanGKECreateLaunchSpecBuilder.build();
         }
 
-        return oceanGKECreateLaunchSpecRes;
+        return launchSpec;
     }
 
     private static LaunchSpecAutoScaleSpecification toBl(ApiLaunchSpecAutoScaleSpecification autoScale){
@@ -360,12 +380,15 @@ public class OceanGKELaunchSpecConverter {
         if(headRooms.isCpuPerUnitSet()){
             headRoomsListToReturn.setCpuPerUnit(headRooms.getCpuPerUnit());
         }
+
         if(headRooms.isGpuPerUnitSet()){
             headRoomsListToReturn.setGpuPerUnit(headRooms.getGpuPerUnit());
         }
+
         if(headRooms.isMemoryPerUnitSet()){
             headRoomsListToReturn.setMemoryPerUnit(headRooms.getMemoryPerUnit());
         }
+
         if(headRooms.isNumOfUnitsSet()){
             headRoomsListToReturn.setNumOfUnits(headRooms.getNumOfUnits());
         }
@@ -374,11 +397,11 @@ public class OceanGKELaunchSpecConverter {
     }
 
     private static LaunchSpecResourceLimitsSpecification toBl(
-            ApiLaunchSpecResourceLimitSpecification restourceLimit){
+            ApiLaunchSpecResourceLimitSpecification resourceLimit){
         LaunchSpecResourceLimitsSpecification
                 restourceLimitToReturn = LaunchSpecResourceLimitsSpecification.Builder.get().build();
-        if(restourceLimit.isMaxInstanceCountSet()){
-            restourceLimitToReturn.setMaxInstanceCount(restourceLimit.getMaxInstanceCount());
+        if(resourceLimit.isMaxInstanceCountSet()){
+            restourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
         }
 
         return restourceLimitToReturn;
@@ -386,34 +409,38 @@ public class OceanGKELaunchSpecConverter {
 
     private static LaunchSpecShieldedInstanceConfigSpecification toBl(
             ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstance){
-        LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceList =
+        LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig =
                 LaunchSpecShieldedInstanceConfigSpecification.Builder.get().build();
         if(shieldedInstance.isEnableIntegrityMonitoringSet()){
-            shieldedInstanceList.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
-        }
-        if(shieldedInstance.isEnableSecureBootSet()){
-            shieldedInstanceList.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
+            shieldedInstanceConfig.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
         }
 
-        return shieldedInstanceList;
+        if(shieldedInstance.isEnableSecureBootSet()){
+            shieldedInstanceConfig.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
+        }
+
+        return shieldedInstanceConfig;
     }
 
-    private static LaunchSpecStrategySpecification toBl(ApiLaunchSpecStrategySpecification startegy){
-        LaunchSpecStrategySpecification startegyList = LaunchSpecStrategySpecification.Builder.get().build();
-        if(startegy.isPreemptiblePercentageSet()){
-            startegyList.setPreemptiblePercentage(startegy.getPreemptiblePercentage());
+    private static LaunchSpecStrategySpecification toBl(ApiLaunchSpecStrategySpecification strategy){
+        LaunchSpecStrategySpecification strategyList = LaunchSpecStrategySpecification.Builder.get().build();
+        if(strategy.isPreemptiblePercentageSet()){
+            strategyList.setPreemptiblePercentage(strategy.getPreemptiblePercentage());
         }
-        return startegyList;
+
+        return strategyList;
     }
 
     private static LaunchSpecStorageSpecification toBl(ApiLaunchSpecStorageSpecification storage){
-        LaunchSpecStorageSpecification storageList = null;
+        LaunchSpecStorageSpecification storageSpec = null;
 
-        storageList = new LaunchSpecStorageSpecification();
+        storageSpec = new LaunchSpecStorageSpecification();
+
         if(storage.isLocalSsdCountSet()){
-            storageList.setLocalSsdCount(storage.getLocalSsdCount());
+            storageSpec.setLocalSsdCount(storage.getLocalSsdCount());
         }
-        return storageList;
+
+        return storageSpec;
     }
 
     private static LaunchSpecMetadataSpecification toBl(ApiLaunchSpecMetadataSpecification metadata){
@@ -423,6 +450,7 @@ public class OceanGKELaunchSpecConverter {
         if(metadata.isKeySet()){
             launchSpecMetadataSpecification.setKey(metadata.getKey());
         }
+
         if(metadata.isValueSet()){
             launchSpecMetadataSpecification.setValue(metadata.getValue());
         }

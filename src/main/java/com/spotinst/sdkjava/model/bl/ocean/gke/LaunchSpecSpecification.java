@@ -17,7 +17,7 @@ public class LaunchSpecSpecification {
     private String                                        serviceAccount;
     private Integer                                           rootVolumeSize;
     private String                                        rootVolumeType;
-    private boolean                                       restrictScaleDown;
+    private Boolean                                       restrictScaleDown = false;
     private List<LaunchSpecMetadataSpecification>         metadata;
     private List<String>                                  instanceTypes;
     private List<LaunchSpecTaintsSpecification>           taints;
