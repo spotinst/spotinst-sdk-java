@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 
@@ -19,6 +20,10 @@ public interface ISpotAwsManagedInstanceRepo extends IRepository<ManagedInstance
     }
 
     default RepoGenericResponse<Boolean> recycle(String managedInstanceId, String authToken, String account) {
+        throw new SpotinstNotSupportedException();
+    }
+
+    default RepoGenericResponse<GetStatus> getStatus(String managedInstanceId, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 }

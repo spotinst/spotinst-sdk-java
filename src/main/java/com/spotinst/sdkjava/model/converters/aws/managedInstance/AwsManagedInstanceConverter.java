@@ -679,6 +679,55 @@ public class AwsManagedInstanceConverter {
         return retVal;
     }
 
+    private static ApiGetStatus toDal(GetStatus getStatus) {
+        ApiGetStatus retVal = null;
+
+        if (getStatus != null) {
+            retVal = new ApiGetStatus();
+
+            if (getStatus.isCreatedAtSet()) {
+                retVal.setCreatedAt(getStatus.getCreatedAt());
+            }
+
+            if (getStatus.isIdSet()) {
+                retVal.setId(getStatus.getId());
+            }
+
+            if (getStatus.isImageIdSet()) {
+                retVal.setImageId(getStatus.getImageId());
+            }
+
+            if (getStatus.isInstanceIdSet()) {
+                retVal.setInstanceId(getStatus.getInstanceId());
+            }
+
+            if (getStatus.isInstanceTypeSet()) {
+                retVal.setInstanceType(getStatus.getInstanceType());
+            }
+
+            if (getStatus.isLaunchedAtSet()) {
+                retVal.setLaunchedAt(getStatus.getLaunchedAt());
+            }
+
+            if (getStatus.isNameSet()) {
+                retVal.setName(getStatus.getName());
+            }
+
+            if (getStatus.isPrivateIpSet()) {
+                retVal.setPrivateIp(getStatus.getPrivateIp());
+            }
+
+            if (getStatus.isPublicIpSet()) {
+                retVal.setPublicIp(getStatus.getPublicIp());
+            }
+
+            if (getStatus.isStatusSet()) {
+                retVal.setStatus(getStatus.getStatus());
+            }
+        }
+        return retVal;
+    }
+
     //region DAL ->
     public static ManagedInstance toBl(ApiManagedInstance managedInstance) {
         ManagedInstance retVal = null;
@@ -1360,6 +1409,57 @@ public class AwsManagedInstanceConverter {
                 tasksBuilder.setTaskType(SchedulingTaskTypeEnum.fromName(tasks.getTaskType()));
             }
             retVal = tasksBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static GetStatus toBl(ApiGetStatus getStatus) {
+        GetStatus retVal = null;
+
+        if (getStatus != null) {
+            GetStatus.Builder getStatusBuilder = GetStatus.Builder.get();
+
+            if (getStatus.isCreatedAtSet()) {
+                getStatusBuilder.setCreatedAt(getStatus.getCreatedAt());
+            }
+
+            if (getStatus.isIdSet()) {
+                getStatusBuilder.setId(getStatus.getId());
+            }
+
+            if (getStatus.isImageIdSet()) {
+                getStatusBuilder.setImageId(getStatus.getImageId());
+            }
+
+            if (getStatus.isInstanceIdSet()) {
+                getStatusBuilder.setInstanceId(getStatus.getInstanceId());
+            }
+
+            if (getStatus.isInstanceTypeSet()) {
+                getStatusBuilder.setInstanceType(getStatus.getInstanceType());
+            }
+
+            if (getStatus.isLaunchedAtSet()) {
+                getStatusBuilder.setLaunchedAt(getStatus.getLaunchedAt());
+            }
+
+            if (getStatus.isNameSet()) {
+                getStatusBuilder.setName(getStatus.getName());
+            }
+
+            if (getStatus.isPrivateIpSet()) {
+                getStatusBuilder.setPrivateIp(getStatus.getPrivateIp());
+            }
+
+            if (getStatus.isPublicIpSet()) {
+                getStatusBuilder.setPublicIp(getStatus.getPublicIp());
+            }
+
+            if (getStatus.isStatusSet()) {
+                getStatusBuilder.setStatus(getStatus.getStatus());
+            }
+            retVal = getStatusBuilder.build();
         }
 
         return retVal;

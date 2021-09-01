@@ -4,8 +4,10 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiGetStatus;
 import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiManagedInstance;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiGetStatusResponse;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiResponse;
 import org.apache.http.HttpStatus;
 
@@ -298,7 +300,7 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
     }
 
     public static Boolean recycleManagedInstance(String managedInstanceId, String authToken,
-                                                String account) throws SpotinstHttpException {
+                                                  String account) throws SpotinstHttpException {
         // Init isrecycled
         Boolean isrecycled = false;
 
@@ -334,5 +336,46 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         }
 
         return isrecycled;
+    }
+
+    public static ApiGetStatus getManagedInstanceStatus(String managedInstanceId, String authToken,
+                                                        String account) throws SpotinstHttpException {
+        // Init status
+        ApiGetStatus getStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add managedInstanceId Query param
+        if (managedInstanceId != null) {
+            queryParams.put("MI_ID", managedInstanceId);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/%s/status", apiEndpoint, managedInstanceId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        AwsManagedInstanceApiGetStatusResponse managedInstanceStatusResponse =
+                getCastedResponse(response, AwsManagedInstanceApiGetStatusResponse.class);
+
+        if (managedInstanceStatusResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            getStatus = managedInstanceStatusResponse.getResponse().getItems().get(0);
+        }
+
+        return getStatus;
     }
 }

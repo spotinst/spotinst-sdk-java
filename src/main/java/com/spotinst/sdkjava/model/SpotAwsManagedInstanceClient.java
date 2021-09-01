@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
@@ -207,5 +208,26 @@ public class SpotAwsManagedInstanceClient {
         }
 
         return isRecycled;
+    }
+
+    public GetStatus getManagedInstanceStatus(AwsManagedInstanceRequest managedInstanceStatusRequest) {
+        GetStatus status;
+        String  managedInstanceId = managedInstanceStatusRequest.getManagedInstanceId();
+        RepoGenericResponse<GetStatus> statusResponse =
+                getSpotManagedInstanceRepo().getStatus(managedInstanceId, authToken, account);
+
+        if (statusResponse.isRequestSucceed()) {
+            status = statusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the status of AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return status;
     }
 }
