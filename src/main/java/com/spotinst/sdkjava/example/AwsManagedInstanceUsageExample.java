@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.example;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
+import com.spotinst.sdkjava.enums.AwsPerformAtEnum;
 import com.spotinst.sdkjava.enums.SchedulingTaskTypeEnum;
 import com.spotinst.sdkjava.enums.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.SpotAwsManagedInstanceClient;
@@ -243,7 +243,7 @@ public class AwsManagedInstanceUsageExample {
 
         //Build revertToSpot
         RevertToSpot.Builder revertToSpotBuilder = RevertToSpot.Builder.get();
-        RevertToSpot revertToSpot                = revertToSpotBuilder.setPerformAt(PerformAtEnumGcp.never).build();
+        RevertToSpot revertToSpot                = revertToSpotBuilder.setPerformAt(AwsPerformAtEnum.never).build();
 
         //Build strategy
         Strategy.Builder strategyBuilder = Strategy.Builder.get();
