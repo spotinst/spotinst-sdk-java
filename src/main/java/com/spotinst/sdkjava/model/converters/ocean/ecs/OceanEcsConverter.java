@@ -161,7 +161,7 @@ public class OceanEcsConverter {
                 retVal.setLaunchSpecification(toDal(compute.getLaunchSpecification()));
             }
             if (compute.isOptimizeImagesSet()) {
-                retVal.setOptimizeImages(toDal(compute.getOptimizeImage()));
+                retVal.setOptimizeImages(toDal(compute.getOptimizeImages()));
             }
         }
         return retVal;

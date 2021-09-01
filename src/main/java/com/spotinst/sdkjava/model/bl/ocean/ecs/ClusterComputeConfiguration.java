@@ -46,13 +46,13 @@ public class ClusterComputeConfiguration {
         this.launchSpecification = launchSpecification;
     }
 
-    public ClusterOptimizeImageConfiguration getOptimizeImage() {
+    public ClusterOptimizeImageConfiguration getOptimizeImages() {
         return optimizeImages;
     }
 
-    public void setOptimizeImages(ClusterOptimizeImageConfiguration optimizeImage) {
+    public void setOptimizeImages(ClusterOptimizeImageConfiguration optimizeImages) {
         isSet.add("optimizeImages");
-        this.optimizeImages = optimizeImage;
+        this.optimizeImages = optimizeImages;
     }
 
     public static class Builder {
