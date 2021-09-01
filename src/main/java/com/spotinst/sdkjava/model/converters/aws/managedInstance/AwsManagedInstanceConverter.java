@@ -749,16 +749,16 @@ public class AwsManagedInstanceConverter {
         BlockDeviceMappings retVal = null;
 
         if (blockDeviceMappings != null) {
-            BlockDeviceMappings.Builder blockDeviceMAppingsBuilder = BlockDeviceMappings.Builder.get();
+            BlockDeviceMappings.Builder blockDeviceMappingsBuilder = BlockDeviceMappings.Builder.get();
 
             if (blockDeviceMappings.isDeviceNameSet()) {
-                blockDeviceMAppingsBuilder.setDeviceName(blockDeviceMappings.getDeviceName());
+                blockDeviceMappingsBuilder.setDeviceName(blockDeviceMappings.getDeviceName());
             }
 
             if (blockDeviceMappings.isEbsSet()) {
-                blockDeviceMAppingsBuilder.setEbs(toBl(blockDeviceMappings.getEbs()));
+                blockDeviceMappingsBuilder.setEbs(toBl(blockDeviceMappings.getEbs()));
             }
-            retVal = blockDeviceMAppingsBuilder.build();
+            retVal = blockDeviceMappingsBuilder.build();
         }
         return retVal;
     }

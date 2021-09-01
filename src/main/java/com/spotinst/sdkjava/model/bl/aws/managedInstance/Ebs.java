@@ -15,6 +15,7 @@ public class Ebs {
     private Set<String>       isSet;
     private Boolean           deleteOnTermination;
     private Integer           iops;
+    @JsonInclude(JsonInclude.Include.USE_DEFAULTS)
     private Integer           throughput;
     private Integer           volumeSize;
     private String            volumeType;

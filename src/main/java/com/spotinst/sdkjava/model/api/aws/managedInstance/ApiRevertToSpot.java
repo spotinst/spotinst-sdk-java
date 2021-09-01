@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.api.aws.managedInstance;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +14,7 @@ public class ApiRevertToSpot {
 
     @JsonIgnore
     private Set<String> isSet;
-    private String      performAt;
+    private PerformAtEnumGcp performAt;
 
     public ApiRevertToSpot() {
         isSet = new HashSet<>();
@@ -27,11 +28,11 @@ public class ApiRevertToSpot {
         this.isSet = isSet;
     }
 
-    public String getPerformAt() {
+    public PerformAtEnumGcp getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(String performAt) {
+    public void setPerformAt(PerformAtEnumGcp performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
     }
