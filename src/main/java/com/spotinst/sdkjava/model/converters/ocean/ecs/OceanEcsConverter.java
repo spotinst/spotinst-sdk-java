@@ -723,7 +723,7 @@ public class OceanEcsConverter {
             if(apiOptimizeImage.istimeWindowsSet()){
                 optimizeImage.setTimeWindows(apiOptimizeImage.getTimeWindows());
             }
-
+            retVal = optimizeImage.build();
         }
         return retVal;
     }
