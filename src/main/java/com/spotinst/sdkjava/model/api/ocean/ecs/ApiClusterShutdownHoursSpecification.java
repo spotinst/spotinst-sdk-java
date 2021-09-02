@@ -13,14 +13,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiClusterOptimizeImageConfiguration implements IPartialUpdateEntity {
-
+public class ApiClusterShutdownHoursSpecification implements IPartialUpdateEntity {
+    @JsonIgnore
     private Set<String>  isSet;
-    private Boolean      shouldOptimizeEcsAmi;
-    private String       performAt;
+    private Boolean      isEnabled;
     private List<String> timeWindows;
 
-    public ApiClusterOptimizeImageConfiguration() {
+    public ApiClusterShutdownHoursSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -32,23 +31,13 @@ public class ApiClusterOptimizeImageConfiguration implements IPartialUpdateEntit
         this.isSet = isSet;
     }
 
-
-    public Boolean getShouldOptimizeEcsAmi() {
-        return shouldOptimizeEcsAmi;
+    public Boolean getIsEnabled() {
+        return isEnabled;
     }
 
-    public void setShouldOptimizeEcsAmi(Boolean shouldOptimizeEcsAmi) {
-        isSet.add("shouldOptimizeEcsAmi");
-        this.shouldOptimizeEcsAmi = shouldOptimizeEcsAmi;
-    }
-
-    public String getPerformAt() {
-        return performAt;
-    }
-
-    public void setPerformAt(String performAt) {
-        isSet.add("performAt");
-        this.performAt = performAt;
+    public void setIsEnabled(Boolean enabled) {
+        isSet.add("isEnabled");
+        isEnabled = enabled;
     }
 
     public List<String> getTimeWindows() {
@@ -61,18 +50,11 @@ public class ApiClusterOptimizeImageConfiguration implements IPartialUpdateEntit
     }
 
     @JsonIgnore
-    public boolean isShouldOptimizeEcsAmiSet() {
-        return isSet.contains("shouldOptimizeEcsAmi");
+    public boolean isIsEnabledSet() {
+        return isSet.contains("isEnabled");
     }
-
     @JsonIgnore
-    public boolean isPerformAtSet() {
-        return isSet.contains("performAt");
-    }
-
-    @JsonIgnore
-    public boolean istimeWindowsSet() {
+    public boolean isTimeWindowsSet() {
         return isSet.contains("timeWindows");
     }
-
 }

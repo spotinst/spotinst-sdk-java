@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsLaunchSpecConverter;
+import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +65,7 @@ public class OceanEcsClusterLaunchSpecRequest {
 
     //region Json methods
     public String toJson() {
-        ApiClusterLaunchSpecification apiLaunchSpecToCreate = OceanEcsLaunchSpecConverter.toDal(launchspec);
+        ApiClusterLaunchSpecification apiLaunchSpecToCreate = OceanEcsConverter.toDal(launchspec);
 
         Map<String, ApiClusterLaunchSpecification> launchSpecRequest = new HashMap<>();
         launchSpecRequest.put("launchSpec", apiLaunchSpecToCreate);
