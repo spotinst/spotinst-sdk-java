@@ -8,7 +8,7 @@ import com.spotinst.sdkjava.model.requests.ocean.gke.LaunchSpecRequest;
 import java.io.IOException;
 import java.util.*;
 
-public class OceanGKELaunchSpecUsageExample {
+public class OceanGkeLaunchSpecUsageExample {
 
     private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
     private final static String account_id        = "act-7d8b3fee";
@@ -17,10 +17,10 @@ public class OceanGKELaunchSpecUsageExample {
 
         // Create a Launch Spec
         System.out.println("--------------Create two launch specs----------------------");
-        SpotOceanGKELaunchSpecClient spotOceanGKELaunchSpecClient =
+        SpotOceanGkeClusterClient spotOceanGkeClusterClient =
                 SpotinstClient.getSpotOceanGKELaunchSpecClient(auth_token, account_id);
-        String launchSpecId1 = createLaunchSpec(spotOceanGKELaunchSpecClient, "Test_LaunchSpec1");
-        String launchSpecId2 = createLaunchSpec(spotOceanGKELaunchSpecClient, "Test_LaunchSpec2");
+        String launchSpecId1 = createLaunchSpec(spotOceanGkeClusterClient, "Test_LaunchSpec1");
+        String launchSpecId2 = createLaunchSpec(spotOceanGkeClusterClient, "Test_LaunchSpec2");
 
         if (launchSpecId1 == null || launchSpecId2 == null) {
             System.out.println("Failed to create Launch spec so exiting from the script");
@@ -30,7 +30,7 @@ public class OceanGKELaunchSpecUsageExample {
 
         // Get created launch spec
         System.out.println("--------------Get a launch spec----------------------");
-        LaunchSpecSpecification res = getALaunchSpecs(spotOceanGKELaunchSpecClient, launchSpecId1);
+        LaunchSpecSpecification res = getALaunchSpecs(spotOceanGkeClusterClient, launchSpecId1);
         if (res != null) {
             System.out.println("Launch Spec ID: " + launchSpecId1);
         }
@@ -41,7 +41,7 @@ public class OceanGKELaunchSpecUsageExample {
 
         // Get created all launch specs
         System.out.println("--------------Get all launch specs----------------------");
-        List<LaunchSpecSpecification> allLaunchSpecs = getAllLaunchSpecs(spotOceanGKELaunchSpecClient);
+        List<LaunchSpecSpecification> allLaunchSpecs = getAllLaunchSpecs(spotOceanGkeClusterClient);
         if(allLaunchSpecs.size() > 0){
             for (int i = 0; i < allLaunchSpecs.size(); i++) {
                 System.out.println("Below are the launch specs details");
@@ -55,16 +55,16 @@ public class OceanGKELaunchSpecUsageExample {
 
         // Updates a launch spec
         System.out.println("--------------Update a launch spec----------------------");
-        updateLaunchSpec(spotOceanGKELaunchSpecClient, launchSpecId1, "Update_Test_LaunchSpec4");
-        System.out.println("New name after update : "+getALaunchSpecs(spotOceanGKELaunchSpecClient, launchSpecId1).getName());
+        updateLaunchSpec(spotOceanGkeClusterClient, launchSpecId1, "Update_Test_LaunchSpec4");
+        System.out.println("New name after update : "+getALaunchSpecs(spotOceanGkeClusterClient, launchSpecId1).getName());
 
         // Delete a launch spec
         System.out.println("--------------Delete a launch spec----------------------");
-        deleteLaunchSpec(spotOceanGKELaunchSpecClient, launchSpecId1);
-        deleteLaunchSpec(spotOceanGKELaunchSpecClient, launchSpecId2);
+        deleteLaunchSpec(spotOceanGkeClusterClient, launchSpecId1);
+        deleteLaunchSpec(spotOceanGkeClusterClient, launchSpecId2);
     }
 
-    private static String  createLaunchSpec(SpotOceanGKELaunchSpecClient client, String launchSpecName) {
+    private static String  createLaunchSpec(SpotOceanGkeClusterClient client, String launchSpecName) {
 
 
         // Create request object to bind the request
@@ -153,18 +153,18 @@ public class OceanGKELaunchSpecUsageExample {
 
     }
 
-    private static List<LaunchSpecSpecification> getAllLaunchSpecs(SpotOceanGKELaunchSpecClient client) {
+    private static List<LaunchSpecSpecification> getAllLaunchSpecs(SpotOceanGkeClusterClient client) {
 
         return client.getAllLaunchSpec("o-3f432e3e");
 
     }
-    private static LaunchSpecSpecification getALaunchSpecs(SpotOceanGKELaunchSpecClient client, String LaunchSpecId){
+    private static LaunchSpecSpecification getALaunchSpecs(SpotOceanGkeClusterClient client, String LaunchSpecId){
 
         //Get a launch spec
         return client.getLaunchSpec(LaunchSpecId);
     }
 
-    private static void updateLaunchSpec(SpotOceanGKELaunchSpecClient client, String launchSpecId, String newName){
+    private static void updateLaunchSpec(SpotOceanGkeClusterClient client, String launchSpecId, String newName){
 
         // Create launch spec request object
         LaunchSpecRequest.Builder oceanGKEUpdateLaunchSpecRequest =
@@ -205,7 +205,7 @@ public class OceanGKELaunchSpecUsageExample {
         }
     }
 
-    private static void deleteLaunchSpec(SpotOceanGKELaunchSpecClient client, String launchSpecId) {
+    private static void deleteLaunchSpec(SpotOceanGkeClusterClient client, String launchSpecId) {
 
         // Delete a launch spec
         Boolean successfulDeletion = client.deleteALaunchSpec(launchSpecId);
