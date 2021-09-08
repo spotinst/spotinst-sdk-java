@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.example.ocean.gke;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.ocean.gke.*;
-import com.spotinst.sdkjava.model.request.ocean.gke.LaunchSpecRequest;
+import com.spotinst.sdkjava.model.requests.ocean.gke.LaunchSpecRequest;
 
 import java.io.IOException;
 import java.util.*;
