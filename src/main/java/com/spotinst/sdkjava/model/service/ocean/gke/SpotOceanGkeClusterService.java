@@ -5,14 +5,14 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.gke.ApiLaunchSpecSpecification;
-import com.spotinst.sdkjava.model.responses.ocean.gke.OceanGKELaunchSpecResponse;
+import com.spotinst.sdkjava.model.responses.ocean.gke.OceanGkeLaunchSpecResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SpotOceanGKELaunchSpecService extends BaseSpotinstService {
+public class SpotOceanGkeClusterService extends BaseSpotinstService {
 
     public static ApiLaunchSpecSpecification createLaunchSpec(ApiLaunchSpecSpecification launchSpecToCreate, String authToken,
                                                               String account) throws SpotinstHttpException {
@@ -46,8 +46,8 @@ public class SpotOceanGKELaunchSpecService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        OceanGKELaunchSpecResponse
-                launchSpecCreateResponse = getCastedResponse(response, OceanGKELaunchSpecResponse.class);
+        OceanGkeLaunchSpecResponse
+                launchSpecCreateResponse = getCastedResponse(response, OceanGkeLaunchSpecResponse.class);
 
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
@@ -84,8 +84,8 @@ public class SpotOceanGKELaunchSpecService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        OceanGKELaunchSpecResponse launchSpecCreateResponse =
-                getCastedResponse(response, OceanGKELaunchSpecResponse.class);
+        OceanGkeLaunchSpecResponse launchSpecCreateResponse =
+                getCastedResponse(response, OceanGkeLaunchSpecResponse.class);
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
             retVal = launchSpecCreateResponse.getResponse().getItems().get(0);
@@ -122,8 +122,8 @@ public class SpotOceanGKELaunchSpecService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        OceanGKELaunchSpecResponse launchSpecCreateResponse =
-                getCastedResponse(response, OceanGKELaunchSpecResponse.class);
+        OceanGkeLaunchSpecResponse launchSpecCreateResponse =
+                getCastedResponse(response, OceanGkeLaunchSpecResponse.class);
 
         if (launchSpecCreateResponse.getResponse().getCount() > 0) {
             retVal = launchSpecCreateResponse.getResponse().getItems();
@@ -165,7 +165,7 @@ public class SpotOceanGKELaunchSpecService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         // Handle the response.
-        OceanGKELaunchSpecResponse updateResponse = getCastedResponse(response, OceanGKELaunchSpecResponse.class);
+        OceanGkeLaunchSpecResponse updateResponse = getCastedResponse(response, OceanGkeLaunchSpecResponse.class);
         if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
