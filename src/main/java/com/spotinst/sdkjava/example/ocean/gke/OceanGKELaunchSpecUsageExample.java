@@ -35,7 +35,7 @@ public class OceanGKELaunchSpecUsageExample {
             System.out.println("Launch Spec ID: " + launchSpecId1);
         }
         else {
-            System.out.println("Failed to get Launch spec so exiting from the script");
+            System.out.println("Failed to get Launch speSpotinstRepoManagerc so exiting from the script");
             System.exit(0);
         }
 

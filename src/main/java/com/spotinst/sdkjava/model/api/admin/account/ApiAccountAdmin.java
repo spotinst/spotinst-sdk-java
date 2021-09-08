@@ -17,9 +17,11 @@ public class ApiAccountAdmin implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>  isSet;
-    private String       id;
+    private String       accountId;
     private String       name;
     private String       organizationId;
+    private String       cloudProvider;
+    private String       providerExternalId;
     //endregion
 
     //region Constructor
@@ -38,17 +40,17 @@ public class ApiAccountAdmin implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getId() {
-        return id;
+    public String getAccountId() {
+        return this.accountId;
     }
 
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
+    public void setAccountId(String accountId) {
+        isSet.add("accountId");
+        this.accountId = accountId;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -57,21 +59,40 @@ public class ApiAccountAdmin implements IPartialUpdateEntity {
     }
 
     public String getOrganizationId() {
-        return organizationId;
+        return this.organizationId;
     }
 
     public void setOrganizationId(String organizationId) {
         isSet.add("organizationId");
         this.organizationId = organizationId;
     }
+
+    public String getCloudProvider() {
+        return this.cloudProvider;
+    }
+
+    public void setCloudProvider(String cloudProvider) {
+        isSet.add("cloudProvider");
+        this.cloudProvider = cloudProvider;
+    }
+
+    public String getProviderExternalId() {
+        return this.providerExternalId;
+    }
+
+    public void setProviderExternalId(String providerExternalId) {
+        isSet.add("providerExternalId");
+        this.providerExternalId = providerExternalId;
+    }
+
     //endregion
 
     //region isSet methods
 
-    // Is id Set boolean method
+    // Is accountId Set boolean method
     @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
+    public boolean isAccountIdSet() {
+        return isSet.contains("accountId");
     }
 
     // Is name Set boolean method
@@ -84,6 +105,20 @@ public class ApiAccountAdmin implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isOrganizationIdSet() {
         return isSet.contains("organizationId");
+    }
+    //endregion
+
+    // Is cloudProvider Set boolean method
+    @JsonIgnore
+    public boolean isCloudProviderSet() {
+        return isSet.contains("cloudProvider");
+    }
+    //endregion
+
+    // Is providerExternalId Set boolean method
+    @JsonIgnore
+    public boolean isProviderExternalIdSet() {
+        return isSet.contains("providerExternalId");
     }
     //endregion
 

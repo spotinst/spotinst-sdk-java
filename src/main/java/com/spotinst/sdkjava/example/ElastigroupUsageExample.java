@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -117,6 +119,11 @@ public class ElastigroupUsageExample {
 
         // Get Deleted Elastigroup
         getAllElastigroupsIncludeDeleted(elastigroupClient);
+
+        // Lock/Unlock Instance
+        lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "LOCK");
+        lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "UNLOCK");
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -687,6 +694,34 @@ public class ElastigroupUsageExample {
 
         if (updateSuccess) {
             System.out.println("Group successfully exited standby mode.");
+        }
+    }
+
+    private static void lockUnlockInstance(SpotinstElastigroupClient client, String accountId, Integer ttlInMinutes, String instanceId, String Operation) {
+
+        Boolean success = false;
+
+        if(Operation == "LOCK") {
+            // Build lock request
+            ElastigroupInstanceLockRequest.Builder elastigroupLockRequestBuilder = ElastigroupInstanceLockRequest.Builder.get();
+            ElastigroupInstanceLockRequest request =  elastigroupLockRequestBuilder.setAccountId(accountId)
+                                                            .setTtlInMinutes(ttlInMinutes).build();
+
+            success = client.lockInstance(request, instanceId);
+        }
+        else if(Operation == "UNLOCK") {
+            // Build unlock request
+            ElastigroupInstanceUnLockRequest.Builder elastigroupUnLockRequestBuilder = ElastigroupInstanceUnLockRequest.Builder.get();
+            ElastigroupInstanceUnLockRequest request = elastigroupUnLockRequestBuilder.setAccountId(accountId).build();
+
+            success = client.unlockInstance(request, instanceId);
+        }
+
+        if (success) {
+            System.out.println(String.format("Elastigroup Instance %s request succeeded", Operation));
+        }
+        else {
+            System.out.println(String.format("Elastigroup Instance %s request failed", Operation));
         }
     }
 

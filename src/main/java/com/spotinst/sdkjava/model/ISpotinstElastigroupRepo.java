@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 
 import java.util.List;
 
@@ -35,4 +37,10 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account,
                                         ApiDeleteGroupRequest deleteRequest);
+
+    RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequest lockRequest,
+                                              String authToken, String instanceId);
+
+    RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
+                                                String authToken, String instanceId);
 }
