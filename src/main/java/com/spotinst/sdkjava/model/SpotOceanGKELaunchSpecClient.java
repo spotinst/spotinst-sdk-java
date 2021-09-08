@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.gke.LaunchSpecSpecification;
-import com.spotinst.sdkjava.model.request.ocean.gke.LaunchSpecRequest;
+import com.spotinst.sdkjava.model.requests.ocean.gke.LaunchSpecRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

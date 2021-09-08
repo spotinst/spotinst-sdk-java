@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.request.ocean.gke;
+package com.spotinst.sdkjava.model.requests.ocean.gke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
