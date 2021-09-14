@@ -63,26 +63,26 @@ public class LaunchSpecHeadroomsSpecification {
             this.gkeHeadRooms = new LaunchSpecHeadroomsSpecification();
         }
 
-        public static LaunchSpecHeadroomsSpecification.Builder get() {
-            LaunchSpecHeadroomsSpecification.Builder builder = new LaunchSpecHeadroomsSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecHeadroomsSpecification.Builder setCpuPerUnit(final Integer cpuPerUnit) {
+        public Builder setCpuPerUnit(final Integer cpuPerUnit) {
             gkeHeadRooms.setCpuPerUnit(cpuPerUnit);
             return this;
         }
 
-        public LaunchSpecHeadroomsSpecification.Builder setMemoryPerUnit(final Integer memoryPerUnit) {
+        public Builder setMemoryPerUnit(final Integer memoryPerUnit) {
             gkeHeadRooms.setMemoryPerUnit(memoryPerUnit);
             return this;
         }
-        public LaunchSpecHeadroomsSpecification.Builder setGpuPerUnit(final Integer gpuPerUnit) {
+        public Builder setGpuPerUnit(final Integer gpuPerUnit) {
             gkeHeadRooms.setGpuPerUnit(gpuPerUnit);
             return this;
         }
 
-        public LaunchSpecHeadroomsSpecification.Builder setNumOfUnits(final Integer numOfUnits) {
+        public Builder setNumOfUnits(final Integer numOfUnits) {
             gkeHeadRooms.setNumOfUnits(numOfUnits);
             return this;
         }

@@ -34,8 +34,11 @@ public class ApiLaunchSpecResourceLimitSpecification implements IPartialUpdateEn
         return isSet.contains("maxInstanceCount");
     }
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 }

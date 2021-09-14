@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.model.bl.ocean.gke.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OceanGKELaunchSpecConverter {
+public class OceanGkeConverter {
 
     public static ApiLaunchSpecSpecification toDal(LaunchSpecSpecification src) {
         ApiLaunchSpecSpecification apiLaunchSpec = null;
@@ -42,14 +42,14 @@ public class OceanGKELaunchSpecConverter {
                 apiLaunchSpec.setRootVolumeType(src.getRootVolumeType());
             }
 
-            if (src.isRestrictScaleDown()) {
+            if (src.isRestrictScaleDownSet()) {
                 apiLaunchSpec.setRestrictScaleDown(src.getRestrictScaleDown());
             }
 
             if (src.isMetadataSet()) {
 
                 List<ApiLaunchSpecMetadataSpecification> metadata =
-                        src.getMetadata().stream().map(OceanGKELaunchSpecConverter::toDal)
+                        src.getMetadata().stream().map(OceanGkeConverter::toDal)
                            .collect(Collectors.toList());
                 apiLaunchSpec.setMetadata(metadata);
             }
@@ -61,7 +61,7 @@ public class OceanGKELaunchSpecConverter {
             if (src.isTaintsSet()) {
 
                 List<ApiLaunchSpecTaintsSpecification> taint =
-                        src.getTaints().stream().map(OceanGKELaunchSpecConverter::toDal)
+                        src.getTaints().stream().map(OceanGkeConverter::toDal)
                            .collect(Collectors.toList());
 
                 apiLaunchSpec.setTaints(taint);
@@ -69,7 +69,7 @@ public class OceanGKELaunchSpecConverter {
 
             if (src.isLabelsSet()) {
                 List<ApiLaunchSpecLabelsSpecification> lebels =
-                        src.getLabels().stream().map(OceanGKELaunchSpecConverter::toDal)
+                        src.getLabels().stream().map(OceanGkeConverter::toDal)
                                            .collect(Collectors.toList());
                 apiLaunchSpec.setLabels(lebels);
             }
@@ -82,8 +82,8 @@ public class OceanGKELaunchSpecConverter {
                 apiLaunchSpec.setResourceLimits(toDal(src.getResourceLimits()));
             }
 
-            if (src.isOceanGKEShieldedInstanceConfigSet()) {
-                apiLaunchSpec.setOceanGKEShieldedInstanceConfig(toDal(src.getOceanGKEShieldedInstanceConfig()));
+            if (src.isShieldedInstanceConfigSet()) {
+                apiLaunchSpec.setShieldedInstanceConfig(toDal(src.getShieldedInstanceConfig()));
             }
             if (src.isStrategySet()) {
                 apiLaunchSpec.setStrategy(toDal(src.getStrategy()));
@@ -136,7 +136,7 @@ public class OceanGKELaunchSpecConverter {
         if(autoScale.isHeadroomsSet()){
 
             List<ApiLaunchSpecHeadRoomsSpecification> headRooms =
-                    autoScale.getHeadrooms().stream().map(OceanGKELaunchSpecConverter::toDal)
+                    autoScale.getHeadrooms().stream().map(OceanGkeConverter::toDal)
                        .collect(Collectors.toList());
 
             autoScaleListToReturn.setHeadrooms(headRooms);
@@ -296,14 +296,14 @@ public class OceanGKELaunchSpecConverter {
                 oceanGKECreateLaunchSpecBuilder.setRootVolumeType(apiLaunchSpecSpecification.getRootVolumeType());
             }
 
-            if (apiLaunchSpecSpecification.isRestrictScaleDown()) {
+            if (apiLaunchSpecSpecification.isRestrictScaleDownSet()) {
                 oceanGKECreateLaunchSpecBuilder.setRestrictScaleDown(apiLaunchSpecSpecification.getRestrictScaleDown());
             }
 
             if (apiLaunchSpecSpecification.isMetadataSet()) {
 
                 List<LaunchSpecMetadataSpecification> metadata =
-                        apiLaunchSpecSpecification.getMetadata().stream().map(OceanGKELaunchSpecConverter::toBl)
+                        apiLaunchSpecSpecification.getMetadata().stream().map(OceanGkeConverter::toBl)
                            .collect(Collectors.toList());
 
                 oceanGKECreateLaunchSpecBuilder.setMetadata(metadata);
@@ -316,7 +316,7 @@ public class OceanGKELaunchSpecConverter {
             if (apiLaunchSpecSpecification.isTaintsSet()) {
 
                 List<LaunchSpecTaintsSpecification> taint =
-                        apiLaunchSpecSpecification.getTaints().stream().map(OceanGKELaunchSpecConverter::toBl)
+                        apiLaunchSpecSpecification.getTaints().stream().map(OceanGkeConverter::toBl)
                                                   .collect(Collectors.toList());
 
                 oceanGKECreateLaunchSpecBuilder.setTaints(taint);
@@ -325,7 +325,7 @@ public class OceanGKELaunchSpecConverter {
             if (apiLaunchSpecSpecification.isLabelsSet()) {
 
                 List<LaunchSpecLabelsSpecification> label =
-                        apiLaunchSpecSpecification.getLabels().stream().map(OceanGKELaunchSpecConverter::toBl)
+                        apiLaunchSpecSpecification.getLabels().stream().map(OceanGkeConverter::toBl)
                                                   .collect(Collectors.toList());
 
                 oceanGKECreateLaunchSpecBuilder.setLabels(label);
@@ -341,9 +341,9 @@ public class OceanGKELaunchSpecConverter {
                         apiLaunchSpecSpecification.getResourceLimits()));
             }
 
-            if (apiLaunchSpecSpecification.isOceanGKEShieldedInstanceConfigSet()) {
-                oceanGKECreateLaunchSpecBuilder.setOceanGKEShieldedInstanceConfig(toBl(
-                        apiLaunchSpecSpecification.getOceanGKEShieldedInstanceConfig()));
+            if (apiLaunchSpecSpecification.isShieldedInstanceConfigSet()) {
+                oceanGKECreateLaunchSpecBuilder.setShieldedInstanceConfig(toBl(
+                        apiLaunchSpecSpecification.getShieldedInstanceConfig()));
             }
             if (apiLaunchSpecSpecification.isStrategySet()) {
                 oceanGKECreateLaunchSpecBuilder.setStrategy(toBl(apiLaunchSpecSpecification.getStrategy()));
@@ -363,7 +363,7 @@ public class OceanGKELaunchSpecConverter {
         if(autoScale.isHeadroomsSet()){
 
             List<LaunchSpecHeadroomsSpecification> headRooms =
-                    autoScale.getHeadrooms().stream().map(OceanGKELaunchSpecConverter::toBl)
+                    autoScale.getHeadrooms().stream().map(OceanGkeConverter::toBl)
                                               .collect(Collectors.toList());
 
             autoScaleListToReturn.setHeadrooms(headRooms);

@@ -27,6 +27,7 @@ public class ApiLaunchSpecMetadataSpecification implements IPartialUpdateEntity 
     }
 
     public void setKey(String key){
+        isSet.add("key");
         this.key = key;
     }
 
@@ -35,6 +36,7 @@ public class ApiLaunchSpecMetadataSpecification implements IPartialUpdateEntity 
     }
 
     public void setValue(String value) {
+        isSet.add("value");
         this.value = value;
     }
 
@@ -48,10 +50,12 @@ public class ApiLaunchSpecMetadataSpecification implements IPartialUpdateEntity 
         return isSet.contains("value");
     }
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
     }
-    //endregion
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
 
 }

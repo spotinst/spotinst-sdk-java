@@ -32,12 +32,12 @@ public class LaunchSpecStorageSpecification {
             this.gkeStorage = new LaunchSpecStorageSpecification();
         }
 
-        public static LaunchSpecStorageSpecification.Builder get() {
-            LaunchSpecStorageSpecification.Builder builder = new LaunchSpecStorageSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecStorageSpecification.Builder setLocalSsdCount(final Integer localSsdCount) {
+        public Builder setLocalSsdCount(final Integer localSsdCount) {
             gkeStorage.setLocalSsdCount(localSsdCount);
             return this;
         }

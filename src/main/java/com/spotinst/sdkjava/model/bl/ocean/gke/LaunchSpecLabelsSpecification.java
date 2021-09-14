@@ -42,17 +42,17 @@ public class LaunchSpecLabelsSpecification {
             this.gkeLabels = new LaunchSpecLabelsSpecification();
         }
 
-        public static LaunchSpecLabelsSpecification.Builder get() {
-            LaunchSpecLabelsSpecification.Builder builder = new LaunchSpecLabelsSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecLabelsSpecification.Builder setKey(final String key) {
+        public Builder setKey(final String key) {
             gkeLabels.setKey(key);
             return this;
         }
 
-        public LaunchSpecLabelsSpecification.Builder setValue(final String value) {
+        public Builder setValue(final String value) {
             gkeLabels.setValue(value);
             return this;
         }

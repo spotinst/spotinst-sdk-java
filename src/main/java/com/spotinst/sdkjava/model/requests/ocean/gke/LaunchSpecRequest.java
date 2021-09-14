@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.model.requests.ocean.gke;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.converters.ocean.gke.OceanGKELaunchSpecConverter;
+import com.spotinst.sdkjava.model.converters.ocean.gke.OceanGkeConverter;
 import com.spotinst.sdkjava.model.api.ocean.gke.ApiLaunchSpecSpecification;
 import com.spotinst.sdkjava.model.bl.ocean.gke.LaunchSpecSpecification;
 
@@ -50,7 +50,7 @@ public class LaunchSpecRequest {
 
     public String toJson() {
         ApiLaunchSpecSpecification
-                apiLaunchSpecSpecification = OceanGKELaunchSpecConverter.toDal(launchSpecSpecification);
+                apiLaunchSpecSpecification = OceanGkeConverter.toDal(launchSpecSpecification);
 
         Map<String, ApiLaunchSpecSpecification> createLaunchSpecRequest = new HashMap<>();
         createLaunchSpecRequest.put("launchSpec", apiLaunchSpecSpecification);

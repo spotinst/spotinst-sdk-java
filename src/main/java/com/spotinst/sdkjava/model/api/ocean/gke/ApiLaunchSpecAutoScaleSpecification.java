@@ -27,7 +27,7 @@ public class ApiLaunchSpecAutoScaleSpecification implements IPartialUpdateEntity
     }
 
     public void setHeadrooms(List<ApiLaunchSpecHeadRoomsSpecification> headrooms){
-
+        isSet.add("headrooms");
         this.headrooms = headrooms;
     }
 
@@ -36,8 +36,11 @@ public class ApiLaunchSpecAutoScaleSpecification implements IPartialUpdateEntity
         return isSet.contains("headrooms");
     }
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
     }
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
 }

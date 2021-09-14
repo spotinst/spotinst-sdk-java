@@ -42,8 +42,6 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
         isSet = new HashSet<>();
     }
 
-
-    @Override
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -181,11 +179,11 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
         this.resourceLimits = resourceLimits;
     }
 
-    public ApiLaunchSpecResourceShieldedInstanceSpecification getOceanGKEShieldedInstanceConfig() {
+    public ApiLaunchSpecResourceShieldedInstanceSpecification getShieldedInstanceConfig() {
         return shieldedInstanceConfig;
     }
 
-    public void setOceanGKEShieldedInstanceConfig(
+    public void setShieldedInstanceConfig(
             ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig) {
         this.shieldedInstanceConfig = shieldedInstanceConfig;
         isSet.add("shieldedInstanceConfig");
@@ -252,7 +250,7 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     public Boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
-    public Boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
+    public Boolean isShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
 
     @JsonIgnore
     public Boolean isStrategySet() { return isSet.contains("strategy"); }

@@ -48,8 +48,11 @@ public class ApiLaunchSpecResourceShieldedInstanceSpecification implements IPart
         return isSet.contains("enableIntegrityMonitoring");
     }
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 }

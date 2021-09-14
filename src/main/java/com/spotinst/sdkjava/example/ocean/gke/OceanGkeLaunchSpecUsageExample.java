@@ -18,7 +18,7 @@ public class OceanGkeLaunchSpecUsageExample {
         // Create a Launch Spec
         System.out.println("--------------Create two launch specs----------------------");
         SpotOceanGkeClusterClient spotOceanGkeClusterClient =
-                SpotinstClient.getSpotOceanGKELaunchSpecClient(auth_token, account_id);
+                SpotinstClient.getSpotOceanGkeLaunchSpecClient(auth_token, account_id);
         String launchSpecId1 = createLaunchSpec(spotOceanGkeClusterClient, "Test_LaunchSpec1");
         String launchSpecId2 = createLaunchSpec(spotOceanGkeClusterClient, "Test_LaunchSpec2");
 
@@ -135,7 +135,7 @@ public class OceanGkeLaunchSpecUsageExample {
                                                                                 .setLabels(labels)
                                                                                 .setAutoScales(autoScale)
                                                                                 .setResourceLimits(resourceLimits)
-                                                                                .setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig)
+                                                                                .setShieldedInstanceConfig(shieldedInstanceConfig)
                                                                                 .setStrategy(strategy)
                                                                                 .setStorage(storage)
                                                                                 .setMetadata(oceanGKEMetadata).build();

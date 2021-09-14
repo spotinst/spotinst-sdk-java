@@ -35,12 +35,12 @@ public class LaunchSpecAutoScaleSpecification {
             this.gkeAutoScale = new LaunchSpecAutoScaleSpecification();
         }
 
-        public static LaunchSpecAutoScaleSpecification.Builder get() {
-            LaunchSpecAutoScaleSpecification.Builder builder = new LaunchSpecAutoScaleSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecAutoScaleSpecification.Builder setHeadrooms(final List<LaunchSpecHeadroomsSpecification> headrooms) {
+        public Builder setHeadrooms(final List<LaunchSpecHeadroomsSpecification> headrooms) {
             gkeAutoScale.setHeadrooms(headrooms);
             return this;
         }

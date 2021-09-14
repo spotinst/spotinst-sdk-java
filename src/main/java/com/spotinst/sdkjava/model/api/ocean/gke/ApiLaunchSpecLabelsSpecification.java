@@ -51,4 +51,8 @@ public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
     public Set<String> getIsSet() {
         return isSet;
     }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
 }

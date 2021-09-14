@@ -33,8 +33,11 @@ public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
         return isSet.contains("localSsdCount");
     }
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 }

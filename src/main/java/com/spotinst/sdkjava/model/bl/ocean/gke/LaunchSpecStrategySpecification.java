@@ -33,12 +33,12 @@ public class LaunchSpecStrategySpecification {
             this.strategy = new LaunchSpecStrategySpecification();
         }
 
-        public static LaunchSpecStrategySpecification.Builder get() {
-            LaunchSpecStrategySpecification.Builder builder = new LaunchSpecStrategySpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecStrategySpecification.Builder setPreemptiblePercentage(final Integer preemptiblePercentage) {
+        public Builder setPreemptiblePercentage(final Integer preemptiblePercentage) {
             strategy.setPreemptiblePercentage(preemptiblePercentage);
             return this;
         }

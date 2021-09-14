@@ -33,12 +33,12 @@ public class LaunchSpecResourceLimitsSpecification {
             this.gkeResourceLimits = new LaunchSpecResourceLimitsSpecification();
         }
 
-        public static LaunchSpecResourceLimitsSpecification.Builder get() {
-            LaunchSpecResourceLimitsSpecification.Builder builder = new LaunchSpecResourceLimitsSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecResourceLimitsSpecification.Builder setMaxInstanceCount(final int maxInstanceCount) {
+        public Builder setMaxInstanceCount(final int maxInstanceCount) {
             gkeResourceLimits.setMaxInstanceCount(maxInstanceCount);
             return this;
         }

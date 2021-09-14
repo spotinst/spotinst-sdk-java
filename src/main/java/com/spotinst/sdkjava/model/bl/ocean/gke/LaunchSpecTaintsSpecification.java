@@ -52,21 +52,21 @@ public class LaunchSpecTaintsSpecification {
             this.taints = new LaunchSpecTaintsSpecification();
         }
 
-        public static LaunchSpecTaintsSpecification.Builder get() {
-            LaunchSpecTaintsSpecification.Builder builder = new LaunchSpecTaintsSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecTaintsSpecification.Builder setKey(final String key) {
+        public Builder setKey(final String key) {
             taints.setKey(key);
             return this;
         }
 
-        public LaunchSpecTaintsSpecification.Builder setValue(final String value) {
+        public Builder setValue(final String value) {
             taints.setValue(value);
             return this;
         }
-        public LaunchSpecTaintsSpecification.Builder setEffect(final String effect) {
+        public Builder setEffect(final String effect) {
             taints.setEffect(effect);
             return this;
         }

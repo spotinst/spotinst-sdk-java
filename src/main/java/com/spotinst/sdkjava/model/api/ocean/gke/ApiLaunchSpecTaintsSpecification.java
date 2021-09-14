@@ -62,8 +62,11 @@ public class ApiLaunchSpecTaintsSpecification implements IPartialUpdateEntity {
         }
 
 
-    @Override
     public Set<String> getIsSet() {
         return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 }

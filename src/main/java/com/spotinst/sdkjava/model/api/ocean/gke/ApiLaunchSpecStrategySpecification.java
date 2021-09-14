@@ -34,9 +34,11 @@ public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity 
         return isSet.contains("preemptiblePercentage");
     }
 
-
-    @Override
     public Set<String> getIsSet() {
         return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 }
