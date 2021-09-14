@@ -9,7 +9,7 @@ public enum AwsPerformAtEnum {
     timeWindow("timeWindow"),
     always("always");
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsPerformAtEnum.class);
     private String name;
 
     private AwsPerformAtEnum(String name) {
