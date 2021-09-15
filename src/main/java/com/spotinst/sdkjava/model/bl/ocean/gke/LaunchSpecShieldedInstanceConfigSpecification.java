@@ -11,7 +11,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecShieldedInstanceConfigSpecification {
 
-
+    @JsonIgnore
     private Set<String> isSet;
     private Boolean     enableSecureBoot;
     private Boolean     enableIntegrityMonitoring;
@@ -44,17 +44,17 @@ public class LaunchSpecShieldedInstanceConfigSpecification {
             this.gkeShieldedInstanceConfig = new LaunchSpecShieldedInstanceConfigSpecification();
         }
 
-        public static LaunchSpecShieldedInstanceConfigSpecification.Builder get() {
-            LaunchSpecShieldedInstanceConfigSpecification.Builder builder = new LaunchSpecShieldedInstanceConfigSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecShieldedInstanceConfigSpecification.Builder setEnableSecureBoot(final Boolean enableSecureBoot) {
+        public Builder setEnableSecureBoot(final Boolean enableSecureBoot) {
             gkeShieldedInstanceConfig.setEnableSecureBoot(enableSecureBoot);
             return this;
         }
 
-        public LaunchSpecShieldedInstanceConfigSpecification.Builder setEnableIntegrityMonitoring(final Boolean enableIntegrityMonitoring) {
+        public Builder setEnableIntegrityMonitoring(final Boolean enableIntegrityMonitoring) {
             gkeShieldedInstanceConfig.setEnableIntegrityMonitoring(enableIntegrityMonitoring);
             return this;
         }

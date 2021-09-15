@@ -19,7 +19,7 @@ public class LaunchSpecSpecification {
     private String                                        name;
     private String                                        sourceImage;
     private String                                        serviceAccount;
-    private Integer                                           rootVolumeSize;
+    private Integer                                       rootVolumeSizeInGb;
     private String                                        rootVolumeType;
     private Boolean                                       restrictScaleDown = false;
     private List<LaunchSpecMetadataSpecification>         metadata;
@@ -35,6 +35,14 @@ public class LaunchSpecSpecification {
 
     private LaunchSpecSpecification() {
         isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public String getId() {
@@ -82,13 +90,13 @@ public class LaunchSpecSpecification {
         isSet.add("serviceAccount");
     }
 
-    public Integer getRootVolumeSize() {
-        return rootVolumeSize;
+    public Integer getRootVolumeSizeInGb() {
+        return rootVolumeSizeInGb;
     }
 
-    public void setRootVolumeSize(Integer rootVolumeSize) {
-        this.rootVolumeSize = rootVolumeSize;
-        isSet.add("rootVolumeSize");
+    public void setRootVolumeSizeInGb(Integer rootVolumeSizeInGb) {
+        this.rootVolumeSizeInGb = rootVolumeSizeInGb;
+        isSet.add("rootVolumeSizeInGb");
     }
 
     public String getRootVolumeType() {
@@ -100,13 +108,10 @@ public class LaunchSpecSpecification {
         isSet.add("rootVolumeType");
     }
 
-    public Boolean isRestrictScaleDown() {
-        return restrictScaleDown;
-    }
-
     public Boolean getRestrictScaleDown() {
         return restrictScaleDown;
     }
+
     public void setRestrictScaleDown(Boolean restrictScaleDown) {
         this.restrictScaleDown = restrictScaleDown;
         isSet.add("restrictScaleDown");
@@ -153,8 +158,8 @@ public class LaunchSpecSpecification {
     }
 
     public void setAutoScale(LaunchSpecAutoScaleSpecification autoScale) {
-        this.autoScale = autoScale;
         isSet.add("autoScale");
+        this.autoScale = autoScale;
     }
 
     public LaunchSpecResourceLimitsSpecification getResourceLimits() {
@@ -162,14 +167,15 @@ public class LaunchSpecSpecification {
     }
 
     public void setResourceLimits(LaunchSpecResourceLimitsSpecification resourceLimits) {
+        isSet.add("resourceLimits");
         this.resourceLimits = resourceLimits;
     }
 
-    public LaunchSpecShieldedInstanceConfigSpecification getOceanGKEShieldedInstanceConfig() {
+    public LaunchSpecShieldedInstanceConfigSpecification getShieldedInstanceConfig() {
         return shieldedInstanceConfig;
     }
 
-    public void setOceanGKEShieldedInstanceConfig(LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig) {
+    public void setShieldedInstanceConfig(LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig) {
         this.shieldedInstanceConfig = shieldedInstanceConfig;
         isSet.add("shieldedInstanceConfig");
     }
@@ -204,92 +210,92 @@ public class LaunchSpecSpecification {
             this.launchSpec = new LaunchSpecSpecification();
         }
 
-        public static LaunchSpecSpecification.Builder get() {
-            LaunchSpecSpecification.Builder builder = new LaunchSpecSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecSpecification.Builder setId(final String launchSpecId) {
+        public Builder setId(final String launchSpecId) {
             launchSpec.setId(launchSpecId);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setOceanId(final String oceanId) {
+        public Builder setOceanId(final String oceanId) {
             launchSpec.setOceanId(oceanId);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setName(final String name) {
+        public Builder setName(final String name) {
             launchSpec.setName(name);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setSourceImage(final String description) {
+        public Builder setSourceImage(final String description) {
             launchSpec.setSourceImage(description);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setServiceAccount(final String region) {
+        public Builder setServiceAccount(final String region) {
             launchSpec.setServiceAccount(region);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setRootVolumeSize(final Integer rootVolumeSize) {
-            launchSpec.setRootVolumeSize(rootVolumeSize);
+        public Builder setRootVolumeSizeInGb(final Integer rootVolumeSizeInGb) {
+            launchSpec.setRootVolumeSizeInGb(rootVolumeSizeInGb);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setStrategy(final LaunchSpecStrategySpecification strategy) {
+        public Builder setStrategy(final LaunchSpecStrategySpecification strategy) {
             launchSpec.setStrategy(strategy);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setRootVolumeType(final String rootVolumeType) {
+        public Builder setRootVolumeType(final String rootVolumeType) {
             launchSpec.setRootVolumeType(rootVolumeType);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setMetadata(final List<LaunchSpecMetadataSpecification> metadata) {
+        public Builder setMetadata(final List<LaunchSpecMetadataSpecification> metadata) {
             launchSpec.setMetadata(metadata);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setInstanceTypes(final List<String> instanceTypes) {
+        public Builder setInstanceTypes(final List<String> instanceTypes) {
             launchSpec.setInstanceTypes(instanceTypes);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setRestrictScaleDown(final Boolean restrictScaleDown) {
+        public Builder setRestrictScaleDown(final Boolean restrictScaleDown) {
             launchSpec.setRestrictScaleDown(restrictScaleDown);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setTaints(final List<LaunchSpecTaintsSpecification> taints) {
+        public Builder setTaints(final List<LaunchSpecTaintsSpecification> taints) {
             launchSpec.setTaints(taints);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setLabels(final List<LaunchSpecLabelsSpecification> labels) {
+        public Builder setLabels(final List<LaunchSpecLabelsSpecification> labels) {
             launchSpec.setLabels(labels);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setResourceLimits(final LaunchSpecResourceLimitsSpecification resourceLimits) {
+        public Builder setResourceLimits(final LaunchSpecResourceLimitsSpecification resourceLimits) {
             launchSpec.setResourceLimits(resourceLimits);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setOceanGKEShieldedInstanceConfig(final LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig) {
-            launchSpec.setOceanGKEShieldedInstanceConfig(shieldedInstanceConfig);
+        public Builder setShieldedInstanceConfig(final LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig) {
+            launchSpec.setShieldedInstanceConfig(shieldedInstanceConfig);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setAutoScales(final LaunchSpecAutoScaleSpecification autoScales) {
+        public Builder setAutoScales(final LaunchSpecAutoScaleSpecification autoScales) {
             launchSpec.setAutoScale(autoScales);
             return this;
         }
 
-        public LaunchSpecSpecification.Builder setStorage(final LaunchSpecStorageSpecification storage) {
+        public Builder setStorage(final LaunchSpecStorageSpecification storage) {
             launchSpec.setStorage(storage);
             return this;
         }
@@ -316,7 +322,7 @@ public class LaunchSpecSpecification {
     public Boolean isServiceAccountSet() { return isSet.contains("serviceAccount"); }
 
     @JsonIgnore
-    public Boolean isRootVolumeSizeSet() { return isSet.contains("rootVolumeSize"); }
+    public Boolean isRootVolumeSizeInGbSet() { return isSet.contains("rootVolumeSizeInGb"); }
 
     @JsonIgnore
     public Boolean isRootVolumeTypeSet() { return isSet.contains("rootVolumeType"); }
@@ -343,7 +349,7 @@ public class LaunchSpecSpecification {
     public Boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
-    public Boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
+    public Boolean isShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
 
     @JsonIgnore
     public Boolean isStrategySet() { return isSet.contains("strategy"); }

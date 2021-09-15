@@ -11,12 +11,19 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecAutoScaleSpecification {
-
-    private List<LaunchSpecHeadroomsSpecification> headrooms;
-
-    private Set<String> isSet;
+    @JsonIgnore
+    private List<LaunchSpecHeadroomsSpecification>  headrooms;
+    private Set<String>                             isSet;
 
     public LaunchSpecAutoScaleSpecification(){ isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public List<LaunchSpecHeadroomsSpecification> getHeadrooms(){
@@ -35,12 +42,12 @@ public class LaunchSpecAutoScaleSpecification {
             this.gkeAutoScale = new LaunchSpecAutoScaleSpecification();
         }
 
-        public static LaunchSpecAutoScaleSpecification.Builder get() {
-            LaunchSpecAutoScaleSpecification.Builder builder = new LaunchSpecAutoScaleSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecAutoScaleSpecification.Builder setHeadrooms(final List<LaunchSpecHeadroomsSpecification> headrooms) {
+        public Builder setHeadrooms(final List<LaunchSpecHeadroomsSpecification> headrooms) {
             gkeAutoScale.setHeadrooms(headrooms);
             return this;
         }
@@ -49,7 +56,6 @@ public class LaunchSpecAutoScaleSpecification {
             return gkeAutoScale;
         }
     }
-
 
     @JsonIgnore
     public boolean isHeadroomsSet() {

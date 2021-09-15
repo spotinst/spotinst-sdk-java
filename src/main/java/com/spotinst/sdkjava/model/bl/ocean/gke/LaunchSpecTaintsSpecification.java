@@ -11,6 +11,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecTaintsSpecification {
 
+    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
@@ -18,16 +19,23 @@ public class LaunchSpecTaintsSpecification {
 
     public LaunchSpecTaintsSpecification(){ isSet = new HashSet<>();}
 
-    public String getKey(){
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+    public String getKey() {
         return key;
     }
 
-    public void setKey(String key){
+    public void setKey(String key) {
         isSet.add("key");
         this.key = key;
     }
 
-    public String getValue(){
+    public String getValue() {
         return value;
     }
 
@@ -36,7 +44,7 @@ public class LaunchSpecTaintsSpecification {
         this.value = value;
     }
 
-    public String getEffect(){
+    public String getEffect() {
         return effect;
     }
 
@@ -52,21 +60,21 @@ public class LaunchSpecTaintsSpecification {
             this.taints = new LaunchSpecTaintsSpecification();
         }
 
-        public static LaunchSpecTaintsSpecification.Builder get() {
-            LaunchSpecTaintsSpecification.Builder builder = new LaunchSpecTaintsSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecTaintsSpecification.Builder setKey(final String key) {
+        public Builder setKey(final String key) {
             taints.setKey(key);
             return this;
         }
 
-        public LaunchSpecTaintsSpecification.Builder setValue(final String value) {
+        public Builder setValue(final String value) {
             taints.setValue(value);
             return this;
         }
-        public LaunchSpecTaintsSpecification.Builder setEffect(final String effect) {
+        public Builder setEffect(final String effect) {
             taints.setEffect(effect);
             return this;
         }
@@ -74,7 +82,6 @@ public class LaunchSpecTaintsSpecification {
             return taints;
         }
     }
-
 
     @JsonIgnore
     public boolean isKeySet() {

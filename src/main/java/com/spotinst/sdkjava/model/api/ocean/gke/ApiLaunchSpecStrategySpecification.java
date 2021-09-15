@@ -13,11 +13,19 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity {
-
+    @JsonIgnore
+    private Set<String>     isSet;
     private Integer         preemptiblePercentage;
-    private Set<String> isSet;
 
     public ApiLaunchSpecStrategySpecification(){ isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public Integer getPreemptiblePercentage() {
@@ -34,9 +42,4 @@ public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity 
         return isSet.contains("preemptiblePercentage");
     }
 
-
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
-    }
 }

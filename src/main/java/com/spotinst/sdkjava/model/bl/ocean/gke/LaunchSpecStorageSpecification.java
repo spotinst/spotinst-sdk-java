@@ -10,12 +10,21 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecStorageSpecification {
-
-    private Set<String> isSet;
+    @JsonIgnore
+    private Set<String>     isSet;
     private Integer         localSsdCount;
 
     public LaunchSpecStorageSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Integer getLocalSsdCount() {
         return localSsdCount;
     }
@@ -32,12 +41,12 @@ public class LaunchSpecStorageSpecification {
             this.gkeStorage = new LaunchSpecStorageSpecification();
         }
 
-        public static LaunchSpecStorageSpecification.Builder get() {
-            LaunchSpecStorageSpecification.Builder builder = new LaunchSpecStorageSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecStorageSpecification.Builder setLocalSsdCount(final Integer localSsdCount) {
+        public Builder setLocalSsdCount(final Integer localSsdCount) {
             gkeStorage.setLocalSsdCount(localSsdCount);
             return this;
         }
@@ -46,7 +55,6 @@ public class LaunchSpecStorageSpecification {
             return gkeStorage;
         }
     }
-
 
     @JsonIgnore
     public boolean isLocalSsdCountSet() {

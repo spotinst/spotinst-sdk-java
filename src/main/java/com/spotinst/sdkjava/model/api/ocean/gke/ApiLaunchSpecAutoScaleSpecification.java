@@ -14,30 +14,32 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecAutoScaleSpecification implements IPartialUpdateEntity {
-
-    private List<ApiLaunchSpecHeadRoomsSpecification> headrooms;
-
-    private Set<String> isSet;
+    @JsonIgnore
+    private Set<String>                                 isSet;
+    private List<ApiLaunchSpecHeadRoomsSpecification>   headrooms;
 
     public ApiLaunchSpecAutoScaleSpecification(){ isSet = new HashSet<>();
     }
 
-    public List<ApiLaunchSpecHeadRoomsSpecification> getHeadrooms(){
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public List<ApiLaunchSpecHeadRoomsSpecification> getHeadrooms() {
         return headrooms;
     }
 
-    public void setHeadrooms(List<ApiLaunchSpecHeadRoomsSpecification> headrooms){
-
+    public void setHeadrooms(List<ApiLaunchSpecHeadRoomsSpecification> headrooms) {
+        isSet.add("headrooms");
         this.headrooms = headrooms;
     }
 
     @JsonIgnore
     public boolean isHeadroomsSet() {
         return isSet.contains("headrooms");
-    }
-
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
     }
 }

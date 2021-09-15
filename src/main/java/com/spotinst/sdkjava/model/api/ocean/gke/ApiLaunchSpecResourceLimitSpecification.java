@@ -13,18 +13,26 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecResourceLimitSpecification implements IPartialUpdateEntity {
-
-    private int maxInstanceCount;
-
+    @JsonIgnore
     private Set<String> isSet;
+    private int         maxInstanceCount;
 
     public ApiLaunchSpecResourceLimitSpecification(){ isSet = new HashSet<>();
     }
-    public int getMaxInstanceCount(){
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public int getMaxInstanceCount() {
         return maxInstanceCount;
     }
 
-    public void setMaxInstanceCount(int maxInstanceCount){
+    public void setMaxInstanceCount(int maxInstanceCount) {
         isSet.add("maxInstanceCount");
         this.maxInstanceCount = maxInstanceCount;
     }
@@ -32,10 +40,5 @@ public class ApiLaunchSpecResourceLimitSpecification implements IPartialUpdateEn
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {
         return isSet.contains("maxInstanceCount");
-    }
-
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
     }
 }

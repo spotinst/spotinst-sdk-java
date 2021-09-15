@@ -44,17 +44,17 @@ public class LaunchSpecMetadataSpecification {
             this.metadata = new LaunchSpecMetadataSpecification();
         }
 
-        public static LaunchSpecMetadataSpecification.Builder get() {
-            LaunchSpecMetadataSpecification.Builder builder = new LaunchSpecMetadataSpecification.Builder();
+        public static Builder get() {
+            Builder builder = new Builder();
             return builder;
         }
 
-        public LaunchSpecMetadataSpecification.Builder setKey(final String key) {
+        public Builder setKey(final String key) {
             metadata.setKey(key);
             return this;
         }
 
-        public LaunchSpecMetadataSpecification.Builder setValue(final String value) {
+        public Builder setValue(final String value) {
             metadata.setValue(value);
             return this;
         }

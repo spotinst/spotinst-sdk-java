@@ -14,18 +14,16 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
-
-
     @JsonIgnore
-    private Set<String>                              isSet;
-    private String                                   id;
-    private String                                   oceanId;
-    private String                                   name;
+    private Set<String>                                        isSet;
+    private String                                             id;
+    private String                                             oceanId;
+    private String                                             name;
     private String                                             sourceImage;
     private String                                             serviceAccount;
-    private Integer                                                rootVolumeSize;
+    private Integer                                            rootVolumeSizeInGb;
     private String                                             rootVolumeType;
-    private boolean                                            restrictScaleDown;
+    private Boolean                                            restrictScaleDown;
     private List<ApiLaunchSpecMetadataSpecification>           metadata;
     private List<String>                                       instanceTypes;
     private List<ApiLaunchSpecTaintsSpecification>             taints;
@@ -36,14 +34,10 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     private ApiLaunchSpecStrategySpecification                 strategy;
     private ApiLaunchSpecStorageSpecification                  storage;
 
-
-
     public ApiLaunchSpecSpecification() {
         isSet = new HashSet<>();
     }
 
-
-    @Override
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -97,13 +91,13 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
         isSet.add("serviceAccount");
     }
 
-    public Integer getRootVolumeSize() {
-        return rootVolumeSize;
+    public Integer getRootVolumeSizeInGb() {
+        return rootVolumeSizeInGb;
     }
 
-    public void setRootVolumeSize(Integer rootVolumeSize) {
-        this.rootVolumeSize = rootVolumeSize;
-        isSet.add("rootVolumeSize");
+    public void setRootVolumeSizeInGb(Integer rootVolumeSizeInGb) {
+        this.rootVolumeSizeInGb = rootVolumeSizeInGb;
+        isSet.add("rootVolumeSizeInGb");
     }
 
     public String getRootVolumeType() {
@@ -113,10 +107,6 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     public void setRootVolumeType(String rootVolumeType) {
         this.rootVolumeType = rootVolumeType;
         isSet.add("rootVolumeType");
-    }
-
-    public Boolean isRestrictScaleDown() {
-        return restrictScaleDown;
     }
 
     public Boolean getRestrictScaleDown(){
@@ -178,15 +168,15 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     }
 
     public void setResourceLimits(ApiLaunchSpecResourceLimitSpecification resourceLimits) {
+        isSet.add("resourceLimits");
         this.resourceLimits = resourceLimits;
     }
 
-    public ApiLaunchSpecResourceShieldedInstanceSpecification getOceanGKEShieldedInstanceConfig() {
+    public ApiLaunchSpecResourceShieldedInstanceSpecification getShieldedInstanceConfig() {
         return shieldedInstanceConfig;
     }
 
-    public void setOceanGKEShieldedInstanceConfig(
-            ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig) {
+    public void setShieldedInstanceConfig(ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig) {
         this.shieldedInstanceConfig = shieldedInstanceConfig;
         isSet.add("shieldedInstanceConfig");
     }
@@ -225,7 +215,7 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     public Boolean isServiceAccountSet() { return isSet.contains("serviceAccount"); }
 
     @JsonIgnore
-    public Boolean isRootVolumeSizeSet() { return isSet.contains("rootVolumeSize"); }
+    public Boolean isRootVolumeSizeInGbSet() { return isSet.contains("rootVolumeSizeInGb"); }
 
     @JsonIgnore
     public Boolean isRootVolumeTypeSet() { return isSet.contains("rootVolumeType"); }
@@ -252,7 +242,7 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     public Boolean isResourceLimitsSet() { return isSet.contains("resourceLimits"); }
 
     @JsonIgnore
-    public Boolean isOceanGKEShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
+    public Boolean isShieldedInstanceConfigSet() { return isSet.contains("shieldedInstanceConfig"); }
 
     @JsonIgnore
     public Boolean isStrategySet() { return isSet.contains("strategy"); }

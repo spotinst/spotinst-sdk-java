@@ -14,7 +14,7 @@ import java.util.List;
 public class SpotinstClient {
 
     //region Methods
-    public static SpotOceanGkeClusterClient getSpotOceanGKELaunchSpecClient(String authToken, String account) {
+    public static SpotOceanGkeClusterClient getSpotOceanGkeLaunchSpecClient(String authToken, String account) {
         SpotOceanGkeClusterClient
                 spotinstOceanGKELaunchSpecClientTest = new SpotOceanGkeClusterClient(authToken, account);
         return spotinstOceanGKELaunchSpecClientTest;
