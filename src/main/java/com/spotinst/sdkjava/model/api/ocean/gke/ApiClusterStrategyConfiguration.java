@@ -12,14 +12,21 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
+public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
+
+    //region Members
     @JsonIgnore
-    private Set<String>     isSet;
-    private Integer         localSsdCount;
+    private Set<String> isSet;
+    private Integer     drainingTimeout;
+    //endregion
 
-    public ApiLaunchSpecStorageSpecification(){ isSet = new HashSet<>();
+    //region Constructor
+    public ApiClusterStrategyConfiguration() {
+        isSet = new HashSet<>();
     }
+    //endregion
 
+    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -28,18 +35,20 @@ public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Integer getLocalSsdCount() {
-        return localSsdCount;
+    public Integer getDrainingTimeout() {
+        return drainingTimeout;
     }
 
-    public void setLocalSsdCount(Integer localSsdCount) {
-        isSet.add("localSsdCount");
-        this.localSsdCount = localSsdCount;
+    public void setDrainingTimeout(Integer drainingTimeout) {
+        isSet.add("drainingTimeout");
+        this.drainingTimeout = drainingTimeout;
     }
+    //endregion
 
     @JsonIgnore
-    public boolean isLocalSsdCountSet() {
-        return isSet.contains("localSsdCount");
+    public boolean isDrainingTimeoutSet() {
+        return isSet.contains("drainingTimeout");
     }
 
 }
+

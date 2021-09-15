@@ -10,7 +10,6 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecHeadroomsSpecification {
-
     @JsonIgnore
      private Integer        cpuPerUnit;
      private Integer        memoryPerUnit;

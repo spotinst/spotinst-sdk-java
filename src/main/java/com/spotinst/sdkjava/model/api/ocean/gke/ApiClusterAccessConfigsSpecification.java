@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model.api.ocean.gke;
 
+
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,12 +13,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity {
+public class ApiClusterAccessConfigsSpecification implements IPartialUpdateEntity {
+
     @JsonIgnore
     private Set<String> isSet;
-    private Integer     preemptiblePercentage;
+    private String      name;
+    private String      type;
 
-    public ApiLaunchSpecStrategySpecification() {
+    public ApiClusterAccessConfigsSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -29,18 +32,32 @@ public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity 
         this.isSet = isSet;
     }
 
-    public Integer getPreemptiblePercentage() {
-        return preemptiblePercentage;
+    public String getName() {
+        return name;
     }
 
-    public void setPreemptiblePercentage(Integer preemptiblePercentage) {
-        isSet.add("preemptiblePercentage");
-        this.preemptiblePercentage = preemptiblePercentage;
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        isSet.add("type");
+        this.type = type;
     }
 
     @JsonIgnore
-    public boolean isPreemptiblePercentageSet() {
-        return isSet.contains("preemptiblePercentage");
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isTypeSet() {
+        return isSet.contains("type");
     }
 
 }

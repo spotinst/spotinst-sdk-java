@@ -12,13 +12,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
-    @JsonIgnore
-    private Set<String>     isSet;
-    private Integer         localSsdCount;
+public class ApiClusterDownSpecification implements IPartialUpdateEntity {
 
-    public ApiLaunchSpecStorageSpecification(){ isSet = new HashSet<>();
-    }
+    @JsonIgnore
+    private Set<String> isSet;
+    private Integer     maxScaleDownPercentage;
+
+    public ApiClusterDownSpecification() { isSet = new HashSet<>(); }
 
     public Set<String> getIsSet() {
         return isSet;
@@ -28,18 +28,18 @@ public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Integer getLocalSsdCount() {
-        return localSsdCount;
+    public Integer getMaxScaleDownPercentage() {
+        return maxScaleDownPercentage;
     }
 
-    public void setLocalSsdCount(Integer localSsdCount) {
-        isSet.add("localSsdCount");
-        this.localSsdCount = localSsdCount;
+    public void setMaxScaleDownPercentage(Integer maxScaleDownPercentage) {
+        isSet.add("maxScaleDownPercentage");
+        this.maxScaleDownPercentage = maxScaleDownPercentage;
     }
 
     @JsonIgnore
-    public boolean isLocalSsdCountSet() {
-        return isSet.contains("localSsdCount");
+    public boolean isMaxScaleDownPercentageSet() {
+        return isSet.contains("maxScaleDownPercentage");
     }
 
 }

@@ -18,6 +18,15 @@ public class LaunchSpecShieldedInstanceConfigSpecification {
 
     public LaunchSpecShieldedInstanceConfigSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Boolean getEnableSecureBoot() {
         return enableSecureBoot;
     }

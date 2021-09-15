@@ -12,15 +12,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
+public class ApiClusterResourceLimitsSpecification implements IPartialUpdateEntity {
+
     @JsonIgnore
     private Set<String> isSet;
-    private String      key;
-    private String      value;
+    private Integer     maxMemoryGib;
+    private Integer     maxVCpu;
 
-    public ApiLaunchSpecLabelsSpecification() {
-        isSet = new HashSet<>();
-    }
+    public  ApiClusterResourceLimitsSpecification() { isSet = new HashSet<>(); }
 
     public Set<String> getIsSet() {
         return isSet;
@@ -30,32 +29,31 @@ public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getKey(){
-        return key;
+    public Integer getMaxMemoryGib() {
+        return maxMemoryGib;
     }
 
-    public void setKey(String key){
-        isSet.add("key");
-        this.key = key;
+    public void setMaxMemoryGib(Integer maxMemoryGib) {
+        isSet.add("maxMemoryGib");
+        this.maxMemoryGib = maxMemoryGib;
     }
 
-    public String getValue(){
-        return value;
+    public Integer getMaxVCpu() {
+        return maxVCpu;
     }
 
-    public void setValue(String value) {
-        isSet.add("value");
-        this.value = value;
+    public void setMaxVCpu(Integer maxVCpu) {
+        isSet.add("maxVCpu");
+        this.maxVCpu = maxVCpu;
+    }
+    @JsonIgnore
+    public boolean isMaxMemoryGibSet() {
+        return isSet.contains("maxMemoryGib");
     }
 
     @JsonIgnore
-    public boolean isKeySet() {
-        return isSet.contains("key");
-    }
-
-    @JsonIgnore
-    public boolean isValueSet() {
-        return isSet.contains("value");
+    public boolean isMaxVCpuSet() {
+        return isSet.contains("maxVCpu");
     }
 
 }

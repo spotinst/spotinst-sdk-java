@@ -11,7 +11,7 @@ import java.util.*;
 public class OceanGkeLaunchSpecUsageExample {
 
     private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-    private final static String account_id        = "act-7d8b3fee";
+    private final static String account_id    = "act-7d8b3fee";
 
     public static void main(String[] args) throws IOException {
 
@@ -124,7 +124,7 @@ public class OceanGkeLaunchSpecUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification
-                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-3f432e3e")
+                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-05712bb4")
                                                                                 .setRestrictScaleDown(false)
                                                                                 .setServiceAccount("serviceAccount")
                                                                                 .setRootVolumeType("pd-standard")

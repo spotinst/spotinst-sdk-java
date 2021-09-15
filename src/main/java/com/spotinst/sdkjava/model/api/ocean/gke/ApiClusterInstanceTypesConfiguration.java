@@ -7,17 +7,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
+public class ApiClusterInstanceTypesConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>     isSet;
-    private Integer         localSsdCount;
+    private Set<String>  isSet;
+    private List<String> whitelist;
 
-    public ApiLaunchSpecStorageSpecification(){ isSet = new HashSet<>();
+    public ApiClusterInstanceTypesConfiguration() {
+        isSet = new HashSet<>();
     }
 
     public Set<String> getIsSet() {
@@ -28,18 +30,18 @@ public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public Integer getLocalSsdCount() {
-        return localSsdCount;
+    public List<String> getWhitelist() {
+        return whitelist;
     }
 
-    public void setLocalSsdCount(Integer localSsdCount) {
-        isSet.add("localSsdCount");
-        this.localSsdCount = localSsdCount;
+    public void setWhitelist(List<String> whitelist) {
+        isSet.add("whitelist");
+        this.whitelist = whitelist;
     }
 
     @JsonIgnore
-    public boolean isLocalSsdCountSet() {
-        return isSet.contains("localSsdCount");
+    public boolean isWhitelistSet() {
+        return isSet.contains("whitelist");
     }
 
 }

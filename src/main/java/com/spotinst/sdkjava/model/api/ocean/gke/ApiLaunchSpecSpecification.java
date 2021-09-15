@@ -33,6 +33,9 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
     private ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig;
     private ApiLaunchSpecStrategySpecification                 strategy;
     private ApiLaunchSpecStorageSpecification                  storage;
+    private Boolean                                            ipForwarding;
+    private String                                             minCpuPlatform;
+    private List<String>                                       tags;
 
     public ApiLaunchSpecSpecification() {
         isSet = new HashSet<>();
@@ -199,6 +202,27 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
         isSet.add("storage");
     }
 
+    public Boolean getIpForwarding() { return ipForwarding;  }
+
+    public void setIpForwarding(Boolean ipForwarding) {
+        isSet.add("ipForwarding");
+        this.ipForwarding = ipForwarding;
+    }
+
+    public String getMinCpuPlatform() { return minCpuPlatform; }
+
+    public void setMinCpuPlatform(String minCpuPlatform) {
+        isSet.add("minCpuPlatform");
+        this.minCpuPlatform = minCpuPlatform;
+    }
+
+    public List<String> getTags() { return tags; }
+
+    public void setTags(List<String> tags) {
+        isSet.add("tags");
+        this.tags = tags;
+    }
+
     @JsonIgnore
     public Boolean isIdSet() { return isSet.contains("id"); }
 
@@ -249,5 +273,14 @@ public class ApiLaunchSpecSpecification implements IPartialUpdateEntity {
 
     @JsonIgnore
     public Boolean isStorageSet() { return isSet.contains("storage"); }
+
+    @JsonIgnore
+    public Boolean isIpForwardingSet() { return isSet.contains("ipForwarding"); }
+
+    @JsonIgnore
+    public Boolean isMinCpuPlatformSet() { return isSet.contains("minCpuPlatform"); }
+
+    @JsonIgnore
+    public Boolean isTagsSet() { return isSet.contains("tags"); }
 
 }

@@ -15,10 +15,11 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecAutoScaleSpecification implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                                 isSet;
-    private List<ApiLaunchSpecHeadRoomsSpecification>   headrooms;
+    private Set<String>                               isSet;
+    private List<ApiLaunchSpecHeadRoomsSpecification> headrooms;
 
-    public ApiLaunchSpecAutoScaleSpecification(){ isSet = new HashSet<>();
+    public ApiLaunchSpecAutoScaleSpecification() {
+        isSet = new HashSet<>();
     }
 
     public Set<String> getIsSet() {

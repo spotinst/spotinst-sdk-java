@@ -64,7 +64,6 @@ public class ApiLaunchSpecHeadRoomsSpecification implements IPartialUpdateEntity
         this.numOfUnits = numOfUnits;
     }
 
-
     @JsonIgnore
     public boolean isCpuPerUnitSet() {
         return isSet.contains("cpuPerUnit");
@@ -84,4 +83,5 @@ public class ApiLaunchSpecHeadRoomsSpecification implements IPartialUpdateEntity
     public boolean isNumOfUnitsSet() {
         return isSet.contains("numOfUnits");
     }
+
 }
