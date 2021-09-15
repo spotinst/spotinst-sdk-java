@@ -11,6 +11,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecTaintsSpecification {
 
+    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
@@ -18,16 +19,23 @@ public class LaunchSpecTaintsSpecification {
 
     public LaunchSpecTaintsSpecification(){ isSet = new HashSet<>();}
 
-    public String getKey(){
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+    public String getKey() {
         return key;
     }
 
-    public void setKey(String key){
+    public void setKey(String key) {
         isSet.add("key");
         this.key = key;
     }
 
-    public String getValue(){
+    public String getValue() {
         return value;
     }
 
@@ -36,7 +44,7 @@ public class LaunchSpecTaintsSpecification {
         this.value = value;
     }
 
-    public String getEffect(){
+    public String getEffect() {
         return effect;
     }
 
@@ -74,7 +82,6 @@ public class LaunchSpecTaintsSpecification {
             return taints;
         }
     }
-
 
     @JsonIgnore
     public boolean isKeySet() {

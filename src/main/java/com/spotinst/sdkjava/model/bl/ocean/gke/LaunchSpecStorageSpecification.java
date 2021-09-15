@@ -10,12 +10,21 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecStorageSpecification {
-
-    private Set<String> isSet;
+    @JsonIgnore
+    private Set<String>     isSet;
     private Integer         localSsdCount;
 
     public LaunchSpecStorageSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Integer getLocalSsdCount() {
         return localSsdCount;
     }
@@ -46,7 +55,6 @@ public class LaunchSpecStorageSpecification {
             return gkeStorage;
         }
     }
-
 
     @JsonIgnore
     public boolean isLocalSsdCountSet() {

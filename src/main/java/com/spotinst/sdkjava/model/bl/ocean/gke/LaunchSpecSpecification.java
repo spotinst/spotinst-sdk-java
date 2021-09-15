@@ -19,7 +19,7 @@ public class LaunchSpecSpecification {
     private String                                        name;
     private String                                        sourceImage;
     private String                                        serviceAccount;
-    private Integer                                           rootVolumeSize;
+    private Integer                                       rootVolumeSizeInGb;
     private String                                        rootVolumeType;
     private Boolean                                       restrictScaleDown = false;
     private List<LaunchSpecMetadataSpecification>         metadata;
@@ -35,6 +35,14 @@ public class LaunchSpecSpecification {
 
     private LaunchSpecSpecification() {
         isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public String getId() {
@@ -82,13 +90,13 @@ public class LaunchSpecSpecification {
         isSet.add("serviceAccount");
     }
 
-    public Integer getRootVolumeSize() {
-        return rootVolumeSize;
+    public Integer getRootVolumeSizeInGb() {
+        return rootVolumeSizeInGb;
     }
 
-    public void setRootVolumeSize(Integer rootVolumeSize) {
-        this.rootVolumeSize = rootVolumeSize;
-        isSet.add("rootVolumeSize");
+    public void setRootVolumeSizeInGb(Integer rootVolumeSizeInGb) {
+        this.rootVolumeSizeInGb = rootVolumeSizeInGb;
+        isSet.add("rootVolumeSizeInGb");
     }
 
     public String getRootVolumeType() {
@@ -150,8 +158,8 @@ public class LaunchSpecSpecification {
     }
 
     public void setAutoScale(LaunchSpecAutoScaleSpecification autoScale) {
-        this.autoScale = autoScale;
         isSet.add("autoScale");
+        this.autoScale = autoScale;
     }
 
     public LaunchSpecResourceLimitsSpecification getResourceLimits() {
@@ -159,6 +167,7 @@ public class LaunchSpecSpecification {
     }
 
     public void setResourceLimits(LaunchSpecResourceLimitsSpecification resourceLimits) {
+        isSet.add("resourceLimits");
         this.resourceLimits = resourceLimits;
     }
 
@@ -231,8 +240,8 @@ public class LaunchSpecSpecification {
             return this;
         }
 
-        public Builder setRootVolumeSize(final Integer rootVolumeSize) {
-            launchSpec.setRootVolumeSize(rootVolumeSize);
+        public Builder setRootVolumeSizeInGb(final Integer rootVolumeSizeInGb) {
+            launchSpec.setRootVolumeSizeInGb(rootVolumeSizeInGb);
             return this;
         }
 
@@ -313,7 +322,7 @@ public class LaunchSpecSpecification {
     public Boolean isServiceAccountSet() { return isSet.contains("serviceAccount"); }
 
     @JsonIgnore
-    public Boolean isRootVolumeSizeSet() { return isSet.contains("rootVolumeSize"); }
+    public Boolean isRootVolumeSizeInGbSet() { return isSet.contains("rootVolumeSizeInGb"); }
 
     @JsonIgnore
     public Boolean isRootVolumeTypeSet() { return isSet.contains("rootVolumeType"); }

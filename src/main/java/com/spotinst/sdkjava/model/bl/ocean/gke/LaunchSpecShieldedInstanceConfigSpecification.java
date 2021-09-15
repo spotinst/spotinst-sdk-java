@@ -11,7 +11,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecShieldedInstanceConfigSpecification {
 
-
+    @JsonIgnore
     private Set<String> isSet;
     private Boolean     enableSecureBoot;
     private Boolean     enableIntegrityMonitoring;

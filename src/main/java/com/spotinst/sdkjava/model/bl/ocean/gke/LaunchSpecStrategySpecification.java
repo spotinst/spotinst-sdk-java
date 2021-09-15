@@ -10,11 +10,18 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecStrategySpecification {
-
-    private Integer preemptiblePercentage;
+    @JsonIgnore
+    private Integer     preemptiblePercentage;
     private Set<String> isSet;
 
     public LaunchSpecStrategySpecification(){ isSet = new HashSet<>();
+    }
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public Integer getPreemptiblePercentage() {
@@ -48,12 +55,9 @@ public class LaunchSpecStrategySpecification {
         }
     }
 
-
     @JsonIgnore
     public boolean isPreemptiblePercentageSet() {
         return isSet.contains("preemptiblePercentage");
     }
-
-
 
 }

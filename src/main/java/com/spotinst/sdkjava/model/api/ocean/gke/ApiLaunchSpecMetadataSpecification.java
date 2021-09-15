@@ -13,13 +13,21 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecMetadataSpecification implements IPartialUpdateEntity {
-
+    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
     public ApiLaunchSpecMetadataSpecification() {
         isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public String getKey(){
@@ -48,14 +56,6 @@ public class ApiLaunchSpecMetadataSpecification implements IPartialUpdateEntity 
     @JsonIgnore
     public boolean isValueSet() {
         return isSet.contains("value");
-    }
-
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
     }
 
 }

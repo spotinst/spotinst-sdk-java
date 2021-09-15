@@ -10,27 +10,35 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecResourceLimitsSpecification {
-
-    private int maxInstanceCount;
-
+    @JsonIgnore
     private Set<String> isSet;
+    private int         maxInstanceCount;
 
     public LaunchSpecResourceLimitsSpecification(){ isSet = new HashSet<>();
     }
-    public int getMaxInstanceCount(){
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public int getMaxInstanceCount() {
         return maxInstanceCount;
     }
 
-    public void setMaxInstanceCount(int maxInstanceCount){
+    public void setMaxInstanceCount(int maxInstanceCount) {
         isSet.add("maxInstanceCount");
         this.maxInstanceCount = maxInstanceCount;
     }
 
     public static class Builder {
-        private LaunchSpecResourceLimitsSpecification gkeResourceLimits;
+        private LaunchSpecResourceLimitsSpecification resourceLimits;
 
         private Builder() {
-            this.gkeResourceLimits = new LaunchSpecResourceLimitsSpecification();
+            this.resourceLimits = new LaunchSpecResourceLimitsSpecification();
         }
 
         public static Builder get() {
@@ -39,15 +47,14 @@ public class LaunchSpecResourceLimitsSpecification {
         }
 
         public Builder setMaxInstanceCount(final int maxInstanceCount) {
-            gkeResourceLimits.setMaxInstanceCount(maxInstanceCount);
+            resourceLimits.setMaxInstanceCount(maxInstanceCount);
             return this;
         }
 
         public LaunchSpecResourceLimitsSpecification build() {
-            return gkeResourceLimits;
+            return resourceLimits;
         }
     }
-
 
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {

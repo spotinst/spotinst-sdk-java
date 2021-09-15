@@ -128,6 +128,7 @@ public class OceanGkeLaunchSpecUsageExample {
                                                                                 .setRestrictScaleDown(false)
                                                                                 .setServiceAccount("serviceAccount")
                                                                                 .setRootVolumeType("pd-standard")
+                                                                                .setRootVolumeSizeInGb(100)
                                                                                 .setName(launchSpecName)
                                                                                 .setSourceImage("https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/container-v1-3-v20160517")
                                                                                 .setInstanceTypes(instanceTypes)

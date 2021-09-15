@@ -13,12 +13,21 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
-
-    private Set<String> isSet;
+    @JsonIgnore
+    private Set<String>     isSet;
     private Integer         localSsdCount;
 
     public ApiLaunchSpecStorageSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Integer getLocalSsdCount() {
         return localSsdCount;
     }
@@ -33,11 +42,4 @@ public class ApiLaunchSpecStorageSpecification implements IPartialUpdateEntity {
         return isSet.contains("localSsdCount");
     }
 
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
 }

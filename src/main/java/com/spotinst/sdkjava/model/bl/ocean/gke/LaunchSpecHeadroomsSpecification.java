@@ -11,15 +11,24 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecHeadroomsSpecification {
 
-
-     private Integer cpuPerUnit;
-     private Integer memoryPerUnit;
-     private Integer gpuPerUnit;
-     private Integer numOfUnits;
-    private Set<String> isSet;
+    @JsonIgnore
+     private Integer        cpuPerUnit;
+     private Integer        memoryPerUnit;
+     private Integer        gpuPerUnit;
+     private Integer        numOfUnits;
+     private Set<String>    isSet;
 
     public LaunchSpecHeadroomsSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Integer getCpuPerUnit(){
         return cpuPerUnit;
     }
@@ -30,7 +39,7 @@ public class LaunchSpecHeadroomsSpecification {
     }
 
     public Integer getMemoryPerUnit(){
-        return cpuPerUnit;
+        return memoryPerUnit;
     }
 
     public void setMemoryPerUnit(Integer memoryPerUnit){
@@ -68,7 +77,7 @@ public class LaunchSpecHeadroomsSpecification {
             return builder;
         }
 
-        public Builder setCpuPerUnit(final Integer cpuPerUnit) {
+        public Builder setCpuPerUnit(final Integer cpuPerUnit){
             gkeHeadRooms.setCpuPerUnit(cpuPerUnit);
             return this;
         }
@@ -91,19 +100,21 @@ public class LaunchSpecHeadroomsSpecification {
         }
     }
 
-
     @JsonIgnore
     public boolean isCpuPerUnitSet() {
         return isSet.contains("cpuPerUnit");
     }
+
     @JsonIgnore
     public boolean isMemoryPerUnitSet() {
         return isSet.contains("memoryPerUnit");
     }
+
     @JsonIgnore
     public boolean isGpuPerUnitSet() {
         return isSet.contains("gpuPerUnit");
     }
+
     @JsonIgnore
     public boolean isNumOfUnitsSet() {
         return isSet.contains("numOfUnits");

@@ -13,13 +13,22 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
-
+    @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
     public ApiLaunchSpecLabelsSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getKey(){
         return key;
     }
@@ -47,12 +56,4 @@ public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
         return isSet.contains("value");
     }
 
-    @Override
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
 }

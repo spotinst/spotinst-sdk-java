@@ -13,13 +13,22 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecResourceShieldedInstanceSpecification implements IPartialUpdateEntity {
-
+    @JsonIgnore
     private Set<String> isSet;
     private Boolean     enableSecureBoot;
     private Boolean     enableIntegrityMonitoring;
 
     public ApiLaunchSpecResourceShieldedInstanceSpecification(){ isSet = new HashSet<>();
     }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Boolean getEnableSecureBoot() {
         return enableSecureBoot;
     }
@@ -48,11 +57,4 @@ public class ApiLaunchSpecResourceShieldedInstanceSpecification implements IPart
         return isSet.contains("enableIntegrityMonitoring");
     }
 
-    public Set<String> getIsSet() {
-        return isSet;
-    }
-
-    public void setIsSet(Set<String> isSet) {
-        this.isSet = isSet;
-    }
 }

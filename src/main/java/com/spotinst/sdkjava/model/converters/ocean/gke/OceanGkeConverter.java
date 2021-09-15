@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 public class OceanGkeConverter {
 
+    //region BL -> DAL
+
     public static ApiLaunchSpecSpecification toDal(LaunchSpecSpecification src) {
         ApiLaunchSpecSpecification apiLaunchSpec = null;
 
@@ -34,8 +36,8 @@ public class OceanGkeConverter {
                 apiLaunchSpec.setServiceAccount(src.getServiceAccount());
             }
 
-            if (src.isRootVolumeSizeSet()) {
-                apiLaunchSpec.setRootVolumeSize(src.getRootVolumeSize());
+            if (src.isRootVolumeSizeInGbSet()) {
+                apiLaunchSpec.setRootVolumeSizeInGb(src.getRootVolumeSizeInGb());
             }
 
             if (src.isRootVolumeTypeSet()) {
@@ -99,165 +101,198 @@ public class OceanGkeConverter {
 
     private static ApiLaunchSpecTaintsSpecification toDal(LaunchSpecTaintsSpecification taint) {
 
-        ApiLaunchSpecTaintsSpecification apiLaunchSpecTaintsSpecification = new ApiLaunchSpecTaintsSpecification();
+        ApiLaunchSpecTaintsSpecification apiLaunchSpecTaintsSpecification = null;
 
-        if(taint.isKeySet()){
-            apiLaunchSpecTaintsSpecification.setKey(taint.getKey());
-        }
+        if(taint != null){
+            apiLaunchSpecTaintsSpecification = new ApiLaunchSpecTaintsSpecification();
 
-        if(taint.isEffectSet()){
-            apiLaunchSpecTaintsSpecification.setEffect(taint.getEffect());
-        }
+                if (taint.isKeySet()) {
+                    apiLaunchSpecTaintsSpecification.setKey(taint.getKey());
+                }
 
-        if(taint.isValueSet()){
-            apiLaunchSpecTaintsSpecification.setValue(taint.getValue());
-        }
-        return apiLaunchSpecTaintsSpecification;
+                if (taint.isEffectSet()) {
+                    apiLaunchSpecTaintsSpecification.setEffect(taint.getEffect());
+                }
+
+                if (taint.isValueSet()) {
+                    apiLaunchSpecTaintsSpecification.setValue(taint.getValue());
+                }
+            }
+                return apiLaunchSpecTaintsSpecification;
     }
 
-    private static ApiLaunchSpecLabelsSpecification toDal(LaunchSpecLabelsSpecification label){
+    private static ApiLaunchSpecLabelsSpecification toDal(LaunchSpecLabelsSpecification label) {
 
-        ApiLaunchSpecLabelsSpecification apiLaunchSpecLabelsSpecification = new ApiLaunchSpecLabelsSpecification();
-        if(label.isKeySet()){
+        ApiLaunchSpecLabelsSpecification apiLaunchSpecLabelsSpecification = null;
+
+        if(label != null) {
+            apiLaunchSpecLabelsSpecification = new ApiLaunchSpecLabelsSpecification();
+
+        if (label.isKeySet()) {
             apiLaunchSpecLabelsSpecification.setKey(label.getKey());
         }
 
-        if(label.isValueSet()){
+        if (label.isValueSet()) {
             apiLaunchSpecLabelsSpecification.setValue(label.getValue());
         }
-
+    }
         return apiLaunchSpecLabelsSpecification;
     }
 
     private static ApiLaunchSpecAutoScaleSpecification toDal(LaunchSpecAutoScaleSpecification autoScale){
-        ApiLaunchSpecAutoScaleSpecification
-                autoScaleListToReturn = new ApiLaunchSpecAutoScaleSpecification();
+        ApiLaunchSpecAutoScaleSpecification autoScaleListToReturn = null;
 
-        if(autoScale.isHeadroomsSet()){
+        if(autoScale != null) {
+            autoScaleListToReturn = new ApiLaunchSpecAutoScaleSpecification();
 
-            List<ApiLaunchSpecHeadRoomsSpecification> headRooms =
-                    autoScale.getHeadrooms().stream().map(OceanGkeConverter::toDal)
-                       .collect(Collectors.toList());
+            if (autoScale.isHeadroomsSet()) {
 
-            autoScaleListToReturn.setHeadrooms(headRooms);
+                List<ApiLaunchSpecHeadRoomsSpecification> headrooms =
+                        autoScale.getHeadrooms().stream().map(OceanGkeConverter::toDal).collect(Collectors.toList());
+
+                autoScaleListToReturn.setHeadrooms(headrooms);
+            }
         }
-
         return autoScaleListToReturn;
     }
 
     private static ApiLaunchSpecHeadRoomsSpecification toDal(LaunchSpecHeadroomsSpecification headroom) {
 
-        ApiLaunchSpecHeadRoomsSpecification
-                headRoomsListToReturn =  new ApiLaunchSpecHeadRoomsSpecification();
+        ApiLaunchSpecHeadRoomsSpecification headRoomsListToReturn = null;
 
-        if(headroom.isCpuPerUnitSet()){
-            headRoomsListToReturn.setCpuPerUnit(headroom.getCpuPerUnit());
+        if(headroom != null) {
+            headRoomsListToReturn =  new ApiLaunchSpecHeadRoomsSpecification();
+
+            if (headroom.isGpuPerUnitSet()) {
+                headRoomsListToReturn.setGpuPerUnit(headroom.getGpuPerUnit());
+            }
+
+            if (headroom.isMemoryPerUnitSet()) {
+                headRoomsListToReturn.setMemoryPerUnit(headroom.getMemoryPerUnit());
+            }
+
+            if(headroom.isCpuPerUnitSet()){
+                headRoomsListToReturn.setCpuPerUnit(headroom.getCpuPerUnit());
+            }
+
+            if (headroom.isNumOfUnitsSet()) {
+                headRoomsListToReturn.setNumOfUnits(headroom.getMemoryPerUnit());
+            }
         }
-
-        if(headroom.isGpuPerUnitSet()){
-            headRoomsListToReturn.setGpuPerUnit(headroom.getGpuPerUnit());
-        }
-
-        if(headroom.isMemoryPerUnitSet()){
-            headRoomsListToReturn.setMemoryPerUnit(headroom.getMemoryPerUnit());
-        }
-
-        if(headroom.isNumOfUnitsSet()){
-            headRoomsListToReturn.setNumOfUnits(headroom.getMemoryPerUnit());
-        }
-
         return headRoomsListToReturn;
     }
 
     private static ApiLaunchSpecResourceLimitSpecification toDal(LaunchSpecResourceLimitsSpecification resourceLimit){
-        ApiLaunchSpecResourceLimitSpecification
-                resourceLimitToReturn = new ApiLaunchSpecResourceLimitSpecification();
+        ApiLaunchSpecResourceLimitSpecification resourceLimitToReturn = null;
 
-        if(resourceLimit.isMaxInstanceCountSet()){
-            resourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
+        if(resourceLimit != null) {
+            resourceLimitToReturn = new ApiLaunchSpecResourceLimitSpecification();
+
+            if (resourceLimit.isMaxInstanceCountSet()) {
+                resourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
+            }
         }
-
         return resourceLimitToReturn;
     }
 
-    private static ApiLaunchSpecResourceShieldedInstanceSpecification toDal(
-            LaunchSpecShieldedInstanceConfigSpecification shieldedInstance){
-        ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig =  new ApiLaunchSpecResourceShieldedInstanceSpecification();
+    private static ApiLaunchSpecResourceShieldedInstanceSpecification toDal(LaunchSpecShieldedInstanceConfigSpecification shieldedInstance){
+        ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstanceConfig =  null;
 
-        if(shieldedInstance.isEnableIntegrityMonitoringSet()){
-            shieldedInstanceConfig.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
+        if(shieldedInstance != null) {
+            shieldedInstanceConfig =  new ApiLaunchSpecResourceShieldedInstanceSpecification();
+            if (shieldedInstance.isEnableIntegrityMonitoringSet()) {
+                shieldedInstanceConfig.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
+            }
+
+            if (shieldedInstance.isEnableSecureBootSet()) {
+                shieldedInstanceConfig.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
+            }
         }
-
-        if(shieldedInstance.isEnableSecureBootSet()){
-            shieldedInstanceConfig.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
-        }
-
         return shieldedInstanceConfig;
     }
 
     private static ApiLaunchSpecStrategySpecification toDal(LaunchSpecStrategySpecification strategy){
-        ApiLaunchSpecStrategySpecification strategyList = new ApiLaunchSpecStrategySpecification();
+        ApiLaunchSpecStrategySpecification strategyList = null;
 
-        if(strategy.isPreemptiblePercentageSet()){
-            strategyList.setPreemptiblePercentage(strategy.getPreemptiblePercentage());
+        if(strategy !=null) {
+            strategyList = new ApiLaunchSpecStrategySpecification();
+
+            if (strategy.isPreemptiblePercentageSet()) {
+                strategyList.setPreemptiblePercentage(strategy.getPreemptiblePercentage());
+            }
         }
-
         return strategyList;
     }
 
     private static ApiLaunchSpecStorageSpecification toDal(LaunchSpecStorageSpecification storage){
-        ApiLaunchSpecStorageSpecification storageSpec = new ApiLaunchSpecStorageSpecification();
+        ApiLaunchSpecStorageSpecification storageSpec = null;
 
-        if(storage.isLocalSsdCountSet()){
-            storageSpec.setLocalSsdCount(storage.getLocalSsdCount());
+        if(storage != null) {
+            storageSpec = new ApiLaunchSpecStorageSpecification();
+
+            if (storage.isLocalSsdCountSet()) {
+                storageSpec.setLocalSsdCount(storage.getLocalSsdCount());
+            }
         }
         return storageSpec;
     }
 
     private static ApiLaunchSpecMetadataSpecification toDal(LaunchSpecMetadataSpecification metadata){
 
-        ApiLaunchSpecMetadataSpecification apiLaunchSpecMetadataSpecification = new ApiLaunchSpecMetadataSpecification();
+        ApiLaunchSpecMetadataSpecification apiLaunchSpecMetadataSpecification = null;
 
-        if(metadata.isKeySet()){
-            apiLaunchSpecMetadataSpecification.setKey(metadata.getKey());
+        if(metadata != null) {
+            apiLaunchSpecMetadataSpecification = new ApiLaunchSpecMetadataSpecification();
+
+            if (metadata.isKeySet()) {
+                apiLaunchSpecMetadataSpecification.setKey(metadata.getKey());
+            }
+
+            if (metadata.isValueSet()) {
+                apiLaunchSpecMetadataSpecification.setValue(metadata.getValue());
+            }
         }
-
-        if(metadata.isValueSet()){
-            apiLaunchSpecMetadataSpecification.setValue(metadata.getValue());
-        }
-
         return apiLaunchSpecMetadataSpecification;
     }
 
+    //region DAL -> BL
+    private static LaunchSpecTaintsSpecification toBl(ApiLaunchSpecTaintsSpecification apiTaint) {
 
-    private static LaunchSpecTaintsSpecification toBl(ApiLaunchSpecTaintsSpecification taint) {
+        LaunchSpecTaintsSpecification launchSpecTaintsSpecification = null;
 
-        LaunchSpecTaintsSpecification launchSpecTaintsSpecification = new LaunchSpecTaintsSpecification();
+        if(apiTaint != null) {
+           LaunchSpecTaintsSpecification.Builder launchSpecTaintsSpecificationBuilder = LaunchSpecTaintsSpecification.Builder.get();
 
-        if(taint.isEffectSet()){
-            launchSpecTaintsSpecification.setEffect(taint.getEffect());
+            if (apiTaint.isEffectSet()) {
+                launchSpecTaintsSpecificationBuilder.setEffect(apiTaint.getEffect());
+            }
+
+            if (apiTaint.isKeySet()) {
+                launchSpecTaintsSpecificationBuilder.setKey(apiTaint.getKey());
+            }
+
+            if (apiTaint.isValueSet()) {
+                launchSpecTaintsSpecificationBuilder.setValue(apiTaint.getValue());
+            }
+            launchSpecTaintsSpecification = launchSpecTaintsSpecificationBuilder.build();
         }
-
-        if(taint.isKeySet()){
-            launchSpecTaintsSpecification.setKey(taint.getKey());
-        }
-
-        if(taint.isValueSet()){
-            launchSpecTaintsSpecification.setValue(taint.getValue());
-        }
-
         return launchSpecTaintsSpecification;
     }
 
-    private static LaunchSpecLabelsSpecification toBl(ApiLaunchSpecLabelsSpecification label){
+    private static LaunchSpecLabelsSpecification toBl(ApiLaunchSpecLabelsSpecification apiLabel){
 
-        LaunchSpecLabelsSpecification launchSpecLabelsSpecification = new LaunchSpecLabelsSpecification();
+        LaunchSpecLabelsSpecification launchSpecLabelsSpecification = null;
 
-        if(label.isKeySet()){
-            launchSpecLabelsSpecification.setKey(label.getKey());
-        }
-        if(label.isValueSet()){
-            launchSpecLabelsSpecification.setValue((label.getValue()));
+        if (apiLabel != null) {
+            LaunchSpecLabelsSpecification.Builder launchSpecLabelBuilder = LaunchSpecLabelsSpecification.Builder.get();
+
+            if (apiLabel.isKeySet()) {
+                launchSpecLabelBuilder.setKey(apiLabel.getKey());
+            }
+            if (apiLabel.isValueSet()) {
+                launchSpecLabelBuilder.setValue((apiLabel.getValue()));
+            }
+            launchSpecLabelsSpecification = launchSpecLabelBuilder.build();
         }
         return launchSpecLabelsSpecification;
     }
@@ -288,8 +323,8 @@ public class OceanGkeConverter {
                 oceanGKECreateLaunchSpecBuilder.setServiceAccount(apiLaunchSpecSpecification.getServiceAccount());
             }
 
-            if (apiLaunchSpecSpecification.isRootVolumeSizeSet()) {
-                oceanGKECreateLaunchSpecBuilder.setRootVolumeSize(apiLaunchSpecSpecification.getRootVolumeSize());
+            if (apiLaunchSpecSpecification.isRootVolumeSizeInGbSet()) {
+                oceanGKECreateLaunchSpecBuilder.setRootVolumeSizeInGb(apiLaunchSpecSpecification.getRootVolumeSizeInGb());
             }
 
             if (apiLaunchSpecSpecification.isRootVolumeTypeSet()) {
@@ -337,8 +372,7 @@ public class OceanGkeConverter {
             }
 
             if (apiLaunchSpecSpecification.isResourceLimitsSet()) {
-                oceanGKECreateLaunchSpecBuilder.setResourceLimits(toBl(
-                        apiLaunchSpecSpecification.getResourceLimits()));
+                oceanGKECreateLaunchSpecBuilder.setResourceLimits(toBl(apiLaunchSpecSpecification.getResourceLimits()));
             }
 
             if (apiLaunchSpecSpecification.isShieldedInstanceConfigSet()) {
@@ -357,104 +391,127 @@ public class OceanGkeConverter {
         return launchSpec;
     }
 
-    private static LaunchSpecAutoScaleSpecification toBl(ApiLaunchSpecAutoScaleSpecification autoScale){
+    private static LaunchSpecAutoScaleSpecification toBl(ApiLaunchSpecAutoScaleSpecification apiAutoScale){
 
-        LaunchSpecAutoScaleSpecification autoScaleListToReturn = new LaunchSpecAutoScaleSpecification();
-        if(autoScale.isHeadroomsSet()){
+        LaunchSpecAutoScaleSpecification autoScale = null;
 
-            List<LaunchSpecHeadroomsSpecification> headRooms =
-                    autoScale.getHeadrooms().stream().map(OceanGkeConverter::toBl)
-                                              .collect(Collectors.toList());
+        if(apiAutoScale != null) {
+            LaunchSpecAutoScaleSpecification.Builder autoScaleBuilder = LaunchSpecAutoScaleSpecification.Builder.get();
+            if (apiAutoScale.isHeadroomsSet()) {
 
-            autoScaleListToReturn.setHeadrooms(headRooms);
+                List<LaunchSpecHeadroomsSpecification> headRooms =
+                        apiAutoScale.getHeadrooms().stream().map(OceanGkeConverter::toBl).collect(Collectors.toList());
+
+                autoScaleBuilder.setHeadrooms(headRooms);
+            }
+            autoScale = autoScaleBuilder.build();
         }
-
-        return autoScaleListToReturn;
+        return autoScale;
     }
 
-    private static LaunchSpecHeadroomsSpecification toBl(ApiLaunchSpecHeadRoomsSpecification headRooms) {
+    private static LaunchSpecHeadroomsSpecification toBl(ApiLaunchSpecHeadRoomsSpecification apiHeadRooms) {
 
-        LaunchSpecHeadroomsSpecification
-                headRoomsListToReturn = new LaunchSpecHeadroomsSpecification();
+        LaunchSpecHeadroomsSpecification headRoomsListToReturn = null;
 
-        if(headRooms.isCpuPerUnitSet()){
-            headRoomsListToReturn.setCpuPerUnit(headRooms.getCpuPerUnit());
+        if(apiHeadRooms != null){
+
+            LaunchSpecHeadroomsSpecification.Builder headRoomsBuilder = LaunchSpecHeadroomsSpecification.Builder.get();
+
+            if (apiHeadRooms.isGpuPerUnitSet()) {
+                headRoomsBuilder.setGpuPerUnit(apiHeadRooms.getGpuPerUnit());
+            }
+
+            if(apiHeadRooms.isCpuPerUnitSet()){
+                headRoomsBuilder.setCpuPerUnit(apiHeadRooms.getCpuPerUnit());
+            }
+
+            if (apiHeadRooms.isMemoryPerUnitSet()) {
+                headRoomsBuilder.setMemoryPerUnit(apiHeadRooms.getMemoryPerUnit());
+            }
+
+            if (apiHeadRooms.isNumOfUnitsSet()) {
+                headRoomsBuilder.setNumOfUnits(apiHeadRooms.getNumOfUnits());
+            }
+            headRoomsListToReturn = headRoomsBuilder.build();
         }
-
-        if(headRooms.isGpuPerUnitSet()){
-            headRoomsListToReturn.setGpuPerUnit(headRooms.getGpuPerUnit());
-        }
-
-        if(headRooms.isMemoryPerUnitSet()){
-            headRoomsListToReturn.setMemoryPerUnit(headRooms.getMemoryPerUnit());
-        }
-
-        if(headRooms.isNumOfUnitsSet()){
-            headRoomsListToReturn.setNumOfUnits(headRooms.getNumOfUnits());
-        }
-
         return headRoomsListToReturn;
     }
 
-    private static LaunchSpecResourceLimitsSpecification toBl(
-            ApiLaunchSpecResourceLimitSpecification resourceLimit){
-        LaunchSpecResourceLimitsSpecification
-                restourceLimitToReturn = LaunchSpecResourceLimitsSpecification.Builder.get().build();
-        if(resourceLimit.isMaxInstanceCountSet()){
-            restourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
-        }
+    private static LaunchSpecResourceLimitsSpecification toBl( ApiLaunchSpecResourceLimitSpecification apiResourceLimit) {
+        LaunchSpecResourceLimitsSpecification restourceLimitToReturn = null;
 
+        if(apiResourceLimit != null){
+            LaunchSpecResourceLimitsSpecification.Builder resourceLimitBuilder = LaunchSpecResourceLimitsSpecification.Builder.get();
+
+        if (apiResourceLimit.isMaxInstanceCountSet()) {
+            resourceLimitBuilder.setMaxInstanceCount(apiResourceLimit.getMaxInstanceCount());
+        }
+            restourceLimitToReturn = resourceLimitBuilder.build();
+    }
         return restourceLimitToReturn;
     }
 
-    private static LaunchSpecShieldedInstanceConfigSpecification toBl(
-            ApiLaunchSpecResourceShieldedInstanceSpecification shieldedInstance){
-        LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig =
-                LaunchSpecShieldedInstanceConfigSpecification.Builder.get().build();
-        if(shieldedInstance.isEnableIntegrityMonitoringSet()){
-            shieldedInstanceConfig.setEnableIntegrityMonitoring(shieldedInstance.getEnableIntegrityMonitoring());
-        }
+    private static LaunchSpecShieldedInstanceConfigSpecification toBl(ApiLaunchSpecResourceShieldedInstanceSpecification apiShieldedInstance){
+        LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig = null;
 
-        if(shieldedInstance.isEnableSecureBootSet()){
-            shieldedInstanceConfig.setEnableSecureBoot(shieldedInstance.getEnableSecureBoot());
-        }
+        if(apiShieldedInstance != null) {
+            LaunchSpecShieldedInstanceConfigSpecification.Builder shieldedInstanceConfigBuilder = LaunchSpecShieldedInstanceConfigSpecification.Builder.get();
 
+            if (apiShieldedInstance.isEnableIntegrityMonitoringSet()) {
+                shieldedInstanceConfigBuilder.setEnableIntegrityMonitoring(apiShieldedInstance.getEnableIntegrityMonitoring());
+            }
+
+            if (apiShieldedInstance.isEnableSecureBootSet()) {
+                shieldedInstanceConfigBuilder.setEnableSecureBoot(apiShieldedInstance.getEnableSecureBoot());
+            }
+            shieldedInstanceConfig = shieldedInstanceConfigBuilder.build();
+        }
         return shieldedInstanceConfig;
     }
 
-    private static LaunchSpecStrategySpecification toBl(ApiLaunchSpecStrategySpecification strategy){
-        LaunchSpecStrategySpecification strategyList = LaunchSpecStrategySpecification.Builder.get().build();
-        if(strategy.isPreemptiblePercentageSet()){
-            strategyList.setPreemptiblePercentage(strategy.getPreemptiblePercentage());
-        }
+    private static LaunchSpecStrategySpecification toBl(ApiLaunchSpecStrategySpecification apiStrategy){
+        LaunchSpecStrategySpecification strategyList = null;
 
+        if(apiStrategy != null) {
+            LaunchSpecStrategySpecification.Builder strategyBuilder = LaunchSpecStrategySpecification.Builder.get();
+
+            if (apiStrategy.isPreemptiblePercentageSet()) {
+                strategyBuilder.setPreemptiblePercentage(apiStrategy.getPreemptiblePercentage());
+            }
+            strategyList = strategyBuilder.build();
+        }
         return strategyList;
     }
 
-    private static LaunchSpecStorageSpecification toBl(ApiLaunchSpecStorageSpecification storage){
+    private static LaunchSpecStorageSpecification toBl(ApiLaunchSpecStorageSpecification apiStorage){
         LaunchSpecStorageSpecification storageSpec = null;
 
-        storageSpec = new LaunchSpecStorageSpecification();
+        if(apiStorage != null) {
+            LaunchSpecStorageSpecification.Builder storageBuilder = LaunchSpecStorageSpecification.Builder.get();
 
-        if(storage.isLocalSsdCountSet()){
-            storageSpec.setLocalSsdCount(storage.getLocalSsdCount());
+            if (apiStorage.isLocalSsdCountSet()) {
+                storageBuilder.setLocalSsdCount(apiStorage.getLocalSsdCount());
+            }
+            storageSpec = storageBuilder.build();
         }
-
         return storageSpec;
     }
 
-    private static LaunchSpecMetadataSpecification toBl(ApiLaunchSpecMetadataSpecification metadata){
+    private static LaunchSpecMetadataSpecification toBl(ApiLaunchSpecMetadataSpecification apiMetadata) {
 
-        LaunchSpecMetadataSpecification launchSpecMetadataSpecification = new LaunchSpecMetadataSpecification();
+        LaunchSpecMetadataSpecification launchSpecMetadataSpecification = null;
 
-        if(metadata.isKeySet()){
-            launchSpecMetadataSpecification.setKey(metadata.getKey());
+        if(apiMetadata != null){
+            LaunchSpecMetadataSpecification.Builder metadataBuilder = LaunchSpecMetadataSpecification.Builder.get();
+        if (apiMetadata.isKeySet()) {
+            metadataBuilder.setKey(apiMetadata.getKey());
         }
 
-        if(metadata.isValueSet()){
-            launchSpecMetadataSpecification.setValue(metadata.getValue());
+        if (apiMetadata.isValueSet()) {
+            metadataBuilder.setValue(apiMetadata.getValue());
         }
-
+            launchSpecMetadataSpecification  = metadataBuilder.build();
+    }
         return launchSpecMetadataSpecification;
     }
 }
