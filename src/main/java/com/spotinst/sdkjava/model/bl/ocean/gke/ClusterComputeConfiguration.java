@@ -15,7 +15,7 @@ public class ClusterComputeConfiguration {
     private Set<String>                                 isSet;
     private List<String>                                availabilityZones;
     private LaunchSpecSpecification                     launchSpecification;
-    private ClusterBackendServicesConfiguration         backendServices;
+    private List<ClusterBackendServicesConfiguration>   backendServices;
     private ClusterInstanceTypesConfiguration           instanceTypes;
     private List<ClusterNetworkInterfacesConfiguration> networkInterfaces;
     private String                                      subnetName;
@@ -50,11 +50,11 @@ public class ClusterComputeConfiguration {
         this.launchSpecification = launchSpecification;
     }
 
-    public ClusterBackendServicesConfiguration getBackendServices() {
+    public List<ClusterBackendServicesConfiguration> getBackendServices() {
         return backendServices;
     }
 
-    public void setBackendServices(ClusterBackendServicesConfiguration backendServices) {
+    public void setBackendServices(List<ClusterBackendServicesConfiguration> backendServices) {
         isSet.add("backendServices");
         this.backendServices = backendServices;
     }
@@ -113,7 +113,7 @@ public class ClusterComputeConfiguration {
             return this;
         }
 
-        public Builder setBackendServices(final ClusterBackendServicesConfiguration backendServices) {
+        public Builder setBackendServices(final List<ClusterBackendServicesConfiguration> backendServices) {
             compute.setBackendServices(backendServices);
             return this;
         }

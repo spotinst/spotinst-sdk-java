@@ -12,7 +12,7 @@ import com.spotinst.sdkjava.model.service.ocean.gke.SpotOceanGkeClusterService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpotOceanGKELaunchSpecRepo implements ISpotOceanGKELaunchSpecRepo {
+public class SpotOceanGkeLaunchSpecRepo implements ISpotOceanGKELaunchSpecRepo {
 
     @Override
     public RepoGenericResponse<LaunchSpecSpecification> create(LaunchSpecSpecification oceanGKECreateLaunchSpecRes, String authToken, String account) {

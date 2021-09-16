@@ -164,7 +164,8 @@ public class OceanGkeConverter {
                 retVal.setAvailabilityZones(compute.getAvailabilityZones());
             }
             if (compute.isBackendServicesSet()) {
-                retVal.setBackendServices(toDal(compute.getBackendServices()));
+                List<ApiClusterBackendServicesConfiguration> backendServices = compute.getBackendServices().stream().map(OceanGkeConverter::toDal).collect(Collectors.toList());
+                retVal.setBackendServices(backendServices);
             }
             if (compute.isInstanceTypesSet()) {
                 retVal.setInstanceTypes(toDal(compute.getInstanceTypes()));
@@ -802,7 +803,10 @@ public class OceanGkeConverter {
                 computeBuilder.setAvailabilityZones(apicompute.getAvailabilityZones());
             }
             if (apicompute.isBackendServicesSet()) {
-                computeBuilder.setBackendServices(toBl(apicompute.getBackendServices()));
+                List<ClusterBackendServicesConfiguration> backendServices =
+                        (apicompute.getBackendServices()).stream().map(OceanGkeConverter::toBl)
+                                  .collect(Collectors.toList());
+                computeBuilder.setBackendServices(backendServices);
             }
             if (apicompute.isInstanceTypesSet()) {
                 computeBuilder.setInstanceTypes(toBl(apicompute.getInstanceTypes()));

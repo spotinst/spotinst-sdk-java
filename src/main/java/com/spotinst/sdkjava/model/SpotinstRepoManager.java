@@ -1,6 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGKELaunchSpecRepo;
+import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeClusterRepo;
@@ -52,7 +52,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
-        this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGKELaunchSpecRepo();
+        this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGkeLaunchSpecRepo();
         this.spotinstOceanGkeClusterRepo    = new SpotOceanGkeClusterRepo();
         this.spotinstOceanEcsClusterRepo = new SpotOceanEcsClusterRepo();
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();

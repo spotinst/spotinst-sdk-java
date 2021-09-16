@@ -18,7 +18,7 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     private Set<String>                                         isSet;
     private List<String>                                        availabilityZones;
     private ApiLaunchSpecSpecification                          launchSpecification;
-    private ApiClusterBackendServicesConfiguration              backendServices;
+    private List<ApiClusterBackendServicesConfiguration>        backendServices;
     private ApiClusterInstanceTypesConfiguration                instanceTypes;
     private List<ApiClusterNetworkInterfacesConfiguration>      networkInterfaces;
     private String                                              subnetName;
@@ -53,11 +53,11 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
         this.launchSpecification = launchSpecification;
     }
 
-    public ApiClusterBackendServicesConfiguration getBackendServices() {
+    public List<ApiClusterBackendServicesConfiguration> getBackendServices() {
         return backendServices;
     }
 
-    public void setBackendServices(ApiClusterBackendServicesConfiguration backendServices) {
+    public void setBackendServices(List<ApiClusterBackendServicesConfiguration> backendServices) {
         isSet.add("backendServices");
         this.backendServices = backendServices;
     }
