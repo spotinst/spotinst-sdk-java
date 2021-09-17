@@ -12,8 +12,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class Strategy implements IPartialUpdateEntity {
+public class Strategy{
 
     @JsonIgnore
     private Set<String>     isSet;
