@@ -185,8 +185,8 @@ public class OceanGkeClusterUsageExample {
 
         // Build Ocean Gke Cluster
         OceanGkeCluster.Builder ocenGkeBuilder = OceanGkeCluster.Builder.get();
-        OceanGkeCluster ocenGkeCluster = ocenGkeBuilder.setName("Automation-java-SDK-OceanGkeCluster-Bansi")
-                                                       .setControllerClusterId("Automation-java-SDK-OceanGkeCluster-Bansi")
+        OceanGkeCluster ocenGkeCluster = ocenGkeBuilder.setName("Automation-java-SDK-OceanGkeCluster")
+                                                       .setControllerClusterId("Automation-java-SDK-OceanGkeCluster")
                                                        .setGke(gke)
                                                        .setCapacity(capacity)
                                                        .setAutoScaler(autoScaler)
@@ -265,7 +265,7 @@ public class OceanGkeClusterUsageExample {
         // Update cluster
         Boolean updateSuccess = client.updateGkeCluster(updateRequest, clusterId);
         if (updateSuccess) {
-            System.out.println("Cluster successfully updated."+ clusterId);
+            System.out.println("Cluster Capacity successfully updated."+ clusterId);
         }
     }
 
