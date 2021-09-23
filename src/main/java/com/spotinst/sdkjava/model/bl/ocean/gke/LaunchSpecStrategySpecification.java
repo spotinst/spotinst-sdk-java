@@ -11,11 +11,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecStrategySpecification {
     @JsonIgnore
-    private Integer     preemptiblePercentage;
     private Set<String> isSet;
+    private Integer     preemptiblePercentage;
 
     public LaunchSpecStrategySpecification(){ isSet = new HashSet<>();
     }
+
     public Set<String> getIsSet() {
         return isSet;
     }

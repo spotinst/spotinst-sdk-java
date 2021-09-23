@@ -13,6 +13,7 @@ public class LaunchSpecRequest {
 
     @JsonProperty("launchSpec")
     private LaunchSpecSpecification launchSpecSpecification;
+    private String                  launchSpecId;
 
     public LaunchSpecSpecification getOceanGKECreateLaunchSpecRes() {
         return launchSpecSpecification;
@@ -20,6 +21,14 @@ public class LaunchSpecRequest {
 
     public void setOceanGKECreateLaunchSpecRes(LaunchSpecSpecification launchSpecSpecification) {
         this.launchSpecSpecification = launchSpecSpecification;
+    }
+
+    public String getLaunchSpecId() {
+        return launchSpecId;
+    }
+
+    public void setLaunchSpecId(String launchSpecId) {
+        this.launchSpecId = launchSpecId;
     }
 
     private LaunchSpecRequest() {
@@ -42,6 +51,11 @@ public class LaunchSpecRequest {
             return this;
         }
 
+
+        public Builder setLaunchSpecId(final String launchSpecId) {
+            launchSpecRequest.setLaunchSpecId(launchSpecId);
+            return this;
+        }
         public LaunchSpecRequest build() {
             return launchSpecRequest;
         }

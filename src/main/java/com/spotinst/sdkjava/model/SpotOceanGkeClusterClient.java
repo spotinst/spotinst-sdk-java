@@ -52,34 +52,36 @@ public class SpotOceanGkeClusterClient {
 
     public List<LaunchSpecSpecification> getAllLaunchSpec(String oceanId){
         List<LaunchSpecSpecification>     retVal          = null;
-        RepoGenericResponse<List<LaunchSpecSpecification>> creationResponse    =
+        RepoGenericResponse<List<LaunchSpecSpecification>> getAllResponse    =
                 spotOceanGkeClusterLaunchSpecRepo.getAllStatus(authToken,account,oceanId);
-        if (creationResponse.isRequestSucceed()) {
-            retVal = creationResponse.getValue();
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
-                    String.format("Error encountered while attempting to fetch a  launch spec. Code: %s. Message: %s.",
+                    String.format("Error encountered while attempting to list all Ocean GKE launch spec. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
     }
 
-    public LaunchSpecSpecification getLaunchSpec(String oceanId){
-        LaunchSpecSpecification     retVal          = null;
-        RepoGenericResponse<LaunchSpecSpecification> creationResponse    =
-                spotOceanGkeClusterLaunchSpecRepo.get(oceanId,authToken,account);
-        if (creationResponse.isRequestSucceed()) {
-            retVal = creationResponse.getValue();
+    public LaunchSpecSpecification getLaunchSpec(LaunchSpecRequest launchSpecRequest){
+        LaunchSpecSpecification     retVal;
+        String                     launchSpecId = launchSpecRequest.getLaunchSpecId();
+        RepoGenericResponse<LaunchSpecSpecification> getResponse    =
+                spotOceanGkeClusterLaunchSpecRepo.get(launchSpecId,authToken,account);
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
-                    String.format("Error encountered while attempting to fetch a  launch spec. Code: %s. Message: %s.",
+                    String.format("Error encountered while attempting to fetch Ocean GKE  launch spec. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -108,17 +110,18 @@ public class SpotOceanGkeClusterClient {
         return retVal;
     }
 
-    public Boolean deleteALaunchSpec(String launchSpecId){
+    public Boolean deleteALaunchSpec(LaunchSpecRequest launchSpecDeleteRequest){
 
-        Boolean                     retVal;
-        
-        RepoGenericResponse<Boolean> creationResponse    =
+        Boolean retVal;
+        String  launchSpecId = launchSpecDeleteRequest.getLaunchSpecId();
+        RepoGenericResponse<Boolean> deleteResponse =
                 spotOceanGkeClusterLaunchSpecRepo.delete(launchSpecId, authToken, account);
-        if (creationResponse.isRequestSucceed()) {
-            retVal = creationResponse.getValue();
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to delete a launch Spec. Code: %s. Message: %s.",
@@ -128,6 +131,5 @@ public class SpotOceanGkeClusterClient {
 
         return retVal;
     }
-
 
 }

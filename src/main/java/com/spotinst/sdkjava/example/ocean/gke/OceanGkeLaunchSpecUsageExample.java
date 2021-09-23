@@ -11,7 +11,7 @@ import java.util.*;
 public class OceanGkeLaunchSpecUsageExample {
 
     private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-    private final static String account_id        = "act-7d8b3fee";
+    private final static String account_id    = "act-7d8b3fee";
 
     public static void main(String[] args) throws IOException {
 
@@ -124,7 +124,7 @@ public class OceanGkeLaunchSpecUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification
-                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-3f432e3e")
+                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("oceanid")
                                                                                 .setRestrictScaleDown(false)
                                                                                 .setServiceAccount("serviceAccount")
                                                                                 .setRootVolumeType("pd-standard")
@@ -156,13 +156,21 @@ public class OceanGkeLaunchSpecUsageExample {
 
     private static List<LaunchSpecSpecification> getAllLaunchSpecs(SpotOceanGkeClusterClient client) {
 
-        return client.getAllLaunchSpec("o-3f432e3e");
+        return client.getAllLaunchSpec("oceanid");
 
     }
     private static LaunchSpecSpecification getALaunchSpecs(SpotOceanGkeClusterClient client, String LaunchSpecId){
 
         //Get a launch spec
-        return client.getLaunchSpec(LaunchSpecId);
+        LaunchSpecRequest.Builder getBuilder = LaunchSpecRequest.Builder.get();
+        LaunchSpecRequest getRequest = getBuilder.setLaunchSpecId(LaunchSpecId).build();
+
+        LaunchSpecSpecification launchSpec = client.getLaunchSpec(getRequest);
+
+        if (launchSpec!=null) {
+            System.out.println("Get Cluster successfully: " + launchSpec.getId());
+        }
+        return launchSpec;
     }
 
     private static void updateLaunchSpec(SpotOceanGkeClusterClient client, String launchSpecId, String newName){
@@ -209,8 +217,12 @@ public class OceanGkeLaunchSpecUsageExample {
     private static void deleteLaunchSpec(SpotOceanGkeClusterClient client, String launchSpecId) {
 
         // Delete a launch spec
-        Boolean successfulDeletion = client.deleteALaunchSpec(launchSpecId);
-        if (successfulDeletion) {
+
+        LaunchSpecRequest.Builder deleteBuilder       = LaunchSpecRequest.Builder.get();
+        LaunchSpecRequest         deleteRequest       =
+                deleteBuilder.setLaunchSpecId(launchSpecId).build();
+        Boolean                                  isLaunchSpecDeleted = client.deleteALaunchSpec(deleteRequest);
+        if (isLaunchSpecDeleted) {
             System.out.println("Launch Spec with id:" + launchSpecId+" deleted successfully");
         }
     }
