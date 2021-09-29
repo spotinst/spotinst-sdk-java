@@ -5,8 +5,13 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.elastigroup.ApiScalingPolicySuspension;
+import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPolicy;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.responses.elastigroup.ElastigroupSuspendScalingPoliciesApiResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.ElastigroupSuspendScalingPoliciesListApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -765,6 +770,116 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         Boolean                  retVal        = true;
 
+        return retVal;
+    }
+
+    public static ApiSuspendedScalingPolicy suspendScalingPolicies(String groupId, String policyName, ApiScalingPolicySuspension suspension,
+                                                                   String authToken, String account) {
+        ApiSuspendedScalingPolicy retVal;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if ((account != null) && (policyName!=null)) {
+            queryParams.put("accountId", account);
+            queryParams.put("policyName", policyName);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/scale/suspendPolicy", apiEndpoint, groupId);
+
+        // Write to json
+        Map<String, ApiScalingPolicySuspension> suspensionRequest = new HashMap<>();
+        suspensionRequest.put("suspension", suspension);
+        String body = JsonMapper.toJson(suspensionRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupSuspendScalingPoliciesApiResponse castedResponse =
+                getCastedResponse(response, ElastigroupSuspendScalingPoliciesApiResponse.class);
+
+        retVal = castedResponse.getResponse().getItems().get(0);
+
+        return retVal;
+    }
+
+    public static ApiSuspendedScalingPoliciesList getSuspendedScalingPolicies(String groupId, String authToken, String account) {
+        ApiSuspendedScalingPoliciesList retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/scale/suspensions", apiEndpoint, groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupSuspendScalingPoliciesListApiResponse getResponse =
+                getCastedResponse(response, ElastigroupSuspendScalingPoliciesListApiResponse.class);
+
+        if (getResponse.getResponse().getCount() > 0) {
+            retVal = getResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static Boolean removeSuspendScalingPolicies(String groupId, String policyName,
+                                                                     String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if ((account != null) && (policyName!=null)) {
+            queryParams.put("accountId", account);
+            queryParams.put("policyName", policyName);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/scale/resumePolicy", apiEndpoint, groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
         return retVal;
     }
 }

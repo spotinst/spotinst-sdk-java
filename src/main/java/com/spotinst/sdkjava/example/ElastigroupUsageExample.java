@@ -3,8 +3,12 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupSuspendScalingPoliciesRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPolicy;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -124,6 +128,8 @@ public class ElastigroupUsageExample {
         lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "LOCK");
         lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "UNLOCK");
 
+        System.out.println("----------Remove/Resume Suspended Scaling Policy--------------");
+        removeSuspendedScalingPolicies(elastigroupClient,"sig-0c8a12b3","TargetPolicy1");
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -775,6 +781,56 @@ public class ElastigroupUsageExample {
         retVal = elastigroupClient.suspendProcess(request);
 
         return retVal;
+    }
+
+        ScalingPolicySuspension.Builder                  suspensionBuilder = ScalingPolicySuspension.Builder.get();
+        ScalingPolicySuspension                          suspension        = suspensionBuilder.setTtlInMinutes(20).build();
+        ElastigroupSuspendScalingPoliciesRequest request =
+                requestBuilder.setSuspension(suspension)
+                              .setGroupId(elastigroupId)
+                              .setPolicyName(policyName)
+                              .build();
+
+        SuspendedScalingPolicy retVal = elastigroupClient.suspendScalingPolicies(request);
+
+        System.out.println(String.format("Group Id: %s",retVal.getGroupId()));
+        System.out.println(String.format("Policy Name: %s",retVal.getPolicyName()));
+        System.out.println(String.format("Expires At: %s",retVal.getExpiresAt()));
+        System.out.println(String.format("State: %s",retVal.getState()));
+
+        return retVal;
+    }
+
+    private static Boolean removeSuspendedScalingPolicies(SpotinstElastigroupClient elastigroupClient, String elastigroupId, String policyName) {
+        ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder    = ElastigroupSuspendScalingPoliciesRequest.Builder.get();
+        ScalingPolicySuspension.Builder                  suspensionBuilder = ScalingPolicySuspension.Builder.get();
+
+        ElastigroupSuspendScalingPoliciesRequest request =
+                requestBuilder.setGroupId(elastigroupId)
+                              .setPolicyName(policyName)
+                              .build();
+
+        Boolean removeStatus = elastigroupClient.removeSuspendedScalingPolicies(request);
+        System.out.println(String.format("Remove suspended scaling policy status for policy %s: %s",policyName,removeStatus));
+        return removeStatus;
+    }
+
+    private static List<SuspendedScalingPolicy> getAllSuspendedScalingPolicies(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+        ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder    = ElastigroupSuspendScalingPoliciesRequest.Builder.get();
+        ElastigroupSuspendScalingPoliciesRequest request = requestBuilder.setGroupId(elastigroupId).build();
+
+        SuspendedScalingPoliciesList
+                policyList = elastigroupClient.getAllSuspendedScalingPolicies(request);
+
+        List<SuspendedScalingPolicy> allSuspendedScalingPolicies = policyList.getScalePolicySuspensions();
+        for (SuspendedScalingPolicy policy : allSuspendedScalingPolicies) {
+            System.out.println(String.format("Group Id: %s",policy.getGroupId()));
+            System.out.println(String.format("Policy Name: %s",policy.getPolicyName()));
+            System.out.println(String.format("Expires At: %s",policy.getExpiresAt()));
+            System.out.println(String.format("State: %s",policy.getState()));
+            System.out.println();
+        }
+        return allSuspendedScalingPolicies;
     }
 
     private static void getEventsLogs(SpotinstElastigroupClient client, String elastigroupId, String fromDate,
