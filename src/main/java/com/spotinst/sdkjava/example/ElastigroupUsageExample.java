@@ -128,6 +128,15 @@ public class ElastigroupUsageExample {
         lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "LOCK");
         lockUnlockInstance(elastigroupClient, act_id, 5, "your-instance-id", "UNLOCK");
 
+        System.out.println("----------Suspend Specific Scaling Policy--------------");
+        suspendScalingPolicies(elastigroupClient,"sig-0c8a12b3","TargetPolicy2");
+
+        System.out.println("----------Suspend Specific Scaling Policy--------------");
+        suspendScalingPolicies(elastigroupClient,"sig-0c8a12b3","TargetPolicy1");
+
+        System.out.println("----------List Suspended Scaling Policies--------------");
+        getAllSuspendedScalingPolicies(elastigroupClient, "sig-0c8a12b3");
+
         System.out.println("----------Remove/Resume Suspended Scaling Policy--------------");
         removeSuspendedScalingPolicies(elastigroupClient,"sig-0c8a12b3","TargetPolicy1");
     }
@@ -783,6 +792,8 @@ public class ElastigroupUsageExample {
         return retVal;
     }
 
+    private static SuspendedScalingPolicy suspendScalingPolicies(SpotinstElastigroupClient elastigroupClient, String elastigroupId, String policyName) {
+        ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder    = ElastigroupSuspendScalingPoliciesRequest.Builder.get();
         ScalingPolicySuspension.Builder                  suspensionBuilder = ScalingPolicySuspension.Builder.get();
         ScalingPolicySuspension                          suspension        = suspensionBuilder.setTtlInMinutes(20).build();
         ElastigroupSuspendScalingPoliciesRequest request =
