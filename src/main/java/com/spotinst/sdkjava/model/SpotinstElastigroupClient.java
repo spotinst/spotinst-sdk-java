@@ -635,17 +635,17 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public SuspendedScalingPoliciesList getAllSuspendedScalingPolicies(
+    public List<SuspendedScalingPolicy> getAllSuspendedScalingPolicies(
             ElastigroupSuspendScalingPoliciesRequest suspendScalingPoliciesRequest) {
 
-        SuspendedScalingPoliciesList retVal;
+        List<SuspendedScalingPolicy> retVal;
         String                       elastigroupId = suspendScalingPoliciesRequest.getGroupId();
 
         RepoGenericResponse<SuspendedScalingPoliciesList> getAllResponse =
                 getSpotinstElastigroupRepo().getAllSuspendedScalingPolicies(elastigroupId, authToken, account);
 
         if (getAllResponse.isRequestSucceed()) {
-            retVal = getAllResponse.getValue();
+            retVal = getAllResponse.getValue().getScalePolicySuspensions();
         }
         else {
             List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
