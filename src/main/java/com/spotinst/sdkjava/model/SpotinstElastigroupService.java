@@ -773,7 +773,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiSuspendedScalingPolicy suspendScalingPolicies(String groupId, String policyName,
+    public static ApiSuspendedScalingPolicy suspendScalingPolicies(String elastiGroupId, String policyName,
                                                                    ApiScalingPolicySuspension suspension,
                                                                    String authToken,
                                                                    String account) throws SpotinstHttpException {
@@ -796,7 +796,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/scale/suspendPolicy", apiEndpoint, groupId);
+        String uri = String.format("%s/aws/ec2/group/%s/scale/suspendPolicy", apiEndpoint, elastiGroupId);
 
         // Write to json
         Map<String, ApiScalingPolicySuspension> suspensionRequest = new HashMap<>();
@@ -816,7 +816,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiSuspendedScalingPoliciesList getSuspendedScalingPolicies(String groupId, String authToken,
+    public static ApiSuspendedScalingPoliciesList getSuspendedScalingPolicies(String elastiGroupId, String authToken,
                                                                               String account) throws SpotinstHttpException {
         ApiSuspendedScalingPoliciesList retVal = null;
 
@@ -836,7 +836,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/scale/suspensions", apiEndpoint, groupId);
+        String uri = String.format("%s/aws/ec2/group/%s/scale/suspensions", apiEndpoint, elastiGroupId);
 
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
@@ -852,7 +852,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean removeSuspendScalingPolicies(String groupId, String policyName, String authToken,
+    public static Boolean removeSuspendScalingPolicies(String elastiGroupId, String policyName, String authToken,
                                                        String account) throws SpotinstHttpException {
 
         Boolean retVal = false;
@@ -874,7 +874,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/scale/resumePolicy", apiEndpoint, groupId);
+        String uri = String.format("%s/aws/ec2/group/%s/scale/resumePolicy", apiEndpoint, elastiGroupId);
 
         // Send the request.
         RestResponse             response      = RestClient.sendPost(uri, null, headers, queryParams);

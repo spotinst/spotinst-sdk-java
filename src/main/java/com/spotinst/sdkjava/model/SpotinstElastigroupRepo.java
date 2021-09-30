@@ -349,7 +349,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String groupId, String policyName,
+    public RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String elastiGroupId, String policyName,
                                                                               ScalingPolicySuspension suspensions,
                                                                               String authToken, String account) {
         RepoGenericResponse<SuspendedScalingPolicy> retVal;
@@ -358,7 +358,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         try {
             ApiSuspendedScalingPolicy apiResponse = SpotinstElastigroupService
-                    .suspendScalingPolicies(groupId, policyName, apiSuspensions, authToken, account);
+                    .suspendScalingPolicies(elastiGroupId, policyName, apiSuspensions, authToken, account);
             SuspendedScalingPolicy suspendedProcesses = ScalingPoliciesSuspensionConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(suspendedProcesses);
@@ -370,14 +370,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<SuspendedScalingPoliciesList> getAllSuspendedScalingPolicies(String groupId,
+    public RepoGenericResponse<SuspendedScalingPoliciesList> getAllSuspendedScalingPolicies(String elastiGroupId,
                                                                                             String authToken,
                                                                                             String account) {
         RepoGenericResponse<SuspendedScalingPoliciesList> retVal;
 
         try {
             ApiSuspendedScalingPoliciesList suspendedApiResponse =
-                    SpotinstElastigroupService.getSuspendedScalingPolicies(groupId, authToken, account);
+                    SpotinstElastigroupService.getSuspendedScalingPolicies(elastiGroupId, authToken, account);
 
             SuspendedScalingPoliciesList allSuspendedScalingPolicies =
                     ScalingPoliciesSuspensionConverter.toBl(suspendedApiResponse);
@@ -391,13 +391,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> removeSuspendedScalingPolicies(String groupId, String policyName,
+    public RepoGenericResponse<Boolean> removeSuspendedScalingPolicies(String elastiGroupId, String policyName,
                                                                        String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
             Boolean removeStatus =
-                    SpotinstElastigroupService.removeSuspendScalingPolicies(groupId, policyName, authToken, account);
+                    SpotinstElastigroupService.removeSuspendScalingPolicies(elastiGroupId, policyName, authToken, account);
             retVal = new RepoGenericResponse<>(removeStatus);
         }
         catch (SpotinstHttpException ex) {

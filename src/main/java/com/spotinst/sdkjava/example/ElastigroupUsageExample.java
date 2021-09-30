@@ -835,6 +835,7 @@ public class ElastigroupUsageExample {
         for (SuspendedScalingPolicy policy : allSuspendedScalingPolicies) {
             System.out.println(String.format("Group Id: %s", policy.getGroupId()));
             System.out.println(String.format("Policy Name: %s", policy.getPolicyName()));
+            System.out.println(String.format("Expires At: %s", policy.getExpiresAt()));
             System.out.println(String.format("State: %s", policy.getState()));
             System.out.println();
         }
