@@ -1,8 +1,10 @@
-package com.spotinst.sdkjava.model.bl.elastigroup;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -10,7 +12,8 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuspendedScalingPolicy {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiSuspendedScalingPolicy implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      groupId;
@@ -18,7 +21,7 @@ public class SuspendedScalingPolicy {
     private String      State;
     private Date        expiresAt;
 
-    private SuspendedScalingPolicy() {
+    public ApiSuspendedScalingPolicy() {
         isSet = new HashSet<>();
     }
 
@@ -64,44 +67,6 @@ public class SuspendedScalingPolicy {
     public void setExpiresAt(Date expiresAt) {
         isSet.add("expiresAt");
         this.expiresAt = expiresAt;
-    }
-
-    public static class Builder {
-
-        private SuspendedScalingPolicy suspendedScalingPolicy;
-
-        private Builder() {
-            this.suspendedScalingPolicy = new SuspendedScalingPolicy();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setGroupId(final String groupId) {
-            suspendedScalingPolicy.setGroupId(groupId);
-            return this;
-        }
-
-        public Builder setPolicyName(final String policyName) {
-            suspendedScalingPolicy.setPolicyName(policyName);
-            return this;
-        }
-
-        public Builder setState(final String state) {
-            suspendedScalingPolicy.setState(state);
-            return this;
-        }
-
-        public Builder setExpiresAt(final Date expiresAt) {
-            suspendedScalingPolicy.setExpiresAt(expiresAt);
-            return this;
-        }
-
-        public SuspendedScalingPolicy build() {
-            return suspendedScalingPolicy;
-        }
     }
 
     @JsonIgnore

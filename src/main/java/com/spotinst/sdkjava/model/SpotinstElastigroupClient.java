@@ -6,12 +6,12 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.elastigroup.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupSuspendScalingPoliciesRequest;
-import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupSuspendScalingPoliciesRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -591,8 +591,8 @@ public class SpotinstElastigroupClient {
         String                  policyName    = suspendScalingPoliciesRequest.getPolicyName();
         ScalingPolicySuspension suspensions   = suspendScalingPoliciesRequest.getSuspension();
 
-        RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPoliciesResponse =
-                getSpotinstElastigroupRepo().suspendScalingPolicies(elastigroupId, policyName,suspensions, authToken, account);
+        RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPoliciesResponse = getSpotinstElastigroupRepo()
+                .suspendScalingPolicies(elastigroupId, policyName, suspensions, authToken, account);
 
         if (suspendScalingPoliciesResponse.isRequestSucceed()) {
             retVal = suspendScalingPoliciesResponse.getValue();
@@ -600,12 +600,11 @@ public class SpotinstElastigroupClient {
         else {
             List<HttpError> httpExceptions = suspendScalingPoliciesResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to suspend processes. Code: %s. Message: %s.",
-                                  httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to suspend scaling policies. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
@@ -614,11 +613,11 @@ public class SpotinstElastigroupClient {
 
         Boolean retVal;
 
-        String                  elastigroupId = suspendScalingPoliciesRequest.getGroupId();
-        String                  policyName    = suspendScalingPoliciesRequest.getPolicyName();
+        String elastigroupId = suspendScalingPoliciesRequest.getGroupId();
+        String policyName    = suspendScalingPoliciesRequest.getPolicyName();
 
-        RepoGenericResponse<Boolean> removeResponse =
-                getSpotinstElastigroupRepo().removeSuspendedScalingPolicies(elastigroupId, policyName, authToken, account);
+        RepoGenericResponse<Boolean> removeResponse = getSpotinstElastigroupRepo()
+                .removeSuspendedScalingPolicies(elastigroupId, policyName, authToken, account);
 
         if (removeResponse.isRequestSucceed()) {
             retVal = removeResponse.getValue();
@@ -631,7 +630,6 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
@@ -655,7 +653,6 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 }

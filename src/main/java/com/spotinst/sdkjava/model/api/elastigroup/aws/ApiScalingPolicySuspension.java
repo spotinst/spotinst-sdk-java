@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.elastigroup;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,6 +29,7 @@ public class ApiScalingPolicySuspension implements IPartialUpdateEntity {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
+
     public Integer getTtlInMinutes() {
         return ttlInMinutes;
     }

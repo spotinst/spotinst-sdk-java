@@ -1,13 +1,7 @@
-package com.spotinst.sdkjava.model.requests.elastigroup;
+package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.converters.elastigroup.ScalingPoliciesSuspensionConverter;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 
 public class ElastigroupSuspendScalingPoliciesRequest {
     @JsonProperty("suspension")

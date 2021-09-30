@@ -5,13 +5,13 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiScalingPolicySuspension;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPoliciesList;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.responses.elastigroup.ElastigroupSuspendScalingPoliciesApiResponse;
-import com.spotinst.sdkjava.model.responses.elastigroup.ElastigroupSuspendScalingPoliciesListApiResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesApiResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesListApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -773,8 +773,10 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiSuspendedScalingPolicy suspendScalingPolicies(String groupId, String policyName, ApiScalingPolicySuspension suspension,
-                                                                   String authToken, String account) {
+    public static ApiSuspendedScalingPolicy suspendScalingPolicies(String groupId, String policyName,
+                                                                   ApiScalingPolicySuspension suspension,
+                                                                   String authToken,
+                                                                   String account) throws SpotinstHttpException {
         ApiSuspendedScalingPolicy retVal;
 
         // Get endpoint
@@ -785,7 +787,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
-        if ((account != null) && (policyName!=null)) {
+        if ((account != null) && (policyName != null)) {
             queryParams.put("accountId", account);
             queryParams.put("policyName", policyName);
         }
@@ -814,7 +816,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiSuspendedScalingPoliciesList getSuspendedScalingPolicies(String groupId, String authToken, String account) {
+    public static ApiSuspendedScalingPoliciesList getSuspendedScalingPolicies(String groupId, String authToken,
+                                                                              String account) throws SpotinstHttpException {
         ApiSuspendedScalingPoliciesList retVal = null;
 
         // Get endpoint
@@ -849,8 +852,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean removeSuspendScalingPolicies(String groupId, String policyName,
-                                                                     String authToken, String account) {
+    public static Boolean removeSuspendScalingPolicies(String groupId, String policyName, String authToken,
+                                                       String account) throws SpotinstHttpException {
 
         Boolean retVal = false;
 
@@ -862,7 +865,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
-        if ((account != null) && (policyName!=null)) {
+        if ((account != null) && (policyName != null)) {
             queryParams.put("accountId", account);
             queryParams.put("policyName", policyName);
         }
@@ -874,7 +877,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/scale/resumePolicy", apiEndpoint, groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+        RestResponse             response      = RestClient.sendPost(uri, null, headers, queryParams);
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
 
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {

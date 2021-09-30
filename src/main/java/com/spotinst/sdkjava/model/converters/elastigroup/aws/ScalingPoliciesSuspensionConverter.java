@@ -1,11 +1,11 @@
-package com.spotinst.sdkjava.model.converters.elastigroup;
+package com.spotinst.sdkjava.model.converters.elastigroup.aws;
 
-import com.spotinst.sdkjava.model.api.elastigroup.ApiScalingPolicySuspension;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPoliciesList;
-import com.spotinst.sdkjava.model.api.elastigroup.ApiSuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.bl.elastigroup.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPoliciesList;
-import com.spotinst.sdkjava.model.bl.elastigroup.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 
 import java.util.List;
 import java.util.stream.Collectors;
