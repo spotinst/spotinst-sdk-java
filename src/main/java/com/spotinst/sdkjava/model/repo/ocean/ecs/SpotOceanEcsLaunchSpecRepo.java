@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.model.ISpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsLaunchSpecConverter;
+import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsConverter;
 import com.spotinst.sdkjava.model.service.ocean.ecs.SpotOceanEcsClusterService;
 
 import java.util.List;
@@ -21,10 +21,10 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         RepoGenericResponse<ClusterLaunchSpecification> retVal;
 
         try {
-            ApiClusterLaunchSpecification apiLaunchSpecToCreate = OceanEcsLaunchSpecConverter.toDal(launchSpecToCreate);
+            ApiClusterLaunchSpecification apiLaunchSpecToCreate = OceanEcsConverter.toDal(launchSpecToCreate);
             ApiClusterLaunchSpecification apiCreatedLaunchSpec =
                     SpotOceanEcsClusterService.createLaunchSpec(apiLaunchSpecToCreate, authToken, account);
-            ClusterLaunchSpecification createdLaunchSpec = OceanEcsLaunchSpecConverter.toBl(apiCreatedLaunchSpec);
+            ClusterLaunchSpecification createdLaunchSpec = OceanEcsConverter.toBl(apiCreatedLaunchSpec);
             retVal = new RepoGenericResponse<>(createdLaunchSpec);
         }
         catch (SpotinstHttpException ex) {
@@ -56,7 +56,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            ApiClusterLaunchSpecification apiLaunchSpecToUpdate = OceanEcsLaunchSpecConverter.toDal(launchSpecToUpdate);
+            ApiClusterLaunchSpecification apiLaunchSpecToUpdate = OceanEcsConverter.toDal(launchSpecToUpdate);
             Boolean isLaunchSpecUpdated = SpotOceanEcsClusterService
                     .updateLaunchSpec(identifier, apiLaunchSpecToUpdate, authToken, account);
             retVal = new RepoGenericResponse<>(isLaunchSpecUpdated);
@@ -75,7 +75,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
         try {
             ApiClusterLaunchSpecification apiGetLaunchSpec =
                     SpotOceanEcsClusterService.getLaunchSpec(identifier, authToken, account);
-            ClusterLaunchSpecification getLaunchSpec = OceanEcsLaunchSpecConverter.toBl(apiGetLaunchSpec);
+            ClusterLaunchSpecification getLaunchSpec = OceanEcsConverter.toBl(apiGetLaunchSpec);
             retVal = new RepoGenericResponse<>(getLaunchSpec);
         }
         catch (SpotinstHttpException ex) {
@@ -93,7 +93,7 @@ public class SpotOceanEcsLaunchSpecRepo implements ISpotOceanEcsLaunchSpecRepo {
             List<ApiClusterLaunchSpecification> apigetAllLaunchSpec =
                     SpotOceanEcsClusterService.getAllLaunchSpec(authToken, account);
             List<ClusterLaunchSpecification> allLaunchSpec =
-                    apigetAllLaunchSpec.stream().map(OceanEcsLaunchSpecConverter::toBl).collect(Collectors.toList());
+                    apigetAllLaunchSpec.stream().map(OceanEcsConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(allLaunchSpec);
         }
         catch (SpotinstHttpException ex) {

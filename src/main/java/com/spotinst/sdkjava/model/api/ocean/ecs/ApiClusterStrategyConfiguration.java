@@ -1,14 +1,19 @@
 package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiClusterStrategyConfiguration {
+public class ApiClusterStrategyConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     fallbackToOd;
@@ -77,6 +82,11 @@ public class ApiClusterStrategyConfiguration {
     @JsonIgnore
     public boolean isUtilizeReservedInstancesSet() {
         return isSet.contains("utilizeReservedInstances");
+    }
+
+    @JsonIgnore
+    public boolean isUtilizeCommitments() {
+        return isSet.contains("utilizeCommitments");
     }
 
     @JsonIgnore

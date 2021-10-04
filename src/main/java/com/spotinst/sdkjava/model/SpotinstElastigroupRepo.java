@@ -3,6 +3,15 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSuspensionConverter;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -308,7 +317,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
+    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequest lockRequest,
                                                      String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -324,7 +333,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
                                                        String authToken, String instanceId) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -336,6 +345,64 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String elastiGroupId, String policyName,
+                                                                              ScalingPolicySuspension suspensions,
+                                                                              String authToken, String account) {
+        RepoGenericResponse<SuspendedScalingPolicy> retVal;
+
+        ApiScalingPolicySuspension apiSuspensions = ScalingPoliciesSuspensionConverter.toDal(suspensions);
+
+        try {
+            ApiSuspendedScalingPolicy apiResponse = SpotinstElastigroupService
+                    .suspendScalingPolicies(elastiGroupId, policyName, apiSuspensions, authToken, account);
+            SuspendedScalingPolicy suspendedProcesses = ScalingPoliciesSuspensionConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(suspendedProcesses);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<SuspendedScalingPoliciesList> getAllSuspendedScalingPolicies(String elastiGroupId,
+                                                                                            String authToken,
+                                                                                            String account) {
+        RepoGenericResponse<SuspendedScalingPoliciesList> retVal;
+
+        try {
+            ApiSuspendedScalingPoliciesList suspendedApiResponse =
+                    SpotinstElastigroupService.getSuspendedScalingPolicies(elastiGroupId, authToken, account);
+
+            SuspendedScalingPoliciesList allSuspendedScalingPolicies =
+                    ScalingPoliciesSuspensionConverter.toBl(suspendedApiResponse);
+
+            retVal = new RepoGenericResponse<>(allSuspendedScalingPolicies);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> removeSuspendedScalingPolicies(String elastiGroupId, String policyName,
+                                                                       String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean removeStatus =
+                    SpotinstElastigroupService.removeSuspendScalingPolicies(elastiGroupId, policyName, authToken, account);
+            retVal = new RepoGenericResponse<>(removeStatus);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
         return retVal;
     }
 }

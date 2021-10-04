@@ -1,6 +1,11 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 
 import java.util.List;
 
@@ -36,9 +41,20 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Boolean> delete(String elastigroupId, String authToken, String account,
                                         ApiDeleteGroupRequest deleteRequest);
 
-    RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockUnlockRequest lockRequest,
-                                                 String authToken, String instanceId);
-
-    RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceLockUnlockRequest unlockRequest,
+    RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequest lockRequest,
                                               String authToken, String instanceId);
+
+    RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
+                                                String authToken, String instanceId);
+
+    RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String elastigroupId, String policyName,
+                                                                       ScalingPolicySuspension suspension,
+                                                                       String authToken, String account);
+
+    RepoGenericResponse<Boolean> removeSuspendedScalingPolicies(String elastigroupId, String policyName,
+                                                                String authToken, String account);
+
+    RepoGenericResponse<SuspendedScalingPoliciesList> getAllSuspendedScalingPolicies(String elastigroupId,
+                                                                                     String authToken, String account);
+
 }
