@@ -1,9 +1,7 @@
 package com.spotinst.sdkjava.model.api.aws.managedInstance;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.*;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,7 +9,8 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiTasks {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiTasks implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>             isSet;
