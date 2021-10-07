@@ -693,6 +693,10 @@ class ElastigroupConverter {
                 retVal.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
             }
 
+            if (targetGroupConfig.isVpcIdSet()) {
+                retVal.setVpcId(targetGroupConfig.getVpcId());
+            }
+
             if (targetGroupConfig.isHealthCheckPathSet()) {
                 retVal.setHealthCheckPath(targetGroupConfig.getHealthCheckPath());
             }
@@ -1866,6 +1870,10 @@ class ElastigroupConverter {
 
             if (targetGroupConfig.isHealthCheckIntervalSecondsSet()) {
                 retValBuilder.setHealthCheckIntervalSeconds(targetGroupConfig.getHealthCheckIntervalSeconds());
+            }
+
+            if (targetGroupConfig.isVpcIdSet()) {
+                retValBuilder.setVpcId(targetGroupConfig.getVpcId());
             }
 
             if (targetGroupConfig.isHealthCheckPathSet()) {
