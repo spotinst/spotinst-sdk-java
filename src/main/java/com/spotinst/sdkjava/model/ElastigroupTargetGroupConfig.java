@@ -10,9 +10,10 @@ public class ElastigroupTargetGroupConfig {
     //region Members
     @JsonIgnore
     private Set<String>                            isSet;
+    private String                                 vpcId;
     private String                                 healthCheckPath;
     private Integer                                healthCheckIntervalSeconds;
-    private Integer                                healthCheckPort;
+    private String                                healthCheckPort;
     private Integer                               healthCheckTimeoutSeconds;
     private String                                healthCheckProtocol;
     private Integer                               healthyThresholdCount;
@@ -41,6 +42,15 @@ public class ElastigroupTargetGroupConfig {
         this.isSet = isSet;
     }
 
+    public String getVpcId() {
+        return vpcId;
+    }
+
+    public void setVpcId(String vpcId) {
+        isSet.add("vpcId");
+        this.vpcId = vpcId;
+    }
+
     public String getHealthCheckPath() {
         return healthCheckPath;
     }
@@ -59,11 +69,11 @@ public class ElastigroupTargetGroupConfig {
         this.healthCheckIntervalSeconds = healthCheckIntervalSeconds;
     }
 
-    public Integer getHealthCheckPort() {
+    public String getHealthCheckPort() {
         return healthCheckPort;
     }
 
-    public void setHealthCheckPort(Integer healthCheckPort) {
+    public void setHealthCheckPort(String healthCheckPort) {
         isSet.add("healthCheckPort");
         this.healthCheckPort = healthCheckPort;
     }
@@ -164,6 +174,11 @@ public class ElastigroupTargetGroupConfig {
             return builder;
         }
 
+        public Builder setVpcId(final String vpcId) {
+            targetGroupConfig.setVpcId(vpcId);
+            return this;
+        }
+
         public Builder setHealthCheckPath(final String healthCheckPath) {
             targetGroupConfig.setHealthCheckPath(healthCheckPath);
             return this;
@@ -174,7 +189,7 @@ public class ElastigroupTargetGroupConfig {
             return this;
         }
 
-        public Builder setHealthCheckPort(final Integer healthCheckPort) {
+        public Builder setHealthCheckPort(final String healthCheckPort) {
             targetGroupConfig.setHealthCheckPort(healthCheckPort);
             return this;
         }
@@ -230,6 +245,12 @@ public class ElastigroupTargetGroupConfig {
     }
     //endregion
     //region isSet methods
+
+    // Is vpcId Set boolean method
+    @JsonIgnore
+    public boolean isVpcIdSet() {
+        return isSet.contains("vpcId");
+    }
 
     // Is healthCheckPath Set boolean method
     @JsonIgnore

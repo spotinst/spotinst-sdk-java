@@ -1,11 +1,14 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterLaunchSpecification {
     @JsonIgnore
     private Set<String>                               isSet;
@@ -15,7 +18,6 @@ public class ClusterLaunchSpecification {
     private LaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
     private String                                    imageId;
     private LaunchSpecInstanceMetadataOptions         instanceMetadataOptions;
-    private List<String>                              instanceTypes;
     private String                                    name;
     private String                                    oceanId;
     private Boolean                                   restrictScaleDown;
@@ -89,15 +91,6 @@ public class ClusterLaunchSpecification {
     public void setInstanceMetadataOptions(LaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
         isSet.add("instanceMetadataOptions");
         this.instanceMetadataOptions = instanceMetadataOptions;
-    }
-
-    public List<String> getInstanceTypes() {
-        return instanceTypes;
-    }
-
-    public void setInstanceTypes(List<String> instanceTypes) {
-        isSet.add("instanceTypes");
-        this.instanceTypes = instanceTypes;
     }
 
     public String getName() {
@@ -255,11 +248,6 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
-        public Builder setInstanceTypes(final List<String> instanceTypes) {
-            launchspec.setInstanceTypes(instanceTypes);
-            return this;
-        }
-
         public ClusterLaunchSpecification build() {
             return launchspec;
         }
@@ -301,11 +289,6 @@ public class ClusterLaunchSpecification {
     }
 
     @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
-    }
-
-    @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
     }
@@ -339,5 +322,5 @@ public class ClusterLaunchSpecification {
     public boolean isUserDataSet() {
         return isSet.contains("userData");
     }
-}
 
+}

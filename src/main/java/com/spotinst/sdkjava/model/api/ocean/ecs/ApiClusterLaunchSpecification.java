@@ -22,7 +22,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private ApiLaunchSpecIamInstanceProfileSpecification iamInstanceProfile;
     private String                               imageId;
     private ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions;
-    private List<String>                         instanceTypes;
     private String                               name;
     private String                               oceanId;
     private Boolean                              restrictScaleDown;
@@ -96,15 +95,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     public void setInstanceMetadataOptions(ApiLaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
         isSet.add("instanceMetadataOptions");
         this.instanceMetadataOptions = instanceMetadataOptions;
-    }
-
-    public List<String> getInstanceTypes() {
-        return instanceTypes;
-    }
-
-    public void setInstanceTypes(List<String> instanceTypes) {
-        isSet.add("instanceTypes");
-        this.instanceTypes = instanceTypes;
     }
 
     public String getName() {
@@ -215,11 +205,6 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isInstanceTypesSet() {
-        return isSet.contains("instanceTypes");
-    }
-
-    @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
     }
@@ -253,5 +238,7 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     public boolean isUserDataSet() {
         return isSet.contains("userData");
     }
+
+
 }
 

@@ -19,7 +19,7 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                          isSet;
     private List<String>                         subnetIds;
-    private ApiClusterOptimizeImageConfiguration optimizeImage;
+    private ApiClusterOptimizeImageConfiguration optimizeImages;
     private ApiClusterLaunchSpecification        launchSpecification;
 
     public ApiClusterComputeConfiguration() {
@@ -52,15 +52,14 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
         this.launchSpecification = launchSpecification;
     }
 
-    public ApiClusterOptimizeImageConfiguration getOptimizeImage() {
-        return optimizeImage;
+    public ApiClusterOptimizeImageConfiguration getOptimizeImages() {
+        return optimizeImages;
     }
 
-    public void setOptimizeImage(ApiClusterOptimizeImageConfiguration optimizeImage) {
-        isSet.add("optimizeImage");
-        this.optimizeImage = optimizeImage;
+    public void setOptimizeImages(ApiClusterOptimizeImageConfiguration optimizeImages) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImages;
     }
-
 
     @JsonIgnore
     public boolean isLaunchSpecificationSet() {
@@ -68,8 +67,8 @@ public class ApiClusterComputeConfiguration implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isOptimizeImageSet() {
-        return isSet.contains("optimizeImage");
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
     }
 
     @JsonIgnore

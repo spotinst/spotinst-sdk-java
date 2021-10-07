@@ -1,18 +1,20 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterOptimizeImageConfiguration {
-
+    @JsonIgnore
     private Set<String>  isSet;
     private Boolean      shouldOptimizeEcsAmi;
     private String       performAt;
     private List<String> timeWindows;
-
 
     public ClusterOptimizeImageConfiguration() {
         isSet = new HashSet<>();
@@ -25,7 +27,6 @@ public class ClusterOptimizeImageConfiguration {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
 
     public Boolean getShouldOptimizeEcsAmi() {
         return shouldOptimizeEcsAmi;
@@ -55,10 +56,10 @@ public class ClusterOptimizeImageConfiguration {
     }
 
     public static class Builder {
-        private ClusterOptimizeImageConfiguration scheduling;
+        private ClusterOptimizeImageConfiguration optimizeImageConfiguration;
 
         private Builder() {
-            this.scheduling = new ClusterOptimizeImageConfiguration();
+            this.optimizeImageConfiguration = new ClusterOptimizeImageConfiguration();
         }
 
         public static Builder get() {
@@ -67,28 +68,28 @@ public class ClusterOptimizeImageConfiguration {
         }
 
         public Builder setShouldOptimizeEcsAmi(final Boolean shouldOptimizeEcsAmi) {
-            scheduling.setShouldOptimizeEcsAmi(shouldOptimizeEcsAmi);
+            optimizeImageConfiguration.setShouldOptimizeEcsAmi(shouldOptimizeEcsAmi);
             return this;
         }
 
         public Builder setTimeWindows(final List<String> timeWindows) {
-            scheduling.setTimeWindows(timeWindows);
+            optimizeImageConfiguration.setTimeWindows(timeWindows);
             return this;
         }
 
         public Builder setPerformAt(final String performAt) {
-            scheduling.setPerformAt(performAt);
+            optimizeImageConfiguration.setPerformAt(performAt);
             return this;
         }
 
         public ClusterOptimizeImageConfiguration build() {
-            return scheduling;
+            return optimizeImageConfiguration;
         }
     }
 
     @JsonIgnore
     public boolean isShouldOptimizeEcsAmiSet() {
-        return isSet.contains("isEnabled");
+        return isSet.contains("shouldOptimizeEcsAmi");
     }
 
     @JsonIgnore

@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
+import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -27,6 +28,7 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                   spotAdminAccountRepo;
+    private ISpotOceanEcsClusterRepo                spotinstOceanEcsClusterRepo;
     private ISpotOceanEcsLaunchSpecRepo             spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo             spotAwsManagedInstanceRepo;
@@ -49,6 +51,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
+        this.spotinstOceanEcsClusterRepo = new SpotOceanEcsClusterRepo();
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
@@ -177,7 +180,6 @@ class SpotinstRepoManager {
         return spotStorageAzureVolumeRepo;
     }
 
-
     public ISpotAwsManagedInstanceRepo getSpotManagedInstanceRepo() {
         return spotAwsManagedInstanceRepo;
     }
@@ -186,6 +188,14 @@ class SpotinstRepoManager {
             ISpotAwsManagedInstanceRepo spotManagedInstanceRepo) {
         this.spotAwsManagedInstanceRepo= spotManagedInstanceRepo;
     }
+
+    public ISpotOceanEcsClusterRepo getSpotinstOceanEcsClusterRepo() { return spotinstOceanEcsClusterRepo; }
+
+    public void setSpotinstOceanEcsClusterRepo (ISpotOceanEcsClusterRepo spotinstOceanEcsClusterRepo) {
+        this.spotinstOceanEcsClusterRepo = spotinstOceanEcsClusterRepo;
+    }
+
     //endregion
 
 }
+
