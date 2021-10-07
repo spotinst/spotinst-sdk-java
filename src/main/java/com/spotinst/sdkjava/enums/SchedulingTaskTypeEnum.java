@@ -12,7 +12,10 @@ public enum SchedulingTaskTypeEnum {
     SCALE_DOWN("scaleDown"),
     PERCENTAGE_SCALE_DOWN("percentageScaleDown"),
     STATEFUL_UPDATE_CAPACITY("statefulUpdateCapacity"),
-    STATEFUL_RECYCLE("statefulRecycle");
+    STATEFUL_RECYCLE("statefulRecycle"),
+    PAUSE("pause"),
+    RESUME("resume"),
+    RECYCLE("recycle");
 
     private SchedulingTaskTypeEnum(String name) {
         this.name = name;
