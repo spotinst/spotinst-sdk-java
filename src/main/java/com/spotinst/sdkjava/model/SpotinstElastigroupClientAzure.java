@@ -2,13 +2,15 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
+import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.GroupDeploymentDetailsAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
+import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +20,19 @@ import java.util.List;
 public class SpotinstElastigroupClientAzure {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstElastigroupClientAzure.class);
     //region Members
-    private              String authToken;
-    private              String account;
+    private   String                         authToken;
+    private   String                         account;
+    private   ISpotinstElastigroupRepoAzure  spotinstElastigroupRepo;
     //endregion
 
+
+    public ISpotinstElastigroupRepoAzure getSpotinstElastigroupRepoAzure() {
+        return this.spotinstElastigroupRepo;
+    }
+
+    public void setSpotinstElastigroupRepoAzure() {
+        this.spotinstElastigroupRepo = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepoAzure();
+    }
 
     //region Constructor
     public SpotinstElastigroupClientAzure(String authToken, String account) {
@@ -271,5 +282,330 @@ public class SpotinstElastigroupClientAzure {
 
         return retVal;
     }
+
+    public ElastigroupStatusAzure getGroupStatus(String groupId) {
+        ElastigroupStatusAzure status;
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<ElastigroupStatusAzure> statusResponse =
+                repoAzure.getStatus(groupId, authToken, account);
+
+        if (statusResponse.isRequestSucceed()) {
+            status = statusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the status of Elastigroup. Code: %s. Message: %s.",
+                    groupId,httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return status;
+    }
+
+    public ElastigroupStatusAzure scaleGroupUp(String groupId, Integer adjustment) {
+
+        ElastigroupStatusAzure scaleUp = null;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+
+        RepoGenericResponse<ElastigroupStatusAzure> elastigroupScalingResponse =
+                repoAzure.scaleUp(groupId, adjustment, authToken, account);
+
+        if (elastigroupScalingResponse.isRequestSucceed()) {
+            scaleUp = elastigroupScalingResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group up. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return scaleUp;
+    }
+
+    public ElastigroupStatusAzure scaleGroupDown(String groupId, Integer adjustment) {
+
+        ElastigroupStatusAzure scaleDown = null;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<ElastigroupStatusAzure> elastigroupScalingResponse =
+                repoAzure.scaleDown(groupId, adjustment, authToken, account);
+
+        if (elastigroupScalingResponse.isRequestSucceed()) {
+            scaleDown = elastigroupScalingResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group down. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return scaleDown;
+    }
+
+    public ElastigroupAzure importGroupFromScaleSet(String resourceGroupName, String scaleSetName) {
+
+        ElastigroupAzure isGroupImported;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
+                repoAzure.importGroupFromScaleSet(resourceGroupName, scaleSetName, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            LOGGER.info(String.format("imported successfully the group from %s", resourceGroupName));
+            isGroupImported = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to import the group : %s. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isGroupImported;
+    }
+
+    public ElastigroupAzure importGroupFromVirtalMachine(String resourceGroupName, String virtualMachineName) {
+
+        ElastigroupAzure isGroupImported;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
+                repoAzure.importGroupFromVirtualMachine(resourceGroupName, virtualMachineName, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            LOGGER.info(String.format("imported successfully the group from %s", resourceGroupName));
+            isGroupImported = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to import the group : %s. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isGroupImported;
+    }
+
+    public Boolean createVmSignal(ElastigroupCreateVmSignalRequestAzure vmSignalRequestAzure) {
+        Boolean isCreated = false;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<Boolean> createResponse =
+                repoAzure.createVmSignal(vmSignalRequestAzure, authToken, account);
+
+        if (createResponse.isRequestSucceed()) {
+            isCreated = createResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = createResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to create elastigroup vm signal. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isCreated;
+    }
+
+    public ElastigroupUpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure capacityRequestAzure) {
+        ElastigroupUpdateCapacityAzure isUpdatedCapacity = null;
+        String elastigroupId = capacityRequestAzure.getGroupId();
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+
+        RepoGenericResponse<ElastigroupUpdateCapacityAzure> elastigroupUpdateCapacityResponse =
+                repoAzure.updateCapacity(capacityRequestAzure, authToken, account);
+
+        if (elastigroupUpdateCapacityResponse.isRequestSucceed()) {
+            isUpdatedCapacity = elastigroupUpdateCapacityResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupUpdateCapacityResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to update the elastigroup capacity. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return isUpdatedCapacity;
+    }
+
+    public VmHealthinessAzure vmHealthiness(String groupId) {
+        VmHealthinessAzure isVmHealthy = null;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<VmHealthinessAzure> vmHealthinessResponse =
+                repoAzure.vmHealthiness(groupId, authToken, account);
+
+        if (vmHealthinessResponse.isRequestSucceed()) {
+            isVmHealthy = vmHealthinessResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = vmHealthinessResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get vm healthiness. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return isVmHealthy;
+    }
+
+    public Boolean suspendGroup(SuspendgroupRequestAzure suspendGroupRequest) {
+
+        Boolean isSuspended = false;
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<Boolean> suspendResponse =
+                repoAzure.suspendGroup(suspendGroupRequest, authToken, account);
+
+        if (suspendResponse.isRequestSucceed()) {
+            isSuspended = suspendResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = suspendResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to suspend the group. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isSuspended;
+    }
+
+    public Boolean resumeGroup(ResumegroupRequestAzure resumeGroupRequest) {
+
+        Boolean isResumed = false;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<Boolean> resumeResponse =
+                repoAzure.resumeGroup(resumeGroupRequest, authToken, account);
+
+        if (resumeResponse.isRequestSucceed()) {
+            isResumed = resumeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = resumeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to resume the group. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isResumed;
+    }
+
+    public Boolean vmProtection(String groupId, String vmName, Integer timeLimit) {
+
+        Boolean isVmProtected = false;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<Boolean> vmProtectResponse =
+                repoAzure.vmProtection(groupId, vmName, authToken, account, timeLimit);
+
+        if (vmProtectResponse.isRequestSucceed()) {
+            isVmProtected = vmProtectResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = vmProtectResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to protect the virtual machine. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isVmProtected;
+    }
+
+    public Boolean vmRemoveProtection(String groupId, String vmName) {
+
+        Boolean isVmProtectionRemoved = false;
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<Boolean> vmRemoveProtectResponse =
+                repoAzure.vmRemoveProtection(groupId, vmName, authToken, account);
+
+        if (vmRemoveProtectResponse.isRequestSucceed()) {
+            isVmProtectionRemoved = vmRemoveProtectResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = vmRemoveProtectResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to remove the virtual machine protection. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isVmProtectionRemoved;
+    }
+
+    public ElastigroupDetachedVmsAzure detachVms(DetachVmsRequestAzure detachVmsRequestAzure) {
+        ElastigroupDetachedVmsAzure isVmDetached = null;
+
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+
+        RepoGenericResponse<ElastigroupDetachedVmsAzure> detachResponse =
+                repoAzure.detachVms(detachVmsRequestAzure, authToken, account);
+
+        if (detachResponse.isRequestSucceed()) {
+            isVmDetached = detachResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = detachResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to detaching vm. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isVmDetached;
+    }
+
+    public GetElastilogAzure getElastilog(String groupId, String fromDate, Integer limit, String resoucre_Id,
+                                          ElastigroupSeverityEnumAzure severity, String toDate) {
+        GetElastilogAzure elastiLog;
+        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
+        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
+        RepoGenericResponse<GetElastilogAzure> statusResponse =
+                repoAzure.getElastilog(groupId, authToken, account, fromDate, limit, resoucre_Id, severity, toDate);
+
+        if (statusResponse.isRequestSucceed()) {
+            elastiLog = statusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the logs for Elastigroup. Code: %s. Message: %s.",
+                    groupId,httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return elastiLog;
+    }
+
     //endregion
 }

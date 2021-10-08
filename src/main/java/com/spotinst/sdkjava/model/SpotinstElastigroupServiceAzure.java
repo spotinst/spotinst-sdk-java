@@ -4,13 +4,15 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
+import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiCreateDeploymentAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGetDeploymentAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentDetailsAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentRequestAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
+import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.responses.*;
 
 import org.apache.http.HttpStatus;
@@ -356,5 +358,435 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static ApiElastigroupStatusAzure getGroupStatus(String groupId, String authToken,
+                                                                 String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiElastigroupStatusAzure statusAzure = new ApiElastigroupStatusAzure();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers for Azure.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/group/%s/status", apiEndpoint, groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiGetStatusResponseAzure groupStatusResponse = getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+
+        if (groupStatusResponse.getResponse().getCount() > 0) {
+            statusAzure = groupStatusResponse.getResponse().getItems().get(0);
+        }
+
+        return statusAzure;
+    }
+
+    public static ApiElastigroupStatusAzure scaleGroupUp(String groupId, Integer adjustment, String authToken,
+                                                             String account) throws SpotinstHttpException {
+
+        ApiElastigroupStatusAzure scaleUp = new ApiElastigroupStatusAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if(adjustment != null) {
+            queryParams.put("adjustment", adjustment.toString());
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/scale/up", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        ElastigroupApiGetStatusResponseAzure scalingResponse =
+                getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+        if (scalingResponse.getResponse().getItems().size() > 0) {
+            scaleUp = scalingResponse.getResponse().getItems().get(0);
+        }
+
+
+        return scaleUp;
+    }
+
+    public static ApiElastigroupStatusAzure scaleGroupDown(String groupId, Integer adjustment,
+                                                           String authToken, String account) throws SpotinstHttpException {
+
+        ApiElastigroupStatusAzure scaleDown = new ApiElastigroupStatusAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if(adjustment != null) {
+            queryParams.put("adjustment", adjustment.toString());
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/scale/down", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        ElastigroupApiGetStatusResponseAzure scalingResponse =
+                getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+        if (scalingResponse.getResponse().getItems().size() > 0) {
+            scaleDown = scalingResponse.getResponse().getItems().get(0);
+        }
+
+        return scaleDown;
+    }
+
+    public static ApiElastigroupAzure importGroupFromScaleSet(String resourceGroupName, String scaleSetName,
+                                                           String authToken, String account) {
+
+        ApiElastigroupAzure importGroup = new ApiElastigroupAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/import/resourceGroup/%s/scaleSet/%s", apiEndpoint, resourceGroupName, scaleSetName);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponseAzure importGroupResponse = getCastedResponse(response, ElastigroupApiResponseAzure.class);
+
+        if (importGroupResponse.getResponse().getCount() > 0) {
+            importGroup = importGroupResponse.getResponse().getItems().get(0);
+        }
+        return importGroup;
+    }
+
+    public static ApiElastigroupAzure importGroupFromVirtualMachine(String resourceGroupName, String virtualMachineName,
+                                                              String authToken, String account) {
+
+        ApiElastigroupAzure importGroup = new ApiElastigroupAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/import/resourceGroup/%s/virtualMachine/%s", apiEndpoint,
+                                    resourceGroupName, virtualMachineName);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponseAzure importGroupResponse = getCastedResponse(response, ElastigroupApiResponseAzure.class);
+
+        if (importGroupResponse.getResponse().getCount() > 0) {
+            importGroup = importGroupResponse.getResponse().getItems().get(0);
+        }
+        return importGroup;
+    }
+
+    public static Boolean createVmSignal(ElastigroupCreateVmSignalRequestAzure vmSignalRequestAzure,
+                                         String authToken, String account) throws SpotinstHttpException {
+        Boolean isCreated = false;
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+        String uri = String.format("%s/azure/compute/vm/signal", apiEndpoint, vmSignalRequestAzure.getVmSignalAzure());
+        RestResponse response = RestClient.sendPost(uri, vmSignalRequestAzure.toJson(), headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            isCreated = true;
+        }
+        return isCreated;
+    }
+
+    public static ApiElastigroupUpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacityRequest,
+                                                                   String authToken, String account) throws SpotinstHttpException {
+
+        ApiElastigroupUpdateCapacityAzure groupCapacity = new ApiElastigroupUpdateCapacityAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/capacity", apiEndpoint, updateCapacityRequest.getGroupId());
+
+        RestResponse response = RestClient.sendPut(uri, updateCapacityRequest.toJson(), headers, queryParams);
+
+        ElastigroupApiUpdateCapacityResponseAzure updateResponse = getCastedResponse(response, ElastigroupApiUpdateCapacityResponseAzure.class);
+
+        if (updateResponse.getResponse().getCount() > 0) {
+            groupCapacity = updateResponse.getResponse().getItems().get(0);
+        }
+
+        return groupCapacity;
+    }
+
+    public static ApiVmHealthinessAzure vmHealthiness(String groupId,
+                                                      String authToken, String account) throws SpotinstHttpException {
+
+        ApiVmHealthinessAzure vmHealthinessAzure = new ApiVmHealthinessAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/vmHealthiness", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        VmHealthinessApiResponseAzure vmHealthinessApiResponse = getCastedResponse(response, VmHealthinessApiResponseAzure.class);
+
+        if (vmHealthinessApiResponse.getResponse().getCount() > 0) {
+            vmHealthinessAzure = vmHealthinessApiResponse.getResponse().getItems().get(0);
+        }
+
+        return vmHealthinessAzure;
+    }
+
+    public static Boolean suspendGroup(SuspendgroupRequestAzure suspendgroupRequest, String authToken, String account) {
+
+        Boolean isGroupSuspended = false;
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+        String uri = String.format("%s/azure/compute/group/%s/suspend", apiEndpoint, suspendgroupRequest.getGroupId());
+
+        RestResponse response = RestClient.sendPut(uri, suspendgroupRequest.toJson(), headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            isGroupSuspended = true;
+        }
+        return isGroupSuspended;
+    }
+
+    public static Boolean resumeGroup(ResumegroupRequestAzure resumegroupRequest, String authToken, String account) {
+
+        Boolean isGroupResumed = false;
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+        String uri = String.format("%s/azure/compute/group/%s/resume", apiEndpoint, resumegroupRequest.getGroupId());
+
+        RestResponse response = RestClient.sendPut(uri, resumegroupRequest.toJson(), headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            isGroupResumed = true;
+        }
+        return isGroupResumed;
+    }
+
+    public static Boolean vmProtection(String groupId, String vmName, String authToken, String account,  Integer limit) {
+
+        Boolean vmProtect = false;
+
+        SpotinstHttpConfig  config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String              apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+        Map<String, String> headers     = buildHeaders(authToken);
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if (limit != null) {
+            queryParams.put("limit", limit.toString());
+        }
+
+        String uri = String.format("%s/azure/compute/group/%s/vm/%s/protection", apiEndpoint, groupId, vmName);
+
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            vmProtect = true;
+        }
+        return vmProtect;
+    }
+
+    public static Boolean vmRemoveProtection(String groupId, String vmName,
+                                             String authToken, String account) {
+
+        Boolean vmRemoveProtect = false;
+
+        SpotinstHttpConfig  config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String              apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+        Map<String, String> headers     = buildHeaders(authToken);
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        String uri = String.format("%s/azure/compute/group/%s/vm/%s/protection", apiEndpoint,
+                groupId, vmName);
+
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            vmRemoveProtect = true;
+        }
+        return vmRemoveProtect;
+    }
+
+    public static ApiElastigroupDetachedVmsAzure detachVms(DetachVmsRequestAzure detachVmsRequest,
+                                                String authToken, String account) throws SpotinstHttpException {
+
+        ApiElastigroupDetachedVmsAzure detachedVmsAzure = new ApiElastigroupDetachedVmsAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/detachVms", apiEndpoint, detachVmsRequest.getGroupId());
+
+        RestResponse response = RestClient.sendPut(uri, detachVmsRequest.toJson(), headers, queryParams);
+
+        DetachedVmsApiResponseAzure detachVmsApiResponse = getCastedResponse(response, DetachedVmsApiResponseAzure.class);
+
+        if (detachVmsApiResponse.getResponse().getCount() > 0) {
+            detachedVmsAzure = detachVmsApiResponse.getResponse().getItems().get(0);
+        }
+
+        return detachedVmsAzure;
+    }
+
+    public static ApiGetElastilogAzure getElastilog(String groupId, String authToken, String account,
+                                                    String fromDate, Integer limit, String resoucre_Id,
+                                                    ElastigroupSeverityEnumAzure severity, String toDate) throws SpotinstHttpException {
+        ApiGetElastilogAzure elastilogAzure = new ApiGetElastilogAzure();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if (fromDate != null) {
+            queryParams.put("fromDate", fromDate);
+        }
+
+        if (limit != null) {
+            queryParams.put("limit", limit.toString());
+        }
+
+        if (resoucre_Id != null) {
+            queryParams.put("RESOURCE_ID", resoucre_Id);
+        }
+
+        if (severity != null) {
+            queryParams.put("SEVERITY", severity.getName());
+        }
+
+        if (toDate != null) {
+            queryParams.put("toDate", toDate);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/logs", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        GetElastilogApiResponseAzure elastilogResponse = getCastedResponse(response, GetElastilogApiResponseAzure.class);
+
+        if (elastilogResponse.getResponse().getCount() > 0) {
+            elastilogAzure = elastilogResponse.getResponse().getItems().get(0);
+        }
+
+        return elastilogAzure;
     }
 }
