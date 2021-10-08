@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 
+import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
 
@@ -30,6 +31,7 @@ class SpotinstRepoManager {
     private ISpotOceanEcsClusterRepo                spotinstOceanEcsClusterRepo;
     private ISpotOceanEcsLaunchSpecRepo             spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
+    private ISpotAwsManagedInstanceRepo             spotAwsManagedInstanceRepo;
     //endregion
 
     //region Constructor
@@ -53,6 +55,7 @@ class SpotinstRepoManager {
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
+        this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
     }
     //endregion
 
@@ -176,6 +179,15 @@ class SpotinstRepoManager {
     }
     public ISpotStorageAzureVolumeRepo getSpotStorageAzureVolumeRepo() {
         return spotStorageAzureVolumeRepo;
+    }
+
+    public ISpotAwsManagedInstanceRepo getSpotManagedInstanceRepo() {
+        return spotAwsManagedInstanceRepo;
+    }
+
+    public void setSpotManagedInstanceRepo(
+            ISpotAwsManagedInstanceRepo spotManagedInstanceRepo) {
+        this.spotAwsManagedInstanceRepo= spotManagedInstanceRepo;
     }
 
     public ISpotOceanEcsClusterRepo getSpotinstOceanEcsClusterRepo() { return spotinstOceanEcsClusterRepo; }

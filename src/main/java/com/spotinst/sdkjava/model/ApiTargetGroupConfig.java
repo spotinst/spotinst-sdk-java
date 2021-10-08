@@ -16,10 +16,11 @@ import java.util.Set;
 class ApiTargetGroupConfig implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                      isSet;
-    private String                           healthCheckPath;
-    private Integer                          healthCheckIntervalSeconds;
-    private Integer                       healthCheckPort;
+    private Set<String>                   isSet;
+    private String                        vpcId;
+    private String                        healthCheckPath;
+    private Integer                       healthCheckIntervalSeconds;
+    private String                        healthCheckPort;
     private Integer                       healthCheckTimeoutSeconds;
     private String                        healthCheckProtocol;
     private Integer                       healthyThresholdCount;
@@ -47,6 +48,15 @@ class ApiTargetGroupConfig implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
+    public String getVpcId() {
+        return vpcId;
+    }
+
+    public void setVpcId(String vpcId) {
+        isSet.add("vpcId");
+        this.vpcId = vpcId;
+    }
+
     public String getHealthCheckPath() {
         return healthCheckPath;
     }
@@ -65,11 +75,11 @@ class ApiTargetGroupConfig implements IPartialUpdateEntity {
         this.healthCheckIntervalSeconds = healthCheckIntervalSeconds;
     }
 
-    public Integer getHealthCheckPort() {
+    public String getHealthCheckPort() {
         return healthCheckPort;
     }
 
-    public void setHealthCheckPort(Integer healthCheckPort) {
+    public void setHealthCheckPort(String healthCheckPort) {
         isSet.add("healthCheckPort");
         this.healthCheckPort = healthCheckPort;
     }
@@ -157,6 +167,12 @@ class ApiTargetGroupConfig implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
+
+    // Is vpcId Set boolean method
+    @JsonIgnore
+    public boolean isVpcIdSet() {
+        return isSet.contains("vpcId");
+    }
 
     // Is healthCheckPath Set boolean method
     @JsonIgnore
