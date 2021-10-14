@@ -14,6 +14,7 @@ public class K8sVngClient {
 
     private String                  authToken;
     private String                  account;
+    private String                  oceanId;
     private ISpotK8sVngRepo   		K8sVngRepo;
 
     public ISpotK8sVngRepo getK8sVngRepo() {
@@ -111,10 +112,10 @@ public class K8sVngClient {
         return retVal;
     }
 
-    public List<K8sVngSpec> listK8sVngSpec() {
+    public List<K8sVngSpec> listK8sVngSpec(K8sVngListRequest k8sVngListRequest) {
         List<K8sVngSpec> retVal;
-
-        RepoGenericResponse<List<K8sVngSpec>> clusterRes = getK8sVngRepo().getAll(null, authToken, account);
+        String          oceanId = k8sVngListRequest.getOceanId();
+        RepoGenericResponse<List<K8sVngSpec>> clusterRes = getK8sVngRepo().list(authToken, account, oceanId);
 
         if (clusterRes.isRequestSucceed()) {
             retVal = clusterRes.getValue();

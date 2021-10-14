@@ -15,8 +15,6 @@ public class K8sVngDeleteRequest {
         this.oceanLaunchSpecId = oceanLaunchSpecId;
     }
 
-    //endregion
-
     //Builder class
     public static class Builder {
         private K8sVngDeleteRequest vngDeleteRequest;

@@ -38,8 +38,8 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean updated = K8sVngSpecService.deleteK8sVng(identifier, authToken, account);
-            retVal = new RepoGenericResponse<>(updated);
+            Boolean deleted = K8sVngSpecService.deleteK8sVng(identifier, authToken, account);
+            retVal = new RepoGenericResponse<>(deleted);
         }
 		
         catch (SpotinstHttpException e) {
@@ -85,12 +85,12 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         return retVal;
     }
 
-	@Override
-    public RepoGenericResponse<List<K8sVngSpec>> getAll(Void filter, String authToken, String account) {
+	//@Override
+    public RepoGenericResponse<List<K8sVngSpec>> list(String authToken, String account, String oceanId) {
         RepoGenericResponse<List<K8sVngSpec>> retVal;
 
         try {
-            List<ApiK8sVngSpec> apiGetAllVng = K8sVngSpecService.getAllVng(authToken, account);
+            List<ApiK8sVngSpec> apiGetAllVng = K8sVngSpecService.listK8sVng(authToken, account, oceanId);
             List<K8sVngSpec> k8sVngSpec = apiGetAllVng.stream().map(K8sVngConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(k8sVngSpec);
         }

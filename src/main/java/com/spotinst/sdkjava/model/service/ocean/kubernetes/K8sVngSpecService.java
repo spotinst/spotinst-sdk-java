@@ -164,7 +164,7 @@ public class K8sVngSpecService extends BaseSpotinstService {
         return retVal;
     }
 	
-	public static List<ApiK8sVngSpec> getAllVng(String authToken, String account) throws SpotinstHttpException {
+	public static List<ApiK8sVngSpec> listK8sVng(String authToken, String account, String oceanId) throws SpotinstHttpException {
 		
         // Init retVal
         List<ApiK8sVngSpec> retVal = new LinkedList<>();
@@ -180,11 +180,15 @@ public class K8sVngSpecService extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
+        if (oceanId != null) {
+            queryParams.put("oceanId", oceanId);
+        }
+
         // Get the headers
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/ocean/aws/ecs/launchSpec", apiEndpoint);
+        String uri = String.format("%s/ocean/aws/k8s/launchSpec", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);

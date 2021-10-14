@@ -5,10 +5,7 @@ import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.enums.K8sVngHttpTokensEnum;
 import com.spotinst.sdkjava.model.K8sVngClient;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngCreationRequest;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngGetRequest;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngUpdateRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.*;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,14 +13,14 @@ import java.util.List;
 
 public class OceanKubernetesVngSpecUsageExample {
     private final static String auth_token = "auth_token";
-    private final static String accountId  = "act-id";
+    private final static String accountId  = "account_id";
 
     private final static String deviceName = "deviceName";
     private final static String snapshotId = "snap-vngtest";
 
     // Fill in the correct values from your account
-    private final static String       userData                   = "IyEvYmluL2Jhc2gKIyBDb3B5cmlnaHQgMjAxNiBUaGUgS3ViZXJuZXRlcyBBdXRob3JzIEFsbCByaWdo";
-    private final static String       imageId                    = "ami-01234";
+    private final static String       userData                   = "userData";
+    private final static String       imageId                    = "ami-000bdc7aed61562d7";
     private final static List<String> securityGroups             = Arrays.asList("sg-01234", "sg-12345");
     private final static String       oceanId                    = "o-4abcd";
     private final static String       kmsKeyId                   = "alias/aws/ebs";
@@ -33,12 +30,21 @@ public class OceanKubernetesVngSpecUsageExample {
     private final static String       arnRole                    = "your-arn-role";
     private final static String       iamRoleName                = "VirtualNodeGroup-Test";
 
+    //headroom
+    private final static Integer cpuPerUnit             =   1024;
+    private final static Integer gpuPerUnit             =   0;
+    private final static Integer memoryPerUnit          =   512;
+    private final static Integer numOfUnits             =   2;
+    private final static Integer baseSize               =   50;
+    private final static String  resource               =   "CPU";
+    private final static Integer sizePerResourceUnit    =   20;
+
     public static void main(String[] args) {
         K8sVngClient vngClient = SpotinstClient.getK8sVngClient(auth_token, accountId);
 
         String launchSpecId = createK8sVng(vngClient);
         getK8sVng(vngClient,launchSpecId);
-        //listK8sVng(vngClient);
+        listK8sVng(vngClient, accountId, oceanId);
         updateK8sVng(vngClient,launchSpecId);
         deleteK8sVng(vngClient,launchSpecId);
     }
@@ -48,10 +54,10 @@ public class OceanKubernetesVngSpecUsageExample {
 
         //Build headroom
         K8sVngHeadroomSpec.Builder headroomSpecBuilder = K8sVngHeadroomSpec.Builder.get();
-        K8sVngHeadroomSpec headroom = headroomSpecBuilder.setCpuPerUnit(1024)
-                                                         .setGpuPerUnit(0)
-                                                         .setMemoryPerUnit(512)
-                                                         .setNumOfUnits(2)
+        K8sVngHeadroomSpec headroom = headroomSpecBuilder.setCpuPerUnit(cpuPerUnit)
+                                                         .setGpuPerUnit(gpuPerUnit)
+                                                         .setMemoryPerUnit(memoryPerUnit)
+                                                         .setNumOfUnits(numOfUnits)
                                                          .build();
 
         List<K8sVngHeadroomSpec> headroomList = Collections.singletonList(headroom);
@@ -62,9 +68,9 @@ public class OceanKubernetesVngSpecUsageExample {
 
         //Build dynamicVolumeSize
         K8sVngDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = K8sVngDynamicVolumeSize.Builder.get();
-        K8sVngDynamicVolumeSize dynamicVolumeSize = dynamicVolumeSizeBuilder.setBaseSize(50)
-                                                                            .setResource("CPU")
-                                                                            .setSizePerResourceUnit(20)
+        K8sVngDynamicVolumeSize dynamicVolumeSize = dynamicVolumeSizeBuilder.setBaseSize(baseSize)
+                                                                            .setResource(resource)
+                                                                            .setSizePerResourceUnit(sizePerResourceUnit)
                                                                             .build();
 
         //Build ebsDevice
@@ -153,8 +159,20 @@ public class OceanKubernetesVngSpecUsageExample {
         return k8sVng;
     }
 
-    private static List<K8sVngSpec> listK8sVng (K8sVngClient client) {
-        return client.listK8sVngSpec();
+    private static List<K8sVngSpec> listK8sVng (K8sVngClient client, String accountId, String oceanId) {
+        System.out.println("-------------------------start listing ocean virtual node group------------------------");
+        K8sVngListRequest.Builder listBuilder = K8sVngListRequest.Builder.get();
+        K8sVngListRequest listRequest =listBuilder.setAccountId(accountId).setOceanId(oceanId).build();
+
+        List<K8sVngSpec> k8sVng = client.listK8sVngSpec(listRequest);
+
+        if (k8sVng.size() > 0) {
+            for(int i = 0; i < k8sVng.size(); i++) {
+                System.out.println("List Virtual Node Group Successfully: " + k8sVng.get(i).getName());
+            }
+        }
+
+        return k8sVng;
     }
 
     private static void updateK8sVng(K8sVngClient client, String launchSpecId) {
@@ -162,10 +180,10 @@ public class OceanKubernetesVngSpecUsageExample {
 
         //Build headroom
         K8sVngHeadroomSpec.Builder headroomSpecBuilder = K8sVngHeadroomSpec.Builder.get();
-        K8sVngHeadroomSpec headroom = headroomSpecBuilder.setCpuPerUnit(1024)
-                                                         .setGpuPerUnit(0)
-                                                         .setMemoryPerUnit(512)
-                                                         .setNumOfUnits(2)
+        K8sVngHeadroomSpec headroom = headroomSpecBuilder.setCpuPerUnit(cpuPerUnit)
+                                                         .setGpuPerUnit(gpuPerUnit)
+                                                         .setMemoryPerUnit(memoryPerUnit)
+                                                         .setNumOfUnits(numOfUnits)
                                                          .build();
 
         List<K8sVngHeadroomSpec> headroomList = Collections.singletonList(headroom);
@@ -176,9 +194,9 @@ public class OceanKubernetesVngSpecUsageExample {
 
         //Build dynamicVolumeSize
         K8sVngDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = K8sVngDynamicVolumeSize.Builder.get();
-        K8sVngDynamicVolumeSize dynamicVolumeSize = dynamicVolumeSizeBuilder.setBaseSize(50)
-                                                                            .setResource("CPU")
-                                                                            .setSizePerResourceUnit(20)
+        K8sVngDynamicVolumeSize dynamicVolumeSize = dynamicVolumeSizeBuilder.setBaseSize(baseSize)
+                                                                            .setResource(resource)
+                                                                            .setSizePerResourceUnit(sizePerResourceUnit)
                                                                             .build();
 
         //Build ebsDevice
