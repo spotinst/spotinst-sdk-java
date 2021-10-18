@@ -29,10 +29,10 @@ public class SpotOceanGkeClusterClient {
 
         LaunchSpecSpecification               retVal;
         LaunchSpecSpecification
-                                              oceanGKECreateLaunchSpecRes = launchSpecRequest
+                                              oceanGKEUpdateLaunchSpecRes = launchSpecRequest
                 .getOceanGKECreateLaunchSpecRes();
         RepoGenericResponse<LaunchSpecSpecification> creationResponse    =
-                spotOceanGkeClusterLaunchSpecRepo.create(oceanGKECreateLaunchSpecRes, authToken, account);
+                spotOceanGkeClusterLaunchSpecRepo.create(oceanGKEUpdateLaunchSpecRes, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -91,9 +91,9 @@ public class SpotOceanGkeClusterClient {
     public Boolean updateLaunchSpec(LaunchSpecRequest updateLaunchSpecRequest, String launchSpecId){
 
         Boolean                               retVal;
-        LaunchSpecSpecification oceanGKECreateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
+        LaunchSpecSpecification oceanGKEUpdateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
         RepoGenericResponse<Boolean> creationResponse    =
-                spotOceanGkeClusterLaunchSpecRepo.update(launchSpecId,oceanGKECreateLaunchSpecRes, authToken, account);
+                spotOceanGkeClusterLaunchSpecRepo.update(launchSpecId,oceanGKEUpdateLaunchSpecRes, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();

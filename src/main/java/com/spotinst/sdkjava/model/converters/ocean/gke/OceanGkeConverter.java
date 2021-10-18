@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model.converters.ocean.gke;
 
+import com.spotinst.sdkjava.enums.OceanGkeLaunchSpecRootVolumeTypeEnum;
 import com.spotinst.sdkjava.model.api.ocean.gke.*;
 import com.spotinst.sdkjava.model.bl.ocean.gke.*;
 
@@ -10,88 +11,88 @@ public class OceanGkeConverter {
 
     //region BL -> DAL
 
-    public static ApiLaunchSpecSpecification toDal(LaunchSpecSpecification src) {
+    public static ApiLaunchSpecSpecification toDal(LaunchSpecSpecification launchSpec) {
         ApiLaunchSpecSpecification apiLaunchSpec = null;
 
-        if (src != null) {
+        if (launchSpec != null) {
             apiLaunchSpec = new ApiLaunchSpecSpecification();
 
-            if (src.isIdSet()) {
-                apiLaunchSpec.setId(src.getId());
+            if (launchSpec.isIdSet()) {
+                apiLaunchSpec.setId(launchSpec.getId());
             }
 
-            if (src.isNameSet()) {
-                apiLaunchSpec.setName(src.getName());
+            if (launchSpec.isNameSet()) {
+                apiLaunchSpec.setName(launchSpec.getName());
             }
 
-            if (src.isOceanIdSet()) {
-                apiLaunchSpec.setOceanId(src.getOceanId());
+            if (launchSpec.isOceanIdSet()) {
+                apiLaunchSpec.setOceanId(launchSpec.getOceanId());
             }
 
-            if (src.isSourceImageSet()) {
-                apiLaunchSpec.setSourceImage(src.getSourceImage());
+            if (launchSpec.isSourceImageSet()) {
+                apiLaunchSpec.setSourceImage(launchSpec.getSourceImage());
             }
 
-            if (src.isServiceAccountSet()) {
-                apiLaunchSpec.setServiceAccount(src.getServiceAccount());
+            if (launchSpec.isServiceAccountSet()) {
+                apiLaunchSpec.setServiceAccount(launchSpec.getServiceAccount());
             }
 
-            if (src.isRootVolumeSizeInGbSet()) {
-                apiLaunchSpec.setRootVolumeSizeInGb(src.getRootVolumeSizeInGb());
+            if (launchSpec.isRootVolumeSizeInGbSet()) {
+                apiLaunchSpec.setRootVolumeSizeInGb(launchSpec.getRootVolumeSizeInGb());
             }
 
-            if (src.isRootVolumeTypeSet()) {
-                apiLaunchSpec.setRootVolumeType(src.getRootVolumeType());
+            if (launchSpec.isRootVolumeTypeSet()) {
+                apiLaunchSpec.setRootVolumeType(launchSpec.getRootVolumeType().getName());
             }
 
-            if (src.isRestrictScaleDownSet()) {
-                apiLaunchSpec.setRestrictScaleDown(src.getRestrictScaleDown());
+            if (launchSpec.isRestrictScaleDownSet()) {
+                apiLaunchSpec.setRestrictScaleDown(launchSpec.getRestrictScaleDown());
             }
 
-            if (src.isMetadataSet()) {
+            if (launchSpec.isMetadataSet()) {
 
                 List<ApiLaunchSpecMetadataSpecification> metadata =
-                        src.getMetadata().stream().map(OceanGkeConverter::toDal)
+                        launchSpec.getMetadata().stream().map(OceanGkeConverter::toDal)
                            .collect(Collectors.toList());
                 apiLaunchSpec.setMetadata(metadata);
             }
 
-            if (src.isInstanceTypesSet()) {
-                apiLaunchSpec.setInstanceTypes(src.getInstanceTypes());
+            if (launchSpec.isInstanceTypesSet()) {
+                apiLaunchSpec.setInstanceTypes(launchSpec.getInstanceTypes());
             }
 
-            if (src.isTaintsSet()) {
+            if (launchSpec.isTaintsSet()) {
 
                 List<ApiLaunchSpecTaintsSpecification> taint =
-                        src.getTaints().stream().map(OceanGkeConverter::toDal)
+                        launchSpec.getTaints().stream().map(OceanGkeConverter::toDal)
                            .collect(Collectors.toList());
 
                 apiLaunchSpec.setTaints(taint);
             }
 
-            if (src.isLabelsSet()) {
+            if (launchSpec.isLabelsSet()) {
                 List<ApiLaunchSpecLabelsSpecification> lebels =
-                        src.getLabels().stream().map(OceanGkeConverter::toDal)
+                        launchSpec.getLabels().stream().map(OceanGkeConverter::toDal)
                                            .collect(Collectors.toList());
                 apiLaunchSpec.setLabels(lebels);
             }
 
-            if (src.isAutoScaleSet()) {
-                apiLaunchSpec.setAutoScale(toDal(src.getAutoScale()));
+            if (launchSpec.isAutoScaleSet()) {
+                apiLaunchSpec.setAutoScale(toDal(launchSpec.getAutoScale()));
             }
 
-            if (src.isResourceLimitsSet()) {
-                apiLaunchSpec.setResourceLimits(toDal(src.getResourceLimits()));
+            if (launchSpec.isResourceLimitsSet()) {
+                apiLaunchSpec.setResourceLimits(toDal(launchSpec.getResourceLimits()));
             }
 
-            if (src.isShieldedInstanceConfigSet()) {
-                apiLaunchSpec.setShieldedInstanceConfig(toDal(src.getShieldedInstanceConfig()));
+            if (launchSpec.isShieldedInstanceConfigSet()) {
+                apiLaunchSpec.setShieldedInstanceConfig(toDal(launchSpec.getShieldedInstanceConfig()));
             }
-            if (src.isStrategySet()) {
-                apiLaunchSpec.setStrategy(toDal(src.getStrategy()));
+            if (launchSpec.isStrategySet()) {
+                apiLaunchSpec.setStrategy(toDal(launchSpec.getStrategy()));
             }
-            if (src.isStorageSet()) {
-                apiLaunchSpec.setStorage(toDal(src.getStorage()));
+            if (launchSpec.isStorageSet()) {
+                apiLaunchSpec.setStorage(toDal(launchSpec.getStorage()));
             }
 
         }
@@ -190,6 +191,9 @@ public class OceanGkeConverter {
 
             if (resourceLimit.isMaxInstanceCountSet()) {
                 resourceLimitToReturn.setMaxInstanceCount(resourceLimit.getMaxInstanceCount());
+            }
+            if (resourceLimit.isMinInstanceCountSet()) {
+                resourceLimitToReturn.setMinInstanceCount(resourceLimit.getMinInstanceCount());
             }
         }
         return resourceLimitToReturn;
@@ -328,7 +332,7 @@ public class OceanGkeConverter {
             }
 
             if (apiLaunchSpecSpecification.isRootVolumeTypeSet()) {
-                oceanGKECreateLaunchSpecBuilder.setRootVolumeType(apiLaunchSpecSpecification.getRootVolumeType());
+                oceanGKECreateLaunchSpecBuilder.setRootVolumeType(OceanGkeLaunchSpecRootVolumeTypeEnum.fromName(apiLaunchSpecSpecification.getRootVolumeType()));
             }
 
             if (apiLaunchSpecSpecification.isRestrictScaleDownSet()) {
@@ -368,7 +372,7 @@ public class OceanGkeConverter {
 
             if (apiLaunchSpecSpecification.isAutoScaleSet()) {
 
-                oceanGKECreateLaunchSpecBuilder.setAutoScales(toBl(apiLaunchSpecSpecification.getAutoScale()));
+                oceanGKECreateLaunchSpecBuilder.setAutoScale(toBl(apiLaunchSpecSpecification.getAutoScale()));
             }
 
             if (apiLaunchSpecSpecification.isResourceLimitsSet()) {
@@ -445,6 +449,9 @@ public class OceanGkeConverter {
 
         if (apiResourceLimit.isMaxInstanceCountSet()) {
             resourceLimitBuilder.setMaxInstanceCount(apiResourceLimit.getMaxInstanceCount());
+        }
+        if (apiResourceLimit.isMinInstanceCountSet()) {
+            resourceLimitBuilder.setMinInstanceCount(apiResourceLimit.getMinInstanceCount());
         }
             restourceLimitToReturn = resourceLimitBuilder.build();
     }

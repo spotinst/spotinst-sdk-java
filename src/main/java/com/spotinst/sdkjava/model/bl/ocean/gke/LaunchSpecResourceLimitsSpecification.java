@@ -12,7 +12,8 @@ import java.util.Set;
 public class LaunchSpecResourceLimitsSpecification {
     @JsonIgnore
     private Set<String> isSet;
-    private int         maxInstanceCount;
+    private Integer         maxInstanceCount;
+    private Integer minInstanceCount;
 
     public LaunchSpecResourceLimitsSpecification(){ isSet = new HashSet<>();
     }
@@ -25,13 +26,22 @@ public class LaunchSpecResourceLimitsSpecification {
         this.isSet = isSet;
     }
 
-    public int getMaxInstanceCount() {
+    public Integer getMaxInstanceCount() {
         return maxInstanceCount;
     }
 
-    public void setMaxInstanceCount(int maxInstanceCount) {
+    public Integer getMinInstanceCount() {
+        return minInstanceCount;
+    }
+
+    public void setMaxInstanceCount(Integer maxInstanceCount) {
         isSet.add("maxInstanceCount");
         this.maxInstanceCount = maxInstanceCount;
+    }
+
+    public void setMinInstanceCount(Integer minInstanceCount) {
+        isSet.add("minInstanceCount");
+        this.minInstanceCount = minInstanceCount;
     }
 
     public static class Builder {
@@ -46,8 +56,13 @@ public class LaunchSpecResourceLimitsSpecification {
             return builder;
         }
 
-        public Builder setMaxInstanceCount(final int maxInstanceCount) {
+        public Builder setMaxInstanceCount(final Integer maxInstanceCount) {
             resourceLimits.setMaxInstanceCount(maxInstanceCount);
+            return this;
+        }
+
+        public Builder setMinInstanceCount(final Integer minInstanceCount) {
+            resourceLimits.setMinInstanceCount(minInstanceCount);
             return this;
         }
 
@@ -59,5 +74,9 @@ public class LaunchSpecResourceLimitsSpecification {
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {
         return isSet.contains("maxInstanceCount");
+    }
+
+    public boolean isMinInstanceCountSet() {
+        return isSet.contains("minInstanceCount");
     }
 }

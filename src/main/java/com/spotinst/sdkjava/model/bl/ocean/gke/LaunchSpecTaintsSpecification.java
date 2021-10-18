@@ -26,6 +26,7 @@ public class LaunchSpecTaintsSpecification {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
+
     public String getKey() {
         return key;
     }

@@ -21,10 +21,10 @@ public class SpotOceanGKELaunchSpecRepo implements ISpotOceanGKELaunchSpecRepo {
         try {
             ApiLaunchSpecSpecification
                     apiLaunchSpecSpecification = OceanGkeConverter.toDal(oceanGKECreateLaunchSpecRes);
-            ApiLaunchSpecSpecification apiLaunchSpecificationSpecification =
+            ApiLaunchSpecSpecification apiCreateLaunchSpec =
                     SpotOceanGkeClusterService.createLaunchSpec(apiLaunchSpecSpecification, authToken, account);
             LaunchSpecSpecification CreatedLaunchSpec = OceanGkeConverter.toBl(
-                    apiLaunchSpecificationSpecification);
+                    apiCreateLaunchSpec);
             retVal = new RepoGenericResponse<>(CreatedLaunchSpec);
         }
         catch (SpotinstHttpException ex) {
