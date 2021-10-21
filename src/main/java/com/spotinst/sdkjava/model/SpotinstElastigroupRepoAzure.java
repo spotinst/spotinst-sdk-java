@@ -227,14 +227,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<VmHealthinessAzure> vmHealthiness(String groupId, String authToken, String account) {
-        RepoGenericResponse<VmHealthinessAzure> getVmHealthiness;
+    public RepoGenericResponse<List<VmHealthinessAzure>> vmHealthiness(String groupId, String authToken, String account) {
+        RepoGenericResponse<List<VmHealthinessAzure>> getVmHealthiness;
 
         try {
-            ApiVmHealthinessAzure apiVmHealthiness = SpotinstElastigroupServiceAzure.vmHealthiness(groupId, authToken, account);
-            VmHealthinessAzure vmHealthinessResponse =
-                    ElastigroupConverterAzure.toBl(apiVmHealthiness);
-            getVmHealthiness = new RepoGenericResponse<>(vmHealthinessResponse);
+            List<ApiVmHealthinessAzure> apiVmHealthiness = SpotinstElastigroupServiceAzure.vmHealthiness(groupId, authToken, account);
+            List<VmHealthinessAzure> vmHealthinessResponse =
+//                    ElastigroupConverterAzure.toBl(apiVmHealthiness);
+            apiVmHealthiness.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
+            getVmHealthiness = new RepoGenericResponse<> (vmHealthinessResponse);
 
         }
         catch (SpotinstHttpException e) {

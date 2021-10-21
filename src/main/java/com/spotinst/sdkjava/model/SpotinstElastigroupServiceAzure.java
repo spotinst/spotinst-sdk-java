@@ -573,10 +573,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return groupCapacity;
     }
 
-    public static ApiVmHealthinessAzure vmHealthiness(String groupId,
+    public static List<ApiVmHealthinessAzure> vmHealthiness(String groupId,
                                                       String authToken, String account) throws SpotinstHttpException {
 
-        ApiVmHealthinessAzure vmHealthinessAzure = new ApiVmHealthinessAzure();
+        List<ApiVmHealthinessAzure> vmHealthinessAzure = new LinkedList<>();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -596,7 +596,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         VmHealthinessApiResponseAzure vmHealthinessApiResponse = getCastedResponse(response, VmHealthinessApiResponseAzure.class);
 
         if (vmHealthinessApiResponse.getResponse().getCount() > 0) {
-            vmHealthinessAzure = vmHealthinessApiResponse.getResponse().getItems().get(0);
+            vmHealthinessAzure = vmHealthinessApiResponse.getResponse().getItems();
         }
 
         return vmHealthinessAzure;

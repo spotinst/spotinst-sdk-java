@@ -5,6 +5,8 @@ import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 
+import java.util.List;
+
 
 public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<ElastigroupAzure, GroupFilter, String> {
 
@@ -42,7 +44,7 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<VmHealthinessAzure> vmHealthiness(String groupId, String authToken, String account) {
+    default RepoGenericResponse<List<VmHealthinessAzure>> vmHealthiness(String groupId, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 

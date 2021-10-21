@@ -445,12 +445,12 @@ public class SpotinstElastigroupClientAzure {
         return isUpdatedCapacity;
     }
 
-    public VmHealthinessAzure vmHealthiness(String groupId) {
-        VmHealthinessAzure isVmHealthy = null;
+    public List<VmHealthinessAzure> vmHealthiness(String groupId) {
+        List<VmHealthinessAzure> isVmHealthy = null;
 
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
-        RepoGenericResponse<VmHealthinessAzure> vmHealthinessResponse =
+        RepoGenericResponse<List<VmHealthinessAzure>> vmHealthinessResponse =
                 repoAzure.vmHealthiness(groupId, authToken, account);
 
         if (vmHealthinessResponse.isRequestSucceed()) {

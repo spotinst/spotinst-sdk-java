@@ -483,9 +483,9 @@ public class ElastigroupUsageExampleAzure {
         return updateCapacityResponse;
     }
 
-    public static VmHealthinessAzure vmHealthiness(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+    public static List<VmHealthinessAzure> vmHealthiness(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
 
-        VmHealthinessAzure vmHeathResponse = elastigroupClient.vmHealthiness(groupId);
+        List<VmHealthinessAzure> vmHeathResponse = elastigroupClient.vmHealthiness(groupId);
 
         return vmHeathResponse;
     }
