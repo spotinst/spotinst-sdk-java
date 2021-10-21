@@ -100,7 +100,7 @@ public class ApiClusterAutoScalerConfiguration implements IPartialUpdateEntity {
         this.isAutoConfig = isAutoConfig;
     }
 
-    public Boolean getenableAutomaticAndManualHeadroom() {
+    public Boolean getEnableAutomaticAndManualHeadroom() {
         return enableAutomaticAndManualHeadroom;
     }
 

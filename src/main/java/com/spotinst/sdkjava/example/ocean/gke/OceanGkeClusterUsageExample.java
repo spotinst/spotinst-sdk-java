@@ -2,14 +2,15 @@ package com.spotinst.sdkjava.example.ocean.gke;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.enums.OceanGkeLaunchSpecRootVolumeTypeEnum;
 import com.spotinst.sdkjava.model.SpotOceanGkeClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.gke.*;
 import com.spotinst.sdkjava.model.requests.ocean.gke.OceanGkeClusterRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 public class OceanGkeClusterUsageExample {
 
@@ -119,7 +120,8 @@ public class OceanGkeClusterUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification launchSpecification = oceanGKECreateLaunchSpecResBuilder.setServiceAccount("265168459660-compute@developer.gserviceaccount.com")
-                                                                                .setRootVolumeType("pd-standard")
+                                                                                .setRootVolumeType(
+                                                                                        OceanGkeLaunchSpecRootVolumeTypeEnum.PD_STANDARD)
                                                                                 .setRootVolumeSizeInGb(100)
                                                                                 .setSourceImage("https://www.googleapis.com/compute/v1/projects/gke-node-images/global/images/gke-1208-gke2100-cos-89-16108-470-1-v210716-pre")
                                                                                 .setMetadata(metadata)
@@ -303,7 +305,7 @@ public class OceanGkeClusterUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification launchSpecification = oceanGKECreateLaunchSpecResBuilder.setServiceAccount("265168459660-compute@developer.gserviceaccount.com")
-                                                                                        .setRootVolumeType("pd-standard")
+                                                                                        .setRootVolumeType(OceanGkeLaunchSpecRootVolumeTypeEnum.PD_STANDARD)
                                                                                         .setRootVolumeSizeInGb(50)
                                                                                         .build();
 

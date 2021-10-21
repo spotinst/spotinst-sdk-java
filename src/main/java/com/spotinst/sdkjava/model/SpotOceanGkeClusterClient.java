@@ -34,7 +34,6 @@ public class SpotOceanGkeClusterClient {
     }
 
     public LaunchSpecSpecification createLaunchSpec(LaunchSpecRequest launchSpecRequest){
-
         LaunchSpecSpecification               retVal;
         LaunchSpecSpecification
                                               oceanGKEUpdateLaunchSpecRes = launchSpecRequest
@@ -100,14 +99,14 @@ public class SpotOceanGkeClusterClient {
 
         Boolean                               retVal;
         LaunchSpecSpecification oceanGKEUpdateLaunchSpecRes = updateLaunchSpecRequest.getOceanGKECreateLaunchSpecRes();
-        RepoGenericResponse<Boolean> creationResponse    =
+        RepoGenericResponse<Boolean> updateResponse    =
                 spotOceanGkeClusterLaunchSpecRepo.update(launchSpecId,oceanGKEUpdateLaunchSpecRes, authToken, account);
 
-        if (creationResponse.isRequestSucceed()) {
-            retVal = creationResponse.getValue();
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to update a launch Spec. Code: %s. Message: %s.",

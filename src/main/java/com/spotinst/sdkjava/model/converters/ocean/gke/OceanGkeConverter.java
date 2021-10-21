@@ -721,7 +721,7 @@ public class OceanGkeConverter {
                 retValBuilder.setDown(toBl(autoScaler.getDown()));
             }
             if (autoScaler.isEnableAutomaticAndManualHeadroomSet()) {
-                retValBuilder.setEnableAutomaticAndManualHeadroom(autoScaler.getenableAutomaticAndManualHeadroom());
+                retValBuilder.setEnableAutomaticAndManualHeadroom(autoScaler.getEnableAutomaticAndManualHeadroom());
             }
             if (autoScaler.isHeadroomSet()) {
                 retValBuilder.setHeadroom(toBl(autoScaler.getHeadroom()));
