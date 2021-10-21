@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.ocean.gke;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.OceanGkeLaunchSpecRootVolumeTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,21 +14,21 @@ import java.util.Set;
 public class LaunchSpecSpecification {
 
     @JsonIgnore
-    private Set<String>                                   isSet;
-    private String                                        oceanId;
-    private String                                        id;
-    private String                                        name;
-    private String                                        sourceImage;
-    private String                                        serviceAccount;
-    private Integer                                       rootVolumeSizeInGb;
-    private String                                        rootVolumeType;
-    private Boolean                                       restrictScaleDown = false;
-    private List<LaunchSpecMetadataSpecification>         metadata;
-    private List<String>                                  instanceTypes;
-    private List<LaunchSpecTaintsSpecification>           taints;
-    private List<LaunchSpecLabelsSpecification>           labels;
-    private LaunchSpecAutoScaleSpecification              autoScale;
-    private LaunchSpecResourceLimitsSpecification         resourceLimits;
+    private Set<String>                           isSet;
+    private String                                oceanId;
+    private String                                id;
+    private String                                name;
+    private String                                sourceImage;
+    private String                                serviceAccount;
+    private Integer                               rootVolumeSizeInGb;
+    private OceanGkeLaunchSpecRootVolumeTypeEnum  rootVolumeType;
+    private Boolean                               restrictScaleDown = false;
+    private List<LaunchSpecMetadataSpecification> metadata;
+    private List<String>                          instanceTypes;
+    private List<LaunchSpecTaintsSpecification>   taints;
+    private List<LaunchSpecLabelsSpecification>   labels;
+    private LaunchSpecAutoScaleSpecification      autoScale;
+    private LaunchSpecResourceLimitsSpecification resourceLimits;
     private LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig;
     private LaunchSpecStrategySpecification               strategy;
     private LaunchSpecStorageSpecification                storage;
@@ -101,11 +102,11 @@ public class LaunchSpecSpecification {
         isSet.add("rootVolumeSizeInGb");
     }
 
-    public String getRootVolumeType() {
+    public OceanGkeLaunchSpecRootVolumeTypeEnum getRootVolumeType() {
         return rootVolumeType;
     }
 
-    public void setRootVolumeType(String rootVolumeType) {
+    public void setRootVolumeType(OceanGkeLaunchSpecRootVolumeTypeEnum rootVolumeType) {
         this.rootVolumeType = rootVolumeType;
         isSet.add("rootVolumeType");
     }
@@ -278,7 +279,7 @@ public class LaunchSpecSpecification {
             return this;
         }
 
-        public Builder setRootVolumeType(final String rootVolumeType) {
+        public Builder setRootVolumeType(final OceanGkeLaunchSpecRootVolumeTypeEnum rootVolumeType) {
             launchSpec.setRootVolumeType(rootVolumeType);
             return this;
         }
@@ -318,7 +319,7 @@ public class LaunchSpecSpecification {
             return this;
         }
 
-        public Builder setAutoScales(final LaunchSpecAutoScaleSpecification autoScales) {
+        public Builder setAutoScale(final LaunchSpecAutoScaleSpecification autoScales) {
             launchSpec.setAutoScale(autoScales);
             return this;
         }

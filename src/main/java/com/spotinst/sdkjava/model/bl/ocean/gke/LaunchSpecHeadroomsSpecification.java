@@ -11,11 +11,11 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecHeadroomsSpecification {
     @JsonIgnore
+    private Set<String>     isSet;
      private Integer        cpuPerUnit;
      private Integer        memoryPerUnit;
      private Integer        gpuPerUnit;
      private Integer        numOfUnits;
-     private Set<String>    isSet;
 
     public LaunchSpecHeadroomsSpecification(){ isSet = new HashSet<>();
     }

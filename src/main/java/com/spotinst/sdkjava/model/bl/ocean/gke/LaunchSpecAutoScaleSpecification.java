@@ -12,8 +12,8 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecAutoScaleSpecification {
     @JsonIgnore
-    private List<LaunchSpecHeadroomsSpecification>  headrooms;
     private Set<String>                             isSet;
+    private List<LaunchSpecHeadroomsSpecification>  headrooms;
 
     public LaunchSpecAutoScaleSpecification(){ isSet = new HashSet<>();
     }

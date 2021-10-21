@@ -139,7 +139,7 @@ public class SpotOceanGkeClusterService extends BaseSpotinstService {
                                            String account) throws SpotinstHttpException {
 
         //Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();

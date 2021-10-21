@@ -15,7 +15,8 @@ import java.util.Set;
 public class ApiLaunchSpecResourceLimitSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private int         maxInstanceCount;
+    private Integer         maxInstanceCount;
+    private Integer         minInstanceCount;
 
     public ApiLaunchSpecResourceLimitSpecification(){ isSet = new HashSet<>();
     }
@@ -28,17 +29,30 @@ public class ApiLaunchSpecResourceLimitSpecification implements IPartialUpdateEn
         this.isSet = isSet;
     }
 
-    public int getMaxInstanceCount() {
+    public Integer getMinInstanceCount() {
+        return minInstanceCount;
+    }
+
+    public Integer getMaxInstanceCount() {
         return maxInstanceCount;
     }
 
-    public void setMaxInstanceCount(int maxInstanceCount) {
+    public void setMaxInstanceCount(Integer maxInstanceCount) {
         isSet.add("maxInstanceCount");
         this.maxInstanceCount = maxInstanceCount;
+    }
+
+    public void setMinInstanceCount(Integer minInstanceCount) {
+        isSet.add("minInstanceCount");
+        this.minInstanceCount = minInstanceCount;
     }
 
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {
         return isSet.contains("maxInstanceCount");
+    }
+
+    public boolean isMinInstanceCountSet() {
+        return isSet.contains("minInstanceCount");
     }
 }
