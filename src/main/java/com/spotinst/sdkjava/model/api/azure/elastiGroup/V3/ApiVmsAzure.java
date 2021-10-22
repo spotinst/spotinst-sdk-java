@@ -16,14 +16,14 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
-    private String      createdAt;
+//    private String      createdAt;
     private String      lifeCycle;
-    private String      os;
-    private String      powerState;
-    private String     privateIp;
-    private String      provisioningState;
-    private String     publicIp;
-    private String      region;
+//    private String      os;
+//    private String      powerState;
+//    private String      privateIp;
+//    private String      provisioningState;
+//    private String      publicIp;
+//    private String      region;
     private String      vmName;
     private String      vmSize;
 
@@ -39,15 +39,15 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
-    }
-
+//    public String getCreatedAt() {
+//        return createdAt;
+//    }
+//
+//    public void setCreatedAt(String createdAt) {
+//        isSet.add("createdAt");
+//        this.createdAt = createdAt;
+//    }
+//
     public String getLifeCycle() {
         return lifeCycle;
     }
@@ -56,60 +56,60 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
         isSet.add("lifeCycle");
         this.lifeCycle = lifeCycle;
     }
-
-    public String getOs() {
-        return os;
-    }
-
-    public void setOs(String os) {
-        isSet.add("os");
-        this.os = os;
-    }
-
-    public String getPowerState() {
-        return powerState;
-    }
-
-    public void setPowerState(String powerState) {
-        isSet.add("powerState");
-        this.powerState = powerState;
-    }
-
-    public String getPrivateIp() {
-        return privateIp;
-    }
-
-    public void setPrivateIp(String privateIp) {
-        isSet.add("privateIp");
-        this.privateIp = privateIp;
-    }
-
-    public String getProvisioningState() {
-        return provisioningState;
-    }
-
-    public void setProvisioningState(String provisioningState) {
-        isSet.add("provisioningState");
-        this.provisioningState = provisioningState;
-    }
-
-    public String getPublicIp() {
-        return publicIp;
-    }
-
-    public void setPublicIp(String publicIp) {
-        isSet.add("publicIp");
-        this.publicIp = publicIp;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        isSet.add("region");
-        this.region = region;
-    }
+//
+//    public String getOs() {
+//        return os;
+//    }
+//
+//    public void setOs(String os) {
+//        isSet.add("os");
+//        this.os = os;
+//    }
+//
+//    public String getPowerState() {
+//        return powerState;
+//    }
+//
+//    public void setPowerState(String powerState) {
+//        isSet.add("powerState");
+//        this.powerState = powerState;
+//    }
+//
+//    public String getPrivateIp() {
+//        return privateIp;
+//    }
+//
+//    public void setPrivateIp(String privateIp) {
+//        isSet.add("privateIp");
+//        this.privateIp = privateIp;
+//    }
+//
+//    public String getProvisioningState() {
+//        return provisioningState;
+//    }
+//
+//    public void setProvisioningState(String provisioningState) {
+//        isSet.add("provisioningState");
+//        this.provisioningState = provisioningState;
+//    }
+//
+//    public String getPublicIp() {
+//        return publicIp;
+//    }
+//
+//    public void setPublicIp(String publicIp) {
+//        isSet.add("publicIp");
+//        this.publicIp = publicIp;
+//    }
+//
+//    public String getRegion() {
+//        return region;
+//    }
+//
+//    public void setRegion(String region) {
+//        isSet.add("region");
+//        this.region = region;
+//    }
 
     public String getVmName() {
         return vmName;

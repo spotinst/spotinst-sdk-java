@@ -305,14 +305,14 @@ public class SpotinstElastigroupClientAzure {
         return status;
     }
 
-    public ElastigroupStatusAzure scaleGroupUp(String groupId, Integer adjustment) {
+    public ElastigroupScalingResponseAzure scaleGroupUp(String groupId, Integer adjustment) {
 
-        ElastigroupStatusAzure scaleUp = null;
+        ElastigroupScalingResponseAzure scaleUp = null;
 
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
 
-        RepoGenericResponse<ElastigroupStatusAzure> elastigroupScalingResponse =
+        RepoGenericResponse<ElastigroupScalingResponseAzure> elastigroupScalingResponse =
                 repoAzure.scaleUp(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
@@ -329,13 +329,13 @@ public class SpotinstElastigroupClientAzure {
         return scaleUp;
     }
 
-    public ElastigroupStatusAzure scaleGroupDown(String groupId, Integer adjustment) {
+    public ElastigroupScalingResponseAzure scaleGroupDown(String groupId, Integer adjustment) {
 
-        ElastigroupStatusAzure scaleDown = null;
+        ElastigroupScalingResponseAzure scaleDown = null;
 
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
-        RepoGenericResponse<ElastigroupStatusAzure> elastigroupScalingResponse =
+        RepoGenericResponse<ElastigroupScalingResponseAzure> elastigroupScalingResponse =
                 repoAzure.scaleDown(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {

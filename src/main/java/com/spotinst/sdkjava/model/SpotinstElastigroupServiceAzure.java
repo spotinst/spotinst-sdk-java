@@ -13,8 +13,8 @@ import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDe
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentRequestAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
-import com.spotinst.sdkjava.model.responses.*;
 
+import com.spotinst.sdkjava.model.responses.elastigroup.azure.v3.*;
 import org.apache.http.HttpStatus;
 
 import java.util.*;
@@ -395,10 +395,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return statusAzure;
     }
 
-    public static ApiElastigroupStatusAzure scaleGroupUp(String groupId, Integer adjustment, String authToken,
+    public static APIElastigroupScalingResponseAzure scaleGroupUp(String groupId, Integer adjustment, String authToken,
                                                              String account) throws SpotinstHttpException {
 
-        ApiElastigroupStatusAzure scaleUp = new ApiElastigroupStatusAzure();
+        APIElastigroupScalingResponseAzure scaleUp = new APIElastigroupScalingResponseAzure();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -418,8 +418,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
-        ElastigroupApiGetStatusResponseAzure scalingResponse =
-                getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+        ElastigroupApiScalingResponseAzure scalingResponse =
+                getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
             scaleUp = scalingResponse.getResponse().getItems().get(0);
         }
@@ -428,10 +428,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return scaleUp;
     }
 
-    public static ApiElastigroupStatusAzure scaleGroupDown(String groupId, Integer adjustment,
+    public static APIElastigroupScalingResponseAzure scaleGroupDown(String groupId, Integer adjustment,
                                                            String authToken, String account) throws SpotinstHttpException {
 
-        ApiElastigroupStatusAzure scaleDown = new ApiElastigroupStatusAzure();
+        APIElastigroupScalingResponseAzure scaleDown = new APIElastigroupScalingResponseAzure();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -451,8 +451,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
-        ElastigroupApiGetStatusResponseAzure scalingResponse =
-                getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+        ElastigroupApiScalingResponseAzure scalingResponse =
+                getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
             scaleDown = scalingResponse.getResponse().getItems().get(0);
         }

@@ -117,15 +117,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupStatusAzure> scaleUp(String groupId, Integer adjustment,
+    public RepoGenericResponse<ElastigroupScalingResponseAzure> scaleUp(String groupId, Integer adjustment,
                                                                    String authToken, String account) {
-        RepoGenericResponse<ElastigroupStatusAzure> scaleUp;
+        RepoGenericResponse<ElastigroupScalingResponseAzure> scaleUp;
 
         try {
-            ApiElastigroupStatusAzure apiElastigroupScalingResponse =
+            APIElastigroupScalingResponseAzure apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupUp(groupId, adjustment, authToken, account);
 
-            ElastigroupStatusAzure elastigroupScalingResponse =
+            ElastigroupScalingResponseAzure elastigroupScalingResponse =
                     ElastigroupConverterAzure.toBl(apiElastigroupScalingResponse);
             scaleUp = new RepoGenericResponse<>(elastigroupScalingResponse);
         }
@@ -137,15 +137,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupStatusAzure> scaleDown(String groupId, Integer adjustment,
+    public RepoGenericResponse<ElastigroupScalingResponseAzure> scaleDown(String groupId, Integer adjustment,
                                                                  String authToken, String account) {
-        RepoGenericResponse<ElastigroupStatusAzure> scaleDown;
+        RepoGenericResponse<ElastigroupScalingResponseAzure> scaleDown;
 
         try {
-            ApiElastigroupStatusAzure apiElastigroupScalingResponse =
+            APIElastigroupScalingResponseAzure apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupDown(groupId, adjustment, authToken, account);
             // Convert
-            ElastigroupStatusAzure elastigroupScalingResponse =
+            ElastigroupScalingResponseAzure elastigroupScalingResponse =
                     ElastigroupConverterAzure.toBl(apiElastigroupScalingResponse);
             scaleDown = new RepoGenericResponse<>(elastigroupScalingResponse);
         }

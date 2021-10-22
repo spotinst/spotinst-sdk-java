@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.example;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupStatusAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.DeploymentDetailsBatchAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.DeploymentDetailsOverviewAzure;
@@ -12,8 +11,6 @@ import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploy
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
-import com.spotinst.sdkjava.model.responses.ElastigroupApiGetStatusResponseAzure;
-import com.spotinst.sdkjava.model.responses.ElastigroupApiUpdateCapacityResponseAzure;
 
 import java.io.IOException;
 import java.util.*;
@@ -425,17 +422,17 @@ public class ElastigroupUsageExampleAzure {
 
     }
 
-    private static ElastigroupStatusAzure scaleUpGroup(SpotinstElastigroupClientAzure elastigroupClient,
+    private static ElastigroupScalingResponseAzure scaleUpGroup(SpotinstElastigroupClientAzure elastigroupClient,
                                                        String elastigroupId, Integer adjustment) {
-        ElastigroupStatusAzure elastigroupScalingResponse = elastigroupClient.scaleGroupUp(elastigroupId, adjustment);
+        ElastigroupScalingResponseAzure elastigroupScalingResponse = elastigroupClient.scaleGroupUp(elastigroupId, adjustment);
 
       return elastigroupScalingResponse;
     }
 
-    private static ElastigroupStatusAzure scaleDownGroup(SpotinstElastigroupClientAzure elastigroupClient,
+    private static ElastigroupScalingResponseAzure scaleDownGroup(SpotinstElastigroupClientAzure elastigroupClient,
                                                          String elastigroupId, Integer adjustment) {
 
-        ElastigroupStatusAzure elastigroupScalingResponse = elastigroupClient.scaleGroupDown(elastigroupId, adjustment);
+        ElastigroupScalingResponseAzure elastigroupScalingResponse = elastigroupClient.scaleGroupDown(elastigroupId, adjustment);
 
         return elastigroupScalingResponse;
     }

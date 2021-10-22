@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiVmsAzure;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,9 +18,9 @@ public class VmsAzure {
     private String      lifeCycle;
     private String      os;
     private String      powerState;
-    private String     privateIp;
+    private String      privateIp;
     private String      provisioningState;
-    private String     publicIp;
+    private String      publicIp;
     private String      region;
     private String      vmName;
     private String      vmSize;
@@ -242,4 +244,5 @@ public class VmsAzure {
     public boolean isVmSizeSet() {
         return isSet.contains("vmSize");
     }
+
 }

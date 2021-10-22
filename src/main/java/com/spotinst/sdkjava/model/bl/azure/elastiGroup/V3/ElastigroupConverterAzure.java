@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.spotinst.sdkjava.enums.*;
+import com.spotinst.sdkjava.model.ElastigroupScalingResponse;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 import com.sun.istack.internal.Nullable;
 import org.apache.commons.lang3.ObjectUtils;
@@ -573,30 +574,30 @@ public class ElastigroupConverterAzure {
         ApiVmsAzure retVal = null;
         if (vms != null) {
             retVal = new ApiVmsAzure();
-            if (vms.isCreatedAtSet()) {
-                retVal.setCreatedAt(vms.getCreatedAt());
-            }
+//            if (vms.isCreatedAtSet()) {
+//                retVal.setCreatedAt(vms.getCreatedAt());
+//            }
             if (vms.isLifeCycleSet()) {
                 retVal.setLifeCycle(vms.getLifeCycle());
             }
-            if (vms.isOsSet()) {
-                retVal.setOs(vms.getOs());
-            }
-            if (vms.isPowerStateSet()) {
-                retVal.setPowerState(vms.getPowerState());
-            }
-            if (vms.isPrivateIpSet()) {
-                retVal.setPrivateIp(vms.getPrivateIp());
-            }
-            if (vms.isProvisioningStateSet()) {
-                retVal.setProvisioningState(vms.getProvisioningState());
-            }
-            if (vms.isPublicIpSet()) {
-                retVal.setPublicIp(vms.getPublicIp());
-            }
-            if (vms.isRegionSet()) {
-                retVal.setRegion(vms.getRegion());
-            }
+//            if (vms.isOsSet()) {
+//                retVal.setOs(vms.getOs());
+//            }
+//            if (vms.isPowerStateSet()) {
+//                retVal.setPowerState(vms.getPowerState());
+//            }
+//            if (vms.isPrivateIpSet()) {
+//                retVal.setPrivateIp(vms.getPrivateIp());
+//            }
+//            if (vms.isProvisioningStateSet()) {
+//                retVal.setProvisioningState(vms.getProvisioningState());
+//            }
+//            if (vms.isPublicIpSet()) {
+//                retVal.setPublicIp(vms.getPublicIp());
+//            }
+//            if (vms.isRegionSet()) {
+//                retVal.setRegion(vms.getRegion());
+//            }
             if (vms.isVmNameSet()) {
                 retVal.setVmName(vms.getVmName());
             }
@@ -619,6 +620,25 @@ public class ElastigroupConverterAzure {
             }
             if (groupStatus.isVmsSet()) {
                 List<ApiVmsAzure> vmsAzures = groupStatus.getVms().stream().map(ElastigroupConverterAzure::toDal)
+                        .collect(Collectors.toList());
+                retVal.setVms(vmsAzures);
+            }
+        }
+        return retVal;
+    }
+
+    public static APIElastigroupScalingResponseAzure toDal(ElastigroupScalingResponseAzure scalingResponseAzure) {
+        APIElastigroupScalingResponseAzure retVal = null;
+        if (scalingResponseAzure != null) {
+            retVal = new APIElastigroupScalingResponseAzure();
+//            if (scalingResponseAzure.isStatusSet()) {
+//                retVal.setStatus(scalingResponseAzure.getStatus());
+//            }
+//            if (scalingResponseAzure.isSuspendedProcessesSet()) {
+//                retVal.setSuspendedProcesses(scalingResponseAzure.getSuspendedProcesses());
+//            }
+            if (scalingResponseAzure.isVmsSet()) {
+                List<ApiVmsAzure> vmsAzures = scalingResponseAzure.getVms().stream().map(ElastigroupConverterAzure::toDal)
                         .collect(Collectors.toList());
                 retVal.setVms(vmsAzures);
             }
@@ -1437,30 +1457,30 @@ public class ElastigroupConverterAzure {
         VmsAzure retVal = null;
         if (vmsAzure != null) {
             VmsAzure.Builder vmsBuilder = VmsAzure.Builder.get();
-            if (vmsAzure.isCreatedAtSet()) {
-                vmsBuilder.setCreatedAt(vmsAzure.getCreatedAt());
-            }
+//            if (vmsAzure.isCreatedAtSet()) {
+//                vmsBuilder.setCreatedAt(vmsAzure.getCreatedAt());
+//            }
             if (vmsAzure.isLifeCycleSet()) {
                 vmsBuilder.setLifeCycle(vmsAzure.getLifeCycle());
             }
-            if (vmsAzure.isOsSet()) {
-                vmsBuilder.setOs(vmsAzure.getOs());
-            }
-            if (vmsAzure.isPowerStateSet()) {
-                vmsBuilder.setPowerState(vmsAzure.getPowerState());
-            }
-            if (vmsAzure.isPrivateIpSet()) {
-                vmsBuilder.setPrivateIp(vmsAzure.getPrivateIp());
-            }
-            if (vmsAzure.isProvisioningStateSet()) {
-                vmsBuilder.setProvisioningState(vmsAzure.getProvisioningState());
-            }
-            if (vmsAzure.isPublicIpSet()) {
-                vmsBuilder.setPublicIp(vmsAzure.getPublicIp());
-            }
-            if (vmsAzure.isRegionSet()) {
-                vmsBuilder.setRegion(vmsAzure.getRegion());
-            }
+//            if (vmsAzure.isOsSet()) {
+//                vmsBuilder.setOs(vmsAzure.getOs());
+//            }
+//            if (vmsAzure.isPowerStateSet()) {
+//                vmsBuilder.setPowerState(vmsAzure.getPowerState());
+//            }
+//            if (vmsAzure.isPrivateIpSet()) {
+//                vmsBuilder.setPrivateIp(vmsAzure.getPrivateIp());
+//            }
+//            if (vmsAzure.isProvisioningStateSet()) {
+//                vmsBuilder.setProvisioningState(vmsAzure.getProvisioningState());
+//            }
+//            if (vmsAzure.isPublicIpSet()) {
+//                vmsBuilder.setPublicIp(vmsAzure.getPublicIp());
+//            }
+//            if (vmsAzure.isRegionSet()) {
+//                vmsBuilder.setRegion(vmsAzure.getRegion());
+//            }
             if (vmsAzure.isVmNameSet()) {
                 vmsBuilder.setVmName(vmsAzure.getVmName());
             }
@@ -1487,9 +1507,31 @@ public class ElastigroupConverterAzure {
                 elastiBuilder.setSuspendedProcesses(elastigroupStatusAzure.getSuspendedProcesses());
             }
             if (elastigroupStatusAzure.isVmsSet()) {
-                    List<VmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
-                            .collect(Collectors.toList());
-                    elastiBuilder.setVms(vms);
+                List<VmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
+                        .collect(Collectors.toList());
+                elastiBuilder.setVms(vms);
+            }
+            retVal = elastiBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static ElastigroupScalingResponseAzure toBl(APIElastigroupScalingResponseAzure elastigroupStatusAzure) {
+        ElastigroupScalingResponseAzure retVal = null;
+        if (elastigroupStatusAzure != null) {
+            ElastigroupScalingResponseAzure.Builder elastiBuilder = ElastigroupScalingResponseAzure.Builder.get();
+//            if (elastigroupStatusAzure.isStatusSet()) {
+//                if (elastigroupStatusAzure.getStatus() != null) {
+//                    elastiBuilder.setStatus(elastigroupStatusAzure.getStatus());
+//                }
+//            }
+//            if (elastigroupStatusAzure.isSuspendedProcessesSet()) {
+//                elastiBuilder.setSuspendedProcesses(elastigroupStatusAzure.getSuspendedProcesses());
+//            }
+            if (elastigroupStatusAzure.isVmsSet()) {
+                List<VmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
+                        .collect(Collectors.toList());
+                elastiBuilder.setVms(vms);
             }
             retVal = elastiBuilder.build();
         }
