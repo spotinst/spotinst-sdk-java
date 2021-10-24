@@ -348,6 +348,23 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
+
+    @Override
+    public RepoGenericResponse<Boolean> simulateInstanceInterruption(String authToken, String account, List<String> instanceIds) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupService.simulateInstanceInterruption(authToken, account, instanceIds);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+
     @Override
     public RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String elastiGroupId, String policyName,
                                                                               ScalingPolicySuspension suspensions,
