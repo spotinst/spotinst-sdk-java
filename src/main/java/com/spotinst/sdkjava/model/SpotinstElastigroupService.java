@@ -452,6 +452,43 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean simulateInstanceInterruption(String authToken, String account, List<String> instanceIds) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", account);
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instance/interruption", apiEndpoint);
+
+        // Write to json
+        Map<String, List<String>> instancesToInterrupt = new HashMap<>();
+        instancesToInterrupt.put("instancesToInterrupt", instanceIds);
+        String body = JsonMapper.toJson(instancesToInterrupt);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse interruptionResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (interruptionResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
     public static Boolean enterGroupStandby(String groupId, String authToken,
                                             String account) throws SpotinstHttpException {
         //Init retVal

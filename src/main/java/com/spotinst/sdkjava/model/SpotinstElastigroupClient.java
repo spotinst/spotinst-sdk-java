@@ -289,6 +289,27 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Boolean simulateInstanceInterruption(List<String> instanceIds) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> interruptionResponse = getSpotinstElastigroupRepo().simulateInstanceInterruption(authToken, account, instanceIds);
+
+        if (interruptionResponse.isRequestSucceed()) {
+            retVal = interruptionResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = interruptionResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to interrupt instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
     public List<ElastigroupActiveInstance> getActiveInstances(
             ElastigroupGetActiveInstancesRequest elastigroupGetActiveInstancesRequest) {
 
