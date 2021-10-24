@@ -750,10 +750,10 @@ public class ElastigroupUsageExample {
 
 
         if (success) {
-            System.out.println("Successfully triggered Instance Interruption.");
+            System.out.println("Successfully triggered Instances Interruption.");
         }
         else {
-            System.out.println("Instance couldn't be interrupted.");
+            System.out.println("Instances couldn't be interrupted.");
         }
     }
 
