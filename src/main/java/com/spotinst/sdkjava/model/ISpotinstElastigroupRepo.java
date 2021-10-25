@@ -47,6 +47,8 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest,
                                                 String authToken, String instanceId);
 
+    RepoGenericResponse<Boolean> simulateInstanceInterruption(String authToken, String account, List<String> instanceIds);
+
     RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPolicies(String elastigroupId, String policyName,
                                                                        ScalingPolicySuspension suspension,
                                                                        String authToken, String account);

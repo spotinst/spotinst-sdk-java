@@ -136,6 +136,11 @@ public class ElastigroupUsageExample {
 
         System.out.println("----------Remove/Resume Suspended Scaling Policy--------------");
         removeSuspendedScalingPolicies(elastigroupClient,"your-elastigroup-id","policy-name");
+
+        System.out.println("----------Simulate Instance Interruption Example--------------");
+        List<String> listOfInstances = Arrays.asList("i-0687d633ba59aad5f");
+        interruptInstances(elastigroupClient, listOfInstances);
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -734,6 +739,21 @@ public class ElastigroupUsageExample {
         }
         else {
             System.out.println(String.format("Elastigroup Instance %s request failed", Operation));
+        }
+    }
+
+    private static void interruptInstances(SpotinstElastigroupClient client, List<String> listOfInstances) {
+
+        Boolean success = false;
+
+        success = client.simulateInstanceInterruption(listOfInstances);
+
+
+        if (success) {
+            System.out.println("Successfully triggered Instances Interruption.");
+        }
+        else {
+            System.out.println("Instances couldn't be interrupted.");
         }
     }
 
