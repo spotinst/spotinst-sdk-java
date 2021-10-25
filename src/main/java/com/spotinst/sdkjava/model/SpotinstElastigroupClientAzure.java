@@ -305,14 +305,14 @@ public class SpotinstElastigroupClientAzure {
         return status;
     }
 
-    public ElastigroupScalingResponseAzure scaleGroupUp(String groupId, Integer adjustment) {
+    public List<ElastigroupScalingVms> scaleGroupUp(String groupId, Integer adjustment) {
 
-        ElastigroupScalingResponseAzure scaleUp = null;
+        List<ElastigroupScalingVms> scaleUp = null;
 
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
 
-        RepoGenericResponse<ElastigroupScalingResponseAzure> elastigroupScalingResponse =
+        RepoGenericResponse<List<ElastigroupScalingVms>> elastigroupScalingResponse =
                 repoAzure.scaleUp(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
@@ -329,13 +329,13 @@ public class SpotinstElastigroupClientAzure {
         return scaleUp;
     }
 
-    public ElastigroupScalingResponseAzure scaleGroupDown(String groupId, Integer adjustment) {
+    public List<ElastigroupScalingVms> scaleGroupDown(String groupId, Integer adjustment) {
 
-        ElastigroupScalingResponseAzure scaleDown = null;
+        List<ElastigroupScalingVms> scaleDown = null;
 
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
-        RepoGenericResponse<ElastigroupScalingResponseAzure> elastigroupScalingResponse =
+        RepoGenericResponse<List<ElastigroupScalingVms>> elastigroupScalingResponse =
                 repoAzure.scaleDown(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {

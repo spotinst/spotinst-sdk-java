@@ -395,10 +395,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return statusAzure;
     }
 
-    public static APIElastigroupScalingResponseAzure scaleGroupUp(String groupId, Integer adjustment, String authToken,
+    public static List<ApiElastigroupScalingVms> scaleGroupUp(String groupId, Integer adjustment, String authToken,
                                                              String account) throws SpotinstHttpException {
 
-        APIElastigroupScalingResponseAzure scaleUp = new APIElastigroupScalingResponseAzure();
+        List<ApiElastigroupScalingVms> scaleUp = new LinkedList<>();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -421,17 +421,16 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         ElastigroupApiScalingResponseAzure scalingResponse =
                 getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
-            scaleUp = scalingResponse.getResponse().getItems().get(0);
+            scaleUp = scalingResponse.getResponse().getItems();
         }
-
 
         return scaleUp;
     }
 
-    public static APIElastigroupScalingResponseAzure scaleGroupDown(String groupId, Integer adjustment,
+    public static List<ApiElastigroupScalingVms> scaleGroupDown(String groupId, Integer adjustment,
                                                            String authToken, String account) throws SpotinstHttpException {
 
-        APIElastigroupScalingResponseAzure scaleDown = new APIElastigroupScalingResponseAzure();
+        List<ApiElastigroupScalingVms> scaleDown = new LinkedList<>();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -454,7 +453,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         ElastigroupApiScalingResponseAzure scalingResponse =
                 getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
-            scaleDown = scalingResponse.getResponse().getItems().get(0);
+            scaleDown = scalingResponse.getResponse().getItems();
         }
 
         return scaleDown;

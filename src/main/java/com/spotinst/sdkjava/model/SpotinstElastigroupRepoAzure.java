@@ -117,16 +117,16 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupScalingResponseAzure> scaleUp(String groupId, Integer adjustment,
+    public RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp(String groupId, Integer adjustment,
                                                                    String authToken, String account) {
-        RepoGenericResponse<ElastigroupScalingResponseAzure> scaleUp;
+        RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp;
 
         try {
-            APIElastigroupScalingResponseAzure apiElastigroupScalingResponse =
+            List<ApiElastigroupScalingVms> apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupUp(groupId, adjustment, authToken, account);
 
-            ElastigroupScalingResponseAzure elastigroupScalingResponse =
-                    ElastigroupConverterAzure.toBl(apiElastigroupScalingResponse);
+            List<ElastigroupScalingVms> elastigroupScalingResponse =
+            apiElastigroupScalingResponse.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             scaleUp = new RepoGenericResponse<>(elastigroupScalingResponse);
         }
         catch (SpotinstHttpException e) {
@@ -137,16 +137,16 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupScalingResponseAzure> scaleDown(String groupId, Integer adjustment,
+    public RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown(String groupId, Integer adjustment,
                                                                  String authToken, String account) {
-        RepoGenericResponse<ElastigroupScalingResponseAzure> scaleDown;
+        RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown;
 
         try {
-            APIElastigroupScalingResponseAzure apiElastigroupScalingResponse =
+            List<ApiElastigroupScalingVms> apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupDown(groupId, adjustment, authToken, account);
             // Convert
-            ElastigroupScalingResponseAzure elastigroupScalingResponse =
-                    ElastigroupConverterAzure.toBl(apiElastigroupScalingResponse);
+            List<ElastigroupScalingVms> elastigroupScalingResponse =
+                    apiElastigroupScalingResponse.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             scaleDown = new RepoGenericResponse<>(elastigroupScalingResponse);
         }
         catch (SpotinstHttpException e) {

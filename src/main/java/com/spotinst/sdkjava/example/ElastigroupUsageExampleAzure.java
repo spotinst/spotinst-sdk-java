@@ -422,17 +422,17 @@ public class ElastigroupUsageExampleAzure {
 
     }
 
-    private static ElastigroupScalingResponseAzure scaleUpGroup(SpotinstElastigroupClientAzure elastigroupClient,
+    private static List<ElastigroupScalingVms> scaleUpGroup(SpotinstElastigroupClientAzure elastigroupClient,
                                                        String elastigroupId, Integer adjustment) {
-        ElastigroupScalingResponseAzure elastigroupScalingResponse = elastigroupClient.scaleGroupUp(elastigroupId, adjustment);
+        List<ElastigroupScalingVms> elastigroupScalingResponse = elastigroupClient.scaleGroupUp(elastigroupId, adjustment);
 
       return elastigroupScalingResponse;
     }
 
-    private static ElastigroupScalingResponseAzure scaleDownGroup(SpotinstElastigroupClientAzure elastigroupClient,
+    private static List<ElastigroupScalingVms> scaleDownGroup(SpotinstElastigroupClientAzure elastigroupClient,
                                                          String elastigroupId, Integer adjustment) {
 
-        ElastigroupScalingResponseAzure elastigroupScalingResponse = elastigroupClient.scaleGroupDown(elastigroupId, adjustment);
+        List<ElastigroupScalingVms> elastigroupScalingResponse = elastigroupClient.scaleGroupDown(elastigroupId, adjustment);
 
         return elastigroupScalingResponse;
     }

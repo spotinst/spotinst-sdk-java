@@ -14,12 +14,12 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<ElastigroupScalingResponseAzure> scaleUp(String groupId, Integer adjustment, String authToken,
+    default RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp(String groupId, Integer adjustment, String authToken,
                                                                 String account){
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<ElastigroupScalingResponseAzure> scaleDown(String groupId, Integer adjustment, String authToken,
+    default RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown(String groupId, Integer adjustment, String authToken,
                                                                 String account){
         throw new SpotinstNotSupportedException();
     }
