@@ -205,7 +205,7 @@ public class SpotOceanGkeClusterService extends BaseSpotinstService {
 
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
-        }
+        }SpotinstRepoManager
 
         return retVal;
     }

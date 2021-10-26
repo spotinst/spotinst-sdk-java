@@ -6,8 +6,12 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupSuspendScalingPoliciesRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -278,6 +282,27 @@ public class SpotinstElastigroupClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to unlock instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean simulateInstanceInterruption(List<String> instanceIds) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> interruptionResponse = getSpotinstElastigroupRepo().simulateInstanceInterruption(authToken, account, instanceIds);
+
+        if (interruptionResponse.isRequestSucceed()) {
+            retVal = interruptionResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = interruptionResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to interrupt instance. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -578,4 +603,77 @@ public class SpotinstElastigroupClient {
         throw new SpotinstHttpException(httpExceptions.get(0).getMessage());
     }
     //endregion
+
+    public SuspendedScalingPolicy suspendScalingPolicies(
+            ElastigroupSuspendScalingPoliciesRequest suspendScalingPoliciesRequest) {
+        SuspendedScalingPolicy retVal;
+
+        String                  elastigroupId = suspendScalingPoliciesRequest.getGroupId();
+        String                  policyName    = suspendScalingPoliciesRequest.getPolicyName();
+        ScalingPolicySuspension suspensions   = suspendScalingPoliciesRequest.getSuspension();
+
+        RepoGenericResponse<SuspendedScalingPolicy> suspendScalingPoliciesResponse = getSpotinstElastigroupRepo()
+                .suspendScalingPolicies(elastigroupId, policyName, suspensions, authToken, account);
+
+        if (suspendScalingPoliciesResponse.isRequestSucceed()) {
+            retVal = suspendScalingPoliciesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = suspendScalingPoliciesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to suspend scaling policies. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean removeSuspendedScalingPolicies(
+            ElastigroupSuspendScalingPoliciesRequest suspendScalingPoliciesRequest) {
+
+        Boolean retVal;
+
+        String elastigroupId = suspendScalingPoliciesRequest.getGroupId();
+        String policyName    = suspendScalingPoliciesRequest.getPolicyName();
+
+        RepoGenericResponse<Boolean> removeResponse = getSpotinstElastigroupRepo()
+                .removeSuspendedScalingPolicies(elastigroupId, policyName, authToken, account);
+
+        if (removeResponse.isRequestSucceed()) {
+            retVal = removeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = removeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to remove suspended scaling policies. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<SuspendedScalingPolicy> getAllSuspendedScalingPolicies(
+            ElastigroupSuspendScalingPoliciesRequest suspendScalingPoliciesRequest) {
+
+        List<SuspendedScalingPolicy> retVal;
+        String                       elastigroupId = suspendScalingPoliciesRequest.getGroupId();
+
+        RepoGenericResponse<SuspendedScalingPoliciesList> getAllResponse =
+                getSpotinstElastigroupRepo().getAllSuspendedScalingPolicies(elastigroupId, authToken, account);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue().getScalePolicySuspensions();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to list suspended scaling policies. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
 }

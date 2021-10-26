@@ -11,8 +11,8 @@ import java.util.*;
 
 public class OceanGkeLaunchSpecUsageExample {
 
-    private final static String auth_token    = "auth token";
-    private final static String account_id    = "act-id";
+    private final static String auth_token    = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
+    private final static String account_id    = "act-7d8b3fee";
 
     public static void main(String[] args) throws IOException {
 
@@ -123,7 +123,7 @@ public class OceanGkeLaunchSpecUsageExample {
         // Build Ocean GKE launch spec
         LaunchSpecSpecification.Builder oceanGKECreateLaunchSpecResBuilder = LaunchSpecSpecification.Builder.get();
         LaunchSpecSpecification
-                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("<OceanID>")
+                oceanGKECreateLaunchSpecRes = oceanGKECreateLaunchSpecResBuilder.setOceanId("o-3f432e3e")
                                                                                 .setRestrictScaleDown(false)
                                                                                 .setServiceAccount("serviceAccount")
                                                                                 .setRootVolumeType(
@@ -156,7 +156,7 @@ public class OceanGkeLaunchSpecUsageExample {
 
     private static List<LaunchSpecSpecification> getAllLaunchSpecs(SpotOceanGkeClusterClient client) {
 
-        return client.getAllLaunchSpec("<OceanId>");
+        return client.getAllLaunchSpec("o-3f432e3e");
 
     }
     private static LaunchSpecSpecification getLaunchSpec(SpotOceanGkeClusterClient client, String LaunchSpecId){
