@@ -277,11 +277,6 @@ public class OceanGkeClusterUsageExample {
 
     private static void updateCluster(SpotOceanGkeClusterClient client, String clusterId) {
 
-        //Build Capacity
-        ClusterCapacityConfiguration.Builder capacityBuilder = ClusterCapacityConfiguration.Builder.get();
-        ClusterCapacityConfiguration         capacity        =
-                capacityBuilder.setMaximum(2000).setMinimum(0).setTarget(1).build();
-
         // Build ResourceLimit Specification
         ClusterResourceLimitsSpecification.Builder resourceLimitSpecBuilder =
                 ClusterResourceLimitsSpecification.Builder.get();
@@ -327,7 +322,6 @@ public class OceanGkeClusterUsageExample {
         // Build Ocean Gke Cluster
         OceanGkeCluster.Builder updateOceanClusterBuilder = OceanGkeCluster.Builder.get();
         OceanGkeCluster oceanGkeClusterUpdate = updateOceanClusterBuilder.setName("Automation-java-SDK-OceanGkeCluster")
-                                                       .setCapacity(capacity)
                                                        .setAutoScaler(autoScaler)
                                                        .setCompute(compute)
                                                        .setScheduling(scheduling)
