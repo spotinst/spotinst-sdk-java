@@ -32,7 +32,9 @@ public class LaunchSpecSpecification {
     private LaunchSpecShieldedInstanceConfigSpecification shieldedInstanceConfig;
     private LaunchSpecStrategySpecification               strategy;
     private LaunchSpecStorageSpecification                storage;
-
+    private Boolean                                       ipForwarding;
+    private String                                        minCpuPlatform;
+    private List<String>                                  tags;
 
     private LaunchSpecSpecification() {
         isSet = new HashSet<>();
@@ -200,6 +202,32 @@ public class LaunchSpecSpecification {
         isSet.add("storage");
     }
 
+    public Boolean getIpForwarding() {
+        return ipForwarding;
+    }
+
+    public void setIpForwarding(Boolean ipForwarding) {
+        isSet.add("ipForwarding");
+        this.ipForwarding = ipForwarding;
+    }
+
+    public String getMinCpuPlatform() {
+        return minCpuPlatform;
+    }
+
+    public void setMinCpuPlatform(String minCpuPlatform) {
+        isSet.add("minCpuPlatform");
+        this.minCpuPlatform = minCpuPlatform;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        isSet.add("tags");
+        this.tags = tags;
+    }
 
     public static class Builder {
         //region Members
@@ -300,6 +328,22 @@ public class LaunchSpecSpecification {
             launchSpec.setStorage(storage);
             return this;
         }
+
+        public Builder setIpForwarding(final Boolean ipForwarding) {
+            launchSpec.setIpForwarding(ipForwarding);
+            return this;
+        }
+
+        public Builder setMinCpuPlatform(final String minCpuPlatform) {
+            launchSpec.setMinCpuPlatform(minCpuPlatform);
+            return this;
+        }
+
+        public Builder setTags(final  List<String>  tags) {
+            launchSpec.setTags(tags);
+            return this;
+        }
+
         public LaunchSpecSpecification build() {
             // Validations
             return launchSpec;
@@ -357,5 +401,14 @@ public class LaunchSpecSpecification {
 
     @JsonIgnore
     public Boolean isStorageSet() { return isSet.contains("storage"); }
+
+    @JsonIgnore
+    public Boolean isIpForwardingSet() { return isSet.contains("ipForwarding"); }
+
+    @JsonIgnore
+    public Boolean isMinCpuPlatformSet() { return isSet.contains("minCpuPlatform"); }
+
+    @JsonIgnore
+    public Boolean isTagsSet() { return isSet.contains("tags"); }
 
 }

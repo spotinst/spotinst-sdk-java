@@ -18,7 +18,8 @@ public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
     private String      key;
     private String      value;
 
-    public ApiLaunchSpecLabelsSpecification(){ isSet = new HashSet<>();
+    public ApiLaunchSpecLabelsSpecification() {
+        isSet = new HashSet<>();
     }
 
     public Set<String> getIsSet() {
@@ -51,6 +52,7 @@ public class ApiLaunchSpecLabelsSpecification implements IPartialUpdateEntity {
     public boolean isKeySet() {
         return isSet.contains("key");
     }
+
     @JsonIgnore
     public boolean isValueSet() {
         return isSet.contains("value");

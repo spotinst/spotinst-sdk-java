@@ -3,12 +3,14 @@ package com.spotinst.sdkjava.model.bl.ocean.gke;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class LaunchSpecMetadataSpecification {
 
     @JsonIgnore
@@ -19,9 +21,16 @@ public class LaunchSpecMetadataSpecification {
     public LaunchSpecMetadataSpecification() {
         isSet = new HashSet<>();
     }
-    public String getKey(){
-        return key;
+
+    public Set<String> getIsSet() {
+        return isSet;
     }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public String getKey(){ return key; }
 
     public void setKey(String key){
         isSet.add("key");

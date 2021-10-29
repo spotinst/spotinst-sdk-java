@@ -1,9 +1,10 @@
 package com.spotinst.sdkjava.model;
-import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGKELaunchSpecRepo;
+
+import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
-
+import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeClusterRepo;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -13,26 +14,28 @@ class SpotinstRepoManager {
     private static SpotinstRepoManager                         instance = new SpotinstRepoManager();
 
     //region Members
-    private ISpotinstElastigroupRepo                spotinstElastigroupRepo;
-    private ISpotinstElastigroupActiveInstanceRepo  spotinstElastigroupActiveInstanceRepo;
-    private ISpotinstSubscriptionRepo               spotinstSubscriptionRepo;
+    private ISpotinstElastigroupRepo                    spotinstElastigroupRepo;
+    private ISpotinstElastigroupActiveInstanceRepo      spotinstElastigroupActiveInstanceRepo;
+    private ISpotinstSubscriptionRepo                   spotinstSubscriptionRepo;
     private ISpotinstSpectrumRepo                       spotinstSpectrumRepo;
     private ISpotinstMrScalerAwsRepo                    spotinstMrScalerAwsRepo;
     private ISpotinstElastigroupInstanceHealthinessRepo spotinstInstanceHealthinessRepo;
     private ISpotinstElastigroupInstanceStatusRepoGcp   spotinstInstanceHealthinessRepoGcp;
     private ISpotOceanK8sClusterRepo                    spotinstOceanClusterRepo;
-    private ISpotinstElastigroupRepoAzure           spotinstElastigroupRepoAzure;
-    private ISpotinstElastigroupDeploymentRepoAzure spotinstElastigroupDeploymentRepoAzure;
-    private ISpotinstElastigroupRepoGcp             spotinstElastigroupRepoGcp;
-    private ISpotinstMrScalerOperatorAwsRepo        spotinstMrScalerOperatorAwsRepo;
-    private ISpotOceanAzureAksClusterRepo           spotOceanAzureAksClusterRepo;
-    private ISpotinstEventsLogsRepo                 spotinstElastigroupEventLogRepo;
-    private ISpotAccountAdminRepo                   spotAdminAccountRepo;
-    private ISpotOceanGKELaunchSpecRepo             spotinstOceanGKELaunchSpecRepo;
-    private ISpotOceanEcsClusterRepo                spotinstOceanEcsClusterRepo;
-    private ISpotOceanEcsLaunchSpecRepo             spotOceanEcsLaunchSpecRepo;
-    private ISpotStorageAzureVolumeRepo             spotStorageAzureVolumeRepo;
-    private ISpotAwsManagedInstanceRepo             spotAwsManagedInstanceRepo;
+    private ISpotinstElastigroupRepoAzure               spotinstElastigroupRepoAzure;
+    private ISpotinstElastigroupDeploymentRepoAzure     spotinstElastigroupDeploymentRepoAzure;
+    private ISpotinstElastigroupRepoGcp                 spotinstElastigroupRepoGcp;
+    private ISpotinstMrScalerOperatorAwsRepo            spotinstMrScalerOperatorAwsRepo;
+    private ISpotOceanAzureAksClusterRepo               spotOceanAzureAksClusterRepo;
+    private ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
+    private ISpotAccountAdminRepo                       spotAdminAccountRepo;
+    private ISpotOceanGkeClusterRepo                    spotinstOceanGkeClusterRepo;
+    private ISpotOceanGKELaunchSpecRepo                 spotinstOceanGKELaunchSpecRepo;
+    private ISpotOceanEcsClusterRepo                    spotinstOceanEcsClusterRepo;
+    private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
+    private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
+    private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
+
     //endregion
 
     //region Constructor
@@ -52,7 +55,8 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
-        this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGKELaunchSpecRepo();
+        this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGkeLaunchSpecRepo();
+        this.spotinstOceanGkeClusterRepo    = new SpotOceanGkeClusterRepo();
         this.spotinstOceanEcsClusterRepo = new SpotOceanEcsClusterRepo();
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
@@ -195,6 +199,12 @@ class SpotinstRepoManager {
 
     public void setSpotinstOceanEcsClusterRepo (ISpotOceanEcsClusterRepo spotinstOceanEcsClusterRepo) {
         this.spotinstOceanEcsClusterRepo = spotinstOceanEcsClusterRepo;
+    }
+
+    public ISpotOceanGkeClusterRepo getSpotinstOceanGkeClusterRepo() { return spotinstOceanGkeClusterRepo; }
+
+    public void setSpotinstOceanGkeClusterRepo (ISpotOceanGkeClusterRepo spotinstOceanGkeClusterRepo) {
+        this.spotinstOceanGkeClusterRepo = spotinstOceanGkeClusterRepo;
     }
 
     public ISpotOceanGKELaunchSpecRepo getSpotinstOceanGKELaunchSpecRepoGcp() {

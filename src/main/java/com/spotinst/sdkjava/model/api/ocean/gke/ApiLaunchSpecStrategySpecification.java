@@ -14,10 +14,11 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchSpecStrategySpecification implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>     isSet;
-    private Integer         preemptiblePercentage;
+    private Set<String> isSet;
+    private Integer     preemptiblePercentage;
 
-    public ApiLaunchSpecStrategySpecification(){ isSet = new HashSet<>();
+    public ApiLaunchSpecStrategySpecification() {
+        isSet = new HashSet<>();
     }
 
     public Set<String> getIsSet() {
