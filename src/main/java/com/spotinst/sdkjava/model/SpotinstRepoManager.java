@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
-import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGKELaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
