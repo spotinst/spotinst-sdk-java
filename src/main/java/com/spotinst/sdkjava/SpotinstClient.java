@@ -14,6 +14,11 @@ import java.util.List;
 public class SpotinstClient {
 
     //region Methods
+    public static SpotOceanGkeClusterClient getSpotOceanGkeLaunchSpecClient(String authToken, String account) {
+        SpotOceanGkeClusterClient
+                spotinstOceanGKELaunchSpecClientTest = new SpotOceanGkeClusterClient(authToken, account);
+        return spotinstOceanGKELaunchSpecClientTest;
+    }
     @Deprecated
     public static SpotinstElastigroupClient getElastigroupClient(String authToken) {
         SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, null);
@@ -121,9 +126,15 @@ public class SpotinstClient {
         return spotOceanEcsClusterClient;
     }
 
+    public static SpotOceanGkeClusterClient getOceanGkeClusterClient(String authToken, String account) {
+        SpotOceanGkeClusterClient spotOceanGkeClusterClient = new SpotOceanGkeClusterClient(authToken, account);
+        return spotOceanGkeClusterClient;
+    }
+
     public static SpotAwsManagedInstanceClient getManagedInstanceClient(String authToken, String account) {
         SpotAwsManagedInstanceClient spotAwsManagedInstanceClient = new SpotAwsManagedInstanceClient(authToken, account);
         return spotAwsManagedInstanceClient;
+
     }
 
     //endregion
