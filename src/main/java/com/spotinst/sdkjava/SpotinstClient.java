@@ -14,6 +14,11 @@ import java.util.List;
 public class SpotinstClient {
 
     //region Methods
+    public static SpotOceanGkeClusterClient getSpotOceanGkeLaunchSpecClient(String authToken, String account) {
+        SpotOceanGkeClusterClient
+                spotinstOceanGKELaunchSpecClientTest = new SpotOceanGkeClusterClient(authToken, account);
+        return spotinstOceanGKELaunchSpecClientTest;
+    }
     @Deprecated
     public static SpotinstElastigroupClient getElastigroupClient(String authToken) {
         SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, null);
