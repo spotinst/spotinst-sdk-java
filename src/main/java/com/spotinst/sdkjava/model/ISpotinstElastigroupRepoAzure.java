@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
-import com.spotinst.sdkjava.model.requests.elastigroup.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
     }
 
     default RepoGenericResponse<Boolean> resumeGroup(ResumegroupRequestAzure resumegroupRequest,
-                                                      String authToken, String account) {
+                                                     String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 
@@ -69,7 +69,7 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
     }
 
     default RepoGenericResponse<ElastigroupDetachedVmsAzure> detachVms(DetachVmsRequestAzure detachVmsRequest,
-                                                            String authToken, String account) {
+                                                                       String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 

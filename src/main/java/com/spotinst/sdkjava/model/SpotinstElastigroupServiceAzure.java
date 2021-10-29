@@ -12,8 +12,8 @@ import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGetDepl
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentDetailsAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGroupDeploymentRequestAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
-import com.spotinst.sdkjava.model.requests.elastigroup.*;
 
+import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
 import com.spotinst.sdkjava.model.responses.elastigroup.azure.v3.*;
 import org.apache.http.HttpStatus;
 
@@ -399,7 +399,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
                                                              String account) throws SpotinstHttpException {
 
         List<ApiElastigroupScalingVms> scaleUp = new LinkedList<>();
-
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
@@ -673,8 +672,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
 
-
-        // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             vmProtect = true;
@@ -702,8 +699,6 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
 
-
-        // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             vmRemoveProtect = true;
@@ -712,7 +707,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
     }
 
     public static ApiElastigroupDetachedVmsAzure detachVms(DetachVmsRequestAzure detachVmsRequest,
-                                                String authToken, String account) throws SpotinstHttpException {
+                                                           String authToken, String account) throws SpotinstHttpException {
 
         ApiElastigroupDetachedVmsAzure detachedVmsAzure = new ApiElastigroupDetachedVmsAzure();
 

@@ -15,8 +15,8 @@ public class DetachedVmsAzure {
     private Set<String>     isSet;
     private String          lifeCycle;
     private String          os;
-    private String         privateIp;
-    private String         publicIp;
+    private String          privateIp;
+    private String          publicIp;
     private String          region;
     private String          vmName;
     private String          vmSize;
@@ -148,7 +148,6 @@ public class DetachedVmsAzure {
         }
 
     }
-
 
     @JsonIgnore
     public boolean isLifeCycleSet() {

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.requests.elastigroup;
+package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 
 import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 

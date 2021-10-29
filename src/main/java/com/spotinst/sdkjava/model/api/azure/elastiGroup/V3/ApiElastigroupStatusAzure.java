@@ -17,10 +17,10 @@ import java.util.Set;
 public class ApiElastigroupStatusAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                 isSet;
-    private ElastigroupStatusEnumAzure  status;
-    private List<String>                suspendedProcesses;
-    private List<ApiVmsAzure>           vms;
+    private Set<String>                                 isSet;
+    private ElastigroupStatusEnumAzure                  status;
+    private List<ApiElastigroupSuspendedProcessAzure>   suspendedProcesses;
+    private List<ApiVmsAzure>                           vms;
 
     public ApiElastigroupStatusAzure() {
         isSet = new HashSet<>();
@@ -43,11 +43,11 @@ public class ApiElastigroupStatusAzure implements IPartialUpdateEntity {
         this.status = status;
     }
 
-    public List<String> getSuspendedProcesses() {
+    public List<ApiElastigroupSuspendedProcessAzure> getSuspendedProcesses() {
         return suspendedProcesses;
     }
 
-    public void setSuspendedProcesses(List<String> suspendedProcesses) {
+    public void setSuspendedProcesses(List<ApiElastigroupSuspendedProcessAzure> suspendedProcesses) {
         isSet.add("suspendedProcesses");
         this.suspendedProcesses = suspendedProcesses;
     }

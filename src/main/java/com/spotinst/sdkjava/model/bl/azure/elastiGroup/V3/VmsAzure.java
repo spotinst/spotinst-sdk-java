@@ -194,7 +194,6 @@ public class VmsAzure {
         }
     }
 
-
     @JsonIgnore
     public boolean isCreatedAtSet() {
         return isSet.contains("createdAt");

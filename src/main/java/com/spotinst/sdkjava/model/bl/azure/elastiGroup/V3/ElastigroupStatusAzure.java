@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.ElastigroupStatusEnumAzure;
-import sun.misc.VMSupport;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,10 +14,10 @@ import java.util.Set;
 public class ElastigroupStatusAzure {
 
     @JsonIgnore
-    private Set<String>                 isSet;
-    private ElastigroupStatusEnumAzure  status;
-    private List<String>                suspendedProcesses;
-    private List<VmsAzure>              vms;
+    private Set<String>                                 isSet;
+    private ElastigroupStatusEnumAzure                  status;
+    private List<ElastigroupSuspendedProcessAzure>      suspendedProcesses;
+    private List<VmsAzure>                              vms;
 
     private ElastigroupStatusAzure() {
         isSet = new HashSet<>();
@@ -41,11 +40,11 @@ public class ElastigroupStatusAzure {
         this.status = status;
     }
 
-    public List<String> getSuspendedProcesses() {
+    public List<ElastigroupSuspendedProcessAzure> getSuspendedProcesses() {
         return suspendedProcesses;
     }
 
-    public void setSuspendedProcesses(List<String> suspendedProcesses) {
+    public void setSuspendedProcesses(List<ElastigroupSuspendedProcessAzure> suspendedProcesses) {
         isSet.add("suspendedProcesses");
         this.suspendedProcesses = suspendedProcesses;
     }
@@ -76,7 +75,7 @@ public class ElastigroupStatusAzure {
             return this;
         }
 
-        public Builder setSuspendedProcesses(final List<String> suspendedProcesses) {
+        public Builder setSuspendedProcesses(final List<ElastigroupSuspendedProcessAzure> suspendedProcesses) {
             elastigroupStatusAzure.setSuspendedProcesses(suspendedProcesses);
             return this;
         }

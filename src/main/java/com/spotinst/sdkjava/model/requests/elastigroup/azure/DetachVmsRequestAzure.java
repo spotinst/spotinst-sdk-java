@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.requests.elastigroup;
+package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiDetachVmsAzure;

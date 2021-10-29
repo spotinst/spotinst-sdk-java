@@ -91,7 +91,6 @@ public class VmHealthinessAzure {
 
     }
 
-
     @JsonIgnore
     public boolean isHealthStatusSet() {
         return isSet.contains("healthStatus");

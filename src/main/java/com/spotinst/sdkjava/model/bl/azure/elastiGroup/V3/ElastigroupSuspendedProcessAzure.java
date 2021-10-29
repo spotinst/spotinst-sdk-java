@@ -5,19 +5,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.ProcessNameEnumsAzure;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class SuspendGroupProcessesAzure{
+public class ElastigroupSuspendedProcessAzure {
 
     @JsonIgnore
-    private Set<String>           isSet;
-    private ProcessNameEnumsAzure name;
-    private Integer               ttlInMinutes;
+    private Set<String>             isSet;
+    private ProcessNameEnumsAzure   name;
+    private Date                    expiresAt;
 
-    private SuspendGroupProcessesAzure() {
+    private ElastigroupSuspendedProcessAzure() {
         isSet = new HashSet<>();
     }
 
@@ -38,20 +39,20 @@ public class SuspendGroupProcessesAzure{
         this.name = name;
     }
 
-    public Integer getTtlInMinutes() {
-        return ttlInMinutes;
+    public Date getExpiresAt() {
+        return expiresAt;
     }
 
-    public void setTtlInMinutes(Integer ttlInMinutes) {
-        isSet.add("ttlInMinutes");
-        this.ttlInMinutes = ttlInMinutes;
+    public void setExpiresAt(Date expiresAt) {
+        isSet.add("expiresAt");
+        this.expiresAt = expiresAt;
     }
 
     public static class Builder {
-        private SuspendGroupProcessesAzure suspendGroupProcesses;
+        private ElastigroupSuspendedProcessAzure suspendProcesses;
 
         private Builder() {
-            this.suspendGroupProcesses = new SuspendGroupProcessesAzure();
+            this.suspendProcesses = new ElastigroupSuspendedProcessAzure();
         }
 
         public static Builder get() {
@@ -60,21 +61,19 @@ public class SuspendGroupProcessesAzure{
         }
 
         public Builder setName(final ProcessNameEnumsAzure name) {
-            suspendGroupProcesses.setName(name);
+            suspendProcesses.setName(name);
             return this;
         }
 
-        public Builder setTtlInMinutes(final Integer ttlInMinutes) {
-            suspendGroupProcesses.setTtlInMinutes(ttlInMinutes);
+        public Builder setExpiresAt(final Date expiresAt) {
+            suspendProcesses.setExpiresAt(expiresAt);
             return this;
         }
 
-        public SuspendGroupProcessesAzure build() {
-            return suspendGroupProcesses;
+        public ElastigroupSuspendedProcessAzure build() {
+            return suspendProcesses;
         }
-
     }
-
 
     @JsonIgnore
     public boolean isNameSet() {
@@ -82,8 +81,7 @@ public class SuspendGroupProcessesAzure{
     }
 
     @JsonIgnore
-    public boolean isTtlInMinutesSet() {
-        return isSet.contains("ttlInMinutes");
+    public boolean isExpiresAtSet() {
+        return isSet.contains("expiresAt");
     }
-
 }

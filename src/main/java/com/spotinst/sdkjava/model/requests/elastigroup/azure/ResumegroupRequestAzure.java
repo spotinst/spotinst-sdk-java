@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.requests.elastigroup;
+package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;

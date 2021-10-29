@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.NewVmsAzure;
+
 
 import java.util.HashSet;
 import java.util.List;

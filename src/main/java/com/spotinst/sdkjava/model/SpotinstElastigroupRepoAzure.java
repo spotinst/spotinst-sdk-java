@@ -5,7 +5,7 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
-import com.spotinst.sdkjava.model.requests.elastigroup.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -144,7 +144,7 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
         try {
             List<ApiElastigroupScalingVms> apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupDown(groupId, adjustment, authToken, account);
-            // Convert
+
             List<ElastigroupScalingVms> elastigroupScalingResponse =
                     apiElastigroupScalingResponse.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             scaleDown = new RepoGenericResponse<>(elastigroupScalingResponse);
@@ -233,7 +233,6 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
         try {
             List<ApiVmHealthinessAzure> apiVmHealthiness = SpotinstElastigroupServiceAzure.vmHealthiness(groupId, authToken, account);
             List<VmHealthinessAzure> vmHealthinessResponse =
-//                    ElastigroupConverterAzure.toBl(apiVmHealthiness);
             apiVmHealthiness.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             getVmHealthiness = new RepoGenericResponse<> (vmHealthinessResponse);
 
@@ -246,11 +245,11 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<Boolean> suspendGroup(SuspendgroupRequestAzure groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> suspendGroup(SuspendgroupRequestAzure requestAzure, String authToken, String account) {
         RepoGenericResponse<Boolean> suspendGroup;
 
         try {
-            Boolean apiSuspendgroup = SpotinstElastigroupServiceAzure.suspendGroup(groupId, authToken, account);
+            Boolean apiSuspendgroup = SpotinstElastigroupServiceAzure.suspendGroup(requestAzure, authToken, account);
             suspendGroup = new RepoGenericResponse<>(apiSuspendgroup);
 
         }
