@@ -5,7 +5,6 @@ import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 public class GetElastilogRequestAzure {
 
     private String                          groupId;
-//    private String                          accountId;
     private String                          fromDate;
     private Integer                         limit;
     private String                          resource_Id;
@@ -22,14 +21,6 @@ public class GetElastilogRequestAzure {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
-
-//    public String getAccountId() {
-//        return accountId;
-//    }
-//
-//    public void setAccountId(String accountId) {
-//        this.accountId = accountId;
-//    }
 
     public String getFromDate() {
         return fromDate;
@@ -88,11 +79,6 @@ public class GetElastilogRequestAzure {
             return this;
         }
 
-//        public Builder setAccountId(final String accountId) {
-//            elastilogRequest.setAccountId(accountId);
-//            return this;
-//        }
-
         public Builder setFromDate(final String fromDate) {
             elastilogRequest.setFromDate(fromDate);
             return this;
@@ -121,6 +107,5 @@ public class GetElastilogRequestAzure {
         public GetElastilogRequestAzure build() {
             return elastilogRequest;
         }
-
     }
 }

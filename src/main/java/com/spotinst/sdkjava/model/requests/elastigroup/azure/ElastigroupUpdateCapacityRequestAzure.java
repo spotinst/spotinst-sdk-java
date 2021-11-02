@@ -67,7 +67,6 @@ public class ElastigroupUpdateCapacityRequestAzure {
         Map<String, ApiElastigroupUpdateCapacityAzure> capacityRequest = new HashMap<>();
         capacityRequest.put("capacity", apiCapacity);
         String elastigroupJson = JsonMapper.toJson(capacityRequest);
-
         return elastigroupJson;
     }
 }

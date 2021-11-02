@@ -11,7 +11,6 @@ import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploy
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
 import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -19,8 +18,9 @@ public class ElastigroupUsageExampleAzure {
     private final static String auth_token          = "auth-token";
     private final static String act_id              = "act-id";
     private final static String SSA                 = "ssh user login";
-    private static final String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
-    private static final List<String> vmList        = Arrays.asList("vm-b92e1161bfe5");
+    private final static String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
+    private final static List<String> vmList        = Arrays.asList("vm-b92e1161bfe5");
+    private final static String vmName              = "vm-17793a03a276";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -30,7 +30,7 @@ public class ElastigroupUsageExampleAzure {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
+        System.out.println("Sleeping... waiting for provisioning 60 seconds.");
         sleep(60);
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
@@ -39,7 +39,7 @@ public class ElastigroupUsageExampleAzure {
         String groupName = group.getName();
         String preFormat     = "groupId: %s - groupName: %s";
         System.out.println(String.format(preFormat, elastigroupId, groupName));
-//
+
         // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 7 seconds.");
         sleep(7);
@@ -56,11 +56,8 @@ public class ElastigroupUsageExampleAzure {
         // Get Deployment Details
         GroupDeploymentDetailsAzure deploymentDetails =
                 getDeploymentDetails(elastigroupClient, elastigroupId, deploymentId);
-//         List Deployments
+         //List Deployments
         List<GroupDeploymentGetAzure> allDeployments = getAllDeployments(elastigroupClient, elastigroupId);
-
-
-
 
         // Get Elastigroup Status
         ElastigroupStatusAzure status = getGroupStatus(elastigroupClient, "sig-a6a44b9b");
@@ -69,7 +66,6 @@ public class ElastigroupUsageExampleAzure {
 
         // Scale Up
       scaleUpGroup(elastigroupClient, "sig-a6a44b9b", 3);
-
 
         // Scale Down
         scaleDownGroup(elastigroupClient, "sig-a6a44b9b", 4);
@@ -521,8 +517,9 @@ public class ElastigroupUsageExampleAzure {
     }
 
     public static void vmProtection(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
-
-        Boolean vmProtected = elastigroupClient.vmProtection(groupId, "vm-51e1b5e61973", 180);
+        ElastigroupStatusAzure groupStatus = elastigroupClient.getGroupStatus(groupId);
+        String vmName = groupStatus.getVms().get(0).getVmName();
+        Boolean vmProtected = elastigroupClient.vmProtection(groupId, vmName, 180);
         if (vmProtected) {
             System.out.println("Virtual Machine is Protected Successfully.");
         }
@@ -538,7 +535,7 @@ public class ElastigroupUsageExampleAzure {
 
     public static ElastigroupAzure importFromVm(SpotinstElastigroupClientAzure elastigroupClient) {
         ElastigroupAzure elastigroupImportResponse = elastigroupClient
-                .importGroupFromVirtalMachine("AutomationResourceGroup", "vm-17793a03a276");
+                .importGroupFromVirtalMachine("AutomationResourceGroup", vmName);
 
         return elastigroupImportResponse;
     }
