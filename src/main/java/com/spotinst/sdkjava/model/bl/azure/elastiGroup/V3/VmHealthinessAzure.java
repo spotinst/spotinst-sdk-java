@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.VmHealthStatusEnumAzure;
-import com.spotinst.sdkjava.enums.VmLifecycleEnumAzure;
+import com.spotinst.sdkjava.enums.VmLifeCycleEnumAzure;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class VmHealthinessAzure {
     @JsonIgnore
     private Set<String>             isSet;
     private VmHealthStatusEnumAzure healthStatus;
-    private VmLifecycleEnumAzure    lifeCycle;
+    private VmLifeCycleEnumAzure    lifeCycle;
     private String                  vmName;
 
     private VmHealthinessAzure() {
@@ -40,11 +40,11 @@ public class VmHealthinessAzure {
         this.healthStatus = healthStatus;
     }
 
-    public VmLifecycleEnumAzure getLifeCycle() {
+    public VmLifeCycleEnumAzure getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(VmLifecycleEnumAzure lifeCycle) {
+    public void setLifeCycle(VmLifeCycleEnumAzure lifeCycle) {
         isSet.add("lifeCycle");
         this.lifeCycle = lifeCycle;
     }
@@ -75,7 +75,7 @@ public class VmHealthinessAzure {
             return this;
         }
 
-        public Builder setLifeCycle(final VmLifecycleEnumAzure lifeCycle) {
+        public Builder setLifeCycle(final VmLifeCycleEnumAzure lifeCycle) {
             vmHealthiness.setLifeCycle(lifeCycle);
             return this;
         }

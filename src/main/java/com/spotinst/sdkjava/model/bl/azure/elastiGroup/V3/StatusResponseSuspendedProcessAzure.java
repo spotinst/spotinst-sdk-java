@@ -11,14 +11,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupSuspendedProcessAzure {
+public class StatusResponseSuspendedProcessAzure {
 
     @JsonIgnore
     private Set<String>             isSet;
     private ProcessNameEnumsAzure   name;
     private Date                    expiresAt;
 
-    private ElastigroupSuspendedProcessAzure() {
+    private StatusResponseSuspendedProcessAzure() {
         isSet = new HashSet<>();
     }
 
@@ -49,10 +49,10 @@ public class ElastigroupSuspendedProcessAzure {
     }
 
     public static class Builder {
-        private ElastigroupSuspendedProcessAzure suspendProcesses;
+        private StatusResponseSuspendedProcessAzure suspendProcesses;
 
         private Builder() {
-            this.suspendProcesses = new ElastigroupSuspendedProcessAzure();
+            this.suspendProcesses = new StatusResponseSuspendedProcessAzure();
         }
 
         public static Builder get() {
@@ -70,7 +70,7 @@ public class ElastigroupSuspendedProcessAzure {
             return this;
         }
 
-        public ElastigroupSuspendedProcessAzure build() {
+        public StatusResponseSuspendedProcessAzure build() {
             return suspendProcesses;
         }
     }

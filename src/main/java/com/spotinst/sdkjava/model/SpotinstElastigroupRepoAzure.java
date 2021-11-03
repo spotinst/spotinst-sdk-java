@@ -99,13 +99,13 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupStatusAzure> getStatus(String groupId, String authToken, String account) {
-        RepoGenericResponse<ElastigroupStatusAzure> status;
+    public RepoGenericResponse<GetElastigroupStatusResponseAzure> getStatus(String groupId, String authToken, String account) {
+        RepoGenericResponse<GetElastigroupStatusResponseAzure> status;
 
         try {
-            ApiElastigroupStatusAzure apiGetElastigroupeStatus =
+            ApiGetElastigroupStatusResponseAzure apiGetElastigroupeStatus =
                     SpotinstElastigroupServiceAzure.getGroupStatus(groupId, authToken, account);
-            ElastigroupStatusAzure getGroupStatus = ElastigroupConverterAzure.toBl(apiGetElastigroupeStatus);
+            GetElastigroupStatusResponseAzure getGroupStatus = ElastigroupConverterAzure.toBl(apiGetElastigroupeStatus);
             status = new RepoGenericResponse<>(getGroupStatus);
         }
 
@@ -117,15 +117,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp(String groupId, Integer adjustment,
-                                                                   String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp;
+    public RepoGenericResponse<List<ScalingResponseVms>> scaleUp(String groupId, Integer adjustment,
+                                                                 String authToken, String account) {
+        RepoGenericResponse<List<ScalingResponseVms>> scaleUp;
 
         try {
-            List<ApiElastigroupScalingVms> apiElastigroupScalingResponse =
+            List<ApiScalingResponseVms> apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupUp(groupId, adjustment, authToken, account);
 
-            List<ElastigroupScalingVms> elastigroupScalingResponse =
+            List<ScalingResponseVms> elastigroupScalingResponse =
             apiElastigroupScalingResponse.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             scaleUp = new RepoGenericResponse<>(elastigroupScalingResponse);
         }
@@ -137,15 +137,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown(String groupId, Integer adjustment,
-                                                                 String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown;
+    public RepoGenericResponse<List<ScalingResponseVms>> scaleDown(String groupId, Integer adjustment,
+                                                                   String authToken, String account) {
+        RepoGenericResponse<List<ScalingResponseVms>> scaleDown;
 
         try {
-            List<ApiElastigroupScalingVms> apiElastigroupScalingResponse =
+            List<ApiScalingResponseVms> apiElastigroupScalingResponse =
                     SpotinstElastigroupServiceAzure.scaleGroupDown(groupId, adjustment, authToken, account);
 
-            List<ElastigroupScalingVms> elastigroupScalingResponse =
+            List<ScalingResponseVms> elastigroupScalingResponse =
                     apiElastigroupScalingResponse.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
             scaleDown = new RepoGenericResponse<>(elastigroupScalingResponse);
         }
@@ -209,12 +209,12 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupUpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacity, String authToken, String account) {
-        RepoGenericResponse<ElastigroupUpdateCapacityAzure> isCapacityUpdated;
+    public RepoGenericResponse<UpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacity, String authToken, String account) {
+        RepoGenericResponse<UpdateCapacityAzure> isCapacityUpdated;
 
         try {
-            ApiElastigroupUpdateCapacityAzure apiUpdated = SpotinstElastigroupServiceAzure.updateCapacity(updateCapacity, authToken, account);
-            ElastigroupUpdateCapacityAzure updateCapacityResponse =
+            ApiUpdateCapacityAzure apiUpdated = SpotinstElastigroupServiceAzure.updateCapacity(updateCapacity, authToken, account);
+            UpdateCapacityAzure updateCapacityResponse =
                     ElastigroupConverterAzure.toBl(apiUpdated);
             isCapacityUpdated = new RepoGenericResponse<>(updateCapacityResponse);
 
@@ -311,12 +311,12 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupDetachedVmsAzure> detachVms(DetachVmsRequestAzure groupId, String authToken, String account) {
-        RepoGenericResponse<ElastigroupDetachedVmsAzure> detachVms;
+    public RepoGenericResponse<DetachVmsResponseAzure> detachVms(DetachVmsRequestAzure groupId, String authToken, String account) {
+        RepoGenericResponse<DetachVmsResponseAzure> detachVms;
 
         try {
             ApiElastigroupDetachedVmsAzure apiDetachedVms = SpotinstElastigroupServiceAzure.detachVms(groupId, authToken, account);
-            ElastigroupDetachedVmsAzure detachedVms =
+            DetachVmsResponseAzure detachedVms =
                     ElastigroupConverterAzure.toBl(apiDetachedVms);
             detachVms = new RepoGenericResponse<>(detachedVms);
 
@@ -329,15 +329,15 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<GetElastilogAzure> getElastilog(String elastigroupId, String authToken, String account,
-                                                     String fromDate, Integer limit, String resoucre_Id,
-                                                     ElastigroupSeverityEnumAzure severity, String toDate) {
-        RepoGenericResponse<GetElastilogAzure> retVal;
+    public RepoGenericResponse<GetElastilogResponseAzure> getElastilog(String elastigroupId, String authToken, String account,
+                                                                       String fromDate, Integer limit, String resoucre_Id,
+                                                                       ElastigroupSeverityEnumAzure severity, String toDate) {
+        RepoGenericResponse<GetElastilogResponseAzure> retVal;
 
         try {
-            ApiGetElastilogAzure apiElastilog = SpotinstElastigroupServiceAzure.getElastilog(elastigroupId, authToken,
+            ApiGetElastilogResponseAzure apiElastilog = SpotinstElastigroupServiceAzure.getElastilog(elastigroupId, authToken,
                     account, fromDate, limit, resoucre_Id, severity, toDate);
-            GetElastilogAzure    elastilogAzure    = ElastigroupConverterAzure.toBl(apiElastilog);
+            GetElastilogResponseAzure elastilogAzure    = ElastigroupConverterAzure.toBl(apiElastilog);
             retVal = new RepoGenericResponse<>(elastilogAzure);
         }
         catch (SpotinstHttpException e) {

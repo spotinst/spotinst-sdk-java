@@ -1,18 +1,15 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiDetachedVmsAzure implements IPartialUpdateEntity {
+public class DetachVmsResponseDetachedVmsAzure {
 
     @JsonIgnore
     private Set<String>     isSet;
@@ -24,7 +21,7 @@ public class ApiDetachedVmsAzure implements IPartialUpdateEntity {
     private String          vmName;
     private String          vmSize;
 
-    public ApiDetachedVmsAzure() {
+    private DetachVmsResponseDetachedVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -99,6 +96,58 @@ public class ApiDetachedVmsAzure implements IPartialUpdateEntity {
         this.vmSize = vmSize;
     }
 
+    public static class Builder {
+        private DetachVmsResponseDetachedVmsAzure detachedVms;
+
+        private Builder() {
+            this.detachedVms = new DetachVmsResponseDetachedVmsAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setLifeCycle(final String lifeCycle) {
+            detachedVms.setLifeCycle(lifeCycle);
+            return this;
+        }
+
+        public Builder setOs(final String os) {
+            detachedVms.setOs(os);
+            return this;
+        }
+
+        public Builder setPrivateIp(final String privateIp) {
+            detachedVms.setPrivateIp(privateIp);
+            return this;
+        }
+
+        public Builder setPublicIp(final String publicIp) {
+            detachedVms.setPublicIp(publicIp);
+            return this;
+        }
+
+        public Builder setRegion(final String region) {
+            detachedVms.setRegion(region);
+            return this;
+        }
+
+        public Builder setVmName(final String vmName) {
+            detachedVms.setVmName(vmName);
+            return this;
+        }
+
+        public Builder setVmSize(final String vmSize) {
+            detachedVms.setVmSize(vmSize);
+            return this;
+        }
+
+        public DetachVmsResponseDetachedVmsAzure build() {
+            return detachedVms;
+        }
+
+    }
 
     @JsonIgnore
     public boolean isLifeCycleSet() {

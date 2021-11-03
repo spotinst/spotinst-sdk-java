@@ -1,15 +1,18 @@
-package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NewVmsAzure {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiDetachVmsResponseNewVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -24,7 +27,7 @@ public class NewVmsAzure {
     private String      vmName;
     private String      vmSize;
 
-    private NewVmsAzure() {
+    public ApiDetachVmsResponseNewVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -124,73 +127,6 @@ public class NewVmsAzure {
     public void setVmSize(String vmSize) {
         isSet.add("vmSize");
         this.vmSize = vmSize;
-    }
-
-    public static class Builder {
-        private NewVmsAzure newVmsAzure;
-
-        private Builder() {
-            this.newVmsAzure = new NewVmsAzure();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setCreatedAt(final String createdAt) {
-            newVmsAzure.setCreatedAt(createdAt);
-            return this;
-        }
-
-        public Builder setLifeCycle(final String lifeCycle) {
-            newVmsAzure.setLifeCycle(lifeCycle);
-            return this;
-        }
-
-        public Builder setOs(final String os) {
-            newVmsAzure.setOs(os);
-            return this;
-        }
-
-        public Builder setPowerState(final String powerState) {
-            newVmsAzure.setPowerState(powerState);
-            return this;
-        }
-
-        public Builder setPrivateIp(final Integer privateIp) {
-            newVmsAzure.setPrivateIp(privateIp);
-            return this;
-        }
-
-        public Builder setProvisioningState(final String provisioningState) {
-            newVmsAzure.setProvisioningState(provisioningState);
-            return this;
-        }
-
-        public Builder setPublicIp(final Integer publicIp) {
-            newVmsAzure.setPublicIp(publicIp);
-            return this;
-        }
-
-        public Builder setRegion(final String region) {
-            newVmsAzure.setRegion(region);
-            return this;
-        }
-
-        public Builder setVmName(final String vmName) {
-            newVmsAzure.setVmName(vmName);
-            return this;
-        }
-
-        public Builder setVmSize(final String vmSize) {
-            newVmsAzure.setVmSize(vmSize);
-            return this;
-        }
-
-        public NewVmsAzure build() {
-            return newVmsAzure;
-        }
     }
 
 

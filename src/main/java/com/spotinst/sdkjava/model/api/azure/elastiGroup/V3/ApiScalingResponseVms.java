@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupScalingVms implements IPartialUpdateEntity {
+public class ApiScalingResponseVms implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -20,7 +20,7 @@ public class ApiElastigroupScalingVms implements IPartialUpdateEntity {
     private String      vmName;
     private String      vmSize;
 
-    public ApiElastigroupScalingVms() {
+    public ApiScalingResponseVms() {
         isSet = new HashSet<>();
     }
 

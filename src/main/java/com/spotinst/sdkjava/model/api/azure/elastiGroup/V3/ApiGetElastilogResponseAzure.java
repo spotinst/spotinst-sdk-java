@@ -1,16 +1,18 @@
-package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
 
-
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GetElastilogAzure {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiGetElastilogResponseAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>     isSet;
@@ -18,7 +20,7 @@ public class GetElastilogAzure {
     private String          message;
     private String          severity;
 
-    private GetElastilogAzure() {
+    public ApiGetElastilogResponseAzure() {
         isSet = new HashSet<>();
     }
 
@@ -55,39 +57,6 @@ public class GetElastilogAzure {
     public void setSeverity(String severity) {
         isSet.add("severity");
         this.severity = severity;
-    }
-
-    public static class Builder {
-        private GetElastilogAzure detachedVms;
-
-        private Builder() {
-            this.detachedVms = new GetElastilogAzure();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setCreatedAt(final String createdAt) {
-            detachedVms.setCreatedAt(createdAt);
-            return this;
-        }
-
-        public Builder setMessage(final String message) {
-            detachedVms.setMessage(message);
-            return this;
-        }
-
-        public Builder setSeverity(final String severity) {
-            detachedVms.setSeverity(severity);
-            return this;
-        }
-
-        public GetElastilogAzure build() {
-            return detachedVms;
-        }
-
     }
 
 

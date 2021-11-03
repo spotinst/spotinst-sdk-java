@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiSuspendgroupProcessesAzure;
-import com.spotinst.sdkjava.model.converters.ElastigroupConverterSuspendAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.SuspendGroupProcessesAzure;
 
 import java.util.HashMap;
@@ -64,7 +64,7 @@ public class SuspendgroupRequestAzure {
     }
 
     public String toJson() {
-        List<ApiSuspendgroupProcessesAzure> apiSuspendGroup = ElastigroupConverterSuspendAzure.toDal(suspendGroup);
+        List<ApiSuspendgroupProcessesAzure> apiSuspendGroup = ElastigroupConverterAzure.toDalForSuspendProcess(suspendGroup);
         Map<String, List<ApiSuspendgroupProcessesAzure>> suspendRequest = new HashMap<>();
         suspendRequest.put("processes", apiSuspendGroup);
         String suspendGroupJson = JsonMapper.toJson(suspendRequest);

@@ -10,17 +10,17 @@ import java.util.List;
 
 public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<ElastigroupAzure, GroupFilter, String> {
 
-    default RepoGenericResponse<ElastigroupStatusAzure> getStatus(String groupId, String authToken, String account) {
+    default RepoGenericResponse<GetElastigroupStatusResponseAzure> getStatus(String groupId, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<List<ElastigroupScalingVms>> scaleUp(String groupId, Integer adjustment, String authToken,
-                                                                String account){
+    default RepoGenericResponse<List<ScalingResponseVms>> scaleUp(String groupId, Integer adjustment, String authToken,
+                                                                  String account){
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<List<ElastigroupScalingVms>> scaleDown(String groupId, Integer adjustment, String authToken,
-                                                                String account){
+    default RepoGenericResponse<List<ScalingResponseVms>> scaleDown(String groupId, Integer adjustment, String authToken,
+                                                                    String account){
         throw new SpotinstNotSupportedException();
     }
 
@@ -39,8 +39,8 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<ElastigroupUpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure capacityRequest,
-                                                                               String authToken, String account) {
+    default RepoGenericResponse<UpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure capacityRequest,
+                                                                    String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 
@@ -68,13 +68,13 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<ElastigroupDetachedVmsAzure> detachVms(DetachVmsRequestAzure detachVmsRequest,
-                                                                       String authToken, String account) {
+    default RepoGenericResponse<DetachVmsResponseAzure> detachVms(DetachVmsRequestAzure detachVmsRequest,
+                                                                  String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<GetElastilogAzure> getElastilog(String groupId, String authToken, String account,
-                String fromDate, Integer limit, String resoucre_Id, ElastigroupSeverityEnumAzure severity, String toDate) {
+    default RepoGenericResponse<GetElastilogResponseAzure> getElastilog(String groupId, String authToken, String account,
+                                                                        String fromDate, Integer limit, String resoucre_Id, ElastigroupSeverityEnumAzure severity, String toDate) {
         throw new SpotinstNotSupportedException();
     }
 }

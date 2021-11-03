@@ -12,22 +12,19 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiNewVmsAzure implements IPartialUpdateEntity {
+public class ApiDetachVmsResponseDetachedVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private String      createdAt;
-    private String      lifeCycle;
-    private String      os;
-    private String      powerState;
-    private Integer     privateIp;
-    private String      provisioningState;
-    private Integer     publicIp;
-    private String      region;
-    private String      vmName;
-    private String      vmSize;
+    private Set<String>     isSet;
+    private String          lifeCycle;
+    private String          os;
+    private String          privateIp;
+    private String          publicIp;
+    private String          region;
+    private String          vmName;
+    private String          vmSize;
 
-    public ApiNewVmsAzure() {
+    public ApiDetachVmsResponseDetachedVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -37,15 +34,6 @@ public class ApiNewVmsAzure implements IPartialUpdateEntity {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
-    }
-
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
     }
 
     public String getLifeCycle() {
@@ -66,38 +54,20 @@ public class ApiNewVmsAzure implements IPartialUpdateEntity {
         this.os = os;
     }
 
-    public String getPowerState() {
-        return powerState;
-    }
-
-    public void setPowerState(String powerState) {
-        isSet.add("powerState");
-        this.powerState = powerState;
-    }
-
-    public Integer getPrivateIp() {
+    public String getPrivateIp() {
         return privateIp;
     }
 
-    public void setPrivateIp(Integer privateIp) {
+    public void setPrivateIp(String privateIp) {
         isSet.add("privateIp");
         this.privateIp = privateIp;
     }
 
-    public String getProvisioningState() {
-        return provisioningState;
-    }
-
-    public void setProvisioningState(String provisioningState) {
-        isSet.add("provisioningState");
-        this.provisioningState = provisioningState;
-    }
-
-    public Integer getPublicIp() {
+    public String getPublicIp() {
         return publicIp;
     }
 
-    public void setPublicIp(Integer publicIp) {
+    public void setPublicIp(String publicIp) {
         isSet.add("publicIp");
         this.publicIp = publicIp;
     }
@@ -131,11 +101,6 @@ public class ApiNewVmsAzure implements IPartialUpdateEntity {
 
 
     @JsonIgnore
-    public boolean isCreatedAtSet() {
-        return isSet.contains("createdAt");
-    }
-
-    @JsonIgnore
     public boolean isLifeCycleSet() {
         return isSet.contains("lifeCycle");
     }
@@ -146,18 +111,8 @@ public class ApiNewVmsAzure implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isPowerStateSet() {
-        return isSet.contains("powerState");
-    }
-
-    @JsonIgnore
     public boolean isPrivateIpSet() {
         return isSet.contains("privateIp");
-    }
-
-    @JsonIgnore
-    public boolean isProvisioningStateSet() {
-        return isSet.contains("provisioningState");
     }
 
     @JsonIgnore

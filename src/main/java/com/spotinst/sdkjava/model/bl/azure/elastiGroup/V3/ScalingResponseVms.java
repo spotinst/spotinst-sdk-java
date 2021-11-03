@@ -3,20 +3,20 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.ElastigroupVmSignalEnumAzure;
-
 import java.util.HashSet;
 import java.util.Set;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupVmSignalAzure {
+public class ScalingResponseVms {
 
     @JsonIgnore
-    private Set<String>                  isSet;
-    private ElastigroupVmSignalEnumAzure signalType;
-    private String                       vmName;
+    private Set<String> isSet;
+    private String      lifeCycle;
+    private String      vmName;
+    private String      vmSize;
 
-    private ElastigroupVmSignalAzure() {
+    private ScalingResponseVms() {
         isSet = new HashSet<>();
     }
 
@@ -28,13 +28,14 @@ public class ElastigroupVmSignalAzure {
         this.isSet = isSet;
     }
 
-    public ElastigroupVmSignalEnumAzure getSignalType() {
-        return signalType;
+
+    public String getLifeCycle() {
+        return lifeCycle;
     }
 
-    public void setSignalType(ElastigroupVmSignalEnumAzure signalType) {
-        isSet.add("signalType");
-        this.signalType = signalType;
+    public void setLifeCycle(String lifeCycle) {
+        isSet.add("lifeCycle");
+        this.lifeCycle = lifeCycle;
     }
 
     public String getVmName() {
@@ -46,11 +47,20 @@ public class ElastigroupVmSignalAzure {
         this.vmName = vmName;
     }
 
+    public String getVmSize() {
+        return vmSize;
+    }
+
+    public void setVmSize(String vmSize) {
+        isSet.add("vmSize");
+        this.vmSize = vmSize;
+    }
+
     public static class Builder {
-        private ElastigroupVmSignalAzure elastigroupVmSignal;
+        private ScalingResponseVms vmsAzure;
 
         private Builder() {
-            this.elastigroupVmSignal = new ElastigroupVmSignalAzure();
+            this.vmsAzure = new ScalingResponseVms();
         }
 
         public static Builder get() {
@@ -58,30 +68,39 @@ public class ElastigroupVmSignalAzure {
             return builder;
         }
 
-        public Builder setSignalType(final ElastigroupVmSignalEnumAzure signalType) {
-            elastigroupVmSignal.setSignalType(signalType);
+        public Builder setLifeCycle(final String lifeCycle) {
+            vmsAzure.setLifeCycle(lifeCycle);
             return this;
         }
 
         public Builder setVmName(final String vmName) {
-            elastigroupVmSignal.setVmName(vmName);
+            vmsAzure.setVmName(vmName);
             return this;
         }
 
-        public ElastigroupVmSignalAzure build() {
-            return elastigroupVmSignal;
+        public Builder setVmSize(final String vmSize) {
+            vmsAzure.setVmSize(vmSize);
+            return this;
         }
 
+        public ScalingResponseVms build() {
+            return vmsAzure;
+        }
     }
 
     @JsonIgnore
-    public boolean isSignalTypeSet() {
-        return isSet.contains("signalType");
+    public boolean isLifeCycleSet() {
+        return isSet.contains("lifeCycle");
     }
 
     @JsonIgnore
     public boolean isVmNameSet() {
         return isSet.contains("vmName");
+    }
+
+    @JsonIgnore
+    public boolean isVmSizeSet() {
+        return isSet.contains("vmSize");
     }
 
 }

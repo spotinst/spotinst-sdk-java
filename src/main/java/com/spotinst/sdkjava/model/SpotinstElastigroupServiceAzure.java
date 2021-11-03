@@ -360,10 +360,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiElastigroupStatusAzure getGroupStatus(String groupId, String authToken,
-                                                                 String account) throws SpotinstHttpException {
+    public static ApiGetElastigroupStatusResponseAzure getGroupStatus(String groupId, String authToken,
+                                                                      String account) throws SpotinstHttpException {
         // Init retVal
-        ApiElastigroupStatusAzure statusAzure = new ApiElastigroupStatusAzure();
+        ApiGetElastigroupStatusResponseAzure statusAzure = new ApiGetElastigroupStatusResponseAzure();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -395,10 +395,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return statusAzure;
     }
 
-    public static List<ApiElastigroupScalingVms> scaleGroupUp(String groupId, Integer adjustment, String authToken,
-                                                             String account) throws SpotinstHttpException {
+    public static List<ApiScalingResponseVms> scaleGroupUp(String groupId, Integer adjustment, String authToken,
+                                                           String account) throws SpotinstHttpException {
 
-        List<ApiElastigroupScalingVms> scaleUp = new LinkedList<>();
+        List<ApiScalingResponseVms> scaleUp = new LinkedList<>();
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
@@ -426,10 +426,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return scaleUp;
     }
 
-    public static List<ApiElastigroupScalingVms> scaleGroupDown(String groupId, Integer adjustment,
-                                                           String authToken, String account) throws SpotinstHttpException {
+    public static List<ApiScalingResponseVms> scaleGroupDown(String groupId, Integer adjustment,
+                                                             String authToken, String account) throws SpotinstHttpException {
 
-        List<ApiElastigroupScalingVms> scaleDown = new LinkedList<>();
+        List<ApiScalingResponseVms> scaleDown = new LinkedList<>();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -542,10 +542,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return isCreated;
     }
 
-    public static ApiElastigroupUpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacityRequest,
-                                                                   String authToken, String account) throws SpotinstHttpException {
+    public static ApiUpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacityRequest,
+                                                        String authToken, String account) throws SpotinstHttpException {
 
-        ApiElastigroupUpdateCapacityAzure groupCapacity = new ApiElastigroupUpdateCapacityAzure();
+        ApiUpdateCapacityAzure groupCapacity = new ApiUpdateCapacityAzure();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
@@ -735,10 +735,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return detachedVmsAzure;
     }
 
-    public static ApiGetElastilogAzure getElastilog(String groupId, String authToken, String account,
-                                                    String fromDate, Integer limit, String resoucre_Id,
-                                                    ElastigroupSeverityEnumAzure severity, String toDate) throws SpotinstHttpException {
-        ApiGetElastilogAzure elastilogAzure = new ApiGetElastilogAzure();
+    public static ApiGetElastilogResponseAzure getElastilog(String groupId, String authToken, String account,
+                                                            String fromDate, Integer limit, String resoucre_Id,
+                                                            ElastigroupSeverityEnumAzure severity, String toDate) throws SpotinstHttpException {
+        ApiGetElastilogResponseAzure elastilogAzure = new ApiGetElastilogResponseAzure();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();

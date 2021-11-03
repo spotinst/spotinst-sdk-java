@@ -14,10 +14,10 @@ import java.util.Set;
 public class ApiElastigroupDetachedVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private List<ApiDetachedVmsAzure> detachedVms;
+    private Set<String>                                 isSet;
+    private List<ApiDetachVmsResponseDetachedVmsAzure>  detachedVms;
     @JsonProperty("newVms")
-    private List<ApiNewVmsAzure>      newVmsAzure;
+    private List<ApiDetachVmsResponseNewVmsAzure>                        newVmsAzure;
 
     public ApiElastigroupDetachedVmsAzure() {
         isSet = new HashSet<>();
@@ -31,20 +31,20 @@ public class ApiElastigroupDetachedVmsAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiDetachedVmsAzure> getDetachedVms() {
+    public List<ApiDetachVmsResponseDetachedVmsAzure> getDetachedVms() {
         return detachedVms;
     }
 
-    public void setDetachedVms(List<ApiDetachedVmsAzure> detachedVms) {
+    public void setDetachedVms(List<ApiDetachVmsResponseDetachedVmsAzure> detachedVms) {
         isSet.add("detachedVms");
         this.detachedVms = detachedVms;
     }
 
-    public List<ApiNewVmsAzure> getNewVmsAzure() {
+    public List<ApiDetachVmsResponseNewVmsAzure> getNewVmsAzure() {
         return newVmsAzure;
     }
 
-    public void setNewVmsAzure(List<ApiNewVmsAzure> newVmsAzure) {
+    public void setNewVmsAzure(List<ApiDetachVmsResponseNewVmsAzure> newVmsAzure) {
         isSet.add("newVmsAzure");
         this.newVmsAzure = newVmsAzure;
     }

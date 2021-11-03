@@ -13,14 +13,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupSuspendedProcessAzure implements IPartialUpdateEntity {
+public class ApiScalingResponseSuspendedProcessAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private ProcessNameEnumsAzure name;
-    private Date expiresAt;
+    private Set<String>             isSet;
+    private ProcessNameEnumsAzure   name;
+    private Date                    expiresAt;
 
-    public ApiElastigroupSuspendedProcessAzure() {
+    public ApiScalingResponseSuspendedProcessAzure() {
         isSet = new HashSet<>();
     }
 

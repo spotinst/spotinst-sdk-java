@@ -1,18 +1,16 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiGetElastilogAzure implements IPartialUpdateEntity {
+public class GetElastilogResponseAzure {
 
     @JsonIgnore
     private Set<String>     isSet;
@@ -20,7 +18,7 @@ public class ApiGetElastilogAzure implements IPartialUpdateEntity {
     private String          message;
     private String          severity;
 
-    public ApiGetElastilogAzure() {
+    private GetElastilogResponseAzure() {
         isSet = new HashSet<>();
     }
 
@@ -57,6 +55,39 @@ public class ApiGetElastilogAzure implements IPartialUpdateEntity {
     public void setSeverity(String severity) {
         isSet.add("severity");
         this.severity = severity;
+    }
+
+    public static class Builder {
+        private GetElastilogResponseAzure detachedVms;
+
+        private Builder() {
+            this.detachedVms = new GetElastilogResponseAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setCreatedAt(final String createdAt) {
+            detachedVms.setCreatedAt(createdAt);
+            return this;
+        }
+
+        public Builder setMessage(final String message) {
+            detachedVms.setMessage(message);
+            return this;
+        }
+
+        public Builder setSeverity(final String severity) {
+            detachedVms.setSeverity(severity);
+            return this;
+        }
+
+        public GetElastilogResponseAzure build() {
+            return detachedVms;
+        }
+
     }
 
 

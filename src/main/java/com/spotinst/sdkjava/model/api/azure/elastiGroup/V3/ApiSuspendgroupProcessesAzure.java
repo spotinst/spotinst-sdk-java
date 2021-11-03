@@ -16,9 +16,9 @@ import java.util.Set;
 public class ApiSuspendgroupProcessesAzure implements IPartialUpdateEntity {
 
         @JsonIgnore
-        private Set<String> isSet;
-        private ProcessNameEnumsAzure name;
-        private Integer               ttlInMinutes;
+        private Set<String>             isSet;
+        private ProcessNameEnumsAzure   name;
+        private Integer                 ttlInMinutes;
 
         public ApiSuspendgroupProcessesAzure() {
             isSet = new HashSet<>();

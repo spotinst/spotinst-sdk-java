@@ -1,27 +1,33 @@
-package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DetachedVmsAzure {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiGroupStatusResponseVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>     isSet;
-    private String          lifeCycle;
-    private String          os;
-    private String          privateIp;
-    private String          publicIp;
-    private String          region;
-    private String          vmName;
-    private String          vmSize;
+    private Set<String> isSet;
+    private String      createdAt;
+    private String      lifeCycle;
+    private String      os;
+    private String      powerState;
+    private String      privateIp;
+    private String      provisioningState;
+    private String      publicIp;
+    private String      region;
+    private String      vmName;
+    private String      vmSize;
 
-    private DetachedVmsAzure() {
+    public ApiGroupStatusResponseVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -31,6 +37,15 @@ public class DetachedVmsAzure {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        isSet.add("createdAt");
+        this.createdAt = createdAt;
     }
 
     public String getLifeCycle() {
@@ -51,6 +66,15 @@ public class DetachedVmsAzure {
         this.os = os;
     }
 
+    public String getPowerState() {
+        return powerState;
+    }
+
+    public void setPowerState(String powerState) {
+        isSet.add("powerState");
+        this.powerState = powerState;
+    }
+
     public String getPrivateIp() {
         return privateIp;
     }
@@ -58,6 +82,15 @@ public class DetachedVmsAzure {
     public void setPrivateIp(String privateIp) {
         isSet.add("privateIp");
         this.privateIp = privateIp;
+    }
+
+    public String getProvisioningState() {
+        return provisioningState;
+    }
+
+    public void setProvisioningState(String provisioningState) {
+        isSet.add("provisioningState");
+        this.provisioningState = provisioningState;
     }
 
     public String getPublicIp() {
@@ -96,57 +129,10 @@ public class DetachedVmsAzure {
         this.vmSize = vmSize;
     }
 
-    public static class Builder {
-        private DetachedVmsAzure detachedVms;
 
-        private Builder() {
-            this.detachedVms = new DetachedVmsAzure();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setLifeCycle(final String lifeCycle) {
-            detachedVms.setLifeCycle(lifeCycle);
-            return this;
-        }
-
-        public Builder setOs(final String os) {
-            detachedVms.setOs(os);
-            return this;
-        }
-
-        public Builder setPrivateIp(final String privateIp) {
-            detachedVms.setPrivateIp(privateIp);
-            return this;
-        }
-
-        public Builder setPublicIp(final String publicIp) {
-            detachedVms.setPublicIp(publicIp);
-            return this;
-        }
-
-        public Builder setRegion(final String region) {
-            detachedVms.setRegion(region);
-            return this;
-        }
-
-        public Builder setVmName(final String vmName) {
-            detachedVms.setVmName(vmName);
-            return this;
-        }
-
-        public Builder setVmSize(final String vmSize) {
-            detachedVms.setVmSize(vmSize);
-            return this;
-        }
-
-        public DetachedVmsAzure build() {
-            return detachedVms;
-        }
-
+    @JsonIgnore
+    public boolean isCreatedAtSet() {
+        return isSet.contains("createdAt");
     }
 
     @JsonIgnore
@@ -160,8 +146,18 @@ public class DetachedVmsAzure {
     }
 
     @JsonIgnore
+    public boolean isPowerStateSet() {
+        return isSet.contains("powerState");
+    }
+
+    @JsonIgnore
     public boolean isPrivateIpSet() {
         return isSet.contains("privateIp");
+    }
+
+    @JsonIgnore
+    public boolean isProvisioningStateSet() {
+        return isSet.contains("provisioningState");
     }
 
     @JsonIgnore

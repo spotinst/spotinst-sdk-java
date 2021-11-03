@@ -1,22 +1,22 @@
 package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupVmSignalAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiVmSignalAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupVmSignalAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.VmSignalAzure;
 
 public class ElastigroupCreateVmSignalRequestAzure {
 
-    private ElastigroupVmSignalAzure vmSignalAzure;
+    private VmSignalAzure vmSignalAzure;
 
     private ElastigroupCreateVmSignalRequestAzure() {
     }
 
-    public ElastigroupVmSignalAzure getVmSignalAzure() {
+    public VmSignalAzure getVmSignalAzure() {
         return vmSignalAzure;
     }
 
-    public void setVmSignalAzure(ElastigroupVmSignalAzure vmSignalAzure) {
+    public void setVmSignalAzure(VmSignalAzure vmSignalAzure) {
         this.vmSignalAzure = vmSignalAzure;
     }
 
@@ -32,7 +32,7 @@ public class ElastigroupCreateVmSignalRequestAzure {
             return builder;
         }
 
-        public ElastigroupCreateVmSignalRequestAzure.Builder setVmSignalAzure(final ElastigroupVmSignalAzure vmSignalAzure) {
+        public ElastigroupCreateVmSignalRequestAzure.Builder setVmSignalAzure(final VmSignalAzure vmSignalAzure) {
             elastigroupVmSignal.setVmSignalAzure(vmSignalAzure);
             return this;
         }
@@ -44,7 +44,7 @@ public class ElastigroupCreateVmSignalRequestAzure {
     }
 
     public String toJson() {
-        ApiElastigroupVmSignalAzure apiVmSignal = ElastigroupConverterAzure.toDal(vmSignalAzure);
+        ApiVmSignalAzure apiVmSignal = ElastigroupConverterAzure.toDal(vmSignalAzure);
         String elastigroupJson = JsonMapper.toJson(apiVmSignal);
 
         return elastigroupJson;

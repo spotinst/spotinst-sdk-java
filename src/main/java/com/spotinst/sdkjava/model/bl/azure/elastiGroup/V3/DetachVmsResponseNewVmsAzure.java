@@ -3,29 +3,28 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiVmsAzure;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class VmsAzure {
+public class DetachVmsResponseNewVmsAzure {
+
     @JsonIgnore
     private Set<String> isSet;
     private String      createdAt;
     private String      lifeCycle;
     private String      os;
     private String      powerState;
-    private String      privateIp;
+    private Integer     privateIp;
     private String      provisioningState;
-    private String      publicIp;
+    private Integer     publicIp;
     private String      region;
     private String      vmName;
     private String      vmSize;
 
-    private VmsAzure() {
+    private DetachVmsResponseNewVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -73,11 +72,11 @@ public class VmsAzure {
         this.powerState = powerState;
     }
 
-    public String getPrivateIp() {
+    public Integer getPrivateIp() {
         return privateIp;
     }
 
-    public void setPrivateIp(String privateIp) {
+    public void setPrivateIp(Integer privateIp) {
         isSet.add("privateIp");
         this.privateIp = privateIp;
     }
@@ -91,11 +90,11 @@ public class VmsAzure {
         this.provisioningState = provisioningState;
     }
 
-    public String getPublicIp() {
+    public Integer getPublicIp() {
         return publicIp;
     }
 
-    public void setPublicIp(String publicIp) {
+    public void setPublicIp(Integer publicIp) {
         isSet.add("publicIp");
         this.publicIp = publicIp;
     }
@@ -128,10 +127,10 @@ public class VmsAzure {
     }
 
     public static class Builder {
-        private VmsAzure vmsAzure;
+        private DetachVmsResponseNewVmsAzure newVmsAzure;
 
         private Builder() {
-            this.vmsAzure = new VmsAzure();
+            this.newVmsAzure = new DetachVmsResponseNewVmsAzure();
         }
 
         public static Builder get() {
@@ -140,59 +139,60 @@ public class VmsAzure {
         }
 
         public Builder setCreatedAt(final String createdAt) {
-            vmsAzure.setCreatedAt(createdAt);
+            newVmsAzure.setCreatedAt(createdAt);
             return this;
         }
 
         public Builder setLifeCycle(final String lifeCycle) {
-            vmsAzure.setLifeCycle(lifeCycle);
+            newVmsAzure.setLifeCycle(lifeCycle);
             return this;
         }
 
         public Builder setOs(final String os) {
-            vmsAzure.setOs(os);
+            newVmsAzure.setOs(os);
             return this;
         }
 
         public Builder setPowerState(final String powerState) {
-            vmsAzure.setPowerState(powerState);
+            newVmsAzure.setPowerState(powerState);
             return this;
         }
 
-        public Builder setPrivateIp(final String privateIp) {
-            vmsAzure.setPrivateIp(privateIp);
+        public Builder setPrivateIp(final Integer privateIp) {
+            newVmsAzure.setPrivateIp(privateIp);
             return this;
         }
 
         public Builder setProvisioningState(final String provisioningState) {
-            vmsAzure.setProvisioningState(provisioningState);
+            newVmsAzure.setProvisioningState(provisioningState);
             return this;
         }
 
-        public Builder setPublicIp(final String publicIp) {
-            vmsAzure.setPublicIp(publicIp);
+        public Builder setPublicIp(final Integer publicIp) {
+            newVmsAzure.setPublicIp(publicIp);
             return this;
         }
 
         public Builder setRegion(final String region) {
-            vmsAzure.setRegion(region);
+            newVmsAzure.setRegion(region);
             return this;
         }
 
         public Builder setVmName(final String vmName) {
-            vmsAzure.setVmName(vmName);
+            newVmsAzure.setVmName(vmName);
             return this;
         }
 
         public Builder setVmSize(final String vmSize) {
-            vmsAzure.setVmSize(vmSize);
+            newVmsAzure.setVmSize(vmSize);
             return this;
         }
 
-        public VmsAzure build() {
-            return vmsAzure;
+        public DetachVmsResponseNewVmsAzure build() {
+            return newVmsAzure;
         }
     }
+
 
     @JsonIgnore
     public boolean isCreatedAtSet() {
@@ -243,5 +243,4 @@ public class VmsAzure {
     public boolean isVmSizeSet() {
         return isSet.contains("vmSize");
     }
-
 }

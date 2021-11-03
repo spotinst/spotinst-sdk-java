@@ -3,22 +3,22 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum VmLifecycleEnumAzure {
+public enum VmLifeCycleEnumAzure {
 
     SPOT("SPOT"),
     OD("ON_DEMAND");
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(VmLifecycleEnumAzure.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(VmLifeCycleEnumAzure.class);
     private String name;
 
-    private VmLifecycleEnumAzure(String name) {
+    private VmLifeCycleEnumAzure(String name) {
         this.name = name;
     }
 
-    public static VmLifecycleEnumAzure fromName(String name) {
-        VmLifecycleEnumAzure retVal = null;
+    public static VmLifeCycleEnumAzure fromName(String name) {
+        VmLifeCycleEnumAzure retVal = null;
 
-        for (VmLifecycleEnumAzure vmLifecycleEnum : VmLifecycleEnumAzure.values()) {
+        for (VmLifeCycleEnumAzure vmLifecycleEnum : VmLifeCycleEnumAzure.values()) {
             if (name.equalsIgnoreCase(vmLifecycleEnum.name)) {
                 retVal = vmLifecycleEnum;
                 break;

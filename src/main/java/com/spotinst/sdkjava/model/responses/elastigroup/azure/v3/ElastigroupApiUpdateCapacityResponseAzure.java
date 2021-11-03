@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model.responses.elastigroup.azure.v3;
 
 import com.spotinst.sdkjava.client.response.BaseServiceItemsResponse;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupUpdateCapacityAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiUpdateCapacityAzure;
 
-public class ElastigroupApiUpdateCapacityResponseAzure extends BaseServiceItemsResponse<ApiElastigroupUpdateCapacityAzure> {
+public class ElastigroupApiUpdateCapacityResponseAzure extends BaseServiceItemsResponse<ApiUpdateCapacityAzure> {
 }

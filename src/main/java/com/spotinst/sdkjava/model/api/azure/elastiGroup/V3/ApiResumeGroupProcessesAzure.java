@@ -16,8 +16,8 @@ import java.util.Set;
 public class ApiResumeGroupProcessesAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private ProcessNameEnumsAzure name;
+    private Set<String>             isSet;
+    private ProcessNameEnumsAzure   name;
 
     public ApiResumeGroupProcessesAzure() {
         isSet = new HashSet<>();

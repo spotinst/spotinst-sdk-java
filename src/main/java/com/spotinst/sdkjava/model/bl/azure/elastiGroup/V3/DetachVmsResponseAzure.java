@@ -12,14 +12,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupDetachedVmsAzure {
+public class DetachVmsResponseAzure {
 
     @JsonIgnore
-    private Set<String>                       isSet;
-    private List<DetachedVmsAzure>            detachedVms;
-    private List<NewVmsAzure>                 newVmsAzure;
+    private Set<String>                                 isSet;
+    private List<DetachVmsResponseDetachedVmsAzure>     detachedVms;
+    private List<DetachVmsResponseNewVmsAzure>          newVmsAzure;
 
-    private ElastigroupDetachedVmsAzure() {
+    private DetachVmsResponseAzure() {
         isSet = new HashSet<>();
     }
 
@@ -31,29 +31,29 @@ public class ElastigroupDetachedVmsAzure {
         this.isSet = isSet;
     }
 
-    public List<DetachedVmsAzure> getDetachedVms() {
+    public List<DetachVmsResponseDetachedVmsAzure> getDetachedVms() {
         return detachedVms;
     }
 
-    public void setDetachedVms(List<DetachedVmsAzure> detachedVms) {
+    public void setDetachedVms(List<DetachVmsResponseDetachedVmsAzure> detachedVms) {
         isSet.add("detachedVms");
         this.detachedVms = detachedVms;
     }
 
-    public List<NewVmsAzure> getNewVmsAzure() {
+    public List<DetachVmsResponseNewVmsAzure> getNewVmsAzure() {
         return newVmsAzure;
     }
 
-    public void setNewVmsAzure(List<NewVmsAzure> newVmsAzure) {
+    public void setNewVmsAzure(List<DetachVmsResponseNewVmsAzure> newVmsAzure) {
         isSet.add("newVmsAzure");
         this.newVmsAzure = newVmsAzure;
     }
 
     public static class Builder {
-        private ElastigroupDetachedVmsAzure detachVms;
+        private DetachVmsResponseAzure detachVms;
 
         private Builder() {
-            this.detachVms = new ElastigroupDetachedVmsAzure();
+            this.detachVms = new DetachVmsResponseAzure();
         }
 
         public static Builder get() {
@@ -61,17 +61,17 @@ public class ElastigroupDetachedVmsAzure {
             return builder;
         }
 
-        public Builder setDetachedVms(final List<DetachedVmsAzure> detachedVms) {
+        public Builder setDetachedVms(final List<DetachVmsResponseDetachedVmsAzure> detachedVms) {
             detachVms.setDetachedVms(detachedVms);
             return this;
         }
 
-        public Builder setNewVmsAzure(final List<NewVmsAzure> newVmsAzure) {
+        public Builder setNewVmsAzure(final List<DetachVmsResponseNewVmsAzure> newVmsAzure) {
             detachVms.setNewVmsAzure(newVmsAzure);
             return this;
         }
 
-        public ElastigroupDetachedVmsAzure build() {
+        public DetachVmsResponseAzure build() {
             return detachVms;
         }
 

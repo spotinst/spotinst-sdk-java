@@ -2,9 +2,9 @@ package com.spotinst.sdkjava.model.requests.elastigroup.azure;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupUpdateCapacityAzure;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiUpdateCapacityAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupUpdateCapacityAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.UpdateCapacityAzure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class ElastigroupUpdateCapacityRequestAzure {
 
     private String groupId;
     @JsonProperty("capacity")
-    private ElastigroupUpdateCapacityAzure capacityAzure;
+    private UpdateCapacityAzure capacityAzure;
 
     private ElastigroupUpdateCapacityRequestAzure() {
     }
@@ -26,11 +26,11 @@ public class ElastigroupUpdateCapacityRequestAzure {
         this.groupId = groupId;
     }
 
-    public ElastigroupUpdateCapacityAzure getCapacityAzure() {
+    public UpdateCapacityAzure getCapacityAzure() {
         return capacityAzure;
     }
 
-    public void setCapacityAzure(ElastigroupUpdateCapacityAzure capacityAzure) {
+    public void setCapacityAzure(UpdateCapacityAzure capacityAzure) {
         this.capacityAzure = capacityAzure;
     }
 
@@ -46,7 +46,7 @@ public class ElastigroupUpdateCapacityRequestAzure {
             return builder;
         }
 
-        public Builder setCapacityAzure(final ElastigroupUpdateCapacityAzure capacityAzure) {
+        public Builder setCapacityAzure(final UpdateCapacityAzure capacityAzure) {
             groupUpdateCapacity.setCapacityAzure(capacityAzure);
             return this;
         }
@@ -63,8 +63,8 @@ public class ElastigroupUpdateCapacityRequestAzure {
     }
 
     public String toJson() {
-        ApiElastigroupUpdateCapacityAzure apiCapacity = ElastigroupConverterAzure.toDal(capacityAzure);
-        Map<String, ApiElastigroupUpdateCapacityAzure> capacityRequest = new HashMap<>();
+        ApiUpdateCapacityAzure apiCapacity = ElastigroupConverterAzure.toDal(capacityAzure);
+        Map<String, ApiUpdateCapacityAzure> capacityRequest = new HashMap<>();
         capacityRequest.put("capacity", apiCapacity);
         String elastigroupJson = JsonMapper.toJson(capacityRequest);
         return elastigroupJson;

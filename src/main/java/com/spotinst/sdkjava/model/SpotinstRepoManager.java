@@ -60,7 +60,6 @@ class SpotinstRepoManager {
         this.spotinstOceanEcsClusterRepo = new SpotOceanEcsClusterRepo();
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
-        this.spotinstElastigroupRepoAzure = new SpotinstElastigroupRepoAzure();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
     }
     //endregion

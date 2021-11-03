@@ -14,15 +14,15 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupStatusAzure implements IPartialUpdateEntity {
+public class ApiGetElastigroupStatusResponseAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                 isSet;
     private ElastigroupStatusEnumAzure                  status;
-    private List<ApiElastigroupSuspendedProcessAzure>   suspendedProcesses;
-    private List<ApiVmsAzure>                           vms;
+    private List<ApiScalingResponseSuspendedProcessAzure>   suspendedProcesses;
+    private List<ApiGroupStatusResponseVmsAzure>                           vms;
 
-    public ApiElastigroupStatusAzure() {
+    public ApiGetElastigroupStatusResponseAzure() {
         isSet = new HashSet<>();
     }
 
@@ -43,20 +43,20 @@ public class ApiElastigroupStatusAzure implements IPartialUpdateEntity {
         this.status = status;
     }
 
-    public List<ApiElastigroupSuspendedProcessAzure> getSuspendedProcesses() {
+    public List<ApiScalingResponseSuspendedProcessAzure> getSuspendedProcesses() {
         return suspendedProcesses;
     }
 
-    public void setSuspendedProcesses(List<ApiElastigroupSuspendedProcessAzure> suspendedProcesses) {
+    public void setSuspendedProcesses(List<ApiScalingResponseSuspendedProcessAzure> suspendedProcesses) {
         isSet.add("suspendedProcesses");
         this.suspendedProcesses = suspendedProcesses;
     }
 
-    public List<ApiVmsAzure> getVms() {
+    public List<ApiGroupStatusResponseVmsAzure> getVms() {
         return vms;
     }
 
-    public void setVms(List<ApiVmsAzure> vms) {
+    public void setVms(List<ApiGroupStatusResponseVmsAzure> vms) {
         isSet.add("vms");
         this.vms = vms;
     }

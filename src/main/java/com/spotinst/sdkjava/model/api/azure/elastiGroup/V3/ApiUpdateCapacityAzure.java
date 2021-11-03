@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupUpdateCapacityAzure implements IPartialUpdateEntity {
+public class ApiUpdateCapacityAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -20,7 +20,7 @@ public class ApiElastigroupUpdateCapacityAzure implements IPartialUpdateEntity {
     private Integer     maximum;
     private Integer     target;
 
-    public ApiElastigroupUpdateCapacityAzure() {
+    public ApiUpdateCapacityAzure() {
         isSet = new HashSet<>();
     }
 

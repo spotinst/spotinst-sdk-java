@@ -11,15 +11,15 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupStatusAzure {
+public class GetElastigroupStatusResponseAzure {
 
     @JsonIgnore
     private Set<String>                                 isSet;
     private ElastigroupStatusEnumAzure                  status;
-    private List<ElastigroupSuspendedProcessAzure>      suspendedProcesses;
-    private List<VmsAzure>                              vms;
+    private List<StatusResponseSuspendedProcessAzure>  suspendedProcesses;
+    private List<GroupStatusReponseVmsAzure>            vms;
 
-    private ElastigroupStatusAzure() {
+    private GetElastigroupStatusResponseAzure() {
         isSet = new HashSet<>();
     }
 
@@ -40,29 +40,29 @@ public class ElastigroupStatusAzure {
         this.status = status;
     }
 
-    public List<ElastigroupSuspendedProcessAzure> getSuspendedProcesses() {
+    public List<StatusResponseSuspendedProcessAzure> getSuspendedProcesses() {
         return suspendedProcesses;
     }
 
-    public void setSuspendedProcesses(List<ElastigroupSuspendedProcessAzure> suspendedProcesses) {
+    public void setSuspendedProcesses(List<StatusResponseSuspendedProcessAzure> suspendedProcesses) {
         isSet.add("suspendedProcesses");
         this.suspendedProcesses = suspendedProcesses;
     }
 
-    public List<VmsAzure> getVms() {
+    public List<GroupStatusReponseVmsAzure> getVms() {
         return vms;
     }
 
-    public void setVms(List<VmsAzure> vms) {
+    public void setVms(List<GroupStatusReponseVmsAzure> vms) {
         isSet.add("vms");
         this.vms = vms;
     }
 
     public static class Builder {
-        private ElastigroupStatusAzure elastigroupStatusAzure;
+        private GetElastigroupStatusResponseAzure elastigroupStatusAzure;
 
         private Builder() {
-            this.elastigroupStatusAzure = new ElastigroupStatusAzure();
+            this.elastigroupStatusAzure = new GetElastigroupStatusResponseAzure();
         }
 
         public static Builder get() {
@@ -75,17 +75,17 @@ public class ElastigroupStatusAzure {
             return this;
         }
 
-        public Builder setSuspendedProcesses(final List<ElastigroupSuspendedProcessAzure> suspendedProcesses) {
+        public Builder setSuspendedProcesses(final List<StatusResponseSuspendedProcessAzure> suspendedProcesses) {
             elastigroupStatusAzure.setSuspendedProcesses(suspendedProcesses);
             return this;
         }
 
-        public Builder setVms(final List<VmsAzure> vms) {
+        public Builder setVms(final List<GroupStatusReponseVmsAzure> vms) {
             elastigroupStatusAzure.setVms(vms);
             return this;
         }
 
-        public ElastigroupStatusAzure build() {
+        public GetElastigroupStatusResponseAzure build() {
             return elastigroupStatusAzure;
         }
 

@@ -1,26 +1,22 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.enums.ElastigroupVmSignalEnumAzure;
 
 import java.util.HashSet;
 import java.util.Set;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupVmSignalAzure implements IPartialUpdateEntity {
+public class VmSignalAzure {
 
     @JsonIgnore
-    private Set<String> isSet;
+    private Set<String>                  isSet;
     private ElastigroupVmSignalEnumAzure signalType;
     private String                       vmName;
 
-    public ApiElastigroupVmSignalAzure() {
+    private VmSignalAzure() {
         isSet = new HashSet<>();
     }
 
@@ -50,6 +46,33 @@ public class ApiElastigroupVmSignalAzure implements IPartialUpdateEntity {
         this.vmName = vmName;
     }
 
+    public static class Builder {
+        private VmSignalAzure elastigroupVmSignal;
+
+        private Builder() {
+            this.elastigroupVmSignal = new VmSignalAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setSignalType(final ElastigroupVmSignalEnumAzure signalType) {
+            elastigroupVmSignal.setSignalType(signalType);
+            return this;
+        }
+
+        public Builder setVmName(final String vmName) {
+            elastigroupVmSignal.setVmName(vmName);
+            return this;
+        }
+
+        public VmSignalAzure build() {
+            return elastigroupVmSignal;
+        }
+
+    }
 
     @JsonIgnore
     public boolean isSignalTypeSet() {
@@ -60,4 +83,5 @@ public class ApiElastigroupVmSignalAzure implements IPartialUpdateEntity {
     public boolean isVmNameSet() {
         return isSet.contains("vmName");
     }
+
 }

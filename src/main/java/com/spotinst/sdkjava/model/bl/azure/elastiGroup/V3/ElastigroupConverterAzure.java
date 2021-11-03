@@ -567,10 +567,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static ApiVmsAzure toDal(VmsAzure vms) {
-        ApiVmsAzure retVal = null;
+    private static ApiGroupStatusResponseVmsAzure toDal(GroupStatusReponseVmsAzure vms) {
+        ApiGroupStatusResponseVmsAzure retVal = null;
         if (vms != null) {
-            retVal = new ApiVmsAzure();
+            retVal = new ApiGroupStatusResponseVmsAzure();
             if (vms.isCreatedAtSet()) {
                 retVal.setCreatedAt(vms.getCreatedAt());
             }
@@ -605,10 +605,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static ApiElastigroupSuspendedProcessAzure toDal(ElastigroupSuspendedProcessAzure suspendProcess) {
-        ApiElastigroupSuspendedProcessAzure retVal = null;
+    private static ApiScalingResponseSuspendedProcessAzure toDal(StatusResponseSuspendedProcessAzure suspendProcess) {
+        ApiScalingResponseSuspendedProcessAzure retVal = null;
         if (suspendProcess != null) {
-            retVal = new ApiElastigroupSuspendedProcessAzure();
+            retVal = new ApiScalingResponseSuspendedProcessAzure();
             if (suspendProcess.isExpiresAtSet()) {
                 retVal.setExpiresAt(suspendProcess.getExpiresAt());
             }
@@ -619,20 +619,20 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiElastigroupStatusAzure toDal(ElastigroupStatusAzure groupStatus) {
-        ApiElastigroupStatusAzure retVal = null;
+    public static ApiGetElastigroupStatusResponseAzure toDal(GetElastigroupStatusResponseAzure groupStatus) {
+        ApiGetElastigroupStatusResponseAzure retVal = null;
         if (groupStatus != null) {
-            retVal = new ApiElastigroupStatusAzure();
+            retVal = new ApiGetElastigroupStatusResponseAzure();
             if (groupStatus.isStatusSet()) {
                 retVal.setStatus(groupStatus.getStatus());
             }
             if (groupStatus.isSuspendedProcessesSet()) {
-                List<ApiElastigroupSuspendedProcessAzure> suspendedProcessAzures = groupStatus.getSuspendedProcesses()
+                List<ApiScalingResponseSuspendedProcessAzure> suspendedProcessAzures = groupStatus.getSuspendedProcesses()
                         .stream().map(ElastigroupConverterAzure::toDal).collect(Collectors.toList());
                 retVal.setSuspendedProcesses(suspendedProcessAzures);
             }
             if (groupStatus.isVmsSet()) {
-                List<ApiVmsAzure> vmsAzures = groupStatus.getVms().stream().map(ElastigroupConverterAzure::toDal)
+                List<ApiGroupStatusResponseVmsAzure> vmsAzures = groupStatus.getVms().stream().map(ElastigroupConverterAzure::toDal)
                         .collect(Collectors.toList());
                 retVal.setVms(vmsAzures);
             }
@@ -640,10 +640,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiElastigroupVmSignalAzure toDal(ElastigroupVmSignalAzure vmSignal) {
-        ApiElastigroupVmSignalAzure retVal = null;
+    public static ApiVmSignalAzure toDal(VmSignalAzure vmSignal) {
+        ApiVmSignalAzure retVal = null;
         if (vmSignal != null) {
-            retVal = new ApiElastigroupVmSignalAzure();
+            retVal = new ApiVmSignalAzure();
             if (vmSignal.isSignalTypeSet()) {
                 retVal.setSignalType(vmSignal.getSignalType());
             }
@@ -654,10 +654,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiElastigroupUpdateCapacityAzure toDal(ElastigroupUpdateCapacityAzure capacityAzure) {
-        ApiElastigroupUpdateCapacityAzure retVal = null;
+    public static ApiUpdateCapacityAzure toDal(UpdateCapacityAzure capacityAzure) {
+        ApiUpdateCapacityAzure retVal = null;
         if (capacityAzure != null) {
-            retVal = new ApiElastigroupUpdateCapacityAzure();
+            retVal = new ApiUpdateCapacityAzure();
             if (capacityAzure.isMinimumSet()) {
                 retVal.setMinimum(capacityAzure.getMinimum());
             }
@@ -683,6 +683,25 @@ public class ElastigroupConverterAzure {
             }
             if (vmHealthinessAzure.isVmNameSet()) {
                 retVal.setVmName(vmHealthinessAzure.getVmName());
+            }
+        }
+        return retVal;
+    }
+
+    public static List<ApiSuspendgroupProcessesAzure> toDalForSuspendProcess(List<SuspendGroupProcessesAzure> suspendGroupProcesses) {
+
+        List<ApiSuspendgroupProcessesAzure> retVal = null;
+        if (suspendGroupProcesses != null) {
+            retVal = new ArrayList<ApiSuspendgroupProcessesAzure>();
+            for(SuspendGroupProcessesAzure process : suspendGroupProcesses) {
+                ApiSuspendgroupProcessesAzure apiProcess = new ApiSuspendgroupProcessesAzure();
+                if (process.isNameSet()) {
+                    apiProcess.setName(process.getName());
+                }
+                if (process.isTtlInMinutesSet()) {
+                    apiProcess.setTtlInMinutes(process.getTtlInMinutes());
+                }
+                retVal.add(apiProcess);
             }
         }
         return retVal;
@@ -726,10 +745,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static ApiDetachedVmsAzure toDal(DetachedVmsAzure detachedVmsAzure) {
-        ApiDetachedVmsAzure retVal = null;
+    private static ApiDetachVmsResponseDetachedVmsAzure toDal(DetachVmsResponseDetachedVmsAzure detachedVmsAzure) {
+        ApiDetachVmsResponseDetachedVmsAzure retVal = null;
         if (detachedVmsAzure != null) {
-            retVal = new ApiDetachedVmsAzure();
+            retVal = new ApiDetachVmsResponseDetachedVmsAzure();
 
             if (detachedVmsAzure.isLifeCycleSet()) {
                 retVal.setLifeCycle(detachedVmsAzure.getLifeCycle());
@@ -756,10 +775,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static ApiNewVmsAzure toDal(NewVmsAzure newVms) {
-        ApiNewVmsAzure retVal = null;
+    private static ApiDetachVmsResponseNewVmsAzure toDal(DetachVmsResponseNewVmsAzure newVms) {
+        ApiDetachVmsResponseNewVmsAzure retVal = null;
         if (newVms != null) {
-            retVal = new ApiNewVmsAzure();
+            retVal = new ApiDetachVmsResponseNewVmsAzure();
             if (newVms.isCreatedAtSet()) {
                 retVal.setCreatedAt(newVms.getCreatedAt());
             }
@@ -794,18 +813,18 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiElastigroupDetachedVmsAzure toDal(ElastigroupDetachedVmsAzure detachVmsAzure) {
+    public static ApiElastigroupDetachedVmsAzure toDal(DetachVmsResponseAzure detachVmsAzure) {
         ApiElastigroupDetachedVmsAzure retVal = null;
         if (detachVmsAzure != null) {
             retVal = new ApiElastigroupDetachedVmsAzure();
             if (detachVmsAzure.isDetachedVmsSet()) {
-                List<ApiDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toDal)
+                List<ApiDetachVmsResponseDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toDal)
                         .collect(Collectors.toList());
                 retVal.setDetachedVms(detachVms);
             }
 
             if (detachVmsAzure.isNewVmsAzureSet()) {
-                List<ApiNewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toDal)
+                List<ApiDetachVmsResponseNewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toDal)
                         .collect(Collectors.toList());
                 retVal.setNewVmsAzure(newVms);
             }
@@ -813,10 +832,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiGetElastilogAzure toDal(GetElastilogAzure elastilogAzure) {
-        ApiGetElastilogAzure retVal = null;
+    public static ApiGetElastilogResponseAzure toDal(GetElastilogResponseAzure elastilogAzure) {
+        ApiGetElastilogResponseAzure retVal = null;
         if (elastilogAzure != null) {
-            retVal = new ApiGetElastilogAzure();
+            retVal = new ApiGetElastilogResponseAzure();
             if (elastilogAzure.isCreatedAtSet()) {
                 retVal.setCreatedAt(elastilogAzure.getCreatedAt());
             }
@@ -1428,10 +1447,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static VmsAzure toBl(ApiVmsAzure vmsAzure) {
-        VmsAzure retVal = null;
+    private static GroupStatusReponseVmsAzure toBl(ApiGroupStatusResponseVmsAzure vmsAzure) {
+        GroupStatusReponseVmsAzure retVal = null;
         if (vmsAzure != null) {
-            VmsAzure.Builder vmsBuilder = VmsAzure.Builder.get();
+            GroupStatusReponseVmsAzure.Builder vmsBuilder = GroupStatusReponseVmsAzure.Builder.get();
             if (vmsAzure.isCreatedAtSet()) {
                 vmsBuilder.setCreatedAt(vmsAzure.getCreatedAt());
             }
@@ -1467,10 +1486,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static ElastigroupSuspendedProcessAzure toBl(ApiElastigroupSuspendedProcessAzure suspendProcess) {
-        ElastigroupSuspendedProcessAzure retVal = null;
+    private static StatusResponseSuspendedProcessAzure toBl(ApiScalingResponseSuspendedProcessAzure suspendProcess) {
+        StatusResponseSuspendedProcessAzure retVal = null;
         if (suspendProcess != null) {
-            ElastigroupSuspendedProcessAzure.Builder suspendBuilder = ElastigroupSuspendedProcessAzure.Builder.get();
+            StatusResponseSuspendedProcessAzure.Builder suspendBuilder = StatusResponseSuspendedProcessAzure.Builder.get();
             if (suspendProcess.isExpiresAtSet()) {
                 suspendBuilder.setExpiresAt(suspendProcess.getExpiresAt());
             }
@@ -1482,10 +1501,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ElastigroupScalingVms toBl(ApiElastigroupScalingVms vmsAzure) {
-        ElastigroupScalingVms retVal = null;
+    public static ScalingResponseVms toBl(ApiScalingResponseVms vmsAzure) {
+        ScalingResponseVms retVal = null;
         if (vmsAzure != null) {
-            ElastigroupScalingVms.Builder vmsBuilder = ElastigroupScalingVms.Builder.get();
+            ScalingResponseVms.Builder vmsBuilder = ScalingResponseVms.Builder.get();
             if (vmsAzure.isLifeCycleSet()) {
                 vmsBuilder.setLifeCycle(vmsAzure.getLifeCycle());
             }
@@ -1500,23 +1519,23 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ElastigroupStatusAzure toBl(ApiElastigroupStatusAzure elastigroupStatusAzure) {
-        ElastigroupStatusAzure retVal = null;
+    public static GetElastigroupStatusResponseAzure toBl(ApiGetElastigroupStatusResponseAzure elastigroupStatusAzure) {
+        GetElastigroupStatusResponseAzure retVal = null;
         if (elastigroupStatusAzure != null) {
-            ElastigroupStatusAzure.Builder elastiBuilder = ElastigroupStatusAzure.Builder.get();
+            GetElastigroupStatusResponseAzure.Builder elastiBuilder = GetElastigroupStatusResponseAzure.Builder.get();
             if (elastigroupStatusAzure.isStatusSet()) {
                 if (elastigroupStatusAzure.getStatus() != null) {
                     elastiBuilder.setStatus(elastigroupStatusAzure.getStatus());
                 }
             }
             if (elastigroupStatusAzure.isSuspendedProcessesSet()) {
-                List<ElastigroupSuspendedProcessAzure> suspendedProcessAzures =
+                List<StatusResponseSuspendedProcessAzure> suspendedProcessAzures =
                         elastigroupStatusAzure.getSuspendedProcesses().stream().map(ElastigroupConverterAzure::toBl)
                         .collect(Collectors.toList());
                 elastiBuilder.setSuspendedProcesses(suspendedProcessAzures);
             }
             if (elastigroupStatusAzure.isVmsSet()) {
-                List<VmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
+                List<GroupStatusReponseVmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
                         .collect(Collectors.toList());
                 elastiBuilder.setVms(vms);
             }
@@ -1525,10 +1544,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ElastigroupVmSignalAzure toBl(ApiElastigroupVmSignalAzure elastigroupVmSignal) {
-        ElastigroupVmSignalAzure retVal = null;
+    public static VmSignalAzure toBl(ApiVmSignalAzure elastigroupVmSignal) {
+        VmSignalAzure retVal = null;
         if (elastigroupVmSignal != null) {
-            ElastigroupVmSignalAzure.Builder elastiBuilder = ElastigroupVmSignalAzure.Builder.get();
+            VmSignalAzure.Builder elastiBuilder = VmSignalAzure.Builder.get();
             if (elastigroupVmSignal.isSignalTypeSet()) {
                 elastiBuilder.setSignalType(elastigroupVmSignal.getSignalType());
             }
@@ -1540,10 +1559,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ElastigroupUpdateCapacityAzure toBl(ApiElastigroupUpdateCapacityAzure apiCapacityAzure) {
-        ElastigroupUpdateCapacityAzure retVal = null;
+    public static UpdateCapacityAzure toBl(ApiUpdateCapacityAzure apiCapacityAzure) {
+        UpdateCapacityAzure retVal = null;
         if (apiCapacityAzure != null) {
-            ElastigroupUpdateCapacityAzure.Builder capacityBuilder = ElastigroupUpdateCapacityAzure.Builder.get();
+            UpdateCapacityAzure.Builder capacityBuilder = UpdateCapacityAzure.Builder.get();
             if (apiCapacityAzure.isMinimumSet()) {
                 capacityBuilder.setMinimum(apiCapacityAzure.getMinimum());
             }
@@ -1600,10 +1619,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static DetachedVmsAzure toBl(ApiDetachedVmsAzure apiDetachedVms) {
-        DetachedVmsAzure retVal = null;
+    private static DetachVmsResponseDetachedVmsAzure toBl(ApiDetachVmsResponseDetachedVmsAzure apiDetachedVms) {
+        DetachVmsResponseDetachedVmsAzure retVal = null;
         if (apiDetachedVms != null) {
-            DetachedVmsAzure.Builder detachedVmsBuilder = DetachedVmsAzure.Builder.get();
+            DetachVmsResponseDetachedVmsAzure.Builder detachedVmsBuilder = DetachVmsResponseDetachedVmsAzure.Builder.get();
             if (apiDetachedVms.isLifeCycleSet()) {
                 detachedVmsBuilder.setLifeCycle(apiDetachedVms.getLifeCycle());
             }
@@ -1630,10 +1649,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    private static NewVmsAzure toBl(ApiNewVmsAzure newVmsAzure) {
-        NewVmsAzure retVal = null;
+    private static DetachVmsResponseNewVmsAzure toBl(ApiDetachVmsResponseNewVmsAzure newVmsAzure) {
+        DetachVmsResponseNewVmsAzure retVal = null;
         if (newVmsAzure != null) {
-            NewVmsAzure.Builder vmsBuilder = NewVmsAzure.Builder.get();
+            DetachVmsResponseNewVmsAzure.Builder vmsBuilder = DetachVmsResponseNewVmsAzure.Builder.get();
             if (newVmsAzure.isCreatedAtSet()) {
                 vmsBuilder.setCreatedAt(newVmsAzure.getCreatedAt());
             }
@@ -1669,17 +1688,17 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ElastigroupDetachedVmsAzure toBl(ApiElastigroupDetachedVmsAzure detachVmsAzure) {
-        ElastigroupDetachedVmsAzure retVal = null;
+    public static DetachVmsResponseAzure toBl(ApiElastigroupDetachedVmsAzure detachVmsAzure) {
+        DetachVmsResponseAzure retVal = null;
         if (detachVmsAzure != null) {
-            ElastigroupDetachedVmsAzure.Builder detachVmsBuilder = ElastigroupDetachedVmsAzure.Builder.get();
+            DetachVmsResponseAzure.Builder detachVmsBuilder = DetachVmsResponseAzure.Builder.get();
             if (detachVmsAzure.isDetachedVmsSet()) {
-                    List<DetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toBl)
+                    List<DetachVmsResponseDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toBl)
                             .collect(Collectors.toList());
                     detachVmsBuilder.setDetachedVms(detachVms);
             }
             if (detachVmsAzure.isNewVmsAzureSet()) {
-                    List<NewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toBl)
+                    List<DetachVmsResponseNewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toBl)
                             .collect(Collectors.toList());
                     detachVmsBuilder.setNewVmsAzure(newVms);
             }
@@ -1688,10 +1707,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static GetElastilogAzure toBl(ApiGetElastilogAzure getElastilogAzure) {
-        GetElastilogAzure retVal = null;
+    public static GetElastilogResponseAzure toBl(ApiGetElastilogResponseAzure getElastilogAzure) {
+        GetElastilogResponseAzure retVal = null;
         if (getElastilogAzure != null) {
-            GetElastilogAzure.Builder elastiLogBuilder = GetElastilogAzure.Builder.get();
+            GetElastilogResponseAzure.Builder elastiLogBuilder = GetElastilogResponseAzure.Builder.get();
             if (getElastilogAzure.isCreatedAtSet()) {
                 elastiLogBuilder.setCreatedAt(getElastilogAzure.getCreatedAt());
             }

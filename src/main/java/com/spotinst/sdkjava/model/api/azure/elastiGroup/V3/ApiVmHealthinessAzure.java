@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.enums.VmHealthStatusEnumAzure;
-import com.spotinst.sdkjava.enums.VmLifecycleEnumAzure;
+import com.spotinst.sdkjava.enums.VmLifeCycleEnumAzure;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class ApiVmHealthinessAzure implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>             isSet;
     private VmHealthStatusEnumAzure healthStatus;
-    private VmLifecycleEnumAzure    lifeCycle;
+    private VmLifeCycleEnumAzure    lifeCycle;
     private String                  vmName;
 
     public ApiVmHealthinessAzure() {
@@ -43,11 +43,11 @@ public class ApiVmHealthinessAzure implements IPartialUpdateEntity {
         this.healthStatus = healthStatus;
     }
 
-    public VmLifecycleEnumAzure getLifeCycle() {
+    public VmLifeCycleEnumAzure getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(VmLifecycleEnumAzure lifeCycle) {
+    public void setLifeCycle(VmLifeCycleEnumAzure lifeCycle) {
         isSet.add("lifeCycle");
         this.lifeCycle = lifeCycle;
     }

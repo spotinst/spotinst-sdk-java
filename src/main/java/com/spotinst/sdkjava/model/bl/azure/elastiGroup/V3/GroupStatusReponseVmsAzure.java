@@ -1,19 +1,15 @@
-package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
+package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiVmsAzure implements IPartialUpdateEntity {
-
+public class GroupStatusReponseVmsAzure {
     @JsonIgnore
     private Set<String> isSet;
     private String      createdAt;
@@ -27,7 +23,7 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
     private String      vmName;
     private String      vmSize;
 
-    public ApiVmsAzure() {
+    private GroupStatusReponseVmsAzure() {
         isSet = new HashSet<>();
     }
 
@@ -129,6 +125,72 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
         this.vmSize = vmSize;
     }
 
+    public static class Builder {
+        private GroupStatusReponseVmsAzure vmsAzure;
+
+        private Builder() {
+            this.vmsAzure = new GroupStatusReponseVmsAzure();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setCreatedAt(final String createdAt) {
+            vmsAzure.setCreatedAt(createdAt);
+            return this;
+        }
+
+        public Builder setLifeCycle(final String lifeCycle) {
+            vmsAzure.setLifeCycle(lifeCycle);
+            return this;
+        }
+
+        public Builder setOs(final String os) {
+            vmsAzure.setOs(os);
+            return this;
+        }
+
+        public Builder setPowerState(final String powerState) {
+            vmsAzure.setPowerState(powerState);
+            return this;
+        }
+
+        public Builder setPrivateIp(final String privateIp) {
+            vmsAzure.setPrivateIp(privateIp);
+            return this;
+        }
+
+        public Builder setProvisioningState(final String provisioningState) {
+            vmsAzure.setProvisioningState(provisioningState);
+            return this;
+        }
+
+        public Builder setPublicIp(final String publicIp) {
+            vmsAzure.setPublicIp(publicIp);
+            return this;
+        }
+
+        public Builder setRegion(final String region) {
+            vmsAzure.setRegion(region);
+            return this;
+        }
+
+        public Builder setVmName(final String vmName) {
+            vmsAzure.setVmName(vmName);
+            return this;
+        }
+
+        public Builder setVmSize(final String vmSize) {
+            vmsAzure.setVmSize(vmSize);
+            return this;
+        }
+
+        public GroupStatusReponseVmsAzure build() {
+            return vmsAzure;
+        }
+    }
 
     @JsonIgnore
     public boolean isCreatedAtSet() {
@@ -179,4 +241,5 @@ public class ApiVmsAzure implements IPartialUpdateEntity {
     public boolean isVmSizeSet() {
         return isSet.contains("vmSize");
     }
+
 }

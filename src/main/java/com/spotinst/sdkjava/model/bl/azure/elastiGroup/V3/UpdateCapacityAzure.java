@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupUpdateCapacityAzure {
+public class UpdateCapacityAzure {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -18,7 +18,7 @@ public class ElastigroupUpdateCapacityAzure {
     private Integer     maximum;
     private Integer     target;
 
-    private ElastigroupUpdateCapacityAzure() {
+    private UpdateCapacityAzure() {
         isSet = new HashSet<>();
     }
 
@@ -58,10 +58,10 @@ public class ElastigroupUpdateCapacityAzure {
     }
 
     public static class Builder {
-        private ElastigroupUpdateCapacityAzure capacity;
+        private UpdateCapacityAzure capacity;
 
         private Builder() {
-            this.capacity = new ElastigroupUpdateCapacityAzure();
+            this.capacity = new UpdateCapacityAzure();
         }
 
         public static Builder get() {
@@ -84,7 +84,7 @@ public class ElastigroupUpdateCapacityAzure {
             return this;
         }
 
-        public ElastigroupUpdateCapacityAzure build() {
+        public UpdateCapacityAzure build() {
             return capacity;
         }
     }
