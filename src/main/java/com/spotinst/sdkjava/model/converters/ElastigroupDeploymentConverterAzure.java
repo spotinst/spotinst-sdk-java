@@ -5,7 +5,9 @@ import com.spotinst.sdkjava.enums.HealthCheckTypeEnumAzure;
 import com.spotinst.sdkjava.enums.AzureUnitEnum;
 import com.spotinst.sdkjava.model.GroupDeploymentCreationRequestAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.*;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.*;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentProgressIndicatorAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
 
 import java.util.List;
 import java.util.Objects;

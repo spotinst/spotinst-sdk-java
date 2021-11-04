@@ -34,12 +34,12 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<Boolean> createVmSignal(ElastigroupCreateVmSignalRequestAzure elastigroupVmsignal,
+    default RepoGenericResponse<Boolean> createVmSignal(CreateVmSignalRequestAzure elastigroupVmsignal,
                                                         String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<UpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure capacityRequest,
+    default RepoGenericResponse<UpdateCapacityAzure> updateCapacity(UpdateCapacityRequestAzure capacityRequest,
                                                                     String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }

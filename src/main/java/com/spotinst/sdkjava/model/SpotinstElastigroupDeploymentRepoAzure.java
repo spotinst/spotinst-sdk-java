@@ -12,6 +12,7 @@ import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploy
 import com.spotinst.sdkjava.model.converters.ElastigroupDeploymentConverterAzure;
 import com.spotinst.sdkjava.model.converters.ElastigroupDeploymentDetailsConverterAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
+import com.spotinst.sdkjava.model.service.elastigroup.azure.v3.SpotinstElastigroupServiceAzure;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class SpotinstElastigroupDeploymentRepoAzure implements ISpotinstElastigr
             GroupDeploymentCreationRequestAzure deploymentCreationRequestAzure, String authToken, String account,
             String groupId) {
         RepoGenericResponse<GroupDeploymentCreateAzure> retVal;
-        SpotinstElastigroupServiceAzure                 serviceAzure = new SpotinstElastigroupServiceAzure();
+        SpotinstElastigroupServiceAzure serviceAzure = new SpotinstElastigroupServiceAzure();
 
         try {
             ApiGroupDeploymentRequestAzure apiDeploymentCreationRequest =

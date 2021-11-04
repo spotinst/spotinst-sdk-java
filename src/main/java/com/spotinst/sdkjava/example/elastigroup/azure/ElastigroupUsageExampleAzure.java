@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.elastigroup.azure;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
@@ -294,7 +294,7 @@ public class ElastigroupUsageExampleAzure {
 
         Boolean successfulDeletion = client.deleteElastigroup(deletionRequest);
         if (successfulDeletion) {
-            System.out.println("Elastigroup succesfully deleted: " + elastigroupId);
+            System.out.println("Elastigroup successfully deleted: " + elastigroupId);
         }
     }
 
@@ -448,9 +448,9 @@ public class ElastigroupUsageExampleAzure {
                 vmSignalBuilder.setSignalType(ElastigroupVmSignalEnumAzure.vmReadyToShutdown)
                         .setVmName("vm-aac01a6bcaad").build();
 
-        ElastigroupCreateVmSignalRequestAzure.Builder vmSignalCreationRequestBuilder =
-                ElastigroupCreateVmSignalRequestAzure.Builder.get();
-        ElastigroupCreateVmSignalRequestAzure creationRequest =
+        CreateVmSignalRequestAzure.Builder vmSignalCreationRequestBuilder =
+                CreateVmSignalRequestAzure.Builder.get();
+        CreateVmSignalRequestAzure creationRequest =
                 vmSignalCreationRequestBuilder.setVmSignalAzure(vmSignal).build();
 
         Boolean updateSuccess = elastigroupClient.createVmSignal(creationRequest);
@@ -466,9 +466,9 @@ public class ElastigroupUsageExampleAzure {
                 .build();
 
 
-        ElastigroupUpdateCapacityRequestAzure.Builder capacityRequestBuilder =
-                ElastigroupUpdateCapacityRequestAzure.Builder.get();
-        ElastigroupUpdateCapacityRequestAzure capacityUpdateRequest =
+        UpdateCapacityRequestAzure.Builder capacityRequestBuilder =
+                UpdateCapacityRequestAzure.Builder.get();
+        UpdateCapacityRequestAzure capacityUpdateRequest =
                 capacityRequestBuilder.setGroupId(groupId).setCapacityAzure(updateCapacity).build();
 
         UpdateCapacityAzure updateCapacityResponse =  elastigroupClient.updateCapacity(capacityUpdateRequest);

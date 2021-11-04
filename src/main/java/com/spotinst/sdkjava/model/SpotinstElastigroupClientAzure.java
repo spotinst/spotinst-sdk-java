@@ -391,7 +391,7 @@ public class SpotinstElastigroupClientAzure {
         return isGroupImported;
     }
 
-    public Boolean createVmSignal(ElastigroupCreateVmSignalRequestAzure vmSignalRequestAzure) {
+    public Boolean createVmSignal(CreateVmSignalRequestAzure vmSignalRequestAzure) {
         Boolean isCreated = false;
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
@@ -413,7 +413,7 @@ public class SpotinstElastigroupClientAzure {
         return isCreated;
     }
 
-    public UpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure capacityRequestAzure) {
+    public UpdateCapacityAzure updateCapacity(UpdateCapacityRequestAzure capacityRequestAzure) {
         UpdateCapacityAzure isUpdatedCapacity = null;
         SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
         ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();

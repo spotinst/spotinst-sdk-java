@@ -1,13 +1,6 @@
 package com.spotinst.sdkjava.model;
 
 
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupAzure;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class ElastigroupDeletionRequestAzure {
     //region Members
     private String elastigroupId;

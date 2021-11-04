@@ -5,11 +5,11 @@ import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiVmSignalAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.VmSignalAzure;
 
-public class ElastigroupCreateVmSignalRequestAzure {
+public class CreateVmSignalRequestAzure {
 
     private VmSignalAzure vmSignalAzure;
 
-    private ElastigroupCreateVmSignalRequestAzure() {
+    private CreateVmSignalRequestAzure() {
     }
 
     public VmSignalAzure getVmSignalAzure() {
@@ -21,23 +21,23 @@ public class ElastigroupCreateVmSignalRequestAzure {
     }
 
     public static class Builder {
-        private ElastigroupCreateVmSignalRequestAzure elastigroupVmSignal;
+        private CreateVmSignalRequestAzure elastigroupVmSignal;
 
         private Builder() {
-            this.elastigroupVmSignal = new ElastigroupCreateVmSignalRequestAzure();
+            this.elastigroupVmSignal = new CreateVmSignalRequestAzure();
         }
 
-        public static ElastigroupCreateVmSignalRequestAzure.Builder get() {
-            ElastigroupCreateVmSignalRequestAzure.Builder builder = new ElastigroupCreateVmSignalRequestAzure.Builder();
+        public static CreateVmSignalRequestAzure.Builder get() {
+            CreateVmSignalRequestAzure.Builder builder = new CreateVmSignalRequestAzure.Builder();
             return builder;
         }
 
-        public ElastigroupCreateVmSignalRequestAzure.Builder setVmSignalAzure(final VmSignalAzure vmSignalAzure) {
+        public CreateVmSignalRequestAzure.Builder setVmSignalAzure(final VmSignalAzure vmSignalAzure) {
             elastigroupVmSignal.setVmSignalAzure(vmSignalAzure);
             return this;
         }
 
-        public ElastigroupCreateVmSignalRequestAzure build() {
+        public CreateVmSignalRequestAzure build() {
             return elastigroupVmSignal;
         }
 

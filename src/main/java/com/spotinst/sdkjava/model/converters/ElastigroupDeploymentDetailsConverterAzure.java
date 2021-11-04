@@ -3,9 +3,9 @@ package com.spotinst.sdkjava.model.converters;
 import com.spotinst.sdkjava.enums.DeploymentInstanceStatusEnumAzure;
 import com.spotinst.sdkjava.enums.GenerationEnumAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.*;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.*;
 import com.spotinst.sdkjava.enums.GroupDeploymentStateEnumAzure;
 import com.spotinst.sdkjava.enums.HealthCheckTypeEnumAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.*;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 /**
  * Created by yossi.elman on 09/02/2020.
  */
-class GroupFilter {
+public class GroupFilter {
 
     //region Members
     private String  maxCreatedAt;

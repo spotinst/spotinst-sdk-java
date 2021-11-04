@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.service.elastigroup.azure.v3;
 
 
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
@@ -6,6 +6,8 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ElastigroupApiResponseAzure;
+import com.spotinst.sdkjava.model.GroupFilter;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiCreateDeploymentAzure;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.Deployment.ApiGetDeploymentAzure;
@@ -20,7 +22,7 @@ import org.apache.http.HttpStatus;
 import java.util.*;
 
 
-class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
+public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
     public static ApiElastigroupAzure createElastigroup(ApiElastigroupAzure groupToCreate, String authToken,
                                                         String account) throws SpotinstHttpException {
@@ -200,7 +202,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return retVal;
     }
 
-    ApiCreateDeploymentAzure createDeployment(ApiGroupDeploymentRequestAzure apiDeploymentToCreate, String authToken,
+    public static ApiCreateDeploymentAzure createDeployment(ApiGroupDeploymentRequestAzure apiDeploymentToCreate, String authToken,
                                               String account, String groupId) {
         ApiCreateDeploymentAzure retVal = null;
 
@@ -220,8 +222,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         Map<String, String> headers  = buildHeaders(authToken);
         RestResponse        response = RestClient.sendPost(uri, body, headers, queryParams);
 
-        ElastigroupApiCreateDeploymentResponseAzure elastigroupApiResponse =
-                getCastedResponse(response, ElastigroupApiCreateDeploymentResponseAzure.class);
+        CreateDeploymentApiResponseAzure elastigroupApiResponse =
+                getCastedResponse(response, CreateDeploymentApiResponseAzure.class);
 
 
         if (elastigroupApiResponse.getResponse().getCount() > 0) {
@@ -231,7 +233,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return retVal;
     }
 
-    List<ApiGetDeploymentAzure> getAllDeployments(String groupId, String authToken, String account,  Integer limit, SortQueryParam sortQueryParam) {
+    public static List<ApiGetDeploymentAzure> getAllDeployments(String groupId, String authToken, String account,  Integer limit, SortQueryParam sortQueryParam) {
 
 
         List<ApiGetDeploymentAzure> retVal      = new ArrayList<>();
@@ -259,8 +261,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
 
         // Handle the response.
-        ElastigroupApiGetDeploymentResponseAzure deploymentsResponse =
-                getCastedResponse(response, ElastigroupApiGetDeploymentResponseAzure.class);
+        GetDeploymentApiResponseAzure deploymentsResponse =
+                getCastedResponse(response, GetDeploymentApiResponseAzure.class);
 
         if (deploymentsResponse.getResponse().getCount() > 0) {
             retVal = deploymentsResponse.getResponse().getItems();
@@ -270,7 +272,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
     }
 
 
-    ApiGetDeploymentAzure getDeployment(String deploymentId, String authToken, String account, String groupId) {
+    public static ApiGetDeploymentAzure getDeployment(String deploymentId, String authToken, String account, String groupId) {
         ApiGetDeploymentAzure retVal      = null;
         Map<String, String>      headers     = buildHeaders(authToken);
         Map<String, String>      queryParams = new HashMap<>();
@@ -287,8 +289,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiGetDeploymentResponseAzure deploymentsResponse =
-                getCastedResponse(response, ElastigroupApiGetDeploymentResponseAzure.class);
+        GetDeploymentApiResponseAzure deploymentsResponse =
+                getCastedResponse(response, GetDeploymentApiResponseAzure.class);
 
         if (deploymentsResponse.getResponse().getCount() > 0) {
             retVal = deploymentsResponse.getResponse().getItems().get(0);
@@ -297,7 +299,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return retVal;
     }
 
-    ApiGroupDeploymentDetailsAzure getDeploymentDetails(String deploymentId, String authToken, String account,
+    public static ApiGroupDeploymentDetailsAzure getDeploymentDetails(String deploymentId, String authToken, String account,
                                                         String groupId) {
         ApiGroupDeploymentDetailsAzure retVal      = null;
         Map<String, String>            headers     = buildHeaders(authToken);
@@ -315,8 +317,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiDeploymentDetailsResponseAzure deploymentsResponse =
-                getCastedResponse(response, ElastigroupApiDeploymentDetailsResponseAzure.class);
+        DeploymentDetailsApiResponseAzure deploymentsResponse =
+                getCastedResponse(response, DeploymentDetailsApiResponseAzure.class);
 
         if (deploymentsResponse.getResponse().getCount() > 0) {
             retVal = deploymentsResponse.getResponse().getItems().get(0);
@@ -386,7 +388,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiGetStatusResponseAzure groupStatusResponse = getCastedResponse(response, ElastigroupApiGetStatusResponseAzure.class);
+        GetStatusApiResponseAzure groupStatusResponse = getCastedResponse(response, GetStatusApiResponseAzure.class);
 
         if (groupStatusResponse.getResponse().getCount() > 0) {
             statusAzure = groupStatusResponse.getResponse().getItems().get(0);
@@ -417,8 +419,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
-        ElastigroupApiScalingResponseAzure scalingResponse =
-                getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
+        ScalingApiResponseAzure scalingResponse =
+                getCastedResponse(response, ScalingApiResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
             scaleUp = scalingResponse.getResponse().getItems();
         }
@@ -449,8 +451,8 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
 
-        ElastigroupApiScalingResponseAzure scalingResponse =
-                getCastedResponse(response, ElastigroupApiScalingResponseAzure.class);
+        ScalingApiResponseAzure scalingResponse =
+                getCastedResponse(response, ScalingApiResponseAzure.class);
         if (scalingResponse.getResponse().getItems().size() > 0) {
             scaleDown = scalingResponse.getResponse().getItems();
         }
@@ -519,7 +521,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return importGroup;
     }
 
-    public static Boolean createVmSignal(ElastigroupCreateVmSignalRequestAzure vmSignalRequestAzure,
+    public static Boolean createVmSignal(CreateVmSignalRequestAzure vmSignalRequestAzure,
                                          String authToken, String account) throws SpotinstHttpException {
         Boolean isCreated = false;
 
@@ -542,7 +544,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return isCreated;
     }
 
-    public static ApiUpdateCapacityAzure updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacityRequest,
+    public static ApiUpdateCapacityAzure updateCapacity(UpdateCapacityRequestAzure updateCapacityRequest,
                                                         String authToken, String account) throws SpotinstHttpException {
 
         ApiUpdateCapacityAzure groupCapacity = new ApiUpdateCapacityAzure();
@@ -562,7 +564,7 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
 
         RestResponse response = RestClient.sendPut(uri, updateCapacityRequest.toJson(), headers, queryParams);
 
-        ElastigroupApiUpdateCapacityResponseAzure updateResponse = getCastedResponse(response, ElastigroupApiUpdateCapacityResponseAzure.class);
+        UpdateCapacityApiResponseAzure updateResponse = getCastedResponse(response, UpdateCapacityApiResponseAzure.class);
 
         if (updateResponse.getResponse().getCount() > 0) {
             groupCapacity = updateResponse.getResponse().getItems().get(0);
@@ -706,10 +708,10 @@ class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return vmRemoveProtect;
     }
 
-    public static ApiElastigroupDetachedVmsAzure detachVms(DetachVmsRequestAzure detachVmsRequest,
-                                                           String authToken, String account) throws SpotinstHttpException {
+    public static ApiDetachVmsResponseAzure detachVms(DetachVmsRequestAzure detachVmsRequest,
+                                                      String authToken, String account) throws SpotinstHttpException {
 
-        ApiElastigroupDetachedVmsAzure detachedVmsAzure = new ApiElastigroupDetachedVmsAzure();
+        ApiDetachVmsResponseAzure detachedVmsAzure = new ApiDetachVmsResponseAzure();
 
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();

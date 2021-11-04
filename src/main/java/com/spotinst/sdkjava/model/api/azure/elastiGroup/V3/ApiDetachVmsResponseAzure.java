@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupDetachedVmsAzure implements IPartialUpdateEntity {
+public class ApiDetachVmsResponseAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                 isSet;
@@ -19,7 +19,7 @@ public class ApiElastigroupDetachedVmsAzure implements IPartialUpdateEntity {
     @JsonProperty("newVms")
     private List<ApiDetachVmsResponseNewVmsAzure>                        newVmsAzure;
 
-    public ApiElastigroupDetachedVmsAzure() {
+    public ApiDetachVmsResponseAzure() {
         isSet = new HashSet<>();
     }
 

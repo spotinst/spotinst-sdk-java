@@ -9,13 +9,13 @@ import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.UpdateCapacityAzure;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ElastigroupUpdateCapacityRequestAzure {
+public class UpdateCapacityRequestAzure {
 
     private String groupId;
     @JsonProperty("capacity")
     private UpdateCapacityAzure capacityAzure;
 
-    private ElastigroupUpdateCapacityRequestAzure() {
+    private UpdateCapacityRequestAzure() {
     }
 
     public String getGroupId() {
@@ -35,14 +35,14 @@ public class ElastigroupUpdateCapacityRequestAzure {
     }
 
     public static class Builder {
-        private ElastigroupUpdateCapacityRequestAzure groupUpdateCapacity;
+        private UpdateCapacityRequestAzure groupUpdateCapacity;
 
         private Builder() {
-            this.groupUpdateCapacity = new ElastigroupUpdateCapacityRequestAzure();
+            this.groupUpdateCapacity = new UpdateCapacityRequestAzure();
         }
 
-        public static ElastigroupUpdateCapacityRequestAzure.Builder get() {
-            ElastigroupUpdateCapacityRequestAzure.Builder builder = new ElastigroupUpdateCapacityRequestAzure.Builder();
+        public static UpdateCapacityRequestAzure.Builder get() {
+            UpdateCapacityRequestAzure.Builder builder = new UpdateCapacityRequestAzure.Builder();
             return builder;
         }
 
@@ -56,7 +56,7 @@ public class ElastigroupUpdateCapacityRequestAzure {
             return this;
         }
 
-        public ElastigroupUpdateCapacityRequestAzure build() {
+        public UpdateCapacityRequestAzure build() {
             return groupUpdateCapacity;
         }
 

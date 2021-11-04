@@ -813,10 +813,10 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static ApiElastigroupDetachedVmsAzure toDal(DetachVmsResponseAzure detachVmsAzure) {
-        ApiElastigroupDetachedVmsAzure retVal = null;
+    public static ApiDetachVmsResponseAzure toDal(DetachVmsResponseAzure detachVmsAzure) {
+        ApiDetachVmsResponseAzure retVal = null;
         if (detachVmsAzure != null) {
-            retVal = new ApiElastigroupDetachedVmsAzure();
+            retVal = new ApiDetachVmsResponseAzure();
             if (detachVmsAzure.isDetachedVmsSet()) {
                 List<ApiDetachVmsResponseDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toDal)
                         .collect(Collectors.toList());
@@ -1688,7 +1688,7 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
-    public static DetachVmsResponseAzure toBl(ApiElastigroupDetachedVmsAzure detachVmsAzure) {
+    public static DetachVmsResponseAzure toBl(ApiDetachVmsResponseAzure detachVmsAzure) {
         DetachVmsResponseAzure retVal = null;
         if (detachVmsAzure != null) {
             DetachVmsResponseAzure.Builder detachVmsBuilder = DetachVmsResponseAzure.Builder.get();

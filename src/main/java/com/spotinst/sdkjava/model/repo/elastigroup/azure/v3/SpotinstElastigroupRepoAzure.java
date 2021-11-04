@@ -1,17 +1,21 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.repo.elastigroup.azure.v3;
 
 import com.spotinst.sdkjava.enums.ElastigroupSeverityEnumAzure;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.GroupFilter;
+import com.spotinst.sdkjava.model.ISpotinstElastigroupRepoAzure;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
+import com.spotinst.sdkjava.model.service.elastigroup.azure.v3.SpotinstElastigroupServiceAzure;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
+public class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure {
 
     @Override
     public RepoGenericResponse<ElastigroupAzure> create(ElastigroupAzure elastigroupToCreate, String authToken, String account) {
@@ -193,7 +197,7 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<Boolean> createVmSignal(ElastigroupCreateVmSignalRequestAzure elastigroupVmSignal, String authToken, String account) {
+    public RepoGenericResponse<Boolean> createVmSignal(CreateVmSignalRequestAzure elastigroupVmSignal, String authToken, String account) {
         RepoGenericResponse<Boolean> vmSignal;
 
         try {
@@ -209,7 +213,7 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
     }
 
     @Override
-    public RepoGenericResponse<UpdateCapacityAzure> updateCapacity(ElastigroupUpdateCapacityRequestAzure updateCapacity, String authToken, String account) {
+    public RepoGenericResponse<UpdateCapacityAzure> updateCapacity(UpdateCapacityRequestAzure updateCapacity, String authToken, String account) {
         RepoGenericResponse<UpdateCapacityAzure> isCapacityUpdated;
 
         try {
@@ -315,7 +319,7 @@ class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzure{
         RepoGenericResponse<DetachVmsResponseAzure> detachVms;
 
         try {
-            ApiElastigroupDetachedVmsAzure apiDetachedVms = SpotinstElastigroupServiceAzure.detachVms(groupId, authToken, account);
+            ApiDetachVmsResponseAzure apiDetachedVms = SpotinstElastigroupServiceAzure.detachVms(groupId, authToken, account);
             DetachVmsResponseAzure detachedVms =
                     ElastigroupConverterAzure.toBl(apiDetachedVms);
             detachVms = new RepoGenericResponse<>(detachedVms);
