@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +54,7 @@ public class ElastigroupConverterAzure {
                 if (schedulingConfiguration.getTasks() != null) {
                     List<ApiElastigroupScheduledTaskAzure> taskList =
                             schedulingConfiguration.getTasks().stream().map(ElastigroupConverterAzure::toDal)
-                                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setTasks(taskList);
                 }
             }
@@ -174,7 +175,7 @@ public class ElastigroupConverterAzure {
                 if (launchSpecification.getTags() != null) {
                     List<ApiTagAzure> optimizerTags =
                             launchSpecification.getTags().stream().map(ElastigroupConverterAzure::toDal)
-                                               .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setTags(optimizerTags);
                 }
             }
@@ -198,7 +199,7 @@ public class ElastigroupConverterAzure {
                 if (imageSpecAzure.getCustom() != null) {
                     List<ApiCustomSpecAzure> customAzures =
                             imageSpecAzure.getCustom().stream().map(ElastigroupConverterAzure::toDal)
-                                          .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setCustom(customAzures);
                 }
             }
@@ -246,7 +247,7 @@ public class ElastigroupConverterAzure {
                 if (networkInterfaces != null) {
                     List<ApiNetworkInterfaceAzure> apinetworkInterfaces =
                             network.getNetworkInterfaces().stream().map(ElastigroupConverterAzure::toDal)
-                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setNetworkInterfaces(apinetworkInterfaces);
                 }
             }
@@ -565,6 +566,288 @@ public class ElastigroupConverterAzure {
         }
         return retVal;
     }
+
+    private static ApiGroupStatusResponseVmsAzure toDal(GroupStatusReponseVmsAzure vms) {
+        ApiGroupStatusResponseVmsAzure retVal = null;
+        if (vms != null) {
+            retVal = new ApiGroupStatusResponseVmsAzure();
+            if (vms.isCreatedAtSet()) {
+                retVal.setCreatedAt(vms.getCreatedAt());
+            }
+            if (vms.isLifeCycleSet()) {
+                retVal.setLifeCycle(vms.getLifeCycle());
+            }
+            if (vms.isOsSet()) {
+                retVal.setOs(vms.getOs());
+            }
+            if (vms.isPowerStateSet()) {
+                retVal.setPowerState(vms.getPowerState());
+            }
+            if (vms.isPrivateIpSet()) {
+                retVal.setPrivateIp(vms.getPrivateIp());
+            }
+            if (vms.isProvisioningStateSet()) {
+                retVal.setProvisioningState(vms.getProvisioningState());
+            }
+            if (vms.isPublicIpSet()) {
+                retVal.setPublicIp(vms.getPublicIp());
+            }
+            if (vms.isRegionSet()) {
+                retVal.setRegion(vms.getRegion());
+            }
+            if (vms.isVmNameSet()) {
+                retVal.setVmName(vms.getVmName());
+            }
+            if (vms.isVmSizeSet()) {
+                retVal.setVmSize(vms.getVmSize());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiScalingResponseSuspendedProcessAzure toDal(StatusResponseSuspendedProcessAzure suspendProcess) {
+        ApiScalingResponseSuspendedProcessAzure retVal = null;
+        if (suspendProcess != null) {
+            retVal = new ApiScalingResponseSuspendedProcessAzure();
+            if (suspendProcess.isExpiresAtSet()) {
+                retVal.setExpiresAt(suspendProcess.getExpiresAt());
+            }
+            if (suspendProcess.isNameSet()) {
+                retVal.setName(suspendProcess.getName());
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiGetElastigroupStatusResponseAzure toDal(GetElastigroupStatusResponseAzure groupStatus) {
+        ApiGetElastigroupStatusResponseAzure retVal = null;
+        if (groupStatus != null) {
+            retVal = new ApiGetElastigroupStatusResponseAzure();
+            if (groupStatus.isStatusSet()) {
+                retVal.setStatus(groupStatus.getStatus());
+            }
+            if (groupStatus.isSuspendedProcessesSet()) {
+                List<ApiScalingResponseSuspendedProcessAzure> suspendedProcessAzures = groupStatus.getSuspendedProcesses()
+                        .stream().map(ElastigroupConverterAzure::toDal).collect(Collectors.toList());
+                retVal.setSuspendedProcesses(suspendedProcessAzures);
+            }
+            if (groupStatus.isVmsSet()) {
+                List<ApiGroupStatusResponseVmsAzure> vmsAzures = groupStatus.getVms().stream().map(ElastigroupConverterAzure::toDal)
+                        .collect(Collectors.toList());
+                retVal.setVms(vmsAzures);
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiVmSignalAzure toDal(VmSignalAzure vmSignal) {
+        ApiVmSignalAzure retVal = null;
+        if (vmSignal != null) {
+            retVal = new ApiVmSignalAzure();
+            if (vmSignal.isSignalTypeSet()) {
+                retVal.setSignalType(vmSignal.getSignalType());
+            }
+            if (vmSignal.isVmNameSet()) {
+                retVal.setVmName(vmSignal.getVmName());
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiUpdateCapacityAzure toDal(UpdateCapacityAzure capacityAzure) {
+        ApiUpdateCapacityAzure retVal = null;
+        if (capacityAzure != null) {
+            retVal = new ApiUpdateCapacityAzure();
+            if (capacityAzure.isMinimumSet()) {
+                retVal.setMinimum(capacityAzure.getMinimum());
+            }
+            if (capacityAzure.isMaximumSet()) {
+                retVal.setMaximum(capacityAzure.getMaximum());
+            }
+            if (capacityAzure.isTargetSet()) {
+                retVal.setTarget(capacityAzure.getTarget());
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiVmHealthinessAzure toDal(VmHealthinessAzure vmHealthinessAzure) {
+        ApiVmHealthinessAzure retVal = null;
+        if (vmHealthinessAzure != null) {
+            retVal = new ApiVmHealthinessAzure();
+            if (vmHealthinessAzure.isHealthStatusSet()) {
+                retVal.setHealthStatus(vmHealthinessAzure.getHealthStatus());
+            }
+            if (vmHealthinessAzure.isLifeCycleSet()) {
+                retVal.setLifeCycle(vmHealthinessAzure.getLifeCycle());
+            }
+            if (vmHealthinessAzure.isVmNameSet()) {
+                retVal.setVmName(vmHealthinessAzure.getVmName());
+            }
+        }
+        return retVal;
+    }
+
+    public static List<ApiSuspendgroupProcessesAzure> toDalForSuspendProcess(List<SuspendGroupProcessesAzure> suspendGroupProcesses) {
+
+        List<ApiSuspendgroupProcessesAzure> retVal = null;
+        if (suspendGroupProcesses != null) {
+            retVal = new ArrayList<ApiSuspendgroupProcessesAzure>();
+            for(SuspendGroupProcessesAzure process : suspendGroupProcesses) {
+                ApiSuspendgroupProcessesAzure apiProcess = new ApiSuspendgroupProcessesAzure();
+                if (process.isNameSet()) {
+                    apiProcess.setName(process.getName());
+                }
+                if (process.isTtlInMinutesSet()) {
+                    apiProcess.setTtlInMinutes(process.getTtlInMinutes());
+                }
+                retVal.add(apiProcess);
+            }
+        }
+        return retVal;
+    }
+
+    public static List<ApiResumeGroupProcessesAzure> toDal(List<ResumeGroupProcessesAzure> resumeGroupProcesses) {
+        List<ApiResumeGroupProcessesAzure> retVal = null;
+        if (resumeGroupProcesses != null) {
+            retVal = new ArrayList<ApiResumeGroupProcessesAzure>();
+            for(ResumeGroupProcessesAzure groupProcess : resumeGroupProcesses) {
+                ApiResumeGroupProcessesAzure apiProcess = new ApiResumeGroupProcessesAzure();
+                if (groupProcess.isNameSet()) {
+                    apiProcess.setName(groupProcess.getName());
+                }
+                retVal.add(apiProcess);
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiDetachVmsAzure toDal(DetachVmsAzure detachVmsAzure) {
+        ApiDetachVmsAzure retVal = null;
+        if (detachVmsAzure != null) {
+            retVal = new ApiDetachVmsAzure();
+            if (detachVmsAzure.isDrainingTimeoutSet()) {
+                retVal.setDrainingTimeout(detachVmsAzure.getDrainingTimeout());
+            }
+
+            if (detachVmsAzure.isShouldDecrementTargetCapacitySet()) {
+                retVal.setShouldDecrementTargetCapacity(detachVmsAzure.getShouldDecrementTargetCapacity());
+            }
+
+            if (detachVmsAzure.isShouldTerminateVmsSet()) {
+                retVal.setShouldTerminateVms(detachVmsAzure.getShouldTerminateVms());
+            }
+
+            if (detachVmsAzure.isVmsToDetachSet()) {
+                retVal.setVmsToDetach(detachVmsAzure.getVmsToDetach());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiDetachVmsResponseDetachedVmsAzure toDal(DetachVmsResponseDetachedVmsAzure detachedVmsAzure) {
+        ApiDetachVmsResponseDetachedVmsAzure retVal = null;
+        if (detachedVmsAzure != null) {
+            retVal = new ApiDetachVmsResponseDetachedVmsAzure();
+
+            if (detachedVmsAzure.isLifeCycleSet()) {
+                retVal.setLifeCycle(detachedVmsAzure.getLifeCycle());
+            }
+            if (detachedVmsAzure.isOsSet()) {
+                retVal.setOs(detachedVmsAzure.getOs());
+            }
+            if (detachedVmsAzure.isPrivateIpSet()) {
+                retVal.setPrivateIp(detachedVmsAzure.getPrivateIp());
+            }
+            if (detachedVmsAzure.isPublicIpSet()) {
+                retVal.setPublicIp(detachedVmsAzure.getPublicIp());
+            }
+            if (detachedVmsAzure.isRegionSet()) {
+                retVal.setRegion(detachedVmsAzure.getRegion());
+            }
+            if (detachedVmsAzure.isVmNameSet()) {
+                retVal.setVmName(detachedVmsAzure.getVmName());
+            }
+            if (detachedVmsAzure.isVmSizeSet()) {
+                retVal.setVmSize(detachedVmsAzure.getVmSize());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiDetachVmsResponseNewVmsAzure toDal(DetachVmsResponseNewVmsAzure newVms) {
+        ApiDetachVmsResponseNewVmsAzure retVal = null;
+        if (newVms != null) {
+            retVal = new ApiDetachVmsResponseNewVmsAzure();
+            if (newVms.isCreatedAtSet()) {
+                retVal.setCreatedAt(newVms.getCreatedAt());
+            }
+            if (newVms.isLifeCycleSet()) {
+                retVal.setLifeCycle(newVms.getLifeCycle());
+            }
+            if (newVms.isOsSet()) {
+                retVal.setOs(newVms.getOs());
+            }
+            if (newVms.isPowerStateSet()) {
+                retVal.setPowerState(newVms.getPowerState());
+            }
+            if (newVms.isPrivateIpSet()) {
+                retVal.setPrivateIp(newVms.getPrivateIp());
+            }
+            if (newVms.isProvisioningStateSet()) {
+                retVal.setProvisioningState(newVms.getProvisioningState());
+            }
+            if (newVms.isPublicIpSet()) {
+                retVal.setPublicIp(newVms.getPublicIp());
+            }
+            if (newVms.isRegionSet()) {
+                retVal.setRegion(newVms.getRegion());
+            }
+            if (newVms.isVmNameSet()) {
+                retVal.setVmName(newVms.getVmName());
+            }
+            if (newVms.isVmSizeSet()) {
+                retVal.setVmSize(newVms.getVmSize());
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiDetachVmsResponseAzure toDal(DetachVmsResponseAzure detachVmsAzure) {
+        ApiDetachVmsResponseAzure retVal = null;
+        if (detachVmsAzure != null) {
+            retVal = new ApiDetachVmsResponseAzure();
+            if (detachVmsAzure.isDetachedVmsSet()) {
+                List<ApiDetachVmsResponseDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toDal)
+                        .collect(Collectors.toList());
+                retVal.setDetachedVms(detachVms);
+            }
+
+            if (detachVmsAzure.isNewVmsAzureSet()) {
+                List<ApiDetachVmsResponseNewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toDal)
+                        .collect(Collectors.toList());
+                retVal.setNewVmsAzure(newVms);
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiGetElastilogResponseAzure toDal(GetElastilogResponseAzure elastilogAzure) {
+        ApiGetElastilogResponseAzure retVal = null;
+        if (elastilogAzure != null) {
+            retVal = new ApiGetElastilogResponseAzure();
+            if (elastilogAzure.isCreatedAtSet()) {
+                retVal.setCreatedAt(elastilogAzure.getCreatedAt());
+            }
+            if (elastilogAzure.isMessageSet()) {
+                retVal.setMessage(elastilogAzure.getMessage());
+            }
+            if (elastilogAzure.isSeveritySet()) {
+                retVal.setSeverity(elastilogAzure.getSeverity());
+            }
+        }
+        return retVal;
+    }
     //endregion
 
     //region DAL -> BL
@@ -620,7 +903,7 @@ public class ElastigroupConverterAzure {
                 if (apiScheduling.getTasks() != null) {
                     List<TasksConfigurationAzure> tasksConfigurationList =
                             apiScheduling.getTasks().stream().map(ElastigroupConverterAzure::toBl)
-                                         .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     blSchedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
@@ -736,7 +1019,7 @@ public class ElastigroupConverterAzure {
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
                     List<TagAzure> tags = launchSpecification.getTags().stream().map(ElastigroupConverterAzure::toBl)
-                                                             .collect(Collectors.toList());
+                            .collect(Collectors.toList());
                     retValBuilder.setTags(tags);
                 }
             }
@@ -756,7 +1039,7 @@ public class ElastigroupConverterAzure {
                 if (apiImageSpecAzure.getCustom() != null) {
                     List<CustomSpecAzure> customSpec =
                             apiImageSpecAzure.getCustom().stream().map(ElastigroupConverterAzure::toBl)
-                                             .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setCustom(customSpec);
                 }
             }
@@ -817,7 +1100,7 @@ public class ElastigroupConverterAzure {
                     List<ApiNetworkInterfaceAzure> apiNetworkInterfaceAzure = network.getNetworkInterfaces();
                     List<NetworkInterfaceAzure> networkInterfaceAzure =
                             apiNetworkInterfaceAzure.stream().map(ElastigroupConverterAzure::toBl)
-                                                    .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setNetworkInterfaces(networkInterfaceAzure);
                 }
             }
@@ -985,7 +1268,7 @@ public class ElastigroupConverterAzure {
                     List<ApiScalingPolicyAzure> apiScalingPolicies = scaling.getUp();
                     List<ScalingPolicyAzure> scalingPolicies =
                             apiScalingPolicies.stream().map(ElastigroupConverterAzure::toBl)
-                                              .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setUp(scalingPolicies);
                 }
             }
@@ -994,7 +1277,7 @@ public class ElastigroupConverterAzure {
                     List<ApiScalingPolicyAzure> apiScalingPolicies = scaling.getDown();
                     List<ScalingPolicyAzure> scalingPolicies =
                             apiScalingPolicies.stream().map(ElastigroupConverterAzure::toBl)
-                                              .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setDown(scalingPolicies);
                 }
             }
@@ -1007,7 +1290,7 @@ public class ElastigroupConverterAzure {
         LoadBalancersConfigAzure retVal = null;
         if (loadBalancersConfig != null) {
             LoadBalancersConfigAzure.Builder retValBuilder = LoadBalancersConfigAzure.Builder.get();
-            List<ApiLoadBalancerAzure>       loadBalancers = loadBalancersConfig.getLoadBalancers();
+            List<ApiLoadBalancerAzure> loadBalancers = loadBalancersConfig.getLoadBalancers();
             if (loadBalancersConfig.isLoadBalancersSet() && loadBalancers != null) {
                 List<LoadBalancerAzure> blLoadBalancers =
                         loadBalancers.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
@@ -1096,7 +1379,7 @@ public class ElastigroupConverterAzure {
                             networkInterfaceAzure.getAdditionalIpConfigurations();
                     List<AdditionalIpConfigurationsAzure> additionalIpConfigurationsAzure =
                             apiAdditionalIpConfigurationsAzure.stream().map(ElastigroupConverterAzure::toBl)
-                                                              .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setAdditionalIpConfigurations(additionalIpConfigurationsAzure);
                 }
             }
@@ -1163,5 +1446,284 @@ public class ElastigroupConverterAzure {
         }
         return retVal;
     }
-    //endregion
+
+    private static GroupStatusReponseVmsAzure toBl(ApiGroupStatusResponseVmsAzure vmsAzure) {
+        GroupStatusReponseVmsAzure retVal = null;
+        if (vmsAzure != null) {
+            GroupStatusReponseVmsAzure.Builder vmsBuilder = GroupStatusReponseVmsAzure.Builder.get();
+            if (vmsAzure.isCreatedAtSet()) {
+                vmsBuilder.setCreatedAt(vmsAzure.getCreatedAt());
+            }
+            if (vmsAzure.isLifeCycleSet()) {
+                vmsBuilder.setLifeCycle(vmsAzure.getLifeCycle());
+            }
+            if (vmsAzure.isOsSet()) {
+                vmsBuilder.setOs(vmsAzure.getOs());
+            }
+            if (vmsAzure.isPowerStateSet()) {
+                vmsBuilder.setPowerState(vmsAzure.getPowerState());
+            }
+            if (vmsAzure.isPrivateIpSet()) {
+                vmsBuilder.setPrivateIp(vmsAzure.getPrivateIp());
+            }
+            if (vmsAzure.isProvisioningStateSet()) {
+                vmsBuilder.setProvisioningState(vmsAzure.getProvisioningState());
+            }
+            if (vmsAzure.isPublicIpSet()) {
+                vmsBuilder.setPublicIp(vmsAzure.getPublicIp());
+            }
+            if (vmsAzure.isRegionSet()) {
+                vmsBuilder.setRegion(vmsAzure.getRegion());
+            }
+            if (vmsAzure.isVmNameSet()) {
+                vmsBuilder.setVmName(vmsAzure.getVmName());
+            }
+            if (vmsAzure.isVmSizeSet()) {
+                vmsBuilder.setVmSize(vmsAzure.getVmSize());
+            }
+            retVal = vmsBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static StatusResponseSuspendedProcessAzure toBl(ApiScalingResponseSuspendedProcessAzure suspendProcess) {
+        StatusResponseSuspendedProcessAzure retVal = null;
+        if (suspendProcess != null) {
+            StatusResponseSuspendedProcessAzure.Builder suspendBuilder = StatusResponseSuspendedProcessAzure.Builder.get();
+            if (suspendProcess.isExpiresAtSet()) {
+                suspendBuilder.setExpiresAt(suspendProcess.getExpiresAt());
+            }
+            if (suspendProcess.isNameSet()) {
+                suspendBuilder.setName(suspendProcess.getName());
+            }
+            retVal = suspendBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static ScalingResponseVms toBl(ApiScalingResponseVms vmsAzure) {
+        ScalingResponseVms retVal = null;
+        if (vmsAzure != null) {
+            ScalingResponseVms.Builder vmsBuilder = ScalingResponseVms.Builder.get();
+            if (vmsAzure.isLifeCycleSet()) {
+                vmsBuilder.setLifeCycle(vmsAzure.getLifeCycle());
+            }
+            if (vmsAzure.isVmNameSet()) {
+                vmsBuilder.setVmName(vmsAzure.getVmName());
+            }
+            if (vmsAzure.isVmSizeSet()) {
+                vmsBuilder.setVmSize(vmsAzure.getVmSize());
+            }
+            retVal = vmsBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static GetElastigroupStatusResponseAzure toBl(ApiGetElastigroupStatusResponseAzure elastigroupStatusAzure) {
+        GetElastigroupStatusResponseAzure retVal = null;
+        if (elastigroupStatusAzure != null) {
+            GetElastigroupStatusResponseAzure.Builder elastiBuilder = GetElastigroupStatusResponseAzure.Builder.get();
+            if (elastigroupStatusAzure.isStatusSet()) {
+                if (elastigroupStatusAzure.getStatus() != null) {
+                    elastiBuilder.setStatus(elastigroupStatusAzure.getStatus());
+                }
+            }
+            if (elastigroupStatusAzure.isSuspendedProcessesSet()) {
+                List<StatusResponseSuspendedProcessAzure> suspendedProcessAzures =
+                        elastigroupStatusAzure.getSuspendedProcesses().stream().map(ElastigroupConverterAzure::toBl)
+                        .collect(Collectors.toList());
+                elastiBuilder.setSuspendedProcesses(suspendedProcessAzures);
+            }
+            if (elastigroupStatusAzure.isVmsSet()) {
+                List<GroupStatusReponseVmsAzure> vms = elastigroupStatusAzure.getVms().stream().map(ElastigroupConverterAzure::toBl)
+                        .collect(Collectors.toList());
+                elastiBuilder.setVms(vms);
+            }
+            retVal = elastiBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static VmSignalAzure toBl(ApiVmSignalAzure elastigroupVmSignal) {
+        VmSignalAzure retVal = null;
+        if (elastigroupVmSignal != null) {
+            VmSignalAzure.Builder elastiBuilder = VmSignalAzure.Builder.get();
+            if (elastigroupVmSignal.isSignalTypeSet()) {
+                elastiBuilder.setSignalType(elastigroupVmSignal.getSignalType());
+            }
+            if (elastigroupVmSignal.isVmNameSet()) {
+                elastiBuilder.setVmName(elastigroupVmSignal.getVmName());
+            }
+            retVal = elastiBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static UpdateCapacityAzure toBl(ApiUpdateCapacityAzure apiCapacityAzure) {
+        UpdateCapacityAzure retVal = null;
+        if (apiCapacityAzure != null) {
+            UpdateCapacityAzure.Builder capacityBuilder = UpdateCapacityAzure.Builder.get();
+            if (apiCapacityAzure.isMinimumSet()) {
+                capacityBuilder.setMinimum(apiCapacityAzure.getMinimum());
+            }
+            if (apiCapacityAzure.isMaximumSet()) {
+                capacityBuilder.setMaximum(apiCapacityAzure.getMaximum());
+            }
+            if (apiCapacityAzure.isTargetSet()) {
+                capacityBuilder.setTarget(apiCapacityAzure.getTarget());
+            }
+            retVal = capacityBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static VmHealthinessAzure toBl(ApiVmHealthinessAzure apiVmHealthiness) {
+        VmHealthinessAzure retVal = null;
+        if (apiVmHealthiness != null) {
+            VmHealthinessAzure.Builder vmHealthBuilder = VmHealthinessAzure.Builder.get();
+            if (apiVmHealthiness.isHealthStatusSet()) {
+                vmHealthBuilder.setHealthStatus(apiVmHealthiness.getHealthStatus());
+            }
+            if (apiVmHealthiness.isLifeCycleSet()) {
+                vmHealthBuilder.setLifeCycle(apiVmHealthiness.getLifeCycle());
+            }
+            if (apiVmHealthiness.isVmNameSet()) {
+                vmHealthBuilder.setVmName(apiVmHealthiness.getVmName());
+            }
+            retVal = vmHealthBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static DetachVmsAzure toBl(ApiDetachVmsAzure apiDetachVms) {
+        DetachVmsAzure retVal = null;
+        if (apiDetachVms != null) {
+            DetachVmsAzure.Builder detachVmBuilder = DetachVmsAzure.Builder.get();
+            if (apiDetachVms.isDrainingTimeoutSet()) {
+                detachVmBuilder.setDrainingTimeout(apiDetachVms.getDrainingTimeout());
+            }
+
+            if (apiDetachVms.isShouldDecrementTargetCapacitySet()) {
+                detachVmBuilder.setShouldDecrementTargetCapacity(apiDetachVms.getShouldDecrementTargetCapacity());
+            }
+
+            if (apiDetachVms.isShouldTerminateVmsSet()) {
+                detachVmBuilder.setShouldTerminateVms(apiDetachVms.getShouldTerminateVms());
+            }
+
+            if (apiDetachVms.isVmsToDetachSet()) {
+                detachVmBuilder.setVmsToDetach(apiDetachVms.getVmsToDetach());
+            }
+            retVal = detachVmBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static DetachVmsResponseDetachedVmsAzure toBl(ApiDetachVmsResponseDetachedVmsAzure apiDetachedVms) {
+        DetachVmsResponseDetachedVmsAzure retVal = null;
+        if (apiDetachedVms != null) {
+            DetachVmsResponseDetachedVmsAzure.Builder detachedVmsBuilder = DetachVmsResponseDetachedVmsAzure.Builder.get();
+            if (apiDetachedVms.isLifeCycleSet()) {
+                detachedVmsBuilder.setLifeCycle(apiDetachedVms.getLifeCycle());
+            }
+            if (apiDetachedVms.isOsSet()) {
+                detachedVmsBuilder.setOs(apiDetachedVms.getOs());
+            }
+            if (apiDetachedVms.isPrivateIpSet()) {
+                detachedVmsBuilder.setPrivateIp(apiDetachedVms.getPrivateIp());
+            }
+            if (apiDetachedVms.isPublicIpSet()) {
+                detachedVmsBuilder.setPublicIp(apiDetachedVms.getPublicIp());
+            }
+            if (apiDetachedVms.isRegionSet()) {
+                detachedVmsBuilder.setRegion(apiDetachedVms.getRegion());
+            }
+            if (apiDetachedVms.isVmNameSet()) {
+                detachedVmsBuilder.setVmName(apiDetachedVms.getVmName());
+            }
+            if (apiDetachedVms.isVmSizeSet()) {
+                detachedVmsBuilder.setVmSize(apiDetachedVms.getVmSize());
+            }
+            retVal = detachedVmsBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static DetachVmsResponseNewVmsAzure toBl(ApiDetachVmsResponseNewVmsAzure newVmsAzure) {
+        DetachVmsResponseNewVmsAzure retVal = null;
+        if (newVmsAzure != null) {
+            DetachVmsResponseNewVmsAzure.Builder vmsBuilder = DetachVmsResponseNewVmsAzure.Builder.get();
+            if (newVmsAzure.isCreatedAtSet()) {
+                vmsBuilder.setCreatedAt(newVmsAzure.getCreatedAt());
+            }
+            if (newVmsAzure.isLifeCycleSet()) {
+                vmsBuilder.setLifeCycle(newVmsAzure.getLifeCycle());
+            }
+            if (newVmsAzure.isOsSet()) {
+                vmsBuilder.setOs(newVmsAzure.getOs());
+            }
+            if (newVmsAzure.isPowerStateSet()) {
+                vmsBuilder.setPowerState(newVmsAzure.getPowerState());
+            }
+            if (newVmsAzure.isPrivateIpSet()) {
+                vmsBuilder.setPrivateIp(newVmsAzure.getPrivateIp());
+            }
+            if (newVmsAzure.isProvisioningStateSet()) {
+                vmsBuilder.setProvisioningState(newVmsAzure.getProvisioningState());
+            }
+            if (newVmsAzure.isPublicIpSet()) {
+                vmsBuilder.setPublicIp(newVmsAzure.getPublicIp());
+            }
+            if (newVmsAzure.isRegionSet()) {
+                vmsBuilder.setRegion(newVmsAzure.getRegion());
+            }
+            if (newVmsAzure.isVmNameSet()) {
+                vmsBuilder.setVmName(newVmsAzure.getVmName());
+            }
+            if (newVmsAzure.isVmSizeSet()) {
+                vmsBuilder.setVmSize(newVmsAzure.getVmSize());
+            }
+            retVal = vmsBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static DetachVmsResponseAzure toBl(ApiDetachVmsResponseAzure detachVmsAzure) {
+        DetachVmsResponseAzure retVal = null;
+        if (detachVmsAzure != null) {
+            DetachVmsResponseAzure.Builder detachVmsBuilder = DetachVmsResponseAzure.Builder.get();
+            if (detachVmsAzure.isDetachedVmsSet()) {
+                    List<DetachVmsResponseDetachedVmsAzure> detachVms = detachVmsAzure.getDetachedVms().stream().map(ElastigroupConverterAzure::toBl)
+                            .collect(Collectors.toList());
+                    detachVmsBuilder.setDetachedVms(detachVms);
+            }
+            if (detachVmsAzure.isNewVmsAzureSet()) {
+                    List<DetachVmsResponseNewVmsAzure> newVms = detachVmsAzure.getNewVmsAzure().stream().map(ElastigroupConverterAzure::toBl)
+                            .collect(Collectors.toList());
+                    detachVmsBuilder.setNewVmsAzure(newVms);
+            }
+            retVal = detachVmsBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static GetElastilogResponseAzure toBl(ApiGetElastilogResponseAzure getElastilogAzure) {
+        GetElastilogResponseAzure retVal = null;
+        if (getElastilogAzure != null) {
+            GetElastilogResponseAzure.Builder elastiLogBuilder = GetElastilogResponseAzure.Builder.get();
+            if (getElastilogAzure.isCreatedAtSet()) {
+                elastiLogBuilder.setCreatedAt(getElastilogAzure.getCreatedAt());
+            }
+            if (getElastilogAzure.isMessageSet()) {
+                elastiLogBuilder.setMessage(getElastilogAzure.getMessage());
+            }
+            if (getElastilogAzure.isSeveritySet()) {
+                elastiLogBuilder.setSeverity(getElastilogAzure.getSeverity());
+            }
+            retVal = elastiLogBuilder.build();
+        }
+        return retVal;
+    }
+
 }
+

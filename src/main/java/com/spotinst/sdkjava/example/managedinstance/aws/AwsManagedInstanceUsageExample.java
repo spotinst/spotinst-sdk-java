@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.managedinstance.aws;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;

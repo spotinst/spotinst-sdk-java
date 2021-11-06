@@ -5,5 +5,5 @@ import com.spotinst.sdkjava.client.response.BaseServiceItemsResponse;
 import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiElastigroupAzure;
 
 
-class ElastigroupApiResponseAzure extends BaseServiceItemsResponse<ApiElastigroupAzure> {
+public class ElastigroupApiResponseAzure extends BaseServiceItemsResponse<ApiElastigroupAzure> {
 }

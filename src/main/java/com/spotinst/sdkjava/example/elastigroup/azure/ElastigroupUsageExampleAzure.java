@@ -1,8 +1,7 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.elastigroup.azure;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.AzureUnitEnum;
-import com.spotinst.sdkjava.enums.HealthCheckTypeEnumAzure;
+import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.*;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentDetails.DeploymentDetailsBatchAzure;
@@ -11,15 +10,17 @@ import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.DeploymentD
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentCreateAzure;
 import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.Deployment.GroupDeploymentGetAzure;
 import com.spotinst.sdkjava.model.filters.SortQueryParam;
-
+import com.spotinst.sdkjava.model.requests.elastigroup.azure.*;
 import java.io.IOException;
 import java.util.*;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token          = "your-token";
-    private final static String act_id              = "your-account-id";
-    private final static String SSA                 = "your-ssa";
-    private static final String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
+    private final static String auth_token          = "auth-token";
+    private final static String act_id              = "act-id";
+    private final static String SSA                 = "ssh user login";
+    private final static String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
+    private final static List<String> vmList        = Arrays.asList("vm-b92e1161bfe5");
+    private final static String vmName              = "vm-17793a03a276";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -29,12 +30,12 @@ public class ElastigroupUsageExampleAzure {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-        System.out.println("Sleeping... waiting for provisioning 7 seconds.");
-        sleep(7);
+        System.out.println("Sleeping... waiting for provisioning 60 seconds.");
+        sleep(60);
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
 
-        ElastigroupAzure group =  getGroup(elastigroupClient,elastigroupId);
+        ElastigroupAzure group =  getGroup(elastigroupClient, elastigroupId);
         String groupName = group.getName();
         String preFormat     = "groupId: %s - groupName: %s";
         System.out.println(String.format(preFormat, elastigroupId, groupName));
@@ -55,8 +56,69 @@ public class ElastigroupUsageExampleAzure {
         // Get Deployment Details
         GroupDeploymentDetailsAzure deploymentDetails =
                 getDeploymentDetails(elastigroupClient, elastigroupId, deploymentId);
-        // List Deployments
+         //List Deployments
         List<GroupDeploymentGetAzure> allDeployments = getAllDeployments(elastigroupClient, elastigroupId);
+
+        // Get Elastigroup Status
+        GetElastigroupStatusResponseAzure status = getGroupStatus(elastigroupClient, "sig-a6a44b9b");
+        String vmName = status.getVms().get(0).getVmName();
+        System.out.println("Name of the Elastigroup is "+ vmName);
+
+        // Scale Up
+      scaleUpGroup(elastigroupClient, "sig-a6a44b9b", 3);
+
+        // Scale Down
+        scaleDownGroup(elastigroupClient, "sig-a6a44b9b", 4);
+
+        //import from scale set
+        ElastigroupAzure elastigroupAzuregroup = importGroupFromScaleSet(elastigroupClient, "AutomationResourceGroup",
+                "sig-f22cc948_standard_d1_v2_regular");
+        String azureGroupName = elastigroupAzuregroup.getName();
+        System.out.println("Imported Group name " + azureGroupName + " from scale set");
+
+        //Create Vm Signal
+        createVmSignal(elastigroupClient);
+
+        //update capacity
+        updateCapacity(elastigroupClient, "sig-a6a44b9b");
+        System.out.println("Successfully updated the capacity settings for elastigroup: sig-a6a44b9b");
+
+        //get vm healthiness
+        List<VmHealthinessAzure> vmHealth = vmHealthiness(elastigroupClient, "sig-a6a44b9b");
+        VmHealthStatusEnumAzure statusEnum = vmHealth.get(0).getHealthStatus();
+        System.out.println("VM Health Status of group is: "+ statusEnum);
+
+        //suspendGroup Process
+        suspendGroup(elastigroupClient, "sig-a6a44b9b");
+
+        //resumeGroup Process
+        resumeGroup(elastigroupClient, "sig-94b203f9");
+
+        //Vm protection
+        vmProtection(elastigroupClient, "sig-94b203f9");
+
+        //Remove Vm protection
+        removeVmProtection(elastigroupClient, "sig-a6a44b9b", "vm-42144e5c3582");
+
+        //Import from VM
+        ElastigroupAzure response = importFromVm(elastigroupClient);
+        String name = response.getName();
+        System.out.println("Import from VM updated at : "+ name);
+
+        //Get Elasti logs
+        GetElastilogResponseAzure logs = getElastiLog(elastigroupClient, "sig-a6a44b9b");
+        String message = logs.getCreatedAt();
+        System.out.println("Logs : "+ message);
+
+        //Detach Vms
+        DetachVmsResponseAzure detachResponse = detachVms(elastigroupClient, "sig-94b203f9");
+        String oldVmName = detachResponse.getDetachedVms().get(0).getVmName();
+        String newvmName = detachResponse.getNewVmsAzure().get(0).getVmName();
+        System.out.println("Detached Vm Name : "+ oldVmName);
+        System.out.println("Newaly attached Vm Name : "+ newvmName);
+
+
+
         // Delete elastigroup
         deleteElastigroup(elastigroupClient, elastigroupId);
     }
@@ -169,7 +231,7 @@ public class ElastigroupUsageExampleAzure {
         ElastigroupCapacityConfigurationAzure.Builder capacityBuilder =
                 ElastigroupCapacityConfigurationAzure.Builder.get();
         ElastigroupCapacityConfigurationAzure capacity =
-                capacityBuilder.setMinimum(0).setMaximum(0).setTarget(0).build();
+                capacityBuilder.setMinimum(0).setMaximum(5).setTarget(0).build();
 
 
         // Build elastigroup
@@ -232,7 +294,7 @@ public class ElastigroupUsageExampleAzure {
 
         Boolean successfulDeletion = client.deleteElastigroup(deletionRequest);
         if (successfulDeletion) {
-            System.out.println("Elastigroup succesfully deleted: " + elastigroupId);
+            System.out.println("Elastigroup successfully deleted: " + elastigroupId);
         }
     }
 
@@ -347,6 +409,159 @@ public class ElastigroupUsageExampleAzure {
             }
         }
 
+    }
+
+    private static GetElastigroupStatusResponseAzure getGroupStatus(SpotinstElastigroupClientAzure client, String groupId) {
+        GetElastigroupStatusResponseAzure groupStatus = client.getGroupStatus(groupId);
+
+        return groupStatus;
+
+    }
+
+    private static List<ScalingResponseVms> scaleUpGroup(SpotinstElastigroupClientAzure elastigroupClient,
+                                                         String elastigroupId, Integer adjustment) {
+        List<ScalingResponseVms> elastigroupScalingResponse = elastigroupClient.scaleGroupUp(elastigroupId, adjustment);
+
+      return elastigroupScalingResponse;
+    }
+
+    private static List<ScalingResponseVms> scaleDownGroup(SpotinstElastigroupClientAzure elastigroupClient,
+                                                           String elastigroupId, Integer adjustment) {
+
+        List<ScalingResponseVms> elastigroupScalingResponse = elastigroupClient.scaleGroupDown(elastigroupId, adjustment);
+
+        return elastigroupScalingResponse;
+    }
+
+    private static ElastigroupAzure importGroupFromScaleSet(SpotinstElastigroupClientAzure elastigroupClient,
+                                                            String  resourceGroupName, String scaleSetName) {
+
+        ElastigroupAzure elastigroupImportResponse = elastigroupClient.importGroupFromScaleSet(resourceGroupName, scaleSetName);
+
+        return elastigroupImportResponse;
+    }
+
+    private static void createVmSignal(SpotinstElastigroupClientAzure elastigroupClient) {
+
+        VmSignalAzure.Builder vmSignalBuilder = VmSignalAzure.Builder.get();
+        VmSignalAzure vmSignal =
+                vmSignalBuilder.setSignalType(ElastigroupVmSignalEnumAzure.vmReadyToShutdown)
+                        .setVmName("vm-aac01a6bcaad").build();
+
+        CreateVmSignalRequestAzure.Builder vmSignalCreationRequestBuilder =
+                CreateVmSignalRequestAzure.Builder.get();
+        CreateVmSignalRequestAzure creationRequest =
+                vmSignalCreationRequestBuilder.setVmSignalAzure(vmSignal).build();
+
+        Boolean updateSuccess = elastigroupClient.createVmSignal(creationRequest);
+        if (updateSuccess) {
+            System.out.println("Vm Signal Successfully created.");
+        }
+    }
+
+    public static UpdateCapacityAzure updateCapacity(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+
+        UpdateCapacityAzure.Builder groupCapacityBuilder = UpdateCapacityAzure.Builder.get();
+        UpdateCapacityAzure updateCapacity = groupCapacityBuilder.setMaximum(3).setMinimum(1).setTarget(2)
+                .build();
+
+
+        UpdateCapacityRequestAzure.Builder capacityRequestBuilder =
+                UpdateCapacityRequestAzure.Builder.get();
+        UpdateCapacityRequestAzure capacityUpdateRequest =
+                capacityRequestBuilder.setGroupId(groupId).setCapacityAzure(updateCapacity).build();
+
+        UpdateCapacityAzure updateCapacityResponse =  elastigroupClient.updateCapacity(capacityUpdateRequest);
+
+        return updateCapacityResponse;
+    }
+
+    public static List<VmHealthinessAzure> vmHealthiness(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+
+        List<VmHealthinessAzure> vmHeathResponse = elastigroupClient.vmHealthiness(groupId);
+
+        return vmHeathResponse;
+    }
+
+    public static void suspendGroup(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+        SuspendGroupProcessesAzure.Builder suspendgroupBuilder = SuspendGroupProcessesAzure.Builder.get();
+        SuspendGroupProcessesAzure suspendProcessRequest = suspendgroupBuilder.setName(ProcessNameEnumsAzure.autoHealing)
+                .setTtlInMinutes(120)
+                .build();
+        List<SuspendGroupProcessesAzure> suspendProcess = new ArrayList<>();
+        suspendProcess.add(suspendProcessRequest);
+        SuspendgroupRequestAzure.Builder requestBuilder = SuspendgroupRequestAzure.Builder.get();
+        SuspendgroupRequestAzure suspendGroupRequest = requestBuilder.setSuspendGroup(suspendProcess)
+                .setGroupId(groupId).build();
+
+        Boolean suspended = elastigroupClient.suspendGroup(suspendGroupRequest);
+        if (suspended) {
+            System.out.println("Group Process suspended Successfully.");
+        }
+    }
+
+    public static void resumeGroup(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+        ResumeGroupProcessesAzure.Builder resumegroupBuilder = ResumeGroupProcessesAzure.Builder.get();
+        ResumeGroupProcessesAzure resumeProcessRequest = resumegroupBuilder.setName(ProcessNameEnumsAzure.autoHealing)
+                .build();
+        List<ResumeGroupProcessesAzure> resumeProcess = new ArrayList<>();
+        resumeProcess.add(resumeProcessRequest);
+        ResumegroupRequestAzure.Builder requestBuilder = ResumegroupRequestAzure.Builder.get();
+        ResumegroupRequestAzure resumeGroupRequest = requestBuilder.setResumeGroup(resumeProcess)
+                .setGroupId(groupId).build();
+
+        Boolean resumed = elastigroupClient.resumeGroup(resumeGroupRequest );
+        if (resumed) {
+            System.out.println("Group Process resumed Successfully.");
+        }
+    }
+
+    public static void vmProtection(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+        GetElastigroupStatusResponseAzure groupStatus = elastigroupClient.getGroupStatus(groupId);
+        String vmName = groupStatus.getVms().get(0).getVmName();
+        Boolean vmProtected = elastigroupClient.vmProtection(groupId, vmName, 180);
+        if (vmProtected) {
+            System.out.println("Virtual Machine is Protected Successfully.");
+        }
+    }
+
+    public static void removeVmProtection(SpotinstElastigroupClientAzure elastigroupClient, String groupId, String vmName) {
+
+        Boolean vmProtectedRemoved = elastigroupClient.vmRemoveProtection(groupId, vmName);
+        if (vmProtectedRemoved) {
+            System.out.println("Virtual Machine is Protection Removed Successfully.");
+        }
+    }
+
+    public static ElastigroupAzure importFromVm(SpotinstElastigroupClientAzure elastigroupClient) {
+        ElastigroupAzure elastigroupImportResponse = elastigroupClient
+                .importGroupFromVirtalMachine("AutomationResourceGroup", vmName);
+
+        return elastigroupImportResponse;
+    }
+
+    public static GetElastilogResponseAzure getElastiLog(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+        GetElastilogResponseAzure elastilogResponse = elastigroupClient.getElastilog(groupId, "2021-10-08",
+                1000, null,
+                ElastigroupSeverityEnumAzure.INFO, "2021-10-23");
+
+        return elastilogResponse;
+    }
+
+    public static DetachVmsResponseAzure detachVms(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
+        DetachVmsAzure.Builder detachVmBuilder = DetachVmsAzure.Builder.get();
+        DetachVmsAzure detachVmAzure = detachVmBuilder.setDrainingTimeout("300")
+                .setShouldDecrementTargetCapacity(false)
+                .setShouldTerminateVms(true)
+                .setVmsToDetach(vmList)
+                .build();
+        DetachVmsRequestAzure.Builder detachVmRequestBuilder = DetachVmsRequestAzure.Builder.get();
+        DetachVmsRequestAzure detachVmsRequest = detachVmRequestBuilder.setGroupId(groupId).setDetachVms(detachVmAzure)
+                .build();
+
+        DetachVmsResponseAzure detachVmResponse = elastigroupClient.detachVms(detachVmsRequest);
+
+        return detachVmResponse;
     }
 }
 

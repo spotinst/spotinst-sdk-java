@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiAdditionalIpConfigurationsAzure;
 
 import java.util.HashSet;
 import java.util.List;

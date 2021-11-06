@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.example;
+package com.spotinst.sdkjava.example.elastigroup.gcp;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
