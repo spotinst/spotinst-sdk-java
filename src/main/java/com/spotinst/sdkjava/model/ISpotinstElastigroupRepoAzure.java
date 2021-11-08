@@ -59,7 +59,7 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
     }
 
     default RepoGenericResponse<Boolean> vmProtection(String groupId, String vmName,
-                                                     String authToken, String account, Integer ttlnMinutes) {
+                                                     String authToken, String account, Integer ttlInMinutes) {
         throw new SpotinstNotSupportedException();
     }
 

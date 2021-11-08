@@ -652,7 +652,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return isGroupResumed;
     }
 
-    public static Boolean vmProtection(String groupId, String vmName, String authToken, String account,  Integer limit) {
+    public static Boolean vmProtection(String groupId, String vmName, String authToken, String account,  Integer ttlInMinutes) {
 
         Boolean vmProtect = false;
 
@@ -666,8 +666,8 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
-        if (limit != null) {
-            queryParams.put("limit", limit.toString());
+        if (ttlInMinutes != null) {
+            queryParams.put("ttlInMinutes", ttlInMinutes.toString());
         }
 
         String uri = String.format("%s/azure/compute/group/%s/vm/%s/protection", apiEndpoint, groupId, vmName);

@@ -282,11 +282,11 @@ public class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzu
 
     @Override
     public RepoGenericResponse<Boolean> vmProtection(String groupId, String vmName, String authToken, String account,
-                                                     Integer timeLimit) {
+                                                     Integer ttlInMinutes) {
         RepoGenericResponse<Boolean> vmProtect;
 
         try {
-            Boolean apiVmProtect= SpotinstElastigroupServiceAzure.vmProtection(groupId, vmName, authToken, account, timeLimit);
+            Boolean apiVmProtect= SpotinstElastigroupServiceAzure.vmProtection(groupId, vmName, authToken, account, ttlInMinutes);
             vmProtect = new RepoGenericResponse<>(apiVmProtect);
 
         }

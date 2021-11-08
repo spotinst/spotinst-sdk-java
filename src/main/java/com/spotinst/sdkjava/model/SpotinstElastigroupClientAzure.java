@@ -43,6 +43,7 @@ public class SpotinstElastigroupClientAzure {
                                           List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
         this.account = account;
+        setSpotinstElastigroupRepoAzure();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -59,10 +60,8 @@ public class SpotinstElastigroupClientAzure {
         ElastigroupAzure retVal;
 
         ElastigroupAzure              elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
-        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure           = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> creationResponse =
-                repoAzure.create(elastigroupToCreate, authToken, account);
+                getSpotinstElastigroupRepoAzure().create(elastigroupToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         }
@@ -82,10 +81,8 @@ public class SpotinstElastigroupClientAzure {
         Boolean retVal;
 
         ElastigroupAzure              elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
-        SpotinstRepoManager           managerInstance     = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure           = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> updateResponse =
-                repoAzure.update(elastigroupId, elastigroupToUpdate, authToken, account);
+                getSpotinstElastigroupRepoAzure().update(elastigroupId, elastigroupToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
         }
@@ -104,10 +101,8 @@ public class SpotinstElastigroupClientAzure {
 
         Boolean                       retVal;
         String                        elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
-        SpotinstRepoManager           managerInstance       = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure             = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
-                repoAzure.delete(elastigroupToDeleteId, authToken, account);
+                getSpotinstElastigroupRepoAzure().delete(elastigroupToDeleteId, authToken, account);
         if (elastigroupDeletionResponse.isRequestSucceed()) {
             retVal = elastigroupDeletionResponse.getValue();
         }
@@ -135,10 +130,8 @@ public class SpotinstElastigroupClientAzure {
         filter.setName(elastigroupGetAllRequest.getName());
         filter.setIncludeDeleted(false);
 
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<List<ElastigroupAzure>> elastigroupsRepoGenericResponse =
-                repoAzure.getAll(filter, authToken, account);
+                getSpotinstElastigroupRepoAzure().getAll(filter, authToken, account);
         if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
             retVal = elastigroupsRepoGenericResponse.getValue();
         }
@@ -158,10 +151,8 @@ public class SpotinstElastigroupClientAzure {
         ElastigroupAzure retVal;
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
-                repoAzure.get(elastigroupId, authToken, account);
+                getSpotinstElastigroupRepoAzure().get(elastigroupId, authToken, account);
 
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             LOGGER.info(String.format("get successfully the group %s", elastigroupId));
@@ -285,10 +276,8 @@ public class SpotinstElastigroupClientAzure {
 
     public GetElastigroupStatusResponseAzure getGroupStatus(String groupId) {
         GetElastigroupStatusResponseAzure status = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<GetElastigroupStatusResponseAzure> statusResponse =
-                repoAzure.getStatus(groupId, authToken, account);
+                getSpotinstElastigroupRepoAzure().getStatus(groupId, authToken, account);
 
         if (statusResponse.isRequestSucceed()) {
             status = statusResponse.getValue();
@@ -307,11 +296,8 @@ public class SpotinstElastigroupClientAzure {
 
     public List<ScalingResponseVms> scaleGroupUp(String groupId, Integer adjustment) {
         List<ScalingResponseVms> scaleUp = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
-
         RepoGenericResponse<List<ScalingResponseVms>> elastigroupScalingResponse =
-                repoAzure.scaleUp(groupId, adjustment, authToken, account);
+                getSpotinstElastigroupRepoAzure().scaleUp(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
             scaleUp = elastigroupScalingResponse.getValue();
@@ -329,10 +315,8 @@ public class SpotinstElastigroupClientAzure {
 
     public List<ScalingResponseVms> scaleGroupDown(String groupId, Integer adjustment) {
         List<ScalingResponseVms> scaleDown = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<List<ScalingResponseVms>> elastigroupScalingResponse =
-                repoAzure.scaleDown(groupId, adjustment, authToken, account);
+                getSpotinstElastigroupRepoAzure().scaleDown(groupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
             scaleDown = elastigroupScalingResponse.getValue();
@@ -349,10 +333,8 @@ public class SpotinstElastigroupClientAzure {
 
     public ElastigroupAzure importGroupFromScaleSet(String resourceGroupName, String scaleSetName) {
         ElastigroupAzure isGroupImported;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
-                repoAzure.importGroupFromScaleSet(resourceGroupName, scaleSetName, authToken, account);
+                getSpotinstElastigroupRepoAzure().importGroupFromScaleSet(resourceGroupName, scaleSetName, authToken, account);
 
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             LOGGER.info(String.format("imported successfully the group from %s", resourceGroupName));
@@ -371,10 +353,8 @@ public class SpotinstElastigroupClientAzure {
 
     public ElastigroupAzure importGroupFromVirtalMachine(String resourceGroupName, String virtualMachineName) {
         ElastigroupAzure isGroupImported;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<ElastigroupAzure> elastigroupRepoGenericResponse =
-                repoAzure.importGroupFromVirtualMachine(resourceGroupName, virtualMachineName, authToken, account);
+                getSpotinstElastigroupRepoAzure().importGroupFromVirtualMachine(resourceGroupName, virtualMachineName, authToken, account);
 
         if (elastigroupRepoGenericResponse.isRequestSucceed()) {
             LOGGER.info(String.format("imported successfully the group from %s", resourceGroupName));
@@ -393,10 +373,8 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean createVmSignal(CreateVmSignalRequestAzure vmSignalRequestAzure) {
         Boolean isCreated = false;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> createResponse =
-                repoAzure.createVmSignal(vmSignalRequestAzure, authToken, account);
+                getSpotinstElastigroupRepoAzure().createVmSignal(vmSignalRequestAzure, authToken, account);
 
         if (createResponse.isRequestSucceed()) {
             isCreated = createResponse.getValue();
@@ -415,11 +393,8 @@ public class SpotinstElastigroupClientAzure {
 
     public UpdateCapacityAzure updateCapacity(UpdateCapacityRequestAzure capacityRequestAzure) {
         UpdateCapacityAzure isUpdatedCapacity = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
-
         RepoGenericResponse<UpdateCapacityAzure> elastigroupUpdateCapacityResponse =
-                repoAzure.updateCapacity(capacityRequestAzure, authToken, account);
+                getSpotinstElastigroupRepoAzure().updateCapacity(capacityRequestAzure, authToken, account);
 
         if (elastigroupUpdateCapacityResponse.isRequestSucceed()) {
             isUpdatedCapacity = elastigroupUpdateCapacityResponse.getValue();
@@ -436,10 +411,8 @@ public class SpotinstElastigroupClientAzure {
 
     public List<VmHealthinessAzure> vmHealthiness(String groupId) {
         List<VmHealthinessAzure> isVmHealthy = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<List<VmHealthinessAzure>> vmHealthinessResponse =
-                repoAzure.vmHealthiness(groupId, authToken, account);
+                getSpotinstElastigroupRepoAzure().vmHealthiness(groupId, authToken, account);
 
         if (vmHealthinessResponse.isRequestSucceed()) {
             isVmHealthy = vmHealthinessResponse.getValue();
@@ -456,10 +429,8 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean suspendGroup(SuspendgroupRequestAzure suspendGroupRequest) {
         Boolean isSuspended = false;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> suspendResponse =
-                repoAzure.suspendGroup(suspendGroupRequest, authToken, account);
+                getSpotinstElastigroupRepoAzure().suspendGroup(suspendGroupRequest, authToken, account);
 
         if (suspendResponse.isRequestSucceed()) {
             isSuspended = suspendResponse.getValue();
@@ -478,10 +449,8 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean resumeGroup(ResumegroupRequestAzure resumeGroupRequest) {
         Boolean isResumed = false;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> resumeResponse =
-                repoAzure.resumeGroup(resumeGroupRequest, authToken, account);
+                getSpotinstElastigroupRepoAzure().resumeGroup(resumeGroupRequest, authToken, account);
 
         if (resumeResponse.isRequestSucceed()) {
             isResumed = resumeResponse.getValue();
@@ -498,12 +467,10 @@ public class SpotinstElastigroupClientAzure {
         return isResumed;
     }
 
-    public Boolean vmProtection(String groupId, String vmName, Integer timeLimit) {
+    public Boolean vmProtection(String groupId, String vmName, Integer ttlInMinutes) {
         Boolean isVmProtected = false;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> vmProtectResponse =
-                repoAzure.vmProtection(groupId, vmName, authToken, account, timeLimit);
+                getSpotinstElastigroupRepoAzure().vmProtection(groupId, vmName, authToken, account, ttlInMinutes);
 
         if (vmProtectResponse.isRequestSucceed()) {
             isVmProtected = vmProtectResponse.getValue();
@@ -522,10 +489,8 @@ public class SpotinstElastigroupClientAzure {
 
     public Boolean vmRemoveProtection(String groupId, String vmName) {
         Boolean isVmProtectionRemoved = false;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<Boolean> vmRemoveProtectResponse =
-                repoAzure.vmRemoveProtection(groupId, vmName, authToken, account);
+                getSpotinstElastigroupRepoAzure().vmRemoveProtection(groupId, vmName, authToken, account);
 
         if (vmRemoveProtectResponse.isRequestSucceed()) {
             isVmProtectionRemoved = vmRemoveProtectResponse.getValue();
@@ -544,10 +509,8 @@ public class SpotinstElastigroupClientAzure {
 
     public DetachVmsResponseAzure detachVms(DetachVmsRequestAzure detachVmsRequestAzure) {
         DetachVmsResponseAzure isVmDetached = null;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<DetachVmsResponseAzure> detachResponse =
-                repoAzure.detachVms(detachVmsRequestAzure, authToken, account);
+                getSpotinstElastigroupRepoAzure().detachVms(detachVmsRequestAzure, authToken, account);
 
         if (detachResponse.isRequestSucceed()) {
             isVmDetached = detachResponse.getValue();
@@ -567,10 +530,8 @@ public class SpotinstElastigroupClientAzure {
     public GetElastilogResponseAzure getElastilog(String groupId, String fromDate, Integer limit, String resoucre_Id,
                                                   ElastigroupSeverityEnumAzure severity, String toDate) {
         GetElastilogResponseAzure elastiLog;
-        SpotinstRepoManager           managerInstance = SpotinstRepoManager.getInstance();
-        ISpotinstElastigroupRepoAzure repoAzure       = managerInstance.getSpotinstElastigroupRepoAzure();
         RepoGenericResponse<GetElastilogResponseAzure> statusResponse =
-                repoAzure.getElastilog(groupId, authToken, account, fromDate, limit, resoucre_Id, severity, toDate);
+                getSpotinstElastigroupRepoAzure().getElastilog(groupId, authToken, account, fromDate, limit, resoucre_Id, severity, toDate);
 
         if (statusResponse.isRequestSucceed()) {
             elastiLog = statusResponse.getValue();
