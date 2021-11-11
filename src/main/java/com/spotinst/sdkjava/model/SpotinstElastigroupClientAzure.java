@@ -487,6 +487,24 @@ public class SpotinstElastigroupClientAzure {
         return isVmProtected;
     }
 
+    public List<GetProtectedVmsReponseAzure> getAllProtectedVms(String groupId) {
+        List<GetProtectedVmsReponseAzure> protectedVms = null;
+        RepoGenericResponse<List<GetProtectedVmsReponseAzure>> protectedVmsesponse =
+                getSpotinstElastigroupRepoAzure().getAllProtectedVms(groupId, authToken, account);
+
+        if (protectedVmsesponse.isRequestSucceed()) {
+            protectedVms = protectedVmsesponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = protectedVmsesponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get protected vms. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return protectedVms;
+    }
+
     public Boolean vmRemoveProtection(String groupId, String vmName) {
         Boolean isVmProtectionRemoved = false;
         RepoGenericResponse<Boolean> vmRemoveProtectResponse =

@@ -1725,5 +1725,20 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
+    public static GetProtectedVmsReponseAzure toBl(ApiGetProtectedVmsReponseAzure apiProtectedVm) {
+        GetProtectedVmsReponseAzure retVal = null;
+        if (apiProtectedVm != null) {
+            GetProtectedVmsReponseAzure.Builder vmHealthBuilder = GetProtectedVmsReponseAzure.Builder.get();
+            if (apiProtectedVm.isGroupIdSet()) {
+                vmHealthBuilder.setGroupId(apiProtectedVm.getGroupId());
+            }
+            if (apiProtectedVm.isVmNameSet()) {
+                vmHealthBuilder.setVmName(apiProtectedVm.getVmName());
+            }
+            retVal = vmHealthBuilder.build();
+        }
+        return retVal;
+    }
+
 }
 

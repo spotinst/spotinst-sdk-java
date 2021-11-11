@@ -77,4 +77,8 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
                                                                         String fromDate, Integer limit, String resoucre_Id, ElastigroupSeverityEnumAzure severity, String toDate) {
         throw new SpotinstNotSupportedException();
     }
+
+    default RepoGenericResponse<List<GetProtectedVmsReponseAzure>> getAllProtectedVms(String groupId, String authToken, String account) {
+        throw new SpotinstNotSupportedException();
+    }
 }

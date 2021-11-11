@@ -350,4 +350,21 @@ public class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzu
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<List<GetProtectedVmsReponseAzure>> getAllProtectedVms(String groupId, String authToken, String account) {
+        RepoGenericResponse<List<GetProtectedVmsReponseAzure>> retVal;
+
+        try {
+            List<ApiGetProtectedVmsReponseAzure> apiElastigroups = SpotinstElastigroupServiceAzure.getAllProtectedVms(groupId, authToken, account);
+            List<GetProtectedVmsReponseAzure> elastigroups =
+                    apiElastigroups.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(elastigroups);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
 }
