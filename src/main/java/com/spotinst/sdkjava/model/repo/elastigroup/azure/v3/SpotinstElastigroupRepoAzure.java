@@ -282,11 +282,11 @@ public class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzu
 
     @Override
     public RepoGenericResponse<Boolean> vmProtection(String groupId, String vmName, String authToken, String account,
-                                                     Integer timeLimit) {
+                                                     Integer ttlInMinutes) {
         RepoGenericResponse<Boolean> vmProtect;
 
         try {
-            Boolean apiVmProtect= SpotinstElastigroupServiceAzure.vmProtection(groupId, vmName, authToken, account, timeLimit);
+            Boolean apiVmProtect= SpotinstElastigroupServiceAzure.vmProtection(groupId, vmName, authToken, account, ttlInMinutes);
             vmProtect = new RepoGenericResponse<>(apiVmProtect);
 
         }
@@ -343,6 +343,23 @@ public class SpotinstElastigroupRepoAzure implements ISpotinstElastigroupRepoAzu
                     account, fromDate, limit, resoucre_Id, severity, toDate);
             GetElastilogResponseAzure elastilogAzure    = ElastigroupConverterAzure.toBl(apiElastilog);
             retVal = new RepoGenericResponse<>(elastilogAzure);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetProtectedVmsReponseAzure>> getAllProtectedVms(String groupId, String authToken, String account) {
+        RepoGenericResponse<List<GetProtectedVmsReponseAzure>> retVal;
+
+        try {
+            List<ApiGetProtectedVmsReponseAzure> apiElastigroups = SpotinstElastigroupServiceAzure.getAllProtectedVms(groupId, authToken, account);
+            List<GetProtectedVmsReponseAzure> elastigroups =
+                    apiElastigroups.stream().map(ElastigroupConverterAzure::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(elastigroups);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

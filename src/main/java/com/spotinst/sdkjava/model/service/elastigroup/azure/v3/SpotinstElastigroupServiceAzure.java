@@ -652,7 +652,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         return isGroupResumed;
     }
 
-    public static Boolean vmProtection(String groupId, String vmName, String authToken, String account,  Integer limit) {
+    public static Boolean vmProtection(String groupId, String vmName, String authToken, String account,  Integer ttlInMinutes) {
 
         Boolean vmProtect = false;
 
@@ -666,8 +666,8 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
             queryParams.put("accountId", account);
         }
 
-        if (limit != null) {
-            queryParams.put("limit", limit.toString());
+        if (ttlInMinutes != null) {
+            queryParams.put("ttlInMinutes", ttlInMinutes.toString());
         }
 
         String uri = String.format("%s/azure/compute/group/%s/vm/%s/protection", apiEndpoint, groupId, vmName);
@@ -784,5 +784,37 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         }
 
         return elastilogAzure;
+    }
+
+    public static List<ApiGetProtectedVmsReponseAzure> getAllProtectedVms(String groupId, String authToken,
+                                                         String account) throws SpotinstHttpException {
+        List<ApiGetProtectedVmsReponseAzure> retVal = new LinkedList<>();
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        if (groupId != null) {
+            queryParams.put("groupId", groupId);
+        }
+
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String uri = String.format("%s/azure/compute/group/%s/vm/protection", apiEndpoint, groupId);
+
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        GetProtectedVmsApiResponseAzure allProtectedVmsResponse =
+                getCastedResponse(response, GetProtectedVmsApiResponseAzure.class);
+
+        if (allProtectedVmsResponse.getResponse().getCount() > 0) {
+            retVal = allProtectedVmsResponse.getResponse().getItems();
+        }
+        return retVal;
     }
 }

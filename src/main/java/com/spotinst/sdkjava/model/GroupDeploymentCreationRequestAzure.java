@@ -24,8 +24,6 @@ public class GroupDeploymentCreationRequestAzure {
         isSet = new HashSet<>();
     }
 
-    //
-
     //region Getters and Setters
 
     public Integer getBatchSizePercentage() {
@@ -72,7 +70,6 @@ public class GroupDeploymentCreationRequestAzure {
         this.healthCheckTypes = healthCheckTypes;
         touch("healthCheckTypes");
     }
-
     //endregion
 
     //region isSet boolean methods
@@ -136,14 +133,12 @@ public class GroupDeploymentCreationRequestAzure {
             return this;
         }
 
-
         public GroupDeploymentCreationRequestAzure build() {
             return groupDeploymentCreationRequestAzure;
         }
 
     }
     //endregion
-
 
     //region private methods - touch helper
     private void touch(String fieldName) {

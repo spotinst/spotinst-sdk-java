@@ -59,7 +59,7 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
     }
 
     default RepoGenericResponse<Boolean> vmProtection(String groupId, String vmName,
-                                                     String authToken, String account, Integer ttlnMinutes) {
+                                                     String authToken, String account, Integer ttlInMinutes) {
         throw new SpotinstNotSupportedException();
     }
 
@@ -75,6 +75,10 @@ public interface ISpotinstElastigroupRepoAzure extends IRepositoryAzure<Elastigr
 
     default RepoGenericResponse<GetElastilogResponseAzure> getElastilog(String groupId, String authToken, String account,
                                                                         String fromDate, Integer limit, String resoucre_Id, ElastigroupSeverityEnumAzure severity, String toDate) {
+        throw new SpotinstNotSupportedException();
+    }
+
+    default RepoGenericResponse<List<GetProtectedVmsReponseAzure>> getAllProtectedVms(String groupId, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
 }
