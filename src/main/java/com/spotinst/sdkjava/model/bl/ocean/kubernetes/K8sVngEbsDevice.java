@@ -1,36 +1,29 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterDynamicVolumeSize;
 
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
-public class EbsDevice {
+public class K8sVngEbsDevice {
 
-    //region Members
     @JsonIgnore
     private Set<String>              isSet;
     private Boolean                  deleteOnTermination;
+    private K8sVngDynamicVolumeSize  dynamicVolumeSize;
     private Boolean                  encrypted;
     private Integer                  iops;
+    private String                   kmsKeyId;
     private String                   snapshotId;
     private Integer                  volumeSize;
     private AwsVolumeTypeEnum        volumeType;
     private Integer                  throughput;
-    //endregion
 
-    //region Constructor
-    private EbsDevice() {
+    private K8sVngEbsDevice() {
         isSet = new HashSet<>();
     }
-    //endregion
 
-    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -46,6 +39,15 @@ public class EbsDevice {
     public void setDeleteOnTermination(Boolean deleteOnTermination) {
         isSet.add("deleteOnTermination");
         this.deleteOnTermination = deleteOnTermination;
+    }
+
+    public K8sVngDynamicVolumeSize getDynamicVolumeSize() {
+        return dynamicVolumeSize;
+    }
+
+    public void setDynamicVolumeSize(K8sVngDynamicVolumeSize dynamicVolumeSize) {
+        isSet.add("dynamicVolumeSize");
+        this.dynamicVolumeSize = dynamicVolumeSize;
     }
 
     public Boolean getEncrypted() {
@@ -64,6 +66,15 @@ public class EbsDevice {
     public void setIops(Integer iops) {
         isSet.add("iops");
         this.iops = iops;
+    }
+
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+
+    public void setKmsKeyId(String kmsKeyId) {
+        isSet.add("kmsKeyId");
+        this.kmsKeyId = kmsKeyId;
     }
 
     public String getSnapshotId() {
@@ -102,14 +113,13 @@ public class EbsDevice {
         this.throughput = throughput;
     }
 
-    //endregion
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EbsDevice ebsDevice = (EbsDevice) o;
+        K8sVngEbsDevice ebsDevice = (K8sVngEbsDevice) o;
 
         if (deleteOnTermination != ebsDevice.deleteOnTermination) return false;
         if (encrypted != ebsDevice.encrypted) return false;
@@ -131,12 +141,11 @@ public class EbsDevice {
         return result;
     }
 
-    //region Builder class
     public static class Builder {
-        private EbsDevice ebsDevice;
+        private K8sVngEbsDevice ebsDevice;
 
         private Builder() {
-            this.ebsDevice = new EbsDevice();
+            this.ebsDevice = new K8sVngEbsDevice();
         }
 
         public static Builder get() {
@@ -154,6 +163,11 @@ public class EbsDevice {
             return this;
         }
 
+        public Builder setDynamicVolumeSize(final K8sVngDynamicVolumeSize dynamicVolumeSize) {
+            ebsDevice.setDynamicVolumeSize(dynamicVolumeSize);
+            return this;
+        }
+
         public Builder setEncrypted(final Boolean encrypted) {
             ebsDevice.setEncrypted(encrypted);
             return this;
@@ -161,6 +175,11 @@ public class EbsDevice {
 
         public Builder setIops(final Integer iops) {
             ebsDevice.setIops(iops);
+            return this;
+        }
+
+        public Builder setKmsKeyId(final String kmsKeyId) {
+            ebsDevice.setKmsKeyId(kmsKeyId);
             return this;
         }
 
@@ -179,16 +198,12 @@ public class EbsDevice {
             return this;
         }
 
-        public EbsDevice build() {
+        public K8sVngEbsDevice build() {
             // TODO : Validations
             return ebsDevice;
         }
     }
 
-    //endregion
-
-    //region isSet methods
-    // Is deleteOnTermination Set boolean method
     @JsonIgnore
     public boolean isDeleteOnTerminationSet() {
         return isSet.contains("deleteOnTermination");
@@ -199,47 +214,38 @@ public class EbsDevice {
         return isSet.contains("dynamicVolumeSize");
     }
 
-    // Is encrypted Set boolean method
     @JsonIgnore
     public boolean isEncryptedSet() {
         return isSet.contains("encrypted");
     }
 
-
-    // Is iops Set boolean method
     @JsonIgnore
     public boolean isIopsSet() {
         return isSet.contains("iops");
     }
 
     @JsonIgnore
-    public boolean isMsKeyIdSet() {
+    public boolean isKmsKeyIdSet() {
         return isSet.contains("kmsKeyId");
     }
 
-    // Is snapshotId Set boolean method
     @JsonIgnore
     public boolean isSnapshotIdSet() {
         return isSet.contains("snapshotId");
     }
 
-
-    // Is volumeSize Set boolean method
     @JsonIgnore
     public boolean isVolumeSizeSet() {
         return isSet.contains("volumeSize");
     }
 
-    // Is volumeType Set boolean method
     @JsonIgnore
     public boolean isVolumeTypeSet() {
         return isSet.contains("volumeType");
     }
 
-    // Is throughput Set boolean method
     @JsonIgnore
     public boolean isThroughputSet() {
         return isSet.contains("throughput");
     }
-    //endregion
 }

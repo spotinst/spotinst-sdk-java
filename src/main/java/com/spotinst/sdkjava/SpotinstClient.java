@@ -137,5 +137,10 @@ public class SpotinstClient {
 
     }
 
+    public static K8sVngClient getK8sVngClient(String authToken, String account) {
+        K8sVngClient k8sVngClient = new K8sVngClient(authToken, account);
+        return k8sVngClient;
+    }
+
     //endregion
 }
