@@ -1,17 +1,19 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ClusterComputeConfiguration {
     @JsonIgnore
     private Set<String>                       isSet;
     private List<String>                      subnetIds;
-    private ClusterOptimizeImageConfiguration optimizeImage;
+    private ClusterOptimizeImageConfiguration optimizeImages;
     private ClusterLaunchSpecification        launchSpecification;
 
     private ClusterComputeConfiguration() {
@@ -44,13 +46,13 @@ public class ClusterComputeConfiguration {
         this.launchSpecification = launchSpecification;
     }
 
-    public ClusterOptimizeImageConfiguration getOptimizeImage() {
-        return optimizeImage;
+    public ClusterOptimizeImageConfiguration getOptimizeImages() {
+        return optimizeImages;
     }
 
-    public void setOptimizeImage(ClusterOptimizeImageConfiguration optimizeImage) {
-        isSet.add("optimizeImage");
-        this.optimizeImage = optimizeImage;
+    public void setOptimizeImages(ClusterOptimizeImageConfiguration optimizeImages) {
+        isSet.add("optimizeImages");
+        this.optimizeImages = optimizeImages;
     }
 
     public static class Builder {
@@ -70,8 +72,8 @@ public class ClusterComputeConfiguration {
             return this;
         }
 
-        public Builder setOptimizeImage(final ClusterOptimizeImageConfiguration optimizeImage) {
-            compute.setOptimizeImage(optimizeImage);
+        public Builder setOptimizeImages(final ClusterOptimizeImageConfiguration optimizeImages) {
+            compute.setOptimizeImages(optimizeImages);
             return this;
         }
 
@@ -92,8 +94,8 @@ public class ClusterComputeConfiguration {
     }
 
     @JsonIgnore
-    public boolean isOptimizeImageSet() {
-        return isSet.contains("optimizeImage");
+    public boolean isOptimizeImagesSet() {
+        return isSet.contains("optimizeImages");
     }
 
     @JsonIgnore
