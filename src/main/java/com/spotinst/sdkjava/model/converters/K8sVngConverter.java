@@ -217,7 +217,7 @@ public class K8sVngConverter {
                 retVal.setIops(VngEbsDevice.getIops());
             }
 
-            if (VngEbsDevice.isMsKeyIdSet()) {
+            if (VngEbsDevice.isKmsKeyIdSet()) {
                 retVal.setKmsKeyId(VngEbsDevice.getKmsKeyId());
             }
 
@@ -613,7 +613,7 @@ public class K8sVngConverter {
                 VngEbsDeviceBuilder.setIops(apiVNGEbsDevice.getIops());
             }
 
-            if (apiVNGEbsDevice.isMsKeyIdSet()) {
+            if (apiVNGEbsDevice.isKmsKeyIdSet()) {
                 VngEbsDeviceBuilder.setKmsKeyId(apiVNGEbsDevice.getKmsKeyId());
             }
 

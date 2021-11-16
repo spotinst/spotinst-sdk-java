@@ -148,7 +148,7 @@ public class ApiK8sVngEbsDevice implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isMsKeyIdSet() {
+    public boolean isKmsKeyIdSet() {
         return isSet.contains("kmsKeyId");
     }
 

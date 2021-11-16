@@ -225,7 +225,7 @@ public class K8sVngEbsDevice {
     }
 
     @JsonIgnore
-    public boolean isMsKeyIdSet() {
+    public boolean isKmsKeyIdSet() {
         return isSet.contains("kmsKeyId");
     }
 
