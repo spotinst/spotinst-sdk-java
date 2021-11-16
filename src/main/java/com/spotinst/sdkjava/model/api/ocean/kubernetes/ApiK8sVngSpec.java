@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,8 +38,6 @@ public class ApiK8sVngSpec implements IPartialUpdateEntity {
     private List<String>         		  	 subnetIds;
     private List<ApiK8sVngTag>               tags;
     private String                        	 userData;
-    private Date                          	 createdAt;
-    private Date                          	 updatedAt;
 
     public ApiK8sVngSpec() {
         isSet = new HashSet<>();
@@ -251,24 +248,6 @@ public class ApiK8sVngSpec implements IPartialUpdateEntity {
     public void setUserData(String userData) {
         isSet.add("userData");
         this.userData = userData;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        isSet.add("updatedAt");
-        this.updatedAt = updatedAt;
     }
 
     @JsonIgnore

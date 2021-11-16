@@ -16,6 +16,7 @@ public class ApiK8sVngIamInstanceProfileSpec implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      arn;
+    private String      name;
 
     public ApiK8sVngIamInstanceProfileSpec() {
         isSet = new HashSet<>();
@@ -38,8 +39,21 @@ public class ApiK8sVngIamInstanceProfileSpec implements IPartialUpdateEntity {
         this.arn = arn;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
+    }
+
     @JsonIgnore
     public boolean isArnSet() {
         return isSet.contains("arn");
+    }
+
+    public boolean isNameSet() {
+        return isSet.contains("name");
     }
 }

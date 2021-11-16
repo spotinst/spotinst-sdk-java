@@ -15,7 +15,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiBlockDevice implements IPartialUpdateEntity {
+class ApiBlockDevice implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>  isSet;

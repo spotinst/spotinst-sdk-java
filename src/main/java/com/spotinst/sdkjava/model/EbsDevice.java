@@ -16,10 +16,8 @@ public class EbsDevice {
     @JsonIgnore
     private Set<String>              isSet;
     private Boolean                  deleteOnTermination;
-    private ClusterDynamicVolumeSize dynamicVolumeSize;
     private Boolean                  encrypted;
     private Integer                  iops;
-    private String                   kmsKeyId;
     private String                   snapshotId;
     private Integer                  volumeSize;
     private AwsVolumeTypeEnum        volumeType;
@@ -50,15 +48,6 @@ public class EbsDevice {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public ClusterDynamicVolumeSize getDynamicVolumeSize() {
-        return dynamicVolumeSize;
-    }
-
-    public void setDynamicVolumeSize(ClusterDynamicVolumeSize dynamicVolumeSize) {
-        isSet.add("dynamicVolumeSize");
-        this.dynamicVolumeSize = dynamicVolumeSize;
-    }
-
     public Boolean getEncrypted() {
         return encrypted;
     }
@@ -75,15 +64,6 @@ public class EbsDevice {
     public void setIops(Integer iops) {
         isSet.add("iops");
         this.iops = iops;
-    }
-
-    public String getKmsKeyId() {
-        return kmsKeyId;
-    }
-
-    public void setKmsKeyId(String kmsKeyId) {
-        isSet.add("kmsKeyId");
-        this.kmsKeyId = kmsKeyId;
     }
 
     public String getSnapshotId() {
@@ -174,11 +154,6 @@ public class EbsDevice {
             return this;
         }
 
-        public Builder setDynamicVolumeSize(final ClusterDynamicVolumeSize dynamicVolumeSize) {
-            ebsDevice.setDynamicVolumeSize(dynamicVolumeSize);
-            return this;
-        }
-
         public Builder setEncrypted(final Boolean encrypted) {
             ebsDevice.setEncrypted(encrypted);
             return this;
@@ -186,11 +161,6 @@ public class EbsDevice {
 
         public Builder setIops(final Integer iops) {
             ebsDevice.setIops(iops);
-            return this;
-        }
-
-        public Builder setKmsKeyId(final String kmsKeyId) {
-            ebsDevice.setKmsKeyId(kmsKeyId);
             return this;
         }
 

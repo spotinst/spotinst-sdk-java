@@ -16,8 +16,8 @@ public class ApiK8sVngTag implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
-    private String      k8sVngTagKey;
-    private String      k8sVngTagValue;
+    private String      tagKey;
+    private String      tagValue;
 
     public ApiK8sVngTag() {
         isSet = new HashSet<>();
@@ -38,21 +38,21 @@ public class ApiK8sVngTag implements IPartialUpdateEntity {
     }
 
     public String getTagKey() {
-        return k8sVngTagKey;
+        return tagKey;
     }
 
     public void setTagKey(String k8sVngTagKey) {
         isSet.add("tagKey");
-        this.k8sVngTagKey = k8sVngTagKey;
+        this.tagKey = k8sVngTagKey;
     }
 
     public String getTagValue() {
-        return k8sVngTagValue;
+        return tagValue;
     }
 
     public void setTagValue(String k8sVngTagValue) {
         isSet.add("tagValue");
-        this.k8sVngTagValue = k8sVngTagValue;
+        this.tagValue = k8sVngTagValue;
     }
 
 

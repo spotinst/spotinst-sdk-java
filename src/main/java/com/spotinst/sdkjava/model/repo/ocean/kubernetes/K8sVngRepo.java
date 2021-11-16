@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class K8sVngRepo implements ISpotK8sVngRepo {
 
-    @Override
+    //@Override
     public RepoGenericResponse<K8sVngSpec> create(K8sVngSpec vngToCreate, String authToken, String account) {
 
         RepoGenericResponse<K8sVngSpec> retVal;
@@ -33,7 +33,7 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         return retVal;
     }
 
-    @Override
+    //@Override
     public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -49,7 +49,7 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         return retVal;
     }
 
-    @Override
+    //@Override
     public RepoGenericResponse<Boolean> update(String identifier, K8sVngSpec vngToUpdate, String authToken,String account) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -67,7 +67,7 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         return retVal;
     }
 
-    @Override
+    //@Override
     public RepoGenericResponse<K8sVngSpec> get(String identifier, String authToken, String account) {
         RepoGenericResponse<K8sVngSpec> retVal;
 

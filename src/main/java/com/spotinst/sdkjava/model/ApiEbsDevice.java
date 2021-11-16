@@ -20,10 +20,8 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                 isSet;
     private Boolean                     deleteOnTermination;
-    private ApiClusterDynamicVolumeSize dynamicVolumeSize;
     private Boolean                     encrypted;
     private Integer                     iops;
-    private String                      kmsKeyId;
     private String                      snapshotId;
     private Integer                     volumeSize;
     private String                      volumeType;
@@ -53,15 +51,6 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         this.deleteOnTermination = deleteOnTermination;
     }
 
-    public ApiClusterDynamicVolumeSize getDynamicVolumeSize() {
-        return dynamicVolumeSize;
-    }
-
-    public void setDynamicVolumeSize(ApiClusterDynamicVolumeSize dynamicVolumeSize) {
-        isSet.add("dynamicVolumeSize");
-        this.dynamicVolumeSize = dynamicVolumeSize;
-    }
-
     public Boolean getEncrypted() {
         return encrypted;
     }
@@ -78,15 +67,6 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     public void setIops(Integer iops) {
         isSet.add("iops");
         this.iops = iops;
-    }
-
-    public String getKmsKeyId() {
-        return kmsKeyId;
-    }
-
-    public void setKmsKeyId(String kmsKeyId) {
-        isSet.add("kmsKeyId");
-        this.kmsKeyId = kmsKeyId;
     }
 
     public String getSnapshotId() {

@@ -17,10 +17,6 @@ interface IRepository<S, F, I> {
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<List<S>> list(String authToken, String account, String oceanId) {
-        throw new SpotinstNotSupportedException();
-    }
-
     default RepoGenericResponse<Boolean> update(I identifier, S objectToUpdate, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
