@@ -676,4 +676,30 @@ public class SpotinstElastigroupClient {
         }
         return retVal;
     }
+
+    public ElastigroupStartDeploymentResponse startDeployment(ElastigroupStartDeploymentRequest startDeploymentRequest, String elastigroupId) {
+
+        ElastigroupStartDeploymentResponse isDeploymentStarted;
+
+        ElastigroupStartDeployment elastigroupStartDeploymentRequest = startDeploymentRequest.getElastigroupDeployment();
+
+        RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeploymentResponse =
+                getSpotinstElastigroupRepo().startDeployment(elastigroupId, elastigroupStartDeploymentRequest, authToken, account);
+
+        if(startDeploymentResponse.isRequestSucceed()){
+            isDeploymentStarted =startDeploymentResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = startDeploymentResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to start deployment. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isDeploymentStarted;
+
+    }
+
 }

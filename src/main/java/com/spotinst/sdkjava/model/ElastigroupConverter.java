@@ -1216,6 +1216,150 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiElastigroupStartDeployment toDal(ElastigroupStartDeployment elastigroupDeployment) {
+        ApiElastigroupStartDeployment retVal = null;
+
+        if (elastigroupDeployment != null) {
+            retVal = new ApiElastigroupStartDeployment();
+
+            if (elastigroupDeployment.isBatchSizePercentageSet()) {
+                retVal.setBatchSizePercentage(elastigroupDeployment.getBatchSizePercentage());
+            }
+
+            if (elastigroupDeployment.isDrainingTimeoutSet()) {
+                retVal.setDrainingTimeout(elastigroupDeployment.getDrainingTimeout());
+            }
+
+            if (elastigroupDeployment.isGracePeriodSet()) {
+                retVal.setGracePeriod(elastigroupDeployment.getGracePeriod());
+            }
+
+            if (elastigroupDeployment.isHealthCheckTypeSet()) {
+                retVal.setHealthCheckType(elastigroupDeployment.getHealthCheckType());
+            }
+
+            if (elastigroupDeployment.isStrategySet()) {
+                retVal.setStrategy(toDal(elastigroupDeployment.getStrategy()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiElastigroupStrategy toDal(ElastigroupStartDeploymentStrategy elastigroupStrategy) {
+        ApiElastigroupStrategy retVal = null;
+
+        if (elastigroupStrategy != null) {
+            retVal = new ApiElastigroupStrategy();
+
+            if (elastigroupStrategy.isActionSet()) {
+                retVal.setAction(elastigroupStrategy.getAction());
+            }
+
+            if (elastigroupStrategy.isBatchMinHealthyPercentageSet()) {
+                retVal.setBatchMinHealthyPercentage(elastigroupStrategy.getBatchMinHealthyPercentage());
+            }
+
+            if (elastigroupStrategy.isOnFailureSet()) {
+                retVal.setOnFailure(toDal(elastigroupStrategy.getOnFailure()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiElastigroupStartDeploymentOnFailure toDal(ElastigroupStartDeploymentOnFailure elastigroupOnFailure) {
+        ApiElastigroupStartDeploymentOnFailure retVal = null;
+
+        if (elastigroupOnFailure != null) {
+            retVal = new ApiElastigroupStartDeploymentOnFailure();
+
+            if (elastigroupOnFailure.isActionType()) {
+                retVal.setActionType(elastigroupOnFailure.getActionType());
+            }
+
+            if (elastigroupOnFailure.isDrainingTimeoutSet()) {
+                retVal.setDrainingTimeout(elastigroupOnFailure.getDrainingTimeout());
+            }
+
+            if (elastigroupOnFailure.isShouldDecrementTargetCapacitySet()) {
+                retVal.setShouldDecrementTargetCapacity(elastigroupOnFailure.getShouldDecrementTargetCapacity());
+            }
+
+            if (elastigroupOnFailure.isShouldHandleAllBatchesSet()) {
+                retVal.setShouldHandleAllBatches(elastigroupOnFailure.getShouldHandleAllBatches());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiElastigroupStartDeploymentResponse toDal(ElastigroupStartDeploymentResponse elastigroupStartDeploymentResponse) {
+        ApiElastigroupStartDeploymentResponse retVal = null;
+
+        if (elastigroupStartDeploymentResponse != null) {
+            retVal = new ApiElastigroupStartDeploymentResponse();
+
+            if (elastigroupStartDeploymentResponse.isSetItemsSet()) {
+
+                    List<ApiElastigroupStartDeploymentItemsResponse> itemsResponsesList =
+                            elastigroupStartDeploymentResponse.getItems().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+
+                retVal.setItems(itemsResponsesList);
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiElastigroupStartDeploymentItemsResponse toDal(ElastigroupStartDeploymentItemsResponse  elastigroupStartDeploymentItems) {
+        ApiElastigroupStartDeploymentItemsResponse retVal = null;
+
+        if (elastigroupStartDeploymentItems != null) {
+            retVal = new ApiElastigroupStartDeploymentItemsResponse();
+
+            if (elastigroupStartDeploymentItems.isStatusSet()) {
+                retVal.setStatus(elastigroupStartDeploymentItems.getStatus());
+            }
+
+            if (elastigroupStartDeploymentItems.isCurrentBatchSet()) {
+                retVal.setCurrentBatch(elastigroupStartDeploymentItems.getCurrentBatch());
+            }
+
+            if (elastigroupStartDeploymentItems.isNumOfBatchesSet()) {
+                retVal.setNumOfBatches(elastigroupStartDeploymentItems.getNumOfBatches());
+            }
+
+            if (elastigroupStartDeploymentItems.isProgressSet()) {
+                retVal.setProgress(toDal(elastigroupStartDeploymentItems.getProgress()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiElastigroupStartDeploymentProgress toDal(ElastigroupStartDeploymentProgress  elastigroupStartDeploymentProgress) {
+        ApiElastigroupStartDeploymentProgress retVal = null;
+
+        if (elastigroupStartDeploymentProgress != null) {
+            retVal = new ApiElastigroupStartDeploymentProgress();
+
+            if (elastigroupStartDeploymentProgress.isUnitSet()) {
+                retVal.setUnit(elastigroupStartDeploymentProgress.getUnit());
+            }
+
+            if (elastigroupStartDeploymentProgress.isValueSet()) {
+                retVal.setValue(elastigroupStartDeploymentProgress.getValue());
+            }
+
+        }
+
+        return retVal;
+    }
+
+
     //endregion
 
     //region DAL -> BL
@@ -2504,5 +2648,153 @@ class ElastigroupConverter {
 
         return retVal;
     }
+
+    public static ElastigroupStartDeployment toBl(ApiElastigroupStartDeployment elastigroupDeployment) {
+        ElastigroupStartDeployment retVal = null;
+
+        if (elastigroupDeployment != null) {
+            retVal = new ElastigroupStartDeployment();
+
+            if (elastigroupDeployment.isBatchSizePercentageSet()) {
+                retVal.setBatchSizePercentage(elastigroupDeployment.getBatchSizePercentage());
+            }
+
+            if (elastigroupDeployment.isDrainingTimeoutSet()) {
+                retVal.setDrainingTimeout(elastigroupDeployment.getDrainingTimeout());
+            }
+
+            if (elastigroupDeployment.isGracePeriodSet()) {
+                retVal.setGracePeriod(elastigroupDeployment.getGracePeriod());
+            }
+
+            if (elastigroupDeployment.isHealthCheckTypeSet()) {
+                retVal.setHealthCheckType(elastigroupDeployment.getHealthCheckType());
+            }
+
+            if (elastigroupDeployment.isStrategySet()) {
+                retVal.setStrategy(toBl(elastigroupDeployment.getStrategy()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupStartDeploymentStrategy toBl(ApiElastigroupStrategy elastigroupStrategy) {
+        ElastigroupStartDeploymentStrategy retVal = null;
+
+        if (elastigroupStrategy != null) {
+            retVal = new ElastigroupStartDeploymentStrategy();
+
+            if (elastigroupStrategy.isActionSet()) {
+                retVal.setAction(elastigroupStrategy.getAction());
+            }
+
+            if (elastigroupStrategy.isBatchMinHealthyPercentageSet()) {
+                retVal.setBatchMinHealthyPercentage(elastigroupStrategy.getBatchMinHealthyPercentage());
+            }
+
+            if (elastigroupStrategy.isOnFailureSet()) {
+                retVal.setOnFailure(toBl(elastigroupStrategy.getOnFailure()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupStartDeploymentOnFailure toBl(ApiElastigroupStartDeploymentOnFailure elastigroupOnFailure) {
+        ElastigroupStartDeploymentOnFailure retVal = null;
+
+        if (elastigroupOnFailure != null) {
+            retVal = new ElastigroupStartDeploymentOnFailure();
+
+            if (elastigroupOnFailure.isActionTypeSet()) {
+                retVal.setActionType(elastigroupOnFailure.getActionType());
+            }
+
+            if (elastigroupOnFailure.isDrainingTimeoutSet()) {
+                retVal.setDrainingTimeout(elastigroupOnFailure.getDrainingTimeout());
+            }
+
+            if (elastigroupOnFailure.isShouldDecrementTargetCapacitySet()) {
+                retVal.setShouldDecrementTargetCapacity(elastigroupOnFailure.getShouldDecrementTargetCapacity());
+            }
+
+            if (elastigroupOnFailure.isShouldHandleAllBatchesSet()) {
+                retVal.setShouldHandleAllBatches(elastigroupOnFailure.getShouldHandleAllBatches());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupStartDeploymentResponse toBl(ApiElastigroupStartDeploymentResponse elastigroupStartDeploymentResponse) {
+        ElastigroupStartDeploymentResponse retVal = null;
+
+        if (elastigroupStartDeploymentResponse != null) {
+            ElastigroupStartDeploymentResponse.Builder startDeploymentBuilder = ElastigroupStartDeploymentResponse.Builder.get();
+
+            if (elastigroupStartDeploymentResponse.isSetItemsSet()) {
+                List<ElastigroupStartDeploymentItemsResponse> itemsResponseList =
+                        elastigroupStartDeploymentResponse.getItems().stream().map(ElastigroupConverter::toBl)
+                                                          .collect(Collectors.toList());
+
+                startDeploymentBuilder.setItems(itemsResponseList);
+            }
+
+            retVal = startDeploymentBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupStartDeploymentItemsResponse toBl(ApiElastigroupStartDeploymentItemsResponse elastigroupStartDeploymentItems) {
+        ElastigroupStartDeploymentItemsResponse retVal = null;
+
+        if (elastigroupStartDeploymentItems != null) {
+            retVal = new ElastigroupStartDeploymentItemsResponse();
+
+            if(elastigroupStartDeploymentItems.isStatusSet()){
+                retVal.setStatus(elastigroupStartDeploymentItems.getStatus());
+            }
+
+            if(elastigroupStartDeploymentItems.isCurrentBatchSet()){
+                retVal.setCurrentBatch(elastigroupStartDeploymentItems.getCurrentBatch());
+            }
+
+            if(elastigroupStartDeploymentItems.isNumOfBatchesSet()){
+                retVal.setNumOfBatches(elastigroupStartDeploymentItems.getNumOfBatches());
+            }
+
+            if(elastigroupStartDeploymentItems.isProgressSet()){
+                retVal.setProgress(toBl(elastigroupStartDeploymentItems.getProgress()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupStartDeploymentProgress toBl(ApiElastigroupStartDeploymentProgress elastigroupStartDeploymentItems) {
+        ElastigroupStartDeploymentProgress retVal = null;
+
+        if (elastigroupStartDeploymentItems != null) {
+            retVal = new ElastigroupStartDeploymentProgress();
+
+            if(elastigroupStartDeploymentItems.isUnitSet()){
+                retVal.setUnit(elastigroupStartDeploymentItems.getUnit());
+            }
+
+            if(elastigroupStartDeploymentItems.isValueSet()){
+                retVal.setValue(elastigroupStartDeploymentItems.getValue());
+            }
+
+        }
+
+        return retVal;
+    }
+
+
     //endregion
 }

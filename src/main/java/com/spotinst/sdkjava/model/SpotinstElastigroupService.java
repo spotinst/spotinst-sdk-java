@@ -53,7 +53,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group", apiEndpoint);
 
         // Send the request
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         // Handle the response.
         ElastigroupApiResponse elastigroupApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
@@ -922,4 +922,47 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
         return retVal;
     }
+
+    public static ApiElastigroupStartDeploymentResponse startDeployment(String groupId, ElastigroupStartDeployment request,
+                                                                String authToken, String account) {
+
+        ApiElastigroupStartDeploymentResponse startDeployment;
+
+        System.out.println("------------------------------------------------------------------------------------------------");
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll", apiEndpoint, groupId);
+
+        // Write to json
+        String body = JsonMapper.toJson(request);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupStartDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStartDeploymentApiResponse.class);
+
+        startDeployment = castedApiResponse.getResponse().getItems().get(0);
+
+        return startDeployment;
+
+
+    }
+
 }
