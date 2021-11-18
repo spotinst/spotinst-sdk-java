@@ -1,17 +1,18 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.AwsElastiGroupActionTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class ElastigroupStartDeploymentOnFailure {
     @JsonIgnore
-    private Set<String> isSet;
-    private String      actionType;
-    private Integer     drainingTimeout;
-    private Boolean     shouldDecrementTargetCapacity;
-    private Boolean     shouldHandleAllBatches;
+    private Set<String>                  isSet;
+    private AwsElastiGroupActionTypeEnum actionType;
+    private Integer                      drainingTimeout;
+    private Boolean                      shouldDecrementTargetCapacity;
+    private Boolean                      shouldHandleAllBatches;
 
     public ElastigroupStartDeploymentOnFailure() {
         isSet = new HashSet<>();
@@ -34,11 +35,11 @@ public class ElastigroupStartDeploymentOnFailure {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public String getActionType() {
+    public AwsElastiGroupActionTypeEnum getActionType() {
         return actionType;
     }
 
-    public void setActionType(String actionType) {
+    public void setActionType(AwsElastiGroupActionTypeEnum actionType) {
         isSet.add("actionType");
         this.actionType = actionType;
     }
@@ -78,7 +79,7 @@ public class ElastigroupStartDeploymentOnFailure {
             return this;
         }
 
-        public Builder setActionType(final String actionType) {
+        public Builder setActionType(final AwsElastiGroupActionTypeEnum actionType) {
             elastigroupOnFailure.setActionType(actionType);
             return this;
         }
@@ -104,7 +105,7 @@ public class ElastigroupStartDeploymentOnFailure {
     }
 
     @JsonIgnore
-    public boolean isActionType() { return isSet.contains("actionType"); }
+    public boolean isActionTypeSet() { return isSet.contains("actionType"); }
 
     @JsonIgnore
     public boolean isShouldDecrementTargetCapacitySet() {

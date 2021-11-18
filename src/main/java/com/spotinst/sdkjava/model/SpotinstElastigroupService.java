@@ -924,11 +924,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static ApiElastigroupStartDeploymentResponse startDeployment(String groupId, ElastigroupStartDeployment request,
-                                                                String authToken, String account) {
+                                                                        String authToken, String account) {
 
-        ApiElastigroupStartDeploymentResponse startDeployment;
-
-        System.out.println("------------------------------------------------------------------------------------------------");
+        ApiElastigroupStartDeploymentResponse startDeployment = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -958,7 +956,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         ElastigroupStartDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStartDeploymentApiResponse.class);
 
-        startDeployment = castedApiResponse.getResponse().getItems().get(0);
+        if (castedApiResponse.getResponse().getCount() > 0){
+            startDeployment = castedApiResponse.getResponse().getItems().get(0);
+        }
 
         return startDeployment;
 

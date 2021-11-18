@@ -1235,7 +1235,7 @@ class ElastigroupConverter {
             }
 
             if (elastigroupDeployment.isHealthCheckTypeSet()) {
-                retVal.setHealthCheckType(elastigroupDeployment.getHealthCheckType());
+                retVal.setHealthCheckType(elastigroupDeployment.getHealthCheckType().getName());
             }
 
             if (elastigroupDeployment.isStrategySet()) {
@@ -1254,7 +1254,7 @@ class ElastigroupConverter {
             retVal = new ApiElastigroupStrategy();
 
             if (elastigroupStrategy.isActionSet()) {
-                retVal.setAction(elastigroupStrategy.getAction());
+                retVal.setAction(elastigroupStrategy.getAction().getName());
             }
 
             if (elastigroupStrategy.isBatchMinHealthyPercentageSet()) {
@@ -1275,8 +1275,8 @@ class ElastigroupConverter {
         if (elastigroupOnFailure != null) {
             retVal = new ApiElastigroupStartDeploymentOnFailure();
 
-            if (elastigroupOnFailure.isActionType()) {
-                retVal.setActionType(elastigroupOnFailure.getActionType());
+            if (elastigroupOnFailure.isActionTypeSet()) {
+                retVal.setActionType(elastigroupOnFailure.getActionType().getName());
             }
 
             if (elastigroupOnFailure.isDrainingTimeoutSet()) {
@@ -1295,30 +1295,17 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupStartDeploymentResponse toDal(ElastigroupStartDeploymentResponse elastigroupStartDeploymentResponse) {
+
+    private static ApiElastigroupStartDeploymentResponse toDal(
+            ElastigroupStartDeploymentResponse elastigroupStartDeploymentItems) {
         ApiElastigroupStartDeploymentResponse retVal = null;
 
-        if (elastigroupStartDeploymentResponse != null) {
+        if (elastigroupStartDeploymentItems != null) {
             retVal = new ApiElastigroupStartDeploymentResponse();
 
-            if (elastigroupStartDeploymentResponse.isSetItemsSet()) {
-
-                    List<ApiElastigroupStartDeploymentItemsResponse> itemsResponsesList =
-                            elastigroupStartDeploymentResponse.getItems().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-
-                retVal.setItems(itemsResponsesList);
+            if(elastigroupStartDeploymentItems.isIdSet()){
+                retVal.setId(elastigroupStartDeploymentItems.getId());
             }
-
-        }
-
-        return retVal;
-    }
-
-    private static ApiElastigroupStartDeploymentItemsResponse toDal(ElastigroupStartDeploymentItemsResponse  elastigroupStartDeploymentItems) {
-        ApiElastigroupStartDeploymentItemsResponse retVal = null;
-
-        if (elastigroupStartDeploymentItems != null) {
-            retVal = new ApiElastigroupStartDeploymentItemsResponse();
 
             if (elastigroupStartDeploymentItems.isStatusSet()) {
                 retVal.setStatus(elastigroupStartDeploymentItems.getStatus());
@@ -2668,7 +2655,7 @@ class ElastigroupConverter {
             }
 
             if (elastigroupDeployment.isHealthCheckTypeSet()) {
-                retVal.setHealthCheckType(elastigroupDeployment.getHealthCheckType());
+                retVal.setHealthCheckType(AwsElastigroupHealthCheckTypeEnum.fromName(elastigroupDeployment.getHealthCheckType()));
             }
 
             if (elastigroupDeployment.isStrategySet()) {
@@ -2686,7 +2673,7 @@ class ElastigroupConverter {
             retVal = new ElastigroupStartDeploymentStrategy();
 
             if (elastigroupStrategy.isActionSet()) {
-                retVal.setAction(elastigroupStrategy.getAction());
+                retVal.setAction(AwsElastigroupActionEnum.fromName(elastigroupStrategy.getAction()));
             }
 
             if (elastigroupStrategy.isBatchMinHealthyPercentageSet()) {
@@ -2709,7 +2696,7 @@ class ElastigroupConverter {
             retVal = new ElastigroupStartDeploymentOnFailure();
 
             if (elastigroupOnFailure.isActionTypeSet()) {
-                retVal.setActionType(elastigroupOnFailure.getActionType());
+                retVal.setActionType(AwsElastiGroupActionTypeEnum.fromName(elastigroupOnFailure.getActionType()));
             }
 
             if (elastigroupOnFailure.isDrainingTimeoutSet()) {
@@ -2729,31 +2716,16 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    public static ElastigroupStartDeploymentResponse toBl(ApiElastigroupStartDeploymentResponse elastigroupStartDeploymentResponse) {
+    public static ElastigroupStartDeploymentResponse toBl(
+            ApiElastigroupStartDeploymentResponse elastigroupStartDeploymentItems) {
         ElastigroupStartDeploymentResponse retVal = null;
 
-        if (elastigroupStartDeploymentResponse != null) {
-            ElastigroupStartDeploymentResponse.Builder startDeploymentBuilder = ElastigroupStartDeploymentResponse.Builder.get();
-
-            if (elastigroupStartDeploymentResponse.isSetItemsSet()) {
-                List<ElastigroupStartDeploymentItemsResponse> itemsResponseList =
-                        elastigroupStartDeploymentResponse.getItems().stream().map(ElastigroupConverter::toBl)
-                                                          .collect(Collectors.toList());
-
-                startDeploymentBuilder.setItems(itemsResponseList);
-            }
-
-            retVal = startDeploymentBuilder.build();
-        }
-
-        return retVal;
-    }
-
-    private static ElastigroupStartDeploymentItemsResponse toBl(ApiElastigroupStartDeploymentItemsResponse elastigroupStartDeploymentItems) {
-        ElastigroupStartDeploymentItemsResponse retVal = null;
-
         if (elastigroupStartDeploymentItems != null) {
-            retVal = new ElastigroupStartDeploymentItemsResponse();
+            retVal = new ElastigroupStartDeploymentResponse();
+
+            if(elastigroupStartDeploymentItems.isIdSet()){
+                retVal.setId(elastigroupStartDeploymentItems.getId());
+            }
 
             if(elastigroupStartDeploymentItems.isStatusSet()){
                 retVal.setStatus(elastigroupStartDeploymentItems.getStatus());
@@ -2794,7 +2766,6 @@ class ElastigroupConverter {
 
         return retVal;
     }
-
 
     //endregion
 }

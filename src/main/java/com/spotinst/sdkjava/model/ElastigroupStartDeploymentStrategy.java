@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.spotinst.sdkjava.enums.AwsElastigroupActionEnum;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +9,7 @@ public class ElastigroupStartDeploymentStrategy {
     @JsonIgnore
     private Set<String>                         isSet;
     private Integer                             batchMinHealthyPercentage;
-    private String                              action;
+    private AwsElastigroupActionEnum            action;
     private ElastigroupStartDeploymentOnFailure onFailure;
 
     public ElastigroupStartDeploymentStrategy() {
@@ -33,11 +33,11 @@ public class ElastigroupStartDeploymentStrategy {
         this.batchMinHealthyPercentage = batchMinHealthyPercentage;
     }
 
-    public String getAction() {
+    public AwsElastigroupActionEnum getAction() {
         return action;
     }
 
-    public void setAction(String action) {
+    public void setAction(AwsElastigroupActionEnum action) {
         isSet.add("action");
         this.action = action;
     }
@@ -68,7 +68,7 @@ public class ElastigroupStartDeploymentStrategy {
             return this;
         }
 
-        public Builder setAction(final String action) {
+        public Builder setAction(final AwsElastigroupActionEnum action) {
             elastigroupStrategyRequest.setAction(action);
             return this;
         }
@@ -83,7 +83,6 @@ public class ElastigroupStartDeploymentStrategy {
         }
     }
 
-
     @JsonIgnore
     public boolean isBatchMinHealthyPercentageSet() { return isSet.contains("batchMinHealthyPercentage"); }
 
@@ -96,6 +95,5 @@ public class ElastigroupStartDeploymentStrategy {
     public boolean isOnFailureSet() {
         return isSet.contains("onFailure");
     }
-
 
 }

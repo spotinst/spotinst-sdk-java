@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.enums.AwsElastigroupHealthCheckTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +12,7 @@ public class ElastigroupStartDeployment {
     private Integer                            batchSizePercentage;
     private Integer                            drainingTimeout;
     private Integer                            gracePeriod;
-    private String                             healthCheckType;
+    private AwsElastigroupHealthCheckTypeEnum  healthCheckType;
     private ElastigroupStartDeploymentStrategy strategy;
 
     public ElastigroupStartDeployment() {
@@ -54,11 +54,11 @@ public class ElastigroupStartDeployment {
         this.gracePeriod = gracePeriod;
     }
 
-    public String getHealthCheckType() {
+    public AwsElastigroupHealthCheckTypeEnum getHealthCheckType() {
         return healthCheckType;
     }
 
-    public void setHealthCheckType(String healthCheckType) {
+    public void setHealthCheckType(AwsElastigroupHealthCheckTypeEnum healthCheckType) {
         isSet.add("healthCheckType");
         this.healthCheckType = healthCheckType;
     }
@@ -97,7 +97,7 @@ public class ElastigroupStartDeployment {
             elastigroupDeploymentRequest.setGracePeriod(gracePeriod);
             return this;
         }
-        public Builder setHealthCheckType (final String healthCheckType){
+        public Builder setHealthCheckType (final AwsElastigroupHealthCheckTypeEnum healthCheckType){
             elastigroupDeploymentRequest.setHealthCheckType(healthCheckType);
             return this;
         }

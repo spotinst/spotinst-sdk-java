@@ -1,4 +1,5 @@
 package com.spotinst.sdkjava.model;
+
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -6,16 +7,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiElastigroupStartDeploymentResponse implements IPartialUpdateEntity {
+
     @JsonIgnore
-    private Set<String>                                         isSet;
-    private List<ApiElastigroupStartDeploymentItemsResponse>    items;
+    private Set<String>                           isSet;
+    private String                                id;
+    private String                                status;
+    private Integer                               currentBatch;
+    private Integer                               numOfBatches;
+    private ApiElastigroupStartDeploymentProgress progress;
 
     public ApiElastigroupStartDeploymentResponse() {
         isSet = new HashSet<>();
@@ -29,41 +34,72 @@ public class ApiElastigroupStartDeploymentResponse implements IPartialUpdateEnti
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupStartDeploymentItemsResponse> getItems() {
-        return items;
+    public String getId() { return id; }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
     }
 
-    public void setItems(List<ApiElastigroupStartDeploymentItemsResponse> items) {
-        isSet.add("items");
-        this.items = items;
+    public String getStatus() {
+        return status;
     }
 
-    public static class Builder {
-        private ApiElastigroupStartDeploymentResponse startDeploymentResponse;
+    public void setStatus(String status) {
+        isSet.add("status");
+        this.status = status;
+    }
 
-        private Builder() {
-            this.startDeploymentResponse = new ApiElastigroupStartDeploymentResponse();
-        }
+    public Integer getCurrentBatch() {
+        return currentBatch;
+    }
 
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
+    public void setCurrentBatch(Integer currentBatch) {
+        isSet.add("currentBatch");
+        this.currentBatch = currentBatch;
+    }
 
-        public Builder setItems(final List<ApiElastigroupStartDeploymentItemsResponse> items) {
-            startDeploymentResponse.setItems(items);
-            return this;
-        }
+    public Integer getNumOfBatches() {
+        return numOfBatches;
+    }
 
-        public ApiElastigroupStartDeploymentResponse build() {
-            return startDeploymentResponse;
-        }
+    public void setNumOfBatches(Integer numOfBatches) {
+        isSet.add("numOfBatches");
+        this.numOfBatches = numOfBatches;
+    }
 
+    public ApiElastigroupStartDeploymentProgress getProgress() {
+        return progress;
+    }
+
+    public void setProgress(ApiElastigroupStartDeploymentProgress progress) {
+        isSet.add("progress");
+        this.progress = progress;
     }
 
     @JsonIgnore
-    public boolean isSetItemsSet() {
-        return isSet.contains("items");
+    public boolean isIdSet() {
+        return isSet.contains("id");
+    }
+
+    @JsonIgnore
+    public boolean isStatusSet() {
+        return isSet.contains("status");
+    }
+
+    @JsonIgnore
+    public boolean isCurrentBatchSet() {
+        return isSet.contains("currentBatch");
+    }
+
+    @JsonIgnore
+    public boolean isNumOfBatchesSet() {
+        return isSet.contains("numOfBatches");
+    }
+
+    @JsonIgnore
+    public boolean isProgressSet() {
+        return isSet.contains("progress");
     }
 
 }

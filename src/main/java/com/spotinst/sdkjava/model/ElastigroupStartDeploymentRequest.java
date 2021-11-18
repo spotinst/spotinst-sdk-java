@@ -58,8 +58,8 @@ public class ElastigroupStartDeploymentRequest {
     //region Json methods
     public String toJson() {
         ApiElastigroupStartDeployment elastigroupDeploymentRequest = ElastigroupConverter.toDal(elastigroupDeployment);
-        String clusterJson = JsonMapper.toJson(elastigroupDeploymentRequest);
-        return clusterJson;
+        String startDeployment = JsonMapper.toJson(elastigroupDeploymentRequest);
+        return startDeployment;
     }
 
     //endregion

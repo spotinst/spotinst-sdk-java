@@ -49,35 +49,6 @@ public class ApiElastigroupStartDeploymentProgress implements IPartialUpdateEnti
         this.value = value;
     }
 
-    public static class Builder {
-        private ApiElastigroupStartDeploymentProgress elastigroupProgress;
-
-        private Builder() {
-            this.elastigroupProgress = new ApiElastigroupStartDeploymentProgress();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setUnit(final String unit) {
-            elastigroupProgress.setUnit(unit);
-            return this;
-        }
-
-        public Builder setValue(final Integer value) {
-            elastigroupProgress.setValue(value);
-            return this;
-        }
-
-        public ApiElastigroupStartDeploymentProgress build() {
-            return elastigroupProgress;
-        }
-
-    }
-
-
     @JsonIgnore
     public boolean isUnitSet() {
         return isSet.contains("unit");

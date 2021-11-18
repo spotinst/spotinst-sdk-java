@@ -5,15 +5,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElastigroupStartDeploymentResponse {
+
     @JsonIgnore
-    private Set<String>                                   isSet;
-    private List<ElastigroupStartDeploymentItemsResponse> items;
+    private Set<String>                        isSet;
+    private String                             id;
+    private String                             status;
+    private Integer                            currentBatch;
+    private Integer                            numOfBatches;
+    private ElastigroupStartDeploymentProgress progress;
 
     public ElastigroupStartDeploymentResponse() {
         isSet = new HashSet<>();
@@ -27,20 +31,54 @@ public class ElastigroupStartDeploymentResponse {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupStartDeploymentItemsResponse> getItems() {
-        return items;
+    public String getId() { return id; }
+
+    public void setId(String id) {
+        isSet.add("id");
+        this.id = id;
     }
 
-    public void setItems(List<ElastigroupStartDeploymentItemsResponse> items) {
-        isSet.add("items");
-        this.items = items;
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        isSet.add("status");
+        this.status = status;
+    }
+
+    public Integer getCurrentBatch() {
+        return currentBatch;
+    }
+
+    public void setCurrentBatch(Integer currentBatch) {
+        isSet.add("currentBatch");
+        this.currentBatch = currentBatch;
+    }
+
+    public Integer getNumOfBatches() {
+        return numOfBatches;
+    }
+
+    public void setNumOfBatches(Integer numOfBatches) {
+        isSet.add("numOfBatches");
+        this.numOfBatches = numOfBatches;
+    }
+
+    public ElastigroupStartDeploymentProgress getProgress() {
+        return progress;
+    }
+
+    public void setProgress(ElastigroupStartDeploymentProgress progress) {
+        isSet.add("progress");
+        this.progress = progress;
     }
 
     public static class Builder {
-        private ElastigroupStartDeploymentResponse startDeploymentResponse;
+        private ElastigroupStartDeploymentResponse items;
 
         private Builder() {
-            this.startDeploymentResponse = new ElastigroupStartDeploymentResponse();
+            this.items = new ElastigroupStartDeploymentResponse();
         }
 
         public static Builder get() {
@@ -48,23 +86,59 @@ public class ElastigroupStartDeploymentResponse {
             return builder;
         }
 
-        public Builder setItems(final List<ElastigroupStartDeploymentItemsResponse> items) {
-            startDeploymentResponse.setItems(items);
+        public Builder setId(final String id) {
+            items.setId(id);
+            return this;
+        }
+
+        public Builder setStatus(final String status) {
+            items.setStatus(status);
+            return this;
+        }
+
+        public Builder setCurrentBatch(final Integer currentBatch) {
+            items.setCurrentBatch(currentBatch);
+            return this;
+        }
+
+        public Builder setNumOfBatches(final Integer numOfBatches) {
+            items.setNumOfBatches(numOfBatches);
+            return this;
+        }
+
+        public Builder setProgress(final ElastigroupStartDeploymentProgress progress) {
+            items.setProgress(progress);
             return this;
         }
 
         public ElastigroupStartDeploymentResponse build() {
-            return startDeploymentResponse;
+            return items;
         }
-
     }
 
     @JsonIgnore
-    public boolean isSetItemsSet() {
-        return isSet.contains("items");
+    public boolean isIdSet() {
+        return isSet.contains("id");
     }
 
+    @JsonIgnore
+    public boolean isStatusSet() {
+        return isSet.contains("status");
+    }
+
+    @JsonIgnore
+    public boolean isCurrentBatchSet() {
+        return isSet.contains("currentBatch");
+    }
+
+    @JsonIgnore
+    public boolean isNumOfBatchesSet() { return isSet.contains("numOfBatches");  }
+
+    @JsonIgnore
+    public boolean isProgressSet() {
+        return isSet.contains("progress");
+    }
+
+
 }
-
-
 
