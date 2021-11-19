@@ -15,6 +15,7 @@ public class ElastigroupInstanceTypes {
     private Set<String> isSet;
     private String onDemand;
     private List<String> spot;
+    private List<ElastigroupWeights> weights;
     //endregion
 
     //region Constructors
@@ -56,6 +57,15 @@ public class ElastigroupInstanceTypes {
         isSet.add("onDemand");
         this.onDemand = onDemand;
     }
+
+    public List<ElastigroupWeights> getWeights() {
+        return weights;
+    }
+
+    public void setWeights(List<ElastigroupWeights> weights) {
+        isSet.add("weights");
+        this.weights = weights;
+    }
     //endregion
 
     //endregion
@@ -87,6 +97,11 @@ public class ElastigroupInstanceTypes {
             // TODO : Validations
             return instanceTypes;
         }
+
+        public Builder setWeights(final List<ElastigroupWeights> weights) {
+            instanceTypes.setWeights(weights);
+            return this;
+        }
     }
     //endregion
     //region isSet methods
@@ -100,6 +115,12 @@ public class ElastigroupInstanceTypes {
     @JsonIgnore
     public boolean isSpotSet() {
         return isSet.contains("spot");
+    }
+
+    // Is weights Set boolean method
+    @JsonIgnore
+    public boolean isWeightsSet() {
+        return isSet.contains("weights");
     }
 
     //endregion

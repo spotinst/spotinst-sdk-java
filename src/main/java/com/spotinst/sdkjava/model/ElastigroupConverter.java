@@ -897,6 +897,30 @@ class ElastigroupConverter {
                     retVal.setSpot(new LinkedList<>(instanceTypes.getSpot()));
                 }
             }
+            if (instanceTypes.isWeightsSet()) {
+                if (instanceTypes.getWeights() != null) {
+                    List <ApiWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setWeights(optWeights);
+                }
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiWeights toDal(ElastigroupWeights weights) {
+        ApiWeights retVal = null;
+
+        if (weights != null) {
+            retVal = new ApiWeights();
+
+            if (weights.isInstanceTypeSet()) {
+                retVal.setInstanceType(weights.getInstanceType());
+            }
+
+            if (weights.isWeightedCapacitySet()) {
+                retVal.setWeightedCapacity(weights.getWeightedCapacity());
+            }
         }
 
         return retVal;
@@ -1862,6 +1886,24 @@ class ElastigroupConverter {
         return retVal;
     }
 
+    private static ElastigroupWeights toBl(ApiWeights weights) {
+        ElastigroupWeights retVal = null;
+
+        if (weights != null) {
+            ElastigroupWeights.Builder retValBuilder = ElastigroupWeights.Builder.get();
+
+            if (weights.isInstanceTypeSet()) {
+                retValBuilder.setInstanceType(weights.getInstanceType());
+            }
+            if (weights.isWeightedCapacitySet()) {
+                retValBuilder.setWeightedCapacity(weights.getWeightedCapacity());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
     private static ElastigroupTargetGroupConfig toBl (ApiTargetGroupConfig targetGroupConfig) {
         ElastigroupTargetGroupConfig retVal = null;
 
@@ -2160,6 +2202,15 @@ class ElastigroupConverter {
             if (instanceTypes.isSpotSet()) {
                 if (instanceTypes.getSpot() != null) {
                     retValBuilder.setSpotTypes(new LinkedList<>(instanceTypes.getSpot()));
+                }
+            }
+
+            if (instanceTypes.isWeightsSet()) {
+                if (instanceTypes.getWeights() != null) {
+                    List<ElastigroupWeights> blWeights =
+                            instanceTypes.getWeights().stream().map(ElastigroupConverter::toBl)
+                                    .collect(Collectors.toList());
+                    retValBuilder.setWeights(blWeights);
                 }
             }
 

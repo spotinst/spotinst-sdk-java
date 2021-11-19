@@ -22,6 +22,7 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     private Set<String>  isSet;
     private String       ondemand;
     private List<String> spot;
+    private List<ApiWeights> weights;
     //endregion
 
     //region Constructor
@@ -60,6 +61,15 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
         this.ondemand = ondemand;
     }
 
+    public List<ApiWeights> getWeights() {
+        return weights;
+    }
+
+    public void setWeights(List<ApiWeights> weights) {
+        isSet.add("weights");
+        this.weights = weights;
+    }
+
     //endregion
 
     //region isSet methods
@@ -74,6 +84,12 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSpotSet() {
         return isSet.contains("spot");
+    }
+
+    // Is weights Set boolean method
+    @JsonIgnore
+    public boolean isWeightsSet() {
+        return isSet.contains("weights");
     }
 
 
