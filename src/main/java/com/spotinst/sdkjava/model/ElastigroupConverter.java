@@ -2955,6 +2955,28 @@ class ElastigroupConverter {
         return retVal;
 
     }
+    public static ElastigroupGetGroupDeploymentStatusResponse toBl(ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse) {
+        ElastigroupGetGroupDeploymentStatusResponse retVal = null;
+
+        if (getGroupDeploymentStatusResponse != null) {
+            retVal = new ElastigroupGetGroupDeploymentStatusResponse();
+
+            if (getGroupDeploymentStatusResponse.isIdSet()) {
+                retVal.setId(getGroupDeploymentStatusResponse.getId());
+            }
+
+            if (getGroupDeploymentStatusResponse.isProgressSet()) {
+                retVal.setProgress(toBl(getGroupDeploymentStatusResponse.getProgress()));
+            }
+
+            if (getGroupDeploymentStatusResponse.isStatusSet()) {
+                retVal.setStatus(getGroupDeploymentStatusResponse.getStatus());
+            }
+
+        }
+
+        return retVal;
+    }
 
 
     //endregion

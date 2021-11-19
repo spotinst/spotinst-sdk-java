@@ -139,13 +139,16 @@ public class ElastigroupUsageExample {
         //interruptInstances(elastigroupClient, listOfInstances);
 
         //Start deployment
-        String deploymentId = startDeployment(elastigroupClient, "sig-6deca209").getId();
+        //String deploymentId = startDeployment(elastigroupClient, "sig-6deca209").getId();
 
         //Get Deployment Status
-        getDeploymentStatus(elastigroupClient, "sig-6deca209", deploymentId);
+        //getDeploymentStatus(elastigroupClient, "sig-6deca209", deploymentId);
 
         //Stop deployment
-        stopDeployment(elastigroupClient, "sig-6deca209",deploymentId);
+        //stopDeployment(elastigroupClient, "sig-6deca209",deploymentId);
+
+        //Get group Deployment Staus
+        getGroupDeploymentStatus(elastigroupClient,"sig-6deca209");
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -983,6 +986,18 @@ public class ElastigroupUsageExample {
         }
 
         return GetDeploymentStatusResponse;
+
+    }
+
+    private static ElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+
+        System.out.println("----------------- Get Deployment Status for elastigroup ---------------");
+
+        ElastigroupGetGroupDeploymentStatusResponse GetGroupDeploymentStatusResponse = elastigroupClient.getGroupDeploymentStatus(elastigroupId);
+
+        System.out.println("Group Deployment Status for  elastigroup: " + elastigroupId + " is as below : ");
+        System.out.print("*******************************"+ GetGroupDeploymentStatusResponse.getId() + " " + GetGroupDeploymentStatusResponse.getStatus());
+        return GetGroupDeploymentStatusResponse;
 
     }
 

@@ -494,5 +494,28 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetGroupDeploymentStatusResponse> retVal ;
+
+        try {
+
+            ApiElastigroupGetGroupDeploymentStatusResponse apiElastigroupGetGroupDeploymentStatusResponse = SpotinstElastigroupService
+                    .getGroupDeploymentStatus(elastigroupId, authToken, account);
+
+            ElastigroupGetGroupDeploymentStatusResponse
+                    startDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetGroupDeploymentStatusResponse);
+
+            retVal = new RepoGenericResponse<>(startDeploymentResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
 
 }

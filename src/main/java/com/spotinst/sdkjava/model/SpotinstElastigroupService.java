@@ -1042,4 +1042,42 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
+    public static ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatus(String groupId, String authToken, String account) {
+
+        ApiElastigroupGetGroupDeploymentStatusResponse getDeploymentStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll", apiEndpoint, groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupGetGroupDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetGroupDeploymentStatusApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            getDeploymentStatus = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return getDeploymentStatus;
+
+    }
+
+
 }
