@@ -59,4 +59,14 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<SuspendedScalingPoliciesList> getAllSuspendedScalingPolicies(String elastigroupId,
                                                                                      String authToken, String account);
 
+    RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeployment(String elastigroupId, ElastigroupStartDeployment elastigroupStartDeployment, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupStopDeploymentResponse> stopDeployment(
+            ElastigroupStopDeploymentRequest elastigroupStopDeployment, String elastigroupId, String deploymentId , String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId , String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest ,String elastigroupId, String deploymentId ,String authToken, String account);
 }

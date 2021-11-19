@@ -53,7 +53,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group", apiEndpoint);
 
         // Send the request
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         // Handle the response.
         ElastigroupApiResponse elastigroupApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
@@ -922,4 +922,204 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
         return retVal;
     }
+
+    public static ApiElastigroupStartDeploymentResponse startDeployment(String groupId, ElastigroupStartDeployment request,
+                                                                        String authToken, String account) {
+
+        ApiElastigroupStartDeploymentResponse startDeployment = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll", apiEndpoint, groupId);
+
+        // Write to json
+        String body = JsonMapper.toJson(request);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupStartDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStartDeploymentApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            startDeployment = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return startDeployment;
+
+    }
+
+    public static ApiElastigroupStopDeploymentResponse stopDeployment(
+            ElastigroupStopDeploymentRequest stopDeploymentRequest, String elastiGroupId, String deploymentId,
+            String authToken, String account) throws SpotinstHttpException {
+
+        ApiElastigroupStopDeploymentResponse stopDeployment = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll/%s", apiEndpoint, elastiGroupId, deploymentId);
+
+        // Write to json
+        String body = JsonMapper.toJson(stopDeploymentRequest);
+
+        //send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        //Handle the response
+        ElastigroupStopDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStopDeploymentApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            stopDeployment = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return stopDeployment;
+    }
+
+    public static ApiElastigroupGetDeploymentStatusResponse getDeploymentStatus(String groupId, String deploymentId,
+                                                                        String authToken, String account) {
+
+        ApiElastigroupGetDeploymentStatusResponse getDeploymentStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll/%s/status", apiEndpoint, groupId, deploymentId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupGetDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentStatusApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            getDeploymentStatus = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return getDeploymentStatus;
+
+    }
+
+    public static List<ApiElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String groupId, String authToken, String account) {
+
+        List<ApiElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll", apiEndpoint, groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupGetGroupDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetGroupDeploymentStatusApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            getGroupDeploymentStatus = castedApiResponse.getResponse().getItems();
+        }
+
+        return getGroupDeploymentStatus;
+
+    }
+
+    public static ApiElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String groupId,String deploymentId ,String authToken, String account) {
+
+        ApiElastigroupGetDeploymentActionResponse getDeploymentActionStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/roll/%s/action", apiEndpoint, groupId, deploymentId);
+
+        // Write to json
+        String body = JsonMapper.toJson(getDeploymentActionRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupGetDeploymentActionApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentActionApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0){
+            getDeploymentActionStatus = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return getDeploymentActionStatus;
+
+    }
+
+
+
+
 }
