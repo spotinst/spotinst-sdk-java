@@ -1042,9 +1042,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatus(String groupId, String authToken, String account) {
+    public static List<ApiElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String groupId, String authToken, String account) {
 
-        ApiElastigroupGetGroupDeploymentStatusResponse getDeploymentStatus = null;
+        List<ApiElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1072,14 +1072,14 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         ElastigroupGetGroupDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetGroupDeploymentStatusApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
-            getDeploymentStatus = castedApiResponse.getResponse().getItems().get(0);
+            getGroupDeploymentStatus = castedApiResponse.getResponse().getItems();
         }
 
-        return getDeploymentStatus;
+        return getGroupDeploymentStatus;
 
     }
 
-    public static ApiElastigroupGetDeploymentActionResponse getDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String groupId,String deploymentId ,String authToken, String account) {
+    public static ApiElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String groupId,String deploymentId ,String authToken, String account) {
 
         ApiElastigroupGetDeploymentActionResponse getDeploymentActionStatus = null;
 

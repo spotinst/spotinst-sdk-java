@@ -495,16 +495,16 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
-        RepoGenericResponse<ElastigroupGetGroupDeploymentStatusResponse> retVal ;
+    public RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> retVal ;
 
         try {
 
-            ApiElastigroupGetGroupDeploymentStatusResponse apiElastigroupGetGroupDeploymentStatusResponse = SpotinstElastigroupService
+            List<ApiElastigroupGetGroupDeploymentStatusResponse> apiElastigroupGetGroupDeploymentStatusResponse = SpotinstElastigroupService
                     .getGroupDeploymentStatus(elastigroupId, authToken, account);
 
-            ElastigroupGetGroupDeploymentStatusResponse
-                    getGroupDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetGroupDeploymentStatusResponse);
+            List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentResponse =
+                    apiElastigroupGetGroupDeploymentStatusResponse.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getGroupDeploymentResponse);
         }
@@ -519,13 +519,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
 
     @Override
-    public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentAction(ElastigroupGetDeploymentActionRequest elastigroupGetDeploymentActionRequest,String elastigroupId, String deploymentId ,String authToken, String account) {
+    public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(ElastigroupGetDeploymentActionRequest elastigroupGetDeploymentActionRequest,String elastigroupId, String deploymentId ,String authToken, String account) {
         RepoGenericResponse<ElastigroupGetDeploymentActionResponse> retVal ;
 
         try {
 
             ApiElastigroupGetDeploymentActionResponse apiElastigroupGetDeploymentActionResponse = SpotinstElastigroupService
-                    .getDeploymentAction(elastigroupGetDeploymentActionRequest, elastigroupId, deploymentId, authToken, account);
+                    .applyDeploymentAction(elastigroupGetDeploymentActionRequest, elastigroupId, deploymentId, authToken, account);
 
             ElastigroupGetDeploymentActionResponse
                     getDeploymentActionResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentActionResponse);

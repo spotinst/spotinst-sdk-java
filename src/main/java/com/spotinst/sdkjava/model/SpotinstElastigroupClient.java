@@ -752,11 +752,11 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public ElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatus(String elastigroupId) {
+    public List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId) {
 
-        ElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentResponse;
+        List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentResponse;
 
-        RepoGenericResponse<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatusResponse =
+        RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> getGroupDeploymentStatusResponse =
                 getSpotinstElastigroupRepo().getGroupDeploymentStatus(elastigroupId, authToken, account);
 
         if(getGroupDeploymentStatusResponse.isRequestSucceed()){
@@ -775,12 +775,12 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public ElastigroupGetDeploymentActionResponse getDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest,String elastigroupId, String deploymentId) {
+    public ElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest,String elastigroupId, String deploymentId) {
 
         ElastigroupGetDeploymentActionResponse getGroupDeploymentResponse;
 
         RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentActionResponse =
-                getSpotinstElastigroupRepo().getDeploymentAction(getDeploymentActionRequest, elastigroupId,deploymentId, authToken, account);
+                getSpotinstElastigroupRepo().applyDeploymentAction(getDeploymentActionRequest, elastigroupId,deploymentId, authToken, account);
 
         if(getDeploymentActionResponse.isRequestSucceed()){
             getGroupDeploymentResponse =getDeploymentActionResponse.getValue();
