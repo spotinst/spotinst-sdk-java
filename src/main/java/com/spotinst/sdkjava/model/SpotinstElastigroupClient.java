@@ -775,5 +775,28 @@ public class SpotinstElastigroupClient {
 
     }
 
+    public ElastigroupGetDeploymentActionResponse getDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest,String elastigroupId, String deploymentId) {
+
+        ElastigroupGetDeploymentActionResponse getGroupDeploymentResponse;
+
+        RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentActionResponse =
+                getSpotinstElastigroupRepo().getDeploymentAction(getDeploymentActionRequest, elastigroupId,deploymentId, authToken, account);
+
+        if(getDeploymentActionResponse.isRequestSucceed()){
+            getGroupDeploymentResponse =getDeploymentActionResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getDeploymentActionResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get deployment status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getGroupDeploymentResponse;
+
+    }
+
 
 }

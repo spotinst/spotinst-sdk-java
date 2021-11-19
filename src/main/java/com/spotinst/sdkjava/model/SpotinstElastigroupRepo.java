@@ -481,9 +481,9 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .getDeploymentStatus(elastigroupId, deploymentId, authToken, account);
 
             ElastigroupGetDeploymentStatusResponse
-                    startDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentStatusResponse);
+                    getDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentStatusResponse);
 
-            retVal = new RepoGenericResponse<>(startDeploymentResponse);
+            retVal = new RepoGenericResponse<>(getDeploymentResponse);
         }
 
         catch (SpotinstHttpException ex) {
@@ -504,9 +504,9 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .getGroupDeploymentStatus(elastigroupId, authToken, account);
 
             ElastigroupGetGroupDeploymentStatusResponse
-                    startDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetGroupDeploymentStatusResponse);
+                    getGroupDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetGroupDeploymentStatusResponse);
 
-            retVal = new RepoGenericResponse<>(startDeploymentResponse);
+            retVal = new RepoGenericResponse<>(getGroupDeploymentResponse);
         }
 
         catch (SpotinstHttpException ex) {
@@ -517,5 +517,28 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentAction(ElastigroupGetDeploymentActionRequest elastigroupGetDeploymentActionRequest,String elastigroupId, String deploymentId ,String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetDeploymentActionResponse> retVal ;
+
+        try {
+
+            ApiElastigroupGetDeploymentActionResponse apiElastigroupGetDeploymentActionResponse = SpotinstElastigroupService
+                    .getDeploymentAction(elastigroupGetDeploymentActionRequest, elastigroupId, deploymentId, authToken, account);
+
+            ElastigroupGetDeploymentActionResponse
+                    getDeploymentActionResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentActionResponse);
+
+            retVal = new RepoGenericResponse<>(getDeploymentActionResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
 
 }

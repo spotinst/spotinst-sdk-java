@@ -2973,11 +2973,45 @@ class ElastigroupConverter {
                 retVal.setStatus(getGroupDeploymentStatusResponse.getStatus());
             }
 
+            if (getGroupDeploymentStatusResponse.isCreatedAtSet()) {
+                retVal.setCreatedAt(getGroupDeploymentStatusResponse.getCreatedAt());
+            }
+
+            if (getGroupDeploymentStatusResponse.isUpdatedAtSet()) {
+                retVal.setUpdatedAt(getGroupDeploymentStatusResponse.getUpdatedAt());
+            }
+
         }
 
         return retVal;
     }
 
+    public static ElastigroupGetDeploymentActionResponse toBl(ApiElastigroupGetDeploymentActionResponse getDeploymentActionResponse) {
+        ElastigroupGetDeploymentActionResponse retVal = null;
+
+        if (getDeploymentActionResponse != null) {
+            retVal = new ElastigroupGetDeploymentActionResponse();
+
+            if (getDeploymentActionResponse.isActionTypeSet()) {
+                retVal.setActionType(getDeploymentActionResponse.getActionType());
+            }
+
+            if (getDeploymentActionResponse.isGroupIdSet()) {
+                retVal.setGroupId(getDeploymentActionResponse.getGroupId());
+            }
+
+            if (getDeploymentActionResponse.isRollIdSet()) {
+                retVal.setRollId(getDeploymentActionResponse.getRollId());
+            }
+
+            if (getDeploymentActionResponse.isDetachedInstancesSet()) {
+                retVal.setDetachedInstances(getDeploymentActionResponse.getDetachedInstances());
+            }
+
+        }
+
+        return retVal;
+    }
 
     //endregion
     }

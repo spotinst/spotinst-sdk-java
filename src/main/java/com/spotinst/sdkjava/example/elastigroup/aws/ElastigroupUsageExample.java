@@ -149,6 +149,9 @@ public class ElastigroupUsageExample {
 
         //Get group Deployment Staus
         getGroupDeploymentStatus(elastigroupClient,"sig-6deca209");
+
+        //Get Deployment Action
+        //getDeploymentAction(elastigroupClient, "sig-6deca209", "sbgd-b6d4605a");
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -996,10 +999,36 @@ public class ElastigroupUsageExample {
         ElastigroupGetGroupDeploymentStatusResponse GetGroupDeploymentStatusResponse = elastigroupClient.getGroupDeploymentStatus(elastigroupId);
 
         System.out.println("Group Deployment Status for  elastigroup: " + elastigroupId + " is as below : ");
-        System.out.print("*******************************"+ GetGroupDeploymentStatusResponse.getId() + " " + GetGroupDeploymentStatusResponse.getStatus());
+
+        System.out.print("*******************************"+ GetGroupDeploymentStatusResponse.getId() + " " + GetGroupDeploymentStatusResponse.getStatus()
+                         + " "+ GetGroupDeploymentStatusResponse.getCreatedAt() + " "+ GetGroupDeploymentStatusResponse.getUpdatedAt());
+
         return GetGroupDeploymentStatusResponse;
 
     }
 
+    private static ElastigroupGetDeploymentActionResponse getDeploymentAction(SpotinstElastigroupClient elastigroupClient, String elastigroupId, String deploymentId) {
+
+        System.out.println("----------------- Get Deployment Status for elastigroup ---------------");
+
+        ElastigroupGetDeploymentActionRequest.Builder getDeploymentActionBuilder = ElastigroupGetDeploymentActionRequest.Builder.get();
+
+        ElastigroupGetDeploymentActionRequest getDeploymentActionRequest =
+                getDeploymentActionBuilder.setActionType(AwsElastiGroupActionTypeEnum.DETACH_OLD)
+                                          .setDrainingTimeout(240).setShouldDecrementTargetCapacity(true)
+                                          .setShouldHandleAllBatches(true).build();
+
+        ElastigroupGetDeploymentActionResponse getDeploymentActionResponse = elastigroupClient.getDeploymentAction(getDeploymentActionRequest, elastigroupId, deploymentId);
+
+        System.out.println("Deployment Action for  elastigroup: " + elastigroupId + " and roll id " + deploymentId + " is: " +
+                           getDeploymentActionResponse.getActionType()+ " for below Detach Instances");
+
+        for (int i = 0; i < getDeploymentActionResponse.getDetachedInstances().size() ; i++) {
+            System.out.println(" detach instance id" +getDeploymentActionResponse.getDetachedInstances().get(i));
+        }
+
+        return getDeploymentActionResponse;
+
+    }
 
 }
