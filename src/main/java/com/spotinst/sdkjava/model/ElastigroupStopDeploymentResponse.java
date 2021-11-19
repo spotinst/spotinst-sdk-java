@@ -9,17 +9,15 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupStartDeploymentResponse {
+public class ElastigroupStopDeploymentResponse {
 
     @JsonIgnore
     private Set<String>                   isSet;
     private String                        id;
     private String                        status;
-    private Integer                       currentBatch;
-    private Integer                       numOfBatches;
     private ElastigroupDeploymentProgress progress;
 
-    public ElastigroupStartDeploymentResponse() {
+    public ElastigroupStopDeploymentResponse() {
         isSet = new HashSet<>();
     }
 
@@ -47,24 +45,6 @@ public class ElastigroupStartDeploymentResponse {
         this.status = status;
     }
 
-    public Integer getCurrentBatch() {
-        return currentBatch;
-    }
-
-    public void setCurrentBatch(Integer currentBatch) {
-        isSet.add("currentBatch");
-        this.currentBatch = currentBatch;
-    }
-
-    public Integer getNumOfBatches() {
-        return numOfBatches;
-    }
-
-    public void setNumOfBatches(Integer numOfBatches) {
-        isSet.add("numOfBatches");
-        this.numOfBatches = numOfBatches;
-    }
-
     public ElastigroupDeploymentProgress getProgress() {
         return progress;
     }
@@ -75,10 +55,10 @@ public class ElastigroupStartDeploymentResponse {
     }
 
     public static class Builder {
-        private ElastigroupStartDeploymentResponse items;
+        private ElastigroupStopDeploymentResponse items;
 
         private Builder() {
-            this.items = new ElastigroupStartDeploymentResponse();
+            this.items = new ElastigroupStopDeploymentResponse();
         }
 
         public static Builder get() {
@@ -96,22 +76,12 @@ public class ElastigroupStartDeploymentResponse {
             return this;
         }
 
-        public Builder setCurrentBatch(final Integer currentBatch) {
-            items.setCurrentBatch(currentBatch);
-            return this;
-        }
-
-        public Builder setNumOfBatches(final Integer numOfBatches) {
-            items.setNumOfBatches(numOfBatches);
-            return this;
-        }
-
         public Builder setProgress(final ElastigroupDeploymentProgress progress) {
             items.setProgress(progress);
             return this;
         }
 
-        public ElastigroupStartDeploymentResponse build() {
+        public ElastigroupStopDeploymentResponse build() {
             return items;
         }
     }
@@ -125,14 +95,6 @@ public class ElastigroupStartDeploymentResponse {
     public boolean isStatusSet() {
         return isSet.contains("status");
     }
-
-    @JsonIgnore
-    public boolean isCurrentBatchSet() {
-        return isSet.contains("currentBatch");
-    }
-
-    @JsonIgnore
-    public boolean isNumOfBatchesSet() { return isSet.contains("numOfBatches");  }
 
     @JsonIgnore
     public boolean isProgressSet() {

@@ -16,13 +16,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
-import static com.spotinst.sdkjava.utils.Constants.*;
-
 public class ElastigroupUsageExample {
-    private final static String auth_token    = "your-token";
-    private final static String act_id        = "your-account-id";
-    private final static String key_pair_name = "some-key-pair-name";
+    private final static String auth_token    = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
+    private final static String act_id        = "act-7c46c6df";
+    private final static String key_pair_name = "automationKeyPair";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
@@ -31,7 +28,7 @@ public class ElastigroupUsageExample {
         SpotinstElastigroupClient elastigroupClient = SpotinstClient.getElastigroupClient(auth_token, act_id);
 
         // Create group
-        String elastigroupId = createGroup(elastigroupClient);
+        /*String elastigroupId = createGroup(elastigroupClient);
 
         // Enter Group Standby
         enterGroupStandby(elastigroupClient, elastigroupId);
@@ -135,12 +132,20 @@ public class ElastigroupUsageExample {
         getAllSuspendedScalingPolicies(elastigroupClient, "your-elastigroup-id");
 
         System.out.println("----------Remove/Resume Suspended Scaling Policy--------------");
-        removeSuspendedScalingPolicies(elastigroupClient,"your-elastigroup-id","policy-name");
+        removeSuspendedScalingPolicies(elastigroupClient, "your-elastigroup-id", "policy-name");*/
 
-        System.out.println("----------Simulate Instance Interruption Example--------------");
-        List<String> listOfInstances = Arrays.asList("i-0687d633ba59aad5f");
-        interruptInstances(elastigroupClient, listOfInstances);
+        //System.out.println("----------Simulate Instance Interruption Example--------------");
+        //List<String> listOfInstances = Arrays.asList("i-0687d633ba59aad5f");
+        //interruptInstances(elastigroupClient, listOfInstances);
 
+        //Start deployment
+        String deploymentId = startDeployment(elastigroupClient, "sig-6deca209").getId();
+
+        //Get Deployment Status
+        getDeploymentStatus(elastigroupClient, "sig-6deca209", deploymentId);
+
+        //Stop deployment
+        stopDeployment(elastigroupClient, "sig-6deca209",deploymentId);
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -414,21 +419,21 @@ public class ElastigroupUsageExample {
 
         // Build group Target Scaling policies
         PredictiveScale.Builder predictiveScaleBuilder1 = PredictiveScale.Builder.get();
-        PredictiveScale         predictiveScale1        =
+        PredictiveScale predictiveScale1 =
                 predictiveScaleBuilder1.setMode(ScalingPredictiveModeEnum.FORECAST_ONLY).build();
 
-        ScalingPolicy.Builder   scalingPolicyBuilder1   = ScalingPolicy.Builder.get();
-        ScalingPolicy           scalingPolicy1          =
+        ScalingPolicy.Builder scalingPolicyBuilder1 = ScalingPolicy.Builder.get();
+        ScalingPolicy scalingPolicy1 =
                 scalingPolicyBuilder1.setPolicyName("target Scaling Policy 1").setMetricName("CPUUtilization")
                                      .setNamespace("AWS/EC2").setCooldown(300).setStatistic("average")
                                      .setUnit("percent").setTarget(50).setPredictive(predictiveScale1).build();
 
         PredictiveScale.Builder predictiveScaleBuilder2 = PredictiveScale.Builder.get();
-        PredictiveScale         predictiveScale2        =
+        PredictiveScale predictiveScale2 =
                 predictiveScaleBuilder2.setMode(ScalingPredictiveModeEnum.FORECAST_AND_SCALE).build();
 
-        ScalingPolicy.Builder   scalingPolicyBuilder2   = ScalingPolicy.Builder.get();
-        ScalingPolicy           scalingPolicy2          =
+        ScalingPolicy.Builder scalingPolicyBuilder2 = ScalingPolicy.Builder.get();
+        ScalingPolicy scalingPolicy2 =
                 scalingPolicyBuilder2.setPolicyName("target Scaling Policy 2").setMetricName("CPUUtilization")
                                      .setNamespace("AWS/EC2").setCooldown(300).setStatistic("average").setUnit("bytes")
                                      .setTarget(500).setPredictive(predictiveScale2).build();
@@ -439,8 +444,7 @@ public class ElastigroupUsageExample {
 
         // Build group scaling
         ElastigroupScalingConfiguration.Builder scalingBuilder = ElastigroupScalingConfiguration.Builder.get();
-        ElastigroupScalingConfiguration         scaling        =
-                scalingBuilder.setTarget(targetScalingPolicies).build();
+        ElastigroupScalingConfiguration         scaling        = scalingBuilder.setTarget(targetScalingPolicies).build();
 
         // Build group strategy persistence
         ElastigroupPersistenceConfiguration.Builder persistenceBuilder =
@@ -564,8 +568,7 @@ public class ElastigroupUsageExample {
                                   .setStrategy(strategy).setCapacity(capacity).setCompute(compute)
                                   // you can either set 'Scaling' or 'thirdPartyIntegration' of ECS with Auto-Scaler, but not both together.
                                   //.setScaling(scaling)
-                                  .setThirdPartiesIntegration(thirdPartiesIntegration)
-                                  .setScheduling(scheduling)
+                                  .setThirdPartiesIntegration(thirdPartiesIntegration).setScheduling(scheduling)
                                   .build();
         // Build elastigroup creation request
         ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
@@ -714,19 +717,20 @@ public class ElastigroupUsageExample {
         }
     }
 
-    private static void lockUnlockInstance(SpotinstElastigroupClient client, String accountId, Integer ttlInMinutes, String instanceId, String Operation) {
+    private static void lockUnlockInstance(SpotinstElastigroupClient client, String accountId, Integer ttlInMinutes,
+                                           String instanceId, String Operation) {
 
         Boolean success = false;
 
-        if(Operation == "LOCK") {
+        if (Operation == "LOCK") {
             // Build lock request
             ElastigroupInstanceLockRequest.Builder elastigroupLockRequestBuilder = ElastigroupInstanceLockRequest.Builder.get();
-            ElastigroupInstanceLockRequest request =  elastigroupLockRequestBuilder.setAccountId(accountId)
-                                                            .setTtlInMinutes(ttlInMinutes).build();
+            ElastigroupInstanceLockRequest request =
+                    elastigroupLockRequestBuilder.setAccountId(accountId).setTtlInMinutes(ttlInMinutes).build();
 
             success = client.lockInstance(request, instanceId);
         }
-        else if(Operation == "UNLOCK") {
+        else if (Operation == "UNLOCK") {
             // Build unlock request
             ElastigroupInstanceUnLockRequest.Builder elastigroupUnLockRequestBuilder = ElastigroupInstanceUnLockRequest.Builder.get();
             ElastigroupInstanceUnLockRequest request = elastigroupUnLockRequestBuilder.setAccountId(accountId).build();
@@ -811,11 +815,10 @@ public class ElastigroupUsageExample {
 
     private static SuspendedScalingPolicy suspendScalingPolicies(SpotinstElastigroupClient elastigroupClient,
                                                                  String elastigroupId, String policyName) {
-        ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder    =
+        ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder =
                 ElastigroupSuspendScalingPoliciesRequest.Builder.get();
-        ScalingPolicySuspension.Builder                  suspensionBuilder = ScalingPolicySuspension.Builder.get();
-        ScalingPolicySuspension                          suspension        =
-                suspensionBuilder.setTtlInMinutes(20).build();
+        ScalingPolicySuspension.Builder suspensionBuilder = ScalingPolicySuspension.Builder.get();
+        ScalingPolicySuspension         suspension        = suspensionBuilder.setTtlInMinutes(20).build();
         ElastigroupSuspendScalingPoliciesRequest request =
                 requestBuilder.setSuspension(suspension).setGroupId(elastigroupId).setPolicyName(policyName).build();
 
@@ -847,8 +850,7 @@ public class ElastigroupUsageExample {
             SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
         ElastigroupSuspendScalingPoliciesRequest.Builder requestBuilder =
                 ElastigroupSuspendScalingPoliciesRequest.Builder.get();
-        ElastigroupSuspendScalingPoliciesRequest         request        =
-                requestBuilder.setGroupId(elastigroupId).build();
+        ElastigroupSuspendScalingPoliciesRequest request = requestBuilder.setGroupId(elastigroupId).build();
 
         List<SuspendedScalingPolicy> allSuspendedScalingPolicies =
                 elastigroupClient.getAllSuspendedScalingPolicies(request);
@@ -881,4 +883,108 @@ public class ElastigroupUsageExample {
                                              eventLog.getMessage()));
         }
     }
+
+    private static ElastigroupStartDeploymentResponse startDeployment(SpotinstElastigroupClient elastigroupClient,
+                                                                      String elastigroupId) {
+
+        // Build Onfailure
+        ElastigroupStartDeploymentOnFailure onfailure =
+                ElastigroupStartDeploymentOnFailure.Builder.get().setActionType(AwsElastiGroupActionTypeEnum.DETACH_NEW)
+                                                           .setDrainingTimeout(200)
+                                                           .setShouldDecrementTargetCapacity(true)
+                                                           .setShouldHandleAllBatches(false).build();
+
+        // Build Strategy
+        ElastigroupStartDeploymentStrategy strategy =
+                ElastigroupStartDeploymentStrategy.Builder.get().setAction(AwsElastigroupActionEnum.RESTART_SERVER).setBatchMinHealthyPercentage(50).setOnFailure(onfailure)
+                                                          .build();
+
+        //Build Elastigroup Deployment
+        ElastigroupStartDeployment.Builder requestBuilder = ElastigroupStartDeployment.Builder.get();
+        ElastigroupStartDeployment elastigroupStartDeployment =
+                requestBuilder.setBatchSizePercentage(100).setDrainingTimeout(240).setGracePeriod(10)
+                              .setHealthCheckType(AwsElastigroupHealthCheckTypeEnum.NONE).setStrategy(strategy).build();
+
+        ElastigroupStartDeploymentRequest.Builder startDeploymentRequestBuilder = ElastigroupStartDeploymentRequest.Builder.get();
+        ElastigroupStartDeploymentRequest startDeploymentRequest =
+                startDeploymentRequestBuilder.setElastigroupDeployment(elastigroupStartDeployment).build();
+
+        System.out.println("Start Deployment Request for elastigroup:" + elastigroupId);
+        System.out.println(startDeploymentRequest.toJson());
+
+        ElastigroupStartDeploymentResponse startDeploymentResponse =
+                elastigroupClient.startDeployment(startDeploymentRequest, elastigroupId);
+
+        System.out.println(
+                "Start Deployment for  elastigroup: " + elastigroupId + " with id " + startDeploymentResponse.getId() +
+                " and status " + startDeploymentResponse.getStatus() + " in current batch " +
+                startDeploymentResponse.getCurrentBatch() + " out of " + startDeploymentResponse.getNumOfBatches() +
+                " total batches");
+
+        return startDeploymentResponse;
+
+    }
+
+    private static ElastigroupStopDeploymentResponse stopDeployment(SpotinstElastigroupClient elastigroupClient, String elastigroupId,
+                                       String deploymentId) {
+
+        ElastigroupStopDeploymentRequest.Builder stopDeploymentRequestBuilder = ElastigroupStopDeploymentRequest.Builder.get();
+
+        //Build stopDeployment
+        ElastigroupStopDeploymentRoll.Builder stopDeployBuilder = ElastigroupStopDeploymentRoll.Builder.get();
+
+        ElastigroupStopDeploymentRoll stopDeployment = stopDeployBuilder.setStatus("STOPPED").build();
+
+        ElastigroupStopDeploymentRequest stopDeploymentRequest = stopDeploymentRequestBuilder.setStopDeployment(stopDeployment).build();
+        System.out.println("Stop Deployment Request: " + stopDeploymentRequest.toJson());
+
+        ElastigroupStopDeploymentResponse stopDeploymentResponse = elastigroupClient.stopDeployment(stopDeploymentRequest, elastigroupId, deploymentId);
+
+        System.out.println("Stopped Deployment for  elastigroup: " + elastigroupId + " with id " + stopDeploymentResponse.getId() +" and status " + stopDeploymentResponse.getStatus());
+
+        return stopDeploymentResponse;
+
+    }
+
+
+    private static ElastigroupGetDeploymentStatusResponse getDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId,
+                                                                    String deploymentId) {
+
+        System.out.println("----------------- Get Deployment Status for elastigroup ---------------");
+
+        ElastigroupGetDeploymentStatusResponse GetDeploymentStatusResponse = elastigroupClient.getDeploymentStatus(elastigroupId, deploymentId);
+
+        System.out.println("Deployment for  elastigroup: " + elastigroupId + " And Deployment id " + deploymentId +" is as below : ");
+
+        if(GetDeploymentStatusResponse.getInstances().size() > 0) {
+
+            for (int i = 0; i < GetDeploymentStatusResponse.getInstances().size(); i++) {
+
+                 if (GetDeploymentStatusResponse.getInstances().get(i).getBlue().size() > 0) {
+                    System.out.println("Blue Instances List: ");
+                    for (int j = 0; j < GetDeploymentStatusResponse.getInstances().get(i).getBlue().size(); j++) {
+                        System.out.println("Blue Instance " + j + " :");
+                        System.out.println("Id : " + GetDeploymentStatusResponse.getInstances().get(i).getBlue().get(i)
+                                            .getInstanceId() + " with status " + GetDeploymentStatusResponse.getInstances().get(i).getBlue().get(i).getStatus());
+                    }
+
+                }
+
+                if (GetDeploymentStatusResponse.getInstances().get(i).getGreen().size() > 0) {
+                    System.out.println("Green Instances List: ");
+                    for (int k = 0; k < GetDeploymentStatusResponse.getInstances().get(i).getGreen().size(); k++) {
+                        System.out.println("Id : " + GetDeploymentStatusResponse.getInstances().get(i).getGreen().get(i)
+                                            .getInstanceId() + " with status " + GetDeploymentStatusResponse.getInstances().get(i).getGreen().get(i).getStatus());
+                    }
+
+                }
+
+            }
+        }
+
+        return GetDeploymentStatusResponse;
+
+    }
+
+
 }

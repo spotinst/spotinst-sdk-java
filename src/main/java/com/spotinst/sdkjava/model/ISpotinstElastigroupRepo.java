@@ -60,4 +60,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
                                                                                      String authToken, String account);
 
     RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeployment(String elastigroupId, ElastigroupStartDeployment elastigroupStartDeployment, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupStopDeploymentResponse> stopDeployment(
+            ElastigroupStopDeploymentRequest elastigroupStopDeployment, String elastigroupId, String deploymentId , String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId , String authToken, String account);
 }

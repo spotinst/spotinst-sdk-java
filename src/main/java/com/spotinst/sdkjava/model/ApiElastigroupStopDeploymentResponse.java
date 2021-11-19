@@ -12,17 +12,15 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupStartDeploymentResponse implements IPartialUpdateEntity {
+public class ApiElastigroupStopDeploymentResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                      isSet;
     private String                           id;
     private String                           status;
-    private Integer                          currentBatch;
-    private Integer                          numOfBatches;
     private ApiElastigroupDeploymentProgress progress;
 
-    public ApiElastigroupStartDeploymentResponse() {
+    public ApiElastigroupStopDeploymentResponse() {
         isSet = new HashSet<>();
     }
 
@@ -50,24 +48,6 @@ public class ApiElastigroupStartDeploymentResponse implements IPartialUpdateEnti
         this.status = status;
     }
 
-    public Integer getCurrentBatch() {
-        return currentBatch;
-    }
-
-    public void setCurrentBatch(Integer currentBatch) {
-        isSet.add("currentBatch");
-        this.currentBatch = currentBatch;
-    }
-
-    public Integer getNumOfBatches() {
-        return numOfBatches;
-    }
-
-    public void setNumOfBatches(Integer numOfBatches) {
-        isSet.add("numOfBatches");
-        this.numOfBatches = numOfBatches;
-    }
-
     public ApiElastigroupDeploymentProgress getProgress() {
         return progress;
     }
@@ -85,16 +65,6 @@ public class ApiElastigroupStartDeploymentResponse implements IPartialUpdateEnti
     @JsonIgnore
     public boolean isStatusSet() {
         return isSet.contains("status");
-    }
-
-    @JsonIgnore
-    public boolean isCurrentBatchSet() {
-        return isSet.contains("currentBatch");
-    }
-
-    @JsonIgnore
-    public boolean isNumOfBatchesSet() {
-        return isSet.contains("numOfBatches");
     }
 
     @JsonIgnore

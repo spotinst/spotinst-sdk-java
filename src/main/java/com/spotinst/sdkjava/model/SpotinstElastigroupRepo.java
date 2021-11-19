@@ -447,4 +447,52 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<ElastigroupStopDeploymentResponse> stopDeployment(
+            ElastigroupStopDeploymentRequest elastiGroupDeployment, String elastigroupId, String deploymentId,
+            String authToken, String account) {
+        RepoGenericResponse<ElastigroupStopDeploymentResponse> retVal;
+
+        try {
+
+            ApiElastigroupStopDeploymentResponse apiStopDeployment = SpotinstElastigroupService
+                    .stopDeployment(elastiGroupDeployment, elastigroupId, deploymentId, authToken, account);
+
+            ElastigroupStopDeploymentResponse stopDeploymentResponse = ElastigroupConverter.toBl(apiStopDeployment);
+            retVal = new RepoGenericResponse<>(stopDeploymentResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId,
+                                                                                   String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal = null;
+
+        try {
+
+            ApiElastigroupGetDeploymentStatusResponse apiElastigroupGetDeploymentStatusResponse = SpotinstElastigroupService
+                    .getDeploymentStatus(elastigroupId, deploymentId, authToken, account);
+
+            ElastigroupGetDeploymentStatusResponse
+                    startDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentStatusResponse);
+
+            retVal = new RepoGenericResponse<>(startDeploymentResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+
 }
