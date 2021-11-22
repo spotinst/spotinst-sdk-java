@@ -12,6 +12,7 @@ public class ClusterStrategyConfiguration {
     private Boolean     utilizeReservedInstances;
     private Integer     drainingTimeout;
     private Integer     gracePeriod;
+    private Integer     spotPercentage;
 
 
     private ClusterStrategyConfiguration() {
@@ -62,6 +63,15 @@ public class ClusterStrategyConfiguration {
         this.gracePeriod = gracePeriod;
     }
 
+    public Integer getSpotPercentage() {
+        return spotPercentage;
+    }
+
+    public void setSpotPercentage(Integer spotPercentage) {
+        isSet.add("spotPercentage");
+        this.spotPercentage = spotPercentage;
+    }
+
     public static class Builder {
         private ClusterStrategyConfiguration strategy;
 
@@ -94,6 +104,11 @@ public class ClusterStrategyConfiguration {
             return this;
         }
 
+        public Builder setSpotPercentage(final Integer spotPercentage) {
+            strategy.setSpotPercentage(spotPercentage);
+            return this;
+        }
+
         public ClusterStrategyConfiguration build() {
             return strategy;
         }
@@ -117,5 +132,10 @@ public class ClusterStrategyConfiguration {
     @JsonIgnore
     public boolean isGracePeriodSet() {
         return isSet.contains("gracePeriod");
+    }
+
+    @JsonIgnore
+    public boolean isSpotPercentageSet() {
+        return isSet.contains("spotPercentage");
     }
 }

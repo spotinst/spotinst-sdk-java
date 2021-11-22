@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanc
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeClusterRepo;
+import com.spotinst.sdkjava.model.repo.ocean.kubernetes.K8sVngRepo;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -36,6 +37,7 @@ class SpotinstRepoManager {
     private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
+    private ISpotK8sVngRepo       						spotK8sVngRepo;
 
     //endregion
 
@@ -62,6 +64,7 @@ class SpotinstRepoManager {
         this.spotOceanEcsLaunchSpecRepo = new SpotOceanEcsLaunchSpecRepo();
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
+        this.spotK8sVngRepo = new K8sVngRepo();
     }
     //endregion
 
@@ -210,6 +213,14 @@ class SpotinstRepoManager {
 
     public ISpotOceanGKELaunchSpecRepo getSpotinstOceanGKELaunchSpecRepoGcp() {
         return spotinstOceanGKELaunchSpecRepo;
+    }
+
+    public ISpotK8sVngRepo getK8sVngRepo() {
+        return spotK8sVngRepo;
+    }
+
+    public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
+        this.spotK8sVngRepo = k8sVngRepo;
     }
     //endregion
 }

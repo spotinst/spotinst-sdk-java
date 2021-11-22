@@ -1,21 +1,24 @@
-package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
+package com.spotinst.sdkjava.model.api.ocean.kubernetes;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClusterIamInstanceProfileSpec {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiK8sVngIamInstanceProfileSpec implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      arn;
     private String      name;
 
-    private ClusterIamInstanceProfileSpec() {
+    public ApiK8sVngIamInstanceProfileSpec() {
         isSet = new HashSet<>();
     }
 
@@ -45,39 +48,11 @@ public class ClusterIamInstanceProfileSpec {
         this.name = name;
     }
 
-    public static class Builder {
-        private ClusterIamInstanceProfileSpec iamInstanceProfile;
-
-        private Builder() {
-            this.iamInstanceProfile = new ClusterIamInstanceProfileSpec();
-        }
-
-        public static Builder get() {
-            Builder builder = new ClusterIamInstanceProfileSpec.Builder();
-            return builder;
-        }
-
-        public Builder setArn(final String arn) {
-            iamInstanceProfile.setArn(arn);
-            return this;
-        }
-
-        public Builder setName(final String name) {
-            iamInstanceProfile.setArn(name);
-            return this;
-        }
-
-        public ClusterIamInstanceProfileSpec build() {
-            return iamInstanceProfile;
-        }
-    }
-
     @JsonIgnore
     public boolean isArnSet() {
         return isSet.contains("arn");
     }
 
-    @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
     }

@@ -9,13 +9,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ClusterIamInstanceProfileSpec {
+public class K8sVngIamInstanceProfileSpec {
     @JsonIgnore
     private Set<String> isSet;
     private String      arn;
     private String      name;
 
-    private ClusterIamInstanceProfileSpec() {
+    private K8sVngIamInstanceProfileSpec() {
         isSet = new HashSet<>();
     }
 
@@ -46,14 +46,14 @@ public class ClusterIamInstanceProfileSpec {
     }
 
     public static class Builder {
-        private ClusterIamInstanceProfileSpec iamInstanceProfile;
+        private K8sVngIamInstanceProfileSpec iamInstanceProfile;
 
         private Builder() {
-            this.iamInstanceProfile = new ClusterIamInstanceProfileSpec();
+            this.iamInstanceProfile = new K8sVngIamInstanceProfileSpec();
         }
 
         public static Builder get() {
-            Builder builder = new ClusterIamInstanceProfileSpec.Builder();
+            Builder builder = new K8sVngIamInstanceProfileSpec.Builder();
             return builder;
         }
 
@@ -67,7 +67,7 @@ public class ClusterIamInstanceProfileSpec {
             return this;
         }
 
-        public ClusterIamInstanceProfileSpec build() {
+        public K8sVngIamInstanceProfileSpec build() {
             return iamInstanceProfile;
         }
     }
