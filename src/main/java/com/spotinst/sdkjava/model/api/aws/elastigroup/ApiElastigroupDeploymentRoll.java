@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.aws.elastigroup;
 
 import com.fasterxml.jackson.annotation.*;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
@@ -11,7 +11,7 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 
 public class ApiElastigroupDeploymentRoll implements IPartialUpdateEntity {
-    @JsonProperty("roll")
+    @JsonIgnore
     private Set<String>           isSet;
     private String                status;
 

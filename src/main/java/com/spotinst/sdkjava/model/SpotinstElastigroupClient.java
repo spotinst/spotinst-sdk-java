@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;

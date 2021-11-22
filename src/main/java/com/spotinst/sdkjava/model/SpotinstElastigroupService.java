@@ -8,8 +8,10 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.responses.aws.elastigroup.*;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesApiResponse;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesListApiResponse;
 import org.apache.http.HttpStatus;
@@ -954,7 +956,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupStartDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStartDeploymentApiResponse.class);
+        ElastigroupStartDeploymentApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupStartDeploymentApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
             startDeployment = castedApiResponse.getResponse().getItems().get(0);
@@ -995,7 +998,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
 
         //Handle the response
-        ElastigroupStopDeploymentApiResponse castedApiResponse = getCastedResponse(response, ElastigroupStopDeploymentApiResponse.class);
+        ElastigroupStopDeploymentApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupStopDeploymentApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
             stopDeployment = castedApiResponse.getResponse().getItems().get(0);
@@ -1032,7 +1036,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupGetDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentStatusApiResponse.class);
+        ElastigroupGetDeploymentStatusApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentStatusApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
             getDeploymentStatus = castedApiResponse.getResponse().getItems().get(0);
@@ -1069,7 +1074,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupGetGroupDeploymentStatusApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetGroupDeploymentStatusApiResponse.class);
+        ElastigroupGetGroupDeploymentStatusApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupGetGroupDeploymentStatusApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
             getGroupDeploymentStatus = castedApiResponse.getResponse().getItems();
@@ -1109,7 +1115,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupGetDeploymentActionApiResponse castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentActionApiResponse.class);
+        ElastigroupGetDeploymentActionApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupGetDeploymentActionApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0){
             getDeploymentActionStatus = castedApiResponse.getResponse().getItems().get(0);

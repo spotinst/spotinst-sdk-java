@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.aws.elastigroup;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,18 +1,15 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.aws.elastigroup;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupDeploymentStatusInstancesGreen implements IPartialUpdateEntity {
+public class ElastigroupDeploymentStatusInstancesBlue {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -21,7 +18,7 @@ public class ApiElastigroupDeploymentStatusInstancesGreen implements IPartialUpd
     private Integer     batchNum;
     private String      status;
 
-    public ApiElastigroupDeploymentStatusInstancesGreen() {
+    public ElastigroupDeploymentStatusInstancesBlue() {
         isSet = new HashSet<>();
     }
 
@@ -67,6 +64,46 @@ public class ApiElastigroupDeploymentStatusInstancesGreen implements IPartialUpd
     public void setStatus(String status) {
         isSet.add("status");
         this.status = status;
+    }
+
+
+    public static class Builder {
+        private ElastigroupDeploymentStatusInstancesBlue elastigroupGetDeploymentStatusInstancesBlue;
+
+        private Builder() {
+            this.elastigroupGetDeploymentStatusInstancesBlue = new ElastigroupDeploymentStatusInstancesBlue();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setInstanceId(final String instanceId) {
+            elastigroupGetDeploymentStatusInstancesBlue.setInstanceId(instanceId);
+            return this;
+        }
+
+        public Builder setLifeCycle(final String lifeCycle) {
+            elastigroupGetDeploymentStatusInstancesBlue.setLifeCycle(lifeCycle);
+            return this;
+        }
+
+        public Builder setBatchNum(final Integer batchNum) {
+            elastigroupGetDeploymentStatusInstancesBlue.setBatchNum(batchNum);
+            return this;
+        }
+
+        public Builder setStatus(final String status) {
+            elastigroupGetDeploymentStatusInstancesBlue.setStatus(status);
+            return this;
+        }
+
+
+        public ElastigroupDeploymentStatusInstancesBlue build() {
+            return elastigroupGetDeploymentStatusInstancesBlue;
+        }
+
     }
 
     @JsonIgnore

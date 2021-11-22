@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSuspensionConverter;

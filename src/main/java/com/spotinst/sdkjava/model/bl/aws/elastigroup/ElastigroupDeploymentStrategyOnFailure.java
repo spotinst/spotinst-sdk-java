@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.aws.elastigroup;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsElastigroupActionTypeEnum;

@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.*;
+import com.spotinst.sdkjava.model.api.aws.elastigroup.*;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.*;
 
 import java.util.LinkedList;
 import java.util.List;

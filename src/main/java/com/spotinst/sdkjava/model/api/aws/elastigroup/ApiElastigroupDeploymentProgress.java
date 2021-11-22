@@ -1,22 +1,25 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.aws.elastigroup;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupDeploymentProgress {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiElastigroupDeploymentProgress implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
     private String      unit;
     private Integer     value;
 
-    public ElastigroupDeploymentProgress() {
+    public ApiElastigroupDeploymentProgress() {
         isSet = new HashSet<>();
     }
 
@@ -45,35 +48,6 @@ public class ElastigroupDeploymentProgress {
         isSet.add("value");
         this.value = value;
     }
-
-    public static class Builder {
-        private ElastigroupDeploymentProgress elastigroupProgress;
-
-        private Builder() {
-            this.elastigroupProgress = new ElastigroupDeploymentProgress();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setUnit(final String unit) {
-            elastigroupProgress.setUnit(unit);
-            return this;
-        }
-
-        public Builder setValue(final Integer value) {
-            elastigroupProgress.setValue(value);
-            return this;
-        }
-
-        public ElastigroupDeploymentProgress build() {
-            return elastigroupProgress;
-        }
-
-    }
-
 
     @JsonIgnore
     public boolean isUnitSet() {

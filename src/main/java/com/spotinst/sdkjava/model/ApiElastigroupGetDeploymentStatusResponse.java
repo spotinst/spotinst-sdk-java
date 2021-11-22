@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.enums.AwsElastigroupActionEnum;
 import com.spotinst.sdkjava.enums.AwsElastigroupHealthCheckTypeEnum;
+import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentProgress;
+import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentStatusInstances;
 
 import java.util.HashSet;
 import java.util.List;

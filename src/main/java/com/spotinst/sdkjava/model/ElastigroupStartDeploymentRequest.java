@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupStartDeployment;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 
 public class ElastigroupStartDeploymentRequest {
 
@@ -58,7 +60,7 @@ public class ElastigroupStartDeploymentRequest {
     //region Json methods
     public String toJson() {
         ApiElastigroupStartDeployment elastigroupDeploymentRequest = ElastigroupConverter.toDal(elastigroupDeployment);
-        String startDeployment = JsonMapper.toJson(elastigroupDeploymentRequest);
+        String                        startDeployment              = JsonMapper.toJson(elastigroupDeploymentRequest);
         return startDeployment;
     }
 
