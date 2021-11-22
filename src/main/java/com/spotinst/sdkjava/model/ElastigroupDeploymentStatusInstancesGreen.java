@@ -9,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupGetDeploymentStatusInstancesBlue {
+public class ElastigroupDeploymentStatusInstancesGreen {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -18,7 +18,7 @@ public class ElastigroupGetDeploymentStatusInstancesBlue {
     private Integer     batchNum;
     private String      status;
 
-    public ElastigroupGetDeploymentStatusInstancesBlue() {
+    public ElastigroupDeploymentStatusInstancesGreen() {
         isSet = new HashSet<>();
     }
 
@@ -68,10 +68,10 @@ public class ElastigroupGetDeploymentStatusInstancesBlue {
 
 
     public static class Builder {
-        private ElastigroupGetDeploymentStatusInstancesBlue elastigroupGetDeploymentStatusInstancesBlue;
+        private ElastigroupDeploymentStatusInstancesGreen elastigroupGetDeploymentStatusInstancesGreen;
 
         private Builder() {
-            this.elastigroupGetDeploymentStatusInstancesBlue = new ElastigroupGetDeploymentStatusInstancesBlue();
+            this.elastigroupGetDeploymentStatusInstancesGreen = new ElastigroupDeploymentStatusInstancesGreen();
         }
 
         public static Builder get() {
@@ -80,28 +80,28 @@ public class ElastigroupGetDeploymentStatusInstancesBlue {
         }
 
         public Builder setInstanceId(final String instanceId) {
-            elastigroupGetDeploymentStatusInstancesBlue.setInstanceId(instanceId);
+            elastigroupGetDeploymentStatusInstancesGreen.setInstanceId(instanceId);
             return this;
         }
 
         public Builder setLifeCycle(final String lifeCycle) {
-            elastigroupGetDeploymentStatusInstancesBlue.setLifeCycle(lifeCycle);
+            elastigroupGetDeploymentStatusInstancesGreen.setLifeCycle(lifeCycle);
             return this;
         }
 
         public Builder setBatchNum(final Integer batchNum) {
-            elastigroupGetDeploymentStatusInstancesBlue.setBatchNum(batchNum);
+            elastigroupGetDeploymentStatusInstancesGreen.setBatchNum(batchNum);
             return this;
         }
 
         public Builder setStatus(final String status) {
-            elastigroupGetDeploymentStatusInstancesBlue.setStatus(status);
+            elastigroupGetDeploymentStatusInstancesGreen.setStatus(status);
             return this;
         }
 
 
-        public ElastigroupGetDeploymentStatusInstancesBlue build() {
-            return elastigroupGetDeploymentStatusInstancesBlue;
+        public ElastigroupDeploymentStatusInstancesGreen build() {
+            return elastigroupGetDeploymentStatusInstancesGreen;
         }
 
     }

@@ -495,15 +495,15 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> retVal ;
+    public RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> retVal ;
 
         try {
 
             List<ApiElastigroupGetGroupDeploymentStatusResponse> apiElastigroupGetGroupDeploymentStatusResponse = SpotinstElastigroupService
                     .getGroupDeploymentStatus(elastigroupId, authToken, account);
 
-            List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentResponse =
+            List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentResponse =
                     apiElastigroupGetGroupDeploymentStatusResponse.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getGroupDeploymentResponse);

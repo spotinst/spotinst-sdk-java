@@ -13,14 +13,14 @@ import java.util.Set;
 public class ElastigroupGetDeploymentStatusResponse {
 
     @JsonIgnore
-    private Set<String>                                   isSet;
-    private ElastigroupDeploymentProgress                 progress;
-    private Integer                                       numOfBatches;
-    private Integer                                       currentBatch;
-    private Integer                                       gracePeriod;
-    private String                                        strategyAction;
-    private String                                        healthCheck;
-    private List<ElastigroupGetDeploymentStatusInstances> instances;
+    private Set<String>                                isSet;
+    private ElastigroupDeploymentProgress              progress;
+    private Integer                                    numOfBatches;
+    private Integer                                    currentBatch;
+    private Integer                                    gracePeriod;
+    private String                                     strategyAction;
+    private String                                     healthCheck;
+    private List<ElastigroupDeploymentStatusInstances> instances;
 
     public ElastigroupGetDeploymentStatusResponse() {
         isSet = new HashSet<>();
@@ -85,11 +85,11 @@ public class ElastigroupGetDeploymentStatusResponse {
         this.progress = progress;
     }
 
-    public List<ElastigroupGetDeploymentStatusInstances> getInstances() {
+    public List<ElastigroupDeploymentStatusInstances> getInstances() {
         return instances;
     }
 
-    public void setInstances(List<ElastigroupGetDeploymentStatusInstances> instances) {
+    public void setInstances(List<ElastigroupDeploymentStatusInstances> instances) {
         isSet.add("instances");
         this.instances = instances;
     }
@@ -136,7 +136,7 @@ public class ElastigroupGetDeploymentStatusResponse {
             return this;
         }
 
-        public Builder setInstances(final List<ElastigroupGetDeploymentStatusInstances> instances) {
+        public Builder setInstances(final List<ElastigroupDeploymentStatusInstances> instances) {
             getDeploymentStatusResponse.setInstances(instances);
             return this;
         }

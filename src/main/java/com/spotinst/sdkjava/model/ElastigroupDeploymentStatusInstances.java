@@ -10,14 +10,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupGetDeploymentStatusInstances {
+public class ElastigroupDeploymentStatusInstances {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private List<ElastigroupGetDeploymentStatusInstancesBlue>   blue;
-    private List<ElastigroupGetDeploymentStatusInstancesGreen>  green;
+    private Set<String>                                     isSet;
+    private List<ElastigroupDeploymentStatusInstancesBlue>  blue;
+    private List<ElastigroupDeploymentStatusInstancesGreen> green;
 
-    public ElastigroupGetDeploymentStatusInstances() {
+    public ElastigroupDeploymentStatusInstances() {
         isSet = new HashSet<>();
     }
 
@@ -29,30 +29,30 @@ public class ElastigroupGetDeploymentStatusInstances {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupGetDeploymentStatusInstancesBlue> getBlue() {
+    public List<ElastigroupDeploymentStatusInstancesBlue> getBlue() {
         return blue;
     }
 
-    public void setBlue(List<ElastigroupGetDeploymentStatusInstancesBlue> blue) {
+    public void setBlue(List<ElastigroupDeploymentStatusInstancesBlue> blue) {
         isSet.add("blue");
         this.blue = blue;
     }
 
-    public List<ElastigroupGetDeploymentStatusInstancesGreen> getGreen() {
+    public List<ElastigroupDeploymentStatusInstancesGreen> getGreen() {
         return green;
     }
 
-    public void setGreen(List<ElastigroupGetDeploymentStatusInstancesGreen> green) {
+    public void setGreen(List<ElastigroupDeploymentStatusInstancesGreen> green) {
         isSet.add("green");
         this.green = green;
     }
 
 
     public static class Builder {
-        private ElastigroupGetDeploymentStatusInstances elastigroupGetDeploymentStatusInstances;
+        private ElastigroupDeploymentStatusInstances elastigroupGetDeploymentStatusInstances;
 
         private Builder() {
-            this.elastigroupGetDeploymentStatusInstances = new ElastigroupGetDeploymentStatusInstances();
+            this.elastigroupGetDeploymentStatusInstances = new ElastigroupDeploymentStatusInstances();
         }
 
         public static Builder get() {
@@ -60,17 +60,17 @@ public class ElastigroupGetDeploymentStatusInstances {
             return builder;
         }
 
-        public Builder setBlue(final List<ElastigroupGetDeploymentStatusInstancesBlue> blue) {
+        public Builder setBlue(final List<ElastigroupDeploymentStatusInstancesBlue> blue) {
             elastigroupGetDeploymentStatusInstances.setBlue(blue);
             return this;
         }
 
-        public Builder setGreen(final List<ElastigroupGetDeploymentStatusInstancesGreen> green) {
+        public Builder setGreen(final List<ElastigroupDeploymentStatusInstancesGreen> green) {
             elastigroupGetDeploymentStatusInstances.setGreen(green);
             return this;
         }
 
-        public ElastigroupGetDeploymentStatusInstances build() {
+        public ElastigroupDeploymentStatusInstances build() {
             return elastigroupGetDeploymentStatusInstances;
         }
 

@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupGetDeploymentStatusInstancesBlue implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentStatusInstancesBlue implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -21,7 +21,7 @@ public class ApiElastigroupGetDeploymentStatusInstancesBlue implements IPartialU
     private Integer     batchNum;
     private String      status;
 
-    public ApiElastigroupGetDeploymentStatusInstancesBlue() {
+    public ApiElastigroupDeploymentStatusInstancesBlue() {
         isSet = new HashSet<>();
     }
 

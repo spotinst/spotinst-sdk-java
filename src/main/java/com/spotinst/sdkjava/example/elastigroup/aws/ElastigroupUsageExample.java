@@ -999,9 +999,9 @@ public class ElastigroupUsageExample {
 
     }
 
-    private static List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+    private static List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
 
-        List<ElastigroupGetGroupDeploymentStatusResponse> GetGroupDeploymentStatusResponse = elastigroupClient.getGroupDeploymentStatus(elastigroupId);
+        List<ElastigroupGroupDeploymentStatusResponse> GetGroupDeploymentStatusResponse = elastigroupClient.getGroupDeploymentStatus(elastigroupId);
 
         System.out.println("Group Deployment Status for  elastigroup: " + elastigroupId + " is as below : ");
 

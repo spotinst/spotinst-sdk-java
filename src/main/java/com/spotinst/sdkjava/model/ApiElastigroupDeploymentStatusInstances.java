@@ -13,14 +13,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupGetDeploymentStatusInstances implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentStatusInstances implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                                             isSet;
-    private List<ApiElastigroupGetDeploymentStatusInstancesBlue>    blue;
-    private List<ApiElastigroupGetDeploymentStatusInstancesGreen>   green;
+    private Set<String>                                        isSet;
+    private List<ApiElastigroupDeploymentStatusInstancesBlue>  blue;
+    private List<ApiElastigroupDeploymentStatusInstancesGreen> green;
 
-    public ApiElastigroupGetDeploymentStatusInstances() {
+    public ApiElastigroupDeploymentStatusInstances() {
         isSet = new HashSet<>();
     }
 
@@ -32,20 +32,20 @@ public class ApiElastigroupGetDeploymentStatusInstances implements IPartialUpdat
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupGetDeploymentStatusInstancesBlue> getBlue() {
+    public List<ApiElastigroupDeploymentStatusInstancesBlue> getBlue() {
         return blue;
     }
 
-    public void setBlue(List<ApiElastigroupGetDeploymentStatusInstancesBlue> blue) {
+    public void setBlue(List<ApiElastigroupDeploymentStatusInstancesBlue> blue) {
         isSet.add("blue");
         this.blue = blue;
     }
 
-    public List<ApiElastigroupGetDeploymentStatusInstancesGreen> getGreen() {
+    public List<ApiElastigroupDeploymentStatusInstancesGreen> getGreen() {
         return green;
     }
 
-    public void setGreen(List<ApiElastigroupGetDeploymentStatusInstancesGreen> green) {
+    public void setGreen(List<ApiElastigroupDeploymentStatusInstancesGreen> green) {
         isSet.add("green");
         this.green = green;
     }

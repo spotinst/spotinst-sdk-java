@@ -16,14 +16,14 @@ import java.util.Set;
 public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                                      isSet;
-    private ApiElastigroupDeploymentProgress                 progress;
-    private Integer                                          numOfBatches;
-    private Integer                                          currentBatch;
-    private Integer                                          gracePeriod;
-    private String                                           strategyAction;
-    private String                                           healthCheck;
-    private List<ApiElastigroupGetDeploymentStatusInstances> instances;
+    private Set<String>                                   isSet;
+    private ApiElastigroupDeploymentProgress              progress;
+    private Integer                                       numOfBatches;
+    private Integer                                       currentBatch;
+    private Integer                                       gracePeriod;
+    private String                                        strategyAction;
+    private String                                        healthCheck;
+    private List<ApiElastigroupDeploymentStatusInstances> instances;
 
     public ApiElastigroupGetDeploymentStatusResponse() {
         isSet = new HashSet<>();
@@ -88,11 +88,11 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
         this.progress = progress;
     }
 
-    public List<ApiElastigroupGetDeploymentStatusInstances> getInstances() {
+    public List<ApiElastigroupDeploymentStatusInstances> getInstances() {
         return instances;
     }
 
-    public void setInstances(List<ApiElastigroupGetDeploymentStatusInstances> instances) {
+    public void setInstances(List<ApiElastigroupDeploymentStatusInstances> instances) {
         isSet.add("instances");
         this.instances = instances;
     }

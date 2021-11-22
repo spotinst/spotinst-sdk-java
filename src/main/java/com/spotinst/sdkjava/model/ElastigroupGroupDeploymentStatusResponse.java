@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupGetGroupDeploymentStatusResponse {
+public class ElastigroupGroupDeploymentStatusResponse {
 
     @JsonIgnore
     private Set<String>                   isSet;
@@ -20,7 +20,7 @@ public class ElastigroupGetGroupDeploymentStatusResponse {
     private Date                          createdAt;
     private Date                          updatedAt;
 
-    public ElastigroupGetGroupDeploymentStatusResponse() {
+    public ElastigroupGroupDeploymentStatusResponse() {
         isSet = new HashSet<>();
     }
 
@@ -78,10 +78,10 @@ public class ElastigroupGetGroupDeploymentStatusResponse {
     }
 
     public static class Builder {
-        private ElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse;
+        private ElastigroupGroupDeploymentStatusResponse getGroupDeploymentStatusResponse;
 
         private Builder() {
-            this.getGroupDeploymentStatusResponse = new ElastigroupGetGroupDeploymentStatusResponse();
+            this.getGroupDeploymentStatusResponse = new ElastigroupGroupDeploymentStatusResponse();
         }
 
         public static Builder get() {
@@ -114,7 +114,7 @@ public class ElastigroupGetGroupDeploymentStatusResponse {
             return this;
         }
 
-        public ElastigroupGetGroupDeploymentStatusResponse build() {
+        public ElastigroupGroupDeploymentStatusResponse build() {
             return getGroupDeploymentStatusResponse;
         }
     }

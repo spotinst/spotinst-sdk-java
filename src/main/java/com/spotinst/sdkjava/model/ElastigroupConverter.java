@@ -2869,7 +2869,7 @@ class ElastigroupConverter {
 
             if (elastigroupGetDeploymentStatusResponse.isInstancesSet()) {
 
-                List<ElastigroupGetDeploymentStatusInstances> instancesList =
+                List<ElastigroupDeploymentStatusInstances> instancesList =
                         elastigroupGetDeploymentStatusResponse.getInstances().stream().map(ElastigroupConverter::toBl)
                                      .collect(Collectors.toList());
                 retVal.setInstances(instancesList);
@@ -2880,22 +2880,23 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupGetDeploymentStatusInstances toBl(ApiElastigroupGetDeploymentStatusInstances elastigroupGetDeploymentStatusInstances) {
-        ElastigroupGetDeploymentStatusInstances retVal = null;
+    private static ElastigroupDeploymentStatusInstances toBl(
+            ApiElastigroupDeploymentStatusInstances elastigroupGetDeploymentStatusInstances) {
+        ElastigroupDeploymentStatusInstances retVal = null;
 
         if (elastigroupGetDeploymentStatusInstances != null) {
-            retVal = new ElastigroupGetDeploymentStatusInstances();
+            retVal = new ElastigroupDeploymentStatusInstances();
 
             if (elastigroupGetDeploymentStatusInstances.isBlueSet()) {
-                List<ElastigroupGetDeploymentStatusInstancesBlue> blueInstancesList =
+                List<ElastigroupDeploymentStatusInstancesBlue> blueInstancesList =
                         elastigroupGetDeploymentStatusInstances.getBlue().stream().map(ElastigroupConverter::toBl)
                                                                .collect(Collectors.toList());
                 retVal.setBlue(blueInstancesList);
             }
 
             if (elastigroupGetDeploymentStatusInstances.isGreenSet()) {
-                List<ElastigroupGetDeploymentStatusInstancesGreen> greenInstancesList = elastigroupGetDeploymentStatusInstances.getGreen().stream().map(ElastigroupConverter::toBl)
-                                                                                                                               .collect(Collectors.toList());
+                List<ElastigroupDeploymentStatusInstancesGreen> greenInstancesList = elastigroupGetDeploymentStatusInstances.getGreen().stream().map(ElastigroupConverter::toBl)
+                                                                                                                            .collect(Collectors.toList());
                 retVal.setGreen(greenInstancesList);
             }
         }
@@ -2903,12 +2904,13 @@ class ElastigroupConverter {
 
     }
 
-    private static ElastigroupGetDeploymentStatusInstancesBlue toBl(ApiElastigroupGetDeploymentStatusInstancesBlue elastigroupGetDeploymentStatusInstancesblue) {
-        ElastigroupGetDeploymentStatusInstancesBlue retVal = null;
+    private static ElastigroupDeploymentStatusInstancesBlue toBl(
+            ApiElastigroupDeploymentStatusInstancesBlue elastigroupGetDeploymentStatusInstancesblue) {
+        ElastigroupDeploymentStatusInstancesBlue retVal = null;
 
         if (elastigroupGetDeploymentStatusInstancesblue != null) {
 
-            retVal = new ElastigroupGetDeploymentStatusInstancesBlue();
+            retVal = new ElastigroupDeploymentStatusInstancesBlue();
 
             if (elastigroupGetDeploymentStatusInstancesblue.isInstanceIdSet()) {
                 retVal.setInstanceId(elastigroupGetDeploymentStatusInstancesblue.getInstanceId());
@@ -2931,11 +2933,12 @@ class ElastigroupConverter {
 
     }
 
-    private static ElastigroupGetDeploymentStatusInstancesGreen toBl(ApiElastigroupGetDeploymentStatusInstancesGreen elastigroupGetDeploymentStatusInstancesGreen) {
-        ElastigroupGetDeploymentStatusInstancesGreen retVal = null;
+    private static ElastigroupDeploymentStatusInstancesGreen toBl(
+            ApiElastigroupDeploymentStatusInstancesGreen elastigroupGetDeploymentStatusInstancesGreen) {
+        ElastigroupDeploymentStatusInstancesGreen retVal = null;
 
         if (elastigroupGetDeploymentStatusInstancesGreen != null) {
-            retVal = new ElastigroupGetDeploymentStatusInstancesGreen();
+            retVal = new ElastigroupDeploymentStatusInstancesGreen();
 
 
             if (elastigroupGetDeploymentStatusInstancesGreen.isInstanceIdSet()) {
@@ -2957,11 +2960,11 @@ class ElastigroupConverter {
         return retVal;
 
     }
-    public static ElastigroupGetGroupDeploymentStatusResponse toBl(ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse) {
-        ElastigroupGetGroupDeploymentStatusResponse retVal = null;
+    public static ElastigroupGroupDeploymentStatusResponse toBl(ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse) {
+        ElastigroupGroupDeploymentStatusResponse retVal = null;
 
         if (getGroupDeploymentStatusResponse != null) {
-            retVal = new ElastigroupGetGroupDeploymentStatusResponse();
+            retVal = new ElastigroupGroupDeploymentStatusResponse();
 
             if (getGroupDeploymentStatusResponse.isIdSet()) {
                 retVal.setId(getGroupDeploymentStatusResponse.getId());

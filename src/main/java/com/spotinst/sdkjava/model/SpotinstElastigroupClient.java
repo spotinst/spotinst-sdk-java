@@ -751,11 +751,11 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId) {
+    public List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId) {
 
-        List<ElastigroupGetGroupDeploymentStatusResponse> getGroupDeploymentResponse;
+        List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentResponse;
 
-        RepoGenericResponse<List<ElastigroupGetGroupDeploymentStatusResponse>> getGroupDeploymentStatusResponse =
+        RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> getGroupDeploymentStatusResponse =
                 getSpotinstElastigroupRepo().getGroupDeploymentStatus(elastigroupId, authToken, account);
 
         if(getGroupDeploymentStatusResponse.isRequestSucceed()){
