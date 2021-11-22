@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.AwsElastiGroupActionTypeEnum;
+import com.spotinst.sdkjava.enums.AwsElastigroupActionTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,7 +10,7 @@ public class ElastigroupGetDeploymentActionRequest {
 
     @JsonIgnore
     private Set<String>                  isSet;
-    private AwsElastiGroupActionTypeEnum actionType;
+    private AwsElastigroupActionTypeEnum actionType;
     private Integer                      drainingTimeout;
     private Boolean                      shouldDecrementTargetCapacity;
     private Boolean                      shouldHandleAllBatches;
@@ -28,11 +28,11 @@ public class ElastigroupGetDeploymentActionRequest {
     }
 
 
-    public AwsElastiGroupActionTypeEnum getActionType() {
+    public AwsElastigroupActionTypeEnum getActionType() {
         return actionType;
     }
 
-    public void setActionType(AwsElastiGroupActionTypeEnum actionType) {
+    public void setActionType(AwsElastigroupActionTypeEnum actionType) {
         this.actionType = actionType;
     }
 
@@ -73,7 +73,7 @@ public class ElastigroupGetDeploymentActionRequest {
             return builder;
         }
 
-        public Builder setActionType (final AwsElastiGroupActionTypeEnum actionType){
+        public Builder setActionType(final AwsElastigroupActionTypeEnum actionType){
             elastigroupDeploymentRequest.setActionType(actionType);
             return this;
         }

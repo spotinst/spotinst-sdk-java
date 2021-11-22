@@ -53,7 +53,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group", apiEndpoint);
 
         // Send the request
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
         ElastigroupApiResponse elastigroupApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);

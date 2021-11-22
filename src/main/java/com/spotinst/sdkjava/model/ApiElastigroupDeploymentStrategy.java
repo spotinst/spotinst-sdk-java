@@ -10,14 +10,14 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiElastigroupStrategy implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentStrategy implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                            isSet;
-    private Integer                                batchMinHealthyPercentage;
-    private String                                 action;
-    private ApiElastigroupStartDeploymentOnFailure onFailure;
+    private Set<String>                               isSet;
+    private Integer                                   batchMinHealthyPercentage;
+    private String                                    action;
+    private ApiElastigroupDeploymentStrategyOnFailure onFailure;
 
-    public ApiElastigroupStrategy() {
+    public ApiElastigroupDeploymentStrategy() {
         isSet = new HashSet<>();
     }
 
@@ -47,11 +47,11 @@ public class ApiElastigroupStrategy implements IPartialUpdateEntity {
         this.action = action;
     }
 
-    public ApiElastigroupStartDeploymentOnFailure getOnFailure() {
+    public ApiElastigroupDeploymentStrategyOnFailure getOnFailure() {
         return onFailure;
     }
 
-    public void setOnFailure(ApiElastigroupStartDeploymentOnFailure onFailure) {
+    public void setOnFailure(ApiElastigroupDeploymentStrategyOnFailure onFailure) {
         isSet.add("onFailure");
         this.onFailure = onFailure;
     }

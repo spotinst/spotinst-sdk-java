@@ -1,20 +1,20 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.AwsElastiGroupActionTypeEnum;
+import com.spotinst.sdkjava.enums.AwsElastigroupActionTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupStartDeploymentOnFailure {
+public class ElastigroupDeploymentStrategyOnFailure {
     @JsonIgnore
     private Set<String>                  isSet;
-    private AwsElastiGroupActionTypeEnum actionType;
+    private AwsElastigroupActionTypeEnum actionType;
     private Integer                      drainingTimeout;
     private Boolean                      shouldDecrementTargetCapacity;
     private Boolean                      shouldHandleAllBatches;
 
-    public ElastigroupStartDeploymentOnFailure() {
+    public ElastigroupDeploymentStrategyOnFailure() {
         isSet = new HashSet<>();
     }
 
@@ -35,11 +35,11 @@ public class ElastigroupStartDeploymentOnFailure {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public AwsElastiGroupActionTypeEnum getActionType() {
+    public AwsElastigroupActionTypeEnum getActionType() {
         return actionType;
     }
 
-    public void setActionType(AwsElastiGroupActionTypeEnum actionType) {
+    public void setActionType(AwsElastigroupActionTypeEnum actionType) {
         isSet.add("actionType");
         this.actionType = actionType;
     }
@@ -63,10 +63,10 @@ public class ElastigroupStartDeploymentOnFailure {
     }
 
     public static class Builder {
-        private ElastigroupStartDeploymentOnFailure elastigroupOnFailure;
+        private ElastigroupDeploymentStrategyOnFailure elastigroupOnFailure;
 
         private Builder() {
-            this.elastigroupOnFailure = new ElastigroupStartDeploymentOnFailure();
+            this.elastigroupOnFailure = new ElastigroupDeploymentStrategyOnFailure();
         }
 
         public static Builder get() {
@@ -79,7 +79,7 @@ public class ElastigroupStartDeploymentOnFailure {
             return this;
         }
 
-        public Builder setActionType(final AwsElastiGroupActionTypeEnum actionType) {
+        public Builder setActionType(final AwsElastigroupActionTypeEnum actionType) {
             elastigroupOnFailure.setActionType(actionType);
             return this;
         }
@@ -94,7 +94,7 @@ public class ElastigroupStartDeploymentOnFailure {
             return this;
         }
 
-        public ElastigroupStartDeploymentOnFailure build() {
+        public ElastigroupDeploymentStrategyOnFailure build() {
             return elastigroupOnFailure;
         }
     }

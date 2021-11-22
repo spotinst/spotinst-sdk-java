@@ -8,12 +8,12 @@ import java.util.Set;
 
 public class ElastigroupStartDeployment {
     @JsonIgnore
-    private Set<String>                        isSet;
-    private Integer                            batchSizePercentage;
-    private Integer                            drainingTimeout;
-    private Integer                            gracePeriod;
-    private AwsElastigroupHealthCheckTypeEnum  healthCheckType;
-    private ElastigroupStartDeploymentStrategy strategy;
+    private Set<String>                       isSet;
+    private Integer                           batchSizePercentage;
+    private Integer                           drainingTimeout;
+    private Integer                           gracePeriod;
+    private AwsElastigroupHealthCheckTypeEnum healthCheckType;
+    private ElastigroupDeploymentStrategy     strategy;
 
     public ElastigroupStartDeployment() {
         isSet = new HashSet<>();
@@ -63,11 +63,11 @@ public class ElastigroupStartDeployment {
         this.healthCheckType = healthCheckType;
     }
 
-    public ElastigroupStartDeploymentStrategy getStrategy() {
+    public ElastigroupDeploymentStrategy getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(ElastigroupStartDeploymentStrategy strategy) {
+    public void setStrategy(ElastigroupDeploymentStrategy strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
     }
@@ -101,7 +101,7 @@ public class ElastigroupStartDeployment {
             elastigroupDeploymentRequest.setHealthCheckType(healthCheckType);
             return this;
         }
-        public Builder setStrategy(final ElastigroupStartDeploymentStrategy strategy){
+        public Builder setStrategy(final ElastigroupDeploymentStrategy strategy){
             elastigroupDeploymentRequest.setStrategy(strategy);
             return this;
         }

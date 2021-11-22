@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupStopDeploymentRoll {
+public class ElastigroupDeploymentRoll {
     @JsonIgnore
     private Set<String> isSet;
     private String      status;
 
-    public ElastigroupStopDeploymentRoll() {
+    public ElastigroupDeploymentRoll() {
         isSet = new HashSet<>();
     }
 
@@ -28,10 +28,10 @@ public class ElastigroupStopDeploymentRoll {
     }
 
     public static class Builder {
-        private ElastigroupStopDeploymentRoll stopDeploymentRoll;
+        private ElastigroupDeploymentRoll stopDeploymentRoll;
 
         private Builder() {
-            this.stopDeploymentRoll = new ElastigroupStopDeploymentRoll();
+            this.stopDeploymentRoll = new ElastigroupDeploymentRoll();
         }
 
         public static Builder get() {
@@ -44,7 +44,7 @@ public class ElastigroupStopDeploymentRoll {
             return this;
         }
 
-        public ElastigroupStopDeploymentRoll build() {
+        public ElastigroupDeploymentRoll build() {
             return stopDeploymentRoll;
         }
     }

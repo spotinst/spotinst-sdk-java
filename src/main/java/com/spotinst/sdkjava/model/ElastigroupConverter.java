@@ -1243,11 +1243,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupStrategy toDal(ElastigroupStartDeploymentStrategy elastigroupStrategy) {
-        ApiElastigroupStrategy retVal = null;
+    private static ApiElastigroupDeploymentStrategy toDal(ElastigroupDeploymentStrategy elastigroupStrategy) {
+        ApiElastigroupDeploymentStrategy retVal = null;
 
         if (elastigroupStrategy != null) {
-            retVal = new ApiElastigroupStrategy();
+            retVal = new ApiElastigroupDeploymentStrategy();
 
             if (elastigroupStrategy.isActionSet()) {
                 retVal.setAction(elastigroupStrategy.getAction().getName());
@@ -1265,11 +1265,12 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupStartDeploymentOnFailure toDal(ElastigroupStartDeploymentOnFailure elastigroupOnFailure) {
-        ApiElastigroupStartDeploymentOnFailure retVal = null;
+    private static ApiElastigroupDeploymentStrategyOnFailure toDal(
+            ElastigroupDeploymentStrategyOnFailure elastigroupOnFailure) {
+        ApiElastigroupDeploymentStrategyOnFailure retVal = null;
 
         if (elastigroupOnFailure != null) {
-            retVal = new ApiElastigroupStartDeploymentOnFailure();
+            retVal = new ApiElastigroupDeploymentStrategyOnFailure();
 
             if (elastigroupOnFailure.isActionTypeSet()) {
                 retVal.setActionType(elastigroupOnFailure.getActionType().getName());
@@ -1367,12 +1368,12 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    public static ApiElastigroupStopDeploymentRoll toDal(ElastigroupStopDeploymentRoll elastigroupStopDeployment) {
-        ApiElastigroupStopDeploymentRoll retVal = null;
+    public static ApiElastigroupDeploymentRoll toDal(ElastigroupDeploymentRoll elastigroupStopDeployment) {
+        ApiElastigroupDeploymentRoll retVal = null;
 
         if(elastigroupStopDeployment != null) {
 
-            retVal = new ApiElastigroupStopDeploymentRoll();
+            retVal = new ApiElastigroupDeploymentRoll();
 
             if (elastigroupStopDeployment.isStatusSet()) {
                 retVal.setStatus(elastigroupStopDeployment.getStatus());
@@ -2696,11 +2697,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupStartDeploymentStrategy toBl(ApiElastigroupStrategy elastigroupStrategy) {
-        ElastigroupStartDeploymentStrategy retVal = null;
+    private static ElastigroupDeploymentStrategy toBl(ApiElastigroupDeploymentStrategy elastigroupStrategy) {
+        ElastigroupDeploymentStrategy retVal = null;
 
         if (elastigroupStrategy != null) {
-            retVal = new ElastigroupStartDeploymentStrategy();
+            retVal = new ElastigroupDeploymentStrategy();
 
             if (elastigroupStrategy.isActionSet()) {
                 retVal.setAction(AwsElastigroupActionEnum.fromName(elastigroupStrategy.getAction()));
@@ -2719,14 +2720,15 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupStartDeploymentOnFailure toBl(ApiElastigroupStartDeploymentOnFailure elastigroupOnFailure) {
-        ElastigroupStartDeploymentOnFailure retVal = null;
+    private static ElastigroupDeploymentStrategyOnFailure toBl(
+            ApiElastigroupDeploymentStrategyOnFailure elastigroupOnFailure) {
+        ElastigroupDeploymentStrategyOnFailure retVal = null;
 
         if (elastigroupOnFailure != null) {
-            retVal = new ElastigroupStartDeploymentOnFailure();
+            retVal = new ElastigroupDeploymentStrategyOnFailure();
 
             if (elastigroupOnFailure.isActionTypeSet()) {
-                retVal.setActionType(AwsElastiGroupActionTypeEnum.fromName(elastigroupOnFailure.getActionType()));
+                retVal.setActionType(AwsElastigroupActionTypeEnum.fromName(elastigroupOnFailure.getActionType()));
             }
 
             if (elastigroupOnFailure.isDrainingTimeoutSet()) {
@@ -2822,8 +2824,8 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupStopDeploymentRoll toBl(ApiElastigroupStopDeploymentRoll elastigroupStopDeployment) {
-        ElastigroupStopDeploymentRoll retVal = null;
+    private static ElastigroupDeploymentRoll toBl(ApiElastigroupDeploymentRoll elastigroupStopDeployment) {
+        ElastigroupDeploymentRoll retVal = null;
 
         if (elastigroupStopDeployment != null) {
 

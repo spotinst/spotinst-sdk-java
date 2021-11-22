@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AwsElastiGroupActionTypeEnum {
+public enum AwsElastigroupActionTypeEnum {
 
     //region Enums
     DETACH_OLD("detach-old"),
@@ -12,13 +12,13 @@ public enum AwsElastiGroupActionTypeEnum {
     //endregion
 
     //region Members
-    private static final Logger LOGGER = LoggerFactory.getLogger(AwsElastiGroupActionTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsElastigroupActionTypeEnum.class);
     private              String name;
     //endregion
 
     //region Constructors
 
-    AwsElastiGroupActionTypeEnum(String name) {
+    AwsElastigroupActionTypeEnum(String name) {
         this.name = name;
     }
 
@@ -33,10 +33,10 @@ public enum AwsElastiGroupActionTypeEnum {
     //endregion
 
     //region Methods
-    public static AwsElastiGroupActionTypeEnum fromName(String name) {
-        AwsElastiGroupActionTypeEnum retVal = null;
+    public static AwsElastigroupActionTypeEnum fromName(String name) {
+        AwsElastigroupActionTypeEnum retVal = null;
 
-        for (AwsElastiGroupActionTypeEnum typeEnum : AwsElastiGroupActionTypeEnum.values()) {
+        for (AwsElastigroupActionTypeEnum typeEnum : AwsElastigroupActionTypeEnum.values()) {
             if (StringUtils.equalsIgnoreCase(typeEnum.name, name)) {
                 retVal = typeEnum;
                 break;

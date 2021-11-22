@@ -5,14 +5,14 @@ import com.spotinst.sdkjava.enums.AwsElastigroupActionEnum;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupStartDeploymentStrategy {
+public class ElastigroupDeploymentStrategy {
     @JsonIgnore
-    private Set<String>                         isSet;
-    private Integer                             batchMinHealthyPercentage;
-    private AwsElastigroupActionEnum            action;
-    private ElastigroupStartDeploymentOnFailure onFailure;
+    private Set<String>                            isSet;
+    private Integer                                batchMinHealthyPercentage;
+    private AwsElastigroupActionEnum               action;
+    private ElastigroupDeploymentStrategyOnFailure onFailure;
 
-    public ElastigroupStartDeploymentStrategy() {
+    public ElastigroupDeploymentStrategy() {
         isSet = new HashSet<>();
     }
 
@@ -42,20 +42,20 @@ public class ElastigroupStartDeploymentStrategy {
         this.action = action;
     }
 
-    public ElastigroupStartDeploymentOnFailure getOnFailure() {
+    public ElastigroupDeploymentStrategyOnFailure getOnFailure() {
         return onFailure;
     }
 
-    public void setOnFailure(ElastigroupStartDeploymentOnFailure onFailure) {
+    public void setOnFailure(ElastigroupDeploymentStrategyOnFailure onFailure) {
         isSet.add("onFailure");
         this.onFailure = onFailure;
     }
 
     public static class Builder {
-        private ElastigroupStartDeploymentStrategy elastigroupStrategyRequest;
+        private ElastigroupDeploymentStrategy elastigroupStrategyRequest;
 
         private Builder() {
-            this.elastigroupStrategyRequest = new ElastigroupStartDeploymentStrategy();
+            this.elastigroupStrategyRequest = new ElastigroupDeploymentStrategy();
         }
 
         public static Builder get() {
@@ -73,12 +73,12 @@ public class ElastigroupStartDeploymentStrategy {
             return this;
         }
 
-        public Builder setOnFailure(final ElastigroupStartDeploymentOnFailure onFailure) {
+        public Builder setOnFailure(final ElastigroupDeploymentStrategyOnFailure onFailure) {
             elastigroupStrategyRequest.setOnFailure(onFailure);
             return this;
         }
 
-        public ElastigroupStartDeploymentStrategy build() {
+        public ElastigroupDeploymentStrategy build() {
             return elastigroupStrategyRequest;
         }
     }

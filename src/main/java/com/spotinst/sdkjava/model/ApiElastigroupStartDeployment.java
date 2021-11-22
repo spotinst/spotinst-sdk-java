@@ -12,12 +12,12 @@ import java.util.Set;
 
 public class ApiElastigroupStartDeployment implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>            isSet;
-    private Integer                batchSizePercentage;
-    private Integer                drainingTimeout;
-    private Integer                gracePeriod;
-    private String                 healthCheckType;
-    private ApiElastigroupStrategy strategy;
+    private Set<String>                      isSet;
+    private Integer                          batchSizePercentage;
+    private Integer                          drainingTimeout;
+    private Integer                          gracePeriod;
+    private String                           healthCheckType;
+    private ApiElastigroupDeploymentStrategy strategy;
 
     public ApiElastigroupStartDeployment() {
         isSet = new HashSet<>();
@@ -65,11 +65,11 @@ public class ApiElastigroupStartDeployment implements IPartialUpdateEntity {
         this.healthCheckType = healthCheckType;
     }
 
-    public ApiElastigroupStrategy getStrategy() {
+    public ApiElastigroupDeploymentStrategy getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(ApiElastigroupStrategy strategy) {
+    public void setStrategy(ApiElastigroupDeploymentStrategy strategy) {
         isSet.add("strategy");
         this.strategy = strategy;
     }

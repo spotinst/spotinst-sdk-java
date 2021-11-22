@@ -10,7 +10,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiElastigroupStartDeploymentOnFailure implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentStrategyOnFailure implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      actionType;
@@ -18,7 +18,7 @@ public class ApiElastigroupStartDeploymentOnFailure implements IPartialUpdateEnt
     private Boolean     shouldDecrementTargetCapacity;
     private Boolean     shouldHandleAllBatches;
 
-    public ApiElastigroupStartDeploymentOnFailure() {
+    public ApiElastigroupDeploymentStrategyOnFailure() {
         isSet = new HashSet<>();
     }
 

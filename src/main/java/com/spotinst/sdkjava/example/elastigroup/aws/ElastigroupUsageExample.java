@@ -906,16 +906,16 @@ public class ElastigroupUsageExample {
                                                                       String elastigroupId) {
 
         // Build Onfailure
-        ElastigroupStartDeploymentOnFailure onfailure =
-                ElastigroupStartDeploymentOnFailure.Builder.get().setActionType(AwsElastiGroupActionTypeEnum.DETACH_NEW)
-                                                           .setDrainingTimeout(200)
-                                                           .setShouldDecrementTargetCapacity(true)
-                                                           .setShouldHandleAllBatches(false).build();
+        ElastigroupDeploymentStrategyOnFailure onfailure =
+                ElastigroupDeploymentStrategyOnFailure.Builder.get().setActionType(AwsElastigroupActionTypeEnum.DETACH_NEW)
+                                                              .setDrainingTimeout(200)
+                                                              .setShouldDecrementTargetCapacity(true)
+                                                              .setShouldHandleAllBatches(false).build();
 
         // Build Strategy
-        ElastigroupStartDeploymentStrategy strategy =
-                ElastigroupStartDeploymentStrategy.Builder.get().setAction(AwsElastigroupActionEnum.RESTART_SERVER).setBatchMinHealthyPercentage(50).setOnFailure(onfailure)
-                                                          .build();
+        ElastigroupDeploymentStrategy strategy =
+                ElastigroupDeploymentStrategy.Builder.get().setAction(AwsElastigroupActionEnum.RESTART_SERVER).setBatchMinHealthyPercentage(50).setOnFailure(onfailure)
+                                                     .build();
 
         //Build Elastigroup Deployment
         ElastigroupStartDeployment.Builder requestBuilder = ElastigroupStartDeployment.Builder.get();
@@ -948,9 +948,9 @@ public class ElastigroupUsageExample {
         ElastigroupStopDeploymentRequest.Builder stopDeploymentRequestBuilder = ElastigroupStopDeploymentRequest.Builder.get();
 
         //Build stopDeployment
-        ElastigroupStopDeploymentRoll.Builder stopDeployBuilder = ElastigroupStopDeploymentRoll.Builder.get();
+        ElastigroupDeploymentRoll.Builder stopDeployBuilder = ElastigroupDeploymentRoll.Builder.get();
 
-        ElastigroupStopDeploymentRoll stopDeployment = stopDeployBuilder.setStatus("STOPPED").build();
+        ElastigroupDeploymentRoll stopDeployment = stopDeployBuilder.setStatus("STOPPED").build();
 
         ElastigroupStopDeploymentRequest stopDeploymentRequest = stopDeploymentRequestBuilder.setStopDeployment(stopDeployment).build();
         System.out.println("Stop Deployment Request: " + stopDeploymentRequest.toJson());
@@ -1018,7 +1018,7 @@ public class ElastigroupUsageExample {
         ElastigroupGetDeploymentActionRequest.Builder getDeploymentActionBuilder = ElastigroupGetDeploymentActionRequest.Builder.get();
 
         ElastigroupGetDeploymentActionRequest getDeploymentActionRequest =
-                getDeploymentActionBuilder.setActionType(AwsElastiGroupActionTypeEnum.DETACH_OLD)
+                getDeploymentActionBuilder.setActionType(AwsElastigroupActionTypeEnum.DETACH_OLD)
                                           .setDrainingTimeout(240).setShouldDecrementTargetCapacity(true)
                                           .setShouldHandleAllBatches(true).build();
 

@@ -10,12 +10,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 
-public class ApiElastigroupStopDeploymentRoll implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentRoll implements IPartialUpdateEntity {
     @JsonProperty("roll")
     private Set<String>           isSet;
     private String                status;
 
-    public ApiElastigroupStopDeploymentRoll() {
+    public ApiElastigroupDeploymentRoll() {
         isSet = new HashSet<>();
     }
 

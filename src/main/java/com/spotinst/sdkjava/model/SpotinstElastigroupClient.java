@@ -714,7 +714,6 @@ public class SpotinstElastigroupClient {
         if(stopDeploymentResponse.isRequestSucceed()){
             isDeploymentStopped = stopDeploymentResponse.getValue();
         }
-
         else {
             List<HttpError> httpExceptions = stopDeploymentResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
@@ -766,7 +765,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = getGroupDeploymentStatusResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to get deployment status. Code: %s. Message: %s.",
+                    "Error encountered while attempting to group deployment status. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -789,7 +788,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = getDeploymentActionResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to get deployment status. Code: %s. Message: %s.",
+                    "Error encountered while attempting to apply deployment status. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

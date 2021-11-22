@@ -10,7 +10,7 @@ public class ElastigroupStopDeploymentRequest {
 
     //region Members
     @JsonProperty("roll")
-    private ElastigroupStopDeploymentRoll stopDeployment;
+    private ElastigroupDeploymentRoll stopDeployment;
     //endregion
 
     //region Private constructor
@@ -19,11 +19,11 @@ public class ElastigroupStopDeploymentRequest {
     //endregion
 
     //region Getters & Setters
-    public ElastigroupStopDeploymentRoll getStopDeployment() {
+    public ElastigroupDeploymentRoll getStopDeployment() {
         return stopDeployment;
     }
 
-    public void setStopDeployment(ElastigroupStopDeploymentRoll stopDeployment) {
+    public void setStopDeployment(ElastigroupDeploymentRoll stopDeployment) {
         this.stopDeployment = stopDeployment;
     }
 
@@ -42,7 +42,7 @@ public class ElastigroupStopDeploymentRequest {
             return builder;
         }
 
-        public Builder setStopDeployment(final ElastigroupStopDeploymentRoll stopDeployment) {
+        public Builder setStopDeployment(final ElastigroupDeploymentRoll stopDeployment) {
             elastigroupStopDeploymentRequest.setStopDeployment(stopDeployment);
             return this;
         }
@@ -56,8 +56,8 @@ public class ElastigroupStopDeploymentRequest {
 
     //region Json methods
     public String toJson() {
-        ApiElastigroupStopDeploymentRoll              apiElastigroupStopDeployment = ElastigroupConverter.toDal(stopDeployment);
-        Map<String, ApiElastigroupStopDeploymentRoll> groupRequest                 = new HashMap<>();
+        ApiElastigroupDeploymentRoll              apiElastigroupStopDeployment = ElastigroupConverter.toDal(stopDeployment);
+        Map<String, ApiElastigroupDeploymentRoll> groupRequest                 = new HashMap<>();
         groupRequest.put("roll", apiElastigroupStopDeployment);
         String elastigroupJson = JsonMapper.toJson(groupRequest);
         return elastigroupJson;
