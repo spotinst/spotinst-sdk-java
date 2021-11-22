@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElastigroupWeights {
+public class ElastigroupInstanceTypesWeights {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -15,7 +15,7 @@ public class ElastigroupWeights {
 
     //region Constructors
 
-    private ElastigroupWeights() {
+    private ElastigroupInstanceTypesWeights() {
         isSet = new HashSet<>();
     }
 
@@ -54,10 +54,10 @@ public class ElastigroupWeights {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupWeights weights;
+        private ElastigroupInstanceTypesWeights weights;
 
         private Builder() {
-            this.weights = new ElastigroupWeights();
+            this.weights = new ElastigroupInstanceTypesWeights();
         }
 
         public static Builder get() {
@@ -75,7 +75,7 @@ public class ElastigroupWeights {
             return this;
         }
 
-        public ElastigroupWeights build() {
+        public ElastigroupInstanceTypesWeights build() {
             return weights;
         }
     }

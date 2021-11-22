@@ -22,7 +22,7 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     private Set<String>  isSet;
     private String       ondemand;
     private List<String> spot;
-    private List<ApiWeights> weights;
+    private List<ApiInstanceTypesWeights> weights;
     //endregion
 
     //region Constructor
@@ -61,11 +61,11 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
         this.ondemand = ondemand;
     }
 
-    public List<ApiWeights> getWeights() {
+    public List<ApiInstanceTypesWeights> getWeights() {
         return weights;
     }
 
-    public void setWeights(List<ApiWeights> weights) {
+    public void setWeights(List<ApiInstanceTypesWeights> weights) {
         isSet.add("weights");
         this.weights = weights;
     }

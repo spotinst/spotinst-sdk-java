@@ -897,9 +897,10 @@ class ElastigroupConverter {
                     retVal.setSpot(new LinkedList<>(instanceTypes.getSpot()));
                 }
             }
+
             if (instanceTypes.isWeightsSet()) {
                 if (instanceTypes.getWeights() != null) {
-                    List <ApiWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List <ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                     retVal.setWeights(optWeights);
                 }
             }
@@ -908,11 +909,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiWeights toDal(ElastigroupWeights weights) {
-        ApiWeights retVal = null;
+    private static ApiInstanceTypesWeights toDal(ElastigroupInstanceTypesWeights weights) {
+        ApiInstanceTypesWeights retVal = null;
 
         if (weights != null) {
-            retVal = new ApiWeights();
+            retVal = new ApiInstanceTypesWeights();
 
             if (weights.isInstanceTypeSet()) {
                 retVal.setInstanceType(weights.getInstanceType());
@@ -1886,11 +1887,11 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupWeights toBl(ApiWeights weights) {
-        ElastigroupWeights retVal = null;
+    private static ElastigroupInstanceTypesWeights toBl(ApiInstanceTypesWeights weights) {
+        ElastigroupInstanceTypesWeights retVal = null;
 
         if (weights != null) {
-            ElastigroupWeights.Builder retValBuilder = ElastigroupWeights.Builder.get();
+            ElastigroupInstanceTypesWeights.Builder retValBuilder = ElastigroupInstanceTypesWeights.Builder.get();
 
             if (weights.isInstanceTypeSet()) {
                 retValBuilder.setInstanceType(weights.getInstanceType());
@@ -2207,7 +2208,7 @@ class ElastigroupConverter {
 
             if (instanceTypes.isWeightsSet()) {
                 if (instanceTypes.getWeights() != null) {
-                    List<ElastigroupWeights> blWeights =
+                    List<ElastigroupInstanceTypesWeights> blWeights =
                             instanceTypes.getWeights().stream().map(ElastigroupConverter::toBl)
                                     .collect(Collectors.toList());
                     retValBuilder.setWeights(blWeights);
