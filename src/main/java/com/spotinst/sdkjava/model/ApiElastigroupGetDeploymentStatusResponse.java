@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.AwsElastigroupActionEnum;
+import com.spotinst.sdkjava.enums.AwsElastigroupHealthCheckTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,8 +23,8 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
     private Integer                                       numOfBatches;
     private Integer                                       currentBatch;
     private Integer                                       gracePeriod;
-    private String                                        strategyAction;
-    private String                                        healthCheck;
+    private AwsElastigroupActionEnum                      strategyAction;
+    private AwsElastigroupHealthCheckTypeEnum             healthCheck;
     private List<ApiElastigroupDeploymentStatusInstances> instances;
 
     public ApiElastigroupGetDeploymentStatusResponse() {
@@ -37,18 +39,18 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
         this.isSet = isSet;
     }
 
-    public String getStrategyAction() { return strategyAction; }
+    public AwsElastigroupActionEnum getStrategyAction() { return strategyAction; }
 
-    public void setStrategyAction(String strategyAction) {
+    public void setStrategyAction(AwsElastigroupActionEnum strategyAction) {
         isSet.add("strategyAction");
         this.strategyAction = strategyAction;
     }
 
-    public String getHealthCheck() {
+    public AwsElastigroupHealthCheckTypeEnum getHealthCheck() {
         return healthCheck;
     }
 
-    public void setHealthCheck(String healthCheck) {
+    public void setHealthCheck(AwsElastigroupHealthCheckTypeEnum healthCheck) {
         isSet.add("healthCheck");
         this.healthCheck = healthCheck;
     }

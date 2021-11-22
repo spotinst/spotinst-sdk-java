@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 
 import java.util.HashMap;
@@ -9,8 +8,7 @@ import java.util.Map;
 public class ElastigroupStopDeploymentRequest {
 
     //region Members
-    @JsonProperty("roll")
-    private ElastigroupDeploymentRoll stopDeployment;
+    private ElastigroupDeploymentRoll roll;
     //endregion
 
     //region Private constructor
@@ -19,12 +17,12 @@ public class ElastigroupStopDeploymentRequest {
     //endregion
 
     //region Getters & Setters
-    public ElastigroupDeploymentRoll getStopDeployment() {
-        return stopDeployment;
+    public ElastigroupDeploymentRoll getRoll() {
+        return roll;
     }
 
-    public void setStopDeployment(ElastigroupDeploymentRoll stopDeployment) {
-        this.stopDeployment = stopDeployment;
+    public void setRoll(ElastigroupDeploymentRoll roll) {
+        this.roll = roll;
     }
 
     //endregion
@@ -42,8 +40,8 @@ public class ElastigroupStopDeploymentRequest {
             return builder;
         }
 
-        public Builder setStopDeployment(final ElastigroupDeploymentRoll stopDeployment) {
-            elastigroupStopDeploymentRequest.setStopDeployment(stopDeployment);
+        public Builder setRoll(final ElastigroupDeploymentRoll roll) {
+            elastigroupStopDeploymentRequest.setRoll(roll);
             return this;
         }
 
@@ -56,12 +54,13 @@ public class ElastigroupStopDeploymentRequest {
 
     //region Json methods
     public String toJson() {
-        ApiElastigroupDeploymentRoll              apiElastigroupStopDeployment = ElastigroupConverter.toDal(stopDeployment);
+        ApiElastigroupDeploymentRoll              apiElastigroupStopDeployment = ElastigroupConverter.toDal(roll);
         Map<String, ApiElastigroupDeploymentRoll> groupRequest                 = new HashMap<>();
         groupRequest.put("roll", apiElastigroupStopDeployment);
         String elastigroupJson = JsonMapper.toJson(groupRequest);
         return elastigroupJson;
     }
+
     //endregion
 
 }

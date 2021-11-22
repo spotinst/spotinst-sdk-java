@@ -2844,11 +2844,11 @@ class ElastigroupConverter {
             retVal = new ElastigroupGetDeploymentStatusResponse();
 
             if (elastigroupGetDeploymentStatusResponse.isStrategyActionSet()) {
-                retVal.setStrategyAction(elastigroupGetDeploymentStatusResponse.getStrategyAction());
+                retVal.setStrategyAction(elastigroupGetDeploymentStatusResponse.getStrategyAction().getName());
             }
 
             if (elastigroupGetDeploymentStatusResponse.isHealthCheckSet()) {
-                retVal.setHealthCheck(elastigroupGetDeploymentStatusResponse.getHealthCheck());
+                retVal.setHealthCheck(elastigroupGetDeploymentStatusResponse.getHealthCheck().getName());
             }
 
             if (elastigroupGetDeploymentStatusResponse.isCurrentBatchSet()) {

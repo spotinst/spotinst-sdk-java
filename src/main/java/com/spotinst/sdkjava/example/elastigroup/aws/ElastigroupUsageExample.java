@@ -952,7 +952,7 @@ public class ElastigroupUsageExample {
 
         ElastigroupDeploymentRoll stopDeployment = stopDeployBuilder.setStatus("STOPPED").build();
 
-        ElastigroupStopDeploymentRequest stopDeploymentRequest = stopDeploymentRequestBuilder.setStopDeployment(stopDeployment).build();
+        ElastigroupStopDeploymentRequest stopDeploymentRequest = stopDeploymentRequestBuilder.setRoll(stopDeployment).build();
         System.out.println("Stop Deployment Request: " + stopDeploymentRequest.toJson());
 
         ElastigroupStopDeploymentResponse stopDeploymentResponse = elastigroupClient.stopDeployment(stopDeploymentRequest, elastigroupId, deploymentId);
