@@ -24,16 +24,16 @@ import static com.spotinst.sdkjava.enums.EventsLogsSeverityEnum.ALL;
 import static com.spotinst.sdkjava.utils.Constants.*;
 
 public class ElastigroupUsageExample {
-    private final static String auth_token    = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
-    private final static String act_id        = "act-7c46c6df";
-    private final static String key_pair_name = "automationKeyPair";
+    private final static String auth_token    = "your-token";
+    private final static String act_id        = "your-account-id";
+    private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
         SpotinstElastigroupClient elastigroupClient = SpotinstClient.getElastigroupClient(auth_token, act_id);
-/*
+
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
 
@@ -144,26 +144,26 @@ public class ElastigroupUsageExample {
         System.out.println("----------Simulate Instance Interruption Example--------------");
         List<String> listOfInstances = Arrays.asList("i-0687d633ba59aad5f");
         interruptInstances(elastigroupClient, listOfInstances);
-*/
+
         //Start deployment
         System.out.println("----------Start Deployment--------------");
-        String deploymentId = startDeployment(elastigroupClient, "sig-76c82246").getId();
+        String deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
 
         //Get Deployment Status
         System.out.println("----------Get Deployment Status--------------");
-        getDeploymentStatus(elastigroupClient, "sig-76c82246", deploymentId);
+        getDeploymentStatus(elastigroupClient, "elastigroup-id", deploymentId);
 
         //Get group Deployment Staus
         System.out.println("----------Get Group Deployment Status--------------");
-        getGroupDeploymentStatus(elastigroupClient, "sig-76c82246");
+        getGroupDeploymentStatus(elastigroupClient, "elastigroup-id");
 
         //Stop deployment
         System.out.println("----------Stop Deployment--------------");
-        stopDeployment(elastigroupClient, "sig-76c82246",deploymentId);
+        stopDeployment(elastigroupClient, "elastigroup-id",deploymentId);
 
         //Get Deployment Action
         System.out.println("----------Apply Deployment Action to Deployment--------------");
-        applyDeploymentAction(elastigroupClient, "sig-76c82246", deploymentId);
+        applyDeploymentAction(elastigroupClient, "elastigroup-id", deploymentId);
 
     }
 
