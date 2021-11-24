@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
@@ -70,6 +69,5 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account);
 
-    RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(
-            ElastigroupDeploymentStrategyOnFailure getDeploymentActionRequest , String elastigroupId, String deploymentId , String authToken, String account);
+    RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest ,String elastigroupId, String deploymentId ,String authToken, String account);
 }

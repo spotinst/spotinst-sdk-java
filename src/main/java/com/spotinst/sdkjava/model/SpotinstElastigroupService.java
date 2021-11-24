@@ -8,7 +8,6 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
@@ -1086,8 +1085,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static ApiElastigroupGetDeploymentActionResponse applyDeploymentAction(
-            ElastigroupDeploymentStrategyOnFailure getDeploymentActionRequest, String groupId, String deploymentId , String authToken, String account) {
+    public static ApiElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String groupId,String deploymentId ,String authToken, String account) {
 
         ApiElastigroupGetDeploymentActionResponse getDeploymentActionStatus = null;
 

@@ -1,31 +1,64 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.AwsElastigroupActionTypeEnum;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class ElastigroupGetDeploymentActionRequest {
 
-    private ElastigroupDeploymentStrategyOnFailure elastigroupDeploymentAction;
-    private String                                 GroupId;
+    @JsonIgnore
+    private Set<String>                  isSet;
+    private AwsElastigroupActionTypeEnum actionType;
+    private Integer                      drainingTimeout;
+    private Boolean                      shouldDecrementTargetCapacity;
+    private Boolean                      shouldHandleAllBatches;
 
-    private ElastigroupGetDeploymentActionRequest() {
+    public ElastigroupGetDeploymentActionRequest() {
+        isSet = new HashSet<>();
     }
 
-    public ElastigroupDeploymentStrategyOnFailure getElastigroupDeploymentAction() {
-        return elastigroupDeploymentAction;
+    public Set<String> getIsSet() {
+        return isSet;
     }
 
-    public void setElastigroupDeploymentAction(ElastigroupDeploymentStrategyOnFailure elastigroupDeploymentAction) {
-        this.elastigroupDeploymentAction = elastigroupDeploymentAction;
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
-    public String getGroupId() {
-        return GroupId;
+
+    public AwsElastigroupActionTypeEnum getActionType() {
+        return actionType;
     }
 
-    public void setGroupId(String groupId) {
-        GroupId = groupId;
+    public void setActionType(AwsElastigroupActionTypeEnum actionType) {
+        this.actionType = actionType;
+    }
+
+    public Boolean getShouldDecrementTargetCapacity() {
+        return shouldDecrementTargetCapacity;
+    }
+
+    public void setShouldDecrementTargetCapacity(Boolean shouldDecrementTargetCapacity) {
+        this.shouldDecrementTargetCapacity = shouldDecrementTargetCapacity;
+    }
+
+    public Boolean getShouldHandleAllBatches() {
+        return shouldHandleAllBatches;
+    }
+
+    public void setShouldHandleAllBatches(Boolean shouldHandleAllBatches) {
+        this.shouldHandleAllBatches = shouldHandleAllBatches;
+    }
+
+    public Integer getDrainingTimeout() {
+        return drainingTimeout;
+    }
+
+    public void setDrainingTimeout(Integer drainingTimeout) {
+        isSet.add("drainingTimeout");
+        this.drainingTimeout = drainingTimeout;
     }
 
     public static class Builder {
@@ -40,13 +73,23 @@ public class ElastigroupGetDeploymentActionRequest {
             return builder;
         }
 
-        public Builder setElastigroupDeploymentAction(final ElastigroupDeploymentStrategyOnFailure elastigroupDeploymentAction) {
-            elastigroupDeploymentRequest.setElastigroupDeploymentAction(elastigroupDeploymentAction);
+        public Builder setActionType(final AwsElastigroupActionTypeEnum actionType){
+            elastigroupDeploymentRequest.setActionType(actionType);
             return this;
         }
 
-        public Builder setGroupId(final String groupId) {
-            elastigroupDeploymentRequest.setGroupId(groupId);
+        public Builder setDrainingTimeout (final Integer drainingTimeout){
+            elastigroupDeploymentRequest.setDrainingTimeout(drainingTimeout);
+            return this;
+        }
+
+        public Builder setShouldDecrementTargetCapacity (final Boolean shouldDecrementTargetCapacity){
+            elastigroupDeploymentRequest.setShouldDecrementTargetCapacity(shouldDecrementTargetCapacity);
+            return this;
+        }
+
+        public Builder setShouldHandleAllBatches (final Boolean shouldHandleAllBatches){
+            elastigroupDeploymentRequest.setShouldHandleAllBatches(shouldHandleAllBatches);
             return this;
         }
 
@@ -55,13 +98,24 @@ public class ElastigroupGetDeploymentActionRequest {
         }
     }
 
-    //endregion
+    @JsonIgnore
+    public boolean isShouldDecrementTargetCapacitySet() {
+        return isSet.contains("shouldDecrementTargetCapacity");
+    }
 
-    //region Json methods
-    public String toJson() {
-        ApiElastigroupDeploymentStrategyOnFailure elastigroupDeploymentActionRequest = ElastigroupConverter.toDal(elastigroupDeploymentAction);
-        String  startDeployment              = JsonMapper.toJson(elastigroupDeploymentActionRequest);
-        return startDeployment;
+    @JsonIgnore
+    public boolean isShouldHandleAllBatchesSet() {
+        return isSet.contains("shouldHandleAllBatches");
+    }
+
+    @JsonIgnore
+    public boolean isActionTypeSet() {
+        return isSet.contains("actionType");
+    }
+
+    @JsonIgnore
+    public boolean isDrainingTimeoutSet() {
+        return isSet.contains("drainingTimeout");
     }
 
 }

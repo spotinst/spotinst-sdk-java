@@ -6,7 +6,6 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
@@ -521,8 +520,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
 
     @Override
-    public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(
-            ElastigroupDeploymentStrategyOnFailure elastigroupGetDeploymentActionRequest, String elastigroupId, String deploymentId , String authToken, String account) {
+    public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(ElastigroupGetDeploymentActionRequest elastigroupGetDeploymentActionRequest,String elastigroupId, String deploymentId ,String authToken, String account) {
         RepoGenericResponse<ElastigroupGetDeploymentActionResponse> retVal ;
 
         try {
