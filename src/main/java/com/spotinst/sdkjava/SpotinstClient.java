@@ -142,5 +142,10 @@ public class SpotinstClient {
         return k8sVngClient;
     }
 
+    public static SpotinstAzureStatefulNodeClient getAzureStatefulNodeClient(String authToken, String account){
+        SpotinstAzureStatefulNodeClient statefulNodeClient = new SpotinstAzureStatefulNodeClient(authToken, account);
+        return statefulNodeClient;
+    }
+
     //endregion
 }

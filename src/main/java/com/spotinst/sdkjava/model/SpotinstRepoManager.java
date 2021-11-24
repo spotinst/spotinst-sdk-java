@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
@@ -38,6 +39,7 @@ class SpotinstRepoManager {
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
     private ISpotK8sVngRepo       						spotK8sVngRepo;
+    private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
 
     //endregion
 
@@ -65,6 +67,7 @@ class SpotinstRepoManager {
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
+        this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
     }
     //endregion
 
@@ -222,6 +225,13 @@ class SpotinstRepoManager {
     public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
         this.spotK8sVngRepo = k8sVngRepo;
     }
+
+    public ISpotAzureStatefulNodeRepo getSpotAzureStatefulNodeRepo() { return spotAzureStatefulNodeRepo; }
+
+    public void setSpotinstOceanEcsClusterRepo (ISpotAzureStatefulNodeRepo spotAzureStatefulNodeRepo) {
+        this.spotAzureStatefulNodeRepo = spotAzureStatefulNodeRepo;
+    }
+
     //endregion
 }
 
