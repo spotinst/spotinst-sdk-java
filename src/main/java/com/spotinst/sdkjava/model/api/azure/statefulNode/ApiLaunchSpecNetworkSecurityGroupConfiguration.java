@@ -19,7 +19,7 @@ public class ApiLaunchSpecNetworkSecurityGroupConfiguration implements IPartialU
     private String      name;
 
     //region Constructors
-    private ApiLaunchSpecNetworkSecurityGroupConfiguration() {
+    public ApiLaunchSpecNetworkSecurityGroupConfiguration() {
         isSet = new HashSet<>();
     }
     //endregion

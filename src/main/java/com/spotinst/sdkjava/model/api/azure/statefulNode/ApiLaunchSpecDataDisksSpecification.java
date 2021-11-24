@@ -59,8 +59,8 @@ public class ApiLaunchSpecDataDisksSpecification implements IPartialUpdateEntity
     }
 
     @JsonIgnore
-    public boolean isSetSizeGBSet() {
-        return isSet.contains("setSizeGB");
+    public boolean isSizeGBSet() {
+        return isSet.contains("sizeGB");
     }
 
     @JsonIgnore

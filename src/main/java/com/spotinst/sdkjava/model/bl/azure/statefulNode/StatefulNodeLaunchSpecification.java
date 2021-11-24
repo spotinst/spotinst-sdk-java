@@ -119,6 +119,11 @@ public class StatefulNodeLaunchSpecification {
             return this;
         }
 
+        public Builder setOsDisk(final LaunchSpecOsDiskSpecification osDisk) {
+            launchspec.setOsDisk(osDisk);
+            return this;
+        }
+
         public Builder setDataDisks(final List<LaunchSpecDataDisksSpecification> dataDisks) {
             launchspec.setDataDisks(dataDisks);
             return this;

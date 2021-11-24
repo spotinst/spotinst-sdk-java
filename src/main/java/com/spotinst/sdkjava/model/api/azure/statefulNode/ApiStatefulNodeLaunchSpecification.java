@@ -24,7 +24,7 @@ public class ApiStatefulNodeLaunchSpecification implements IPartialUpdateEntity 
     private ApiLaunchSpecLoginSpecification            login;
     private List<ApiLaunchSpecTagsSpecification>       tags;
 
-    private ApiStatefulNodeLaunchSpecification() {
+    public ApiStatefulNodeLaunchSpecification() {
         isSet = new HashSet<>();
     }
 

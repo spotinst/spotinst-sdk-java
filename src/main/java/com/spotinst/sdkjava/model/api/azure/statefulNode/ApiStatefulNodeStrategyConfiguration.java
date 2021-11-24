@@ -26,7 +26,7 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     private ApiStatefulNodeRevertToSpotConfiguration revertToSpot;
     private ApiStatefulNodeSignalConfiguration       signals;
 
-    private ApiStatefulNodeStrategyConfiguration() {
+    public ApiStatefulNodeStrategyConfiguration() {
         isSet = new HashSet<>();
     }
 

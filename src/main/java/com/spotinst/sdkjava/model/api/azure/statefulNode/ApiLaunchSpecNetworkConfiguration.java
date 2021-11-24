@@ -21,7 +21,7 @@ public class ApiLaunchSpecNetworkConfiguration implements IPartialUpdateEntity {
     private List<ApiLaunchSpecNetworkInterfacesConfiguration> networkInterfaces;
 
     //region Constructors
-    private ApiLaunchSpecNetworkConfiguration() {
+    public ApiLaunchSpecNetworkConfiguration() {
         isSet = new HashSet<>();
     }
     //endregion

@@ -22,7 +22,7 @@ public class ApiStatefulNodeLoadBalancersConfig implements IPartialUpdateEntity 
     private Set<String>  isSet;
     private List<String> loadBalancers;
 
-    private ApiStatefulNodeLoadBalancersConfig() {
+    public ApiStatefulNodeLoadBalancersConfig() {
         isSet = new HashSet<>();
     }
 

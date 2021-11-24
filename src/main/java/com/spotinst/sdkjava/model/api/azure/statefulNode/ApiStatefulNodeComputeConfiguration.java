@@ -27,7 +27,7 @@ public class ApiStatefulNodeComputeConfiguration implements IPartialUpdateEntity
     private ApiStatefulNodeLaunchSpecification  launchSpecification;
     private ApiStatefulNodeLoadBalancersConfig  loadBalancersConfig;
 
-    private ApiStatefulNodeComputeConfiguration() {
+    public ApiStatefulNodeComputeConfiguration() {
         isSet = new HashSet<>();
     }
 

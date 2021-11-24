@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.AzureLifeCycleTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class StatefulNodeStrategyConfiguration {
     private Boolean                               fallbackToOd;
     private Integer                               drainingTimeout;
     private String                                orientation;
-    private String                                preferredLifecycle;
+    private AzureLifeCycleTypeEnum                preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
     private StatefulNodeSignalConfiguration       signals;
 
@@ -34,7 +35,6 @@ public class StatefulNodeStrategyConfiguration {
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
 
     public Boolean getFallbackToOd() {
         return fallbackToOd;
@@ -63,11 +63,11 @@ public class StatefulNodeStrategyConfiguration {
         this.orientation = orientation;
     }
 
-    public String getPreferredLifecycle() {
+    public AzureLifeCycleTypeEnum getPreferredLifecycle() {
         return preferredLifecycle;
     }
 
-    public void setPreferredLifecycle(String preferredLifecycle) {
+    public void setPreferredLifecycle(AzureLifeCycleTypeEnum preferredLifecycle) {
         isSet.add("preferredLifecycle");
         this.preferredLifecycle = preferredLifecycle;
     }
@@ -118,8 +118,13 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
-        public Builder setPreferredLifecycle(final String preferredLifecycle) {
+        public Builder setPreferredLifecycle(final AzureLifeCycleTypeEnum preferredLifecycle) {
             statefulNodeStrategy.setPreferredLifecycle(preferredLifecycle);
+            return this;
+        }
+
+        public Builder setRevertToSpot(final StatefulNodeRevertToSpotConfiguration revertToSpot) {
+            statefulNodeStrategy.setRevertToSpot(revertToSpot);
             return this;
         }
 

@@ -20,7 +20,7 @@ public class ApiLaunchSpecExtensionsProtectedSettings implements IPartialUpdateE
     private Set<String> isSet;
     private String      script;
 
-    private ApiLaunchSpecExtensionsProtectedSettings() {
+    public ApiLaunchSpecExtensionsProtectedSettings() {
         isSet = new HashSet<>();
     }
 

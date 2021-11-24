@@ -23,7 +23,7 @@ public class ApiStatefulNodeSignalConfiguration implements IPartialUpdateEntity 
     private Integer     timeout;
     private Long        enabledAt;
 
-    private ApiStatefulNodeSignalConfiguration() {
+    public ApiStatefulNodeSignalConfiguration() {
         isSet = new HashSet<>();
     }
 

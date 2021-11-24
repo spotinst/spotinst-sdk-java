@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.AzurePerformAtEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +16,8 @@ import java.util.Set;
 public class StatefulNodeRevertToSpotConfiguration {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private String      performAt;
+    private Set<String>        isSet;
+    private AzurePerformAtEnum performAt;
 
     private StatefulNodeRevertToSpotConfiguration() {
         isSet = new HashSet<>();
@@ -30,13 +31,18 @@ public class StatefulNodeRevertToSpotConfiguration {
         this.isSet = isSet;
     }
 
-    public String getPerformAt() {
+    public AzurePerformAtEnum getPerformAt() {
         return performAt;
     }
 
-    public void setPerformAt(String performAt) {
+    public void setPerformAt(AzurePerformAtEnum performAt) {
         isSet.add("performAt");
         this.performAt = performAt;
+    }
+
+    @JsonIgnore
+    public boolean isPerformAtSet() {
+        return isSet.contains("performAt");
     }
 
     public static class Builder {
@@ -51,20 +57,14 @@ public class StatefulNodeRevertToSpotConfiguration {
             return builder;
         }
 
-        public Builder setPerformAt(final String performAt) {
+        public Builder setPerformAt(final AzurePerformAtEnum performAt) {
             statefulNodeRevertToSpot.setPerformAt(performAt);
             return this;
         }
 
-
         public StatefulNodeRevertToSpotConfiguration build() {
             return statefulNodeRevertToSpot;
         }
-    }
-
-    @JsonIgnore
-    public boolean isTypeSet() {
-        return isSet.contains("performAt");
     }
 
 }

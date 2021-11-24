@@ -30,7 +30,7 @@ public class ApiStatefulNode implements IPartialUpdateEntity {
     private ApiStatefulNodePersistentConfiguration persistent;
     private ApiStatefulNodeHealthConfiguration     health;
 
-    private ApiStatefulNode() {
+    public ApiStatefulNode() {
         isSet = new HashSet<>();
     }
 

@@ -21,7 +21,7 @@ public class ApiStatefulNodeRevertToSpotConfiguration implements IPartialUpdateE
     private Set<String> isSet;
     private String      performAt;
 
-    private ApiStatefulNodeRevertToSpotConfiguration() {
+    public ApiStatefulNodeRevertToSpotConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -44,7 +44,7 @@ public class ApiStatefulNodeRevertToSpotConfiguration implements IPartialUpdateE
 
 
     @JsonIgnore
-    public boolean isTypeSet() {
+    public boolean isPerformAtSet() {
         return isSet.contains("performAt");
     }
 

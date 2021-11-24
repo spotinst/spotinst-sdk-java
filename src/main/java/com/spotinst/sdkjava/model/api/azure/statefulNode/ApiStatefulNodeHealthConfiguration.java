@@ -21,7 +21,7 @@ public class ApiStatefulNodeHealthConfiguration implements IPartialUpdateEntity 
     private List<String> healthCheckTypes;
     private Integer      unhealthyDuration;
 
-    private ApiStatefulNodeHealthConfiguration() {
+    public ApiStatefulNodeHealthConfiguration() {
         isSet = new HashSet<>();
     }
 

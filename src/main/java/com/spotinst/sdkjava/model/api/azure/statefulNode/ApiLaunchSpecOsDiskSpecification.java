@@ -60,7 +60,7 @@ public class ApiLaunchSpecOsDiskSpecification implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isSetSizeGBSet() {
+    public boolean isSizeGBSet() {
         return isSet.contains("setSizeGB");
     }
 

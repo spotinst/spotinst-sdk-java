@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.ElastigroupVmSignalEnumAzure;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +16,10 @@ import java.util.Set;
 public class StatefulNodeSignalConfiguration {
 
     @JsonIgnore
-    private Set<String> isSet;
-    private String      type;
-    private Integer     timeout;
-    private Long        enabledAt;
+    private Set<String>                  isSet;
+    private ElastigroupVmSignalEnumAzure type;
+    private Integer                      timeout;
+    private Long                         enabledAt;
 
     private StatefulNodeSignalConfiguration() {
         isSet = new HashSet<>();
@@ -32,11 +33,11 @@ public class StatefulNodeSignalConfiguration {
         this.isSet = isSet;
     }
 
-    public String getType() {
+    public ElastigroupVmSignalEnumAzure getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ElastigroupVmSignalEnumAzure type) {
         isSet.add("type");
         this.type = type;
     }
@@ -71,7 +72,7 @@ public class StatefulNodeSignalConfiguration {
             return builder;
         }
 
-        public Builder setType(final String type) {
+        public Builder setType(final ElastigroupVmSignalEnumAzure type) {
             statefulNodeSignal.setType(type);
             return this;
         }

@@ -19,7 +19,7 @@ public class ApiLaunchSpecTagsSpecification implements IPartialUpdateEntity {
     private String      tagValue;
 
     //region Constructors
-    private ApiLaunchSpecTagsSpecification() {
+    public ApiLaunchSpecTagsSpecification() {
         isSet = new HashSet<>();
     }
     //endregion

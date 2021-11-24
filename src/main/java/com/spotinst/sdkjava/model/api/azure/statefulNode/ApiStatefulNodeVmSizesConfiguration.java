@@ -24,7 +24,7 @@ public class ApiStatefulNodeVmSizesConfiguration implements IPartialUpdateEntity
     private List<String> odSizes;
     private List<String> preferredSpotSizes;
 
-    private ApiStatefulNodeVmSizesConfiguration() {
+    public ApiStatefulNodeVmSizesConfiguration() {
         isSet = new HashSet<>();
     }
 

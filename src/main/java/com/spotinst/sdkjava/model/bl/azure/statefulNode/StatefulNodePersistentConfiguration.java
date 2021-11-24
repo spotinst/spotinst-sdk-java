@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.AzureDiskModeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,12 +12,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodePersistentConfiguration {
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     shouldPersistRootDisk;
-    private Boolean     shouldPersistDataDisks;
-    private Boolean     shouldPersistPrivateIp;
-    private String      dataDisksPersistenceMode;
-    private String      osDiskPersistenceMode;
+    private Set<String>           isSet;
+    private Boolean               shouldPersistRootDisk;
+    private Boolean               shouldPersistDataDisks;
+    private Boolean               shouldPersistPrivateIp;
+    private AzureDiskModeEnum     dataDisksPersistenceMode;
+    private AzureDiskModeEnum     osDiskPersistenceMode;
 
     private StatefulNodePersistentConfiguration() {
         isSet = new HashSet<>();
@@ -57,20 +58,20 @@ public class StatefulNodePersistentConfiguration {
         this.shouldPersistPrivateIp = shouldPersistPrivateIp;
     }
 
-    public String getDataDisksPersistenceMode() {
+    public AzureDiskModeEnum getDataDisksPersistenceMode() {
         return dataDisksPersistenceMode;
     }
 
-    public void setDataDisksPersistenceMode(String dataDisksPersistenceMode) {
+    public void setDataDisksPersistenceMode(AzureDiskModeEnum dataDisksPersistenceMode) {
         isSet.add("dataDisksPersistenceMode");
         this.dataDisksPersistenceMode = dataDisksPersistenceMode;
     }
 
-    public String getOsDiskPersistenceMode() {
+    public AzureDiskModeEnum getOsDiskPersistenceMode() {
         return osDiskPersistenceMode;
     }
 
-    public void setOsDiskPersistenceMode(String osDiskPersistenceMode) {
+    public void setOsDiskPersistenceMode(AzureDiskModeEnum osDiskPersistenceMode) {
         isSet.add("osDiskPersistenceMode");
         this.osDiskPersistenceMode = osDiskPersistenceMode;
     }
@@ -102,12 +103,12 @@ public class StatefulNodePersistentConfiguration {
             return this;
         }
 
-        public Builder setDataDisksPersistenceMode(final String dataDisksPersistenceMode) {
+        public Builder setDataDisksPersistenceMode(final AzureDiskModeEnum dataDisksPersistenceMode) {
             compute.setDataDisksPersistenceMode(dataDisksPersistenceMode);
             return this;
         }
 
-        public Builder setOsDiskPersistenceMode(final String osDiskPersistenceMode) {
+        public Builder setOsDiskPersistenceMode(final AzureDiskModeEnum osDiskPersistenceMode) {
             compute.setOsDiskPersistenceMode(osDiskPersistenceMode);
             return this;
         }

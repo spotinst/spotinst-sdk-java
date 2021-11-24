@@ -22,7 +22,7 @@ public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpda
     private ApiLaunchSpecNetworkSecurityGroupConfiguration networkSecurityGroup;
 
     //region Constructors
-    private ApiLaunchSpecNetworkInterfacesConfiguration() {
+    public ApiLaunchSpecNetworkInterfacesConfiguration() {
         isSet = new HashSet<>();
     }
     //endregion

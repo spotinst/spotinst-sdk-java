@@ -22,7 +22,7 @@ public class ApiLaunchSpecExtensionsSpecification implements IPartialUpdateEntit
     private Boolean                                  minorVersionAutoUpgrade;
     private ApiLaunchSpecExtensionsProtectedSettings protectedSettings;
 
-    private ApiLaunchSpecExtensionsSpecification() {
+    public ApiLaunchSpecExtensionsSpecification() {
         isSet = new HashSet<>();
     }
 

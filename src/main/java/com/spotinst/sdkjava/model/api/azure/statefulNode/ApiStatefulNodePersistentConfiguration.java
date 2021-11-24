@@ -21,7 +21,7 @@ public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEnt
     private String      dataDisksPersistenceMode;
     private String      osDiskPersistenceMode;
 
-    private ApiStatefulNodePersistentConfiguration() {
+    public ApiStatefulNodePersistentConfiguration() {
         isSet = new HashSet<>();
     }
 
