@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
@@ -707,8 +708,6 @@ public class SpotinstElastigroupClient {
 
         ElastigroupStopDeploymentResponse isDeploymentStopped;
 
-        //ElastigroupStopDeploymentRequest elastigroupStopDeploymentRequest = stopDeploymentRequest.getStopDeployment();
-
         RepoGenericResponse<ElastigroupStopDeploymentResponse> stopDeploymentResponse =
                 getSpotinstElastigroupRepo().stopDeployment(stopDeploymentRequest, elastigroupId , deploymentId , authToken, account);
 
@@ -778,9 +777,10 @@ public class SpotinstElastigroupClient {
     public ElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest,String elastigroupId, String deploymentId) {
 
         ElastigroupGetDeploymentActionResponse getGroupDeploymentResponse;
+        ElastigroupDeploymentStrategyOnFailure getDeploymentActionRequestBody = getDeploymentActionRequest.getElastigroupDeploymentAction();
 
         RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentActionResponse =
-                getSpotinstElastigroupRepo().applyDeploymentAction(getDeploymentActionRequest, elastigroupId,deploymentId, authToken, account);
+                getSpotinstElastigroupRepo().applyDeploymentAction(getDeploymentActionRequestBody, elastigroupId,deploymentId, authToken, account);
 
         if(getDeploymentActionResponse.isRequestSucceed()){
             getGroupDeploymentResponse =getDeploymentActionResponse.getValue();

@@ -1021,10 +1021,11 @@ public class ElastigroupUsageExample {
 
         ElastigroupGetDeploymentActionRequest.Builder getDeploymentActionBuilder = ElastigroupGetDeploymentActionRequest.Builder.get();
 
-        ElastigroupGetDeploymentActionRequest getDeploymentActionRequest =
-                getDeploymentActionBuilder.setActionType(AwsElastigroupActionTypeEnum.DETACH_OLD)
-                                          .setDrainingTimeout(240).setShouldDecrementTargetCapacity(true)
-                                          .setShouldHandleAllBatches(true).build();
+        ElastigroupDeploymentStrategyOnFailure applyDeploymentAction = ElastigroupDeploymentStrategyOnFailure.Builder.get().setActionType(AwsElastigroupActionTypeEnum.DETACH_OLD)
+                .setDrainingTimeout(240).setShouldDecrementTargetCapacity(true)
+                .setShouldHandleAllBatches(true).build();
+
+        ElastigroupGetDeploymentActionRequest getDeploymentActionRequest = getDeploymentActionBuilder.setElastigroupDeploymentAction(applyDeploymentAction).build();
 
         ElastigroupGetDeploymentActionResponse getDeploymentActionResponse = elastigroupClient.applyDeploymentAction(getDeploymentActionRequest, elastigroupId, deploymentId);
 
