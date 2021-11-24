@@ -1267,7 +1267,7 @@ class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupDeploymentStrategyOnFailure toDal(
+    public static ApiElastigroupDeploymentStrategyOnFailure toDal(
             ElastigroupDeploymentStrategyOnFailure elastigroupOnFailure) {
         ApiElastigroupDeploymentStrategyOnFailure retVal = null;
 
