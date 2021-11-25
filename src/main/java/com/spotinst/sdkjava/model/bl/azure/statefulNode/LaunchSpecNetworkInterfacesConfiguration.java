@@ -32,13 +32,13 @@ public class LaunchSpecNetworkInterfacesConfiguration {
         this.isSet = isSet;
     }
 
-    public Boolean getPrimary() {
+    public Boolean getIsPrimary() {
         return isPrimary;
     }
 
-    public void setPrimary(Boolean primary) {
-        isSet.add("primary");
-        isPrimary = primary;
+    public void setIsPrimary(Boolean isPrimary) {
+        isSet.add("isPrimary");
+        this.isPrimary = isPrimary;
     }
 
     public Boolean getAssignPublicIp() {
@@ -77,31 +77,6 @@ public class LaunchSpecNetworkInterfacesConfiguration {
         this.networkSecurityGroup = networkSecurityGroup;
     }
 
-    @JsonIgnore
-    public boolean isIsPrimarySet() {
-        return isSet.contains("isPrimary");
-    }
-
-    @JsonIgnore
-    public boolean isAssignPublicIpSet() {
-        return isSet.contains("assignPublicIp");
-    }
-
-    @JsonIgnore
-    public boolean isSubnetNameSet() {
-        return isSet.contains("subnetName");
-    }
-
-    @JsonIgnore
-    public boolean isPublicIpSkuSet() {
-        return isSet.contains("publicIpSku");
-    }
-
-    @JsonIgnore
-    public boolean isNetworkSecurityGroupSet() {
-        return isSet.contains("networkSecurityGroup");
-    }
-
     public static class Builder {
 
         private LaunchSpecNetworkInterfacesConfiguration networkInterfacesConfiguration;
@@ -115,8 +90,8 @@ public class LaunchSpecNetworkInterfacesConfiguration {
             return builder;
         }
 
-        public Builder setPrimary(final Boolean isPrimary) {
-            networkInterfacesConfiguration.setPrimary(isPrimary);
+        public Builder setIsPrimary(final Boolean isPrimary) {
+            networkInterfacesConfiguration.setIsPrimary(isPrimary);
             return this;
         }
 
@@ -145,5 +120,29 @@ public class LaunchSpecNetworkInterfacesConfiguration {
         }
     }
 
+    @JsonIgnore
+    public boolean isIsPrimarySet() {
+        return isSet.contains("isPrimary");
+    }
+
+    @JsonIgnore
+    public boolean isAssignPublicIpSet() {
+        return isSet.contains("assignPublicIp");
+    }
+
+    @JsonIgnore
+    public boolean isSubnetNameSet() {
+        return isSet.contains("subnetName");
+    }
+
+    @JsonIgnore
+    public boolean isPublicIpSkuSet() {
+        return isSet.contains("publicIpSku");
+    }
+
+    @JsonIgnore
+    public boolean isNetworkSecurityGroupSet() {
+        return isSet.contains("networkSecurityGroup");
+    }
 }
 

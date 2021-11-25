@@ -28,7 +28,6 @@ public class LaunchSpecOsDiskSpecification {
         this.isSet = isSet;
     }
 
-
     public String getName() {
         return name;
     }
@@ -89,9 +88,7 @@ public class LaunchSpecOsDiskSpecification {
     }
 
     @JsonIgnore
-    public boolean isSetSizeGBSet() {
-        return isSet.contains("setSizeGB");
-    }
+    public boolean isSetSizeGBSet() { return isSet.contains("sizeGB"); }
 
     @JsonIgnore
     public boolean isNameSet() {

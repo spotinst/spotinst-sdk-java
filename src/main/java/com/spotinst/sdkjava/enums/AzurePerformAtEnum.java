@@ -5,9 +5,9 @@ import org.slf4j.LoggerFactory;
 
 public enum AzurePerformAtEnum {
 
-    never("never"),
-    timeWindow("timeWindow"),
-    always("always");
+    NEVER("never"),
+    TIMEWINDOW("timeWindow"),
+    ALWAYS("always");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AzurePerformAtEnum.class);
     private              String name;

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.AzureLifeCycleTypeEnum;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,7 +23,7 @@ public class StatefulNodeStrategyConfiguration {
     private String                                orientation;
     private AzureLifeCycleTypeEnum                preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
-    private StatefulNodeSignalConfiguration       signals;
+    private List<StatefulNodeSignalConfiguration> signals;
 
     private StatefulNodeStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -81,11 +82,11 @@ public class StatefulNodeStrategyConfiguration {
         this.revertToSpot = revertToSpot;
     }
 
-    public StatefulNodeSignalConfiguration getSignals() {
+    public List<StatefulNodeSignalConfiguration> getSignals() {
         return signals;
     }
 
-    public void setSignals(StatefulNodeSignalConfiguration signals) {
+    public void setSignals(List<StatefulNodeSignalConfiguration> signals) {
         isSet.add("signals");
         this.signals = signals;
     }
@@ -128,7 +129,7 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
-        public Builder setSignals(final StatefulNodeSignalConfiguration signals) {
+        public Builder setSignals(final List<StatefulNodeSignalConfiguration> signals) {
             statefulNodeStrategy.setSignals(signals);
             return this;
         }

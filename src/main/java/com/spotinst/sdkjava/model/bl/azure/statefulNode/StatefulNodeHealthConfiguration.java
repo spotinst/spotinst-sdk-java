@@ -13,7 +13,7 @@ import java.util.Set;
 public class StatefulNodeHealthConfiguration {
     @JsonIgnore
     private Set<String>  isSet;
-    private Boolean      autoHealing;
+    private String       autoHealing;
     private Integer      gracePeriod;
     private List<String> healthCheckTypes;
     private Integer      unhealthyDuration;
@@ -30,11 +30,11 @@ public class StatefulNodeHealthConfiguration {
         this.isSet = isSet;
     }
 
-    public Boolean getAutoHealing() {
+    public String getAutoHealing() {
         return autoHealing;
     }
 
-    public void setAutoHealing(Boolean autoHealing) {
+    public void setAutoHealing(String autoHealing) {
         isSet.add("autoHealing");
         this.autoHealing = autoHealing;
     }
@@ -78,7 +78,7 @@ public class StatefulNodeHealthConfiguration {
             return builder;
         }
 
-        public Builder setAutoHealing(final Boolean autoHealing) {
+        public Builder setAutoHealing(final String autoHealing) {
             compute.setAutoHealing(autoHealing);
             return this;
         }

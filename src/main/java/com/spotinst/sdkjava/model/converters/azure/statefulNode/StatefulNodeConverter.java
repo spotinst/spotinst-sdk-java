@@ -26,6 +26,9 @@ public class StatefulNodeConverter {
             if (statefulNode.isRegionSet()) {
                 apiStatefulNode.setRegion(statefulNode.getRegion());
             }
+            if (statefulNode.isDescriptionSet()) {
+                apiStatefulNode.setDescription(statefulNode.getDescription());
+            }
             if (statefulNode.isResourceGroupNameSet()) {
                 apiStatefulNode.setResourceGroupName(statefulNode.getResourceGroupName());
             }
@@ -71,7 +74,9 @@ public class StatefulNodeConverter {
                 apiStatefulNodeStrategy.setRevertToSpot(toDal(statefulNodeStrategy.getRevertToSpot()));
             }
             if (statefulNodeStrategy.isSignalsSet()) {
-                apiStatefulNodeStrategy.setSignals(toDal(statefulNodeStrategy.getSignals()));
+                List<ApiStatefulNodeSignalConfiguration> signalsList = statefulNodeStrategy.getSignals().stream().map(StatefulNodeConverter::toDal)
+                                                                       .collect(Collectors.toList());
+                apiStatefulNodeStrategy.setSignals(signalsList);
             }
 
         }
@@ -353,7 +358,7 @@ public class StatefulNodeConverter {
                 apiLaunchSpecNetworkInterfaces.setAssignPublicIp(launchSpecNetworkInterfaces.getAssignPublicIp());
             }
             if (launchSpecNetworkInterfaces.isIsPrimarySet()) {
-                apiLaunchSpecNetworkInterfaces.setPrimary(launchSpecNetworkInterfaces.getPrimary());
+                apiLaunchSpecNetworkInterfaces.setIsPrimary(launchSpecNetworkInterfaces.getIsPrimary());
             }
             if (launchSpecNetworkInterfaces.isSubnetNameSet()) {
                 apiLaunchSpecNetworkInterfaces.setSubnetName(launchSpecNetworkInterfaces.getSubnetName());
@@ -783,7 +788,7 @@ public class StatefulNodeConverter {
             LaunchSpecNetworkInterfacesConfiguration.Builder launchSpecNetworkInterfacesBuilder = LaunchSpecNetworkInterfacesConfiguration.Builder.get();
 
             if (apiLaunchSpecNetworkInterfaces.isIsPrimarySet()) {
-                launchSpecNetworkInterfacesBuilder.setPrimary(apiLaunchSpecNetworkInterfaces.getPrimary());
+                launchSpecNetworkInterfacesBuilder.setIsPrimary(apiLaunchSpecNetworkInterfaces.getIsPrimary());
             }
 
             if (apiLaunchSpecNetworkInterfaces.isAssignPublicIpSet()) {
@@ -1031,7 +1036,9 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeStrategy.isSignalsSet()) {
-                statefulNodeStrategyBuilder.setSignals(toBl(apiStatefulNodeStrategy.getSignals()));
+                List<StatefulNodeSignalConfiguration> signalsList = apiStatefulNodeStrategy.getSignals()
+                                                        .stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                statefulNodeStrategyBuilder.setSignals(signalsList);
             }
 
             statefulNodeStrategy = statefulNodeStrategyBuilder.build();

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,7 +25,7 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     private String                                   orientation;
     private String                                   preferredLifecycle;
     private ApiStatefulNodeRevertToSpotConfiguration revertToSpot;
-    private ApiStatefulNodeSignalConfiguration       signals;
+    private List<ApiStatefulNodeSignalConfiguration> signals;
 
     public ApiStatefulNodeStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -84,11 +85,11 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
         this.revertToSpot = revertToSpot;
     }
 
-    public ApiStatefulNodeSignalConfiguration getSignals() {
+    public List<ApiStatefulNodeSignalConfiguration> getSignals() {
         return signals;
     }
 
-    public void setSignals(ApiStatefulNodeSignalConfiguration signals) {
+    public void setSignals(List<ApiStatefulNodeSignalConfiguration> signals) {
         isSet.add("signals");
         this.signals = signals;
     }

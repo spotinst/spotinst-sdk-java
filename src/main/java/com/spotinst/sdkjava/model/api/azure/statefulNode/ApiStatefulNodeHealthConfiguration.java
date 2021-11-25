@@ -16,7 +16,7 @@ import java.util.Set;
 public class ApiStatefulNodeHealthConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
-    private Boolean      autoHealing;
+    private String       autoHealing;
     private Integer      gracePeriod;
     private List<String> healthCheckTypes;
     private Integer      unhealthyDuration;
@@ -33,11 +33,11 @@ public class ApiStatefulNodeHealthConfiguration implements IPartialUpdateEntity 
         this.isSet = isSet;
     }
 
-    public Boolean getAutoHealing() {
+    public String getAutoHealing() {
         return autoHealing;
     }
 
-    public void setAutoHealing(Boolean autoHealing) {
+    public void setAutoHealing(String autoHealing) {
         isSet.add("autoHealing");
         this.autoHealing = autoHealing;
     }

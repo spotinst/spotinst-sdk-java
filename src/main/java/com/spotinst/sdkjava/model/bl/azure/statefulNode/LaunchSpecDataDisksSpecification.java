@@ -89,7 +89,7 @@ public class LaunchSpecDataDisksSpecification {
 
     @JsonIgnore
     public boolean isSetSizeGBSet() {
-        return isSet.contains("setSizeGB");
+        return isSet.contains("sizeGB");
     }
 
     @JsonIgnore

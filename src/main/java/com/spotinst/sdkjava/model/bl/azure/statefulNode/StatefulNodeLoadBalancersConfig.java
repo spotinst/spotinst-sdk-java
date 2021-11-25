@@ -41,10 +41,10 @@ public class StatefulNodeLoadBalancersConfig {
     }
 
     public static class Builder {
-        private StatefulNodeLoadBalancersConfig statefulNodeVmSizes;
+        private StatefulNodeLoadBalancersConfig statefulNodeLoadBalancers;
 
         private Builder() {
-            this.statefulNodeVmSizes = new StatefulNodeLoadBalancersConfig();
+            this.statefulNodeLoadBalancers = new StatefulNodeLoadBalancersConfig();
         }
 
         public static Builder get() {
@@ -53,12 +53,12 @@ public class StatefulNodeLoadBalancersConfig {
         }
 
         public Builder setLoadBalancers(final List<String> loadBalancers) {
-            statefulNodeVmSizes.setLoadBalancers(loadBalancers);
+            statefulNodeLoadBalancers.setLoadBalancers(loadBalancers);
             return this;
         }
 
         public StatefulNodeLoadBalancersConfig build() {
-            return statefulNodeVmSizes;
+            return statefulNodeLoadBalancers;
         }
     }
 

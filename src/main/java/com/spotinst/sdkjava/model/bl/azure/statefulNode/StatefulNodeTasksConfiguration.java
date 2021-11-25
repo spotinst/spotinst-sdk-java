@@ -14,7 +14,7 @@ public class StatefulNodeTasksConfiguration {
     private Set<String> isSet;
     private Boolean     isEnabled;
     private String      cronExpression;
-    private Long        identifier;
+    private Integer     identifier;
     private String      type;
     private Integer     adjustment;
 
@@ -49,11 +49,11 @@ public class StatefulNodeTasksConfiguration {
     }
 
 
-    public Long getIdentifier() {
+    public Integer getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(Long identifier) {
+    public void setIdentifier(Integer identifier) {
         isSet.add("identifier");
         this.identifier = identifier;
     }
@@ -107,7 +107,7 @@ public class StatefulNodeTasksConfiguration {
             return this;
         }
 
-        public Builder setIdentifier(final Long identifier) {
+        public Builder setIdentifier(final Integer identifier) {
             task.setIdentifier(identifier);
             return this;
         }
