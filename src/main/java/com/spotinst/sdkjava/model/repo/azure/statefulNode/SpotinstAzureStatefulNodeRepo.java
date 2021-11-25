@@ -13,18 +13,17 @@ import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatef
 public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo {
 
     @Override
-    public RepoGenericResponse<StatefulNode> create(StatefulNode clusterToCreate, String authToken, String account) {
+    public RepoGenericResponse<StatefulNode> createNode(StatefulNode NodeToCreate, String authToken, String account) {
 
         RepoGenericResponse<StatefulNode> retVal;
 
         try {
-            ApiStatefulNode apiOceanGkeClusterToCreate = StatefulNodeConverter.toDal(clusterToCreate);
-            ApiStatefulNode
-                            apiCreatedNode          = SpotinstAzureStatefulNodeService
-                    .createNode(apiOceanGkeClusterToCreate, authToken, account);
+            ApiStatefulNode apiStatefulNodeToCreate = StatefulNodeConverter.toDal(NodeToCreate);
+            ApiStatefulNode apiCreatedNode          = SpotinstAzureStatefulNodeService
+                    .createNode(apiStatefulNodeToCreate, authToken, account);
 
-            StatefulNode createdOceanEcsCluster = StatefulNodeConverter.toBl(apiCreatedNode);
-            retVal = new RepoGenericResponse<>(createdOceanEcsCluster);
+            StatefulNode createdStatefulNode = StatefulNodeConverter.toBl(apiCreatedNode);
+            retVal = new RepoGenericResponse<>(createdStatefulNode);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
@@ -32,4 +31,25 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<StatefulNode> getNode(String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<StatefulNode> retVal;
+
+        try {
+            ApiStatefulNode apiGetNode          = SpotinstAzureStatefulNodeService
+                    .getNode(nodeId, authToken, account);
+
+            StatefulNode getStatefulNode = StatefulNodeConverter.toBl(apiGetNode);
+            retVal = new RepoGenericResponse<>(getStatefulNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+
 }

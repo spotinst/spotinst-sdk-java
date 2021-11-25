@@ -36,7 +36,7 @@ public class SpotinstAzureStatefulNodeClient {
         StatefulNode statefulNodeToCreate = statefulNodeCreationRequest.getNode();
 
         RepoGenericResponse<StatefulNode> creationResponse =
-                getSpotAzureStatefulNodeRepo().create(statefulNodeToCreate, authToken, account);
+                getSpotAzureStatefulNodeRepo().createNode(statefulNodeToCreate, authToken, account);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -46,6 +46,27 @@ public class SpotinstAzureStatefulNodeClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
                     "Error encountered while attempting to create Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public StatefulNode getNode(String nodeId) {
+        StatefulNode retVal;
+
+        RepoGenericResponse<StatefulNode> getNodeResponse =
+                getSpotAzureStatefulNodeRepo().getNode(nodeId, authToken, account);
+
+        if (getNodeResponse.isRequestSucceed()) {
+            retVal = getNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Azure stateful Node. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
