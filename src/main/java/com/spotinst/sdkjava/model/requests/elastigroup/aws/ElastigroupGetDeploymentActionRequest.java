@@ -1,7 +1,8 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.ElastigroupConverter;
 import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
 
@@ -45,7 +46,8 @@ public class ElastigroupGetDeploymentActionRequest {
 
     //region Json methods
     public String toJson() {
-        ApiElastigroupDeploymentStrategyOnFailure elastigroupDeploymentActionRequest = ElastigroupConverter.toDal(elastigroupDeploymentAction);
+        ApiElastigroupDeploymentStrategyOnFailure elastigroupDeploymentActionRequest = ElastigroupConverter
+                .toDal(elastigroupDeploymentAction);
         String  startDeployment              = JsonMapper.toJson(elastigroupDeploymentActionRequest);
         return startDeployment;
     }

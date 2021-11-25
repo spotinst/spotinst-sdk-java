@@ -14,6 +14,8 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSusp
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -474,7 +476,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId,
-                                                                                   String authToken, String account) {
+                                                                                           String authToken, String account) {
         RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal = null;
 
         try {

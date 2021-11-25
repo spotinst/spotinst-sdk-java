@@ -12,9 +12,8 @@ import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrate
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.responses.aws.elastigroup.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesApiResponse;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupSuspendScalingPoliciesListApiResponse;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.*;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;

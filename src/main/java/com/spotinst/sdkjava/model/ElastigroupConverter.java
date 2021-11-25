@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.aws.elastigroup.*;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
  * @author: sniramsalem
  * @since: 06/12/2016
  */
-class ElastigroupConverter {
+public class ElastigroupConverter {
     //region BL -> DAL
     public static ApiElastigroup toDal(Elastigroup src) {
         ApiElastigroup apiGroup = null;

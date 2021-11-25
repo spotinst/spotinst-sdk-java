@@ -1,6 +1,7 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.ElastigroupConverter;
 import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
 

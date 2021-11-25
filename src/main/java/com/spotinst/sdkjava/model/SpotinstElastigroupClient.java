@@ -12,7 +12,7 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupSuspendScalingPoliciesRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
@@ -776,7 +776,8 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public ElastigroupGetDeploymentActionResponse applyDeploymentAction(ElastigroupGetDeploymentActionRequest getDeploymentActionRequest,String elastigroupId, String deploymentId) {
+    public ElastigroupGetDeploymentActionResponse applyDeploymentAction(
+            ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String elastigroupId, String deploymentId) {
 
         ElastigroupGetDeploymentActionResponse getGroupDeploymentResponse;
 
