@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 
 public enum AzureOsEnum {
     //region Enum
-    LINUX("linux"),
-    WINDOWS("windows");
+    LINUX("Linux"),
+    WINDOWS("Windows");
     //endregion
 
     //region Members

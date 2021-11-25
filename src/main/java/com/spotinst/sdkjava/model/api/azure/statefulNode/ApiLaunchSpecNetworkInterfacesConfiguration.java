@@ -15,8 +15,8 @@ import java.util.Set;
 public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                                    isSet;
-    private Boolean                                        isPrimary;
     private Boolean                                        assignPublicIp;
+    private Boolean                                        isPrimary;
     private String                                         subnetName;
     private String                                         publicIpSku;
     private ApiLaunchSpecNetworkSecurityGroupConfiguration networkSecurityGroup;
@@ -35,15 +35,6 @@ public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpda
         this.isSet = isSet;
     }
 
-    public Boolean getIsPrimary() {
-        return isPrimary;
-    }
-
-    public void setIsPrimary(Boolean isPrimary) {
-        isSet.add("isPrimary");
-        isPrimary = isPrimary;
-    }
-
     public Boolean getAssignPublicIp() {
         return assignPublicIp;
     }
@@ -51,6 +42,15 @@ public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpda
     public void setAssignPublicIp(Boolean assignPublicIp) {
         isSet.add("assignPublicIp");
         this.assignPublicIp = assignPublicIp;
+    }
+
+    public Boolean getPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(Boolean primary) {
+        isSet.add("isPrimary");
+        isPrimary = primary;
     }
 
     public String getSubnetName() {
@@ -81,13 +81,13 @@ public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpda
     }
 
     @JsonIgnore
-    public boolean isIsPrimarySet() {
-        return isSet.contains("isPrimary");
+    public boolean isAssignPublicIpSet() {
+        return isSet.contains("assignPublicIp");
     }
 
     @JsonIgnore
-    public boolean isAssignPublicIpSet() {
-        return isSet.contains("assignPublicIp");
+    public boolean isIsPrimarySet() {
+        return isSet.contains("isPrimary");
     }
 
     @JsonIgnore

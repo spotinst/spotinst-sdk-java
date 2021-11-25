@@ -12,12 +12,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodePersistentConfiguration {
     @JsonIgnore
-    private Set<String>           isSet;
-    private Boolean               shouldPersistRootDisk;
-    private Boolean               shouldPersistDataDisks;
-    private Boolean               shouldPersistPrivateIp;
-    private AzureDiskModeEnum     dataDisksPersistenceMode;
-    private AzureDiskModeEnum     osDiskPersistenceMode;
+    private Set<String>       isSet;
+    private Boolean           shouldPersistOsDisk;
+    private Boolean           shouldPersistDataDisks;
+    private Boolean           shouldPersistNetwork;
+    private AzureDiskModeEnum dataDisksPersistenceMode;
+    private AzureDiskModeEnum osDiskPersistenceMode;
 
     private StatefulNodePersistentConfiguration() {
         isSet = new HashSet<>();
@@ -31,15 +31,6 @@ public class StatefulNodePersistentConfiguration {
         this.isSet = isSet;
     }
 
-    public Boolean getShouldPersistRootDisk() {
-        return shouldPersistRootDisk;
-    }
-
-    public void setShouldPersistRootDisk(Boolean shouldPersistRootDisk) {
-        isSet.add("shouldPersistRootDisk");
-        this.shouldPersistRootDisk = shouldPersistRootDisk;
-    }
-
     public Boolean getShouldPersistDataDisks() {
         return shouldPersistDataDisks;
     }
@@ -49,13 +40,22 @@ public class StatefulNodePersistentConfiguration {
         this.shouldPersistDataDisks = shouldPersistDataDisks;
     }
 
-    public Boolean getShouldPersistPrivateIp() {
-        return shouldPersistPrivateIp;
+    public Boolean getShouldPersistOsDisk() {
+        return shouldPersistOsDisk;
     }
 
-    public void setShouldPersistPrivateIp(Boolean shouldPersistPrivateIp) {
-        isSet.add("shouldPersistPrivateIp");
-        this.shouldPersistPrivateIp = shouldPersistPrivateIp;
+    public void setShouldPersistOsDisk(Boolean shouldPersistOsDisk) {
+        isSet.add("shouldPersistOsDisk");
+        this.shouldPersistOsDisk = shouldPersistOsDisk;
+    }
+
+    public Boolean getShouldPersistNetwork() {
+        return shouldPersistNetwork;
+    }
+
+    public void setShouldPersistNetwork(Boolean shouldPersistNetwork) {
+        isSet.add("shouldPersistNetwork");
+        this.shouldPersistNetwork = shouldPersistNetwork;
     }
 
     public AzureDiskModeEnum getDataDisksPersistenceMode() {
@@ -88,8 +88,8 @@ public class StatefulNodePersistentConfiguration {
             return builder;
         }
 
-        public Builder setShouldPersistRootDisk(final Boolean shouldPersistRootDisk) {
-            compute.setShouldPersistRootDisk(shouldPersistRootDisk);
+        public Builder setShouldPersistOsDisk(final Boolean shouldPersistOsDisk) {
+            compute.setShouldPersistOsDisk(shouldPersistOsDisk);
             return this;
         }
 
@@ -98,8 +98,8 @@ public class StatefulNodePersistentConfiguration {
             return this;
         }
 
-        public Builder setShouldPersistPrivateIp(final Boolean shouldPersistPrivateIp) {
-            compute.setShouldPersistPrivateIp(shouldPersistPrivateIp);
+        public Builder setShouldPersistNetwork(final Boolean shouldPersistNetwork) {
+            compute.setShouldPersistNetwork(shouldPersistNetwork);
             return this;
         }
 
@@ -120,8 +120,8 @@ public class StatefulNodePersistentConfiguration {
 
 
     @JsonIgnore
-    public boolean isShouldPersistRootDiskSet() {
-        return isSet.contains("shouldPersistRootDisk");
+    public boolean isShouldPersistOsDiskSet() {
+        return isSet.contains("shouldPersistOsDisk");
     }
 
     @JsonIgnore
@@ -130,8 +130,8 @@ public class StatefulNodePersistentConfiguration {
     }
 
     @JsonIgnore
-    public boolean isShouldPersistPrivateIpSet() {
-        return isSet.contains("shouldPersistPrivateIp");
+    public boolean isShouldPersistNetworkSet() {
+        return isSet.contains("shouldPersistNetwork");
     }
 
     @JsonIgnore

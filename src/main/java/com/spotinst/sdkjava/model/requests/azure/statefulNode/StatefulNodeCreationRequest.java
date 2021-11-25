@@ -70,9 +70,9 @@ public class StatefulNodeCreationRequest {
         ApiStatefulNode              apiStatefulNodeToCreate = StatefulNodeConverter.toDal(node);
         Map<String, ApiStatefulNode> nodeRequest             = new HashMap<>();
         nodeRequest.put("node", apiStatefulNodeToCreate);
-        String clusterJson = JsonMapper.toJson(nodeRequest);
+        String NodeJson = JsonMapper.toJson(nodeRequest);
 
-        return clusterJson;
+        return NodeJson;
     }
     //endregion
 }

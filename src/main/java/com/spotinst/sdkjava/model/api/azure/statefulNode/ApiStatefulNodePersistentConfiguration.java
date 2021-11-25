@@ -15,9 +15,9 @@ import java.util.Set;
 public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private Boolean     shouldPersistRootDisk;
+    private Boolean     shouldPersistOsDisk;
     private Boolean     shouldPersistDataDisks;
-    private Boolean     shouldPersistPrivateIp;
+    private Boolean     shouldPersistNetwork;
     private String      dataDisksPersistenceMode;
     private String      osDiskPersistenceMode;
 
@@ -33,15 +33,6 @@ public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEnt
         this.isSet = isSet;
     }
 
-    public Boolean getShouldPersistRootDisk() {
-        return shouldPersistRootDisk;
-    }
-
-    public void setShouldPersistRootDisk(Boolean shouldPersistRootDisk) {
-        isSet.add("shouldPersistRootDisk");
-        this.shouldPersistRootDisk = shouldPersistRootDisk;
-    }
-
     public Boolean getShouldPersistDataDisks() {
         return shouldPersistDataDisks;
     }
@@ -51,13 +42,22 @@ public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEnt
         this.shouldPersistDataDisks = shouldPersistDataDisks;
     }
 
-    public Boolean getShouldPersistPrivateIp() {
-        return shouldPersistPrivateIp;
+    public Boolean getShouldPersistOsDisk() {
+        return shouldPersistOsDisk;
     }
 
-    public void setShouldPersistPrivateIp(Boolean shouldPersistPrivateIp) {
-        isSet.add("shouldPersistPrivateIp");
-        this.shouldPersistPrivateIp = shouldPersistPrivateIp;
+    public void setShouldPersistOsDisk(Boolean shouldPersistOsDisk) {
+        isSet.add("shouldPersistOsDisk");
+        this.shouldPersistOsDisk = shouldPersistOsDisk;
+    }
+
+    public Boolean getShouldPersistNetwork() {
+        return shouldPersistNetwork;
+    }
+
+    public void setShouldPersistNetwork(Boolean shouldPersistNetwork) {
+        isSet.add("shouldPersistNetwork");
+        this.shouldPersistNetwork = shouldPersistNetwork;
     }
 
     public String getDataDisksPersistenceMode() {
@@ -78,9 +78,10 @@ public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEnt
         this.osDiskPersistenceMode = osDiskPersistenceMode;
     }
 
+
     @JsonIgnore
-    public boolean isShouldPersistRootDiskSet() {
-        return isSet.contains("shouldPersistRootDisk");
+    public boolean isShouldPersistOsDiskSet() {
+        return isSet.contains("shouldPersistOsDisk");
     }
 
     @JsonIgnore
@@ -89,8 +90,8 @@ public class ApiStatefulNodePersistentConfiguration implements IPartialUpdateEnt
     }
 
     @JsonIgnore
-    public boolean isShouldPersistPrivateIpSet() {
-        return isSet.contains("shouldPersistPrivateIp");
+    public boolean isShouldPersistNetworkSet() {
+        return isSet.contains("shouldPersistNetwork");
     }
 
     @JsonIgnore

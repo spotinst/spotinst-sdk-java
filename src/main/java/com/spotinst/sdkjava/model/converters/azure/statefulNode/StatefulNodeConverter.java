@@ -358,7 +358,7 @@ public class StatefulNodeConverter {
                 apiLaunchSpecNetworkInterfaces.setAssignPublicIp(launchSpecNetworkInterfaces.getAssignPublicIp());
             }
             if (launchSpecNetworkInterfaces.isIsPrimarySet()) {
-                apiLaunchSpecNetworkInterfaces.setIsPrimary(launchSpecNetworkInterfaces.getIsPrimary());
+                apiLaunchSpecNetworkInterfaces.setPrimary(launchSpecNetworkInterfaces.getPrimary());
             }
             if (launchSpecNetworkInterfaces.isSubnetNameSet()) {
                 apiLaunchSpecNetworkInterfaces.setSubnetName(launchSpecNetworkInterfaces.getSubnetName());
@@ -473,11 +473,11 @@ public class StatefulNodeConverter {
             if (statefulNodePersistent.isShouldPersistDataDisksSet()) {
                 apiStatefulNodePersistent.setShouldPersistDataDisks(statefulNodePersistent.getShouldPersistDataDisks());
             }
-            if (statefulNodePersistent.isShouldPersistPrivateIpSet()) {
-                apiStatefulNodePersistent.setShouldPersistPrivateIp(statefulNodePersistent.getShouldPersistPrivateIp());
+            if (statefulNodePersistent.isShouldPersistNetworkSet()) {
+                apiStatefulNodePersistent.setShouldPersistNetwork(statefulNodePersistent.getShouldPersistNetwork());
             }
-            if (statefulNodePersistent.isShouldPersistRootDiskSet()) {
-                apiStatefulNodePersistent.setShouldPersistRootDisk(statefulNodePersistent.getShouldPersistRootDisk());
+            if (statefulNodePersistent.isShouldPersistOsDiskSet()) {
+                apiStatefulNodePersistent.setShouldPersistOsDisk(statefulNodePersistent.getShouldPersistOsDisk());
             }
             if (statefulNodePersistent.isOsDiskPersistenceModeSet()) {
                 apiStatefulNodePersistent.setOsDiskPersistenceMode(statefulNodePersistent.getOsDiskPersistenceMode().getName());
@@ -787,12 +787,12 @@ public class StatefulNodeConverter {
 
             LaunchSpecNetworkInterfacesConfiguration.Builder launchSpecNetworkInterfacesBuilder = LaunchSpecNetworkInterfacesConfiguration.Builder.get();
 
-            if (apiLaunchSpecNetworkInterfaces.isIsPrimarySet()) {
-                launchSpecNetworkInterfacesBuilder.setIsPrimary(apiLaunchSpecNetworkInterfaces.getIsPrimary());
-            }
-
             if (apiLaunchSpecNetworkInterfaces.isAssignPublicIpSet()) {
                 launchSpecNetworkInterfacesBuilder.setAssignPublicIp(apiLaunchSpecNetworkInterfaces.getAssignPublicIp());
+            }
+
+            if (apiLaunchSpecNetworkInterfaces.isIsPrimarySet()) {
+                launchSpecNetworkInterfacesBuilder.setPrimary(apiLaunchSpecNetworkInterfaces.getPrimary());
             }
 
             if (apiLaunchSpecNetworkInterfaces.isSubnetNameSet()) {
@@ -1158,12 +1158,12 @@ public class StatefulNodeConverter {
                 statefulNodePersistentBuilder.setShouldPersistDataDisks(apiStatefulNodePersistent.getShouldPersistDataDisks());
             }
 
-            if(apiStatefulNodePersistent.isShouldPersistPrivateIpSet()){
-                statefulNodePersistentBuilder.setShouldPersistPrivateIp(apiStatefulNodePersistent.getShouldPersistPrivateIp());
+            if(apiStatefulNodePersistent.isShouldPersistNetworkSet()){
+                statefulNodePersistentBuilder.setShouldPersistNetwork(apiStatefulNodePersistent.getShouldPersistNetwork());
             }
 
-            if (apiStatefulNodePersistent.isShouldPersistRootDiskSet()) {
-                statefulNodePersistentBuilder.setShouldPersistRootDisk(apiStatefulNodePersistent.getShouldPersistRootDisk());
+            if (apiStatefulNodePersistent.isShouldPersistOsDiskSet()) {
+                statefulNodePersistentBuilder.setShouldPersistOsDisk(apiStatefulNodePersistent.getShouldPersistOsDisk());
             }
 
             if (apiStatefulNodePersistent.isOsDiskPersistenceModeSet()) {

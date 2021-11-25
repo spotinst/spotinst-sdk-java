@@ -31,12 +31,12 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
 
 
         // Write to json
-        Map<String, ApiStatefulNode> groupRequest = new HashMap<>();
-        groupRequest.put("group", nodeToCreate);
-        String body = JsonMapper.toJson(groupRequest);
+        Map<String, ApiStatefulNode> nodeRequest = new HashMap<>();
+        nodeRequest.put("node", nodeToCreate);
+        String body = JsonMapper.toJson(nodeRequest);
 
         // Build URI
-        String uri = String.format("%s//azure/stateful/node", apiEndpoint);
+        String uri = String.format("%s/azure/stateful/node", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);

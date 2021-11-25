@@ -13,13 +13,14 @@ import java.util.List;
 
 public class AzureStatefulNodeExample {
 
-    private final static String       auth_token         = "7a12f0477388b947f1005b8d3bedec9d698f835ae513d96875dbc46027e8bfca";
-    private final static String       act_id             = "act-a1c4cc9d";
+    private final static String       auth_token         = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
+    private final static String       act_id             = "act-e97117d5";
     private final static List<String> spotSizes          = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes            = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> zones              = Arrays.asList("1", "2", "3");
     private final static List<String> healthCheckTypes   = Arrays.asList("vmState");
+    private final static List<String> loadBalancers      = Arrays.asList();
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -51,7 +52,7 @@ public class AzureStatefulNodeExample {
 
         //Build Network Interfaces
         LaunchSpecNetworkInterfacesConfiguration.Builder networkInterfacesBuilder = LaunchSpecNetworkInterfacesConfiguration.Builder.get();
-        LaunchSpecNetworkInterfacesConfiguration networkInterfaces = networkInterfacesBuilder.setIsPrimary(true).setSubnetName("ManualQA-PublicSubnet")
+        LaunchSpecNetworkInterfacesConfiguration networkInterfaces = networkInterfacesBuilder.setPrimary(true).setSubnetName("ManualQA-PublicSubnet")
                                         .setAssignPublicIp(true).setPublicIpSku("Standard").setNetworkSecurityGroup(networkSecurityGroup).build();
         List<LaunchSpecNetworkInterfacesConfiguration> networkInterfacesList = Collections.singletonList(networkInterfaces);
 
@@ -92,12 +93,12 @@ public class AzureStatefulNodeExample {
                                                         .setExtensions(extensionsList).setLogin(login).setTags(tagsList).build();
 
         // Build LoadBalancers Config
-        StatefulNodeLoadBalancersConfig loadBalancers = StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(null).build();
+        StatefulNodeLoadBalancersConfig loadBalancersList = StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadBalancers).build();
 
         //Build Compute
         StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
         StatefulNodeComputeConfiguration compute = computeBuilder.setOs(AzureOsEnum.LINUX).setPreferredZone("2").setLaunchSpecification(launchSpecification)
-                                                    .setLoadBalancersConfig(loadBalancers).setVmSizes(vmSizes).setZones(zones).build();
+                                                    .setLoadBalancersConfig(loadBalancersList).setVmSizes(vmSizes).setZones(zones).build();
 
         //Build Signals
         StatefulNodeSignalConfiguration signal =  StatefulNodeSignalConfiguration.Builder.get().setEnabledAt(1624).setTimeout(180)
@@ -128,7 +129,7 @@ public class AzureStatefulNodeExample {
 
         // Build persistent
         StatefulNodePersistentConfiguration.Builder persistentBuilder =  StatefulNodePersistentConfiguration.Builder.get();
-        StatefulNodePersistentConfiguration persistent = persistentBuilder.setShouldPersistDataDisks(true).setShouldPersistPrivateIp(true).setShouldPersistRootDisk(true)
+        StatefulNodePersistentConfiguration persistent = persistentBuilder.setShouldPersistDataDisks(true).setShouldPersistNetwork(true).setShouldPersistOsDisk(true)
                                             .setDataDisksPersistenceMode(AzureDiskModeEnum.ONLAUNCH).setOsDiskPersistenceMode(AzureDiskModeEnum.ONLAUNCH).build();
 
         //Build Health
@@ -149,9 +150,12 @@ public class AzureStatefulNodeExample {
         System.out.println("-----------------------------------------------------------------------------------");
         System.out.println(creationRequest.toJson());
 
+        System.out.println("assign public IP: " + creationRequest.getNode().getCompute().getLaunchSpecification().getNetwork().getNetworkInterfaces().get(0).getAssignPublicIp());
+        System.out.println("primary: " + creationRequest.getNode().getCompute().getLaunchSpecification().getNetwork().getNetworkInterfaces().get(0).getPrimary());
+
         // Create stateful Node
-        //StatefulNode createdNode = client.createNode(creationRequest);
-        //System.out.println("Cluster successfully created: " + createdNode.getId());
+        StatefulNode createdNode = client.createNode(creationRequest);
+        System.out.println("Node successfully created: " + createdNode.getId());
 
         //return createdNode.getId();
         return null;
