@@ -28,7 +28,6 @@ public class SpotinstAzureStatefulNodeClient {
 
     }
 
-
     //Methods
     public StatefulNode createNode(StatefulNodeCreationRequest statefulNodeCreationRequest) {
         StatefulNode retVal;
@@ -74,5 +73,48 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
+    public StatefulNode updateNode(StatefulNodeCreationRequest statefulNodeUpdateRequest, String nodeId) {
+        StatefulNode retVal;
+
+        StatefulNode statefulNodeToCreate = statefulNodeUpdateRequest.getNode();
+
+        RepoGenericResponse<StatefulNode> updateNodeResponse =
+                getSpotAzureStatefulNodeRepo().updateNode(statefulNodeToCreate, nodeId, authToken, account);
+
+        if (updateNodeResponse.isRequestSucceed()) {
+            retVal = updateNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to update Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public StatefulNode deleteNode(String nodeId) {
+        StatefulNode retVal;
+
+        RepoGenericResponse<StatefulNode> deleteNodeResponse =
+                getSpotAzureStatefulNodeRepo().getNode(nodeId, authToken, account);
+
+        if (deleteNodeResponse.isRequestSucceed()) {
+            retVal = deleteNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to delete Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 
 }

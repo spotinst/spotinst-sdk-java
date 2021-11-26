@@ -27,12 +27,16 @@ public class AzureStatefulNodeExample {
         SpotinstAzureStatefulNodeClient nodeClient = SpotinstClient.getAzureStatefulNodeClient(auth_token, act_id);
 
         //Create Stateful Node
-        System.out.println("----------Creation of azure stateful node--------------");
-        String nodeId = createStatefulNode(nodeClient);
+        //System.out.println("----------Creation of azure stateful node--------------");
+        //String nodeId = createStatefulNode(nodeClient);
 
         //Get Stateful Node
-        System.out.println("----------Get Stateful Node Status--------------");
-        getStatefulNode(nodeClient, nodeId);
+        //System.out.println("----------Get Stateful Node--------------");
+        //getStatefulNode(nodeClient, nodeId);
+
+        //Update Stateful Node
+        System.out.println("----------Update Stateful Node--------------");
+        updateStatefulNode(nodeClient, "ssn-553d4c12");
 
     }
 
@@ -188,4 +192,30 @@ public class AzureStatefulNodeExample {
         return getNodeResponse;
     }
 
+    private static StatefulNode updateStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        // Build Stateful Node
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate =
+                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode-Bansi-renamed")
+                                   .setDescription("stateful node for tests update").build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println(updationRequest.toJson());
+
+
+        StatefulNode getNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with name renamed to  "
+                           + getNodeResponse.getName());
+
+        return getNodeResponse;
+    }
+
+
 }
+

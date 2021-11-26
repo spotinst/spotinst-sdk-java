@@ -52,4 +52,24 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
     }
 
 
+    @Override
+    public RepoGenericResponse<StatefulNode> updateNode(StatefulNode NodeToUpdate ,String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<StatefulNode> retVal;
+
+        try {
+            ApiStatefulNode apiStatefulNodeToUpdate = StatefulNodeConverter.toDal(NodeToUpdate);
+            ApiStatefulNode apiUpdatedNode =
+                    SpotinstAzureStatefulNodeService.updateNode(apiStatefulNodeToUpdate, nodeId, authToken, account);
+
+            StatefulNode updatedStatefulNode = StatefulNodeConverter.toBl(apiUpdatedNode);
+            retVal = new RepoGenericResponse<>(updatedStatefulNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
 }

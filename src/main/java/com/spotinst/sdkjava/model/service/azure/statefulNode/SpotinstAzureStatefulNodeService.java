@@ -84,5 +84,44 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static ApiStatefulNode updateNode(ApiStatefulNode nodeToUpdate,String nodeId ,String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiStatefulNode retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiStatefulNode> nodeRequest = new HashMap<>();
+        nodeRequest.put("node", nodeToUpdate);
+        String body = JsonMapper.toJson(nodeRequest);
+
+        // Build URI
+        String uri = String.format("%s/azure/stateful/node/%s", apiEndpoint, nodeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeApiResponse statefulNodeApiResponse =
+                getCastedResponse(response, StatefulNodeApiResponse.class);
+
+        if (statefulNodeApiResponse.getResponse().getCount() > 0) {
+            retVal = statefulNodeApiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
 
 }
