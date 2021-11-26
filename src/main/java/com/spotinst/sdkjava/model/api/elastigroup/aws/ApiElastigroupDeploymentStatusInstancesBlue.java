@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.aws.elastigroup;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupDeploymentStatusInstancesGreen implements IPartialUpdateEntity {
+public class ApiElastigroupDeploymentStatusInstancesBlue implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -21,7 +21,7 @@ public class ApiElastigroupDeploymentStatusInstancesGreen implements IPartialUpd
     private Integer     batchNum;
     private String      status;
 
-    public ApiElastigroupDeploymentStatusInstancesGreen() {
+    public ApiElastigroupDeploymentStatusInstancesBlue() {
         isSet = new HashSet<>();
     }
 

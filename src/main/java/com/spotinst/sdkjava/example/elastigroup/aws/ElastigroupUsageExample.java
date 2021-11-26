@@ -4,13 +4,8 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentRoll;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategy;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 

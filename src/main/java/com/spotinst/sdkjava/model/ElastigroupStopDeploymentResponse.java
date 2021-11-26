@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentProgress;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentProgress;
 
 import java.util.HashSet;
 import java.util.Set;

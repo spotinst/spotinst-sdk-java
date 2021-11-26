@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.aws.elastigroup;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.*;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;

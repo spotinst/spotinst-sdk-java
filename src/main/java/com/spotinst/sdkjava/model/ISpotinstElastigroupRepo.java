@@ -1,8 +1,8 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupStartDeployment;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;

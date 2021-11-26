@@ -2,8 +2,8 @@ package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.ElastigroupConverter;
-import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentRoll;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentRoll;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupDeploymentRoll;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentRoll;
 
 import java.util.HashMap;
 import java.util.Map;

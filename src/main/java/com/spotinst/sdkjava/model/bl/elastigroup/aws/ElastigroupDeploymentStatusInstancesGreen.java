@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.aws.elastigroup;
+package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

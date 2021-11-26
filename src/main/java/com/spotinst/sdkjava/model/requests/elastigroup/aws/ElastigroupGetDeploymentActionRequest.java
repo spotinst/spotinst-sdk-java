@@ -3,8 +3,8 @@ package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.ElastigroupConverter;
-import com.spotinst.sdkjava.model.api.aws.elastigroup.ApiElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.aws.elastigroup.ElastigroupDeploymentStrategyOnFailure;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupDeploymentStrategyOnFailure;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
 
 
 public class ElastigroupGetDeploymentActionRequest {
