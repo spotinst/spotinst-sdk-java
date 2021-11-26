@@ -6,12 +6,15 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupSuspendScalingPoliciesRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -676,4 +679,130 @@ public class SpotinstElastigroupClient {
         }
         return retVal;
     }
+
+    public ElastigroupStartDeploymentResponse startDeployment(ElastigroupStartDeploymentRequest startDeploymentRequest, String elastigroupId) {
+
+        ElastigroupStartDeploymentResponse isDeploymentStarted;
+
+        ElastigroupStartDeployment elastigroupStartDeploymentRequest = startDeploymentRequest.getElastigroupDeployment();
+
+        RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeploymentResponse =
+                getSpotinstElastigroupRepo().startDeployment(elastigroupId, elastigroupStartDeploymentRequest, authToken, account);
+
+        if(startDeploymentResponse.isRequestSucceed()){
+            isDeploymentStarted =startDeploymentResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = startDeploymentResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to start deployment. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isDeploymentStarted;
+
+    }
+
+    public ElastigroupStopDeploymentResponse stopDeployment(ElastigroupStopDeploymentRequest stopDeploymentRequest, String elastigroupId, String deploymentId) {
+
+        ElastigroupStopDeploymentResponse isDeploymentStopped;
+
+        //ElastigroupStopDeploymentRequest elastigroupStopDeploymentRequest = stopDeploymentRequest.getStopDeployment();
+
+        RepoGenericResponse<ElastigroupStopDeploymentResponse> stopDeploymentResponse =
+                getSpotinstElastigroupRepo().stopDeployment(stopDeploymentRequest, elastigroupId , deploymentId , authToken, account);
+
+        if(stopDeploymentResponse.isRequestSucceed()){
+            isDeploymentStopped = stopDeploymentResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = stopDeploymentResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to stop deployment. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isDeploymentStopped;
+
+    }
+
+
+    public ElastigroupGetDeploymentStatusResponse getDeploymentStatus(String elastigroupId, String deploymentId) {
+
+        ElastigroupGetDeploymentStatusResponse getDeploymentResponse;
+
+        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatusResponse =
+                getSpotinstElastigroupRepo().getDeploymentStatus(elastigroupId, deploymentId , authToken, account);
+
+        if(getDeploymentStatusResponse.isRequestSucceed()){
+            getDeploymentResponse =getDeploymentStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getDeploymentStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get deployment status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getDeploymentResponse;
+
+    }
+
+    public List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentStatus(String elastigroupId) {
+
+        List<ElastigroupGroupDeploymentStatusResponse> getGroupDeploymentResponse;
+
+        RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> getGroupDeploymentStatusResponse =
+                getSpotinstElastigroupRepo().getGroupDeploymentStatus(elastigroupId, authToken, account);
+
+        if(getGroupDeploymentStatusResponse.isRequestSucceed()){
+            getGroupDeploymentResponse =getGroupDeploymentStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getGroupDeploymentStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to group deployment status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getGroupDeploymentResponse;
+
+    }
+
+    public ElastigroupGetDeploymentActionResponse applyDeploymentAction(
+            ElastigroupGetDeploymentActionRequest getDeploymentActionRequest, String elastigroupId, String deploymentId) {
+
+        ElastigroupGetDeploymentActionResponse getGroupDeploymentResponse;
+
+        ElastigroupDeploymentStrategyOnFailure
+                getDeploymentActionRequestBody = getDeploymentActionRequest.getElastigroupDeploymentAction();
+
+        RepoGenericResponse<ElastigroupGetDeploymentActionResponse> getDeploymentActionResponse =
+                getSpotinstElastigroupRepo().applyDeploymentAction(getDeploymentActionRequestBody, elastigroupId,deploymentId, authToken, account);
+
+        if(getDeploymentActionResponse.isRequestSucceed()){
+            getGroupDeploymentResponse =getDeploymentActionResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getDeploymentActionResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to apply deployment status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getGroupDeploymentResponse;
+
+    }
+
+
 }
