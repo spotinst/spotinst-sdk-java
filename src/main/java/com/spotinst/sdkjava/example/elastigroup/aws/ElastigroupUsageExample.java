@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.io.IOException;
 import java.text.ParseException;
