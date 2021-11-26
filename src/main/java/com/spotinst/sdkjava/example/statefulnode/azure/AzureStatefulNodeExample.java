@@ -15,8 +15,7 @@ public class AzureStatefulNodeExample {
 
     private final static String       auth_token         = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
     private final static String       act_id             = "act-e97117d5";
-    private final static List<String> spotSizes          =
-            Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
+    private final static List<String> spotSizes          = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes            = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> zones              = Arrays.asList("1", "2", "3");
@@ -27,10 +26,12 @@ public class AzureStatefulNodeExample {
 
         SpotinstAzureStatefulNodeClient nodeClient = SpotinstClient.getAzureStatefulNodeClient(auth_token, act_id);
 
+        //Create Stateful Node
         System.out.println("----------Creation of azure stateful node--------------");
         String nodeId = createStatefulNode(nodeClient);
 
         //Get Stateful Node
+        System.out.println("----------Get Stateful Node Status--------------");
         getStatefulNode(nodeClient, nodeId);
 
     }
@@ -61,7 +62,7 @@ public class AzureStatefulNodeExample {
         LaunchSpecNetworkInterfacesConfiguration.Builder networkInterfacesBuilder =
                 LaunchSpecNetworkInterfacesConfiguration.Builder.get();
         LaunchSpecNetworkInterfacesConfiguration networkInterfaces =
-                networkInterfacesBuilder.setPrimary(true).setSubnetName("ManualQA-PublicSubnet").setAssignPublicIp(true)
+                networkInterfacesBuilder.setIsPrimary(true).setSubnetName("ManualQA-PublicSubnet").setAssignPublicIp(true)
                                         .setPublicIpSku("Standard").setNetworkSecurityGroup(networkSecurityGroup).build();
         List<LaunchSpecNetworkInterfacesConfiguration> networkInterfacesList = Collections.singletonList(networkInterfaces);
 
@@ -170,26 +171,21 @@ public class AzureStatefulNodeExample {
         System.out.println("-----------------------------------------------------------------------------------");
         System.out.println(creationRequest.toJson());
 
-        System.out.println("assign public IP: " +
-                           creationRequest.getNode().getCompute().getLaunchSpecification().getNetwork().getNetworkInterfaces().get(0).getAssignPublicIp());
-        System.out.println("primary: " + creationRequest.getNode().getCompute().getLaunchSpecification().getNetwork().getNetworkInterfaces().get(0).getPrimary());
-
         // Create stateful Node
         StatefulNode createdNode = client.createNode(creationRequest);
         System.out.println("Node successfully created: " + createdNode.getId());
 
-        //return createdNode.getId();
-        return null;
+        return createdNode.getId();
     }
 
     private static StatefulNode getStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
-        System.out.println("----------Get Stateful Node Status--------------");
-        // Create stateful Node
-        StatefulNode getNode = client.getNode(nodeId);
-        System.out.println("Node successfully created: " + getNode.getId());
+        // Get stateful Node
+        StatefulNode getNodeResponse = client.getNode(nodeId);
+        System.out.println("Get Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with ResourceGroup "
+                          + getNodeResponse.getResourceGroupName());
 
-        return getNode;
+        return getNodeResponse;
     }
 
 }

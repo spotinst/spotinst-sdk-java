@@ -41,11 +41,11 @@ public class LaunchSpecNetworkInterfacesConfiguration {
         this.assignPublicIp = assignPublicIp;
     }
 
-    public Boolean getPrimary() {
+    public Boolean getIsPrimary() {
         return isPrimary;
     }
 
-    public void setPrimary(Boolean primary) {
+    public void setIsPrimary(Boolean primary) {
         isSet.add("isPrimary");
         this.isPrimary = primary;
     }
@@ -90,8 +90,8 @@ public class LaunchSpecNetworkInterfacesConfiguration {
             return builder;
         }
 
-        public Builder setPrimary(final Boolean primary) {
-            networkInterfacesConfiguration.setPrimary(primary);
+        public Builder setIsPrimary(final Boolean isPrimary) {
+            networkInterfacesConfiguration.setIsPrimary(isPrimary);
             return this;
         }
 

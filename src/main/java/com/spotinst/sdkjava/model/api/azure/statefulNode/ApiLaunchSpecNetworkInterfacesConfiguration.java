@@ -44,11 +44,11 @@ public class ApiLaunchSpecNetworkInterfacesConfiguration implements IPartialUpda
         this.assignPublicIp = assignPublicIp;
     }
 
-    public Boolean getPrimary() {
+    public Boolean getIsPrimary() {
         return isPrimary;
     }
 
-    public void setPrimary(Boolean primary) {
+    public void setIsPrimary(Boolean primary) {
         isSet.add("isPrimary");
         isPrimary = primary;
     }

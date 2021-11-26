@@ -358,7 +358,7 @@ public class StatefulNodeConverter {
                 apiLaunchSpecNetworkInterfaces.setAssignPublicIp(launchSpecNetworkInterfaces.getAssignPublicIp());
             }
             if (launchSpecNetworkInterfaces.isIsPrimarySet()) {
-                apiLaunchSpecNetworkInterfaces.setPrimary(launchSpecNetworkInterfaces.getPrimary());
+                apiLaunchSpecNetworkInterfaces.setIsPrimary(launchSpecNetworkInterfaces.getIsPrimary());
             }
             if (launchSpecNetworkInterfaces.isSubnetNameSet()) {
                 apiLaunchSpecNetworkInterfaces.setSubnetName(launchSpecNetworkInterfaces.getSubnetName());
@@ -792,7 +792,7 @@ public class StatefulNodeConverter {
             }
 
             if (apiLaunchSpecNetworkInterfaces.isIsPrimarySet()) {
-                launchSpecNetworkInterfacesBuilder.setPrimary(apiLaunchSpecNetworkInterfaces.getPrimary());
+                launchSpecNetworkInterfacesBuilder.setIsPrimary(apiLaunchSpecNetworkInterfaces.getIsPrimary());
             }
 
             if (apiLaunchSpecNetworkInterfaces.isSubnetNameSet()) {
