@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.util.LinkedList;
 import java.util.List;

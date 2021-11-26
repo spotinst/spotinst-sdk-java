@@ -14,7 +14,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSusp
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
 import java.util.List;
