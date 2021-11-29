@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.SpotinstAzureStatefulNodeClient;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,16 +28,20 @@ public class AzureStatefulNodeExample {
         SpotinstAzureStatefulNodeClient nodeClient = SpotinstClient.getAzureStatefulNodeClient(auth_token, act_id);
 
         //Create Stateful Node
-        //System.out.println("----------Creation of azure stateful node--------------");
-        //String nodeId = createStatefulNode(nodeClient);
+        System.out.println("----------Creation of azure stateful node--------------");
+        String nodeId = createStatefulNode(nodeClient);
 
         //Get Stateful Node
-        //System.out.println("----------Get Stateful Node--------------");
-        //getStatefulNode(nodeClient, nodeId);
+        System.out.println("----------Get Stateful Node--------------");
+        getStatefulNode(nodeClient, nodeId);
 
         //Update Stateful Node
         System.out.println("----------Update Stateful Node--------------");
-        updateStatefulNode(nodeClient, "ssn-553d4c12");
+        updateStatefulNode(nodeClient, nodeId);
+
+        //Delete Stateful Node
+        System.out.println("----------Delete Stateful Node--------------");
+        deleteStatefulNode(nodeClient, nodeId);
 
     }
 
@@ -83,7 +88,7 @@ public class AzureStatefulNodeExample {
         //Build OsDisk
         LaunchSpecOsDiskSpecification.Builder osDiskBuilder = LaunchSpecOsDiskSpecification.Builder.get();
         LaunchSpecOsDiskSpecification osDisk =
-                osDiskBuilder.setName("OsTestDisk").setType("Standard_LRS").setSizeGB(33).build();
+                osDiskBuilder.setName("Automation-OsDisk").setType("Standard_LRS").setSizeGB(33).build();
 
         //Build Extension Protected Settings
         LaunchSpecExtensionsProtectedSettings protectedSettings = LaunchSpecExtensionsProtectedSettings.Builder.get().setScript(
@@ -91,7 +96,7 @@ public class AzureStatefulNodeExample {
 
         //Build Extentions
         LaunchSpecExtensionsSpecification.Builder extensionBuilder = LaunchSpecExtensionsSpecification.Builder.get();
-        LaunchSpecExtensionsSpecification extensions = extensionBuilder.setName("extensionName").setType("customScript")
+        LaunchSpecExtensionsSpecification extensions = extensionBuilder.setName("Automation-Extension").setType("customScript")
                                                                        .setPublisher("Microsoft.Azure.Extensions").setApiVersion("2.0")
                                                                        .setMinorVersionAutoUpgrade(true).setProtectedSettings(protectedSettings).build();
 
@@ -172,12 +177,11 @@ public class AzureStatefulNodeExample {
         StatefulNodeCreationRequest creationRequest = nodeCreationRequestBuilder.setNode(statefulNode).build();
 
         // Convert node to API object json
-        System.out.println("-----------------------------------------------------------------------------------");
         System.out.println(creationRequest.toJson());
 
         // Create stateful Node
         StatefulNode createdNode = client.createNode(creationRequest);
-        System.out.println("Node successfully created: " + createdNode.getId());
+        System.out.println("Stateful Node successfully created: " + createdNode.getId());
 
         return createdNode.getId();
     }
@@ -186,7 +190,7 @@ public class AzureStatefulNodeExample {
 
         // Get stateful Node
         StatefulNode getNodeResponse = client.getNode(nodeId);
-        System.out.println("Get Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with ResourceGroup "
+        System.out.println("Get Stateful Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with ResourceGroup "
                           + getNodeResponse.getResourceGroupName());
 
         return getNodeResponse;
@@ -208,12 +212,44 @@ public class AzureStatefulNodeExample {
         System.out.println("-----------------------------------------------------------------------------------");
         System.out.println(updationRequest.toJson());
 
-
         StatefulNode getNodeResponse = client.updateNode(updationRequest,nodeId);
-        System.out.println("Update Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with name renamed to  "
+        System.out.println("Update Stateful Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with name renamed to  "
                            + getNodeResponse.getName());
 
         return getNodeResponse;
+    }
+
+    private static Boolean deleteStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        // Build Stateful Deallocation Node
+        StatefulNodeDeallocationConfig.Builder statefulDeallocationConfigBuilder = StatefulNodeDeallocationConfig.Builder.get();
+
+        // Build Network Deallocation Node
+        StatefulNodeNetworkDeallocationConfig networkDeallocationConfig = StatefulNodeNetworkDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
+
+        // Build Disk Deallocation Node
+        StatefulNodeDiskDeallocationConfig diskDeallocationConfig = StatefulNodeDiskDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
+
+        // Build Snapshot Deallocation Node
+        StatefulNodeSnapshotDeallocationConfig snapchatDeallocationConfig = StatefulNodeSnapshotDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
+
+        // Build PublicIp Deallocation Node
+        StatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig = StatefulNodePublicIpDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
+
+        StatefulNodeDeallocationConfig statefulDeallocationConfig = statefulDeallocationConfigBuilder.setShouldTerminateVms(true)
+                                       .setNetworkDeallocationConfig(networkDeallocationConfig).setDiskDeallocationConfig(diskDeallocationConfig)
+                                       .setSnapshotDeallocationConfig(snapchatDeallocationConfig).setPublicIpDeallocationConfig(publicIpDeallocationConfig).build();
+
+        // Build node deletion request
+        StatefulNodeDeletionRequest.Builder nodeDeletionRequestBuilder = StatefulNodeDeletionRequest.Builder.get();
+        StatefulNodeDeletionRequest         deletionRequest            = nodeDeletionRequestBuilder.setDeallocationConfig(statefulDeallocationConfig).build();
+
+        System.out.println("Stateful Node deletion Request: " + deletionRequest.toJson());
+        Boolean deleteNodeResponse = client.deleteNode(deletionRequest,nodeId);
+
+        System.out.print("Stateful Node " + nodeId+ " is successfully Deleted");
+
+        return deleteNodeResponse;
     }
 
 

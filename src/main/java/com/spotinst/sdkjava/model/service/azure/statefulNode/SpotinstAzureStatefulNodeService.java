@@ -1,10 +1,13 @@
 package com.spotinst.sdkjava.model.service.azure.statefulNode;
 
+import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiResponse;
+import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -123,5 +126,44 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean deleteNode(ApiStatefulNodeDeallocationConfig nodeToDelete, String nodeId , String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiStatefulNodeDeallocationConfig> nodeToDeleteRequest = new HashMap<>();
+        nodeToDeleteRequest.put("deallocationConfig", nodeToDelete);
+        String body = JsonMapper.toJson(nodeToDeleteRequest);
+
+        // Build URI
+        String uri = String.format("%s/azure/stateful/node/%s", apiEndpoint, nodeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendDelete(uri, body, headers, queryParams);
+
+        System.out.println("********************************* "+response.getBody() + " "+ response.getStatusCode());
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
 
 }

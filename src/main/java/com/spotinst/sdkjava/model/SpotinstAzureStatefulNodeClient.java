@@ -3,7 +3,9 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -96,11 +98,13 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
-    public StatefulNode deleteNode(String nodeId) {
-        StatefulNode retVal;
+    public Boolean deleteNode(StatefulNodeDeletionRequest deletionRequest, String nodeId) {
 
-        RepoGenericResponse<StatefulNode> deleteNodeResponse =
-                getSpotAzureStatefulNodeRepo().getNode(nodeId, authToken, account);
+        Boolean retVal;
+
+        StatefulNodeDeallocationConfig statefulDeallocationConfig = deletionRequest.getDeallocationConfig();
+        RepoGenericResponse<Boolean> deleteNodeResponse =
+                getSpotAzureStatefulNodeRepo().deleteNode(statefulDeallocationConfig ,nodeId, authToken, account);
 
         if (deleteNodeResponse.isRequestSucceed()) {
             retVal = deleteNodeResponse.getValue();

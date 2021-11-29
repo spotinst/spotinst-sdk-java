@@ -534,6 +534,93 @@ public class StatefulNodeConverter {
         return retVal;
     }
 
+    public static ApiStatefulNodeDeallocationConfig toDal(StatefulNodeDeallocationConfig deallocationConfig) {
+        ApiStatefulNodeDeallocationConfig retVal = null;
+
+        if (deallocationConfig != null) {
+            retVal = new ApiStatefulNodeDeallocationConfig();
+
+            if (deallocationConfig.isShouldTerminateVmSet()) {
+                retVal.setShouldTerminateVm(deallocationConfig.getShouldTerminateVm());
+            }
+            if (deallocationConfig.isNetworkDeallocationConfigSet()) {
+                retVal.setNetworkDeallocationConfig(toDal(deallocationConfig.getNetworkDeallocationConfig()));
+            }
+            if (deallocationConfig.isDiskDeallocationConfigSet()) {
+                retVal.setDiskDeallocationConfig(toDal(deallocationConfig.getDiskDeallocationConfig()));
+            }
+            if (deallocationConfig.isSnapshotDeallocationConfigSet()) {
+                retVal.setSnapshotDeallocationConfig(toDal(deallocationConfig.getSnapshotDeallocationConfig()));
+            }
+            if (deallocationConfig.isPublicIpDeallocationConfigSet()) {
+                retVal.setPublicIpDeallocationConfig(toDal(deallocationConfig.getPublicIpDeallocationConfig()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiStatefulNodeNetworkDeallocationConfig toDal(StatefulNodeNetworkDeallocationConfig deallocationNetworkConfig) {
+        ApiStatefulNodeNetworkDeallocationConfig retVal = null;
+
+        if (deallocationNetworkConfig != null) {
+            retVal = new ApiStatefulNodeNetworkDeallocationConfig();
+
+            if (deallocationNetworkConfig.isShouldDeallocateSet()) {
+                retVal.setShouldDeallocate(deallocationNetworkConfig.getShouldDeallocate());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiStatefulNodeDiskDeallocationConfig toDal(StatefulNodeDiskDeallocationConfig deallocationDiskonfig) {
+        ApiStatefulNodeDiskDeallocationConfig retVal = null;
+
+        if (deallocationDiskonfig != null) {
+            retVal = new ApiStatefulNodeDiskDeallocationConfig();
+
+            if (deallocationDiskonfig.isShouldDeallocateSet()) {
+                retVal.setShouldDeallocate(deallocationDiskonfig.getShouldDeallocate());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiStatefulNodeSnapshotDeallocationConfig toDal(StatefulNodeSnapshotDeallocationConfig deallocationSnapshotConfig) {
+        ApiStatefulNodeSnapshotDeallocationConfig retVal = null;
+
+        if (deallocationSnapshotConfig != null) {
+            retVal = new ApiStatefulNodeSnapshotDeallocationConfig();
+
+            if (deallocationSnapshotConfig.isShouldDeallocateSet()) {
+                retVal.setShouldDeallocate(deallocationSnapshotConfig.getShouldDeallocate());
+            }
+
+        }
+
+        return retVal;
+    }
+
+
+    private static ApiStatefulNodePublicIpDeallocationConfig toDal(StatefulNodePublicIpDeallocationConfig deallocationPublicIpConfig) {
+        ApiStatefulNodePublicIpDeallocationConfig retVal = null;
+
+        if (deallocationPublicIpConfig != null) {
+            retVal = new ApiStatefulNodePublicIpDeallocationConfig();
+
+            if (deallocationPublicIpConfig.isShouldDeallocateSet()) {
+                retVal.setShouldDeallocate(deallocationPublicIpConfig.getShouldDeallocate());
+            }
+
+        }
+
+        return retVal;
+    }
+
 
     //endregion
 

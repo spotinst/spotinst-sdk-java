@@ -5,9 +5,12 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 
 public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo {
@@ -64,6 +67,25 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
 
             StatefulNode updatedStatefulNode = StatefulNodeConverter.toBl(apiUpdatedNode);
             retVal = new RepoGenericResponse<>(updatedStatefulNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteNode(StatefulNodeDeallocationConfig NodeToDelete , String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            ApiStatefulNodeDeallocationConfig apiStatefulNodeToDelete = StatefulNodeConverter.toDal(NodeToDelete);
+            Boolean apiDeletedNode =
+                    SpotinstAzureStatefulNodeService.deleteNode(apiStatefulNodeToDelete, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(apiDeletedNode);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);

@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 
 public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Void, String>{
 
@@ -16,5 +17,9 @@ public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Vo
     default RepoGenericResponse<StatefulNode> updateNode(StatefulNode statefulNodeToUpdate, String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
+    default RepoGenericResponse<Boolean> deleteNode(StatefulNodeDeallocationConfig statefulNodeDeallocationConfig, String nodeId, String authToken, String account){
+        throw new SpotinstNotSupportedException();
+    }
+
 
 }
