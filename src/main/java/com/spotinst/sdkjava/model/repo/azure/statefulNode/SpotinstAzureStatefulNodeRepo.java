@@ -12,6 +12,9 @@ import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConv
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo {
 
@@ -92,6 +95,26 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
         }
 
         return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<StatefulNode>> getAllNodes(String authToken, String account) {
+
+        RepoGenericResponse<List<StatefulNode>> statefulNodesList;
+
+        try {
+            List<ApiStatefulNode> apiGetAllNodes =
+                    SpotinstAzureStatefulNodeService.getAllNodes(authToken, account);
+            List<StatefulNode> statefulNodes = apiGetAllNodes.stream().map(StatefulNodeConverter::toBl).collect(
+                    Collectors.toList());
+            statefulNodesList = new RepoGenericResponse<>(statefulNodes);
+        }
+        catch (SpotinstHttpException ex) {
+            statefulNodesList = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return statefulNodesList;
+
     }
 
 }

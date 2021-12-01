@@ -78,10 +78,10 @@ public class SpotinstAzureStatefulNodeClient {
     public StatefulNode updateNode(StatefulNodeCreationRequest statefulNodeUpdateRequest, String nodeId) {
         StatefulNode retVal;
 
-        StatefulNode statefulNodeToCreate = statefulNodeUpdateRequest.getNode();
+        StatefulNode statefulNodeToUpdate = statefulNodeUpdateRequest.getNode();
 
         RepoGenericResponse<StatefulNode> updateNodeResponse =
-                getSpotAzureStatefulNodeRepo().updateNode(statefulNodeToCreate, nodeId, authToken, account);
+                getSpotAzureStatefulNodeRepo().updateNode(statefulNodeToUpdate, nodeId, authToken, account);
 
         if (updateNodeResponse.isRequestSucceed()) {
             retVal = updateNodeResponse.getValue();
@@ -120,5 +120,28 @@ public class SpotinstAzureStatefulNodeClient {
 
         return retVal;
     }
+
+    public List<StatefulNode> getAllNodes() {
+
+        List<StatefulNode> retVal;
+
+        RepoGenericResponse<List<StatefulNode>> getAllNodesResponse =
+                getSpotAzureStatefulNodeRepo().getAllNodes(authToken, account);
+
+        if (getAllNodesResponse.isRequestSucceed()) {
+            retVal = getAllNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get All Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 
 }

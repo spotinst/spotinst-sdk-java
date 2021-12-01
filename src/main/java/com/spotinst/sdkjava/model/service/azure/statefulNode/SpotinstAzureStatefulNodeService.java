@@ -6,10 +6,13 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
@@ -155,8 +158,6 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         // Send the request
         RestResponse response = RestClient.sendDelete(uri, body, headers, queryParams);
 
-        System.out.println("********************************* "+response.getBody() + " "+ response.getStatusCode());
-
         // Handle the response.
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
@@ -165,5 +166,40 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static List<ApiStatefulNode> getAllNodes(String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiStatefulNode> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/stateful/node", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeApiResponse statefulNodeApiResponse = getCastedResponse(response, StatefulNodeApiResponse.class);
+
+        if (statefulNodeApiResponse.getResponse().getItems().size() > 0) {
+            retVal = statefulNodeApiResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
 
 }
