@@ -36,8 +36,26 @@ public class AzureStatefulNodeExample {
         getStatefulNode(nodeClient, nodeId);
 
         //Update Stateful Node
-        System.out.println("----------Update Stateful Node--------------");
-        updateStatefulNode(nodeClient, nodeId);
+        System.out.println("----------Update Stateful Node Name--------------");
+        updateStatefulNodeName(nodeClient, nodeId);
+
+        //update Stateful Node Strategy
+        updateStatefulNodeStrategy(nodeClient, nodeId);
+
+        //update Stateful Node Data Disk
+        updateStatefulNodeDataDisk(nodeClient, nodeId);
+
+        //update Stateful Node Os Disk
+        updateStatefulNodeOsDisk(nodeClient, nodeId);
+
+        //update Stateful Node Scheduling Tasks
+        updateStatefulNodeScheduling(nodeClient, nodeId);
+
+        //update Stateful Node Health
+        updateStatefulNodeHealth(nodeClient, nodeId);
+
+        //update Stateful Node Persistent
+        updateStatefulNodePersistent(nodeClient, nodeId);
 
         //Get All Stateful Node
         System.out.println("----------List All Stateful Nodes--------------");
@@ -200,7 +218,7 @@ public class AzureStatefulNodeExample {
         return getNodeResponse;
     }
 
-    private static StatefulNode updateStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
+    private static StatefulNode updateStatefulNodeName(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -216,11 +234,202 @@ public class AzureStatefulNodeExample {
         System.out.println("Update Request for stateful Node: "+ nodeId);
         System.out.println(updationRequest.toJson());
 
-        StatefulNode getNodeResponse = client.updateNode(updationRequest,nodeId);
-        System.out.println("Update Stateful Node " + getNodeResponse.getName() + " Successful with Id " + getNodeResponse.getId() + " with name renamed to  "
-                           + getNodeResponse.getName());
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Succesfully Updated Stateful Node " + updateNodeResponse.getId() + " with name " + updateNodeResponse.getName() + " to  "
+                           + updateNodeResponse.getName());
 
-        return getNodeResponse;
+        return updateNodeResponse;
+    }
+
+    private static StatefulNode updateStatefulNodeStrategy(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        //Build Signals
+        StatefulNodeSignalConfiguration signal =
+                StatefulNodeSignalConfiguration.Builder.get().setEnabledAt(1200).setTimeout(200).setType(ElastigroupVmSignalEnumAzure.vmReadyToShutdown).build();
+        List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
+
+        //Build RevertToSpot
+        StatefulNodeRevertToSpotConfiguration revertToSpot =
+                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzurePerformAtEnum.NEVER).build();
+
+        //Build Strategy to update
+        StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
+        StatefulNodeStrategyConfiguration strategy =
+                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setOrientation("AVAILABILITY").setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
+                               .setRevertToSpot(revertToSpot).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setStrategy(strategy).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node " + updateNodeResponse.getName() + " Successful with Id " + updateNodeResponse.getId() + " with name renamed to  "
+                           + updateNodeResponse.getName());
+
+        return updateNodeResponse;
+    }
+
+    private static StatefulNode updateStatefulNodeDataDisk(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        //Build Data Disk
+        LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(2).setSizeGB(2).setType("Standard_LRS").build();
+        List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
+
+        //Build Launch Specification
+        StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
+        StatefulNodeLaunchSpecification launchSpecification =
+                launchSpecificationBuilder.setDataDisks(dataDisks).build();
+
+        //Build Compute
+        StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
+        StatefulNodeComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpecification).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setCompute(compute).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node Data Disk Successful");
+
+        return updateNodeResponse;
+    }
+
+    private static StatefulNode updateStatefulNodeOsDisk(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        //Build OsDisk
+        LaunchSpecOsDiskSpecification.Builder osDiskBuilder = LaunchSpecOsDiskSpecification.Builder.get();
+        LaunchSpecOsDiskSpecification osDisk =
+                osDiskBuilder.setName("Automation-OsDisk-updated").setType("Standard_LRS").setSizeGB(33).build();
+
+        //Build Launch Specification
+        StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
+        StatefulNodeLaunchSpecification launchSpecification = launchSpecificationBuilder.setOsDisk(osDisk).build();
+
+        //Build Compute
+        StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
+        StatefulNodeComputeConfiguration compute = computeBuilder.setLaunchSpecification(launchSpecification).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setCompute(compute).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node Os Disk is successful");
+
+        return updateNodeResponse;
+
+    }
+
+
+
+    private static StatefulNode updateStatefulNodeScheduling(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        //Build Scheduling Tasks
+        StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
+        StatefulNodeTasksConfiguration task1 =
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 2 * * *").setType("resume").setAdjustment(2).build();
+
+        StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
+        StatefulNodeTasksConfiguration task2 =
+                tasksBuilder2.setIsEnabled(false).setCronExpression("25 * * * *").setType("pause").build();
+        List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
+        tasksList.add(task1);
+        tasksList.add(task2);
+
+        //Build Scheduling
+        StatefulNodeSchedulingConfiguration scheduling =
+                StatefulNodeSchedulingConfiguration.Builder.get().setTasks(tasksList).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setScheduling(scheduling).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node Scheduling Tasks is successful");
+
+        return updateNodeResponse;
+
+    }
+
+    private static StatefulNode updateStatefulNodeHealth(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        //Build Health
+        StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
+        StatefulNodeHealthConfiguration health =
+                healthBuilder.setHealthCheckTypes(healthCheckTypes).setUnhealthyDuration(200).setGracePeriod(240).setAutoHealing(false).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setHealth(health).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node Health is successful");
+
+        return updateNodeResponse;
+
+    }
+
+
+    private static StatefulNode updateStatefulNodePersistent(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        // Build persistent
+        StatefulNodePersistentConfiguration.Builder persistentBuilder = StatefulNodePersistentConfiguration.Builder.get();
+        StatefulNodePersistentConfiguration persistent =
+                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(AzureDiskModeEnum.REATTACH)
+                                 .setOsDiskPersistenceMode(AzureDiskModeEnum.REATTACH).build();
+
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setPersistent(persistent).build();
+
+        // Build node creation request
+        StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
+        StatefulNodeCreationRequest updationRequest = nodeCreationRequestBuilder.setNode(statefulNodeToUpdate).build();
+
+        // Convert node to API object json
+        System.out.println("Update Request for stateful Node: "+ nodeId);
+        System.out.println(updationRequest.toJson());
+
+        StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
+        System.out.println("Update Stateful Node Persistent is successful");
+
+        return updateNodeResponse;
+
     }
 
     private static Boolean deleteStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
