@@ -14,7 +14,6 @@ public class StatefulNodeTasksConfiguration {
     private Set<String> isSet;
     private Boolean     isEnabled;
     private String      cronExpression;
-    private Integer     identifier;
     private String      type;
     private Integer     adjustment;
 
@@ -46,16 +45,6 @@ public class StatefulNodeTasksConfiguration {
     public void setCronExpression(String cronExpression) {
         isSet.add("cronExpression");
         this.cronExpression = cronExpression;
-    }
-
-
-    public Integer getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(Integer identifier) {
-        isSet.add("identifier");
-        this.identifier = identifier;
     }
 
     public String getType() {
@@ -107,11 +96,6 @@ public class StatefulNodeTasksConfiguration {
             return this;
         }
 
-        public Builder setIdentifier(final Integer identifier) {
-            task.setIdentifier(identifier);
-            return this;
-        }
-
         public StatefulNodeTasksConfiguration build() {
             return task;
         }
@@ -125,11 +109,6 @@ public class StatefulNodeTasksConfiguration {
     @JsonIgnore
     public Boolean isCronExpressionSet() {
         return isSet.contains("cronExpression");
-    }
-
-    @JsonIgnore
-    public Boolean isIdentifierSet() {
-        return isSet.contains("identifier");
     }
 
     @JsonIgnore

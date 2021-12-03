@@ -17,7 +17,6 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
     private Set<String> isSet;
     private Boolean     isEnabled;
     private String      cronExpression;
-    private Integer     identifier;
     private String      type;
     private Integer     adjustment;
 
@@ -51,16 +50,6 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
         this.cronExpression = cronExpression;
     }
 
-
-    public Integer getIdentifier() {
-        return identifier;
-    }
-
-    public void setIdentifier(Integer identifier) {
-        isSet.add("identifier");
-        this.identifier = identifier;
-    }
-
     public String getType() {
         return type;
     }
@@ -87,11 +76,6 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     public Boolean isCronExpressionSet() {
         return isSet.contains("cronExpression");
-    }
-
-    @JsonIgnore
-    public Boolean isIdentifierSet() {
-        return isSet.contains("identifier");
     }
 
     @JsonIgnore

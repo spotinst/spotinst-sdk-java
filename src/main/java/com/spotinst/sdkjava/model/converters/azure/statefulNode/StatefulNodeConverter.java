@@ -526,9 +526,6 @@ public class StatefulNodeConverter {
             if (tasksConfiguration.isTypeSet()) {
                 retVal.setType(tasksConfiguration.getType());
             }
-            if (tasksConfiguration.isIdentifierSet()) {
-                retVal.setIdentifier(tasksConfiguration.getIdentifier());
-            }
         }
 
         return retVal;
@@ -1212,10 +1209,6 @@ public class StatefulNodeConverter {
 
             if (apiStatefulNodeTasks.isCronExpressionSet()) {
                 statefulNodeTasksBuilder.setCronExpression(apiStatefulNodeTasks.getCronExpression());
-            }
-
-            if (apiStatefulNodeTasks.isIdentifierSet()) {
-                statefulNodeTasksBuilder.setIdentifier(apiStatefulNodeTasks.getIdentifier());
             }
 
             if (apiStatefulNodeTasks.isTypeSet()) {

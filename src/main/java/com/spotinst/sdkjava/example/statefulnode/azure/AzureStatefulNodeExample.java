@@ -146,11 +146,11 @@ public class AzureStatefulNodeExample {
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType("pause").setAdjustment(1).setIdentifier(-1636758474).build();
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType("pause").setAdjustment(1).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType("resume").setIdentifier(2085552106).build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType("resume").build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);
@@ -168,7 +168,7 @@ public class AzureStatefulNodeExample {
         //Build Health
         StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
         StatefulNodeHealthConfiguration health =
-                healthBuilder.setHealthCheckTypes(healthCheckTypes).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing("true").build();
+                healthBuilder.setHealthCheckTypes(healthCheckTypes).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing(true).build();
 
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
