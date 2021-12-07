@@ -20,6 +20,7 @@ public class ApiStatefulNodeSnapshotDeallocationConfig implements IPartialUpdate
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldDeallocate;
+    private Integer     ttlInHours;
 
     public ApiStatefulNodeSnapshotDeallocationConfig() {
         isSet = new HashSet<>();
@@ -43,6 +44,15 @@ public class ApiStatefulNodeSnapshotDeallocationConfig implements IPartialUpdate
         this.shouldDeallocate = shouldDeallocate;
     }
 
+    public Integer getTtlInHours() {
+        return ttlInHours;
+    }
+
+    public void setTtlInHours(Integer ttlInHours) {
+        isSet.add("setTtlInHours");
+        this.ttlInHours = ttlInHours;
+    }
+
     public static class Builder {
         private ApiStatefulNodeSnapshotDeallocationConfig statefulNodeSnapshotDeallocationConfig;
 
@@ -63,6 +73,11 @@ public class ApiStatefulNodeSnapshotDeallocationConfig implements IPartialUpdate
         public ApiStatefulNodeSnapshotDeallocationConfig build() {
             return statefulNodeSnapshotDeallocationConfig;
         }
+    }
+
+    @JsonIgnore
+    public boolean isTtlInHoursSet() {
+        return isSet.contains("ttlInHours");
     }
 
     @JsonIgnore

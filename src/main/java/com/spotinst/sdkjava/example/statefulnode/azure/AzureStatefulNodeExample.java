@@ -149,7 +149,7 @@ public class AzureStatefulNodeExample {
 
         //Build Signals
         StatefulNodeSignalConfiguration signal =
-                StatefulNodeSignalConfiguration.Builder.get().setEnabledAt(1624).setTimeout(180).setType(ElastigroupVmSignalEnumAzure.vmReady).build();
+                StatefulNodeSignalConfiguration.Builder.get().setTimeout(180).setType(ElastigroupVmSignalEnumAzure.vmReady).build();
         List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
 
         //Build RevertToSpot
@@ -245,7 +245,7 @@ public class AzureStatefulNodeExample {
 
         //Build Signals
         StatefulNodeSignalConfiguration signal =
-                StatefulNodeSignalConfiguration.Builder.get().setEnabledAt(1200).setTimeout(200).setType(ElastigroupVmSignalEnumAzure.vmReadyToShutdown).build();
+                StatefulNodeSignalConfiguration.Builder.get().setTimeout(200).setType(ElastigroupVmSignalEnumAzure.vmReadyToShutdown).build();
         List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
 
         //Build RevertToSpot
@@ -342,8 +342,6 @@ public class AzureStatefulNodeExample {
 
     }
 
-
-
     private static StatefulNode updateStatefulNodeScheduling(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         //Build Scheduling Tasks
@@ -404,7 +402,6 @@ public class AzureStatefulNodeExample {
         return updateNodeResponse;
 
     }
-
 
     private static StatefulNode updateStatefulNodePersistent(SpotinstAzureStatefulNodeClient client, String nodeId) {
 

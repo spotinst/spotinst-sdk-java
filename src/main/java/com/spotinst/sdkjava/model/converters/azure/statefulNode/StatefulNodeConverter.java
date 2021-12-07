@@ -110,9 +110,6 @@ public class StatefulNodeConverter {
             if (statefulNodeSignal.isTimeoutSet()) {
                 apiStatefulNodeSignal.setTimeout(statefulNodeSignal.getTimeout());
             }
-            if (statefulNodeSignal.isEnabledAtSet()) {
-                apiStatefulNodeSignal.setEnabledAt(statefulNodeSignal.getEnabledAt());
-            }
         }
 
         return apiStatefulNodeSignal;
@@ -566,6 +563,9 @@ public class StatefulNodeConverter {
             if (deallocationNetworkConfig.isShouldDeallocateSet()) {
                 retVal.setShouldDeallocate(deallocationNetworkConfig.getShouldDeallocate());
             }
+            if(deallocationNetworkConfig.isTtlInHoursSet()){
+                retVal.setTtlInHours(deallocationNetworkConfig.getTtlInHours());
+            }
 
         }
 
@@ -581,6 +581,9 @@ public class StatefulNodeConverter {
             if (deallocationDiskonfig.isShouldDeallocateSet()) {
                 retVal.setShouldDeallocate(deallocationDiskonfig.getShouldDeallocate());
             }
+            if(deallocationDiskonfig.isTtlInHoursSet()){
+                retVal.setTtlInHours(deallocationDiskonfig.getTtlInHours());
+            }
 
         }
 
@@ -595,6 +598,9 @@ public class StatefulNodeConverter {
 
             if (deallocationSnapshotConfig.isShouldDeallocateSet()) {
                 retVal.setShouldDeallocate(deallocationSnapshotConfig.getShouldDeallocate());
+            }
+            if(deallocationSnapshotConfig.isTtlInHoursSet()){
+                retVal.setTtlInHours(deallocationSnapshotConfig.getTtlInHours());
             }
 
         }
@@ -612,12 +618,14 @@ public class StatefulNodeConverter {
             if (deallocationPublicIpConfig.isShouldDeallocateSet()) {
                 retVal.setShouldDeallocate(deallocationPublicIpConfig.getShouldDeallocate());
             }
+            if(deallocationPublicIpConfig.isTtlInHoursSet()){
+                retVal.setTtlInHours(deallocationPublicIpConfig.getTtlInHours());
+            }
 
         }
 
         return retVal;
     }
-
 
     //endregion
 
@@ -1142,10 +1150,6 @@ public class StatefulNodeConverter {
 
             if (apiStatefulNodeSignal.isTimeoutSet()) {
                 statefulNodeSignalBuilder.setTimeout(apiStatefulNodeSignal.getTimeout());
-            }
-
-            if (apiStatefulNodeSignal.isEnabledAtSet()) {
-                statefulNodeSignalBuilder.setEnabledAt(apiStatefulNodeSignal.getEnabledAt());
             }
 
             if (apiStatefulNodeSignal.isTypeSet()) {

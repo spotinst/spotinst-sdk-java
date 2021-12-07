@@ -19,7 +19,6 @@ public class StatefulNodeSignalConfiguration {
     private Set<String>                  isSet;
     private ElastigroupVmSignalEnumAzure type;
     private Integer                      timeout;
-    private Integer                      enabledAt;
 
     private StatefulNodeSignalConfiguration() {
         isSet = new HashSet<>();
@@ -51,15 +50,6 @@ public class StatefulNodeSignalConfiguration {
         this.timeout = timeout;
     }
 
-    public Integer getEnabledAt() {
-        return enabledAt;
-    }
-
-    public void setEnabledAt(Integer enabledAt) {
-        isSet.add("enabledAt");
-        this.enabledAt = enabledAt;
-    }
-
     public static class Builder {
         private StatefulNodeSignalConfiguration statefulNodeSignal;
 
@@ -82,11 +72,6 @@ public class StatefulNodeSignalConfiguration {
             return this;
         }
 
-        public Builder setEnabledAt(final Integer enabledAt) {
-            statefulNodeSignal.setEnabledAt(enabledAt);
-            return this;
-        }
-
         public StatefulNodeSignalConfiguration build() {
             return statefulNodeSignal;
         }
@@ -105,12 +90,5 @@ public class StatefulNodeSignalConfiguration {
     public boolean isTimeoutSet() {
         return isSet.contains("timeout");
     }
-
-    @JsonIgnore
-    public boolean isEnabledAtSet() {
-        return isSet.contains("enabledAt");
-    }
-
-
 
 }

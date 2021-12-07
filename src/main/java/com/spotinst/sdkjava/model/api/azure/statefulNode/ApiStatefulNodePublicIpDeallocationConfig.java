@@ -20,6 +20,7 @@ public class ApiStatefulNodePublicIpDeallocationConfig implements IPartialUpdate
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldDeallocate;
+    private Integer     ttlInHours;
 
     public ApiStatefulNodePublicIpDeallocationConfig() {
         isSet = new HashSet<>();
@@ -41,6 +42,20 @@ public class ApiStatefulNodePublicIpDeallocationConfig implements IPartialUpdate
     public void setShouldDeallocate(Boolean shouldDeallocate) {
         isSet.add("shouldDeallocate");
         this.shouldDeallocate = shouldDeallocate;
+    }
+
+    public Integer getTtlInHours() {
+        return ttlInHours;
+    }
+
+    public void setTtlInHours(Integer ttlInHours) {
+        isSet.add("setTtlInHours");
+        this.ttlInHours = ttlInHours;
+    }
+
+    @JsonIgnore
+    public boolean isTtlInHoursSet() {
+        return isSet.contains("ttlInHours");
     }
 
     @JsonIgnore

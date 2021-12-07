@@ -21,7 +21,6 @@ public class ApiStatefulNodeSignalConfiguration implements IPartialUpdateEntity 
     private Set<String> isSet;
     private String      type;
     private Integer     timeout;
-    private Integer     enabledAt;
 
     public ApiStatefulNodeSignalConfiguration() {
         isSet = new HashSet<>();
@@ -53,15 +52,6 @@ public class ApiStatefulNodeSignalConfiguration implements IPartialUpdateEntity 
         this.timeout = timeout;
     }
 
-    public Integer getEnabledAt() {
-        return enabledAt;
-    }
-
-    public void setEnabledAt(Integer enabledAt) {
-        isSet.add("enabledAt");
-        this.enabledAt = enabledAt;
-    }
-
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");
@@ -76,12 +66,5 @@ public class ApiStatefulNodeSignalConfiguration implements IPartialUpdateEntity 
     public boolean isTimeoutSet() {
         return isSet.contains("timeout");
     }
-
-    @JsonIgnore
-    public boolean isEnabledAtSet() {
-        return isSet.contains("enabledAt");
-    }
-
-
 
 }

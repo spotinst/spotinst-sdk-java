@@ -17,6 +17,7 @@ public class StatefulNodeSnapshotDeallocationConfig {
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldDeallocate;
+    private Integer     ttlInHours;
 
     private StatefulNodeSnapshotDeallocationConfig() {
         isSet = new HashSet<>();
@@ -40,6 +41,15 @@ public class StatefulNodeSnapshotDeallocationConfig {
         this.shouldDeallocate = shouldDeallocate;
     }
 
+    public Integer getTtlInHours() {
+        return ttlInHours;
+    }
+
+    public void setTtlInHours(Integer ttlInHours) {
+        isSet.add("setTtlInHours");
+        this.ttlInHours = ttlInHours;
+    }
+
     public static class Builder {
         private StatefulNodeSnapshotDeallocationConfig statefulNodeSnapshotDeallocationConfig;
 
@@ -57,6 +67,11 @@ public class StatefulNodeSnapshotDeallocationConfig {
             return this;
         }
 
+        public Builder setTtlInHours(final Integer ttlInHours) {
+            statefulNodeSnapshotDeallocationConfig.setTtlInHours(ttlInHours);
+            return this;
+        }
+
         public StatefulNodeSnapshotDeallocationConfig build() {
             return statefulNodeSnapshotDeallocationConfig;
         }
@@ -65,5 +80,10 @@ public class StatefulNodeSnapshotDeallocationConfig {
     @JsonIgnore
     public boolean isShouldDeallocateSet() {
         return isSet.contains("shouldDeallocate");
+    }
+
+    @JsonIgnore
+    public boolean isTtlInHoursSet() {
+        return isSet.contains("ttlInHours");
     }
 }
