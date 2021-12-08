@@ -65,7 +65,7 @@ public class StatefulNodeConverter {
                 apiStatefulNodeStrategy.setDrainingTimeout(statefulNodeStrategy.getDrainingTimeout());
             }
             if (statefulNodeStrategy.isOrientationSet()) {
-                apiStatefulNodeStrategy.setOrientation(statefulNodeStrategy.getOrientation());
+                apiStatefulNodeStrategy.setOrientation(statefulNodeStrategy.getOrientation().getName());
             }
             if (statefulNodeStrategy.isPreferredLifecycleSet()) {
                 apiStatefulNodeStrategy.setPreferredLifecycle(statefulNodeStrategy.getPreferredLifecycle().getName());
@@ -517,11 +517,8 @@ public class StatefulNodeConverter {
             if (tasksConfiguration.isCronExpressionSet()) {
                 retVal.setCronExpression(tasksConfiguration.getCronExpression());
             }
-            if (tasksConfiguration.isAdjustmentSet()) {
-                retVal.setAdjustment(tasksConfiguration.getAdjustment());
-            }
             if (tasksConfiguration.isTypeSet()) {
-                retVal.setType(tasksConfiguration.getType());
+                retVal.setType(tasksConfiguration.getType().getName());
             }
         }
 
@@ -1116,7 +1113,7 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeStrategy.isOrientationSet()) {
-                statefulNodeStrategyBuilder.setOrientation(apiStatefulNodeStrategy.getOrientation());
+                statefulNodeStrategyBuilder.setOrientation(AzureStatefulNodeOrientationEnum.fromName(apiStatefulNodeStrategy.getOrientation()));
             }
 
             if (apiStatefulNodeStrategy.isPreferredLifecycleSet()) {
@@ -1216,11 +1213,7 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeTasks.isTypeSet()) {
-                statefulNodeTasksBuilder.setType(apiStatefulNodeTasks.getType());
-            }
-
-            if (apiStatefulNodeTasks.isAdjustmentSet()) {
-                statefulNodeTasksBuilder.setAdjustment(apiStatefulNodeTasks.getAdjustment());
+                statefulNodeTasksBuilder.setType(AzureStatefulNodeTaskTypeEnum.fromName(apiStatefulNodeTasks.getType()));
             }
 
             statefulNodeTasks = statefulNodeTasksBuilder.build();

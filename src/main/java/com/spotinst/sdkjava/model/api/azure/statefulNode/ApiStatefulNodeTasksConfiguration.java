@@ -18,7 +18,6 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
     private Boolean     isEnabled;
     private String      cronExpression;
     private String      type;
-    private Integer     adjustment;
 
     public ApiStatefulNodeTasksConfiguration() {
         isSet = new HashSet<>();
@@ -59,15 +58,6 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
         this.type = type;
     }
 
-    public Integer getAdjustment() {
-        return adjustment;
-    }
-
-    public void setAdjustment(Integer adjustment) {
-        isSet.add("adjustment");
-        this.adjustment = adjustment;
-    }
-
     @JsonIgnore
     public Boolean isIsEnabledSet() {
         return isSet.contains("isEnabled");
@@ -81,10 +71,5 @@ public class ApiStatefulNodeTasksConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     public Boolean isTypeSet() {
         return isSet.contains("type");
-    }
-
-    @JsonIgnore
-    public Boolean isAdjustmentSet() {
-        return isSet.contains("adjustment");
     }
 }

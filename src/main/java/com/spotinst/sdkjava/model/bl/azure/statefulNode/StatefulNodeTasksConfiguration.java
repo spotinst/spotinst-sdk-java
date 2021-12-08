@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.AzureStatefulNodeTaskTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,11 +12,10 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodeTasksConfiguration {
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     isEnabled;
-    private String      cronExpression;
-    private String      type;
-    private Integer     adjustment;
+    private Set<String>                   isSet;
+    private Boolean                       isEnabled;
+    private String                        cronExpression;
+    private AzureStatefulNodeTaskTypeEnum type;
 
     public StatefulNodeTasksConfiguration() {
         isSet = new HashSet<>();
@@ -47,22 +47,13 @@ public class StatefulNodeTasksConfiguration {
         this.cronExpression = cronExpression;
     }
 
-    public String getType() {
+    public AzureStatefulNodeTaskTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AzureStatefulNodeTaskTypeEnum type) {
         isSet.add("type");
         this.type = type;
-    }
-
-    public Integer getAdjustment() {
-        return adjustment;
-    }
-
-    public void setAdjustment(Integer adjustment) {
-        isSet.add("adjustment");
-        this.adjustment = adjustment;
     }
 
     public static class Builder {
@@ -86,13 +77,8 @@ public class StatefulNodeTasksConfiguration {
             return this;
         }
 
-        public Builder setType(final String type) {
+        public Builder setType(final AzureStatefulNodeTaskTypeEnum type) {
             task.setType(type);
-            return this;
-        }
-
-        public Builder setAdjustment(final Integer adjustment) {
-            task.setAdjustment(adjustment);
             return this;
         }
 
@@ -116,8 +102,4 @@ public class StatefulNodeTasksConfiguration {
         return isSet.contains("type");
     }
 
-    @JsonIgnore
-    public Boolean isAdjustmentSet() {
-        return isSet.contains("adjustment");
-    }
 }

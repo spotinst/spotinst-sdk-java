@@ -158,17 +158,17 @@ public class AzureStatefulNodeExample {
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setOrientation("AVAILABILITY").setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setOrientation(AzureStatefulNodeOrientationEnum.AVAILABILITY).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
                                .setRevertToSpot(revertToSpot).build();
 
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType("pause").setAdjustment(1).build();
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType("resume").build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);
@@ -255,7 +255,7 @@ public class AzureStatefulNodeExample {
         //Build Strategy to update
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setOrientation("AVAILABILITY").setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setOrientation(AzureStatefulNodeOrientationEnum.AVAILABILITY).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
                                .setRevertToSpot(revertToSpot).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -347,11 +347,11 @@ public class AzureStatefulNodeExample {
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(true).setCronExpression("0 2 * * *").setType("resume").setAdjustment(2).build();
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 2 * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("25 * * * *").setType("pause").build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("25 * * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);

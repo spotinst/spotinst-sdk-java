@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.AzureLifeCycleTypeEnum;
+import com.spotinst.sdkjava.enums.AzureStatefulNodeOrientationEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,7 @@ public class StatefulNodeStrategyConfiguration {
     private Set<String>                           isSet;
     private Boolean                               fallbackToOd;
     private Integer                               drainingTimeout;
-    private String                                orientation;
+    private AzureStatefulNodeOrientationEnum      orientation;
     private AzureLifeCycleTypeEnum                preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<StatefulNodeSignalConfiguration> signals;
@@ -55,11 +56,11 @@ public class StatefulNodeStrategyConfiguration {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public String getOrientation() {
+    public AzureStatefulNodeOrientationEnum getOrientation() {
         return orientation;
     }
 
-    public void setOrientation(String orientation) {
+    public void setOrientation(AzureStatefulNodeOrientationEnum orientation) {
         isSet.add("orientation");
         this.orientation = orientation;
     }
@@ -114,7 +115,7 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
-        public Builder setOrientation(final String orientation) {
+        public Builder setOrientation(final AzureStatefulNodeOrientationEnum orientation) {
             statefulNodeStrategy.setOrientation(orientation);
             return this;
         }
