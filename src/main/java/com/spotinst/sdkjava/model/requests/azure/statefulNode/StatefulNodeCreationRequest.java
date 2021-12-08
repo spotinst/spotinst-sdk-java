@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class StatefulNodeCreationRequest {
 
-    @JsonProperty("node")
+    @JsonProperty("statefulNode")
     private StatefulNode node;
     private String       nodeId;
 
@@ -69,7 +69,7 @@ public class StatefulNodeCreationRequest {
     public String toJson() {
         ApiStatefulNode              apiStatefulNodeToCreate = StatefulNodeConverter.toDal(node);
         Map<String, ApiStatefulNode> nodeRequest             = new HashMap<>();
-        nodeRequest.put("node", apiStatefulNodeToCreate);
+        nodeRequest.put("statefulNode", apiStatefulNodeToCreate);
         String NodeJson = JsonMapper.toJson(nodeRequest);
 
         return NodeJson;

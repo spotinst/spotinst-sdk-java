@@ -37,7 +37,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
 
         // Write to json
         Map<String, ApiStatefulNode> nodeRequest = new HashMap<>();
-        nodeRequest.put("node", nodeToCreate);
+        nodeRequest.put("statefulNode", nodeToCreate);
         String body = JsonMapper.toJson(nodeRequest);
 
         // Build URI
@@ -110,7 +110,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
 
         // Write to json
         Map<String, ApiStatefulNode> nodeRequest = new HashMap<>();
-        nodeRequest.put("node", nodeToUpdate);
+        nodeRequest.put("statefulNode", nodeToUpdate);
         String body = JsonMapper.toJson(nodeRequest);
 
         // Build URI
