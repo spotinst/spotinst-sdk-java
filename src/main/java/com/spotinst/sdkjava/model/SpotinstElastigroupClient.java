@@ -800,6 +800,8 @@ public class SpotinstElastigroupClient {
 
     }
 
+    public List<ItfMigrationRulesStatus> getItfMigrationRulesStatus(
+            String elastigroupId) {
 
         List<ItfMigrationRulesStatus> retVal;
 
