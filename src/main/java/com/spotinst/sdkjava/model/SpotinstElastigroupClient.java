@@ -6,14 +6,10 @@ import com.spotinst.sdkjava.enums.EventsLogsSeverityEnum;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
@@ -805,4 +801,45 @@ public class SpotinstElastigroupClient {
     }
 
 
+        List<ItfMigrationRulesStatus> retVal;
+
+        RepoGenericResponse<List<ItfMigrationRulesStatus>> getAllResponse =
+                getSpotinstElastigroupRepo().getItfMigrationRulesStatus(elastigroupId, authToken, account);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get ITF migration rules status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean retryItfMigration(
+            RetryItfMigrationRequest retryRequest) {
+
+        Boolean retVal;
+
+        String elastigroupId = retryRequest.getGroupId();
+        RepoGenericResponse<Boolean> getResponse =
+                getSpotinstElastigroupRepo().retryItfMigration(elastigroupId, retryRequest,authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to retry ITF migration. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
 }
