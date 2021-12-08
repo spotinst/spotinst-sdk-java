@@ -64,9 +64,6 @@ public class StatefulNodeConverter {
             if (statefulNodeStrategy.isDrainingTimeoutSet()) {
                 apiStatefulNodeStrategy.setDrainingTimeout(statefulNodeStrategy.getDrainingTimeout());
             }
-            if (statefulNodeStrategy.isOrientationSet()) {
-                apiStatefulNodeStrategy.setOrientation(statefulNodeStrategy.getOrientation().getName());
-            }
             if (statefulNodeStrategy.isPreferredLifecycleSet()) {
                 apiStatefulNodeStrategy.setPreferredLifecycle(statefulNodeStrategy.getPreferredLifecycle().getName());
             }
@@ -1110,10 +1107,6 @@ public class StatefulNodeConverter {
 
             if (apiStatefulNodeStrategy.isDrainingTimeoutSet()) {
                 statefulNodeStrategyBuilder.setDrainingTimeout(apiStatefulNodeStrategy.getDrainingTimeout());
-            }
-
-            if (apiStatefulNodeStrategy.isOrientationSet()) {
-                statefulNodeStrategyBuilder.setOrientation(AzureStatefulNodeOrientationEnum.fromName(apiStatefulNodeStrategy.getOrientation()));
             }
 
             if (apiStatefulNodeStrategy.isPreferredLifecycleSet()) {

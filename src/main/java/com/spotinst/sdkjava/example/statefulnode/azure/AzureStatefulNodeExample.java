@@ -158,7 +158,7 @@ public class AzureStatefulNodeExample {
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setOrientation(AzureStatefulNodeOrientationEnum.AVAILABILITY).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
                                .setRevertToSpot(revertToSpot).build();
 
         //Build Scheduling Tasks
@@ -255,7 +255,7 @@ public class AzureStatefulNodeExample {
         //Build Strategy to update
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setOrientation(AzureStatefulNodeOrientationEnum.AVAILABILITY).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
                                .setRevertToSpot(revertToSpot).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();

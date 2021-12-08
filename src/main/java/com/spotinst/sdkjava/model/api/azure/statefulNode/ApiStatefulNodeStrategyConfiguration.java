@@ -22,7 +22,6 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     private Set<String>                              isSet;
     private Boolean                                  fallbackToOd;
     private Integer                                  drainingTimeout;
-    private String                                   orientation;
     private String                                   preferredLifecycle;
     private ApiStatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<ApiStatefulNodeSignalConfiguration> signals;
@@ -56,15 +55,6 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     public void setDrainingTimeout(Integer drainingTimeout) {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
-    }
-
-    public String getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(String orientation) {
-        isSet.add("orientation");
-        this.orientation = orientation;
     }
 
     public String getPreferredLifecycle() {
@@ -102,11 +92,6 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     @JsonIgnore
     public boolean isDrainingTimeoutSet() {
         return isSet.contains("drainingTimeout");
-    }
-
-    @JsonIgnore
-    public boolean isOrientationSet() {
-        return isSet.contains("orientation");
     }
 
     @JsonIgnore

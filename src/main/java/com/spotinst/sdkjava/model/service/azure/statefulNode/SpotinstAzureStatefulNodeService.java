@@ -41,7 +41,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         String body = JsonMapper.toJson(nodeRequest);
 
         // Build URI
-        String uri = String.format("%s/azure/stateful/node", apiEndpoint);
+        String uri = String.format("%s/azure/compute/statefulNode", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
@@ -75,7 +75,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/azure/stateful/node/%s", apiEndpoint, nodeId);
+        String uri = String.format("%s/azure/compute/statefulNode/%s", apiEndpoint, nodeId);
 
         // Send the request
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
@@ -114,7 +114,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         String body = JsonMapper.toJson(nodeRequest);
 
         // Build URI
-        String uri = String.format("%s/azure/stateful/node/%s", apiEndpoint, nodeId);
+        String uri = String.format("%s/azure/compute/statefulNode/%s", apiEndpoint, nodeId);
 
         // Send the request
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
@@ -153,7 +153,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         String body = JsonMapper.toJson(nodeToDeleteRequest);
 
         // Build URI
-        String uri = String.format("%s/azure/stateful/node/%s", apiEndpoint, nodeId);
+        String uri = String.format("%s/azure/compute/statefulNode/%s", apiEndpoint, nodeId);
 
         // Send the request
         RestResponse response = RestClient.sendDelete(uri, body, headers, queryParams);
@@ -186,7 +186,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/azure/stateful/node", apiEndpoint);
+        String uri = String.format("%s/azure/compute/statefulNode", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);

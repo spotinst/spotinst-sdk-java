@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.AzureLifeCycleTypeEnum;
-import com.spotinst.sdkjava.enums.AzureStatefulNodeOrientationEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +20,6 @@ public class StatefulNodeStrategyConfiguration {
     private Set<String>                           isSet;
     private Boolean                               fallbackToOd;
     private Integer                               drainingTimeout;
-    private AzureStatefulNodeOrientationEnum      orientation;
     private AzureLifeCycleTypeEnum                preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<StatefulNodeSignalConfiguration> signals;
@@ -56,15 +54,6 @@ public class StatefulNodeStrategyConfiguration {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public AzureStatefulNodeOrientationEnum getOrientation() {
-        return orientation;
-    }
-
-    public void setOrientation(AzureStatefulNodeOrientationEnum orientation) {
-        isSet.add("orientation");
-        this.orientation = orientation;
-    }
-
     public AzureLifeCycleTypeEnum getPreferredLifecycle() {
         return preferredLifecycle;
     }
@@ -92,7 +81,6 @@ public class StatefulNodeStrategyConfiguration {
         this.signals = signals;
     }
 
-
     public static class Builder {
         private StatefulNodeStrategyConfiguration statefulNodeStrategy;
 
@@ -112,11 +100,6 @@ public class StatefulNodeStrategyConfiguration {
 
         public Builder setDrainingTimeout(final Integer drainingTimeout) {
             statefulNodeStrategy.setDrainingTimeout(drainingTimeout);
-            return this;
-        }
-
-        public Builder setOrientation(final AzureStatefulNodeOrientationEnum orientation) {
-            statefulNodeStrategy.setOrientation(orientation);
             return this;
         }
 
@@ -148,11 +131,6 @@ public class StatefulNodeStrategyConfiguration {
     @JsonIgnore
     public boolean isDrainingTimeoutSet() {
         return isSet.contains("drainingTimeout");
-    }
-
-    @JsonIgnore
-    public boolean isOrientationSet() {
-        return isSet.contains("orientation");
     }
 
     @JsonIgnore
