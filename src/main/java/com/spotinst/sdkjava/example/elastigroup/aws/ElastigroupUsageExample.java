@@ -163,11 +163,11 @@ public class ElastigroupUsageExample {
 
         //Get ITF migation Rules Status
         System.out.println("----------get ITF migration list--------------");
-        getItfMigrationRulesStatus(elastigroupClient, "sig-300e8442");
+        getItfMigrationRulesStatus(elastigroupClient, "elastigroup-id");
 
         //Get ITF migation list
         System.out.println("----------retry ITF migration --------------");
-        retryItfMigration(elastigroupClient, "sig-dc0492c9");
+        retryItfMigration(elastigroupClient, "elastigroup-id");
 
     }
 
