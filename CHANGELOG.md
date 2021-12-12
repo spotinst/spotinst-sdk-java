@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.62] - 12-12-2020
+## [1.0.62] - 12-12-2021
 ### Security Fixes
 - Upgrade `log4j` dependency to `2.15.0` following CVE-2021-44228
 
