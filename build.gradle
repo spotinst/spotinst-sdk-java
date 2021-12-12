@@ -35,8 +35,8 @@ dependencies {
             'org.slf4j:slf4j-api:1.7.22',
             'org.slf4j:slf4j-simple:1.7.22',
             'org.apache.commons:commons-lang3:3.5',
-            'org.apache.logging.log4j:log4j-core:2.8.2',
-            'org.apache.logging.log4j:log4j-api:2.8.2')
+            'org.apache.logging.log4j:log4j-core:2.15.0',
+            'org.apache.logging.log4j:log4j-api:2.15.0')
     testCompile(
             'junit:junit:4.12',
             'org.mockito:mockito-all:1.10.19',
