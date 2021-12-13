@@ -19,16 +19,16 @@ public class ApiStatefulNode implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                            isSet;
-    private String                                 id;
-    private String                                 name;
-    private String                                 region;
-    private String                                 resourceGroupName;
-    private String                                 description;
-    private ApiStatefulNodeStrategyConfiguration   strategy;
-    private ApiStatefulNodeComputeConfiguration    compute;
-    private ApiStatefulNodeSchedulingConfiguration scheduling;
-    private ApiStatefulNodePersistentConfiguration persistent;
-    private ApiStatefulNodeHealthConfiguration     health;
+    private String                                  id;
+    private String                                  name;
+    private String                                  region;
+    private String                                  resourceGroupName;
+    private String                                  description;
+    private ApiStatefulNodeStrategyConfiguration    strategy;
+    private ApiStatefulNodeComputeConfiguration     compute;
+    private ApiStatefulNodeSchedulingConfiguration  scheduling;
+    private ApiStatefulNodePersistenceConfiguration persistence;
+    private ApiStatefulNodeHealthConfiguration      health;
 
     public ApiStatefulNode() {
         isSet = new HashSet<>();
@@ -114,13 +114,13 @@ public class ApiStatefulNode implements IPartialUpdateEntity {
         this.scheduling = scheduling;
     }
 
-    public ApiStatefulNodePersistentConfiguration getPersistent() {
-        return persistent;
+    public ApiStatefulNodePersistenceConfiguration getPersistence() {
+        return persistence;
     }
 
-    public void setPersistent(ApiStatefulNodePersistentConfiguration persistent) {
-        isSet.add("persistent");
-        this.persistent = persistent;
+    public void setPersistence(ApiStatefulNodePersistenceConfiguration persistence) {
+        isSet.add("persistence");
+        this.persistence = persistence;
     }
 
     public ApiStatefulNodeHealthConfiguration getHealth() {
@@ -173,8 +173,8 @@ public class ApiStatefulNode implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isPersistentSet() {
-        return isSet.contains("persistent");
+    public boolean isPersistenceSet() {
+        return isSet.contains("persistence");
     }
 
     @JsonIgnore

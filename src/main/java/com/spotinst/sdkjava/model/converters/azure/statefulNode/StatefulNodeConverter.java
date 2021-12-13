@@ -41,8 +41,8 @@ public class StatefulNodeConverter {
             if (statefulNode.isSchedulingSet()) {
                 apiStatefulNode.setScheduling(toDal(statefulNode.getScheduling()));
             }
-            if (statefulNode.isPersistentSet()) {
-                apiStatefulNode.setPersistent(toDal(statefulNode.getPersistent()));
+            if (statefulNode.isPersistenceSet()) {
+                apiStatefulNode.setPersistence(toDal(statefulNode.getPersistence()));
             }
             if (statefulNode.isHealthSet()) {
                 apiStatefulNode.setHealth(toDal(statefulNode.getHealth()));
@@ -458,11 +458,12 @@ public class StatefulNodeConverter {
         return apiStatefulNodeHealth;
     }
 
-    private static ApiStatefulNodePersistentConfiguration toDal(StatefulNodePersistentConfiguration statefulNodePersistent) {
-        ApiStatefulNodePersistentConfiguration apiStatefulNodePersistent = null;
+    private static ApiStatefulNodePersistenceConfiguration toDal(
+            StatefulNodePersistenceConfiguration statefulNodePersistent) {
+        ApiStatefulNodePersistenceConfiguration apiStatefulNodePersistent = null;
 
         if (statefulNodePersistent != null) {
-            apiStatefulNodePersistent = new ApiStatefulNodePersistentConfiguration();
+            apiStatefulNodePersistent = new ApiStatefulNodePersistenceConfiguration();
 
             if (statefulNodePersistent.isShouldPersistDataDisksSet()) {
                 apiStatefulNodePersistent.setShouldPersistDataDisks(statefulNodePersistent.getShouldPersistDataDisks());
@@ -645,8 +646,8 @@ public class StatefulNodeConverter {
             if (apiStatefulNode.isDescriptionSet()) {
                 statefulNodeBuilder.setDescription(apiStatefulNode.getDescription());
             }
-            if (apiStatefulNode.isPersistentSet()) {
-                statefulNodeBuilder.setPersistent(toBl(apiStatefulNode.getPersistent()));
+            if (apiStatefulNode.isPersistenceSet()) {
+                statefulNodeBuilder.setPersistence(toBl(apiStatefulNode.getPersistence()));
             }
             if (apiStatefulNode.isStrategySet()) {
                 statefulNodeBuilder.setStrategy(toBl(apiStatefulNode.getStrategy()));
@@ -1216,13 +1217,14 @@ public class StatefulNodeConverter {
     }
 
 
-    private static StatefulNodePersistentConfiguration toBl(ApiStatefulNodePersistentConfiguration apiStatefulNodePersistent) {
+    private static StatefulNodePersistenceConfiguration toBl(
+            ApiStatefulNodePersistenceConfiguration apiStatefulNodePersistent) {
 
-        StatefulNodePersistentConfiguration statefulNodePersistent = null;
+        StatefulNodePersistenceConfiguration statefulNodePersistent = null;
 
         if(apiStatefulNodePersistent != null){
 
-            StatefulNodePersistentConfiguration.Builder statefulNodePersistentBuilder = StatefulNodePersistentConfiguration.Builder.get();
+            StatefulNodePersistenceConfiguration.Builder statefulNodePersistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
 
             if (apiStatefulNodePersistent.isShouldPersistDataDisksSet()) {
                 statefulNodePersistentBuilder.setShouldPersistDataDisks(apiStatefulNodePersistent.getShouldPersistDataDisks());

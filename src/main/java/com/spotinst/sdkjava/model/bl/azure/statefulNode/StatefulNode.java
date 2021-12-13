@@ -15,17 +15,17 @@ import java.util.Set;
 public class StatefulNode {
 
     @JsonIgnore
-    private Set<String>                         isSet;
-    private String                              id;
-    private String                              name;
-    private String                              region;
-    private String                              resourceGroupName;
-    private String                              description;
-    private StatefulNodeStrategyConfiguration   strategy;
-    private StatefulNodeComputeConfiguration    compute;
-    private StatefulNodeSchedulingConfiguration scheduling;
-    private StatefulNodePersistentConfiguration persistent;
-    private StatefulNodeHealthConfiguration     health;
+    private Set<String>                          isSet;
+    private String                               id;
+    private String                               name;
+    private String                               region;
+    private String                               resourceGroupName;
+    private String                               description;
+    private StatefulNodeStrategyConfiguration    strategy;
+    private StatefulNodeComputeConfiguration     compute;
+    private StatefulNodeSchedulingConfiguration  scheduling;
+    private StatefulNodePersistenceConfiguration persistence;
+    private StatefulNodeHealthConfiguration      health;
 
     private StatefulNode() {
         isSet = new HashSet<>();
@@ -111,13 +111,13 @@ public class StatefulNode {
         this.scheduling = scheduling;
     }
 
-    public StatefulNodePersistentConfiguration getPersistent() {
-        return persistent;
+    public StatefulNodePersistenceConfiguration getPersistence() {
+        return persistence;
     }
 
-    public void setPersistent(StatefulNodePersistentConfiguration persistent) {
-        isSet.add("persistent");
-        this.persistent = persistent;
+    public void setPersistence(StatefulNodePersistenceConfiguration persistence) {
+        isSet.add("persistence");
+        this.persistence = persistence;
     }
 
     public StatefulNodeHealthConfiguration getHealth() {
@@ -181,8 +181,8 @@ public class StatefulNode {
             return this;
         }
 
-        public Builder setPersistent(final StatefulNodePersistentConfiguration persistent) {
-            statefulNode.setPersistent(persistent);
+        public Builder setPersistence(final StatefulNodePersistenceConfiguration persistence) {
+            statefulNode.setPersistence(persistence);
             return this;
         }
 
@@ -236,8 +236,8 @@ public class StatefulNode {
     }
 
     @JsonIgnore
-    public boolean isPersistentSet() {
-        return isSet.contains("persistent");
+    public boolean isPersistenceSet() {
+        return isSet.contains("persistence");
     }
 
     @JsonIgnore

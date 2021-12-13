@@ -178,8 +178,8 @@ public class AzureStatefulNodeExample {
                 StatefulNodeSchedulingConfiguration.Builder.get().setTasks(tasksList).build();
 
         // Build persistent
-        StatefulNodePersistentConfiguration.Builder persistentBuilder = StatefulNodePersistentConfiguration.Builder.get();
-        StatefulNodePersistentConfiguration persistent =
+        StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
+        StatefulNodePersistenceConfiguration persistent =
                 persistentBuilder.setShouldPersistDataDisks(true).setShouldPersistNetwork(true).setShouldPersistOsDisk(true).setDataDisksPersistenceMode(AzureDiskModeEnum.ONLAUNCH)
                                  .setOsDiskPersistenceMode(AzureDiskModeEnum.ONLAUNCH).build();
 
@@ -192,7 +192,7 @@ public class AzureStatefulNodeExample {
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNode =
                 statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode-Bansi").setRegion("eastus").setResourceGroupName("ManualQAResourceGroup")
-                                   .setDescription("stateful node for tests").setCompute(compute).setStrategy(strategy).setScheduling(scheduling).setPersistent(persistent).setHealth(health).build();
+                                   .setDescription("stateful node for tests").setCompute(compute).setStrategy(strategy).setScheduling(scheduling).setPersistence(persistent).setHealth(health).build();
 
         // Build node creation request
         StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
@@ -406,13 +406,13 @@ public class AzureStatefulNodeExample {
     private static StatefulNode updateStatefulNodePersistent(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         // Build persistent
-        StatefulNodePersistentConfiguration.Builder persistentBuilder = StatefulNodePersistentConfiguration.Builder.get();
-        StatefulNodePersistentConfiguration persistent =
+        StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
+        StatefulNodePersistenceConfiguration persistent =
                 persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(AzureDiskModeEnum.REATTACH)
                                  .setOsDiskPersistenceMode(AzureDiskModeEnum.REATTACH).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
-        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setPersistent(persistent).build();
+        StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setPersistence(persistent).build();
 
         // Build node creation request
         StatefulNodeCreationRequest.Builder nodeCreationRequestBuilder = StatefulNodeCreationRequest.Builder.get();
