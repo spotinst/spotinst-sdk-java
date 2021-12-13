@@ -3,17 +3,14 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.converters.elastigroup.aws.ItfMigrationConverter;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSuspensionConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
@@ -546,4 +543,43 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<List<ItfMigrationRulesStatus>> getItfMigrationRulesStatus(String elastiGroupId,
+                                                                                         String authToken,
+                                                                                         String account) {
+        RepoGenericResponse<List<ItfMigrationRulesStatus>> retVal;
+
+        try {
+            List<ApiItfMigrationRulesStatus> getMigrationApiResponse =
+                    SpotinstElastigroupService.getItfMigrationRulesStatus(elastiGroupId, authToken, account);
+
+            List<ItfMigrationRulesStatus> list =
+                    getMigrationApiResponse.stream().map(ItfMigrationConverter::toBl)
+                                            .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(list);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> retryItfMigration(String elastiGroupId, RetryItfMigrationRequest request,
+                                                                       String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            ApiRetryItfMigrationRequest apiRequest = ItfMigrationConverter.toDal(request);
+            Boolean retryItfMigrationResponse =
+                    SpotinstElastigroupService.retryItfMigration(elastiGroupId,apiRequest, authToken, account);
+
+            retVal = new RepoGenericResponse<>(retryItfMigrationResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+        return retVal;
+    }
 }
