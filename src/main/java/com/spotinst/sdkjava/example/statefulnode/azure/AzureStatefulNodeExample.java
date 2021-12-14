@@ -14,14 +14,15 @@ import java.util.List;
 
 public class AzureStatefulNodeExample {
 
-    private final static String       auth_token         = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
-    private final static String       act_id             = "act-e97117d5";
-    private final static List<String> spotSizes          = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
-    private final static List<String> odSizes            = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
-    private final static List<String> preferredSpotSizes = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
-    private final static List<String> zones              = Arrays.asList("1", "2", "3");
-    private final static List<String> healthCheckTypes   = Arrays.asList("vmState");
-    private final static List<String> loadBalancers      = Arrays.asList();
+    private final static String       auth_token          = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
+    private final static String       act_id              = "act-e97117d5";
+    private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
+    private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
+    private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
+    private final static List<String> zones               = Arrays.asList("1", "2", "3");
+    private final static List<String> healthCheckTypes    = Arrays.asList("vmState");
+    private final static List<String> loadBalancers       = Arrays.asList();
+    private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -159,7 +160,7 @@ public class AzureStatefulNodeExample {
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
                 strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
-                               .setRevertToSpot(revertToSpot).build();
+                               .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
 
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();

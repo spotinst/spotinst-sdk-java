@@ -25,6 +25,7 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     private String                                   preferredLifecycle;
     private ApiStatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<ApiStatefulNodeSignalConfiguration> signals;
+    private List<String>                             optimizationWindows;
 
     public ApiStatefulNodeStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -84,6 +85,15 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
         this.signals = signals;
     }
 
+    public List<String> getOptimizationWindows() {
+        return optimizationWindows;
+    }
+
+    public void setOptimizationWindows(List<String> optimizationWindows) {
+        isSet.add("optimizationWindows ");
+        this.optimizationWindows = optimizationWindows;
+    }
+
     @JsonIgnore
     public boolean isFallbackToOdSet() {
         return isSet.contains("fallbackToOd");
@@ -108,4 +118,10 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     public boolean isSignalsSet() {
         return isSet.contains("signals");
     }
+
+    @JsonIgnore
+    public boolean isOptimizationWindowsSet() {
+        return isSet.contains("optimizationWindows");
+    }
+
 }

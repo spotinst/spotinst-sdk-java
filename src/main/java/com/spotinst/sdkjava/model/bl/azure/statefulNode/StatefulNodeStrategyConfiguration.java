@@ -23,6 +23,7 @@ public class StatefulNodeStrategyConfiguration {
     private AzureLifeCycleTypeEnum                preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<StatefulNodeSignalConfiguration> signals;
+    private List<String>                          optimizationWindows;
 
     private StatefulNodeStrategyConfiguration() {
         isSet = new HashSet<>();
@@ -81,6 +82,15 @@ public class StatefulNodeStrategyConfiguration {
         this.signals = signals;
     }
 
+    public List<String> getOptimizationWindows() {
+        return optimizationWindows;
+    }
+
+    public void setOptimizationWindows(List<String> optimizationWindows) {
+        isSet.add("optimizationWindows ");
+        this.optimizationWindows = optimizationWindows;
+    }
+
     public static class Builder {
         private StatefulNodeStrategyConfiguration statefulNodeStrategy;
 
@@ -118,6 +128,11 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
+        public Builder setOptimizationWindows(final List<String> optimizationWindows){
+            statefulNodeStrategy.setOptimizationWindows(optimizationWindows);
+            return this;
+        }
+
         public StatefulNodeStrategyConfiguration build() {
             return statefulNodeStrategy;
         }
@@ -147,4 +162,11 @@ public class StatefulNodeStrategyConfiguration {
     public boolean isSignalsSet() {
         return isSet.contains("signals");
     }
+
+    @JsonIgnore
+    public boolean isOptimizationWindowsSet() {
+        return isSet.contains("optimizationWindows");
+    }
+
+
 }

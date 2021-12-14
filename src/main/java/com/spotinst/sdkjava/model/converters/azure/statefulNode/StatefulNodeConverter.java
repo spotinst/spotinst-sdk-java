@@ -75,6 +75,9 @@ public class StatefulNodeConverter {
                                                                        .collect(Collectors.toList());
                 apiStatefulNodeStrategy.setSignals(signalsList);
             }
+            if (statefulNodeStrategy.isOptimizationWindowsSet()) {
+                apiStatefulNodeStrategy.setOptimizationWindows(statefulNodeStrategy.getOptimizationWindows());
+            }
 
         }
 
@@ -1122,6 +1125,10 @@ public class StatefulNodeConverter {
                 List<StatefulNodeSignalConfiguration> signalsList = apiStatefulNodeStrategy.getSignals()
                                                         .stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
                 statefulNodeStrategyBuilder.setSignals(signalsList);
+            }
+
+            if(apiStatefulNodeStrategy.isOptimizationWindowsSet()){
+                statefulNodeStrategy.setOptimizationWindows(apiStatefulNodeStrategy.getOptimizationWindows());
             }
 
             statefulNodeStrategy = statefulNodeStrategyBuilder.build();
