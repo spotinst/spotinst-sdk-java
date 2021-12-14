@@ -90,7 +90,7 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     }
 
     public void setOptimizationWindows(List<String> optimizationWindows) {
-        isSet.add("optimizationWindows ");
+        isSet.add("optimizationWindows");
         this.optimizationWindows = optimizationWindows;
     }
 

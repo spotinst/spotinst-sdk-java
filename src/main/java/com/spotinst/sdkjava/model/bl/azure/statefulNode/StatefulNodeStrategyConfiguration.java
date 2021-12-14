@@ -87,7 +87,7 @@ public class StatefulNodeStrategyConfiguration {
     }
 
     public void setOptimizationWindows(List<String> optimizationWindows) {
-        isSet.add("optimizationWindows ");
+        isSet.add("optimizationWindows");
         this.optimizationWindows = optimizationWindows;
     }
 
@@ -164,9 +164,6 @@ public class StatefulNodeStrategyConfiguration {
     }
 
     @JsonIgnore
-    public boolean isOptimizationWindowsSet() {
-        return isSet.contains("optimizationWindows");
-    }
-
+    public boolean isOptimizationWindowsSet() { return isSet.contains("optimizationWindows"); }
 
 }
