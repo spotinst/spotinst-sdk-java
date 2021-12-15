@@ -20,7 +20,7 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
     private String      type;
     private String      resourceGroupName;
     private String      name;
-    private String      backendPoolNames;
+    private String[]      backendPoolNames;
     private String      sku;
     //endregion
 
@@ -38,11 +38,11 @@ public class ApiLoadBalancerAzure implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    public String getBackendPoolNames() {
+    public String[] getBackendPoolNames() {
         return backendPoolNames;
     }
 
-    public void setBackendPoolNames(String backendPoolNames) {
+    public void setBackendPoolNames(String[] backendPoolNames) {
         isSet.add("backendPoolNames");
         this.backendPoolNames = backendPoolNames;
     }
