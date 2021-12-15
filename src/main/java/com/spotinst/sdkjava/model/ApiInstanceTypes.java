@@ -22,6 +22,7 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     private Set<String>  isSet;
     private String       ondemand;
     private List<String> spot;
+    private List<String> preferredspot;
     private List<ApiInstanceTypesWeights> weights;
     //endregion
 
@@ -49,6 +50,15 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     public void setSpot(List<String> spot) {
         isSet.add("spot");
         this.spot = spot;
+    }
+
+    public List<String> getPreferredSpot() {
+        return preferredspot;
+    }
+
+    public void setPreferredSpot(List<String> preferredspot) {
+        isSet.add("preferredSpot");
+        this.preferredspot = preferredspot;
     }
 
     public String getOndemand() {
@@ -84,6 +94,12 @@ class ApiInstanceTypes implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSpotSet() {
         return isSet.contains("spot");
+    }
+
+    // Is preferredSpot Set boolean method
+    @JsonIgnore
+    public boolean isPreferredSpotSet() {
+        return isSet.contains("preferredSpot");
     }
 
     // Is weights Set boolean method

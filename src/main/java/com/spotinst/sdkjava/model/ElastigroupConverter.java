@@ -898,6 +898,12 @@ public class ElastigroupConverter {
                 }
             }
 
+            if (instanceTypes.isPreferredSpotSet()) {
+                if (instanceTypes.getPreferredSpot() != null) {
+                    retVal.setPreferredSpot(new LinkedList<>(instanceTypes.getPreferredSpot()));
+                }
+            }
+
             if (instanceTypes.isWeightsSet()) {
                 if (instanceTypes.getWeights() != null) {
                     List <ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
@@ -2369,6 +2375,12 @@ public class ElastigroupConverter {
             if (instanceTypes.isSpotSet()) {
                 if (instanceTypes.getSpot() != null) {
                     retValBuilder.setSpotTypes(new LinkedList<>(instanceTypes.getSpot()));
+                }
+            }
+
+            if (instanceTypes.isPreferredSpotSet()) {
+                if (instanceTypes.getPreferredSpot() != null) {
+                    retValBuilder.setPreferredSpotTypes(new LinkedList<>(instanceTypes.getPreferredSpot()));
                 }
             }
 
