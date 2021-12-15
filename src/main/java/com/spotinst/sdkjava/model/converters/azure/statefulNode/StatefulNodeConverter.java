@@ -1128,7 +1128,7 @@ public class StatefulNodeConverter {
             }
 
             if(apiStatefulNodeStrategy.isOptimizationWindowsSet()){
-                statefulNodeStrategy.setOptimizationWindows(apiStatefulNodeStrategy.getOptimizationWindows());
+                statefulNodeStrategyBuilder.setOptimizationWindows(apiStatefulNodeStrategy.getOptimizationWindows());
             }
 
             statefulNodeStrategy = statefulNodeStrategyBuilder.build();
