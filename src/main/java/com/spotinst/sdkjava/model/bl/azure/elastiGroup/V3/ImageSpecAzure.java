@@ -10,7 +10,7 @@ public class ImageSpecAzure {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private List<CustomSpecAzure>  custom;
+    private CustomSpecAzure custom;
     private MarketplaceAzure marketplace;
     //endregion
 
@@ -29,11 +29,11 @@ public class ImageSpecAzure {
         this.isSet = isSet;
     }
 
-    public List<CustomSpecAzure> getCustom() {
+    public CustomSpecAzure getCustom() {
         return custom;
     }
 
-    public void setCustom(List<CustomSpecAzure> custom) {
+    public void setCustom(CustomSpecAzure custom) {
         isSet.add("custom");
         this.custom = custom;
     }
@@ -64,7 +64,7 @@ public class ImageSpecAzure {
             launchSpecification.setMarketplace(marketplace);
             return this;
         }
-        public Builder setCustom(final List<CustomSpecAzure> custom) {
+        public Builder setCustom(final CustomSpecAzure custom) {
             launchSpecification.setCustom(custom);
             return this;
         }

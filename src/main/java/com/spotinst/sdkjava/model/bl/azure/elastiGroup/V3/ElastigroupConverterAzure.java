@@ -196,14 +196,8 @@ public class ElastigroupConverterAzure {
                 retVal.setMarketplace(toDal(imageSpecAzure.getMarketplace()));
             }
             if (imageSpecAzure.isCustomSet()) {
-                if (imageSpecAzure.getCustom() != null) {
-                    List<ApiCustomSpecAzure> customAzures =
-                            imageSpecAzure.getCustom().stream().map(ElastigroupConverterAzure::toDal)
-                                    .collect(Collectors.toList());
-                    retVal.setCustom(customAzures);
-                }
+                retVal.setCustom(toDal(imageSpecAzure.getCustom()));
             }
-
         }
         return retVal;
     }
@@ -1036,12 +1030,7 @@ public class ElastigroupConverterAzure {
                 retValBuilder.setMarketplace(toBl(apiImageSpecAzure.getMarketplace()));
             }
             if (apiImageSpecAzure.isCustomSet()) {
-                if (apiImageSpecAzure.getCustom() != null) {
-                    List<CustomSpecAzure> customSpec =
-                            apiImageSpecAzure.getCustom().stream().map(ElastigroupConverterAzure::toBl)
-                                    .collect(Collectors.toList());
-                    retValBuilder.setCustom(customSpec);
-                }
+                retValBuilder.setCustom(toBl(apiImageSpecAzure.getCustom()));
             }
             retVal = retValBuilder.build();
         }

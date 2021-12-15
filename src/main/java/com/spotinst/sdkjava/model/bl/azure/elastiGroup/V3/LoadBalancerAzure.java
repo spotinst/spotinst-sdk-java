@@ -12,7 +12,7 @@ public class LoadBalancerAzure {
     private String      type;
     private String      resourceGroupName;
     private String      name;
-    private String      backendPoolNames;
+    private String[]      backendPoolNames;
     private String      sku;
     //endregion
 
@@ -39,11 +39,11 @@ public class LoadBalancerAzure {
         this.resourceGroupName = resourceGroupName;
     }
 
-    public String getBackendPoolNames() {
+    public String[] getBackendPoolNames() {
         return backendPoolNames;
     }
 
-    public void setBackendPoolNames(String backendPoolNames) {
+    public void setBackendPoolNames(String[] backendPoolNames) {
         isSet.add("backendPoolNames");
         this.backendPoolNames = backendPoolNames;
     }
@@ -85,7 +85,7 @@ public class LoadBalancerAzure {
             return this;
         }
 
-        public LoadBalancerAzure.Builder setBackendPoolNames(final String backendPoolNames) {
+        public LoadBalancerAzure.Builder setBackendPoolNames(final String[] backendPoolNames) {
             loadBalancer.setBackendPoolNames(backendPoolNames);
             return this;
         }
