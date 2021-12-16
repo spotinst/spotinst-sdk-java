@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDealloca
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -116,5 +117,24 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
         return statefulNodesList;
 
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> recycleNode(StatefulNodeStateRequest recycleStatefulNodeRequest , String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean recycledNode =
+                    SpotinstAzureStatefulNodeService.recycleNode(recycleStatefulNodeRequest, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(recycledNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
 
 }

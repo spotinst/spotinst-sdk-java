@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -143,5 +144,25 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
+    public Boolean recycleNode(StatefulNodeStateRequest recycleRequest, String nodeId) {
 
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> recycleNodeResponse =
+                getSpotAzureStatefulNodeRepo().recycleNode(recycleRequest , nodeId, authToken, account);
+
+        if (recycleNodeResponse.isRequestSucceed()) {
+            retVal = recycleNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = recycleNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to recycle Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 }

@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.model.SpotinstAzureStatefulNodeClient;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +62,10 @@ public class AzureStatefulNodeExample {
         //Get All Stateful Node
         System.out.println("----------List All Stateful Nodes--------------");
         getAllStatefulNode(nodeClient);
+
+        //Recycle Stateful Node
+        System.out.println("----------Recycle Stateful Nodes--------------");
+        recycleStatefulNode(nodeClient, nodeId);
 
         //Delete Stateful Node
         System.out.println("----------Delete Stateful Node--------------");
@@ -474,6 +479,19 @@ public class AzureStatefulNodeExample {
         }
 
         return statefulNodesList;
+
+    }
+
+    private static Boolean recycleStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
+
+        // Recycle Stateful Nodes
+        StatefulNodeStateRequest.Builder recycleStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
+        StatefulNodeStateRequest recycleStatefulNode = recycleStatefulNodeBuilder.setState("recycle").build();
+
+        Boolean recycleStatefulNodeResponse = client.recycleNode(recycleStatefulNode,nodeId);
+
+        System.out.println("Recycle of stateful Node is successful " + nodeId);
+        return recycleStatefulNodeResponse;
 
     }
 
