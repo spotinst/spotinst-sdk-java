@@ -136,5 +136,40 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<Boolean> pauseNode(StatefulNodeStateRequest pauseStatefulNodeRequest , String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean pausedNode =
+                    SpotinstAzureStatefulNodeService.pauseNode(pauseStatefulNodeRequest, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(pausedNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> resumeNode(StatefulNodeStateRequest resumeStatefulNodeRequest , String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean resumedNode =
+                    SpotinstAzureStatefulNodeService.resumeNode(resumeStatefulNodeRequest, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(resumedNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 
 }

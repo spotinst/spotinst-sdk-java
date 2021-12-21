@@ -67,6 +67,14 @@ public class AzureStatefulNodeExample {
         System.out.println("----------Recycle Stateful Nodes--------------");
         recycleStatefulNode(nodeClient, nodeId);
 
+        //Pause Stateful Node
+        System.out.println("----------Pause Stateful Nodes--------------");
+        pauseStatefulNode(nodeClient, nodeId);
+
+        //Pause Stateful Node
+        System.out.println("----------Resume Stateful Nodes--------------");
+        resumeStatefulNode(nodeClient, "ssn-7bc34196");
+
         //Delete Stateful Node
         System.out.println("----------Delete Stateful Node--------------");
         deleteStatefulNode(nodeClient, nodeId);
@@ -197,7 +205,7 @@ public class AzureStatefulNodeExample {
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNode =
-                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode-Bansi").setRegion("eastus").setResourceGroupName("ManualQAResourceGroup")
+                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode").setRegion("eastus").setResourceGroupName("ManualQAResourceGroup")
                                    .setDescription("stateful node for tests").setCompute(compute).setStrategy(strategy).setScheduling(scheduling).setPersistence(persistent).setHealth(health).build();
 
         // Build node creation request
@@ -229,7 +237,7 @@ public class AzureStatefulNodeExample {
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNodeToUpdate =
-                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode-Bansi-renamed")
+                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode-renamed")
                                    .setDescription("stateful node for tests update").build();
 
         // Build node creation request
@@ -494,6 +502,33 @@ public class AzureStatefulNodeExample {
         return recycleStatefulNodeResponse;
 
     }
+
+    private static Boolean pauseStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
+
+        // Recycle Stateful Nodes
+        StatefulNodeStateRequest.Builder pauseStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
+        StatefulNodeStateRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState("pause").build();
+
+        Boolean pauseStatefulNodeResponse = client.pauseNode(pauseStatefulNode,nodeId);
+
+        System.out.println("Pause of stateful Node is successful " + nodeId);
+        return pauseStatefulNodeResponse;
+
+    }
+
+    private static Boolean resumeStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
+
+        // Recycle Stateful Nodes
+        StatefulNodeStateRequest.Builder resumeStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
+        StatefulNodeStateRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState("resume").build();
+
+        Boolean resumeStatefulNodeResponse = client.resumeNode(resumeStatefulNode,nodeId);
+
+        System.out.println("Resume of stateful Node is successful " + nodeId);
+        return resumeStatefulNodeResponse;
+
+    }
+
 
 }
 

@@ -144,12 +144,12 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
-    public Boolean recycleNode(StatefulNodeStateRequest recycleRequest, String nodeId) {
+    public Boolean recycleNode(StatefulNodeStateRequest recycleStatefulNodeRequest, String nodeId) {
 
         Boolean retVal;
 
         RepoGenericResponse<Boolean> recycleNodeResponse =
-                getSpotAzureStatefulNodeRepo().recycleNode(recycleRequest , nodeId, authToken, account);
+                getSpotAzureStatefulNodeRepo().recycleNode(recycleStatefulNodeRequest , nodeId, authToken, account);
 
         if (recycleNodeResponse.isRequestSucceed()) {
             retVal = recycleNodeResponse.getValue();
@@ -165,4 +165,50 @@ public class SpotinstAzureStatefulNodeClient {
 
         return retVal;
     }
+
+    public Boolean pauseNode(StatefulNodeStateRequest pauseStatefulNodeRequest, String nodeId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> pauseNodeResponse =
+                getSpotAzureStatefulNodeRepo().pauseNode(pauseStatefulNodeRequest , nodeId, authToken, account);
+
+        if (pauseNodeResponse.isRequestSucceed()) {
+            retVal = pauseNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = pauseNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to pause Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean resumeNode(StatefulNodeStateRequest resumeStatefulNodeRequest, String nodeId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> resumeNodeResponse =
+                getSpotAzureStatefulNodeRepo().resumeNode(resumeStatefulNodeRequest , nodeId, authToken, account);
+
+        if (resumeNodeResponse.isRequestSucceed()) {
+            retVal = resumeNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = resumeNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to resume Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
 }
