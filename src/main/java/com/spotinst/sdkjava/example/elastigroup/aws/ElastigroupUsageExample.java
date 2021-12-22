@@ -161,6 +161,14 @@ public class ElastigroupUsageExample {
         System.out.println("----------Apply Deployment Action to Deployment--------------");
         applyDeploymentAction(elastigroupClient, "elastigroup-id", deploymentId);
 
+        //Get ITF migation Rules Status
+        System.out.println("----------get ITF migration list--------------");
+        getItfMigrationRulesStatus(elastigroupClient, "elastigroup-id");
+
+        //Get ITF migation list
+        System.out.println("----------retry ITF migration --------------");
+        retryItfMigration(elastigroupClient, "elastigroup-id");
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -1033,6 +1041,43 @@ public class ElastigroupUsageExample {
         }
 
         return getDeploymentActionResponse;
+
+    }
+
+    private static List<ItfMigrationRulesStatus> getItfMigrationRulesStatus(
+            SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
+
+        List<ItfMigrationRulesStatus> itfMigrationRulesStatusList =
+                elastigroupClient.getItfMigrationRulesStatus(elastigroupId);
+
+        for (ItfMigrationRulesStatus list : itfMigrationRulesStatusList) {
+            System.out.println(String.format("Id: %s", list.getId()));
+            System.out.println(String.format("Group Id: %s", list.getGroupId()));
+            System.out.println(String.format("Rule ARN: %s", list.getRuleArn()));
+            System.out.println(String.format("Status: %s", list.getStatus()));
+            System.out.println(String.format("Created At: %s", list.getCreatedAt()));
+            System.out.println(String.format("Updated At: %s", list.getUpdatedAt()));
+            System.out.println();
+        }
+        return itfMigrationRulesStatusList;
+    }
+
+    private static Boolean retryItfMigration(SpotinstElastigroupClient elastigroupClient,
+                                                                      String elastigroupId) {
+
+        ItfMigrationRulesStatus.Builder migrationBuilder = ItfMigrationRulesStatus.Builder.get();
+        ItfMigrationRulesStatus         migration        = migrationBuilder.setStatus("USER_RETRY").build();
+
+        RetryItfMigrationRequest.Builder requestBuilder = RetryItfMigrationRequest.Builder.get();
+        RetryItfMigrationRequest retryItfMigration = requestBuilder.setMigration(migration).setId("ilrm-72bf5f74")
+                                                                   .setGroupId(elastigroupId).build();
+
+        System.out.println("ITF migration retry for elastigroup:" + elastigroupId);
+
+        Boolean retryStatus =
+                elastigroupClient.retryItfMigration(retryItfMigration);
+
+        return retryStatus;
 
     }
 

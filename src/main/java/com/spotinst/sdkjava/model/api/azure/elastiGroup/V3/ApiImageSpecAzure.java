@@ -18,7 +18,7 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
     private ApiMarketplaceAzure marketplace;
-    private List<ApiCustomSpecAzure> custom;
+    private ApiCustomSpecAzure  custom;
     //endregion
 
     //region Constructor
@@ -45,11 +45,11 @@ public class ApiImageSpecAzure implements IPartialUpdateEntity {
         this.marketplace = marketplace;
     }
 
-    public List<ApiCustomSpecAzure> getCustom() {
+    public ApiCustomSpecAzure getCustom() {
         return custom;
     }
 
-    public void setCustom(List<ApiCustomSpecAzure> custom) {
+    public void setCustom(ApiCustomSpecAzure custom) {
         isSet.add("custom");
         this.custom = custom;
     }

@@ -1,13 +1,10 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.ProcessNameEnum;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ScalingPolicySuspension;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPoliciesList;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
@@ -74,4 +71,10 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(
             ElastigroupDeploymentStrategyOnFailure getDeploymentActionRequest , String elastigroupId, String deploymentId , String authToken, String account);
+
+    RepoGenericResponse<List<ItfMigrationRulesStatus>> getItfMigrationRulesStatus(String elastigroupId,
+                                                                                  String authToken, String account);
+
+    RepoGenericResponse<Boolean> retryItfMigration(String elastiGroupId, RetryItfMigrationRequest request,
+                                                          String authToken, String account);
 }

@@ -1,11 +1,12 @@
 package com.spotinst.sdkjava.client.http;
 
-import org.apache.http.annotation.NotThreadSafe;
+import org.apache.http.annotation.Contract;
+import org.apache.http.annotation.ThreadingBehavior;
 import org.apache.http.client.methods.HttpPost;
 
 import java.net.URI;
 
-@NotThreadSafe
+@Contract(threading = ThreadingBehavior.UNSAFE)
 public class DeleteRequestWithBody extends HttpPost {
 
     @Override

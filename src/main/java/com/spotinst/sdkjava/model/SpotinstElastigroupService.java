@@ -5,13 +5,12 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiScalingPolicySuspension;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPoliciesList;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiSuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.*;
 import org.apache.http.HttpStatus;
@@ -1128,7 +1127,77 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
+    public static List<ApiItfMigrationRulesStatus> getItfMigrationRulesStatus(String elastiGroupId, String authToken,
+                                                                              String account) throws SpotinstHttpException {
+        List<ApiItfMigrationRulesStatus> retVal = null;
 
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
 
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/itf/migration", apiEndpoint, elastiGroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupItfMigrationListApiResponse getResponse =
+                getCastedResponse(response, ElastigroupItfMigrationListApiResponse.class);
+
+        if (getResponse.getResponse().getCount() > 0) {
+            retVal = getResponse.getResponse().getItems();
+        }
+        return retVal;
+    }
+
+    public static Boolean retryItfMigration(String groupId, ApiRetryItfMigrationRequest retryRequest,
+                                            String authToken, String account) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", account);
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiItfMigrationRulesStatus> migrationRetry = new HashMap<>();
+        migrationRetry.put("migration", retryRequest.getMigration());
+        String body = JsonMapper.toJson(migrationRetry);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/itf/migration/%s", apiEndpoint, groupId, retryRequest.getId());
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponse retryResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+        if (retryResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
 }
