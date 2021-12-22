@@ -58,7 +58,6 @@ public class StatefulNodeCreationRequest {
             return this;
         }
 
-
         public StatefulNodeCreationRequest build() {
             return nodeRequest;
         }

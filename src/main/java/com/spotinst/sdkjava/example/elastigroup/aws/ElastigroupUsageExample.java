@@ -29,7 +29,7 @@ public class ElastigroupUsageExample {
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
         SpotinstElastigroupClient elastigroupClient = SpotinstClient.getElastigroupClient(auth_token, act_id);
-/*
+
         // Create group
         String elastigroupId = createGroup(elastigroupClient);
 
@@ -140,7 +140,7 @@ public class ElastigroupUsageExample {
         System.out.println("----------Simulate Instance Interruption Example--------------");
         List<String> listOfInstances = Arrays.asList("i-0687d633ba59aad5f");
         interruptInstances(elastigroupClient, listOfInstances);
-*/
+
         //Start deployment
         System.out.println("----------Start Deployment--------------");
         String deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();

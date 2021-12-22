@@ -15,8 +15,8 @@ import java.util.List;
 
 public class AzureStatefulNodeExample {
 
-    private final static String       auth_token          = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
-    private final static String       act_id              = "act-e97117d5";
+    private final static String       auth_token          = "auth-token";
+    private final static String       act_id              = "act-id";
     private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
@@ -42,21 +42,27 @@ public class AzureStatefulNodeExample {
         updateStatefulNodeName(nodeClient, nodeId);
 
         //update Stateful Node Strategy
+        System.out.println("----------Update Stateful Node Strategy--------------");
         updateStatefulNodeStrategy(nodeClient, nodeId);
 
         //update Stateful Node Data Disk
+        System.out.println("----------Update Stateful Node DataDisk--------------");
         updateStatefulNodeDataDisk(nodeClient, nodeId);
 
         //update Stateful Node Os Disk
+        System.out.println("----------Update Stateful Node OsDisk--------------");
         updateStatefulNodeOsDisk(nodeClient, nodeId);
 
         //update Stateful Node Scheduling Tasks
+        System.out.println("----------Update Stateful Node Scheduling--------------");
         updateStatefulNodeScheduling(nodeClient, nodeId);
 
         //update Stateful Node Health
+        System.out.println("----------Update Stateful Node Health--------------");
         updateStatefulNodeHealth(nodeClient, nodeId);
 
         //update Stateful Node Persistent
+        System.out.println("----------Update Stateful Node Persistent--------------");
         updateStatefulNodePersistent(nodeClient, nodeId);
 
         //Get All Stateful Node
@@ -172,7 +178,7 @@ public class AzureStatefulNodeExample {
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
                                .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
 
         //Build Scheduling Tasks
@@ -269,7 +275,7 @@ public class AzureStatefulNodeExample {
         //Build Strategy to update
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
                                .setRevertToSpot(revertToSpot).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();

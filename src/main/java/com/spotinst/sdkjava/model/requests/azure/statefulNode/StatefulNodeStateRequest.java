@@ -34,7 +34,6 @@ public class StatefulNodeStateRequest {
             return this;
         }
 
-
         public StatefulNodeStateRequest build() {
             return nodeStateRequest;
         }

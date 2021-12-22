@@ -34,7 +34,7 @@ public enum AzureDiskModeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error(String.format("Tried to create os disk mode Enum for: %s, but we don't support such type", name));
+            LOGGER.error(String.format("Tried to create disk mode Enum for: %s, but we don't support such type", name));
         }
         return retVal;
     }

@@ -423,7 +423,6 @@ public class StatefulNodeConverter {
         return apiLaunchSpecMarketplace;
     }
 
-
     private static ApiStatefulNodeLoadBalancersConfig toDal(StatefulNodeLoadBalancersConfig statefulNodeLoadBalancers) {
         ApiStatefulNodeLoadBalancersConfig apiStatefulNodeLoadBalancers = null;
 
@@ -606,7 +605,6 @@ public class StatefulNodeConverter {
         return retVal;
     }
 
-
     private static ApiStatefulNodePublicIpDeallocationConfig toDal(StatefulNodePublicIpDeallocationConfig deallocationPublicIpConfig) {
         ApiStatefulNodePublicIpDeallocationConfig retVal = null;
 
@@ -670,7 +668,6 @@ public class StatefulNodeConverter {
         }
         return statefulNode;
     }
-
 
     private static StatefulNodeComputeConfiguration toBl(ApiStatefulNodeComputeConfiguration apiStatefulNodeCompute){
 
@@ -951,7 +948,6 @@ public class StatefulNodeConverter {
         return launchSpecOsDiskSpecification;
     }
 
-
     private static LaunchSpecExtensionsSpecification toBl(ApiLaunchSpecExtensionsSpecification apiLaunchSpecExtensionsSpecification){
 
         LaunchSpecExtensionsSpecification launchSpecExtensionsSpecification = null;
@@ -1056,7 +1052,6 @@ public class StatefulNodeConverter {
         return launchSpecLoginSpecification;
     }
 
-
     private static LaunchSpecTagsSpecification toBl(ApiLaunchSpecTagsSpecification apiLaunchSpecTagsSpecification){
 
         LaunchSpecTagsSpecification launchSpecTagsSpecification = null;
@@ -1077,7 +1072,6 @@ public class StatefulNodeConverter {
 
         return launchSpecTagsSpecification;
     }
-
 
     private static StatefulNodeLoadBalancersConfig toBl(ApiStatefulNodeLoadBalancersConfig apiStatefulNodeLoadBalancers){
 
@@ -1137,7 +1131,6 @@ public class StatefulNodeConverter {
         return statefulNodeStrategy;
     }
 
-
     private static StatefulNodeSignalConfiguration toBl(ApiStatefulNodeSignalConfiguration apiStatefulNodeSignal){
 
         StatefulNodeSignalConfiguration statefulNodeSignal = null;
@@ -1176,7 +1169,6 @@ public class StatefulNodeConverter {
 
         return statefulNodeRevertToSpot;
     }
-
 
     private static StatefulNodeSchedulingConfiguration toBl(ApiStatefulNodeSchedulingConfiguration apiStatefulNodeScheduling) {
 
@@ -1223,7 +1215,6 @@ public class StatefulNodeConverter {
 
     }
 
-
     private static StatefulNodePersistenceConfiguration toBl(
             ApiStatefulNodePersistenceConfiguration apiStatefulNodePersistent) {
 
@@ -1257,7 +1248,6 @@ public class StatefulNodeConverter {
         }
         return statefulNodePersistent;
     }
-
 
     private static StatefulNodeHealthConfiguration toBl(ApiStatefulNodeHealthConfiguration apiStatefulNodeHealth) {
 
