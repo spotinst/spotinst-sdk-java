@@ -364,6 +364,12 @@ public class ElastigroupConverter {
                 }
             }
 
+            if (compute.isPreferredAvailabilityZonesSet()) {
+                if (compute.getPreferredAvailabilityZones() != null) {
+                    optCompute.setPreferredAvailabilityZones(new LinkedList<>(compute.getPreferredAvailabilityZones()));
+                }
+            }
+
         }
 
         return optCompute;
@@ -1802,6 +1808,12 @@ public class ElastigroupConverter {
                             compute.getEbsVolumePool().stream().map(ElastigroupConverter::toBl)
                                    .collect(Collectors.toList());
                     blComputeBuilder.setEbsVolumePools(blVolumePool);
+                }
+            }
+
+            if (compute.isPreferredAvailabilityZonesSet()) {
+                if (compute.getPreferredAvailabilityZones() != null) {
+                    blComputeBuilder.setPreferredAvailabilityZones(new LinkedList<>(compute.getPreferredAvailabilityZones()));
                 }
             }
 
