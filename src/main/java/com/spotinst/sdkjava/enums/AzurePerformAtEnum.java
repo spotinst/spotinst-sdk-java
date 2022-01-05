@@ -27,7 +27,7 @@ public enum AzurePerformAtEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create 'perfom at' enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create 'perform at' enum for: " + name + ", but we don't support such type ");
         }
 
         return retVal;

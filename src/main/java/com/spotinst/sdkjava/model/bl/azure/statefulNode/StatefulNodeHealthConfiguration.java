@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.HealthCheckTypeEnumAzure;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,11 +13,11 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodeHealthConfiguration {
     @JsonIgnore
-    private Set<String>  isSet;
-    private Boolean      autoHealing;
-    private Integer      gracePeriod;
-    private List<String> healthCheckTypes;
-    private Integer      unhealthyDuration;
+    private Set<String>                    isSet;
+    private Boolean                        autoHealing;
+    private Integer                        gracePeriod;
+    private List<HealthCheckTypeEnumAzure> healthCheckTypes;
+    private Integer                        unhealthyDuration;
 
     private StatefulNodeHealthConfiguration() {
         isSet = new HashSet<>();
@@ -48,11 +49,11 @@ public class StatefulNodeHealthConfiguration {
         this.gracePeriod = gracePeriod;
     }
 
-    public List<String> getHealthCheckTypes() {
+    public List<HealthCheckTypeEnumAzure> getHealthCheckTypes() {
         return healthCheckTypes;
     }
 
-    public void setHealthCheckTypes(List<String> healthCheckTypes) {
+    public void setHealthCheckTypes(List<HealthCheckTypeEnumAzure> healthCheckTypes) {
         isSet.add("healthCheckTypes");
         this.healthCheckTypes = healthCheckTypes;
     }
@@ -83,7 +84,7 @@ public class StatefulNodeHealthConfiguration {
             return this;
         }
 
-        public Builder setHealthCheckTypes(final List<String> healthCheckTypes) {
+        public Builder setHealthCheckTypes(final List<HealthCheckTypeEnumAzure> healthCheckTypes) {
             compute.setHealthCheckTypes(healthCheckTypes);
             return this;
         }

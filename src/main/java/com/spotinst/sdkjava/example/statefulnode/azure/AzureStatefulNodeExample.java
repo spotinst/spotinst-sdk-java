@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AzureStatefulNodeExample {
 
-    private final static String       auth_token          = "auth-token";
-    private final static String       act_id              = "act-id";
+    private final static String       auth_token          = "553579a8c5d58e1180376dbf385da3066e41b59c293c5c685a9799fb36ff670a";
+    private final static String       act_id              = "act-e97117d5";
     private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> zones               = Arrays.asList("1", "2", "3");
-    private final static List<String> healthCheckTypes    = Arrays.asList("vmState");
     private final static List<String> loadBalancers       = Arrays.asList();
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
 
@@ -35,55 +35,55 @@ public class AzureStatefulNodeExample {
 
         //Get Stateful Node
         System.out.println("----------Get Stateful Node--------------");
-        getStatefulNode(nodeClient, nodeId);
+        //getStatefulNode(nodeClient, nodeId);
 
         //Update Stateful Node
         System.out.println("----------Update Stateful Node Name--------------");
-        updateStatefulNodeName(nodeClient, nodeId);
+        //updateStatefulNodeName(nodeClient, nodeId);
 
         //update Stateful Node Strategy
         System.out.println("----------Update Stateful Node Strategy--------------");
-        updateStatefulNodeStrategy(nodeClient, nodeId);
+        //updateStatefulNodeStrategy(nodeClient, nodeId);
 
         //update Stateful Node Data Disk
         System.out.println("----------Update Stateful Node DataDisk--------------");
-        updateStatefulNodeDataDisk(nodeClient, nodeId);
+        //updateStatefulNodeDataDisk(nodeClient, nodeId);
 
         //update Stateful Node Os Disk
         System.out.println("----------Update Stateful Node OsDisk--------------");
-        updateStatefulNodeOsDisk(nodeClient, nodeId);
+        //updateStatefulNodeOsDisk(nodeClient, nodeId);
 
         //update Stateful Node Scheduling Tasks
         System.out.println("----------Update Stateful Node Scheduling--------------");
-        updateStatefulNodeScheduling(nodeClient, nodeId);
+        //updateStatefulNodeScheduling(nodeClient, nodeId);
 
         //update Stateful Node Health
         System.out.println("----------Update Stateful Node Health--------------");
-        updateStatefulNodeHealth(nodeClient, nodeId);
+        //updateStatefulNodeHealth(nodeClient, nodeId);
 
         //update Stateful Node Persistent
         System.out.println("----------Update Stateful Node Persistent--------------");
-        updateStatefulNodePersistent(nodeClient, nodeId);
+        //updateStatefulNodePersistent(nodeClient, nodeId);
 
         //Get All Stateful Node
         System.out.println("----------List All Stateful Nodes--------------");
-        getAllStatefulNode(nodeClient);
+        //getAllStatefulNode(nodeClient);
 
         //Recycle Stateful Node
         System.out.println("----------Recycle Stateful Nodes--------------");
-        recycleStatefulNode(nodeClient, nodeId);
+        //recycleStatefulNode(nodeClient, nodeId);
 
         //Pause Stateful Node
         System.out.println("----------Pause Stateful Nodes--------------");
-        pauseStatefulNode(nodeClient, nodeId);
+        //pauseStatefulNode(nodeClient, nodeId);
 
         //Pause Stateful Node
         System.out.println("----------Resume Stateful Nodes--------------");
-        resumeStatefulNode(nodeClient, "ssn-7bc34196");
+        //resumeStatefulNode(nodeClient, "ssn-7bc34196");
 
         //Delete Stateful Node
         System.out.println("----------Delete Stateful Node--------------");
-        deleteStatefulNode(nodeClient, nodeId);
+        //deleteStatefulNode(nodeClient, nodeId);
 
     }
 
@@ -204,9 +204,11 @@ public class AzureStatefulNodeExample {
                                  .setOsDiskPersistenceMode(AzureDiskModeEnum.ONLAUNCH).build();
 
         //Build Health
+        List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();
+        healthCheckTypesList.add(HealthCheckTypeEnumAzure.VM_STATE);
         StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
         StatefulNodeHealthConfiguration health =
-                healthBuilder.setHealthCheckTypes(healthCheckTypes).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing(true).build();
+                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing(true).build();
 
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -401,9 +403,12 @@ public class AzureStatefulNodeExample {
     private static StatefulNode updateStatefulNodeHealth(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         //Build Health
+        List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();
+        healthCheckTypesList.add(HealthCheckTypeEnumAzure.VM_STATE);
+
         StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
         StatefulNodeHealthConfiguration health =
-                healthBuilder.setHealthCheckTypes(healthCheckTypes).setUnhealthyDuration(200).setGracePeriod(240).setAutoHealing(false).build();
+                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(200).setGracePeriod(240).setAutoHealing(false).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setHealth(health).build();
@@ -500,9 +505,9 @@ public class AzureStatefulNodeExample {
 
         // Recycle Stateful Nodes
         StatefulNodeStateRequest.Builder recycleStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest recycleStatefulNode = recycleStatefulNodeBuilder.setState("recycle").build();
+        StatefulNodeStateRequest recycleStatefulNode = recycleStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RECYCLE).build();
 
-        Boolean recycleStatefulNodeResponse = client.recycleNode(recycleStatefulNode,nodeId);
+        Boolean recycleStatefulNodeResponse = client.updateStatefulNodeState(recycleStatefulNode,nodeId);
 
         System.out.println("Recycle of stateful Node is successful " + nodeId);
         return recycleStatefulNodeResponse;
@@ -513,9 +518,9 @@ public class AzureStatefulNodeExample {
 
         // Recycle Stateful Nodes
         StatefulNodeStateRequest.Builder pauseStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState("pause").build();
+        StatefulNodeStateRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.PAUSE).build();
 
-        Boolean pauseStatefulNodeResponse = client.pauseNode(pauseStatefulNode,nodeId);
+        Boolean pauseStatefulNodeResponse = client.updateStatefulNodeState(pauseStatefulNode,nodeId);
 
         System.out.println("Pause of stateful Node is successful " + nodeId);
         return pauseStatefulNodeResponse;
@@ -526,15 +531,14 @@ public class AzureStatefulNodeExample {
 
         // Recycle Stateful Nodes
         StatefulNodeStateRequest.Builder resumeStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState("resume").build();
+        StatefulNodeStateRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RESUME).build();
 
-        Boolean resumeStatefulNodeResponse = client.resumeNode(resumeStatefulNode,nodeId);
+        Boolean resumeStatefulNodeResponse = client.updateStatefulNodeState(resumeStatefulNode,nodeId);
 
         System.out.println("Resume of stateful Node is successful " + nodeId);
         return resumeStatefulNodeResponse;
 
     }
-
 
 }
 

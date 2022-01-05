@@ -1,18 +1,20 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
+import com.spotinst.sdkjava.enums.AzureStatefulNodeStateEnum;
+
 public class StatefulNodeStateRequest {
 
-    private String state;
+    private AzureStatefulNodeStateEnum state;
 
     private StatefulNodeStateRequest() {
 
     }
 
-    public String getState() {
+    public AzureStatefulNodeStateEnum getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(AzureStatefulNodeStateEnum state) {
         this.state = state;
     }
 
@@ -29,7 +31,7 @@ public class StatefulNodeStateRequest {
             return builder;
         }
 
-        public Builder setState(final String state) {
+        public Builder setState(final AzureStatefulNodeStateEnum state) {
             nodeStateRequest.setState(state);
             return this;
         }

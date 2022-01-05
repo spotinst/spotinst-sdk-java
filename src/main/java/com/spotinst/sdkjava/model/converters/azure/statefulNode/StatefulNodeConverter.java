@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class StatefulNodeConverter {
@@ -444,7 +445,16 @@ public class StatefulNodeConverter {
             apiStatefulNodeHealth = new ApiStatefulNodeHealthConfiguration();
 
             if (statefulNodeHealth.isHealthCheckTypesSet()) {
-                apiStatefulNodeHealth.setHealthCheckTypes(statefulNodeHealth.getHealthCheckTypes());
+                List<HealthCheckTypeEnumAzure> blHealthChecks = statefulNodeHealth.getHealthCheckTypes();
+                List<String> dalHealthCheckTypes = null;
+
+                if (blHealthChecks != null) {
+                    dalHealthCheckTypes =
+                            blHealthChecks.stream().filter(Objects::nonNull).map(HealthCheckTypeEnumAzure::getName)
+                                          .collect(Collectors.toList());
+
+                }
+                apiStatefulNodeHealth.setHealthCheckTypes(dalHealthCheckTypes);
             }
             if (statefulNodeHealth.isUnhealthyDurationSet()) {
                 apiStatefulNodeHealth.setUnhealthyDuration(statefulNodeHealth.getUnhealthyDuration());
@@ -1266,7 +1276,10 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeHealth.isHealthCheckTypesSet()) {
-                statefulNodeHealthBuilder.setHealthCheckTypes(apiStatefulNodeHealth.getHealthCheckTypes());
+
+                List<HealthCheckTypeEnumAzure> tasksConfigurationList =
+                        apiStatefulNodeHealth.getHealthCheckTypes().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                statefulNodeHealthBuilder.setHealthCheckTypes(tasksConfigurationList);
             }
 
             if (apiStatefulNodeHealth.isUnhealthyDurationSet()) {
@@ -1276,6 +1289,16 @@ public class StatefulNodeConverter {
             statefulNodeHealthToReturn = statefulNodeHealthBuilder.build();
         }
         return statefulNodeHealthToReturn;
+    }
+
+    private static HealthCheckTypeEnumAzure toBl(String healthCheckTypeValue){
+
+        HealthCheckTypeEnumAzure healthCheckTypeEnumAzure = null;
+
+        if(healthCheckTypeValue != null){
+            healthCheckTypeEnumAzure  = HealthCheckTypeEnumAzure.fromName(healthCheckTypeValue);
+        }
+        return healthCheckTypeEnumAzure;
     }
 
 }

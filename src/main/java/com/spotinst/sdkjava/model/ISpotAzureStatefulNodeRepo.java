@@ -29,17 +29,11 @@ public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Vo
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<Boolean> recycleNode(StatefulNodeStateRequest recycleStatefulNodeRequest, String nodeId, String authToken, String account){
+    default RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateRequest recycleStatefulNodeRequest, String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<Boolean> pauseNode(StatefulNodeStateRequest pauseStatefulNodeRequest, String nodeId, String authToken, String account){
+    default RepoGenericResponse<Boolean> GetNodeStatus(String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
-
-    default RepoGenericResponse<Boolean> resumeNode(StatefulNodeStateRequest resumeStatefulNodeRequest,  String nodeId, String authToken, String account){
-        throw new SpotinstNotSupportedException();
-    }
-
-
 }
