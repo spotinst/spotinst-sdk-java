@@ -1301,4 +1301,54 @@ public class StatefulNodeConverter {
         return healthCheckTypeEnumAzure;
     }
 
+
+
+    public static StatefulNodeGetStatusConfig toBl(ApiStatefulNodeGetStatusConfig apiStatefulNodeStatus) {
+        StatefulNodeGetStatusConfig statefulNodeStatus = null;
+
+        if (apiStatefulNodeStatus != null) {
+            StatefulNodeGetStatusConfig.Builder statefulNodeBuilder = StatefulNodeGetStatusConfig.Builder.get();
+
+            if (apiStatefulNodeStatus.isIdSet()) {
+                statefulNodeBuilder.setId(apiStatefulNodeStatus.getId());
+            }
+            if (apiStatefulNodeStatus.isNameSet()) {
+                statefulNodeBuilder.setName(apiStatefulNodeStatus.getName());
+            }
+            if (apiStatefulNodeStatus.isRegionSet()) {
+                statefulNodeBuilder.setRegion(apiStatefulNodeStatus.getRegion());
+            }
+            if (apiStatefulNodeStatus.isResourceGroupNameSet()) {
+                statefulNodeBuilder.setResourceGroupName(apiStatefulNodeStatus.getResourceGroupName());
+            }
+            if (apiStatefulNodeStatus.isStatusSet()) {
+                statefulNodeBuilder.setStatus(apiStatefulNodeStatus.getStatus());
+            }
+            if (apiStatefulNodeStatus.isVmNameSet()) {
+                statefulNodeBuilder.setVmName(apiStatefulNodeStatus.getVmName());
+            }
+            if (apiStatefulNodeStatus.isVmSizeSet()) {
+                statefulNodeBuilder.setVmSize(apiStatefulNodeStatus.getVmSize());
+            }
+            if (apiStatefulNodeStatus.isLifeCycleSet()) {
+                statefulNodeBuilder.setLifeCycle(apiStatefulNodeStatus.getLifeCycle());
+            }
+            if (apiStatefulNodeStatus.isRollbackReasonSet()) {
+                statefulNodeBuilder.setRollbackReason(apiStatefulNodeStatus.getRollbackReason());
+            }
+            if (apiStatefulNodeStatus.isErrorReasonSet()) {
+                statefulNodeBuilder.setErrorReason(apiStatefulNodeStatus.getErrorReason());
+            }
+            if (apiStatefulNodeStatus.isPrivateIpSet()) {
+                statefulNodeBuilder.setPrivateIp(apiStatefulNodeStatus.getPrivateIp());
+            }
+            if (apiStatefulNodeStatus.isPublicIpSet()) {
+                statefulNodeBuilder.setPublicIp(apiStatefulNodeStatus.getPublicIp());
+            }
+            statefulNodeStatus = statefulNodeBuilder.build();
+
+        }
+        return statefulNodeStatus;
+    }
+
 }

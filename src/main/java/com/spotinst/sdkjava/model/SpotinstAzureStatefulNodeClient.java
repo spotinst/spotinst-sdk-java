@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusConfig;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
@@ -69,6 +70,27 @@ public class SpotinstAzureStatefulNodeClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
                     "Error encountered while attempting to get Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public StatefulNodeGetStatusConfig getNodeStatus(String nodeId) {
+        StatefulNodeGetStatusConfig retVal;
+
+        RepoGenericResponse<StatefulNodeGetStatusConfig> getNodeStatusResponse =
+                getSpotAzureStatefulNodeRepo().getNodeStatus(nodeId, authToken, account);
+
+        if (getNodeStatusResponse.isRequestSucceed()) {
+            retVal = getNodeStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodeStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Azure stateful Node Status. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

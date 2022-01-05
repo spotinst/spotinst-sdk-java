@@ -6,8 +6,10 @@ import com.spotinst.sdkjava.model.ISpotAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusConfig;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusConfig;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
@@ -50,6 +52,25 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
 
             StatefulNode getStatefulNode = StatefulNodeConverter.toBl(apiGetNode);
             retVal = new RepoGenericResponse<>(getStatefulNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<StatefulNodeGetStatusConfig> getNodeStatus(String nodeId, String authToken, String account) {
+
+        RepoGenericResponse<StatefulNodeGetStatusConfig> retVal;
+
+        try {
+            ApiStatefulNodeGetStatusConfig apiGetNodeStatus  = SpotinstAzureStatefulNodeService
+                    .getNodeStatus(nodeId, authToken, account);
+
+            StatefulNodeGetStatusConfig getStatefulNodeStatus = StatefulNodeConverter.toBl(apiGetNodeStatus);
+            retVal = new RepoGenericResponse<>(getStatefulNodeStatus);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
