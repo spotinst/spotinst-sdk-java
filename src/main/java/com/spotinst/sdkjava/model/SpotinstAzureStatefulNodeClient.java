@@ -166,18 +166,18 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
-    public Boolean updateStatefulNodeState(StatefulNodeStateRequest recycleStatefulNodeRequest, String nodeId) {
+    public Boolean updateStatefulNodeState(StatefulNodeStateRequest updateStatefulNodeStateRequest, String nodeId) {
 
         Boolean retVal;
 
-        RepoGenericResponse<Boolean> recycleNodeResponse =
-                getSpotAzureStatefulNodeRepo().updateNodeState(recycleStatefulNodeRequest , nodeId, authToken, account);
+        RepoGenericResponse<Boolean> updateNodeStateResponse =
+                getSpotAzureStatefulNodeRepo().updateNodeState(updateStatefulNodeStateRequest , nodeId, authToken, account);
 
-        if (recycleNodeResponse.isRequestSucceed()) {
-            retVal = recycleNodeResponse.getValue();
+        if (updateNodeStateResponse.isRequestSucceed()) {
+            retVal = updateNodeStateResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = recycleNodeResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = updateNodeStateResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
                     "Error encountered while attempting to change state of Azure stateful Node. Code: %s. Message: %s.",

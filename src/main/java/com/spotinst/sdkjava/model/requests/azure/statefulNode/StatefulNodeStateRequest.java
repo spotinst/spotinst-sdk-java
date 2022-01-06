@@ -1,13 +1,25 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AzureStatefulNodeStateEnum;
+
+import java.util.Set;
 
 public class StatefulNodeStateRequest {
 
-    private AzureStatefulNodeStateEnum state;
+    private Set<String>                isSet;
+    private  AzureStatefulNodeStateEnum state;
 
     private StatefulNodeStateRequest() {
 
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public AzureStatefulNodeStateEnum getState() {
@@ -40,6 +52,11 @@ public class StatefulNodeStateRequest {
             return nodeStateRequest;
         }
 
+    }
+
+    @JsonIgnore
+    public boolean isStateSet() {
+        return isSet.contains("state");
     }
     //endregion
 }

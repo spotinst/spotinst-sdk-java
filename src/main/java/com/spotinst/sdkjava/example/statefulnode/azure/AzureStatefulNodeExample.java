@@ -82,7 +82,7 @@ public class AzureStatefulNodeExample {
 
         //Pause Stateful Node
         System.out.println("----------Resume Stateful Node--------------");
-        resumeStatefulNode(nodeClient, "ssn-7bc34196");
+        resumeStatefulNode(nodeClient, nodeId);
 
         //Delete Stateful Node
         System.out.println("----------Delete Stateful Node--------------");
@@ -228,7 +228,7 @@ public class AzureStatefulNodeExample {
 
         // Create stateful Node
         StatefulNode createdNode = client.createNode(creationRequest);
-        System.out.println(String.format("Stateful Node %s successfully created: " + createdNode.getId()));
+        System.out.println(String.format("Stateful Node %s successfully created: ", createdNode.getId()));
 
         return createdNode.getId();
     }
@@ -250,8 +250,8 @@ public class AzureStatefulNodeExample {
 
         System.out.println(String.format("Get Stateful Node Status of %s is Successful with Id %s",
                                          getNodeStatusResponse.getName(), getNodeStatusResponse.getId()));
-        System.out.println(String.format("Status is %s and VMName is %s with Size %s", getNodeStatusResponse.getStatus(),
-                              getNodeStatusResponse.getVmName(), getNodeStatusResponse.getVmSize()));
+        System.out.println(String.format("Status is %s and VMName is %s with LifeCycle %s", getNodeStatusResponse.getStatus(),
+                              getNodeStatusResponse.getVmName(), getNodeStatusResponse.getLifeCycle()));
 
         return getNodeStatusResponse;
     }

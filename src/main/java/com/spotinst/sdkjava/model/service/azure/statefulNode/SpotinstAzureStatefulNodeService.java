@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusConfig;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiGetStatusResponse;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiResponse;
@@ -238,7 +239,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateNodeState(StatefulNodeStateRequest recycleNodeRequest, String nodeId , String authToken, String account) throws SpotinstHttpException {
+    public static Boolean updateNodeState(ApiStatefulNodeStateRequest updateNodeStateRequest, String nodeId , String authToken, String account) throws SpotinstHttpException {
         // Init retVal
         Boolean retVal = null;
 
@@ -257,7 +258,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Write to json
-        String body = JsonMapper.toJson(recycleNodeRequest);
+        String body = JsonMapper.toJson(updateNodeStateRequest);
 
         // Build URI
         String uri = String.format("%s/azure/compute/statefulNode/%s/state", apiEndpoint, nodeId);

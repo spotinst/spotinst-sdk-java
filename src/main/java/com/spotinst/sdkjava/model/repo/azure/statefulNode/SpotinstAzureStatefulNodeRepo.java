@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model.repo.azure.statefulNode;
 
+import com.spotinst.sdkjava.enums.AzureStatefulNodeStateEnum;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAzureStatefulNodeRepo;
@@ -11,6 +12,7 @@ import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusConfig;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -140,15 +142,19 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateRequest recycleStatefulNodeRequest , String nodeId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateRequest updateStatefulNodeStateRequest , String nodeId, String authToken, String account) {
 
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean recycledNode =
-                    SpotinstAzureStatefulNodeService.updateNodeState(recycleStatefulNodeRequest, nodeId, authToken, account);
+            String state = updateStatefulNodeStateRequest.getState().getName();
+            ApiStatefulNodeStateRequest updateApiStatefulNodeStateRequest = new ApiStatefulNodeStateRequest();
+            updateApiStatefulNodeStateRequest.setState(state);
 
-            retVal = new RepoGenericResponse<>(recycledNode);
+            Boolean updateNodeState =
+                    SpotinstAzureStatefulNodeService.updateNodeState(updateApiStatefulNodeStateRequest, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(updateNodeState);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
