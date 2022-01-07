@@ -364,6 +364,12 @@ public class ElastigroupConverter {
                 }
             }
 
+            if (compute.isPreferredAvailabilityZonesSet()) {
+                if (compute.getPreferredAvailabilityZones() != null) {
+                    optCompute.setPreferredAvailabilityZones(new LinkedList<>(compute.getPreferredAvailabilityZones()));
+                }
+            }
+
         }
 
         return optCompute;
@@ -895,6 +901,12 @@ public class ElastigroupConverter {
             if (instanceTypes.isSpotSet()) {
                 if (instanceTypes.getSpot() != null) {
                     retVal.setSpot(new LinkedList<>(instanceTypes.getSpot()));
+                }
+            }
+
+            if (instanceTypes.isPreferredSpotSet()) {
+                if (instanceTypes.getPreferredSpot() != null) {
+                    retVal.setPreferredSpot(new LinkedList<>(instanceTypes.getPreferredSpot()));
                 }
             }
 
@@ -1799,6 +1811,12 @@ public class ElastigroupConverter {
                 }
             }
 
+            if (compute.isPreferredAvailabilityZonesSet()) {
+                if (compute.getPreferredAvailabilityZones() != null) {
+                    blComputeBuilder.setPreferredAvailabilityZones(new LinkedList<>(compute.getPreferredAvailabilityZones()));
+                }
+            }
+
             blCompute = blComputeBuilder.build();
         }
 
@@ -2369,6 +2387,12 @@ public class ElastigroupConverter {
             if (instanceTypes.isSpotSet()) {
                 if (instanceTypes.getSpot() != null) {
                     retValBuilder.setSpotTypes(new LinkedList<>(instanceTypes.getSpot()));
+                }
+            }
+
+            if (instanceTypes.isPreferredSpotSet()) {
+                if (instanceTypes.getPreferredSpot() != null) {
+                    retValBuilder.setPreferredSpotTypes(new LinkedList<>(instanceTypes.getPreferredSpot()));
                 }
             }
 

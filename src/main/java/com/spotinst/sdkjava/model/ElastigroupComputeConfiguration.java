@@ -20,6 +20,7 @@ public class ElastigroupComputeConfiguration {
     private List<Placement> availabilityZones;
     private List<String> elasticIps;
     private List<ElastigroupEbsVolumePool> ebsVolumePool;
+    private List<String> preferredAvailabilityZones;
     //endregion
 
     //region Constructor
@@ -93,6 +94,15 @@ public class ElastigroupComputeConfiguration {
         this.ebsVolumePool = ebsVolumePool;
     }
 
+    public List<String> getPreferredAvailabilityZones() {
+        return preferredAvailabilityZones;
+    }
+
+    public void setPreferredAvailabilityZones(List<String> preferredAvailabilityZones) {
+        isSet.add("preferredAvailabilityZones");
+        this.preferredAvailabilityZones = preferredAvailabilityZones;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
@@ -134,6 +144,11 @@ public class ElastigroupComputeConfiguration {
 
         public Builder setLaunchSpecification(final ElastigroupLaunchSpecification launchSpecification) {
             compute.setLaunchSpecification(launchSpecification);
+            return this;
+        }
+
+        public Builder setPreferredAvailabilityZones(final List<String> preferredAvailabilityZones) {
+            compute.setPreferredAvailabilityZones(preferredAvailabilityZones);
             return this;
         }
 
@@ -182,6 +197,12 @@ public class ElastigroupComputeConfiguration {
     @JsonIgnore
     public boolean isEbsVolumePoolSet() {
         return isSet.contains("ebsVolumePool");
+    }
+
+    // Is preferredAvailabilityZones Set boolean method
+    @JsonIgnore
+    public boolean isPreferredAvailabilityZonesSet() {
+        return isSet.contains("preferredAvailabilityZones");
     }
 
 
