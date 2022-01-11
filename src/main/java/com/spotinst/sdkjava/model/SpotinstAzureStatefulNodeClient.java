@@ -4,7 +4,7 @@ import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusConfig;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusResponse;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
@@ -77,10 +77,10 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
-    public StatefulNodeGetStatusConfig getNodeStatus(String nodeId) {
-        StatefulNodeGetStatusConfig retVal;
+    public StatefulNodeGetStatusResponse getNodeStatus(String nodeId) {
+        StatefulNodeGetStatusResponse retVal;
 
-        RepoGenericResponse<StatefulNodeGetStatusConfig> getNodeStatusResponse =
+        RepoGenericResponse<StatefulNodeGetStatusResponse> getNodeStatusResponse =
                 getSpotAzureStatefulNodeRepo().getNodeStatus(nodeId, authToken, account);
 
         if (getNodeStatusResponse.isRequestSucceed()) {

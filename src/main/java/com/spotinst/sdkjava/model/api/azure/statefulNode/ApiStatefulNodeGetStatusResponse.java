@@ -1,8 +1,10 @@
-package com.spotinst.sdkjava.model.bl.azure.statefulNode;
+package com.spotinst.sdkjava.model.api.azure.statefulNode;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,8 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StatefulNodeGetStatusConfig {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -29,7 +32,7 @@ public class StatefulNodeGetStatusConfig {
     private String      privateIp;
     private String      publicIp;
 
-    private StatefulNodeGetStatusConfig() {
+    private ApiStatefulNodeGetStatusResponse() {
         isSet = new HashSet<>();
     }
 
@@ -148,80 +151,6 @@ public class StatefulNodeGetStatusConfig {
         this.publicIp = publicIp;
     }
 
-    public static class Builder {
-        private StatefulNodeGetStatusConfig statefulNode;
-
-        private Builder() {
-            this.statefulNode = new StatefulNodeGetStatusConfig();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public Builder setId(final String id) {
-            statefulNode.setId(id);
-            return this;
-        }
-
-        public Builder setName(final String name) {
-            statefulNode.setName(name);
-            return this;
-        }
-
-        public Builder setRegion(final String region) {
-            statefulNode.setRegion(region);
-            return this;
-        }
-
-        public Builder setResourceGroupName(final String resourceGroupName) {
-            statefulNode.setResourceGroupName(resourceGroupName);
-            return this;
-        }
-        public Builder setStatus(final String status) {
-            statefulNode.setStatus(status);
-            return this;
-        }
-
-        public Builder setVmName(final String vmName) {
-            statefulNode.setVmName(vmName);
-            return this;
-        }
-
-        public Builder setVmSize(final String vmSize) {
-            statefulNode.setVmSize(vmSize);
-            return this;
-        }
-
-        public Builder setLifeCycle(final String lifeCycle) {
-            statefulNode.setLifeCycle(lifeCycle);
-            return this;
-        }
-        public Builder setRollbackReason(final String rollbackReason) {
-            statefulNode.setRollbackReason(rollbackReason);
-            return this;
-        }
-
-        public Builder setErrorReason(final String errorReason) {
-            statefulNode.setErrorReason(errorReason);
-            return this;
-        }
-
-        public Builder setPrivateIp(final String privateIp) {
-            statefulNode.setPrivateIp(privateIp);
-            return this;
-        }
-
-        public Builder setPublicIp(final String publicIp) {
-            statefulNode.setPublicIp(publicIp);
-            return this;
-        }
-
-        public StatefulNodeGetStatusConfig build() {
-            return statefulNode;
-        }
-    }
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");

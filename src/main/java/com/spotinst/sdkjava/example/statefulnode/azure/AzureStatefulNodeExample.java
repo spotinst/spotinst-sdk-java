@@ -62,7 +62,7 @@ public class AzureStatefulNodeExample {
 
         //update Stateful Node Persistent
         System.out.println("----------Update Stateful Node Persistent--------------");
-        updateStatefulNodePersistent(nodeClient, nodeId);
+        updateStatefulNodePersistence(nodeClient, nodeId);
 
         //Get All Stateful Node
         System.out.println("----------List All Stateful Nodes--------------");
@@ -80,7 +80,7 @@ public class AzureStatefulNodeExample {
         System.out.println("----------Pause Stateful Node--------------");
         pauseStatefulNode(nodeClient, nodeId);
 
-        //Pause Stateful Node
+        //Resume Stateful Node
         System.out.println("----------Resume Stateful Node--------------");
         resumeStatefulNode(nodeClient, nodeId);
 
@@ -243,10 +243,10 @@ public class AzureStatefulNodeExample {
         return getNodeResponse;
     }
 
-    private static StatefulNodeGetStatusConfig getStatefulNodeStatus(SpotinstAzureStatefulNodeClient client, String nodeId) {
+    private static StatefulNodeGetStatusResponse getStatefulNodeStatus(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         // Get stateful Node
-        StatefulNodeGetStatusConfig getNodeStatusResponse = client.getNodeStatus(nodeId);
+        StatefulNodeGetStatusResponse getNodeStatusResponse = client.getNodeStatus(nodeId);
 
         System.out.println(String.format("Get Stateful Node Status of %s is Successful with Id %s",
                                          getNodeStatusResponse.getName(), getNodeStatusResponse.getId()));
@@ -442,7 +442,7 @@ public class AzureStatefulNodeExample {
 
     }
 
-    private static StatefulNode updateStatefulNodePersistent(SpotinstAzureStatefulNodeClient client, String nodeId) {
+    private static StatefulNode updateStatefulNodePersistence(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
         // Build persistent
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
@@ -523,14 +523,17 @@ public class AzureStatefulNodeExample {
 
         Boolean recycleStatefulNodeResponse = client.updateStatefulNodeState(recycleStatefulNode,nodeId);
 
-        System.out.println(String.format("Recycle of stateful Node %s is successful ", nodeId));
+        if(recycleStatefulNodeResponse) {
+            System.out.println(String.format("Recycle of stateful Node %s is successful", nodeId));
+        }
+
         return recycleStatefulNodeResponse;
 
     }
 
     private static Boolean pauseStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
 
-        // Recycle Stateful Nodes
+        // Pause Stateful Node
         StatefulNodeStateRequest.Builder pauseStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
         StatefulNodeStateRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.PAUSE).build();
 
@@ -543,7 +546,7 @@ public class AzureStatefulNodeExample {
 
     private static Boolean resumeStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
 
-        // Recycle Stateful Nodes
+        // Resume Stateful Node
         StatefulNodeStateRequest.Builder resumeStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
         StatefulNodeStateRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RESUME).build();
 

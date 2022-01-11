@@ -1303,11 +1303,11 @@ public class StatefulNodeConverter {
 
 
 
-    public static StatefulNodeGetStatusConfig toBl(ApiStatefulNodeGetStatusConfig apiStatefulNodeStatus) {
-        StatefulNodeGetStatusConfig statefulNodeStatus = null;
+    public static StatefulNodeGetStatusResponse toBl(ApiStatefulNodeGetStatusResponse apiStatefulNodeStatus) {
+        StatefulNodeGetStatusResponse statefulNodeStatus = null;
 
         if (apiStatefulNodeStatus != null) {
-            StatefulNodeGetStatusConfig.Builder statefulNodeBuilder = StatefulNodeGetStatusConfig.Builder.get();
+            StatefulNodeGetStatusResponse.Builder statefulNodeBuilder = StatefulNodeGetStatusResponse.Builder.get();
 
             if (apiStatefulNodeStatus.isIdSet()) {
                 statefulNodeBuilder.setId(apiStatefulNodeStatus.getId());

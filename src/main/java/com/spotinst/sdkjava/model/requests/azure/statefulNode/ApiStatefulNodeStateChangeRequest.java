@@ -1,10 +1,10 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
-public class ApiStatefulNodeStateRequest {
+public class ApiStatefulNodeStateChangeRequest {
 
     private String state;
 
-    public ApiStatefulNodeStateRequest() {
+    public ApiStatefulNodeStateChangeRequest() {
 
     }
 

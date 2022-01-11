@@ -5,12 +5,12 @@ import com.spotinst.sdkjava.enums.AzureStatefulNodeStateEnum;
 
 import java.util.Set;
 
-public class StatefulNodeStateRequest {
+public class StatefulNodeStateChangeRequest {
 
     private Set<String>                isSet;
     private  AzureStatefulNodeStateEnum state;
 
-    private StatefulNodeStateRequest() {
+    private StatefulNodeStateChangeRequest() {
 
     }
 
@@ -32,10 +32,10 @@ public class StatefulNodeStateRequest {
 
     //region Builder class
     public static class Builder {
-        private StatefulNodeStateRequest nodeStateRequest;
+        private StatefulNodeStateChangeRequest nodeStateRequest;
 
         private Builder() {
-            this.nodeStateRequest = new StatefulNodeStateRequest();
+            this.nodeStateRequest = new StatefulNodeStateChangeRequest();
         }
 
         public static Builder get() {
@@ -48,7 +48,7 @@ public class StatefulNodeStateRequest {
             return this;
         }
 
-        public StatefulNodeStateRequest build() {
+        public StatefulNodeStateChangeRequest build() {
             return nodeStateRequest;
         }
 

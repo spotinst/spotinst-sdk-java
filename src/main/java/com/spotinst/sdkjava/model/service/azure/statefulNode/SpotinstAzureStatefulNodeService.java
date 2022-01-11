@@ -6,10 +6,8 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusConfig;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusResponse;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateChangeRequest;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiGetStatusResponse;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiResponse;
 import org.apache.http.HttpStatus;
@@ -94,9 +92,9 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiStatefulNodeGetStatusConfig getNodeStatus(String nodeId, String authToken, String account) throws SpotinstHttpException {
+    public static ApiStatefulNodeGetStatusResponse getNodeStatus(String nodeId, String authToken, String account) throws SpotinstHttpException {
         // Init retVal
-        ApiStatefulNodeGetStatusConfig retVal = null;
+        ApiStatefulNodeGetStatusResponse retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -239,7 +237,7 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateNodeState(ApiStatefulNodeStateRequest updateNodeStateRequest, String nodeId , String authToken, String account) throws SpotinstHttpException {
+    public static Boolean updateNodeState(ApiStatefulNodeStateChangeRequest updateNodeStateRequest, String nodeId , String authToken, String account) throws SpotinstHttpException {
         // Init retVal
         Boolean retVal = null;
 

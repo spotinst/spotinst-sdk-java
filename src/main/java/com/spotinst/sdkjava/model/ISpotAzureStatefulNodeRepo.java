@@ -3,8 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusConfig;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusResponse;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 
 import java.util.List;
 
@@ -30,11 +30,11 @@ public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Vo
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateRequest recycleStatefulNodeRequest, String nodeId, String authToken, String account){
+    default RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateChangeRequest recycleStatefulNodeRequest, String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<StatefulNodeGetStatusConfig> getNodeStatus(String nodeId, String authToken, String account){
+    default RepoGenericResponse<StatefulNodeGetStatusResponse> getNodeStatus(String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
 }
