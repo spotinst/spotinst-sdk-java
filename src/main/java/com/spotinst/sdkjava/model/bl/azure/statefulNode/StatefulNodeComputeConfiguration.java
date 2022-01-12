@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureOsEnum;
+import com.spotinst.sdkjava.enums.AzureStatefulNodeOsEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +17,7 @@ public class StatefulNodeComputeConfiguration {
 
     @JsonIgnore
     private Set<String>                      isSet;
-    private AzureOsEnum                      os;
+    private AzureStatefulNodeOsEnum          os;
     private StatefulNodeVmSizesConfiguration vmSizes;
     private List<String>                     zones;
     private String                           preferredZone;
@@ -36,11 +36,11 @@ public class StatefulNodeComputeConfiguration {
         this.isSet = isSet;
     }
 
-    public AzureOsEnum getOs() {
+    public AzureStatefulNodeOsEnum getOs() {
         return os;
     }
 
-    public void setOs(AzureOsEnum os) {
+    public void setOs(AzureStatefulNodeOsEnum os) {
         isSet.add("os");
         this.os = os;
     }
@@ -102,7 +102,7 @@ public class StatefulNodeComputeConfiguration {
             return builder;
         }
 
-        public Builder setOs(final AzureOsEnum os) {
+        public Builder setOs(final AzureStatefulNodeOsEnum os) {
             statefulNodeCompute.setOs(os);
             return this;
         }

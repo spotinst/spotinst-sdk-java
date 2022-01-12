@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.model.SpotinstAzureStatefulNodeClient;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,7 +148,7 @@ public class AzureStatefulNodeExample {
         List<LaunchSpecExtensionsSpecification> extensionsList = Collections.singletonList(extensions);
         // Build Login
         LaunchSpecLoginSpecification login =
-                LaunchSpecLoginSpecification.Builder.get().setUserName("ubuntu").setPassword("NetApp@123@321").build();
+                LaunchSpecLoginSpecification.Builder.get().setUserName("ubuntu").setPassword("NetApp@123@321").setSshPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==").build();
 
         // Build Tags
         LaunchSpecTagsSpecification tags =
@@ -167,7 +167,7 @@ public class AzureStatefulNodeExample {
 
         //Build Compute
         StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
-        StatefulNodeComputeConfiguration compute = computeBuilder.setOs(AzureOsEnum.LINUX).setPreferredZone("2").setLaunchSpecification(launchSpecification)
+        StatefulNodeComputeConfiguration compute = computeBuilder.setOs(AzureStatefulNodeOsEnum.LINUX).setPreferredZone("2").setLaunchSpecification(launchSpecification)
                                                                  .setLoadBalancersConfig(loadBalancersList).setVmSizes(vmSizes).setZones(zones).build();
 
         //Build Signals
@@ -177,11 +177,12 @@ public class AzureStatefulNodeExample {
 
         //Build RevertToSpot
         StatefulNodeRevertToSpotConfiguration revertToSpot =
-                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzurePerformAtEnum.ALWAYS).build();
+                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(AzureLifeCycleTypeEnum.OD)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(
+                        AzureStatefulNodeLifeCycleTypeEnum.OD)
                                .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
 
         //Build Scheduling Tasks
@@ -203,8 +204,9 @@ public class AzureStatefulNodeExample {
         // Build persistent
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
-                persistentBuilder.setShouldPersistDataDisks(true).setShouldPersistNetwork(true).setShouldPersistOsDisk(true).setDataDisksPersistenceMode(AzureDiskModeEnum.ONLAUNCH)
-                                 .setOsDiskPersistenceMode(AzureDiskModeEnum.ONLAUNCH).build();
+                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(true).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
+                        AzureStatefulNodeDiskModeEnum.ONLAUNCH)
+                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.ONLAUNCH).build();
 
         //Build Health
         List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();
@@ -287,12 +289,13 @@ public class AzureStatefulNodeExample {
 
         //Build RevertToSpot
         StatefulNodeRevertToSpotConfiguration revertToSpot =
-                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzurePerformAtEnum.NEVER).build();
+                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.NEVER).build();
 
         //Build Strategy to update
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
-                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(AzureLifeCycleTypeEnum.SPOT)
+                strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(
+                        AzureStatefulNodeLifeCycleTypeEnum.SPOT)
                                .setRevertToSpot(revertToSpot).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -307,7 +310,7 @@ public class AzureStatefulNodeExample {
         System.out.println(updationRequest.toJson());
 
         StatefulNode updateNodeResponse = client.updateNode(updationRequest,nodeId);
-        System.out.println(String.format("Update Stateful Node %s is  Successful with Id %s" + updateNodeResponse.getName(), updateNodeResponse.getId()));
+        System.out.println(String.format("Update Stateful Node %s is  Successful with Id %s",  updateNodeResponse.getName(), updateNodeResponse.getId()));
 
         return updateNodeResponse;
     }
@@ -316,7 +319,7 @@ public class AzureStatefulNodeExample {
 
         //Build Data Disk
         LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
-        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(2).setSizeGB(2).setType("Standard_LRS").build();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(2).setSizeGB(2).setType("StandardSSD_LRS").build();
         List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
 
         //Build Launch Specification
@@ -350,7 +353,7 @@ public class AzureStatefulNodeExample {
         //Build OsDisk
         LaunchSpecOsDiskSpecification.Builder osDiskBuilder = LaunchSpecOsDiskSpecification.Builder.get();
         LaunchSpecOsDiskSpecification osDisk =
-                osDiskBuilder.setName("Automation-OsDisk-updated").setType("Standard_LRS").setSizeGB(33).build();
+                osDiskBuilder.setName("Automation-OsDisk-updated").setType("Premium_LRS").setSizeGB(33).build();
 
         //Build Launch Specification
         StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
@@ -447,8 +450,9 @@ public class AzureStatefulNodeExample {
         // Build persistent
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
-                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(AzureDiskModeEnum.REATTACH)
-                                 .setOsDiskPersistenceMode(AzureDiskModeEnum.REATTACH).build();
+                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
+                        AzureStatefulNodeDiskModeEnum.REATTACH)
+                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.REATTACH).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setPersistence(persistent).build();
@@ -506,6 +510,7 @@ public class AzureStatefulNodeExample {
         List<StatefulNode> statefulNodesList = client.getAllNodes();
 
         System.out.println("Stateful Nodes List: ");
+
         for (int i=0; i< statefulNodesList.size(); i++){
             System.out.println(String.format("Stateful Node Id: %s and Name: %s ",statefulNodesList.get(i).getId() , statefulNodesList.get(i).getName()));
 
@@ -518,13 +523,16 @@ public class AzureStatefulNodeExample {
     private static Boolean recycleStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
 
         // Recycle Stateful Nodes
-        StatefulNodeStateRequest.Builder recycleStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest recycleStatefulNode = recycleStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RECYCLE).build();
+        StatefulNodeStateChangeRequest.Builder recycleStatefulNodeBuilder = StatefulNodeStateChangeRequest.Builder.get();
+        StatefulNodeStateChangeRequest recycleStatefulNode = recycleStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RECYCLE).build();
 
         Boolean recycleStatefulNodeResponse = client.updateStatefulNodeState(recycleStatefulNode,nodeId);
 
-        if(recycleStatefulNodeResponse) {
+        if (recycleStatefulNodeResponse) {
             System.out.println(String.format("Recycle of stateful Node %s is successful", nodeId));
+        }
+        else {
+            System.out.println(String.format("Recycle of stateful Node %s is not successful", nodeId));
         }
 
         return recycleStatefulNodeResponse;
@@ -534,12 +542,18 @@ public class AzureStatefulNodeExample {
     private static Boolean pauseStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
 
         // Pause Stateful Node
-        StatefulNodeStateRequest.Builder pauseStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.PAUSE).build();
+        StatefulNodeStateChangeRequest.Builder pauseStatefulNodeBuilder = StatefulNodeStateChangeRequest.Builder.get();
+        StatefulNodeStateChangeRequest pauseStatefulNode = pauseStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.PAUSE).build();
 
         Boolean pauseStatefulNodeResponse = client.updateStatefulNodeState(pauseStatefulNode,nodeId);
 
-        System.out.println(String.format("Pause of stateful Node %s is successful ", nodeId));
+        if(pauseStatefulNodeResponse) {
+            System.out.println(String.format("Pause of stateful Node %s is successful ", nodeId));
+        }
+        else{
+            System.out.println(String.format("Pause of stateful Node %s is not successful ", nodeId));
+        }
+
         return pauseStatefulNodeResponse;
 
     }
@@ -547,12 +561,18 @@ public class AzureStatefulNodeExample {
     private static Boolean resumeStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId){
 
         // Resume Stateful Node
-        StatefulNodeStateRequest.Builder resumeStatefulNodeBuilder = StatefulNodeStateRequest.Builder.get();
-        StatefulNodeStateRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RESUME).build();
+        StatefulNodeStateChangeRequest.Builder resumeStatefulNodeBuilder = StatefulNodeStateChangeRequest.Builder.get();
+        StatefulNodeStateChangeRequest resumeStatefulNode = resumeStatefulNodeBuilder.setState(AzureStatefulNodeStateEnum.RESUME).build();
 
         Boolean resumeStatefulNodeResponse = client.updateStatefulNodeState(resumeStatefulNode,nodeId);
 
-        System.out.println(String.format("Resume of stateful Node %s is successful ", nodeId));
+        if(resumeStatefulNodeResponse) {
+            System.out.println(String.format("Resume of stateful Node %s is successful ", nodeId));
+        }
+        else {
+            System.out.println(String.format("Resume of stateful Node %s is not successful ", nodeId));
+        }
+
         return resumeStatefulNodeResponse;
 
     }

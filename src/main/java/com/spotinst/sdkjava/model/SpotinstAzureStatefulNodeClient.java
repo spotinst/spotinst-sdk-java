@@ -7,7 +7,7 @@ import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocation
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusResponse;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -166,7 +166,7 @@ public class SpotinstAzureStatefulNodeClient {
         return retVal;
     }
 
-    public Boolean updateStatefulNodeState(StatefulNodeStateRequest updateStatefulNodeStateRequest, String nodeId) {
+    public Boolean updateStatefulNodeState(StatefulNodeStateChangeRequest updateStatefulNodeStateRequest, String nodeId) {
 
         Boolean retVal;
 

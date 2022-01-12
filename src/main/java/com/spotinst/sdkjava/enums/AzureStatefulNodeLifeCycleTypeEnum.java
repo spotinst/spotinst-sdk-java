@@ -4,10 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzureOsEnum {
+public enum AzureStatefulNodeLifeCycleTypeEnum {
     //region Enum
-    LINUX("Linux"),
-    WINDOWS("Windows");
+    SPOT("spot"),
+    OD("od");
     //endregion
 
     //region Members
@@ -15,18 +15,18 @@ public enum AzureOsEnum {
     //endregion
 
     //region Constructor
-    AzureOsEnum(String name) {
+    AzureStatefulNodeLifeCycleTypeEnum(String name) {
         this.name = name;
     }
     //endregion
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzureOsEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeLifeCycleTypeEnum.class);
 
     //region methods
-    public static AzureOsEnum fromName(String name) {
-        AzureOsEnum retVal = null;
+    public static AzureStatefulNodeLifeCycleTypeEnum fromName(String name) {
+        AzureStatefulNodeLifeCycleTypeEnum retVal = null;
 
-        for (AzureOsEnum productEnum : AzureOsEnum.values()) {
+        for (AzureStatefulNodeLifeCycleTypeEnum productEnum : AzureStatefulNodeLifeCycleTypeEnum.values()) {
             if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
                 retVal = productEnum;
                 break;
@@ -34,7 +34,7 @@ public enum AzureOsEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error(String.format("Tried to create os Enum for: %s, but we don't support such type", name));
+            LOGGER.error(String.format("Tried to create azure lifecycle Enum for: %s, but we don't support such type", name));
         }
         return retVal;
     }

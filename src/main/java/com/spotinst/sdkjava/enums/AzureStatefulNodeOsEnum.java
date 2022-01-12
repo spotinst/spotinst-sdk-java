@@ -4,10 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzureDiskModeEnum {
+public enum AzureStatefulNodeOsEnum {
     //region Enum
-    REATTACH("reattach"),
-    ONLAUNCH("onLaunch");
+    LINUX("Linux"),
+    WINDOWS("Windows");
     //endregion
 
     //region Members
@@ -15,18 +15,18 @@ public enum AzureDiskModeEnum {
     //endregion
 
     //region Constructor
-    AzureDiskModeEnum(String name) {
+    AzureStatefulNodeOsEnum(String name) {
         this.name = name;
     }
     //endregion
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzureDiskModeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeOsEnum.class);
 
     //region methods
-    public static AzureDiskModeEnum fromName(String name) {
-        AzureDiskModeEnum retVal = null;
+    public static AzureStatefulNodeOsEnum fromName(String name) {
+        AzureStatefulNodeOsEnum retVal = null;
 
-        for (AzureDiskModeEnum productEnum : AzureDiskModeEnum.values()) {
+        for (AzureStatefulNodeOsEnum productEnum : AzureStatefulNodeOsEnum.values()) {
             if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
                 retVal = productEnum;
                 break;
@@ -34,7 +34,7 @@ public enum AzureDiskModeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error(String.format("Tried to create disk mode Enum for: %s, but we don't support such type", name));
+            LOGGER.error(String.format("Tried to create os Enum for: %s, but we don't support such type", name));
         }
         return retVal;
     }

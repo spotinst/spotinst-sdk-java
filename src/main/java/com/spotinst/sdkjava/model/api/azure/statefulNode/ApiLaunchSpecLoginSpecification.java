@@ -17,6 +17,7 @@ public class ApiLaunchSpecLoginSpecification implements IPartialUpdateEntity {
     private Set<String> isSet;
     private String      userName;
     private String      password;
+    private String      sshPublicKey;
 
     public ApiLaunchSpecLoginSpecification() {
         isSet = new HashSet<>();
@@ -48,6 +49,15 @@ public class ApiLaunchSpecLoginSpecification implements IPartialUpdateEntity {
         this.password = password;
     }
 
+    public String getSshPublicKey() {
+        return sshPublicKey;
+    }
+
+    public void setSshPublicKey(String sshPublicKey) {
+        isSet.add("sshPublicKey");
+        this.sshPublicKey = sshPublicKey;
+    }
+
     @JsonIgnore
     public boolean isUserNameSet() {
         return isSet.contains("userName");
@@ -58,4 +68,8 @@ public class ApiLaunchSpecLoginSpecification implements IPartialUpdateEntity {
         return isSet.contains("password");
     }
 
+    @JsonIgnore
+    public boolean isSshPublicKeySet() {
+        return isSet.contains("sshPublicKey");
+    }
 }

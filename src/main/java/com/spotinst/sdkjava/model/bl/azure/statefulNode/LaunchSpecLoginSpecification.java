@@ -14,6 +14,7 @@ public class LaunchSpecLoginSpecification {
     private Set<String> isSet;
     private String      userName;
     private String      password;
+    private String      sshPublicKey;
 
     public LaunchSpecLoginSpecification() {
         isSet = new HashSet<>();
@@ -45,6 +46,14 @@ public class LaunchSpecLoginSpecification {
         this.password = password;
     }
 
+    public String getSshPublicKey() {
+        return sshPublicKey;
+    }
+
+    public void setSshPublicKey(String sshPublicKey) {
+        isSet.add("sshPublicKey");
+        this.sshPublicKey = sshPublicKey;
+    }
 
     public static class Builder {
         private LaunchSpecLoginSpecification loginSpecification;
@@ -67,6 +76,12 @@ public class LaunchSpecLoginSpecification {
             loginSpecification.setPassword(password);
             return this;
         }
+
+        public Builder setSshPublicKey(final String sshPublicKey) {
+            loginSpecification.setSshPublicKey(sshPublicKey);
+            return this;
+        }
+
         public LaunchSpecLoginSpecification build() {
             return loginSpecification;
         }
@@ -80,6 +95,11 @@ public class LaunchSpecLoginSpecification {
     @JsonIgnore
     public boolean isPasswordSet() {
         return isSet.contains("password");
+    }
+
+    @JsonIgnore
+    public boolean isSshPublicKeySet() {
+        return isSet.contains("sshPublicKey");
     }
 
 }

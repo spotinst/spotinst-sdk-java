@@ -13,7 +13,8 @@ public class LaunchSpecImageConfiguration {
     @JsonIgnore
     private Set<String>                        isSet;
     private LaunchSpecMarketplaceConfiguration marketplace;
-
+    private LaunchSpecCustomConfiguration      custom;
+    private LaunchSpecGalleryConfiguration     gallery;
 
     public LaunchSpecImageConfiguration() {
         isSet = new HashSet<>();
@@ -36,6 +37,24 @@ public class LaunchSpecImageConfiguration {
         this.marketplace = marketplace;
     }
 
+    public LaunchSpecCustomConfiguration getCustom() {
+        return custom;
+    }
+
+    public void setCustom(LaunchSpecCustomConfiguration custom) {
+        isSet.add("custom");
+        this.custom = custom;
+    }
+
+    public LaunchSpecGalleryConfiguration getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(LaunchSpecGalleryConfiguration gallery) {
+        isSet.add("gallery");
+        this.gallery = gallery;
+    }
+
     public static class Builder {
         private LaunchSpecImageConfiguration imageConfiguration;
 
@@ -53,6 +72,16 @@ public class LaunchSpecImageConfiguration {
             return this;
         }
 
+        public Builder setCustom(final LaunchSpecCustomConfiguration custom) {
+            imageConfiguration.setCustom(custom);
+            return this;
+        }
+
+        public Builder setGallery(final LaunchSpecGalleryConfiguration gallery) {
+            imageConfiguration.setGallery(gallery);
+            return this;
+        }
+
         public LaunchSpecImageConfiguration build() {
             return imageConfiguration;
         }
@@ -61,6 +90,16 @@ public class LaunchSpecImageConfiguration {
     @JsonIgnore
     public boolean isMarketplaceSet() {
         return isSet.contains("marketplace");
+    }
+
+    @JsonIgnore
+    public boolean isCustomSet() {
+        return isSet.contains("custom");
+    }
+
+    @JsonIgnore
+    public boolean isGallerySet() {
+        return isSet.contains("gallery");
     }
 
 }

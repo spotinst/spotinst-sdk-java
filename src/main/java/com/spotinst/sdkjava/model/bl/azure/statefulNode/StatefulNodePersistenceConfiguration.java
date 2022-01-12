@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureDiskModeEnum;
+import com.spotinst.sdkjava.enums.AzureStatefulNodeDiskModeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,12 +12,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodePersistenceConfiguration {
     @JsonIgnore
-    private Set<String>       isSet;
-    private Boolean           shouldPersistOsDisk;
-    private Boolean           shouldPersistDataDisks;
-    private Boolean           shouldPersistNetwork;
-    private AzureDiskModeEnum dataDisksPersistenceMode;
-    private AzureDiskModeEnum osDiskPersistenceMode;
+    private Set<String>                   isSet;
+    private Boolean                       shouldPersistOsDisk;
+    private Boolean                       shouldPersistDataDisks;
+    private Boolean                       shouldPersistNetwork;
+    private AzureStatefulNodeDiskModeEnum dataDisksPersistenceMode;
+    private AzureStatefulNodeDiskModeEnum osDiskPersistenceMode;
 
     private StatefulNodePersistenceConfiguration() {
         isSet = new HashSet<>();
@@ -58,20 +58,20 @@ public class StatefulNodePersistenceConfiguration {
         this.shouldPersistNetwork = shouldPersistNetwork;
     }
 
-    public AzureDiskModeEnum getDataDisksPersistenceMode() {
+    public AzureStatefulNodeDiskModeEnum getDataDisksPersistenceMode() {
         return dataDisksPersistenceMode;
     }
 
-    public void setDataDisksPersistenceMode(AzureDiskModeEnum dataDisksPersistenceMode) {
+    public void setDataDisksPersistenceMode(AzureStatefulNodeDiskModeEnum dataDisksPersistenceMode) {
         isSet.add("dataDisksPersistenceMode");
         this.dataDisksPersistenceMode = dataDisksPersistenceMode;
     }
 
-    public AzureDiskModeEnum getOsDiskPersistenceMode() {
+    public AzureStatefulNodeDiskModeEnum getOsDiskPersistenceMode() {
         return osDiskPersistenceMode;
     }
 
-    public void setOsDiskPersistenceMode(AzureDiskModeEnum osDiskPersistenceMode) {
+    public void setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum osDiskPersistenceMode) {
         isSet.add("osDiskPersistenceMode");
         this.osDiskPersistenceMode = osDiskPersistenceMode;
     }
@@ -103,12 +103,12 @@ public class StatefulNodePersistenceConfiguration {
             return this;
         }
 
-        public Builder setDataDisksPersistenceMode(final AzureDiskModeEnum dataDisksPersistenceMode) {
+        public Builder setDataDisksPersistenceMode(final AzureStatefulNodeDiskModeEnum dataDisksPersistenceMode) {
             compute.setDataDisksPersistenceMode(dataDisksPersistenceMode);
             return this;
         }
 
-        public Builder setOsDiskPersistenceMode(final AzureDiskModeEnum osDiskPersistenceMode) {
+        public Builder setOsDiskPersistenceMode(final AzureStatefulNodeDiskModeEnum osDiskPersistenceMode) {
             compute.setOsDiskPersistenceMode(osDiskPersistenceMode);
             return this;
         }

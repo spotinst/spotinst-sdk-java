@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureLifeCycleTypeEnum;
+import com.spotinst.sdkjava.enums.AzureStatefulNodeLifeCycleTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +20,7 @@ public class StatefulNodeStrategyConfiguration {
     private Set<String>                           isSet;
     private Boolean                               fallbackToOd;
     private Integer                               drainingTimeout;
-    private AzureLifeCycleTypeEnum                preferredLifecycle;
+    private AzureStatefulNodeLifeCycleTypeEnum    preferredLifecycle;
     private StatefulNodeRevertToSpotConfiguration revertToSpot;
     private List<StatefulNodeSignalConfiguration> signals;
     private List<String>                          optimizationWindows;
@@ -55,11 +55,11 @@ public class StatefulNodeStrategyConfiguration {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public AzureLifeCycleTypeEnum getPreferredLifecycle() {
+    public AzureStatefulNodeLifeCycleTypeEnum getPreferredLifecycle() {
         return preferredLifecycle;
     }
 
-    public void setPreferredLifecycle(AzureLifeCycleTypeEnum preferredLifecycle) {
+    public void setPreferredLifecycle(AzureStatefulNodeLifeCycleTypeEnum preferredLifecycle) {
         isSet.add("preferredLifecycle");
         this.preferredLifecycle = preferredLifecycle;
     }
@@ -113,7 +113,7 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
-        public Builder setPreferredLifecycle(final AzureLifeCycleTypeEnum preferredLifecycle) {
+        public Builder setPreferredLifecycle(final AzureStatefulNodeLifeCycleTypeEnum preferredLifecycle) {
             statefulNodeStrategy.setPreferredLifecycle(preferredLifecycle);
             return this;
         }

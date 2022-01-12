@@ -303,6 +303,9 @@ public class StatefulNodeConverter {
             if (launchSpecLogin.isPasswordSet()) {
                 apiLaunchSpecLogin.setPassword(launchSpecLogin.getPassword());
             }
+            if (launchSpecLogin.isSshPublicKeySet()) {
+                apiLaunchSpecLogin.setSshPublicKey(launchSpecLogin.getSshPublicKey());
+            }
 
         }
         return apiLaunchSpecLogin;
@@ -396,6 +399,12 @@ public class StatefulNodeConverter {
             if (launchSpecImage.isMarketplaceSet()) {
                 apiLaunchSpecImage.setMarketplace(toDal(launchSpecImage.getMarketplace()));
             }
+            if(launchSpecImage.isCustomSet()){
+                apiLaunchSpecImage.setCustom(toDal(launchSpecImage.getCustom()));
+            }
+            if(launchSpecImage.isGallerySet()){
+                apiLaunchSpecImage.setGallery(toDal(launchSpecImage.getGallery()));
+            }
 
         }
         return apiLaunchSpecImage;
@@ -422,6 +431,46 @@ public class StatefulNodeConverter {
         }
 
         return apiLaunchSpecMarketplace;
+    }
+
+    private static ApiLaunchSpecCustomConfiguration toDal(LaunchSpecCustomConfiguration launchSpecCustom){
+        ApiLaunchSpecCustomConfiguration apiLaunchSpecCustom = null;
+
+        if(launchSpecCustom != null){
+            apiLaunchSpecCustom = new ApiLaunchSpecCustomConfiguration();
+
+            if(launchSpecCustom.isResourceGroupNameSet()){
+                apiLaunchSpecCustom.setResourceGroupName(launchSpecCustom.getResourceGroupName());
+            }
+            if(launchSpecCustom.isNameSet()){
+                apiLaunchSpecCustom.setName(launchSpecCustom.getName());
+            }
+        }
+
+        return apiLaunchSpecCustom;
+    }
+
+    private static ApiLaunchSpecGalleryConfiguration toDal(LaunchSpecGalleryConfiguration launchSpecCustom){
+        ApiLaunchSpecGalleryConfiguration apiLaunchSpecCustom = null;
+
+        if(launchSpecCustom != null){
+            apiLaunchSpecCustom = new ApiLaunchSpecGalleryConfiguration();
+
+            if(launchSpecCustom.isResourceGroupNameSet()){
+                apiLaunchSpecCustom.setResourceGroupName(launchSpecCustom.getResourceGroupName());
+            }
+            if(launchSpecCustom.isGalleryNameSet()){
+                apiLaunchSpecCustom.setGalleryName(launchSpecCustom.getGalleryName());
+            }
+            if(launchSpecCustom.isImageNameSet()){
+                apiLaunchSpecCustom.setImageName(launchSpecCustom.getImageName());
+            }
+            if(launchSpecCustom.isVersionNameSet()){
+                apiLaunchSpecCustom.setVersionName(launchSpecCustom.getVersionName());
+            }
+        }
+
+        return apiLaunchSpecCustom;
     }
 
     private static ApiStatefulNodeLoadBalancersConfig toDal(StatefulNodeLoadBalancersConfig statefulNodeLoadBalancers) {
@@ -688,7 +737,7 @@ public class StatefulNodeConverter {
             StatefulNodeComputeConfiguration.Builder statefulNodeComputeBuilder = StatefulNodeComputeConfiguration.Builder.get();
 
             if (apiStatefulNodeCompute.isOsSet()) {
-                statefulNodeComputeBuilder.setOs(AzureOsEnum.fromName(apiStatefulNodeCompute.getOs()));
+                statefulNodeComputeBuilder.setOs(AzureStatefulNodeOsEnum.fromName(apiStatefulNodeCompute.getOs()));
             }
 
             if (apiStatefulNodeCompute.isVmSizesSet()) {
@@ -809,6 +858,14 @@ public class StatefulNodeConverter {
                 launchSpecImageConfigurationBuilder.setMarketplace(toBl(apiLaunchSpecImageConfiguration.getMarketplace()));
             }
 
+            if (apiLaunchSpecImageConfiguration.isCustomSet()) {
+                launchSpecImageConfigurationBuilder.setCustom(toBl(apiLaunchSpecImageConfiguration.getCustom()));
+            }
+
+            if (apiLaunchSpecImageConfiguration.isGallerySet()) {
+                launchSpecImageConfigurationBuilder.setGallery(toBl(apiLaunchSpecImageConfiguration.getGallery()));
+            }
+
             launchSpecImageConfiguration = launchSpecImageConfigurationBuilder.build();
         }
 
@@ -843,6 +900,60 @@ public class StatefulNodeConverter {
         }
 
         return launchSpecMarketplaceConfiguration;
+    }
+
+    private static LaunchSpecCustomConfiguration toBl(
+            ApiLaunchSpecCustomConfiguration apiLaunchSpecCustomConfiguration){
+
+        LaunchSpecCustomConfiguration launchSpecCustomConfiguration = null;
+
+        if(apiLaunchSpecCustomConfiguration != null) {
+
+            LaunchSpecCustomConfiguration.Builder launchSpecCustomImageConfigurationBuilder = LaunchSpecCustomConfiguration.Builder.get();
+
+            if (apiLaunchSpecCustomConfiguration.isResourceGroupNameSet()) {
+                launchSpecCustomImageConfigurationBuilder.setResourceGroupName(
+                        apiLaunchSpecCustomConfiguration.getResourceGroupName());
+            }
+
+            if (apiLaunchSpecCustomConfiguration.isNameSet()) {
+                launchSpecCustomImageConfigurationBuilder.setName(apiLaunchSpecCustomConfiguration.getName());
+            }
+
+            launchSpecCustomConfiguration = launchSpecCustomImageConfigurationBuilder.build();
+        }
+
+        return launchSpecCustomConfiguration;
+    }
+
+    private static LaunchSpecGalleryConfiguration toBl(ApiLaunchSpecGalleryConfiguration apiLaunchSpecGalleryConfiguration){
+
+        LaunchSpecGalleryConfiguration launchSpecGalleryConfiguration = null;
+
+        if(apiLaunchSpecGalleryConfiguration != null) {
+
+            LaunchSpecGalleryConfiguration.Builder launchSpecGalleryConfigurationBuilder = LaunchSpecGalleryConfiguration.Builder.get();
+
+            if (apiLaunchSpecGalleryConfiguration.isResourceGroupNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setResourceGroupName(apiLaunchSpecGalleryConfiguration.getResourceGroupName());
+            }
+
+            if (apiLaunchSpecGalleryConfiguration.isGalleryNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setGalleryName(apiLaunchSpecGalleryConfiguration.getGalleryName());
+            }
+
+            if (apiLaunchSpecGalleryConfiguration.isImageNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setImageName(apiLaunchSpecGalleryConfiguration.getImageName());
+            }
+
+            if (apiLaunchSpecGalleryConfiguration.isVersionNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setVersionName(apiLaunchSpecGalleryConfiguration.getVersionName());
+            }
+
+            launchSpecGalleryConfiguration = launchSpecGalleryConfigurationBuilder.build();
+        }
+
+        return launchSpecGalleryConfiguration;
     }
 
     private static LaunchSpecNetworkConfiguration toBl(ApiLaunchSpecNetworkConfiguration apiLaunchSpecNetworkConfigurationn){
@@ -1055,6 +1166,9 @@ public class StatefulNodeConverter {
             if(apiLaunchSpecLoginSpecification.isPasswordSet()){
                 launchSpecLoginSpecificationBuilder.setPassword(apiLaunchSpecLoginSpecification.getPassword());
             }
+            if(apiLaunchSpecLoginSpecification.isSshPublicKeySet()){
+                launchSpecLoginSpecificationBuilder.setSshPublicKey(apiLaunchSpecLoginSpecification.getSshPublicKey());
+            }
 
             launchSpecLoginSpecification = launchSpecLoginSpecificationBuilder.build();
         }
@@ -1118,7 +1232,8 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeStrategy.isPreferredLifecycleSet()) {
-                statefulNodeStrategyBuilder.setPreferredLifecycle(AzureLifeCycleTypeEnum.fromName(apiStatefulNodeStrategy.getPreferredLifecycle()));
+                statefulNodeStrategyBuilder.setPreferredLifecycle(
+                        AzureStatefulNodeLifeCycleTypeEnum.fromName(apiStatefulNodeStrategy.getPreferredLifecycle()));
             }
 
             if (apiStatefulNodeStrategy.isRevertToSpotSet()) {
@@ -1171,7 +1286,8 @@ public class StatefulNodeConverter {
             StatefulNodeRevertToSpotConfiguration.Builder statefulNodeRevertToSpotBuilder = StatefulNodeRevertToSpotConfiguration.Builder.get();
 
             if (apiStatefulNodeRevertToSpot.isPerformAtSet()) {
-                statefulNodeRevertToSpotBuilder.setPerformAt(AzurePerformAtEnum.fromName(apiStatefulNodeRevertToSpot.getPerformAt()));
+                statefulNodeRevertToSpotBuilder.setPerformAt(
+                        AzureStatefulNodePerformAtEnum.fromName(apiStatefulNodeRevertToSpot.getPerformAt()));
             }
 
             statefulNodeRevertToSpot = statefulNodeRevertToSpotBuilder.build();
@@ -1247,11 +1363,13 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodePersistent.isOsDiskPersistenceModeSet()) {
-                statefulNodePersistentBuilder.setOsDiskPersistenceMode(AzureDiskModeEnum.fromName(apiStatefulNodePersistent.getOsDiskPersistenceMode()));
+                statefulNodePersistentBuilder.setOsDiskPersistenceMode(
+                        AzureStatefulNodeDiskModeEnum.fromName(apiStatefulNodePersistent.getOsDiskPersistenceMode()));
             }
 
             if (apiStatefulNodePersistent.isDataDisksPersistenceModeSet()) {
-                statefulNodePersistentBuilder.setDataDisksPersistenceMode(AzureDiskModeEnum.fromName(apiStatefulNodePersistent.getDataDisksPersistenceMode()));
+                statefulNodePersistentBuilder.setDataDisksPersistenceMode(
+                        AzureStatefulNodeDiskModeEnum.fromName(apiStatefulNodePersistent.getDataDisksPersistenceMode()));
             }
 
             statefulNodePersistent = statefulNodePersistentBuilder.build();

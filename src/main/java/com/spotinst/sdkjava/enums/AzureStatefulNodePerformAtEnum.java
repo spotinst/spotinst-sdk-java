@@ -3,23 +3,23 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzurePerformAtEnum {
+public enum AzureStatefulNodePerformAtEnum {
 
     NEVER("never"),
     TIMEWINDOW("timeWindow"),
     ALWAYS("always");
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzurePerformAtEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodePerformAtEnum.class);
     private              String name;
 
-    private AzurePerformAtEnum(String name) {
+    private AzureStatefulNodePerformAtEnum(String name) {
         this.name = name;
     }
 
-    public static AzurePerformAtEnum fromName(String name) {
-        AzurePerformAtEnum retVal = null;
+    public static AzureStatefulNodePerformAtEnum fromName(String name) {
+        AzureStatefulNodePerformAtEnum retVal = null;
 
-        for (AzurePerformAtEnum instanceMarketEnum : AzurePerformAtEnum.values()) {
+        for (AzureStatefulNodePerformAtEnum instanceMarketEnum : AzureStatefulNodePerformAtEnum.values()) {
             if (name.equalsIgnoreCase(instanceMarketEnum.name)) {
                 retVal = instanceMarketEnum;
                 break;
