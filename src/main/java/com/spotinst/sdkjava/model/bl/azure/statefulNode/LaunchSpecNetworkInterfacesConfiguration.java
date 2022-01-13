@@ -5,24 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecNetworkInterfacesConfiguration {
     @JsonIgnore
-    private Set<String>                                               isSet;
-    private Boolean                                                   assignPublicIp;
-    private Boolean                                                   isPrimary;
-    private String                                                    subnetName;
-    private String                                                    publicIpSku;
-    private LaunchSpecNetworkSecurityGroupConfiguration               networkSecurityGroup;
-    private LaunchSpecApplicationSecurityGroupConfiguration           applicationSecurityGroup;
-    private Boolean                                                   enableIpForwarding;
-    private List<String>                                              privateIps;
-    private List<LaunchSpecNetworkInterfaceAdditionalIpConfiguration> additionalIpConfigurations;
-    private List<LaunchSpecNetworkInterfacePublicIpsConfiguration>    publicIps;
+    private Set<String>                                 isSet;
+    private Boolean                                     assignPublicIp;
+    private Boolean                                     isPrimary;
+    private String                                      subnetName;
+    private String                                      publicIpSku;
+    private LaunchSpecNetworkSecurityGroupConfiguration networkSecurityGroup;
 
     //region Constructors
     private LaunchSpecNetworkInterfacesConfiguration() {
@@ -83,51 +77,6 @@ public class LaunchSpecNetworkInterfacesConfiguration {
         this.networkSecurityGroup = networkSecurityGroup;
     }
 
-    public LaunchSpecApplicationSecurityGroupConfiguration getApplicationSecurityGroup() {
-        return applicationSecurityGroup;
-    }
-
-    public void setApplicationSecurityGroup(LaunchSpecApplicationSecurityGroupConfiguration applicationSecurityGroup) {
-        isSet.add("applicationSecurityGroup");
-        this.applicationSecurityGroup = applicationSecurityGroup;
-    }
-
-    public Boolean getEnableIpForwarding() {
-        return enableIpForwarding;
-    }
-
-    public void setEnableIpForwarding(Boolean enableIpForwarding) {
-        isSet.add("enableIpForwarding");
-        this.enableIpForwarding = enableIpForwarding;
-    }
-
-    public List<String> getPrivateIps() {
-        return privateIps;
-    }
-
-    public void setPrivateIps(List<String> privateIps) {
-        isSet.add("privateIps");
-        this.privateIps = privateIps;
-    }
-
-    public List<LaunchSpecNetworkInterfaceAdditionalIpConfiguration> getAdditionalIpConfigurations() {
-        return additionalIpConfigurations;
-    }
-
-    public void setAdditionalIpConfigurations(List<LaunchSpecNetworkInterfaceAdditionalIpConfiguration> additionalIpConfigurations) {
-        isSet.add("additionalIpConfigurations");
-        this.additionalIpConfigurations = additionalIpConfigurations;
-    }
-
-    public List<LaunchSpecNetworkInterfacePublicIpsConfiguration> getPublicIps() {
-        return publicIps;
-    }
-
-    public void setPublicIps(List<LaunchSpecNetworkInterfacePublicIpsConfiguration> publicIps) {
-        isSet.add("publicIps");
-        this.publicIps = publicIps;
-    }
-
     public static class Builder {
 
         private LaunchSpecNetworkInterfacesConfiguration networkInterfacesConfiguration;
@@ -166,31 +115,6 @@ public class LaunchSpecNetworkInterfacesConfiguration {
             return this;
         }
 
-        public Builder setApplicationSecurityGroup(final LaunchSpecApplicationSecurityGroupConfiguration applicationSecurityGroup) {
-            networkInterfacesConfiguration.setApplicationSecurityGroup(applicationSecurityGroup);
-            return this;
-        }
-
-        public Builder setEnableIpForwarding(final Boolean enableIpForwarding) {
-            networkInterfacesConfiguration.setEnableIpForwarding(enableIpForwarding);
-            return this;
-        }
-
-        public Builder setPrivateIps(final List<String> privateIps) {
-            networkInterfacesConfiguration.setPrivateIps(privateIps);
-            return this;
-        }
-
-        public Builder setAdditionalIpConfigurations(final List<LaunchSpecNetworkInterfaceAdditionalIpConfiguration> additionalIpConfigurations) {
-            networkInterfacesConfiguration.setAdditionalIpConfigurations(additionalIpConfigurations);
-            return this;
-        }
-
-        public Builder setPublicIps(final List<LaunchSpecNetworkInterfacePublicIpsConfiguration> publicIps) {
-            networkInterfacesConfiguration.setPublicIps(publicIps);
-            return this;
-        }
-
         public LaunchSpecNetworkInterfacesConfiguration build() {
             return networkInterfacesConfiguration;
         }
@@ -216,25 +140,5 @@ public class LaunchSpecNetworkInterfacesConfiguration {
     public boolean isNetworkSecurityGroupSet() {
         return isSet.contains("networkSecurityGroup");
     }
-
-    @JsonIgnore
-    public boolean isApplicationSecurityGroupSet() { return isSet.contains("applicationSecurityGroup"); }
-
-    @JsonIgnore
-    public boolean isEnableIpForwardingSet() {
-        return isSet.contains("enableIpForwarding");
-    }
-
-    @JsonIgnore
-    public boolean isPrivateIpsSet() { return isSet.contains("privateIps"); }
-
-    @JsonIgnore
-    public boolean isAdditionalIpConfigurationsSet() { return isSet.contains("additionalIpConfigurations"); }
-
-    @JsonIgnore
-    public boolean isPublicIpsSet() {
-        return isSet.contains("publicIps");
-    }
-
 }
 

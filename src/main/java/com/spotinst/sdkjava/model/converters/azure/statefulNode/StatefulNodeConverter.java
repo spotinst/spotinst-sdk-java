@@ -370,62 +370,8 @@ public class StatefulNodeConverter {
             if (launchSpecNetworkInterfaces.isNetworkSecurityGroupSet()) {
                 apiLaunchSpecNetworkInterfaces.setNetworkSecurityGroup(toDal(launchSpecNetworkInterfaces.getNetworkSecurityGroup()));
             }
-            if(launchSpecNetworkInterfaces.isApplicationSecurityGroupSet()){
-                apiLaunchSpecNetworkInterfaces.setApplicationSecurityGroup(toDal(launchSpecNetworkInterfaces.getApplicationSecurityGroup()));
-            }
-            if(launchSpecNetworkInterfaces.isEnableIpForwardingSet()){
-                apiLaunchSpecNetworkInterfaces.setEnableIpForwarding(launchSpecNetworkInterfaces.getEnableIpForwarding());
-            }
-            if(launchSpecNetworkInterfaces.isPrivateIpsSet()){
-                apiLaunchSpecNetworkInterfaces.setPrivateIps(launchSpecNetworkInterfaces.getPrivateIps());
-            }
-            if(launchSpecNetworkInterfaces.isAdditionalIpConfigurationsSet()){
-                List<ApiLaunchSpecNetworkInterfaceAdditionalIpConfiguration> additionalIpConfigurationsList =
-
-                        launchSpecNetworkInterfaces.getAdditionalIpConfigurations().stream().map(StatefulNodeConverter::toDal)
-                                         .collect(Collectors.toList());
-                apiLaunchSpecNetworkInterfaces.setAdditionalIpConfigurations(additionalIpConfigurationsList);
-            }
-            if(launchSpecNetworkInterfaces.isPublicIpsSet()){
-                List<ApiLaunchSpecNetworkInterfacePublicIpsConfiguration> publicIpsList =
-                        launchSpecNetworkInterfaces.getPublicIps().stream().map(StatefulNodeConverter::toDal)
-                                                   .collect(Collectors.toList());
-                apiLaunchSpecNetworkInterfaces.setPublicIps(publicIpsList);
-            }
         }
         return apiLaunchSpecNetworkInterfaces;
-    }
-
-    private static ApiLaunchSpecNetworkInterfaceAdditionalIpConfiguration toDal(LaunchSpecNetworkInterfaceAdditionalIpConfiguration launchSpecNetworkInterfaceAdditionalIpConfiguration) {
-        ApiLaunchSpecNetworkInterfaceAdditionalIpConfiguration apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration = null;
-
-        if (launchSpecNetworkInterfaceAdditionalIpConfiguration != null) {
-            apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration = new ApiLaunchSpecNetworkInterfaceAdditionalIpConfiguration();
-
-            if (launchSpecNetworkInterfaceAdditionalIpConfiguration.isNameSet()) {
-                apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.setName(launchSpecNetworkInterfaceAdditionalIpConfiguration.getName());
-            }
-            if (launchSpecNetworkInterfaceAdditionalIpConfiguration.isPrivateIpAddressVersionSet()) {
-                apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.setPrivateIpAddressVersion(launchSpecNetworkInterfaceAdditionalIpConfiguration.getPrivateIpAddressVersion());
-            }
-        }
-        return apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration;
-    }
-
-    private static ApiLaunchSpecNetworkInterfacePublicIpsConfiguration toDal(LaunchSpecNetworkInterfacePublicIpsConfiguration launchSpecNetworkInterfacePublicIpsConfiguration) {
-        ApiLaunchSpecNetworkInterfacePublicIpsConfiguration apiLaunchSpecNetworkInterfacePublicIpsConfiguration = null;
-
-        if (launchSpecNetworkInterfacePublicIpsConfiguration != null) {
-            apiLaunchSpecNetworkInterfacePublicIpsConfiguration = new ApiLaunchSpecNetworkInterfacePublicIpsConfiguration();
-
-            if (launchSpecNetworkInterfacePublicIpsConfiguration.isNameSet()) {
-                apiLaunchSpecNetworkInterfacePublicIpsConfiguration.setName(launchSpecNetworkInterfacePublicIpsConfiguration.getName());
-            }
-            if (launchSpecNetworkInterfacePublicIpsConfiguration.isResourceGroupNameSet()) {
-                apiLaunchSpecNetworkInterfacePublicIpsConfiguration.setResourceGroupName(launchSpecNetworkInterfacePublicIpsConfiguration.getResourceGroupName());
-            }
-        }
-        return apiLaunchSpecNetworkInterfacePublicIpsConfiguration;
     }
 
     private static ApiLaunchSpecNetworkSecurityGroupConfiguration toDal(LaunchSpecNetworkSecurityGroupConfiguration launchSpecNetworkSecurityGroup) {
@@ -442,21 +388,6 @@ public class StatefulNodeConverter {
             }
         }
         return apiLaunchSpecNetworkSecurityGroup;
-    }
-    private static ApiLaunchSpecApplicationSecurityGroupConfiguration toDal(LaunchSpecApplicationSecurityGroupConfiguration launchSpecApplicationSecurityGroup) {
-        ApiLaunchSpecApplicationSecurityGroupConfiguration apiLaunchSpecApplicationSecurityGroup = null;
-
-        if (launchSpecApplicationSecurityGroup != null) {
-            apiLaunchSpecApplicationSecurityGroup = new ApiLaunchSpecApplicationSecurityGroupConfiguration();
-
-            if (launchSpecApplicationSecurityGroup.isNameSet()) {
-                apiLaunchSpecApplicationSecurityGroup.setName(launchSpecApplicationSecurityGroup.getName());
-            }
-            if (launchSpecApplicationSecurityGroup.isResourceGroupNameSet()) {
-                apiLaunchSpecApplicationSecurityGroup.setResourceGroupName(launchSpecApplicationSecurityGroup.getResourceGroupName());
-            }
-        }
-        return apiLaunchSpecApplicationSecurityGroup;
     }
 
     private static ApiLaunchSpecImageConfiguration toDal(LaunchSpecImageConfiguration launchSpecImage) {
@@ -1084,78 +1015,10 @@ public class StatefulNodeConverter {
                 launchSpecNetworkInterfacesBuilder.setNetworkSecurityGroup(toBl(apiLaunchSpecNetworkInterfaces.getNetworkSecurityGroup()));
             }
 
-            if (apiLaunchSpecNetworkInterfaces.isApplicationSecurityGroupGroupSet()) {
-                launchSpecNetworkInterfacesBuilder.setApplicationSecurityGroup(toBl(apiLaunchSpecNetworkInterfaces.getApplicationSecurityGroup()));
-            }
-
-            if (apiLaunchSpecNetworkInterfaces.isEnableIpForwardingSet()) {
-                launchSpecNetworkInterfacesBuilder.setEnableIpForwarding(apiLaunchSpecNetworkInterfaces.getEnableIpForwarding());
-            }
-
-            if (apiLaunchSpecNetworkInterfaces.isPrivateIpsSet()) {
-                launchSpecNetworkInterfacesBuilder.setPrivateIps(apiLaunchSpecNetworkInterfaces.getPrivateIps());
-            }
-
-            if (apiLaunchSpecNetworkInterfaces.isAdditionalIpConfigurationsSet()) {
-                List<LaunchSpecNetworkInterfaceAdditionalIpConfiguration> additionalIpConfigurationList =
-                apiLaunchSpecNetworkInterfaces.getAdditionalIpConfigurations().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
-                launchSpecNetworkInterfacesBuilder.setAdditionalIpConfigurations(additionalIpConfigurationList);
-            }
-
-            if (apiLaunchSpecNetworkInterfaces.isPublicIpsSet()) {
-                List<LaunchSpecNetworkInterfacePublicIpsConfiguration> publicIpsList =
-                apiLaunchSpecNetworkInterfaces.getPublicIps().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
-                launchSpecNetworkInterfacesBuilder.setPublicIps(publicIpsList);
-            }
-
             launchSpecNetworkInterfaces = launchSpecNetworkInterfacesBuilder.build();
         }
 
         return launchSpecNetworkInterfaces;
-    }
-
-    private static LaunchSpecNetworkInterfaceAdditionalIpConfiguration toBl(ApiLaunchSpecNetworkInterfaceAdditionalIpConfiguration apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration){
-
-        LaunchSpecNetworkInterfaceAdditionalIpConfiguration launchSpecNetworkInterfaceAdditionalIpConfiguration = null;
-
-        if(apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration != null) {
-
-            LaunchSpecNetworkInterfaceAdditionalIpConfiguration.Builder launchSpecNetworkInterfaceAdditionalIpConfigurationBuilder = LaunchSpecNetworkInterfaceAdditionalIpConfiguration.Builder.get();
-
-            if (apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.isNameSet()) {
-                launchSpecNetworkInterfaceAdditionalIpConfigurationBuilder.setName(apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.getName());
-            }
-
-            if (apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.isPrivateIpAddressVersionSet()) {
-                launchSpecNetworkInterfaceAdditionalIpConfigurationBuilder.setPrivateIpAddressVersion(apiLaunchSpecNetworkInterfaceAdditionalIpConfiguration.getPrivateIpAddressVersion());
-            }
-
-            launchSpecNetworkInterfaceAdditionalIpConfiguration = launchSpecNetworkInterfaceAdditionalIpConfigurationBuilder.build();
-        }
-
-        return launchSpecNetworkInterfaceAdditionalIpConfiguration;
-    }
-
-    private static LaunchSpecNetworkInterfacePublicIpsConfiguration toBl(ApiLaunchSpecNetworkInterfacePublicIpsConfiguration apiLaunchSpecNetworkInterfacePublicIpsConfiguration){
-
-        LaunchSpecNetworkInterfacePublicIpsConfiguration launchSpecNetworkInterfacePublicIpsConfiguration = null;
-
-        if(apiLaunchSpecNetworkInterfacePublicIpsConfiguration != null) {
-
-            LaunchSpecNetworkInterfacePublicIpsConfiguration.Builder launchSpecNetworkInterfacePublicIpsConfigurationBuilder = LaunchSpecNetworkInterfacePublicIpsConfiguration.Builder.get();
-
-            if (apiLaunchSpecNetworkInterfacePublicIpsConfiguration.isNameSet()) {
-                launchSpecNetworkInterfacePublicIpsConfigurationBuilder.setName(apiLaunchSpecNetworkInterfacePublicIpsConfiguration.getName());
-            }
-
-            if (apiLaunchSpecNetworkInterfacePublicIpsConfiguration.isResourceGroupNameSet()) {
-                launchSpecNetworkInterfacePublicIpsConfigurationBuilder.setResourceGroupName(apiLaunchSpecNetworkInterfacePublicIpsConfiguration.getResourceGroupName());
-            }
-
-            launchSpecNetworkInterfacePublicIpsConfiguration = launchSpecNetworkInterfacePublicIpsConfigurationBuilder.build();
-        }
-
-        return launchSpecNetworkInterfacePublicIpsConfiguration;
     }
 
     private static LaunchSpecNetworkSecurityGroupConfiguration toBl(ApiLaunchSpecNetworkSecurityGroupConfiguration apiLaunchSpecNetworkSecurityGroup){
@@ -1178,28 +1041,6 @@ public class StatefulNodeConverter {
         }
 
         return launchSpecNetworkSecurityGroup;
-    }
-
-    private static LaunchSpecApplicationSecurityGroupConfiguration toBl(ApiLaunchSpecApplicationSecurityGroupConfiguration apiLaunchSpecApplicationSecurityGroup){
-
-        LaunchSpecApplicationSecurityGroupConfiguration launchSpecApplicationSecurityGroup = null;
-
-        if(apiLaunchSpecApplicationSecurityGroup != null) {
-
-            LaunchSpecApplicationSecurityGroupConfiguration.Builder launchSpecApplicationSecurityGroupBuilder = LaunchSpecApplicationSecurityGroupConfiguration.Builder.get();
-
-            if (apiLaunchSpecApplicationSecurityGroup.isNameSet()) {
-                launchSpecApplicationSecurityGroupBuilder.setName(apiLaunchSpecApplicationSecurityGroup.getName());
-            }
-
-            if (apiLaunchSpecApplicationSecurityGroup.isResourceGroupNameSet()) {
-                launchSpecApplicationSecurityGroupBuilder.setResourceGroupName(apiLaunchSpecApplicationSecurityGroup.getResourceGroupName());
-            }
-
-            launchSpecApplicationSecurityGroup = launchSpecApplicationSecurityGroupBuilder.build();
-        }
-
-        return launchSpecApplicationSecurityGroup;
     }
 
     private static LaunchSpecOsDiskSpecification toBl(ApiLaunchSpecOsDiskSpecification apiLaunchSpecOsDiskSpecification){
