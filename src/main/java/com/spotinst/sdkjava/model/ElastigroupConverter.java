@@ -71,49 +71,49 @@ public class ElastigroupConverter {
         ApiElastigroupScheduledTask retVal = null;
         if (tasksConfiguration != null) {
             retVal = new ApiElastigroupScheduledTask();
-            if (tasksConfiguration.isIsEnabledSet()) {
+            if (tasksConfiguration.isIsEnabledSet() && tasksConfiguration.getIsEnabled()!=null) {
                 retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
             }
-            if (tasksConfiguration.isFrequencySet()) {
+            if (tasksConfiguration.isFrequencySet() && tasksConfiguration.getFrequency()!=null) {
                 retVal.setFrequency(tasksConfiguration.getFrequency().getName());
             }
-            if (tasksConfiguration.isStartTimeSet()) {
+            if (tasksConfiguration.isStartTimeSet() && tasksConfiguration.getStartTime()!=null) {
                 retVal.setStartTime(tasksConfiguration.getStartTime());
             }
-            if (tasksConfiguration.isCronExpressionSet()) {
+            if (tasksConfiguration.isCronExpressionSet() && tasksConfiguration.getCronExpression()!=null) {
                 retVal.setCronExpression(tasksConfiguration.getCronExpression());
             }
-            if (tasksConfiguration.isTaskTypeSet()) {
+            if (tasksConfiguration.isTaskTypeSet() && tasksConfiguration.getTaskType()!=null) {
                 retVal.setTaskType(tasksConfiguration.getTaskType().getName());
             }
-            if (tasksConfiguration.isScaleTargetCapacitySet()) {
+            if (tasksConfiguration.isScaleTargetCapacitySet() && tasksConfiguration.getScaleTargetCapacity()!=null) {
                 retVal.setScaleTargetCapacity(tasksConfiguration.getScaleTargetCapacity());
             }
-            if (tasksConfiguration.isScaleMinCapacitySet()) {
+            if (tasksConfiguration.isScaleMinCapacitySet() && tasksConfiguration.getScaleMinCapacity()!=null) {
                 retVal.setScaleMinCapacity(tasksConfiguration.getScaleMinCapacity());
             }
-            if (tasksConfiguration.isScaleMaxCapacitySet()) {
+            if (tasksConfiguration.isScaleMaxCapacitySet() && tasksConfiguration.getScaleMaxCapacity()!=null) {
                 retVal.setScaleMaxCapacity(tasksConfiguration.getScaleMaxCapacity());
             }
-            if (tasksConfiguration.isBatchSizePercentageSet()) {
+            if (tasksConfiguration.isBatchSizePercentageSet() && tasksConfiguration.getBatchSizePercentage()!=null) {
                 retVal.setBatchSizePercentage(tasksConfiguration.getBatchSizePercentage());
             }
-            if (tasksConfiguration.isgracePeriodSet()) {
+            if (tasksConfiguration.isgracePeriodSet() && tasksConfiguration.getGracePeriod()!=null) {
                 retVal.setGracePeriod(tasksConfiguration.getGracePeriod());
             }
-            if (tasksConfiguration.isAdjustmentSet()) {
+            if (tasksConfiguration.isAdjustmentSet() && tasksConfiguration.getAdjustment()!=null) {
                 retVal.setAdjustment(tasksConfiguration.getAdjustment());
             }
-            if (tasksConfiguration.isAdjustmentPercentageSet()) {
+            if (tasksConfiguration.isAdjustmentPercentageSet() && tasksConfiguration.getAdjustmentPercentage()!=null) {
                 retVal.setAdjustmentPercentage(tasksConfiguration.getAdjustmentPercentage());
             }
-            if (tasksConfiguration.isTargetCapacitySet()) {
+            if (tasksConfiguration.isTargetCapacitySet() && tasksConfiguration.getTargetCapacity()!=null) {
                 retVal.setTargetCapacity(tasksConfiguration.getTargetCapacity());
             }
-            if (tasksConfiguration.isMinCapacitySet()) {
+            if (tasksConfiguration.isMinCapacitySet() && tasksConfiguration.getMinCapacity()!=null) {
                 retVal.setMinCapacity(tasksConfiguration.getMinCapacity());
             }
-            if (tasksConfiguration.isMaxCapacitySet()) {
+            if (tasksConfiguration.isMaxCapacitySet() && tasksConfiguration.getMaxCapacity()!=null) {
                 retVal.setMaxCapacity(tasksConfiguration.getMaxCapacity());
             }
         }
