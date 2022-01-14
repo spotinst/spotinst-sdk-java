@@ -6,10 +6,7 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupImportEC2Instance;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupUpdateCapacity;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
@@ -1245,10 +1242,10 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static ApiElastigroupImportEC2InstanceResponse importEC2Instance(ElastigroupImportEC2Instance request, String instanceId, String region,
+    public static ApiElastigroup importEC2Instance(ElastigroupImportEC2Instance request, String instanceId, String region,
                                                                             String authToken, String account) {
 
-        ApiElastigroupImportEC2InstanceResponse retVal = null;
+        ApiElastigroup retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1288,8 +1285,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupImportEC2InstanceApiResponse
-                castedApiResponse = getCastedResponse(response, ElastigroupImportEC2InstanceApiResponse.class);
+        ElastigroupApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0) {
             retVal = castedApiResponse.getResponse().getItems().get(0);

@@ -21,8 +21,7 @@ public class ElastigroupUpdateCapacity implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                isSet;
-    private String                     id;
-    private ElastigroupCapacityConfiguration                capacity;
+    private ElastigroupCapacityConfiguration capacity;
     //endregion
 
     //region Constructor
@@ -40,15 +39,6 @@ public class ElastigroupUpdateCapacity implements IPartialUpdateEntity {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
-    }
-
-    String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
     }
 
     public ElastigroupCapacityConfiguration getCapacity() {
@@ -78,12 +68,6 @@ public class ElastigroupUpdateCapacity implements IPartialUpdateEntity {
             return builder;
         }
 
-        //region Build methods
-        protected Builder setId(final String elastigroupId) {
-            elastigroup.setId(elastigroupId);
-            return this;
-        }
-
         public Builder setCapacity(final ElastigroupCapacityConfiguration capacity) {
             elastigroup.setCapacity(capacity);
             return this;
@@ -100,11 +84,6 @@ public class ElastigroupUpdateCapacity implements IPartialUpdateEntity {
 
     //region isSet methods
     // Is id Set boolean method
-    @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
-    }
-
     // Is capacity Set boolean method
     @JsonIgnore
     public boolean isCapacitySet() {

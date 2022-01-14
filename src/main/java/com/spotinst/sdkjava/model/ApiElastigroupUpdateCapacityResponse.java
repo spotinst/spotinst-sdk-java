@@ -15,7 +15,7 @@ import java.util.Set;
 public class ApiElastigroupUpdateCapacityResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                      isSet;
+    private Set<String>    isSet;
     private ApiCapacity capacity;
 
     public ApiElastigroupUpdateCapacityResponse() {

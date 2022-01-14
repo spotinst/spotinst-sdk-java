@@ -8,7 +8,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -971,7 +970,7 @@ public class ElastigroupUsageExample {
     }
 
     private static ElastigroupGetDeploymentStatusResponse getDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId,
-                                                                              String deploymentId) {
+                                                                                                                      String deploymentId) {
 
         ElastigroupGetDeploymentStatusResponse GetDeploymentStatusResponse = elastigroupClient.getDeploymentStatus(elastigroupId, deploymentId);
 

@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -1451,26 +1450,6 @@ public class ElastigroupConverter {
 
             if (elastigroupImportInstance.isSpotInstanceTypesSet()) {
                 retVal.setSpotInstanceTypes(elastigroupImportInstance.getSpotInstanceTypes());
-            }
-
-        }
-
-        return retVal;
-    }
-
-    public static ApiElastigroupImportEC2InstanceResponse toDal(ElastigroupImportEC2InstanceResponse elastigroupImportInstanceItems) {
-        ApiElastigroupImportEC2InstanceResponse retVal = null;
-
-        if (elastigroupImportInstanceItems != null) {
-
-            retVal = new ApiElastigroupImportEC2InstanceResponse();
-
-            if (elastigroupImportInstanceItems.isNameSet()) {
-                retVal.setName(elastigroupImportInstanceItems.getName());
-            }
-
-            if (elastigroupImportInstanceItems.isIdSet()) {
-                retVal.setId(elastigroupImportInstanceItems.getId());
             }
 
         }
@@ -3220,25 +3199,5 @@ public class ElastigroupConverter {
 
         return retVal;
     }
-
-    public static ElastigroupImportEC2InstanceResponse toBl(
-            ApiElastigroupImportEC2InstanceResponse elastigroupImportInstanceItems) {
-        ElastigroupImportEC2InstanceResponse retVal = null;
-
-        if (elastigroupImportInstanceItems != null) {
-            retVal = new ElastigroupImportEC2InstanceResponse();
-
-            if (elastigroupImportInstanceItems.isNameSet()) {
-                retVal.setName(elastigroupImportInstanceItems.getName());
-            }
-            if (elastigroupImportInstanceItems.isIdSet()) {
-                retVal.setId(elastigroupImportInstanceItems.getId());
-            }
-
-        }
-
-        return retVal;
-    }
-
     //endregion
     }

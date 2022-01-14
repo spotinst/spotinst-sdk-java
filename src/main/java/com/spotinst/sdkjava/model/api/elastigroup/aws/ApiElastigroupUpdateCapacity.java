@@ -21,7 +21,6 @@ public class ApiElastigroupUpdateCapacity implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                isSet;
-    private String                     id;
     private ApiCapacity                capacity;
     //endregion
 
@@ -42,15 +41,6 @@ public class ApiElastigroupUpdateCapacity implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
-    }
-
     public ApiCapacity getCapacity() {
         return capacity;
     }
@@ -63,12 +53,6 @@ public class ApiElastigroupUpdateCapacity implements IPartialUpdateEntity {
     //endregion
 
     //region isSet methods
-    // Is id Set boolean method
-    @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
-    }
-
     // Is capacity Set boolean method
     @JsonIgnore
     public boolean isCapacitySet() {

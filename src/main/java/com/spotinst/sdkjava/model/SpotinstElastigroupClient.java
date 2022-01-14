@@ -10,7 +10,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -847,7 +846,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean updateCapacity(ElastigroupUpdateCapacityRequest updateCapacityRequest, String elastigroupId) {
 
-        Boolean updateCapacity=null;
+        Boolean updateCapacity;
 
         ElastigroupUpdateCapacity elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
 
@@ -870,13 +869,13 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public ElastigroupImportEC2InstanceResponse importEC2Instance(ElastigroupImportEC2InstanceRequest importEC2InstanceRequest, String instanceId, String region) {
+    public Elastigroup importEC2Instance(ElastigroupImportEC2InstanceRequest importEC2InstanceRequest, String instanceId, String region) {
 
-        ElastigroupImportEC2InstanceResponse importEC2Instance=null;
+        Elastigroup importEC2Instance;
 
         ElastigroupImportEC2Instance elastigroupImportEC2Instance = importEC2InstanceRequest.getElastigroupImportEC2Instance();
 
-        RepoGenericResponse<ElastigroupImportEC2InstanceResponse> importEC2InstanceResponse =
+        RepoGenericResponse<Elastigroup> importEC2InstanceResponse =
                 getSpotinstElastigroupRepo().importEC2Instance(elastigroupImportEC2Instance, instanceId, region, authToken, account);
 
         if(importEC2InstanceResponse.isRequestSucceed()){

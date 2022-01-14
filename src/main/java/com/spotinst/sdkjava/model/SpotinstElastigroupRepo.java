@@ -11,7 +11,6 @@ import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRe
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
 import java.util.List;
@@ -606,14 +605,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<ElastigroupImportEC2InstanceResponse> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region, String authToken, String account) {
-        RepoGenericResponse<ElastigroupImportEC2InstanceResponse> retVal;
+    public RepoGenericResponse<Elastigroup> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region, String authToken, String account) {
+        RepoGenericResponse<Elastigroup> retVal;
 
         try {
             
-            ApiElastigroupImportEC2InstanceResponse importEC2Instance = SpotinstElastigroupService
+            ApiElastigroup importEC2Instance = SpotinstElastigroupService
                     .importEC2Instance(elastigroupImportInstance, instanceId, region, authToken, account);
-            ElastigroupImportEC2InstanceResponse importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
+            Elastigroup importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
 
             retVal = new RepoGenericResponse<>(importedEC2Instance);
         }

@@ -12,7 +12,7 @@ import java.util.Set;
 public class ElastigroupUpdateCapacityResponse {
 
     @JsonIgnore
-    private Set<String>                   isSet;
+    private Set<String>                         isSet;
     private ElastigroupCapacityConfiguration capacity;
 
     public ElastigroupUpdateCapacityResponse() {

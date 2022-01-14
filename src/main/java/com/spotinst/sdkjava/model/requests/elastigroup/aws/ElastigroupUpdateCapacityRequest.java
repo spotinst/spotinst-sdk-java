@@ -8,7 +8,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupUpdateCapacity;
 public class ElastigroupUpdateCapacityRequest {
 
     private ElastigroupUpdateCapacity elastigroupCapacity;
-    private String                     GroupId;
 
     private ElastigroupUpdateCapacityRequest() {
     }
@@ -20,15 +19,6 @@ public class ElastigroupUpdateCapacityRequest {
     public void setElastigroupUpdateCapacity(ElastigroupUpdateCapacity elastigroupCapacity) {
         this.elastigroupCapacity = elastigroupCapacity;
     }
-
-    public String getGroupId() {
-        return GroupId;
-    }
-
-    public void setGroupId(String groupId) {
-        GroupId = groupId;
-    }
-
 
     public static class Builder {
         private ElastigroupUpdateCapacityRequest elastigroupUpdateCapacityRequest;
@@ -46,12 +36,6 @@ public class ElastigroupUpdateCapacityRequest {
             elastigroupUpdateCapacityRequest.setElastigroupUpdateCapacity(elastigroupCapacity);
             return this;
         }
-
-        public Builder setGroupId(final String groupId) {
-            elastigroupUpdateCapacityRequest.setGroupId(groupId);
-            return this;
-        }
-
 
         public ElastigroupUpdateCapacityRequest build() {
             return elastigroupUpdateCapacityRequest;
