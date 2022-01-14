@@ -582,4 +582,47 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacity elastiGroupUpdateCapacity,
+                                                       String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean updateCapacityResponse = SpotinstElastigroupService
+                    .updateCapacity(elastigroupId, elastiGroupUpdateCapacity, authToken, account);
+
+            retVal = new RepoGenericResponse<>(updateCapacityResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupImportEC2InstanceResponse> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region, String authToken, String account) {
+        RepoGenericResponse<ElastigroupImportEC2InstanceResponse> retVal;
+
+        try {
+            
+            ApiElastigroupImportEC2InstanceResponse importEC2Instance = SpotinstElastigroupService
+                    .importEC2Instance(elastigroupImportInstance, instanceId, region, authToken, account);
+            ElastigroupImportEC2InstanceResponse importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
+
+            retVal = new RepoGenericResponse<>(importedEC2Instance);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
 }

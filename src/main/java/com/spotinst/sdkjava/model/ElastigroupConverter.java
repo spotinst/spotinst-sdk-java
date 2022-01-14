@@ -1422,6 +1422,78 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiElastigroupUpdateCapacity toDal(ElastigroupUpdateCapacity elastigroupUpdateCapacity) {
+        ApiElastigroupUpdateCapacity retVal = null;
+
+        if (elastigroupUpdateCapacity != null) {
+
+            retVal = new ApiElastigroupUpdateCapacity();
+
+            if (elastigroupUpdateCapacity.isCapacitySet()) {
+                retVal.setCapacity(toDal(elastigroupUpdateCapacity.getCapacity()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ApiElastigroupImportEC2Instance toDal(ElastigroupImportEC2Instance elastigroupImportInstance) {
+        ApiElastigroupImportEC2Instance retVal = null;
+
+        if (elastigroupImportInstance != null) {
+
+            retVal = new ApiElastigroupImportEC2Instance();
+
+            if (elastigroupImportInstance.isNameSet()) {
+                retVal.setName(elastigroupImportInstance.getName());
+            }
+
+            if (elastigroupImportInstance.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportInstance.getSpotInstanceTypes());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ApiElastigroupImportEC2InstanceResponse toDal(ElastigroupImportEC2InstanceResponse elastigroupImportInstanceItems) {
+        ApiElastigroupImportEC2InstanceResponse retVal = null;
+
+        if (elastigroupImportInstanceItems != null) {
+
+            retVal = new ApiElastigroupImportEC2InstanceResponse();
+
+            if (elastigroupImportInstanceItems.isNameSet()) {
+                retVal.setName(elastigroupImportInstanceItems.getName());
+            }
+
+            if (elastigroupImportInstanceItems.isIdSet()) {
+                retVal.setId(elastigroupImportInstanceItems.getId());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ApiElastigroupUpdateCapacityResponse toDal(ElastigroupUpdateCapacityResponse elastigroupUpdateCapacityItems) {
+        ApiElastigroupUpdateCapacityResponse retVal = null;
+
+        if (elastigroupUpdateCapacityItems != null) {
+
+            retVal = new ApiElastigroupUpdateCapacityResponse();
+
+            if (elastigroupUpdateCapacityItems.isCapacitySet()) {
+                retVal.setCapacity(toDal(elastigroupUpdateCapacityItems.getCapacity()));
+            }
+
+        }
+
+        return retVal;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -3091,6 +3163,76 @@ public class ElastigroupConverter {
 
             if (getDeploymentActionResponse.isDetachedInstancesSet()) {
                 retVal.setDetachedInstances(getDeploymentActionResponse.getDetachedInstances());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupUpdateCapacity toBl(
+            ApiElastigroupUpdateCapacity elastigroupUpdateCapacity) {
+        ElastigroupUpdateCapacity retVal = null;
+
+        if (elastigroupUpdateCapacity != null) {
+            retVal = new ElastigroupUpdateCapacity();
+
+            if (elastigroupUpdateCapacity.isCapacitySet()) {
+                retVal.setCapacity(toBl(elastigroupUpdateCapacity.getCapacity()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupUpdateCapacityResponse toBl(
+            ApiElastigroupUpdateCapacityResponse elastigroupUpdateCapacityItems) {
+        ElastigroupUpdateCapacityResponse retVal = null;
+
+        if (elastigroupUpdateCapacityItems != null) {
+            retVal = new ElastigroupUpdateCapacityResponse();
+
+            if (elastigroupUpdateCapacityItems.isCapacitySet()) {
+                retVal.setCapacity(toBl(elastigroupUpdateCapacityItems.getCapacity()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupImportEC2Instance toBl(
+            ApiElastigroupImportEC2Instance elastigroupImportInstance) {
+        ElastigroupImportEC2Instance retVal = null;
+
+        if (elastigroupImportInstance != null) {
+            retVal = new ElastigroupImportEC2Instance();
+
+            if (elastigroupImportInstance.isNameSet()) {
+                retVal.setName(elastigroupImportInstance.getName());
+            }
+            if (elastigroupImportInstance.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportInstance.getSpotInstanceTypes());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupImportEC2InstanceResponse toBl(
+            ApiElastigroupImportEC2InstanceResponse elastigroupImportInstanceItems) {
+        ElastigroupImportEC2InstanceResponse retVal = null;
+
+        if (elastigroupImportInstanceItems != null) {
+            retVal = new ElastigroupImportEC2InstanceResponse();
+
+            if (elastigroupImportInstanceItems.isNameSet()) {
+                retVal.setName(elastigroupImportInstanceItems.getName());
+            }
+            if (elastigroupImportInstanceItems.isIdSet()) {
+                retVal.setId(elastigroupImportInstanceItems.getId());
             }
 
         }
