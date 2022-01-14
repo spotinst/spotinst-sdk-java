@@ -10,7 +10,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -843,5 +842,55 @@ public class SpotinstElastigroupClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
+    }
+
+    public Boolean updateCapacity(ElastigroupUpdateCapacityRequest updateCapacityRequest, String elastigroupId) {
+
+        Boolean updateCapacity;
+
+        ElastigroupUpdateCapacity elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
+
+        RepoGenericResponse<Boolean> updateCapacityResponse =
+                getSpotinstElastigroupRepo().updateCapacity(elastigroupId, elastigroupUpdateCapacityRequest, authToken, account);
+
+        if(updateCapacityResponse.isRequestSucceed()){
+            updateCapacity =updateCapacityResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateCapacityResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to update capacity. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return updateCapacity;
+
+    }
+
+    public Elastigroup importEC2Instance(ElastigroupImportEC2InstanceRequest importEC2InstanceRequest, String instanceId, String region) {
+
+        Elastigroup importEC2Instance;
+
+        ElastigroupImportEC2Instance elastigroupImportEC2Instance = importEC2InstanceRequest.getElastigroupImportEC2Instance();
+
+        RepoGenericResponse<Elastigroup> importEC2InstanceResponse =
+                getSpotinstElastigroupRepo().importEC2Instance(elastigroupImportEC2Instance, instanceId, region, authToken, account);
+
+        if(importEC2InstanceResponse.isRequestSucceed()){
+            importEC2Instance =importEC2InstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importEC2InstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import EC2 instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return importEC2Instance;
+
     }
 }

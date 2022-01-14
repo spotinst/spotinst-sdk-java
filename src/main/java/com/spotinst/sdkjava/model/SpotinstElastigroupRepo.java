@@ -11,7 +11,6 @@ import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRe
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
 import java.util.List;
@@ -581,5 +580,48 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacity elastiGroupUpdateCapacity,
+                                                       String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean updateCapacityResponse = SpotinstElastigroupService
+                    .updateCapacity(elastigroupId, elastiGroupUpdateCapacity, authToken, account);
+
+            retVal = new RepoGenericResponse<>(updateCapacityResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Elastigroup> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region, String authToken, String account) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+            
+            ApiElastigroup importEC2Instance = SpotinstElastigroupService
+                    .importEC2Instance(elastigroupImportInstance, instanceId, region, authToken, account);
+            Elastigroup importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
+
+            retVal = new RepoGenericResponse<>(importedEC2Instance);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
     }
 }

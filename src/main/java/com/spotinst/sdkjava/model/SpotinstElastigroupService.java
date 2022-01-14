@@ -6,8 +6,7 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentStrategyOnFailure;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupStartDeployment;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
@@ -1199,5 +1198,101 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static Boolean updateCapacity(String groupId, ElastigroupUpdateCapacity request,
+                                         String authToken, String account) {
+
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/capacity", apiEndpoint, groupId);
+
+        // Write to json
+        String body = JsonMapper.toJson(request);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupUpdateCapacityApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupUpdateCapacityApiResponse.class);
+
+        if (castedApiResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+           retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static ApiElastigroup importEC2Instance(ElastigroupImportEC2Instance request, String instanceId, String region,
+                                                                            String authToken, String account) {
+
+        ApiElastigroup retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add instance Id Query param
+        if (instanceId != null) {
+            queryParams.put("instanceId", instanceId);
+        }
+
+        // Add region Query param
+        if (region != null) {
+            queryParams.put("region", region);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/instance/import", apiEndpoint);
+
+        // Write to json
+        Map<String, ElastigroupImportEC2Instance> groupRequest = new HashMap<>();
+        groupRequest.put("group", request);
+        String body = JsonMapper.toJson(groupRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0) {
+            retVal = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+
     }
 }
