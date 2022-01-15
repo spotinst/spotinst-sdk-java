@@ -1,22 +1,22 @@
 package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupUpdateCapacityConfiguration;
 import com.spotinst.sdkjava.model.ElastigroupConverter;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupUpdateCapacity;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupUpdateCapacity;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupUpdateCapacityConfiguration;
 
 public class ElastigroupUpdateCapacityRequest {
 
-    private ElastigroupUpdateCapacity elastigroupCapacity;
+    private ElastigroupUpdateCapacityConfiguration elastigroupCapacity;
 
     private ElastigroupUpdateCapacityRequest() {
     }
 
-    public ElastigroupUpdateCapacity getElastigroupUpdateCapacity() {
+    public ElastigroupUpdateCapacityConfiguration getElastigroupUpdateCapacity() {
         return elastigroupCapacity;
     }
 
-    public void setElastigroupUpdateCapacity(ElastigroupUpdateCapacity elastigroupCapacity) {
+    public void setElastigroupUpdateCapacity(ElastigroupUpdateCapacityConfiguration elastigroupCapacity) {
         this.elastigroupCapacity = elastigroupCapacity;
     }
 
@@ -32,7 +32,7 @@ public class ElastigroupUpdateCapacityRequest {
             return builder;
         }
 
-        public Builder setElastigroupUpdateCapacity(final ElastigroupUpdateCapacity elastigroupCapacity) {
+        public Builder setElastigroupUpdateCapacity(final ElastigroupUpdateCapacityConfiguration elastigroupCapacity) {
             elastigroupUpdateCapacityRequest.setElastigroupUpdateCapacity(elastigroupCapacity);
             return this;
         }
@@ -44,7 +44,7 @@ public class ElastigroupUpdateCapacityRequest {
 
     //region Json methods
     public String toJson() {
-        ApiElastigroupUpdateCapacity elastigroupUpdateCapacityRequest = ElastigroupConverter.toDal(elastigroupCapacity);
+        ApiElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacityRequest = ElastigroupConverter.toDal(elastigroupCapacity);
         String                        updateCapacity              = JsonMapper.toJson(elastigroupUpdateCapacityRequest);
         return updateCapacity;
     }

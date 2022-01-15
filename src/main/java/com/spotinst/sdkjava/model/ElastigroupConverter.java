@@ -1421,22 +1421,6 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static ApiElastigroupUpdateCapacity toDal(ElastigroupUpdateCapacity elastigroupUpdateCapacity) {
-        ApiElastigroupUpdateCapacity retVal = null;
-
-        if (elastigroupUpdateCapacity != null) {
-
-            retVal = new ApiElastigroupUpdateCapacity();
-
-            if (elastigroupUpdateCapacity.isCapacitySet()) {
-                retVal.setCapacity(toDal(elastigroupUpdateCapacity.getCapacity()));
-            }
-
-        }
-
-        return retVal;
-    }
-
     public static ApiElastigroupImportEC2Instance toDal(ElastigroupImportEC2Instance elastigroupImportInstance) {
         ApiElastigroupImportEC2Instance retVal = null;
 
@@ -1457,15 +1441,23 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static ApiElastigroupUpdateCapacityResponse toDal(ElastigroupUpdateCapacityResponse elastigroupUpdateCapacityItems) {
-        ApiElastigroupUpdateCapacityResponse retVal = null;
+    public static ApiElastigroupUpdateCapacityConfiguration toDal(ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacity) {
+        ApiElastigroupUpdateCapacityConfiguration retVal = null;
 
-        if (elastigroupUpdateCapacityItems != null) {
+        if (elastigroupUpdateCapacity != null) {
 
-            retVal = new ApiElastigroupUpdateCapacityResponse();
+            retVal = new ApiElastigroupUpdateCapacityConfiguration();
 
-            if (elastigroupUpdateCapacityItems.isCapacitySet()) {
-                retVal.setCapacity(toDal(elastigroupUpdateCapacityItems.getCapacity()));
+            if (elastigroupUpdateCapacity.isMaximumSet()) {
+                retVal.setMaximum(elastigroupUpdateCapacity.getMaximum());
+            }
+
+            if (elastigroupUpdateCapacity.isMinimumSet()) {
+                retVal.setMinimum(elastigroupUpdateCapacity.getMinimum());
+            }
+
+            if (elastigroupUpdateCapacity.isTargetSet()) {
+                retVal.setTarget(elastigroupUpdateCapacity.getTarget());
             }
 
         }
@@ -3142,38 +3134,6 @@ public class ElastigroupConverter {
 
             if (getDeploymentActionResponse.isDetachedInstancesSet()) {
                 retVal.setDetachedInstances(getDeploymentActionResponse.getDetachedInstances());
-            }
-
-        }
-
-        return retVal;
-    }
-
-    public static ElastigroupUpdateCapacity toBl(
-            ApiElastigroupUpdateCapacity elastigroupUpdateCapacity) {
-        ElastigroupUpdateCapacity retVal = null;
-
-        if (elastigroupUpdateCapacity != null) {
-            retVal = new ElastigroupUpdateCapacity();
-
-            if (elastigroupUpdateCapacity.isCapacitySet()) {
-                retVal.setCapacity(toBl(elastigroupUpdateCapacity.getCapacity()));
-            }
-
-        }
-
-        return retVal;
-    }
-
-    public static ElastigroupUpdateCapacityResponse toBl(
-            ApiElastigroupUpdateCapacityResponse elastigroupUpdateCapacityItems) {
-        ElastigroupUpdateCapacityResponse retVal = null;
-
-        if (elastigroupUpdateCapacityItems != null) {
-            retVal = new ElastigroupUpdateCapacityResponse();
-
-            if (elastigroupUpdateCapacityItems.isCapacitySet()) {
-                retVal.setCapacity(toBl(elastigroupUpdateCapacityItems.getCapacity()));
             }
 
         }

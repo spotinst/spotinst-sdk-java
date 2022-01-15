@@ -1200,7 +1200,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateCapacity(String groupId, ElastigroupUpdateCapacity request,
+    public static Boolean updateCapacity(String groupId, ElastigroupUpdateCapacityConfiguration request,
                                          String authToken, String account) {
 
         Boolean retVal = null;
@@ -1224,7 +1224,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/capacity", apiEndpoint, groupId);
 
         // Write to json
-        String body = JsonMapper.toJson(request);
+        Map<String, ElastigroupUpdateCapacityConfiguration> groupRequest = new HashMap<>();
+        groupRequest.put("capacity", request);
+        String body = JsonMapper.toJson(groupRequest);
 
         // Send the request.
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);

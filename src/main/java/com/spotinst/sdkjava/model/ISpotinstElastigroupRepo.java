@@ -77,7 +77,7 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Boolean> retryItfMigration(String elastiGroupId, RetryItfMigrationRequest request,
                                                           String authToken, String account);
 
-    RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacity elastigroupUpdateCapacity, String authToken, String account);
+    RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacity, String authToken, String account);
 
     RepoGenericResponse<Elastigroup> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region,
                                                        String authToken, String account);
