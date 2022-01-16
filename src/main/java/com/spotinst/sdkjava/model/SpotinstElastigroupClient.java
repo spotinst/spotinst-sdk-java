@@ -848,7 +848,7 @@ public class SpotinstElastigroupClient {
 
         Boolean updateCapacity;
 
-        ElastigroupUpdateCapacity elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
+        ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
 
         RepoGenericResponse<Boolean> updateCapacityResponse =
                 getSpotinstElastigroupRepo().updateCapacity(elastigroupId, elastigroupUpdateCapacityRequest, authToken, account);

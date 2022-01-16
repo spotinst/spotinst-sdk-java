@@ -583,7 +583,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacity elastiGroupUpdateCapacity,
+    public RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacityConfiguration elastiGroupUpdateCapacity,
                                                        String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
