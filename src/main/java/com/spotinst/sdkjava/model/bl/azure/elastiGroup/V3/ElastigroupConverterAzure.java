@@ -69,7 +69,7 @@ public class ElastigroupConverterAzure {
             if (tasksConfiguration.isIsEnabledSet()) {
                 retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
             }
-            if (tasksConfiguration.isFrequencySet()) {
+            if (tasksConfiguration.isFrequencySet() && tasksConfiguration.getFrequency() != null) {
                 retVal.setFrequency(tasksConfiguration.getFrequency().getName());
             }
             if (tasksConfiguration.isStartTimeSet()) {
@@ -78,7 +78,7 @@ public class ElastigroupConverterAzure {
             if (tasksConfiguration.isCronExpressionSet()) {
                 retVal.setCronExpression(tasksConfiguration.getCronExpression());
             }
-            if (tasksConfiguration.isTypeSet()) {
+            if (tasksConfiguration.isTypeSet() && tasksConfiguration.getType() != null) {
                 retVal.setType(tasksConfiguration.getType().getName());
             }
             if (tasksConfiguration.isScaleTargetCapacitySet()) {
