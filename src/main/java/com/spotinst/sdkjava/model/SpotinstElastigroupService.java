@@ -1297,4 +1297,183 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
 
     }
+
+    public static Boolean pauseStatefulInstance(String groupId, String statefulInstanceId,
+                                         String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/pause", apiEndpoint, groupId, statefulInstanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+
+        // Handle the response.
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static Boolean resumeStatefulInstance(String groupId, String statefulInstanceId,
+                                                String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/resume", apiEndpoint, groupId, statefulInstanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+
+        // Handle the response.
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static Boolean recycleStatefulInstance(String groupId, String statefulInstanceId,
+                                                 String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/recycle", apiEndpoint, groupId, statefulInstanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+
+        // Handle the response.
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static Boolean deallocateStatefulInstance(String groupId, String statefulInstanceId,
+                                                  String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/deallocate", apiEndpoint, groupId, statefulInstanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+
+        // Handle the response.
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static List<ApiElastigroupListStatefulInstancesResponse> listStatefulInstances(String elastigroupId, String authToken, String account) {
+
+        List<ApiElastigroupListStatefulInstancesResponse> statefulInstancesList = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance", apiEndpoint, elastigroupId);
+        
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupListStatefulInstancesApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupListStatefulInstancesApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0) {
+            statefulInstancesList = castedApiResponse.getResponse().getItems();
+        }
+
+        return statefulInstancesList;
+
+    }
+
 }
