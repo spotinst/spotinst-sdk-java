@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
 import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
 import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupScalingRequestGcp;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -314,5 +315,107 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
         return retVal;
     }
+
+    /*
+     * This function is the final step to scaling up your elastigroup. It takes in a scaling ElastigroupScalingRequestGcp
+     * object and build the queryParams, headers and uri to send as a Put request using the Module RestClient. The results
+     * are returned unformatted
+     *
+     * @param scalingRequest ElastigroupScalingRequestGcp Object send from SpotinstElastigroupRepoGcp
+     * @param authToken      User Spotinst API token
+     * @param account        User Spotinst account ID
+     * @return ApiElastigroupScalingResponseGcp
+     * @throws SpotinstHttpException
+     */
+    public static ApiElastigroupScalingResponseGcp scaleGroupUp(ElastigroupScalingRequestGcp scalingRequestGcp, String authToken,
+                                                                String account) throws SpotinstHttpException {
+
+        //Init retVal
+        ApiElastigroupScalingResponseGcp retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("adjustment", scalingRequestGcp.getAdjustment().toString());
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/group/%s/scale/up", apiEndpoint, scalingRequestGcp.getElastigroupId());
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ApiElastigroupScalingResponseResponseGcp scalingResponseGcp =
+                getCastedResponse(response, ApiElastigroupScalingResponseResponseGcp.class);
+        if (scalingResponseGcp.getResponse().getItems().size() > 0) {
+            retVal = scalingResponseGcp.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+
+    /*
+     * This function is the final step to scaling down your elastigroup. It takes in a scaling ElastigroupScalingRequest
+     * object and build the queryParams, headers and uri to send as a Put request using the Module RestClient. The results
+     * are returned unformatted
+     *
+     * @param scalingRequestGcp ElastigroupScalingRequestGcp Object send from SpotinstElastigroupRepoGcp
+     * @param authToken      User Spotinst API token
+     * @param account        User Spotinst account ID
+     * @return ApiElastigroupScalingResponseGcp
+     * @throws SpotinstHttpException
+     */
+    public static ApiElastigroupScalingResponseGcp scaleGroupDown(ElastigroupScalingRequestGcp scalingRequestGcp,
+                                                               String authToken,
+                                                               String account) throws SpotinstHttpException {
+
+        //Init retVal
+        ApiElastigroupScalingResponseGcp retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("adjustment", scalingRequestGcp.getAdjustment().toString());
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/group/%s/scale/down", apiEndpoint, scalingRequestGcp.getElastigroupId());
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ApiElastigroupScalingResponseResponseGcp scalingResponseGcp =
+                getCastedResponse(response, ApiElastigroupScalingResponseResponseGcp.class);
+        if (scalingResponseGcp.getResponse().getItems().size() > 0) {
+            retVal = scalingResponseGcp.getResponse().getItems().get(0);
+        }
+
+
+        return retVal;
+    }
+
 
 }

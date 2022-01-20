@@ -7,6 +7,8 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
 import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupScalingRequestGcp;
+import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScalingResponseGcp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -227,7 +229,6 @@ public class SpotinstElastigroupClientGcp {
     }
 
 
-
     public Boolean unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest, String instanceId) {
 
         Boolean retVal = false;
@@ -248,6 +249,69 @@ public class SpotinstElastigroupClientGcp {
 
         return retVal;
     }
+
+    /*
+     * This function is used to scale up an Elastigroup by taking an ElastigroupScalingRequest that is sent by the user and sending it to
+     * ISpotinstElastigroupRepoGcp.scaleUp().
+     *
+     * @param elastigroupScalingRequestGcp ElastigroupScalingRequestGcp object that can be converted to a JSON to send as a request
+     * @return ElastigroupScalingResponseGcp Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleUp()
+     */
+    public ElastigroupScalingResponseGcp scaleGroupUp(ElastigroupScalingRequestGcp elastigroupScalingRequestGcp) {
+
+        ElastigroupScalingResponseGcp retVal = null;
+
+        String elastigroupId = elastigroupScalingRequestGcp.getElastigroupId();
+
+        ActiveInstanceFilter filter = new ActiveInstanceFilter();
+        filter.setElastigroupId(elastigroupId);
+        RepoGenericResponse<ElastigroupScalingResponseGcp> elastigroupScalingResponseGcp =
+                getSpotinstElastigroupRepoGcp().scaleUp(elastigroupScalingRequestGcp, authToken, account);
+
+        if (elastigroupScalingResponseGcp.isRequestSucceed()) {
+            retVal = elastigroupScalingResponseGcp.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupScalingResponseGcp.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group up. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /*
+     * This function is used to scale down an Elastigroup by takingin an ElastigroupScalingRequest that is sent by the user and sending it to
+     * ISpotinstElastigroupRepoGcp.scaleDown().
+     *
+     * @param elastigroupScalingRequestGcp ElastigroupScalingRequestGcp object that can be converted to a JSON to send as a request
+     * @return ElastigroupScalingResponseGcp Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
+     */
+    public ElastigroupScalingResponseGcp scaleGroupDown(ElastigroupScalingRequestGcp elastigroupScalingRequestGcp) {
+        ElastigroupScalingResponseGcp retVal = null;
+
+        String elastigroupId = elastigroupScalingRequestGcp.getElastigroupId();
+
+        ActiveInstanceFilter filter = new ActiveInstanceFilter();
+        filter.setElastigroupId(elastigroupId);
+        RepoGenericResponse<ElastigroupScalingResponseGcp> elastigroupScalingResponseGcp =
+                getSpotinstElastigroupRepoGcp().scaleDown(elastigroupScalingRequestGcp, authToken, account);
+
+        if (elastigroupScalingResponseGcp.isRequestSucceed()) {
+            retVal = elastigroupScalingResponseGcp.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupScalingResponseGcp.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to scale group down. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
 
     //endregion
 }
