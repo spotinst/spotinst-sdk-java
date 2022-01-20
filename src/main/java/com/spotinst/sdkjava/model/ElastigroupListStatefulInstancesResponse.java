@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.StatefulInstanceHealthStatusEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ElastigroupListStatefulInstancesResponse {
     private String                                             instanceId;
     private String                                             privateIp;
     private String                                             imageId;
-    private String                                             state;
+    private StatefulInstanceHealthStatusEnum                   state;
     private List<ElastigroupListStatefulInstancesDevices>      devices;
     private String                                             launchedAt;
     private String                                             createdAt;
@@ -71,11 +72,11 @@ public class ElastigroupListStatefulInstancesResponse {
         this.imageId = imageId;
     }
 
-    public String getState() {
+    public StatefulInstanceHealthStatusEnum getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(StatefulInstanceHealthStatusEnum state) {
         isSet.add("state");
         this.state = state;
     }
@@ -139,7 +140,7 @@ public class ElastigroupListStatefulInstancesResponse {
             return this;
         }
 
-        public ElastigroupListStatefulInstancesResponse.Builder setState(final String state) {
+        public ElastigroupListStatefulInstancesResponse.Builder setState(final StatefulInstanceHealthStatusEnum state) {
             elastigroupGetDeploymentStatusInstances.setState(state);
             return this;
         }

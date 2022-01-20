@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.StatefulInstanceHealthStatusEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ApiElastigroupListStatefulInstancesResponse implements IPartialUpda
     private String                                             instanceId;
     private String                                             privateIp;
     private String                                             imageId;
-    private String                                             state;
+    private StatefulInstanceHealthStatusEnum                   state;
     private List<ApiElastigroupListStatefulInstancesDevices>   devices;
     private String                                             launchedAt;
     private String                                             createdAt;
@@ -74,11 +75,11 @@ public class ApiElastigroupListStatefulInstancesResponse implements IPartialUpda
         this.imageId = imageId;
     }
 
-    public String getState() {
+    public StatefulInstanceHealthStatusEnum getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(StatefulInstanceHealthStatusEnum state) {
         isSet.add("state");
         this.state = state;
     }
