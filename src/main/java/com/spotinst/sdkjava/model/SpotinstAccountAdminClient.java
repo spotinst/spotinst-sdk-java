@@ -15,22 +15,38 @@ public class SpotinstAccountAdminClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstAccountAdminClient.class);
     //region Members
     private              String authToken;
+    private     String account;
+
+    private ISpotAccountAdminRepo spotinstAccountAdminRepo;
     //endregion
 
+    public ISpotAccountAdminRepo getSpotinstAccountAdminRepo() {
+        return this.spotinstAccountAdminRepo;
+    }
+
+    public void setSpotinstAccountAdminRepo() {
+        this.spotinstAccountAdminRepo = SpotinstRepoManager.getInstance().getSpotAdminAccountRepo();
+    }
 
     //region Constructor
     public SpotinstAccountAdminClient(String authToken) {
-        this(authToken,  null);
+        this(authToken,  null, null);
     }
 
-    public SpotinstAccountAdminClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
+    public SpotinstAccountAdminClient(String authToken, String account) {
+        this(authToken, account, null);
+    }
+
+    public SpotinstAccountAdminClient(String authToken, String account, List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
+        this.account   = account;
+
+        setSpotinstAccountAdminRepo();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
             BaseSpotinstService.addCustomUserAgents(userAgentConfigurations);
         }
-
     }
     //endregion
 
@@ -90,5 +106,214 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
+    public User createUser(User userRequest) {
+
+        User retVal = null;
+
+        RepoGenericResponse<User> creationResponse =
+                getSpotinstAccountAdminRepo().createUser(userRequest, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create user. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public UserDetails getUserDetails(String userId) {
+
+        UserDetails retVal = null;
+
+        RepoGenericResponse<UserDetails> getResponse =
+                getSpotinstAccountAdminRepo().getUserDetails(userId, authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get user details for %s. Code: %s. Message: %s.",userId,
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest, String shouldGenerateToken) {
+
+        ProgrammaticUserResponse retVal = null;
+
+        RepoGenericResponse<ProgrammaticUserResponse> creationResponse =
+                getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest,shouldGenerateToken, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create programmatic user. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<OrganizationUsers> getOrganizationUsers() {
+
+        List<OrganizationUsers> retVal = null;
+
+        RepoGenericResponse<List<OrganizationUsers>> getResponse =
+                getSpotinstAccountAdminRepo().getOrganizationUsers(authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get organization users. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateGroupsOfUser(String userId, List<String> userGroupIds) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> getResponse =
+                getSpotinstAccountAdminRepo().updateGroupsOfUser(userId, userGroupIds, authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update groups for the user. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> getResponse =
+                getSpotinstAccountAdminRepo().updateUserDirectPolicies(userId, updateRequest, authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update direct policies for the user. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Policy createPolicy(Policy createRequest) {
+
+        Policy retVal = null;
+
+        RepoGenericResponse<Policy> creationResponse =
+                getSpotinstAccountAdminRepo().createPolicy(createRequest, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create policy. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updatePolicy(String policyId, Policy createRequest) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().updatePolicy(policyId, createRequest, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update policy. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<Policy> getAllPolicies() {
+
+        List<Policy> retVal = null;
+
+        RepoGenericResponse<List<Policy>> creationResponse =
+                getSpotinstAccountAdminRepo().getAllPolicies( authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all policies. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deletePolicy(String policyId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> deleteResponse =
+                getSpotinstAccountAdminRepo().deletePolicy(policyId, authToken, account);
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete policy. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
     //endregion
 }

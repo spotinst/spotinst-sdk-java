@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;

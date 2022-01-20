@@ -117,6 +117,11 @@ public class SpotinstClient {
         return spotAdminAccountClient;
     }
 
+    public static SpotinstAccountAdminClient getAdminAccountClient(String authToken, String account) {
+        SpotinstAccountAdminClient spotAdminAccountClient = new SpotinstAccountAdminClient(authToken,account);
+        return spotAdminAccountClient;
+    }
+
     public static SpotStorageAzureVolumeClient getVolumeClient(String authToken, String account) {
         SpotStorageAzureVolumeClient spotStorageAzureVolumeClient = new SpotStorageAzureVolumeClient(authToken, account);
         return spotStorageAzureVolumeClient;
