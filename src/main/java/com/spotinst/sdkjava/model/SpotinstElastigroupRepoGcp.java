@@ -3,8 +3,10 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -102,6 +104,39 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequestGcp lockRequest,
+                                                     String authToken, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupServiceGcp.lockInstance(lockRequest, authToken, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest,
+                                                       String authToken, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupServiceGcp.unlockInstance(unlockRequest, authToken, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
 
 
 }

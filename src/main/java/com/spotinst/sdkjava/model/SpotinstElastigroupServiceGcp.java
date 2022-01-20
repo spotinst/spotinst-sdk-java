@@ -7,9 +7,14 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
 import org.apache.http.HttpStatus;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
@@ -242,4 +247,72 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static Boolean lockInstance(ElastigroupInstanceLockRequestGcp lockRequest,
+                                       String authToken, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", lockRequest.getAccountId());
+        queryParams.put("ttlInMinutes", lockRequest.getTtlInMinutes().toString());
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/instance/%s/lock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponseGcp lockResponse = getCastedResponse(response, ElastigroupApiResponseGcp.class);
+        if (lockResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest,
+                                         String authToken, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", unlockRequest.getAccountId());
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/instance/%s/unlock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupApiResponseGcp unlockResponse = getCastedResponse(response, ElastigroupApiResponseGcp.class);
+        if (unlockResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
 }

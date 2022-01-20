@@ -5,9 +5,11 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.utils.TimeUtils;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +19,16 @@ public class SpotinstElastigroupClientGcp {
     //region Members
     private              String                                    authToken;
     private              String                                    account;
+    private              ISpotinstElastigroupRepoGcp               spotinstElastigroupRepoGcp;
     //endregion
+
+    public ISpotinstElastigroupRepoGcp getSpotinstElastigroupRepoGcp() {
+        return this.spotinstElastigroupRepoGcp;
+    }
+
+    public void setSpotinstElastigroupRepoGcp() {
+        this.spotinstElastigroupRepoGcp = SpotinstRepoManager.getInstance().getSpotinstElastigroupRepoGcp();
+    }
 
 
     //region Constructor
@@ -29,6 +40,8 @@ public class SpotinstElastigroupClientGcp {
                                         List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
         this.account = account;
+
+        setSpotinstElastigroupRepoGcp();
 
         if (userAgentConfigurations != null) {
             LOGGER.info(String.format("Adding custom user agents: %s", userAgentConfigurations));
@@ -191,5 +204,50 @@ public class SpotinstElastigroupClientGcp {
 
         return retVal;
     }
+
+    public Boolean lockInstance(ElastigroupInstanceLockRequestGcp lockRequest, String instanceId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepoGcp().lockInstance(lockRequest, authToken, instanceId);
+
+        if (lockResponse.isRequestSucceed()) {
+            retVal = lockResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = lockResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to lock instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
+
+    public Boolean unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest, String instanceId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepoGcp().unlockInstance(unlockRequest, authToken, instanceId);
+
+        if (unlockResponse.isRequestSucceed()) {
+            retVal = unlockResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = unlockResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to unlock instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
     //endregion
 }
