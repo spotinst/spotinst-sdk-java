@@ -7,6 +7,7 @@ import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ItfMigrationConverter;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSuspensionConverter;
+import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroupConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
@@ -721,7 +722,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
             List<ApiElastigroupListStatefulInstancesResponse> listStatefulInstances = SpotinstElastigroupService
                     .listStatefulInstances(elastigroupId, authToken, account);
-            List<ElastigroupListStatefulInstancesResponse> statefulInstances = listStatefulInstances.stream().map(ElastigroupConverter::toBl)
+            List<ElastigroupListStatefulInstancesResponse> statefulInstances = listStatefulInstances.stream().map(StatefulElastigroupConverter::toBl)
                                                                                 .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(statefulInstances);
