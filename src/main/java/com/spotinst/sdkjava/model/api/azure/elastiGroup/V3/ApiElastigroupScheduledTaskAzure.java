@@ -19,7 +19,7 @@ public class ApiElastigroupScheduledTaskAzure implements IPartialUpdateEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date        startTime;
     private String      cronExpression;
-    private String      taskType;
+    private String      type;
     private Integer     scaleTargetCapacity;
     private Integer     scaleMinCapacity;
     private Integer     scaleMaxCapacity;
@@ -83,13 +83,13 @@ public class ApiElastigroupScheduledTaskAzure implements IPartialUpdateEntity {
         this.cronExpression = cronExpression;
     }
 
-    public String getTaskType() {
-        return taskType;
+    public String getType() {
+        return type;
     }
 
-    public void setTaskType(String taskType) {
-        isSet.add("taskType");
-        this.taskType = taskType;
+    public void setType(String type) {
+        isSet.add("type");
+        this.type = type;
     }
 
     public Integer getScaleTargetCapacity() {
@@ -205,8 +205,8 @@ public class ApiElastigroupScheduledTaskAzure implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isTaskTypeSet() {
-        return isSet.contains("taskType");
+    public boolean isTypeSet() {
+        return isSet.contains("type");
     }
 
     @JsonIgnore

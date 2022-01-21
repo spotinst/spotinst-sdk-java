@@ -15,7 +15,7 @@ public class TasksConfigurationAzure {
     private RecurrenceFrequencyEnumAzure frequency;
     private Date                         startTime;
     private String                       cronExpression;
-    private SchedulingTaskTypeEnumAzure  taskType;
+    private SchedulingTaskTypeEnumAzure  type;
     private Integer                      scaleTargetCapacity;
     private Integer                      scaleMinCapacity;
     private Integer                      scaleMaxCapacity;
@@ -80,14 +80,13 @@ public class TasksConfigurationAzure {
         this.cronExpression = cronExpression;
     }
 
-    public SchedulingTaskTypeEnumAzure getTaskType() {
-        return taskType;
+    public SchedulingTaskTypeEnumAzure getType() {
+        return type;
     }
 
-    public void setTaskType(SchedulingTaskTypeEnumAzure taskType) {
-        isSet.add("taskType");
-
-        this.taskType = taskType;
+    public void setType(SchedulingTaskTypeEnumAzure type) {
+        isSet.add("type");
+        this.type = type;
     }
 
     public Integer getScaleTargetCapacity() {
@@ -214,8 +213,8 @@ public class TasksConfigurationAzure {
             return this;
         }
 
-        public Builder setTaskType(final SchedulingTaskTypeEnumAzure taskType) {
-            tasks.setTaskType(taskType);
+        public Builder setType(final SchedulingTaskTypeEnumAzure type) {
+            tasks.setType(type);
             return this;
         }
 
@@ -298,8 +297,8 @@ public class TasksConfigurationAzure {
     }
 
     @JsonIgnore
-    public boolean isTaskTypeSet() {
-        return isSet.contains("taskType");
+    public boolean isTypeSet() {
+        return isSet.contains("type");
     }
 
     @JsonIgnore
