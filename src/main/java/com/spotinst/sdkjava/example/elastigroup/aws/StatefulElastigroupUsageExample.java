@@ -28,10 +28,8 @@ public class StatefulElastigroupUsageExample {
         //List stateful instance
         System.out.println("----------List stateful Instances--------------");
         List<ElastigroupListStatefulInstancesResponse> statefulInstacesList = listStatefulInstances(elastigroupClient, ELASTIGROUP_ID);
-        String statefulId = null;
-        for (ElastigroupListStatefulInstancesResponse statusData : statefulInstacesList) {
-            statefulId = statusData.getId();
-        }
+
+        String statefulId = null;//stateful ID
 
         //Pause the stateful instance
         System.out.println("----------Pause stateful Instance--------------");
@@ -58,6 +56,9 @@ public class StatefulElastigroupUsageExample {
         if (pauseStatus) {
             System.out.println("Pause operation is started successfully");
         }
+        else {
+            System.out.println("Pause operation is not started");
+        }
         return pauseStatus;
     }
 
@@ -67,6 +68,9 @@ public class StatefulElastigroupUsageExample {
 
         if (resumeStatus) {
             System.out.println("Resume operation is started successfully");
+        }
+        else {
+            System.out.println("Resume operation is not started");
         }
         return resumeStatus;
     }
@@ -78,6 +82,9 @@ public class StatefulElastigroupUsageExample {
         if (recycleStatus) {
             System.out.println("Recycle operation is started successfully");
         }
+        else {
+            System.out.println("Recycle operation is not started");
+        }
         return recycleStatus;
     }
 
@@ -88,6 +95,9 @@ public class StatefulElastigroupUsageExample {
         if (deallocateStatus) {
             System.out.println("Deallocate operation is started successfully");
         }
+        else {
+            System.out.println("Deallocate operation is not started");
+        }
         return deallocateStatus;
     }
 
@@ -96,11 +106,15 @@ public class StatefulElastigroupUsageExample {
         List<ElastigroupListStatefulInstancesResponse> elastigroupStatefulInstances =
                 client.listStatefulInstances(elastigroupId);
 
-        for (ElastigroupListStatefulInstancesResponse statusData : elastigroupStatefulInstances) {
-            System.out.println(String.format("Stateful Id: %s", statusData.getId()));
-            System.out.println(String.format("Stateful Instance Id: %s", statusData.getInstanceId()));
-            System.out.println(String.format("Stateful Instance Image Id: %s", statusData.getImageId()));
-            System.out.println(String.format("Stateful Instance private IP: %s", statusData.getPrivateIp()));
+        for (ElastigroupListStatefulInstancesResponse instance : elastigroupStatefulInstances) {
+            System.out.println(String.format("Stateful Id: %s", instance.getId()));
+            System.out.println(String.format("Stateful Instance Id: %s", instance.getInstanceId()));
+            System.out.println(String.format("Stateful Instance Image Id: %s", instance.getImageId()));
+            System.out.println(String.format("Stateful Instance private IP: %s", instance.getPrivateIp()));
+            System.out.println(String.format("Stateful Instance Devices: %s", instance.getDevices()));
+            System.out.println(String.format("Stateful Instance state: %s", instance.getState()));
+            System.out.println(String.format("Stateful Instance created date: %s", instance.getCreatedAt()));
+            System.out.println(String.format("Stateful Instance launched date: %s", instance.getLaunchedAt()));
         }
 
         return elastigroupStatefulInstances;

@@ -1322,10 +1322,12 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/pause", apiEndpoint, groupId, statefulInstanceId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
 
         // Handle the response.
-        if (response.getStatusCode() == HttpStatus.SC_OK) {
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
@@ -1357,10 +1359,12 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/resume", apiEndpoint, groupId, statefulInstanceId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
 
         // Handle the response.
-        if (response.getStatusCode() == HttpStatus.SC_OK) {
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
@@ -1392,10 +1396,12 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/recycle", apiEndpoint, groupId, statefulInstanceId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
 
         // Handle the response.
-        if (response.getStatusCode() == HttpStatus.SC_OK) {
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
@@ -1427,10 +1433,12 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/deallocate", apiEndpoint, groupId, statefulInstanceId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, "", headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
 
         // Handle the response.
-        if (response.getStatusCode() == HttpStatus.SC_OK) {
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
@@ -1440,7 +1448,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     public static List<ApiElastigroupListStatefulInstancesResponse> listStatefulInstances(String elastigroupId, String authToken, String account) {
 
-        List<ApiElastigroupListStatefulInstancesResponse> statefulInstancesList = null;
+        List<ApiElastigroupListStatefulInstancesResponse> statefulInstancesList = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();

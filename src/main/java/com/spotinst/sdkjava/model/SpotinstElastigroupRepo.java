@@ -627,12 +627,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> pauseStatefulInstance(String elastigroupId, String statefulInstanceId,
-                                                               String authToken, String account) {
+    public RepoGenericResponse<Boolean> pauseStatefulInstance(String elastigroupId, String statefulInstanceId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-
 
             Boolean pauseStatefulInstanceResponse = SpotinstElastigroupService
                     .pauseStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);

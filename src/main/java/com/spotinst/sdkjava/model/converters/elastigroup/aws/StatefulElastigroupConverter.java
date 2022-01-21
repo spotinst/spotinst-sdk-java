@@ -1,7 +1,5 @@
 package com.spotinst.sdkjava.model.converters.elastigroup.aws;
 
-
-import com.spotinst.sdkjava.model.ElastigroupConverter;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesDevices;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesResponse;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupListStatefulInstancesDevices;
