@@ -115,6 +115,11 @@ public class StatefulElastigroupUsageExample {
             System.out.println(String.format("Stateful Instance state: %s", instance.getState()));
             System.out.println(String.format("Stateful Instance created date: %s", instance.getCreatedAt()));
             System.out.println(String.format("Stateful Instance launched date: %s", instance.getLaunchedAt()));
+            for (ElastigroupListStatefulInstancesDevices device : instance.getDevices()) {
+                System.out.println(String.format("Stateful Instance Device name: %s", device.getDeviceName()));
+                System.out.println(String.format("Stateful Instance Snapshot Id: %s", device.getSnapshotId()));
+                System.out.println(String.format("Stateful Instance Volume Id: %s", device.getVolumeId()));
+            }
         }
 
         return elastigroupStatefulInstances;
