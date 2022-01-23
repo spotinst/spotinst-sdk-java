@@ -1,11 +1,14 @@
 package com.spotinst.sdkjava.example.elastigroup.gcp;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
+import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.gcp.*;
-
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupScalingRequestGcp;
+import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScalingResponseGcp;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class ElastigroupUsageExampleGcp {
     private final static String auth_token              = "your-token";
     private final static String account_id              = "your-account-id";
     private static final String SPOTINST_GROUP_NAME     = "name-of-the-group";
+    private static final String instanceId              = "instance-id";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -52,6 +56,15 @@ public class ElastigroupUsageExampleGcp {
 
         // Delete elastigroup
        deleteElastigroup(elastigroupClient, elastigroupId);
+
+        // Lock & Unlock Instance
+        lockUnlockInstance(elastigroupClient, account_id, 5, instanceId, "LOCK");
+        lockUnlockInstance(elastigroupClient, account_id, 5, instanceId, "UNLOCK");
+
+        // Scale Up & Scale down
+        scaleUpGroup(elastigroupClient, elastigroupId);
+        scaleDownGroup(elastigroupClient, elastigroupId);
+
     }
 
     private static String  createElastigroup(SpotinstElastigroupClientGcp client) {
@@ -312,6 +325,52 @@ public class ElastigroupUsageExampleGcp {
             }
         }
 
+    }
+
+    private static void lockUnlockInstance(SpotinstElastigroupClientGcp client, String accountId, Integer ttlInMinutes, String instanceId, String Operation) {
+
+        Boolean success = false;
+
+        if(Operation == "LOCK") {
+            // Build lock request
+            ElastigroupInstanceLockRequestGcp.Builder elastigroupLockRequestBuilderGcp = ElastigroupInstanceLockRequestGcp.Builder.get();
+            ElastigroupInstanceLockRequestGcp request =  elastigroupLockRequestBuilderGcp.setAccountId(accountId)
+                    .setTtlInMinutes(ttlInMinutes).build();
+
+            success = client.lockInstance(request, instanceId);
+        }
+        else if(Operation == "UNLOCK") {
+            // Build unlock request
+            ElastigroupInstanceUnLockRequestGcp.Builder elastigroupUnLockRequestBuilderGcp = ElastigroupInstanceUnLockRequestGcp.Builder.get();
+            ElastigroupInstanceUnLockRequestGcp request = elastigroupUnLockRequestBuilderGcp.setAccountId(accountId).build();
+
+            success = client.unlockInstance(request, instanceId);
+        }
+
+        if (success) {
+            System.out.println(String.format("Elastigroup Instance %s request succeeded", Operation));
+        }
+        else {
+            System.out.println(String.format("Elastigroup Instance %s request failed", Operation));
+        }
+    }
+
+    private static void scaleUpGroup(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
+        ElastigroupScalingRequestGcp.Builder scalingRequestBuilder = ElastigroupScalingRequestGcp.Builder.get();
+        ElastigroupScalingRequestGcp scalingRequestGcp =
+                scalingRequestBuilder.setElastigroupId(elastigroupId).setAdjustment(1).build();
+        ElastigroupScalingResponseGcp elastigroupScalingResponseGcp = elastigroupClient.scaleGroupUp(scalingRequestGcp);
+        System.out.println(elastigroupScalingResponseGcp.getNewInstances());
+        System.out.println(elastigroupScalingResponseGcp.getNewSpotRequests());
+    }
+
+    private static void scaleDownGroup(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId) {
+        ElastigroupScalingRequestGcp.Builder scalingRequestBuilder = ElastigroupScalingRequestGcp.Builder.get();
+        ElastigroupScalingRequestGcp scalingRequestGcp =
+                scalingRequestBuilder.setElastigroupId(elastigroupId).setAdjustment(1).build();
+        ElastigroupScalingResponseGcp elastigroupScalingResponseGcp = elastigroupClient.scaleGroupDown(scalingRequestGcp);
+        System.out.println(elastigroupScalingResponseGcp.getNewInstances());
+        System.out.println(elastigroupScalingResponseGcp.getNewSpotRequests());
     }
 }
 
