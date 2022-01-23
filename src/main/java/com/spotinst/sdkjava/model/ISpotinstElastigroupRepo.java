@@ -81,4 +81,18 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Elastigroup> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region,
                                                        String authToken, String account);
+
+    RepoGenericResponse<Boolean> pauseStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                              String authToken, String account);
+
+    RepoGenericResponse<Boolean> resumeStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                       String authToken, String account);
+
+    RepoGenericResponse<Boolean> recycleStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                        String authToken, String account);
+
+    RepoGenericResponse<Boolean> deallocateStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                         String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> listStatefulInstances(String elastigroupId, String authToken, String account);
 }

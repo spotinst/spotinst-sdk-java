@@ -3083,6 +3083,7 @@ public class ElastigroupConverter {
         return retVal;
 
     }
+
     public static ElastigroupGroupDeploymentStatusResponse toBl(ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse) {
         ElastigroupGroupDeploymentStatusResponse retVal = null;
 
@@ -3159,5 +3160,5 @@ public class ElastigroupConverter {
 
         return retVal;
     }
-    //endregion
-    }
+
+}

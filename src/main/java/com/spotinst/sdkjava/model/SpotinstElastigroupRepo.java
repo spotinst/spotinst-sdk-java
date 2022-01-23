@@ -7,6 +7,7 @@ import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ItfMigrationConverter;
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSuspensionConverter;
+import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroupConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
@@ -615,6 +616,114 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             Elastigroup importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
 
             retVal = new RepoGenericResponse<>(importedEC2Instance);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> pauseStatefulInstance(String elastigroupId, String statefulInstanceId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean pauseStatefulInstanceResponse = SpotinstElastigroupService
+                    .pauseStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(pauseStatefulInstanceResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> resumeStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                       String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean resumeStatefulInstanceResponse = SpotinstElastigroupService
+                    .resumeStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(resumeStatefulInstanceResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> recycleStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                               String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean recycleStatefulInstanceResponse = SpotinstElastigroupService
+                    .recycleStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(recycleStatefulInstanceResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deallocateStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                                String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean deallocateStatefulInstanceResponse = SpotinstElastigroupService
+                    .deallocateStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(deallocateStatefulInstanceResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> listStatefulInstances(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> retVal;
+
+        try {
+
+            List<ApiElastigroupListStatefulInstancesResponse> listStatefulInstances = SpotinstElastigroupService
+                    .listStatefulInstances(elastigroupId, authToken, account);
+            List<ElastigroupListStatefulInstancesResponse> statefulInstances = listStatefulInstances.stream().map(StatefulElastigroupConverter::toBl)
+                                                                                .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(statefulInstances);
         }
 
         catch (SpotinstHttpException ex) {
