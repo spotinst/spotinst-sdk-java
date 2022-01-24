@@ -28,7 +28,7 @@ public enum PolicyTypeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create policy type enum for: " + name + ", but we don't support such type ");
+            LOGGER.error(String.format("Tried to create policy type enum for: %s, but we don't support such type ",name));
         }
 
         return retVal;

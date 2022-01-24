@@ -26,7 +26,7 @@ public enum UserTypeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create user type enum for: " + name + ", but we don't support such type ");
+            LOGGER.error(String.format("Tried to create user type enum for: %s, but we don't support such type ",name));
         }
 
         return retVal;
