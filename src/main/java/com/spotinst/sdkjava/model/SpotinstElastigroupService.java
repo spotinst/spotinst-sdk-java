@@ -1484,4 +1484,40 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
+    public static Boolean deleteVolumeInStatefulInstance(String groupId, String statefulInstanceId, String volumeId, String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/statefulInstance/%s/volume/%s", apiEndpoint, groupId, statefulInstanceId, volumeId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        // Handle the response.
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
 }

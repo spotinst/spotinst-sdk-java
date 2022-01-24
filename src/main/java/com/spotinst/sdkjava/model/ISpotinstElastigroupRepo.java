@@ -95,4 +95,6 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
                                                          String authToken, String account);
 
     RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> listStatefulInstances(String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<Boolean> deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId, String authToken, String account);
 }

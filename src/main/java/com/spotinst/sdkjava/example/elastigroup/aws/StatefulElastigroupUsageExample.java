@@ -25,6 +25,8 @@ public class StatefulElastigroupUsageExample {
         // Get elastigroup service client
         SpotinstElastigroupClient elastigroupClient = SpotinstClient.getElastigroupClient(auth_token, act_id);
 
+        String volumeId = null;//volume ID
+
         //List stateful instance
         System.out.println("----------List stateful Instances--------------");
         List<ElastigroupListStatefulInstancesResponse> statefulInstacesList = listStatefulInstances(elastigroupClient, ELASTIGROUP_ID);
@@ -46,6 +48,10 @@ public class StatefulElastigroupUsageExample {
         //Deallocate the stateful instance
         System.out.println("----------Deallocate stateful Instance--------------");
         Boolean deallocateStatus = deallocateStatefulInstance(elastigroupClient, ELASTIGROUP_ID, statefulId);
+
+        //Delete volume in the stateful instance
+        System.out.println("----------Delete volume in the stateful Instance--------------");
+        Boolean deleteVolumeStatus = deleteVolumeInStatefulInstance(elastigroupClient, ELASTIGROUP_ID, statefulId, volumeId);
 
     }
 
@@ -99,6 +105,19 @@ public class StatefulElastigroupUsageExample {
             System.out.println("Deallocate operation is not started");
         }
         return deallocateStatus;
+    }
+
+    private static Boolean deleteVolumeInStatefulInstance(SpotinstElastigroupClient client, String elastigroupId, String statefulId, String volumeId) {
+
+        Boolean deleteVolumeStatus = client.deleteVolumeInStatefulInstance(elastigroupId, statefulId, volumeId);
+
+        if (deleteVolumeStatus) {
+            System.out.println("Delete volume operation is started successfully");
+        }
+        else {
+            System.out.println("Delete volume operation is not started");
+        }
+        return deleteVolumeStatus;
     }
 
     private static List<ElastigroupListStatefulInstancesResponse> listStatefulInstances(SpotinstElastigroupClient client, String elastigroupId) {

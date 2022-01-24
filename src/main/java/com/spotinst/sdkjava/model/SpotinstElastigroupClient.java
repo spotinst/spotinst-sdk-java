@@ -1000,4 +1000,25 @@ public class SpotinstElastigroupClient {
         return listStatefulInstances;
 
     }
+
+    public Boolean deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteVolumeInStatefulInstanceResponse = getSpotinstElastigroupRepo().deleteVolumeInStatefulInstance(elastigroupId, statefulInstanceId, volumeId, authToken, account);
+
+        if (deleteVolumeInStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = deleteVolumeInStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteVolumeInStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete the volume in stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 }

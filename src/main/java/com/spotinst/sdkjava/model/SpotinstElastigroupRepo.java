@@ -733,4 +733,25 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
 
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean deleteVolumeInStatefulInstanceResponse = SpotinstElastigroupService
+                    .deleteVolumeInStatefulInstance(elastigroupId, statefulInstanceId, volumeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(deleteVolumeInStatefulInstanceResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
 }
