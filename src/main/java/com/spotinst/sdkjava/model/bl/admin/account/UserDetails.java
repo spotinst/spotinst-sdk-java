@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.admin.account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserDetails {
     private Set<String>             isSet;
     private String                  userId;
     private String                  username;
-    private String                  type;
+    private UserTypeEnum            type;
     private String                  email;
     private String                  description;
     private String                  mfa;
@@ -53,11 +54,11 @@ public class UserDetails {
         this.username = username;
     }
 
-    public String getType() {
+    public UserTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(UserTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -138,7 +139,7 @@ public class UserDetails {
             return this;
         }
 
-        public Builder setType(final String type) {
+        public Builder setType(final UserTypeEnum type) {
             userDetails.setType(type);
             return this;
         }

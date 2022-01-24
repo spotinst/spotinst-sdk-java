@@ -427,4 +427,184 @@ public class AccountAdminConverter {
         }
         return policy;
     }
+
+    public static UserGroup toBl(ApiUserGroup src) {
+        UserGroup userGroup = null;
+
+        if (src != null) {
+            userGroup = new UserGroup();
+
+            if (src.isIdSet()) {
+                userGroup.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                userGroup.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                userGroup.setDescription(src.getDescription());
+            }
+            if (src.isUserIdsSet()) {
+                userGroup.setUserIds(src.getUserIds());
+            }
+            if (src.isPoliciesSet()) {
+                List<UserGroupMappedPolicies> userGroupMappedPolicies =
+                        src.getPolicies().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
+                userGroup.setPolicies(userGroupMappedPolicies);
+            }
+        }
+        return userGroup;
+    }
+
+    public static UserGroupMappedPolicies toBl(ApiUserGroupMappedPolicies src) {
+        UserGroupMappedPolicies policies = null;
+
+        if (src != null) {
+            policies = new UserGroupMappedPolicies();
+
+            if (src.isPolicyIdSet()) {
+                policies.setPolicyId(src.getPolicyId());
+            }
+        }
+        return policies;
+    }
+
+    public static ApiUserGroup toDal(UserGroup src) {
+        ApiUserGroup userGroup = null;
+
+        if (src != null) {
+            userGroup = new ApiUserGroup();
+
+            if (src.isIdSet()) {
+                userGroup.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                userGroup.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                userGroup.setDescription(src.getDescription());
+            }
+            if (src.isUserIdsSet()) {
+                userGroup.setUserIds(src.getUserIds());
+            }
+            if (src.isPoliciesSet()) {
+                List<ApiUserGroupMappedPolicies> groupPolicies =
+                        src.getPolicies().stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
+                userGroup.setPolicies(groupPolicies);
+            }
+        }
+        return userGroup;
+    }
+
+    public static ApiUserGroupMappedPolicies toDal(UserGroupMappedPolicies src) {
+        ApiUserGroupMappedPolicies policies = null;
+
+        if (src != null) {
+            policies = new ApiUserGroupMappedPolicies();
+
+            if (src.isPolicyIdSet()) {
+                policies.setPolicyId(src.getPolicyId());
+            }
+        }
+        return policies;
+    }
+
+    public static UserGroupDetailsUsers toBl(ApiUserGroupDetailsUsers src) {
+        UserGroupDetailsUsers users = null;
+
+        if (src != null) {
+            users = new UserGroupDetailsUsers();
+
+            if (src.isUserIdSet()) {
+                users.setUserId(src.getUserId());
+            }
+            if (src.isUserNameSet()) {
+                users.setUsername(src.getUsername());
+            }
+            if (src.isTypeSet()) {
+                users.setType(src.getType());
+            }
+        }
+        return users;
+    }
+
+    public static UserGroupDetailsPolicies toBl(ApiUserGroupDetailsPolicies src) {
+        UserGroupDetailsPolicies policies = null;
+
+        if (src != null) {
+            policies = new UserGroupDetailsPolicies();
+
+            if (src.isPolicyIdSet()) {
+                policies.setPolicyId(src.getPolicyId());
+            }
+            if (src.isPolicyNameSet()) {
+                policies.setPolicyName(src.getPolicyName());
+            }
+            if (src.isPolicyTypeSet()) {
+                policies.setPolicyType(src.getPolicyType());
+            }
+        }
+        return policies;
+    }
+
+    public static UserGroupDetails toBl(ApiUserGroupDetails src) {
+        UserGroupDetails groupDetails = null;
+
+        if (src != null) {
+            groupDetails = new UserGroupDetails();
+
+            if (src.isIdSet()) {
+                groupDetails.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                groupDetails.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                groupDetails.setDescription(src.getDescription());
+            }
+            if (src.isCreatedAtSet()) {
+                groupDetails.setCreatedAt(src.getCreatedAt());
+            }
+            if (src.isUsersSet()) {
+                List<UserGroupDetailsUsers> users =
+                        src.getUsers().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
+                groupDetails.setUsers(users);
+            }
+
+            if (src.isPoliciesSet()) {
+                List<UserGroupDetailsPolicies> policies =
+                        src.getPolicies().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
+                groupDetails.setPolicies(policies);
+            }
+        }
+        return groupDetails;
+    }
+
+    public static OrganizationUserGroups toBl(ApiOrganizationUserGroups src) {
+        OrganizationUserGroups groupDetails = null;
+
+        if (src != null) {
+            groupDetails = new OrganizationUserGroups();
+
+            if (src.isIdSet()) {
+                groupDetails.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                groupDetails.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                groupDetails.setDescription(src.getDescription());
+            }
+            if (src.isCreatedAtSet()) {
+                groupDetails.setCreatedAt(src.getCreatedAt());
+            }
+            if (src.isUsersCountSet()) {
+                groupDetails.setUsersCount(src.getUsersCount());
+            }
+
+            if (src.isPolicyNamesSet()) {
+                groupDetails.setPolicyNames(src.getPolicyNames());
+            }
+        }
+        return groupDetails;
+    }
 }

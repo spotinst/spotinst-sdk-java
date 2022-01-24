@@ -5,26 +5,21 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiOrganizationUsers implements IPartialUpdateEntity {
+public class ApiUserGroupDetailsUsers implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>  isSet;
-    private String       userId;
-    private String       username;
-    private UserTypeEnum type;
-    private String       email;
-    private String       mfa;
-    private List<String> groupNames;
+    private Set<String> isSet;
+    private String      userId;
+    private String      username;
+    private String      type;
 
-    public ApiOrganizationUsers() {
+    public ApiUserGroupDetailsUsers() {
         isSet = new HashSet<>();
     }
 
@@ -54,40 +49,13 @@ public class ApiOrganizationUsers implements IPartialUpdateEntity {
         this.username = username;
     }
 
-    public UserTypeEnum getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(UserTypeEnum type) {
+    public void setType(String type) {
         isSet.add("type");
         this.type = type;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        isSet.add("email");
-        this.email = email;
-    }
-
-    public String getMfa() {
-        return mfa;
-    }
-
-    public void setMfa(String mfa) {
-        isSet.add("mfa");
-        this.mfa = mfa;
-    }
-
-    public List<String> getGroupNames() {
-        return groupNames;
-    }
-
-    public void setGroupNames(List<String> groupNames) {
-        isSet.add("groupNames");
-        this.groupNames = groupNames;
     }
 
     @JsonIgnore
@@ -101,21 +69,7 @@ public class ApiOrganizationUsers implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isTypeSet() { return isSet.contains("type"); }
-
-    @JsonIgnore
-    public boolean isEmailSet() {
-        return isSet.contains("email");
+    public boolean isTypeSet() {
+        return isSet.contains("type");
     }
-
-    @JsonIgnore
-    public boolean isMfaSet() {
-        return isSet.contains("mfa");
-    }
-
-    @JsonIgnore
-    public boolean isGroupNamesSet() {
-        return isSet.contains("groupNames");
-    }
-
 }

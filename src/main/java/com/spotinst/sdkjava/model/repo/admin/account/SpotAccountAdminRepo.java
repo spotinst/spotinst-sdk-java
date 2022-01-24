@@ -247,4 +247,137 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest,String authToken, String account) {
+        RepoGenericResponse<UserGroup> retVal;
+
+        try {
+
+            ApiUserGroup apiCreateRequest = AccountAdminConverter.toDal(createRequest);
+
+            ApiUserGroup apiResponse =
+                    SpotAccountAdminService.createUserGroup(apiCreateRequest, authToken, account);
+            UserGroup createResponse = AccountAdminConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(createResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            List<ApiUserGroupMappedPolicies>
+                    apiUserGroupMappedPolicies = updateRequest.stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
+
+            Boolean status =
+                    SpotAccountAdminService.updateUserGroupMappedPolicies(groupId, apiUserGroupMappedPolicies, authToken, account);
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean status =
+                    SpotAccountAdminService.updateUserGroupMappedUsers(groupId, userIds, authToken, account);
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateUserGroupDetails(String groupId, String name, String description, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean status =
+                    SpotAccountAdminService.updateUserGroupDetails(groupId, name, description, authToken, account);
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean status =
+                    SpotAccountAdminService.deleteUserGroup(groupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId,String authToken, String account) {
+        RepoGenericResponse<UserGroupDetails> retVal;
+
+        try {
+
+            ApiUserGroupDetails apiResponse =
+                    SpotAccountAdminService.getUserGroup(groupId, authToken, account);
+            UserGroupDetails getResponse = AccountAdminConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(getResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken, String account) {
+        RepoGenericResponse<List<OrganizationUserGroups>> retVal;
+
+        try {
+
+            List<ApiOrganizationUserGroups> apiResponse =
+                    SpotAccountAdminService.getOrganizationUserGroups(authToken, account);
+            List<OrganizationUserGroups> getResponse = apiResponse.stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }

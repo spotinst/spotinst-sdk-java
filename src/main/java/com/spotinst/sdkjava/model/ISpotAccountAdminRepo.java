@@ -25,4 +25,18 @@ public interface ISpotAccountAdminRepo extends IRepository<BlAccountAdmin, Void,
     RepoGenericResponse<List<Policy>> getAllPolicies(String authToken, String account);
 
     RepoGenericResponse<Boolean> deletePolicy(String policyId, String authToken, String account);
+
+    RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest,String authToken, String account);
+
+    RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> apiUpdateRequest, String authToken, String accountId);
+
+    RepoGenericResponse<Boolean> updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken, String account);
+
+    RepoGenericResponse<Boolean> updateUserGroupDetails(String groupId, String name,String description, String authToken, String account);
+
+    RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken, String account);
+
+    RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId,String authToken, String account);
+
+    RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken, String account);
 }

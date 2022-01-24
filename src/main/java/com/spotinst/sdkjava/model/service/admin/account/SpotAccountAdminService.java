@@ -414,4 +414,237 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         }
         return retVal;
     }
+
+    public static ApiUserGroup createUserGroup(ApiUserGroup apiCreateRequest, String authToken,String accountId ) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiUserGroup retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String body = JsonMapper.toJson(apiCreateRequest);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        UserGroupApiResponse apiResponse = getCastedResponse(response, UserGroupApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static Boolean updateUserGroupMappedPolicies(String groupId, List<ApiUserGroupMappedPolicies> apiUpdateRequest, String authToken, String accountId) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        Map<String, List<ApiUserGroupMappedPolicies>> request = new HashMap<>();
+        request.put("policies",apiUpdateRequest);
+        String body = JsonMapper.toJson(request);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup/%s/policyMapping", apiEndpoint,groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken, String accountId) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        Map<String, List<String>> request = new HashMap<>();
+        request.put("userIds",userIds);
+        String body = JsonMapper.toJson(request);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup/%s/userMapping", apiEndpoint,groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean updateUserGroupDetails(String groupId, String name,String description, String authToken, String accountId) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        Map<String, String> request = new HashMap<>();
+        request.put("name",name);
+        request.put("description",description);
+        String body = JsonMapper.toJson(request);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean deleteUserGroup(String groupId, String authToken, String accountId) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri,  null, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static ApiUserGroupDetails getUserGroup(String groupId, String authToken,String accountId ) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiUserGroupDetails retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        UserGroupDetailsApiResponse apiResponse = getCastedResponse(response, UserGroupDetailsApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiOrganizationUserGroups> getOrganizationUserGroups(String authToken,String accountId ) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiOrganizationUserGroups> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/userGroup", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        OrganizationUserGroupsApiResponse apiResponse = getCastedResponse(response, OrganizationUserGroupsApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
 }

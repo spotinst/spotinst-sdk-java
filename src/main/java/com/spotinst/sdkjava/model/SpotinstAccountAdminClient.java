@@ -253,12 +253,12 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public Boolean updatePolicy(String policyId, Policy createRequest) {
+    public Boolean updatePolicy(String policyId, Policy updateRequest) {
 
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updatePolicy(policyId, createRequest, authToken, account);
+                getSpotinstAccountAdminRepo().updatePolicy(policyId, updateRequest, authToken, account);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -310,6 +310,153 @@ public class SpotinstAccountAdminClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to delete policy. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public UserGroup createUserGroup(UserGroup createRequest) {
+
+        UserGroup retVal = null;
+
+        RepoGenericResponse<UserGroup> creationResponse =
+                getSpotinstAccountAdminRepo().createUserGroup(createRequest, authToken, account);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create user group. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().updateUserGroupMappedPolicies(groupId, updateRequest, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update user group mapped policies. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateUserGroupMappedUsers(String groupId, List<String> userIds) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().updateUserGroupMappedUsers(groupId, userIds, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update user group mapped users. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateUserGroupDetails(String groupId, String name, String description) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().updateUserGroupDetails(groupId, name, description, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update user group details. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteUserGroup(String groupId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().deleteUserGroup(groupId, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update user group details. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public UserGroupDetails getUserGroup(String groupId) {
+
+        UserGroupDetails retVal = null;
+
+        RepoGenericResponse<UserGroupDetails> getResponse =
+                getSpotinstAccountAdminRepo().getUserGroup(groupId, authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get user group for %s. Code: %s. Message: %s.",groupId,
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<OrganizationUserGroups> getOrganizationUserGroups() {
+
+        List<OrganizationUserGroups> retVal = null;
+
+        RepoGenericResponse<List<OrganizationUserGroups>> getResponse =
+                getSpotinstAccountAdminRepo().getOrganizationUserGroups(authToken, account);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get organization user groups Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
