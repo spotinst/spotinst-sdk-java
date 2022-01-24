@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -74,7 +73,7 @@ public class ElastigroupConverter {
             if (tasksConfiguration.isIsEnabledSet()) {
                 retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
             }
-            if (tasksConfiguration.isFrequencySet()) {
+            if (tasksConfiguration.isFrequencySet() && tasksConfiguration.getFrequency() != null) {
                 retVal.setFrequency(tasksConfiguration.getFrequency().getName());
             }
             if (tasksConfiguration.isStartTimeSet()) {
@@ -83,7 +82,7 @@ public class ElastigroupConverter {
             if (tasksConfiguration.isCronExpressionSet()) {
                 retVal.setCronExpression(tasksConfiguration.getCronExpression());
             }
-            if (tasksConfiguration.isTaskTypeSet()) {
+            if (tasksConfiguration.isTaskTypeSet() && tasksConfiguration.getTaskType() != null) {
                 retVal.setTaskType(tasksConfiguration.getTaskType().getName());
             }
             if (tasksConfiguration.isScaleTargetCapacitySet()) {
@@ -1419,6 +1418,50 @@ public class ElastigroupConverter {
                 retVal.setStatus(elastigroupStopDeployment.getStatus());
             }
         }
+        return retVal;
+    }
+
+    public static ApiElastigroupImportEC2Instance toDal(ElastigroupImportEC2Instance elastigroupImportInstance) {
+        ApiElastigroupImportEC2Instance retVal = null;
+
+        if (elastigroupImportInstance != null) {
+
+            retVal = new ApiElastigroupImportEC2Instance();
+
+            if (elastigroupImportInstance.isNameSet()) {
+                retVal.setName(elastigroupImportInstance.getName());
+            }
+
+            if (elastigroupImportInstance.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportInstance.getSpotInstanceTypes());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ApiElastigroupUpdateCapacityConfiguration toDal(ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacity) {
+        ApiElastigroupUpdateCapacityConfiguration retVal = null;
+
+        if (elastigroupUpdateCapacity != null) {
+
+            retVal = new ApiElastigroupUpdateCapacityConfiguration();
+
+            if (elastigroupUpdateCapacity.isMaximumSet()) {
+                retVal.setMaximum(elastigroupUpdateCapacity.getMaximum());
+            }
+
+            if (elastigroupUpdateCapacity.isMinimumSet()) {
+                retVal.setMinimum(elastigroupUpdateCapacity.getMinimum());
+            }
+
+            if (elastigroupUpdateCapacity.isTargetSet()) {
+                retVal.setTarget(elastigroupUpdateCapacity.getTarget());
+            }
+
+        }
+
         return retVal;
     }
 
@@ -3040,6 +3083,7 @@ public class ElastigroupConverter {
         return retVal;
 
     }
+
     public static ElastigroupGroupDeploymentStatusResponse toBl(ApiElastigroupGetGroupDeploymentStatusResponse getGroupDeploymentStatusResponse) {
         ElastigroupGroupDeploymentStatusResponse retVal = null;
 
@@ -3098,5 +3142,23 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    //endregion
+    public static ElastigroupImportEC2Instance toBl(
+            ApiElastigroupImportEC2Instance elastigroupImportInstance) {
+        ElastigroupImportEC2Instance retVal = null;
+
+        if (elastigroupImportInstance != null) {
+            retVal = new ElastigroupImportEC2Instance();
+
+            if (elastigroupImportInstance.isNameSet()) {
+                retVal.setName(elastigroupImportInstance.getName());
+            }
+            if (elastigroupImportInstance.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportInstance.getSpotInstanceTypes());
+            }
+
+        }
+
+        return retVal;
     }
+
+}
