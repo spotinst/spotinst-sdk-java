@@ -11,6 +11,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroup
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
@@ -754,4 +755,27 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
 
     }
+
+    @Override
+    public RepoGenericResponse<List<ElastigroupGetElastilogResponse>> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId, String authToken) {
+        RepoGenericResponse<List<ElastigroupGetElastilogResponse>> retVal;
+
+        try {
+
+            List<ApiElastigroupGetElastilogResponse> getLogs = SpotinstElastigroupService
+                    .getElastilog(elastigroupGetElastilogRequest, elastigroupId, authToken);
+            List<ElastigroupGetElastilogResponse> getAllLogs = getLogs.stream().map(StatefulElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllLogs);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
 }

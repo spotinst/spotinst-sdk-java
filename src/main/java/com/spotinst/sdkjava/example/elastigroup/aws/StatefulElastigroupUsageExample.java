@@ -52,7 +52,6 @@ public class StatefulElastigroupUsageExample {
         //Delete volume in the stateful instance
         System.out.println("----------Delete volume in the stateful Instance--------------");
         Boolean deleteVolumeStatus = deleteVolumeInStatefulInstance(elastigroupClient, ELASTIGROUP_ID, statefulId, volumeId);
-
     }
 
     private static Boolean pauseStatefulInstance(SpotinstElastigroupClient client, String elastigroupId, String statefulId) {
@@ -112,10 +111,10 @@ public class StatefulElastigroupUsageExample {
         Boolean deleteVolumeStatus = client.deleteVolumeInStatefulInstance(elastigroupId, statefulId, volumeId);
 
         if (deleteVolumeStatus) {
-            System.out.println("Delete volume operation is started successfully");
+            System.out.println("Delete volume operation is success");
         }
         else {
-            System.out.println("Delete volume operation is not started");
+            System.out.println("Delete volume operation failed");
         }
         return deleteVolumeStatus;
     }

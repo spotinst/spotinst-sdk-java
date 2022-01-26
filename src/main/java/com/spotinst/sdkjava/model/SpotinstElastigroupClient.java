@@ -1021,4 +1021,27 @@ public class SpotinstElastigroupClient {
 
         return retVal;
     }
+
+    public List<ElastigroupGetElastilogResponse> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId) {
+
+        List<ElastigroupGetElastilogResponse> getLogs;
+
+        RepoGenericResponse <List<ElastigroupGetElastilogResponse>> getLogsResponse =
+                getSpotinstElastigroupRepo().getElastilog(elastigroupGetElastilogRequest, elastigroupId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the Elastilog. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
+
+    }
 }
