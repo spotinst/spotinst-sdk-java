@@ -5,10 +5,8 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupScalingRequestGcp;
-import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScalingResponseGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleUpResponseGcp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -187,7 +185,8 @@ public class SpotinstElastigroupClientGcp {
 
     public List<GroupActiveInstanceStatusGcp> getInstanceStatus(
             ElastigroupGetGroupInstanceStatusRequestGcp elastigroupGetInstanceHealthinessRequest) {
-        List<GroupActiveInstanceStatusGcp> retVal = new LinkedList<>();
+        List<GroupActiveInstanceStatusGcp> retVal;
+        retVal = new LinkedList<>();
 
         String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
 
@@ -207,47 +206,48 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
-    public Boolean lockInstance(ElastigroupInstanceLockRequestGcp lockRequest, String instanceId) {
+    public Boolean lockInstance(String accountId, String ttlInMinutes, String instanceId) {
 
-        Boolean retVal = false;
-
-        RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepoGcp().lockInstance(lockRequest, authToken, instanceId);
+        Boolean isLock = false;
+        RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepoGcp().lockInstance(authToken, accountId, ttlInMinutes, instanceId);
 
         if (lockResponse.isRequestSucceed()) {
-            retVal = lockResponse.getValue();
+            isLock = lockResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = lockResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to lock instance. Code: %s. Message: %s.",
-                            httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to lock instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return retVal;
+        return isLock;
+
     }
 
 
-    public Boolean unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest, String instanceId) {
+    public Boolean unlockInstance(String accountId, String instanceId) {
 
-        Boolean retVal = false;
-
-        RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepoGcp().unlockInstance(unlockRequest, authToken, instanceId);
+        Boolean isUnLock = false;
+        RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepoGcp().unlockInstance(authToken, accountId, instanceId);
 
         if (unlockResponse.isRequestSucceed()) {
-            retVal = unlockResponse.getValue();
+            isUnLock = unlockResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = unlockResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to unlock instance. Code: %s. Message: %s.",
-                            httpException.getCode(), httpException.getMessage()));
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to Unlock instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return retVal;
+        return isUnLock;
+
+
     }
 
     /*
@@ -257,29 +257,23 @@ public class SpotinstElastigroupClientGcp {
      * @param elastigroupScalingRequestGcp ElastigroupScalingRequestGcp object that can be converted to a JSON to send as a request
      * @return ElastigroupScalingResponseGcp Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleUp()
      */
-    public ElastigroupScalingResponseGcp scaleGroupUp(ElastigroupScalingRequestGcp elastigroupScalingRequestGcp) {
+    public List<ElastigroupScaleUpResponseGcp> scaleUpGroup(String groupId, String adjustment) {
+        List<ElastigroupScaleUpResponseGcp> scaleUp = null;
+        RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> elastigroupScalingResponse =
+                getSpotinstElastigroupRepoGcp().scaleUp(groupId, adjustment, authToken, account);
 
-        ElastigroupScalingResponseGcp retVal = null;
-
-        String elastigroupId = elastigroupScalingRequestGcp.getElastigroupId();
-
-        ActiveInstanceFilter filter = new ActiveInstanceFilter();
-        filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<ElastigroupScalingResponseGcp> elastigroupScalingResponseGcp =
-                getSpotinstElastigroupRepoGcp().scaleUp(elastigroupScalingRequestGcp, authToken, account);
-
-        if (elastigroupScalingResponseGcp.isRequestSucceed()) {
-            retVal = elastigroupScalingResponseGcp.getValue();
+        if (elastigroupScalingResponse.isRequestSucceed()) {
+            scaleUp = elastigroupScalingResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = elastigroupScalingResponseGcp.getHttpExceptions();
+            List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to scale group up. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return retVal;
+        return scaleUp;
     }
 
     /*
@@ -289,27 +283,23 @@ public class SpotinstElastigroupClientGcp {
      * @param elastigroupScalingRequestGcp ElastigroupScalingRequestGcp object that can be converted to a JSON to send as a request
      * @return ElastigroupScalingResponseGcp Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
      */
-    public ElastigroupScalingResponseGcp scaleGroupDown(ElastigroupScalingRequestGcp elastigroupScalingRequestGcp) {
-        ElastigroupScalingResponseGcp retVal = null;
+    public List<ElastigroupScaleDownResponseGcp> scaleDownGroup(String groupId, String adjustment) {
+        List<ElastigroupScaleDownResponseGcp> scaleDown = null;
+        RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> elastigroupScalingResponse =
+                getSpotinstElastigroupRepoGcp().scaleDown(groupId, adjustment, authToken, account);
 
-        String elastigroupId = elastigroupScalingRequestGcp.getElastigroupId();
-
-        ActiveInstanceFilter filter = new ActiveInstanceFilter();
-        filter.setElastigroupId(elastigroupId);
-        RepoGenericResponse<ElastigroupScalingResponseGcp> elastigroupScalingResponseGcp =
-                getSpotinstElastigroupRepoGcp().scaleDown(elastigroupScalingRequestGcp, authToken, account);
-
-        if (elastigroupScalingResponseGcp.isRequestSucceed()) {
-            retVal = elastigroupScalingResponseGcp.getValue();
+        if (elastigroupScalingResponse.isRequestSucceed()) {
+            scaleDown = elastigroupScalingResponse.getValue();
         }
         else {
-            List<HttpError> httpExceptions = elastigroupScalingResponseGcp.getHttpExceptions();
+            List<HttpError> httpExceptions = elastigroupScalingResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to scale group down. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-        return retVal;
+
+        return scaleDown;
     }
 
 

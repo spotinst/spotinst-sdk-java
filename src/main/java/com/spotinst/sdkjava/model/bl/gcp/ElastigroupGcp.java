@@ -126,7 +126,7 @@ public class ElastigroupGcp {
         }
 
         //region Build methods
-        protected Builder setId(final String elastigroupId) {
+        public Builder setId(final String elastigroupId) {
             elastigroup.setId(elastigroupId);
             return this;
         }

@@ -1,20 +1,18 @@
 package com.spotinst.sdkjava.model;
 
+
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceLockRequestGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupInstanceUnLockRequestGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupScalingRequestGcp;
-import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScalingResponseGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleUpResponseGcp;
+
+import java.util.List;
 
 interface ISpotinstElastigroupRepoGcp extends IRepositoryGcp<ElastigroupGcp, GroupFilter, String> {
-    RepoGenericResponse<Boolean> lockInstance(ElastigroupInstanceLockRequestGcp lockRequest,
-                                              String authToken, String instanceId);
+    RepoGenericResponse<Boolean> lockInstance(String authToken, String accountId, String ttlInMinutes, String instanceId);
 
-    RepoGenericResponse<Boolean> unlockInstance(ElastigroupInstanceUnLockRequestGcp unlockRequest,
-                                                String authToken, String instanceId);
-    RepoGenericResponse<ElastigroupScalingResponseGcp> scaleUp(ElastigroupScalingRequestGcp scalingRequestGcp, String authToken,
-                                                               String account);
+    RepoGenericResponse<Boolean> unlockInstance(String authToken, String accountId, String instanceId);
 
-    RepoGenericResponse<ElastigroupScalingResponseGcp> scaleDown(ElastigroupScalingRequestGcp scalingRequestGcp,
-                                                              String authToken, String account);
+    RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp(String groupId, String adjustment, String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> scaleDown(String groupId, String adjustment, String authToken, String account);
 }
