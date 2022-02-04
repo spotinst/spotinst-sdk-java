@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.bl.gcp;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,24 +7,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupCapacityGcp {
-    //region Members
+public class UpdateCapacityGcp {
+
     @JsonIgnore
     private Set<String> isSet;
     private Integer     minimum;
     private Integer     maximum;
     private Integer     target;
-    //endregion
 
-    //region Constructor
-    private ElastigroupCapacityGcp() {
+    private UpdateCapacityGcp() {
         isSet = new HashSet<>();
     }
-    //endregion
 
-    //region Getter and Setter methods
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -61,14 +57,11 @@ public class ElastigroupCapacityGcp {
         this.target = target;
     }
 
-    //endregion
-
-    //region Builder class
     public static class Builder {
-        private ElastigroupCapacityGcp capacity;
+        private UpdateCapacityGcp capacity;
 
         private Builder() {
-            this.capacity = new ElastigroupCapacityGcp();
+            this.capacity = new UpdateCapacityGcp();
         }
 
         public static Builder get() {
@@ -91,32 +84,23 @@ public class ElastigroupCapacityGcp {
             return this;
         }
 
-        public ElastigroupCapacityGcp build() {
-            // TODO : Validations
+        public UpdateCapacityGcp build() {
             return capacity;
         }
-
-
     }
-    //endregion
 
-    //region isSet methods
-    // Is minimum Set boolean method
     @JsonIgnore
     public boolean isMinimumSet() {
         return isSet.contains("minimum");
     }
 
-    // Is maximum Set boolean method
     @JsonIgnore
     public boolean isMaximumSet() {
         return isSet.contains("maximum");
     }
 
-    // Is target Set boolean method
     @JsonIgnore
     public boolean isTargetSet() {
         return isSet.contains("target");
     }
-    //endregion
 }

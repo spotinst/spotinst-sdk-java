@@ -2,13 +2,18 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiUpdateCapacityAzure;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleDownResponseGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleUpResponseGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleDownResponseGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleUpResponseGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiUpdateCapacityGcp;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.ElastigroupConverterAzure;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.UpdateCapacityAzure;
+import com.spotinst.sdkjava.model.bl.gcp.*;
 import com.spotinst.sdkjava.model.converters.elastigroup.gcp.ElastigroupConverterGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.azure.UpdateCapacityRequestAzure;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.UpdateCapacityRequestGcp;
+import com.spotinst.sdkjava.model.service.elastigroup.azure.v3.SpotinstElastigroupServiceAzure;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,6 +96,23 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
     }
 
     @Override
+    public RepoGenericResponse<List<ElastigroupGcp>> getAll(GroupFilter filter, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupGcp>> retVal;
+
+        try {
+            List<ApiElastigroupGcp> apiElastigroups = SpotinstElastigroupServiceGcp.getAllGroups(filter, authToken, account);
+            List<ElastigroupGcp> elastigroups =
+                    apiElastigroups.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(elastigroups);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
     public RepoGenericResponse<ElastigroupGcp> get(String elastigroupId, String authToken, String account) {
         RepoGenericResponse<ElastigroupGcp> retVal;
 
@@ -105,6 +127,21 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         }
 
         return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateCapacity(UpdateCapacityRequestGcp updateCapacity, String authToken, String account) {
+        RepoGenericResponse<Boolean> isCapacityUpdated;
+
+        try {
+            Boolean success = SpotinstElastigroupServiceGcp.updateCapacity(updateCapacity, authToken, account);
+            isCapacityUpdated = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            isCapacityUpdated = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return isCapacityUpdated;
     }
 
     @Override
@@ -157,6 +194,8 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
             List<ElastigroupScaleUpResponseGcp> elastigroupScalingResponse =
                     apiElastigroupScalingResponse.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
             scaleUp = new RepoGenericResponse<>(elastigroupScalingResponse);
+
+
         }
         catch (SpotinstHttpException e) {
             scaleUp = ExceptionHelper.handleHttpException(e);

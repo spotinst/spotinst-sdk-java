@@ -7,6 +7,8 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleDownResponseGcp;
 import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleUpResponseGcp;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.UpdateCapacityRequestGcp;
+import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,6 +159,34 @@ public class SpotinstElastigroupClientGcp {
         return retVal;
     }
 
+    public List<ElastigroupGcp> getAllElastigroups(ElastigroupGetAllRequestGcp elastigroupGetAllRequest) {
+        List<ElastigroupGcp> retVal;
+
+        GroupFilter filter = new GroupFilter();
+
+        filter.setMaxCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMaxCreatedAt()));
+        filter.setMinCreatedAt(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getMinCreatedAt()));
+        filter.setActiveFrom(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveFrom()));
+        filter.setActiveTo(TimeUtils.convertDateToISO8601(elastigroupGetAllRequest.getActiveTo()));
+        filter.setName(elastigroupGetAllRequest.getName());
+        filter.setIncludeDeleted(false);
+
+        RepoGenericResponse<List<ElastigroupGcp>> elastigroupsRepoGenericResponse =
+                getSpotinstElastigroupRepoGcp().getAll(filter, authToken, account);
+        if (elastigroupsRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupsRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupsRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all elastigroups. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
     public ElastigroupGcp getElastigroup(ElastigroupGetRequestGcp elastigroupGetRequest) {
 
         ElastigroupGcp retVal;
@@ -301,6 +331,49 @@ public class SpotinstElastigroupClientGcp {
 
         return scaleDown;
     }
+
+    public Boolean updateCapacity(UpdateCapacityRequestGcp capacityRequestGcp) {
+        Boolean isUpdatedCapacity = null;
+        RepoGenericResponse<Boolean> elastigroupUpdateCapacityResponse =
+                getSpotinstElastigroupRepoGcp().updateCapacity(capacityRequestGcp, authToken, account);
+
+        if (elastigroupUpdateCapacityResponse.isRequestSucceed()) {
+            isUpdatedCapacity = elastigroupUpdateCapacityResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupUpdateCapacityResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to update the elastigroup capacity. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return isUpdatedCapacity;
+    }
+
+//    public Boolean updateCapacity(ElastigroupUpdateCapacityRequestGcp updateCapacityRequest, String elastigroupId) {
+//
+//        Boolean updateCapacity;
+//
+//        ElastigroupUpdateCapacityConfigurationGcp_old elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
+//
+//        RepoGenericResponse<Boolean> updateCapacityResponse =
+//                getSpotinstElastigroupRepoGcp().updateCapacity(elastigroupId, elastigroupUpdateCapacityRequest, authToken, account);
+//
+//        if(updateCapacityResponse.isRequestSucceed()){
+//            updateCapacity =updateCapacityResponse.getValue();
+//        }
+//        else {
+//            List<HttpError> httpExceptions = updateCapacityResponse.getHttpExceptions();
+//            HttpError       httpException  = httpExceptions.get(0);
+//            LOGGER.error(String.format(
+//                    "Error encountered while attempting to update capacity. Code: %s. Message: %s.",
+//                    httpException.getCode(), httpException.getMessage()));
+//            throw new SpotinstHttpException(httpException.getMessage());
+//        }
+//
+//        return updateCapacity;
+//
+//    }
 
 
     //endregion

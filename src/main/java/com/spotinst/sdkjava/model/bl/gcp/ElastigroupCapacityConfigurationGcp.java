@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupCapacityGcp {
+public class ElastigroupCapacityConfigurationGcp {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -20,7 +20,7 @@ public class ElastigroupCapacityGcp {
     //endregion
 
     //region Constructor
-    private ElastigroupCapacityGcp() {
+    private ElastigroupCapacityConfigurationGcp() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -65,10 +65,10 @@ public class ElastigroupCapacityGcp {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupCapacityGcp capacity;
+        private ElastigroupCapacityConfigurationGcp capacity;
 
         private Builder() {
-            this.capacity = new ElastigroupCapacityGcp();
+            this.capacity = new ElastigroupCapacityConfigurationGcp();
         }
 
         public static Builder get() {
@@ -91,12 +91,10 @@ public class ElastigroupCapacityGcp {
             return this;
         }
 
-        public ElastigroupCapacityGcp build() {
+        public ElastigroupCapacityConfigurationGcp build() {
             // TODO : Validations
             return capacity;
         }
-
-
     }
     //endregion
 

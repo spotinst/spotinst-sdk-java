@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model.api.gcp;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupCapacityGcp {
+public class ApiElastigroupUpdateCapacityConfigurationGcp {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
@@ -20,12 +20,14 @@ public class ElastigroupCapacityGcp {
     //endregion
 
     //region Constructor
-    private ElastigroupCapacityGcp() {
+
+    public ApiElastigroupUpdateCapacityConfigurationGcp() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getter and Setter methods
+
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -65,10 +67,10 @@ public class ElastigroupCapacityGcp {
 
     //region Builder class
     public static class Builder {
-        private ElastigroupCapacityGcp capacity;
+        private ApiElastigroupUpdateCapacityConfigurationGcp capacity;
 
         private Builder() {
-            this.capacity = new ElastigroupCapacityGcp();
+            this.capacity = new ApiElastigroupUpdateCapacityConfigurationGcp();
         }
 
         public static Builder get() {
@@ -91,12 +93,10 @@ public class ElastigroupCapacityGcp {
             return this;
         }
 
-        public ElastigroupCapacityGcp build() {
+        public ApiElastigroupUpdateCapacityConfigurationGcp build() {
             // TODO : Validations
             return capacity;
         }
-
-
     }
     //endregion
 
@@ -106,6 +106,7 @@ public class ElastigroupCapacityGcp {
     public boolean isMinimumSet() {
         return isSet.contains("minimum");
     }
+
 
     // Is maximum Set boolean method
     @JsonIgnore

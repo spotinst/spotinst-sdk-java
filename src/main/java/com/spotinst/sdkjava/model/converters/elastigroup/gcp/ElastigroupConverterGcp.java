@@ -283,31 +283,23 @@ public class ElastigroupConverterGcp {
         return retVal;
     }
 
-    private static ApiCapacityGcp toDal(ElastigroupCapacityGcp capacityConfigurationGcp) {
+    private static ApiCapacityGcp toDal(ElastigroupCapacityGcp capacity) {
         ApiCapacityGcp retVal = null;
-
-        if (capacityConfigurationGcp != null) {
+        if (capacity != null) {
             retVal = new ApiCapacityGcp();
-
-            if (capacityConfigurationGcp.isMinimumSet()) {
-                retVal.setMinimum(capacityConfigurationGcp.getMinimum());
+            if (capacity.isMaximumSet()) {
+                retVal.setMaximum(capacity.getMaximum());
             }
-
-            if (capacityConfigurationGcp.isMaximumSet()) {
-                retVal.setMaximum(capacityConfigurationGcp.getMaximum());
+            if (capacity.isMinimumSet()) {
+                retVal.setMinimum(capacity.getMinimum());
             }
-
-            if (capacityConfigurationGcp.isTargetSet()) {
-                retVal.setTarget(capacityConfigurationGcp.getTarget());
-            }
-
-            if (capacityConfigurationGcp.isUnitSet()) {
-                retVal.setUnit(capacityConfigurationGcp.getUnit());
+            if (capacity.isTargetSet()) {
+                retVal.setTarget(capacity.getTarget());
             }
         }
-
         return retVal;
     }
+
 
     private static ApiInstanceTypesGcp toDal(ElastigroupInstanceTypesGcp instanceTypesGcp) {
         ApiInstanceTypesGcp retVal = null;
@@ -658,9 +650,6 @@ public class ElastigroupConverterGcp {
                 blCapacityConfigurationGcpBuilder.setTarget(capacityConfigurationGcp.getTarget());
             }
 
-            if (capacityConfigurationGcp.isUnitSet()) {
-                blCapacityConfigurationGcpBuilder.setUnit(capacityConfigurationGcp.getUnit());
-            }
 
             retVal = blCapacityConfigurationGcpBuilder.build();
         }
@@ -705,10 +694,9 @@ public class ElastigroupConverterGcp {
                 List<ElastigroupScaleUpNewPreemptiblesListGcp> newPreemptiblesList =
                         elastigroupScaleUpResponseGcp.getNewPreemptiblesList().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());
-                retVal.setNewPreemptibles(newPreemptiblesList);
-            }
+                retVal.setNewPreemptibles(newPreemptiblesList);            }
 
-            if (elastigroupScaleUpResponseGcp.isNewInstancesSet()) {
+            if (elastigroupScaleUpResponseGcp.isNewInstancesSet()== true && elastigroupScaleUpResponseGcp.getNewInstancesList()!=null) {
                 List<ElastigroupScaleUpNewInstancesListGcp> newInstancesList =
                         elastigroupScaleUpResponseGcp.getNewInstancesList().stream().map(ElastigroupConverterGcp::toBl)
                         .collect(Collectors.toList());
@@ -808,5 +796,26 @@ public class ElastigroupConverterGcp {
         return retVal;
 
     }
+
+    public static ApiUpdateCapacityGcp toDal(UpdateCapacityGcp capacityGcp) {
+        ApiUpdateCapacityGcp retVal = null;
+        if (capacityGcp != null) {
+            retVal = new ApiUpdateCapacityGcp();
+            if (capacityGcp.isMinimumSet()) {
+                retVal.setMinimum(capacityGcp.getMinimum());
+            }
+            if (capacityGcp.isMaximumSet()) {
+                retVal.setMaximum(capacityGcp.getMaximum());
+            }
+            if (capacityGcp.isTargetSet()) {
+                retVal.setTarget(capacityGcp.getTarget());
+            }
+        }
+        return retVal;
+    }
+
+
+
+
     //endregion
 }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by talzur on 26/01/2017.
  */
-public class ElastigroupScaleUpResponseGcp {
+public class ElastigroupScalingResponseGcp {
     //region Members
 //    private List<ElastigroupNewInstance> newInstances;
 //    private List<ElastigroupNewSpotRequest> newSpotRequests;
