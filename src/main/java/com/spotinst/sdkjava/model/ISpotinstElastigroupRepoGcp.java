@@ -14,9 +14,9 @@ interface ISpotinstElastigroupRepoGcp extends IRepositoryGcp<ElastigroupGcp, Gro
 
     RepoGenericResponse<Boolean> unlockInstance(String authToken, String accountId, String instanceId);
 
-    RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp(String groupId, String adjustment, String authToken, String account);
+    RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp(String elastigroupId, String adjustment, String authToken, String account);
 
-    RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> scaleDown(String groupId, String adjustment, String authToken, String account);
+    RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> scaleDown(String elastigroupId, String adjustment, String authToken, String account);
 
     RepoGenericResponse<Boolean> updateCapacity(UpdateCapacityRequestGcp capacityRequest, String authToken, String account);
 }

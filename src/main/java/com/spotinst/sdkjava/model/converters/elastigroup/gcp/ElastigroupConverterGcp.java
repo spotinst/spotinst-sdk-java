@@ -753,7 +753,7 @@ public class ElastigroupConverterGcp {
                 retVal.setVictimPreemptibles(victimPreemptiblesList);
             }
 
-            if (elastigroupScaleDownResponseGcp.isVictimInstancesListSet()) {
+            if (elastigroupScaleDownResponseGcp.isVictimInstancesListSet()== true && elastigroupScaleDownResponseGcp.getVictimInstancesList()!=null) {
                 List<ElastigroupScaleDownVictimInstancesListGcp> victimInstancesList =
                         elastigroupScaleDownResponseGcp.getVictimInstancesList().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());

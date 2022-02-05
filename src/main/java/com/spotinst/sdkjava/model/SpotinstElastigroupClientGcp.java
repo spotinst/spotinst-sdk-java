@@ -313,10 +313,10 @@ public class SpotinstElastigroupClientGcp {
      * @param elastigroupScalingRequestGcp ElastigroupScalingRequestGcp object that can be converted to a JSON to send as a request
      * @return ElastigroupScalingResponseGcp Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
      */
-    public List<ElastigroupScaleDownResponseGcp> scaleDownGroup(String groupId, String adjustment) {
+    public List<ElastigroupScaleDownResponseGcp> scaleDownGroup(String elastigroupId, String adjustment) {
         List<ElastigroupScaleDownResponseGcp> scaleDown = null;
         RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> elastigroupScalingResponse =
-                getSpotinstElastigroupRepoGcp().scaleDown(groupId, adjustment, authToken, account);
+                getSpotinstElastigroupRepoGcp().scaleDown(elastigroupId, adjustment, authToken, account);
 
         if (elastigroupScalingResponse.isRequestSucceed()) {
             scaleDown = elastigroupScalingResponse.getValue();
