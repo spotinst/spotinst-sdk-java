@@ -26,32 +26,31 @@ public class ElastigroupUsageExampleGcp {
 
         // Create group
         String elastigroupId = createElastigroup(elastigroupClient);
-//
-//        // Sleep for provisioning
-//        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
-//        sleep(7);
-//
-//        // Update group
-//        updateElastigroup(elastigroupClient, elastigroupId);
-//
-//        // Get group
-//        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
-//        String groupName = group.getName();
-//        String preFormat     = "groupId: %s - groupName: %s";
-//        System.out.println(String.format(preFormat, elastigroupId, groupName));
-//
-//        // Sleep for provisioning
-//        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
-//        sleep(7);
-//
-//        // List all Elastigroups
-//        getAllElastigroups(elastigroupClient);
-//
-//        //Get elastigroup status
-//        getElastigroupStatus(elastigroupClient, elastigroupId);
-//
-//        // Delete elastigroup
-//       deleteElastigroup(elastigroupClient, elastigroupId);
+
+        // Sleep for provisioning
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
+
+        // Update group
+        updateElastigroup(elastigroupClient, elastigroupId);
+
+        // Get group
+        ElastigroupGcp group =  getGroup(elastigroupClient,elastigroupId);
+        String groupName = group.getName();
+        String preFormat     = "groupId: %s - groupName: %s";
+        System.out.println(String.format(preFormat, elastigroupId, groupName));
+
+        // Sleep for provisioning
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");sleep(7);
+
+        // List all Elastigroups
+        getAllElastigroups(elastigroupClient);
+
+        //Get elastigroup status
+        getElastigroupStatus(elastigroupClient, elastigroupId);
+
+        // Delete elastigroup
+       deleteElastigroup(elastigroupClient, elastigroupId);
 
         // Lock & Unlock Instance
         lockUnlockInstance(elastigroupClient, account_id, "5", instanceId, "LOCK");
