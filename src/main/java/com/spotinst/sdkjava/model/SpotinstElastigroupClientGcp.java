@@ -332,23 +332,23 @@ public class SpotinstElastigroupClientGcp {
         return scaleDown;
     }
 
-    public Boolean updateCapacity(UpdateCapacityRequestGcp capacityRequestGcp) {
-        Boolean isUpdatedCapacity = null;
-        RepoGenericResponse<Boolean> elastigroupUpdateCapacityResponse =
-                getSpotinstElastigroupRepoGcp().updateCapacity(capacityRequestGcp, authToken, account);
-
-        if (elastigroupUpdateCapacityResponse.isRequestSucceed()) {
-            isUpdatedCapacity = elastigroupUpdateCapacityResponse.getValue();
-        }
-        else {
-            List<HttpError> httpExceptions = elastigroupUpdateCapacityResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to update the elastigroup capacity. Code: %s. Message: %s.",
-                    httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
-        }
-        return isUpdatedCapacity;
-    }
+//    public Boolean updateCapacity(UpdateCapacityRequestGcp capacityRequestGcp) {
+//        Boolean isUpdatedCapacity = null;
+//        RepoGenericResponse<Boolean> elastigroupUpdateCapacityResponse =
+//                getSpotinstElastigroupRepoGcp().updateCapacity(capacityRequestGcp, authToken, account);
+//
+//        if (elastigroupUpdateCapacityResponse.isRequestSucceed()) {
+//            isUpdatedCapacity = elastigroupUpdateCapacityResponse.getValue();
+//        }
+//        else {
+//            List<HttpError> httpExceptions = elastigroupUpdateCapacityResponse.getHttpExceptions();
+//            HttpError       httpException  = httpExceptions.get(0);
+//            LOGGER.error(String.format("Error encountered while attempting to update the elastigroup capacity. Code: %s. Message: %s.",
+//                    httpException.getCode(), httpException.getMessage()));
+//            throw new SpotinstHttpException(httpException.getMessage());
+//        }
+//        return isUpdatedCapacity;
+//    }
 
 //    public Boolean updateCapacity(ElastigroupUpdateCapacityRequestGcp updateCapacityRequest, String elastigroupId) {
 //
