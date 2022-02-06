@@ -177,7 +177,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
             }
         }
 
-        // Get the headers for Azure.
+        // Get the headers for Gcp.
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
