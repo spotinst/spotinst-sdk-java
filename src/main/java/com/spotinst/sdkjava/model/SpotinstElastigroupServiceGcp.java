@@ -1,21 +1,12 @@
 package com.spotinst.sdkjava.model;
 
-
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.azure.elastiGroup.V3.ApiUpdateCapacityAzure;
 import com.spotinst.sdkjava.model.api.gcp.*;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupUpdateCapacityConfigurationGcp_old;
-import com.spotinst.sdkjava.model.bl.gcp.UpdateCapacityGcp;
-import com.spotinst.sdkjava.model.requests.elastigroup.azure.UpdateCapacityRequestAzure;
-import com.spotinst.sdkjava.model.requests.elastigroup.gcp.UpdateCapacityRequestGcp;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupUpdateCapacityApiResponse;
-import com.spotinst.sdkjava.model.responses.elastigroup.azure.v3.UpdateCapacityApiResponseAzure;
 import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScaleDownApiResponse;
 import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScaleUpApiResponse;
-import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupUpdateCapacityApiResponseGcp;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -205,91 +196,6 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateCapacity(UpdateCapacityRequestGcp request,
-                                         String authToken, String account) {
-        Boolean retVal = null;
-
-        // Get endpoint
-        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
-        String             apiEndpoint = config.getEndpoint();
-
-        // Build query params
-        Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        if (account != null) {
-            queryParams.put("accountId", account);
-        }
-
-        // Get the headers
-        Map<String, String> headers = buildHeaders(authToken);
-
-        // Build URI
-        String uri = String.format("%s/gcp/gce/group/%s", apiEndpoint, request.getGroupId());
-
-        // Write to json
-        Map<String, UpdateCapacityGcp> groupRequest = new HashMap<>();
-        groupRequest.put("capacity", request.getCapacityGcp());
-        String body = JsonMapper.toJson(groupRequest);
-
-        // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
-
-        // Handle the response.
-
-        ElastigroupUpdateCapacityApiResponseGcp
-                castedApiResponse = getCastedResponse(response, ElastigroupUpdateCapacityApiResponseGcp.class);
-
-        if (castedApiResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
-            retVal = true;
-        }
-
-        return retVal;
-    }
-
-//    public static Boolean updateCapacity(String groupId, ElastigroupUpdateCapacityConfigurationGcp_old request,
-//                                         String authToken, String account) {
-//
-//        Boolean retVal = null;
-//
-//        // Get endpoint
-//        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
-//        String             apiEndpoint = config.getEndpoint();
-//
-//        // Build query params
-//        Map<String, String> queryParams = new HashMap<>();
-//
-//        // Add account Id Query param
-//        if (account != null) {
-//            queryParams.put("accountId", account);
-//        }
-//
-//        // Get the headers
-//        Map<String, String> headers = buildHeaders(authToken);
-//
-//        // Build URI
-//        String uri = String.format("%s/gcp/gce/group/%s/capacity", apiEndpoint, groupId);
-//
-//        // Write to json
-//        Map<String, ElastigroupUpdateCapacityConfigurationGcp_old> groupRequest = new HashMap<>();
-//        groupRequest.put("capacity", request);
-//        String body = JsonMapper.toJson(groupRequest);
-//
-//        // Send the request.
-//        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
-//
-//        // Handle the response.
-//
-//        ElastigroupUpdateCapacityApiResponseGcp
-//                castedApiResponse = getCastedResponse(response, ElastigroupUpdateCapacityApiResponseGcp.class);
-//
-//        if (castedApiResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
-//            retVal = true;
-//        }
-//
-//        return retVal;
-//
-//    }
 
     public static Boolean updateGroup(String elastigroupId, ApiElastigroupGcp apiElastigroup, String authToken,
                                       String account) throws SpotinstHttpException {
@@ -475,7 +381,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
      * @param account        User Spotinst account ID
      * @param elastigroupId  ELastigroup ID
      * @param adjustment     adjustment
-     * @return ApiElastigroupScalingResponseGcp
+     * @return ApiElastigroupScaleUpResponseGcp
      * @throws SpotinstHttpException
      */
     public static List<ApiElastigroupScaleUpResponseGcp> scaleUpGroup(String elastigroupId, String adjustment, String authToken,

@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 
 public class ElastigroupUsageExampleGcp {
 
-    private final static String auth_token              = "1f94fbaad098a668a7c7f9ed395838c2ef134ed19797629c946acb70cae9a969";
-    private final static String account_id              = "act-0242f303";
-    private static final String SPOTINST_GROUP_NAME     = "test";
+    private final static String auth_token              = "your-token";
+    private final static String account_id              = "your-account-id";
+    private static final String SPOTINST_GROUP_NAME     = "name-of-the-group";
     private static final String instanceId              = "instance-id";
 
     public static void main(String[] args) throws IOException {

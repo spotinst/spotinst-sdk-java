@@ -797,25 +797,5 @@ public class ElastigroupConverterGcp {
 
     }
 
-    public static ApiUpdateCapacityGcp toDal(UpdateCapacityGcp capacityGcp) {
-        ApiUpdateCapacityGcp retVal = null;
-        if (capacityGcp != null) {
-            retVal = new ApiUpdateCapacityGcp();
-            if (capacityGcp.isMinimumSet()) {
-                retVal.setMinimum(capacityGcp.getMinimum());
-            }
-            if (capacityGcp.isMaximumSet()) {
-                retVal.setMaximum(capacityGcp.getMaximum());
-            }
-            if (capacityGcp.isTargetSet()) {
-                retVal.setTarget(capacityGcp.getTarget());
-            }
-        }
-        return retVal;
-    }
-
-
-
-
     //endregion
 }
