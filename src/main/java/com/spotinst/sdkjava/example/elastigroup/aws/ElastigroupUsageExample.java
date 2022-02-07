@@ -168,6 +168,10 @@ public class ElastigroupUsageExample {
         System.out.println("----------retry ITF migration --------------");
         retryItfMigration(elastigroupClient, "elastigroup-id");
 
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<ElastigroupGetElastilogResponse> getLogs = getElastilog(elastigroupClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "elastigroupId");
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -1078,6 +1082,26 @@ public class ElastigroupUsageExample {
 
         return retryStatus;
 
+    }
+
+    private static List<ElastigroupGetElastilogResponse> getElastilog(SpotinstElastigroupClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String elastigroupId) {
+
+        // Build get request
+        ElastigroupGetElastilogRequest.Builder getElastilogRequestBuilder = ElastigroupGetElastilogRequest.Builder.get();
+        ElastigroupGetElastilogRequest request = getElastilogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setLimit(limit).setResourceId(resourceId)
+                .setSeverity(severity).setToDate(toDate).build();
+
+        List<ElastigroupGetElastilogResponse> elastigroupGetLogsResponse =
+                client.getElastilog(request, elastigroupId);
+
+        for (ElastigroupGetElastilogResponse logs : elastigroupGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return elastigroupGetLogsResponse;
     }
 
 }
