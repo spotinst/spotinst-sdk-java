@@ -1,7 +1,9 @@
 package com.spotinst.sdkjava.model.converters.elastigroup.aws;
 
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupGetElastilogResponse;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesDevices;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesResponse;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupGetElastilogResponse;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupListStatefulInstancesDevices;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupListStatefulInstancesResponse;
 
@@ -74,6 +76,30 @@ public class StatefulElastigroupConverter {
             if (elastigroupListStatefulInstancesDevices.isSnapshotIdSet()) {
                 retVal.setSnapshotId(elastigroupListStatefulInstancesDevices.getSnapshotId());
             }
+        }
+        return retVal;
+
+    }
+
+    public static ElastigroupGetElastilogResponse toBl(
+            ApiElastigroupGetElastilogResponse elastigroupGetElastilogResponse) {
+        ElastigroupGetElastilogResponse retVal = null;
+
+        if (elastigroupGetElastilogResponse != null) {
+            retVal = new ElastigroupGetElastilogResponse();
+
+            if (elastigroupGetElastilogResponse.isMessageSet()) {
+                retVal.setMessage(elastigroupGetElastilogResponse.getMessage());
+            }
+
+            if (elastigroupGetElastilogResponse.isSeveritySet()) {
+                retVal.setSeverity(elastigroupGetElastilogResponse.getSeverity());
+            }
+
+            if (elastigroupGetElastilogResponse.isCreatedAtSet()) {
+                retVal.setCreatedAt(elastigroupGetElastilogResponse.getCreatedAt());
+            }
+
         }
         return retVal;
 
