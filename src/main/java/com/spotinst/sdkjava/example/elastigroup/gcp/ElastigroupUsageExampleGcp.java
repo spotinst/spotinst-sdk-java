@@ -41,7 +41,8 @@ public class ElastigroupUsageExampleGcp {
         System.out.println(String.format(preFormat, elastigroupId, groupName));
 
         // Sleep for provisioning
-        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");sleep(7);
+        System.out.println("\nSleeping... waiting for provisioning 7 seconds.");
+        sleep(7);
 
         // List all Elastigroups
         getAllElastigroups(elastigroupClient);
@@ -336,10 +337,10 @@ public class ElastigroupUsageExampleGcp {
         }
 
         if (success) {
-            System.out.println(String.format("Elastigroup Instance %s request succeeded", Operation));
+            System.out.println(String.format("%s operation succeeded for instance %s", Operation, instanceId));
         }
         else {
-            System.out.println(String.format("Elastigroup Instance %s request failed", Operation));
+            System.out.println(String.format("%s operation is failed for instance %s", Operation, instanceId));
         }
     }
 
