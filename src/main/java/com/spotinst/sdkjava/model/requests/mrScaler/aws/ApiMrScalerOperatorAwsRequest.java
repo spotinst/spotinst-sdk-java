@@ -1,12 +1,7 @@
-package com.spotinst.sdkjava.model.api.mrScaler.aws;
+package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.MrScalerOperatorAwsConverter;
-import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerOperatorAws;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAws;
 
 public class ApiMrScalerOperatorAwsRequest {
     //region Members

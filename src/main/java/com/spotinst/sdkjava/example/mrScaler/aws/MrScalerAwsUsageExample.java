@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.enums.AwsMrScalerStateEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +34,22 @@ public class MrScalerAwsUsageExample {
         updateMrScaler(mrScalerAwsClient, mrScalerId);
         System.out.println("Update Success: " + mrScalerId);
 
+        System.out.print("List Instances");
+        listMrScalerInstances(mrScalerAwsClient, mrScalerId);
+        System.out.println("List All Instances Success");
+
+        System.out.print("List MrScaler Cluster");
+        listMrScaler(mrScalerAwsClient, mrScalerId);
+        System.out.println("List MrScaler Cluster Success");
+
+        System.out.print("Scale Up MrScaler Cluster");
+        scaleUpMrScaler(mrScalerAwsClient, mrScalerId, 2);
+        System.out.println("Scale Up MrScaler Cluster Success");
+
+        System.out.print("Scale Down MrScaler Cluster");
+        scaleDownMrScaler(mrScalerAwsClient, mrScalerId, 2);
+        System.out.println("Scale Down MrScaler Cluster Success");
+
         System.out.println("Delete MrScaler");
         deleteMrScaler(mrScalerAwsClient, mrScalerId);
         System.out.println("Delete Success: " + mrScalerId);
@@ -41,8 +58,8 @@ public class MrScalerAwsUsageExample {
         ApiMrScalerAws                 mrScalerForOperator = buildApiMrScalerAws();
         ApiMrScalerOperatorAwsResponse mrScalerOperator    =
                 createMrScaleOperator(mrScalerAwsClient, mrScalerForOperator);
-        AwsMrScalerStateEnum           mrScalerState       = mrScalerOperator.getState();
-        String                         mrScalerOperatorId  = mrScalerOperator.getMrScalerId();
+        AwsMrScalerStateEnum mrScalerState      = mrScalerOperator.getState();
+        String               mrScalerOperatorId = mrScalerOperator.getMrScalerId();
 
         System.out.println("Update MrScaler cached in MrScaler Operator");
         updateMrScaler(mrScalerAwsClient, mrScalerOperatorId);
@@ -54,7 +71,6 @@ public class MrScalerAwsUsageExample {
         System.out.println("Delete MrScaler cached in MrScaler Operator");
         deleteMrScaler(mrScalerAwsClient, mrScalerOperatorId);
         System.out.println("Delete Success: " + mrScalerOperatorId);
-
     }
 
     public static String createMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient) {
@@ -272,6 +288,47 @@ public class MrScalerAwsUsageExample {
         Boolean mrScalerUpdateResponse = mrScalerAwsClient.updateMrScaler(updateRequest, mrScalerId);
 
         System.out.println("Update Status: " + mrScalerUpdateResponse);
+    }
+
+    public static void listMrScalerInstances(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId) {
+        System.out.print("List Instances");
+        ApiMrScalerListInstancesRequest.Builder listMrScalerInstancesBuilder = ApiMrScalerListInstancesRequest.Builder.get();
+        ApiMrScalerListInstancesRequest         listMrScalerInstances        = listMrScalerInstancesBuilder.setMrScalerId(mrScalerId).build();
+
+        System.out.println("Sending Request");
+        List<ApiMrScalerListInstancesAws> listRes = mrScalerAwsClient.listMrScalerInstances(listMrScalerInstances);
+        System.out.println(JsonMapper.toJson(listRes));
+    }
+
+    public static void listMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId) {
+        System.out.print("List MrScaler");
+        ApiMrScalerListMrScalersRequest.Builder listMrScalersBuilder = ApiMrScalerListMrScalersRequest.Builder.get();
+        ApiMrScalerListMrScalersRequest         listMrScalers        = listMrScalersBuilder.setMrScalerId(mrScalerId).build();
+
+        System.out.println("Sending Request");
+        List<ApiMrScalerListScalersAws> listRes = mrScalerAwsClient.listMrScalers(listMrScalers);
+        System.out.println(JsonMapper.toJson(listRes));
+
+    }
+
+    public static void scaleUpMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId, Integer adjustment){
+        System.out.print("Scale Up MrScaler");
+        ApiMrScalerScaleUpRequest.Builder scalerUpMrScalersBuilder = ApiMrScalerScaleUpRequest.Builder.get();
+        ApiMrScalerScaleUpRequest         scalerScaleUpRequest     = scalerUpMrScalersBuilder.setMrScalerId(mrScalerId).setAdjustment(adjustment).build();
+
+        System.out.println("Sending Request");
+        List<ApiMrScalerScaleUpAws> scalerUpRes = mrScalerAwsClient.scaleUpMrScaler(scalerScaleUpRequest);
+        System.out.println(JsonMapper.toJson(scalerUpRes));
+    }
+
+    public static void scaleDownMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId, Integer adjustment){
+        System.out.print("Scale Down MrScaler");
+        ApiMrScalerScaleDownRequest.Builder scalerDownMrScalersBuilder = ApiMrScalerScaleDownRequest.Builder.get();
+        ApiMrScalerScaleDownRequest         scalerScaleDownRequest     = scalerDownMrScalersBuilder.setMrScalerId(mrScalerId).setAdjustment(adjustment).build();
+
+        System.out.println("Sending Request");
+        List<ApiMrScalerScaleDownAws> scalerDownRes = mrScalerAwsClient.scaleDownMrScaler(scalerScaleDownRequest);
+        System.out.println(JsonMapper.toJson(scalerDownRes));
     }
 
     public static void deleteMrScaler(SpotinstMrScalerAwsClient mrScalerAwsClient, String mrScalerId) {

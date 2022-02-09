@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,10 +14,15 @@ public class SpotinstMrScalerAwsClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotinstSpectrumClient.class);
 
     //region Members
-    private String                           authToken;
-    private String                           account;
-    private ISpotinstMrScalerAwsRepo         spotinstMrScalerRepo;
-    private ISpotinstMrScalerOperatorAwsRepo spotinstMrScalerOperatorAwsRepo;
+    private String                              authToken;
+    private String                              account;
+    private Integer                             adjustment;
+    private ISpotinstMrScalerAwsRepo            spotinstMrScalerRepo;
+    private ISpotinstMrScalerOperatorAwsRepo    spotinstMrScalerOperatorAwsRepo;
+    private ISpotinstMrScalerListInstancesRepo  sportMrScalerListInstancesRepo;
+    private ISpotinstMrScalerListScalersRepo    spotinstMrScalerListScalersRepo;
+    private ISpotinstMrScalerScaleUpRepo        spotinstMrScalerScaleUpRepo;
+    private ISpotinstMrScalerScaleDownRepo      spotinstMrScalerScaleDownRepo;
 
     public ISpotinstMrScalerAwsRepo getSpotinstMrScalerRepo() {
         return this.spotinstMrScalerRepo;
@@ -34,6 +40,38 @@ public class SpotinstMrScalerAwsClient {
         this.spotinstMrScalerOperatorAwsRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerOperatorAwsRepo();
     }
 
+    public ISpotinstMrScalerListInstancesRepo getSpotinstMrScalerListInstancesRepo(){
+        return this.sportMrScalerListInstancesRepo;
+    }
+
+    public void setSportMrScalerListInstancesRepo(){
+        this.sportMrScalerListInstancesRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerListInstancesRepo();
+    }
+
+    public ISpotinstMrScalerListScalersRepo getSpotinstMrScalerListScalersRepo(){
+        return this.spotinstMrScalerListScalersRepo;
+    }
+
+    public void setSpotinstMrScalerListScalersRepo(){
+        this.spotinstMrScalerListScalersRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerListScalersRepo();
+    }
+
+    public ISpotinstMrScalerScaleUpRepo getSpotinstMrScalerScaleUpRepo(){
+        return this.spotinstMrScalerScaleUpRepo;
+    }
+
+    public void setSpotinstMrScalerScaleUpRepo(){
+        this.spotinstMrScalerScaleUpRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerScaleUpRepo();
+    }
+
+    public ISpotinstMrScalerScaleDownRepo getSpotinstMrScalerScaleDownRepo(){
+        return this.spotinstMrScalerScaleDownRepo;
+    }
+
+    public void setSpotinstMrScalerScaleDownRepo(){
+        this.spotinstMrScalerScaleDownRepo = SpotinstRepoManager.getInstance().getSpotinstMrScalerScaleDownRepo();
+    }
+
     /**
      * This Object is used to store the users account and token information and then make requests to the
      * AWS MrScaler endpoints.
@@ -47,6 +85,10 @@ public class SpotinstMrScalerAwsClient {
 
         setSpotinstMrScalerRepo();
         setSpotinstMrScalerOperatorAwsRepo();
+        setSportMrScalerListInstancesRepo();
+        setSpotinstMrScalerListScalersRepo();
+        setSpotinstMrScalerScaleUpRepo();
+        setSpotinstMrScalerScaleDownRepo();
     }
 
 
@@ -150,6 +192,109 @@ public class SpotinstMrScalerAwsClient {
             List<HttpError> httpExceptions = mrScalerGetRes.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format("Error encountered while attempting to get mrScaler. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /**
+     * This method is used to Get a list of all instances and instances groups in the cluster
+     *
+     *
+     * @return a list of instances
+     */
+    public List<ApiMrScalerListInstancesAws> listMrScalerInstances(
+            ApiMrScalerListInstancesRequest mrScalerListInstancesRequest) {
+        List<ApiMrScalerListInstancesAws> retVal;
+        String         clusterToGet = mrScalerListInstancesRequest.getMrScalerId();
+        RepoGenericResponse<List<ApiMrScalerListInstancesAws>> mrScalerListInstances = getSpotinstMrScalerListInstancesRepo().listMrScalerInstances(clusterToGet, authToken, account);
+
+        if(mrScalerListInstances.isRequestSucceed()){
+            retVal = mrScalerListInstances.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = mrScalerListInstances.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get a list of all instances and instances groups in the cluster. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /**
+     * This method is used to Scaler cluster
+     *
+     *
+     * @return a list of Scaler cluster
+     */
+    public List<ApiMrScalerListScalersAws> listMrScalers(ApiMrScalerListMrScalersRequest mrScalerListScalersRequest) {
+        List<ApiMrScalerListScalersAws> retVal;
+        String         clusterToGet = mrScalerListScalersRequest.getMrScalerId();
+        RepoGenericResponse<List<ApiMrScalerListScalersAws>> mrScalerListScalers = getSpotinstMrScalerListScalersRepo().listMrScalers(clusterToGet, authToken, account);
+
+        if(mrScalerListScalers.isRequestSucceed()){
+            retVal = mrScalerListScalers.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = mrScalerListScalers.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get a list of Scaler cluster. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /**
+     * This method is used to Scale Up the cluster
+     *
+     *
+     * @return a list of instances
+     */
+    public List<ApiMrScalerScaleUpAws> scaleUpMrScaler(ApiMrScalerScaleUpRequest mrScalerScaleUpRequest) {
+        List<ApiMrScalerScaleUpAws> retVal;
+        String         clusterToGet = mrScalerScaleUpRequest.getMrScalerId();
+        Integer        adjustment   = mrScalerScaleUpRequest.getAdjustment();
+        RepoGenericResponse<List<ApiMrScalerScaleUpAws>> mrScalerScaleUp = getSpotinstMrScalerScaleUpRepo().scaleUpMrScaler(clusterToGet, adjustment, authToken, account);
+
+        if(mrScalerScaleUp.isRequestSucceed()){
+            retVal = mrScalerScaleUp.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = mrScalerScaleUp.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to Scale Up the cluster. Code: %s. Message: %s.",
+                                       httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    /**
+     * This method is used to Scale Down the cluster
+     *
+     *
+     * @return a list of instances
+     */
+    public List<ApiMrScalerScaleDownAws> scaleDownMrScaler(ApiMrScalerScaleDownRequest mrScalerScaleDownRequest) {
+        List<ApiMrScalerScaleDownAws> retVal;
+        String clusterToGet = mrScalerScaleDownRequest.getMrScalerId();
+        Integer adjustment  = mrScalerScaleDownRequest.getAdjustment();
+        RepoGenericResponse<List<ApiMrScalerScaleDownAws>> mrScalerScaleDown = getSpotinstMrScalerScaleDownRepo().scaleDownMrScaler(clusterToGet, adjustment, authToken, account);
+
+        if(mrScalerScaleDown.isRequestSucceed()){
+            retVal = mrScalerScaleDown.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = mrScalerScaleDown.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to Scale Down the cluster. Code: %s. Message: %s.",
                                        httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

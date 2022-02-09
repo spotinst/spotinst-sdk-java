@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 public class ApiMrScalerAwsGetRequest {
     //region Members

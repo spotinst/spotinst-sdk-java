@@ -1,24 +1,24 @@
-package com.spotinst.sdkjava.model.api.mrScaler.aws;
+package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.MrScalerAwsConverter;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiMrScalerAwsCreationRequest {
+public class ApiMrScalerAwsUpdateRequest {
     //region Members
     @JsonProperty("mrscaler")
     private ApiMrScalerAws mrScaler;
     //endregion
 
     //region Private constructor
-    private ApiMrScalerAwsCreationRequest() {
+    private ApiMrScalerAwsUpdateRequest() {
     }
     //endregion
-
 
     //region Getters & Setters
 
@@ -34,14 +34,14 @@ public class ApiMrScalerAwsCreationRequest {
 
     //region Builder class
     public static class Builder {
-        private ApiMrScalerAwsCreationRequest mrScalerCreationRequest;
+        private ApiMrScalerAwsUpdateRequest mrScalerCreationRequest;
 
         private Builder() {
-            this.mrScalerCreationRequest = new ApiMrScalerAwsCreationRequest();
+            this.mrScalerCreationRequest = new ApiMrScalerAwsUpdateRequest();
         }
 
-        public static ApiMrScalerAwsCreationRequest.Builder get() {
-            ApiMrScalerAwsCreationRequest.Builder builder = new ApiMrScalerAwsCreationRequest.Builder();
+        public static ApiMrScalerAwsUpdateRequest.Builder get() {
+            ApiMrScalerAwsUpdateRequest.Builder builder = new ApiMrScalerAwsUpdateRequest.Builder();
             return builder;
         }
 
@@ -50,7 +50,7 @@ public class ApiMrScalerAwsCreationRequest {
             return this;
         }
 
-        public ApiMrScalerAwsCreationRequest build() {
+        public ApiMrScalerAwsUpdateRequest build() {
             return mrScalerCreationRequest;
         }
 
@@ -68,5 +68,4 @@ public class ApiMrScalerAwsCreationRequest {
         return mrScalerJson;
     }
     //endregion
-
 }

@@ -1,23 +1,25 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.model.MrScalerAwsConverter;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiMrScalerAwsUpdateRequest {
+public class ApiMrScalerAwsCreationRequest {
     //region Members
     @JsonProperty("mrscaler")
     private ApiMrScalerAws mrScaler;
     //endregion
 
     //region Private constructor
-    private ApiMrScalerAwsUpdateRequest() {
+    private ApiMrScalerAwsCreationRequest() {
     }
     //endregion
+
 
     //region Getters & Setters
 
@@ -33,14 +35,14 @@ public class ApiMrScalerAwsUpdateRequest {
 
     //region Builder class
     public static class Builder {
-        private ApiMrScalerAwsUpdateRequest mrScalerCreationRequest;
+        private ApiMrScalerAwsCreationRequest mrScalerCreationRequest;
 
         private Builder() {
-            this.mrScalerCreationRequest = new ApiMrScalerAwsUpdateRequest();
+            this.mrScalerCreationRequest = new ApiMrScalerAwsCreationRequest();
         }
 
-        public static ApiMrScalerAwsUpdateRequest.Builder get() {
-            ApiMrScalerAwsUpdateRequest.Builder builder = new ApiMrScalerAwsUpdateRequest.Builder();
+        public static ApiMrScalerAwsCreationRequest.Builder get() {
+            ApiMrScalerAwsCreationRequest.Builder builder = new ApiMrScalerAwsCreationRequest.Builder();
             return builder;
         }
 
@@ -49,7 +51,7 @@ public class ApiMrScalerAwsUpdateRequest {
             return this;
         }
 
-        public ApiMrScalerAwsUpdateRequest build() {
+        public ApiMrScalerAwsCreationRequest build() {
             return mrScalerCreationRequest;
         }
 
@@ -67,4 +69,5 @@ public class ApiMrScalerAwsUpdateRequest {
         return mrScalerJson;
     }
     //endregion
+
 }

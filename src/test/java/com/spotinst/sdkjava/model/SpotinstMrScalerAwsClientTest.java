@@ -1,12 +1,13 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAwsCreationRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsCreationRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsDeleteRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsGetRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsUpdateRequest;
 import org.junit.Test;
 import org.junit.Before;
 import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.*;
 
 public class SpotinstMrScalerAwsClientTest {
     public ISpotinstMrScalerAwsRepo mockedRepo;
@@ -50,7 +51,7 @@ public class SpotinstMrScalerAwsClientTest {
         System.out.println("SpotinstMrScalerClientTest.updateMrScaler()");
 
         ApiMrScalerAwsUpdateRequest.Builder mrScalerBuilder = ApiMrScalerAwsUpdateRequest.Builder.get();
-        ApiMrScalerAwsUpdateRequest mrScaler = mrScalerBuilder.build();
+        ApiMrScalerAwsUpdateRequest         mrScaler        = mrScalerBuilder.build();
 
         ApiMrScalerAws clusterToUpdate = mrScaler.getMrScaler();
 
@@ -70,7 +71,7 @@ public class SpotinstMrScalerAwsClientTest {
         System.out.println("SpotinstMrScalerClientTest.deleteMrScaler()");
 
         ApiMrScalerAwsDeleteRequest.Builder mrScalerBuilder = ApiMrScalerAwsDeleteRequest.Builder.get();
-        ApiMrScalerAwsDeleteRequest mrScaler = mrScalerBuilder.build();
+        ApiMrScalerAwsDeleteRequest         mrScaler        = mrScalerBuilder.build();
 
         String clusterToDelete = mrScaler.getMrScalerId();
 
@@ -90,7 +91,7 @@ public class SpotinstMrScalerAwsClientTest {
         System.out.println("SpotinstMrScalerClientTest.getMrScaler()");
 
         ApiMrScalerAwsGetRequest.Builder mrScalerBuilder = ApiMrScalerAwsGetRequest.Builder.get();
-        ApiMrScalerAwsGetRequest mrScaler = mrScalerBuilder.build();
+        ApiMrScalerAwsGetRequest         mrScaler        = mrScalerBuilder.build();
 
         String clusterToGet = mrScaler.getMrScalerId();
 
