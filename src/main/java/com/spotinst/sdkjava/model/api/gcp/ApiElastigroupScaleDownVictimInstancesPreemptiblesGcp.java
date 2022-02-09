@@ -9,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiElastigroupScaleDownVictimPreemptiblesListGcp {
+public class ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -17,7 +17,7 @@ public class ApiElastigroupScaleDownVictimPreemptiblesListGcp {
     private String      zone;
     private String      machineType;
 
-    public ApiElastigroupScaleDownVictimPreemptiblesListGcp() {
+    public ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp() {
         isSet = new HashSet<>();
     }
 

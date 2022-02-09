@@ -1,7 +1,8 @@
 package com.spotinst.sdkjava.model.converters.elastigroup.gcp;
 
 import com.spotinst.sdkjava.model.api.gcp.*;
-import com.spotinst.sdkjava.model.bl.gcp.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.*;
+
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -296,6 +297,10 @@ public class ElastigroupConverterGcp {
             if (capacity.isTargetSet()) {
                 retVal.setTarget(capacity.getTarget());
             }
+            if (capacity.isUnitSet()) {
+                retVal.setUnit(capacity.getUnit());
+            }
+
         }
         return retVal;
     }
@@ -650,6 +655,9 @@ public class ElastigroupConverterGcp {
                 blCapacityConfigurationGcpBuilder.setTarget(capacityConfigurationGcp.getTarget());
             }
 
+            if (capacityConfigurationGcp.isUnitSet()) {
+                blCapacityConfigurationGcpBuilder.setUnit(capacityConfigurationGcp.getUnit());
+            }
 
             retVal = blCapacityConfigurationGcpBuilder.build();
         }
@@ -691,13 +699,13 @@ public class ElastigroupConverterGcp {
             retVal = new ElastigroupScaleUpResponseGcp();
 
             if (elastigroupScaleUpResponseGcp.isNewPreemptiblesSet()) {
-                List<ElastigroupScaleUpNewPreemptiblesListGcp> newPreemptiblesList =
+                List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newPreemptiblesList =
                         elastigroupScaleUpResponseGcp.getNewPreemptiblesList().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());
                 retVal.setNewPreemptibles(newPreemptiblesList);            }
 
             if (elastigroupScaleUpResponseGcp.isNewInstancesSet()== true && elastigroupScaleUpResponseGcp.getNewInstancesList()!=null) {
-                List<ElastigroupScaleUpNewInstancesListGcp> newInstancesList =
+                List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newInstancesList =
                         elastigroupScaleUpResponseGcp.getNewInstancesList().stream().map(ElastigroupConverterGcp::toBl)
                         .collect(Collectors.toList());
                 retVal.setNewInstances(newInstancesList);
@@ -707,34 +715,18 @@ public class ElastigroupConverterGcp {
 
     }
 
-    private static ElastigroupScaleUpNewPreemptiblesListGcp toBl(
-            ApiElastigroupScaleUpNewPreemptiblesListGcp elastigroupScaleUpNewPreemptiblesListGcp) {
-        ElastigroupScaleUpNewPreemptiblesListGcp retVal = null;
+    private static ElastigroupScaleUpNewInstancesPreemptiblesGcp toBl(
+            ApiElastigroupScaleUpNewInstancesPreemptiblesGcp elastigroupScaleUpNewPreemptiblesListGcp) {
+        ElastigroupScaleUpNewInstancesPreemptiblesGcp retVal = null;
 
         if (elastigroupScaleUpNewPreemptiblesListGcp != null) {
 
-            retVal = new ElastigroupScaleUpNewPreemptiblesListGcp();
+            retVal = new ElastigroupScaleUpNewInstancesPreemptiblesGcp();
 
             if (elastigroupScaleUpNewPreemptiblesListGcp.isInstanceNameSet()) {
                 retVal.setInstanceName(elastigroupScaleUpNewPreemptiblesListGcp.getInstanceName());
             }
 
-        }
-        return retVal;
-
-    }
-
-    private static ElastigroupScaleUpNewInstancesListGcp toBl(
-            ApiElastigroupScaleUpNewInstancesListGcp elastigroupScaleUpNewInstancesListGcp) {
-        ElastigroupScaleUpNewInstancesListGcp retVal = null;
-
-        if (elastigroupScaleUpNewInstancesListGcp != null) {
-            retVal = new ElastigroupScaleUpNewInstancesListGcp();
-
-
-            if (elastigroupScaleUpNewInstancesListGcp.isInstanceNameSet()) {
-                retVal.setInstanceName(elastigroupScaleUpNewInstancesListGcp.getInstanceName());
-            }
         }
         return retVal;
 
@@ -747,14 +739,14 @@ public class ElastigroupConverterGcp {
             retVal = new ElastigroupScaleDownResponseGcp();
 
             if (elastigroupScaleDownResponseGcp.isVictimPreemptiblesListSet()) {
-                List<ElastigroupScaleDownVictimPreemptiblesListGcp> victimPreemptiblesList =
-                        elastigroupScaleDownResponseGcp.getVictimPreemptibles().stream().map(ElastigroupConverterGcp::toBl)
+                List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList =
+                        elastigroupScaleDownResponseGcp.getVictimPreemptiblesList().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());
                 retVal.setVictimPreemptibles(victimPreemptiblesList);
             }
 
             if (elastigroupScaleDownResponseGcp.isVictimInstancesListSet()== true && elastigroupScaleDownResponseGcp.getVictimInstancesList()!=null) {
-                List<ElastigroupScaleDownVictimInstancesListGcp> victimInstancesList =
+                List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList =
                         elastigroupScaleDownResponseGcp.getVictimInstancesList().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());
                 retVal.setVictimInstancesList(victimInstancesList);
@@ -764,34 +756,18 @@ public class ElastigroupConverterGcp {
 
     }
 
-    private static ElastigroupScaleDownVictimPreemptiblesListGcp toBl(
-            ApiElastigroupScaleDownVictimPreemptiblesListGcp elastigroupScaleDownVictimPreemptiblesListGcp) {
-        ElastigroupScaleDownVictimPreemptiblesListGcp retVal = null;
+    private static ElastigroupScaleDownVictimInstancesPreemptiblesGcp toBl(
+            ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp elastigroupScaleDownVictimInstancesPreemptiblesListGcp) {
+        ElastigroupScaleDownVictimInstancesPreemptiblesGcp retVal = null;
 
-        if (elastigroupScaleDownVictimPreemptiblesListGcp != null) {
+        if (elastigroupScaleDownVictimInstancesPreemptiblesListGcp != null) {
 
-            retVal = new ElastigroupScaleDownVictimPreemptiblesListGcp();
+            retVal = new ElastigroupScaleDownVictimInstancesPreemptiblesGcp();
 
-            if (elastigroupScaleDownVictimPreemptiblesListGcp.isInstanceNameSet()) {
-                retVal.setInstanceName(elastigroupScaleDownVictimPreemptiblesListGcp.getInstanceName());
+            if (elastigroupScaleDownVictimInstancesPreemptiblesListGcp.isInstanceNameSet()) {
+                retVal.setInstanceName(elastigroupScaleDownVictimInstancesPreemptiblesListGcp.getInstanceName());
             }
 
-        }
-        return retVal;
-
-    }
-
-    private static ElastigroupScaleDownVictimInstancesListGcp toBl(
-            ApiElastigroupScaleDownVictimInstancesListGcp elastigroupScaleDownVictimInstancesListGcp) {
-        ElastigroupScaleDownVictimInstancesListGcp retVal = null;
-
-        if (elastigroupScaleDownVictimInstancesListGcp != null) {
-            retVal = new ElastigroupScaleDownVictimInstancesListGcp();
-
-
-            if (elastigroupScaleDownVictimInstancesListGcp.isInstanceNameSet()) {
-                retVal.setInstanceName(elastigroupScaleDownVictimInstancesListGcp.getInstanceName());
-            }
         }
         return retVal;
 

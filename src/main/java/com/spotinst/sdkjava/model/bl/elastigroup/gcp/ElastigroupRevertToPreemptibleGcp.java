@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.PerformAtEnumGcp;

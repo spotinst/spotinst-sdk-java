@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,8 +14,8 @@ public class ElastigroupScaleDownResponseGcp {
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ElastigroupScaleDownVictimPreemptiblesListGcp>  victimPreemptiblesList;
-    private List<ElastigroupScaleDownVictimInstancesListGcp> victimInstancesList;
+    private List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp>  victimPreemptiblesList;
+    private List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList;
 
     public ElastigroupScaleDownResponseGcp() {
         isSet = new HashSet<>();
@@ -29,20 +29,20 @@ public class ElastigroupScaleDownResponseGcp {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupScaleDownVictimPreemptiblesListGcp> getVictimPreemptibles() {
+    public List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimPreemptiblesList() {
         return victimPreemptiblesList;
     }
 
-    public void setVictimPreemptibles(List<ElastigroupScaleDownVictimPreemptiblesListGcp> victimPreemptiblesList) {
+    public void setVictimPreemptibles(List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList) {
         isSet.add("victimPreemptiblesList");
         this.victimPreemptiblesList = victimPreemptiblesList;
     }
 
-    public List<ElastigroupScaleDownVictimInstancesListGcp> getVictimInstancesList() {
+    public List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimInstancesList() {
         return victimInstancesList;
     }
 
-    public void setVictimInstancesList(List<ElastigroupScaleDownVictimInstancesListGcp> victimInstancesList) {
+    public void setVictimInstancesList(List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList) {
         isSet.add("victimInstancesList");
         this.victimInstancesList = victimInstancesList;
     }
@@ -60,12 +60,12 @@ public class ElastigroupScaleDownResponseGcp {
             return builder;
         }
 
-        public Builder setVictimPreemptibles(final List<ElastigroupScaleDownVictimPreemptiblesListGcp> victimPreemptiblesList) {
+        public Builder setVictimPreemptibles(final List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList) {
             elastigroupScaleDownResponseGcp.setVictimPreemptibles(victimPreemptiblesList);
             return this;
         }
 
-        public Builder setVictimInstancesList(final List<ElastigroupScaleDownVictimInstancesListGcp> victimInstancesList) {
+        public Builder setVictimInstancesList(final List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList) {
             elastigroupScaleDownResponseGcp.setVictimInstancesList(victimInstancesList);
             return this;
         }

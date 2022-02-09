@@ -1,6 +1,8 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.bl.gcp.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleUpResponseGcp;
 
 import java.util.List;
 

@@ -4,7 +4,8 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.bl.gcp.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupCreationRequestGcp;
 
 import java.io.IOException;
 import java.util.ArrayList;

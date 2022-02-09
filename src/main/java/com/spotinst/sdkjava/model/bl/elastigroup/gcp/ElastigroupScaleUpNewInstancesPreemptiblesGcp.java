@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,14 +9,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiElastigroupScaleUpNewInstancesListGcp {
+public class ElastigroupScaleUpNewInstancesPreemptiblesGcp {
 
     @JsonIgnore
     private Set<String> isSet;
     private String      instanceName;
 
 
-    public ApiElastigroupScaleUpNewInstancesListGcp() {
+    public ElastigroupScaleUpNewInstancesPreemptiblesGcp() {
         isSet = new HashSet<>();
     }
 
@@ -37,10 +37,10 @@ public class ApiElastigroupScaleUpNewInstancesListGcp {
         this.instanceName = instanceName;
     }
     public static class Builder {
-        private ApiElastigroupScaleUpNewInstancesListGcp apiElastigroupScaleUpNewInstancesListGcp;
+        private ElastigroupScaleUpNewInstancesPreemptiblesGcp elastigroupScaleUpNewInstancesPreemptiblesGcp;
 
         private Builder() {
-            this.apiElastigroupScaleUpNewInstancesListGcp = new ApiElastigroupScaleUpNewInstancesListGcp();
+            this.elastigroupScaleUpNewInstancesPreemptiblesGcp = new ElastigroupScaleUpNewInstancesPreemptiblesGcp();
         }
 
         public static Builder get() {
@@ -49,13 +49,13 @@ public class ApiElastigroupScaleUpNewInstancesListGcp {
         }
 
         public Builder setInstanceName(final String instanceName) {
-            apiElastigroupScaleUpNewInstancesListGcp.setInstanceName(instanceName);
+            elastigroupScaleUpNewInstancesPreemptiblesGcp.setInstanceName(instanceName);
             return this;
         }
 
 
-        public ApiElastigroupScaleUpNewInstancesListGcp build() {
-            return apiElastigroupScaleUpNewInstancesListGcp;
+        public ElastigroupScaleUpNewInstancesPreemptiblesGcp build() {
+            return elastigroupScaleUpNewInstancesPreemptiblesGcp;
         }
 
     }

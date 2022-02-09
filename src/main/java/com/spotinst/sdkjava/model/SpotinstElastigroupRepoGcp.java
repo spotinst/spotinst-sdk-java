@@ -5,9 +5,9 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleDownResponseGcp;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleUpResponseGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleDownResponseGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupScaleUpResponseGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleUpResponseGcp;
 import com.spotinst.sdkjava.model.converters.elastigroup.gcp.ElastigroupConverterGcp;
 
 import java.util.List;
@@ -90,22 +90,6 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return retVal;
     }
 
-    @Override
-    public RepoGenericResponse<List<ElastigroupGcp>> getAll(GroupFilter filter, String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupGcp>> retVal;
-
-        try {
-            List<ApiElastigroupGcp> apiElastigroups = SpotinstElastigroupServiceGcp.getAllGroups(filter, authToken, account);
-            List<ElastigroupGcp> elastigroups =
-                    apiElastigroups.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
-            retVal = new RepoGenericResponse<>(elastigroups);
-        }
-        catch (SpotinstHttpException e) {
-            retVal = ExceptionHelper.handleHttpException(e);
-        }
-
-        return retVal;
-    }
 
     @Override
     public RepoGenericResponse<ElastigroupGcp> get(String elastigroupId, String authToken, String account) {
@@ -155,15 +139,6 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return retVal;
     }
 
-    /*
-     * This function is used to scale up an Elastigroup. It is called from the SpotinstElastigroupClient.scaleUp() function
-     * It sends the request to SpotinstElastigroupService.scaleGroupUp() then formats the response to get a Scaling Response
-     *
-     *
-     * @param authToken      User Spotinst API token
-     * @param account        User Spotinst account ID
-     * @return elastigroupScalingResponse
-     */
     @Override
     public RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp(String elastigroupId, String adjustment, String authToken, String account) {
         RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp;
@@ -185,15 +160,6 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return scaleUp;
     }
 
-    /*
-     * This function is used to scale down an Elastigroup. It is called from the SpotinstElastigroupClient.scaleDown() function
-     * It sends the request to SpotinstElastigroupService.scaleGroupDown() then formats the response to get a Scaling Response
-     *
-     *
-     * @param authToken      User Spotinst API token
-     * @param account        User Spotinst account ID
-     * @return elastigroupScalingResponse
-     */
     @Override
     public RepoGenericResponse <List<ElastigroupScaleDownResponseGcp>> scaleDown(String elastigroupId, String adjustment, String authToken, String account) {
         RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> scaleDown;

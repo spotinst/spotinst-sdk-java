@@ -17,8 +17,8 @@ public class ApiElastigroupScaleUpResponseGcp implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ApiElastigroupScaleUpNewPreemptiblesListGcp>  newPreemptiblesList;
-    private List<ApiElastigroupScaleUpNewInstancesListGcp>     newInstancesList;
+    private List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp>  newPreemptiblesList;
+    private List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp>     newInstancesList;
 
     public ApiElastigroupScaleUpResponseGcp() {
         isSet = new HashSet<>();
@@ -32,20 +32,20 @@ public class ApiElastigroupScaleUpResponseGcp implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupScaleUpNewPreemptiblesListGcp> getNewPreemptiblesList() {
+    public List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewPreemptiblesList() {
         return newPreemptiblesList;
     }
 
-    public void setNewPreemptibles(List<ApiElastigroupScaleUpNewPreemptiblesListGcp> newPreemptiblesList) {
+    public void setNewPreemptibles(List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> newPreemptiblesList) {
         isSet.add("newPreemptiblesList");
         this.newPreemptiblesList = newPreemptiblesList;
     }
 
-    public List<ApiElastigroupScaleUpNewInstancesListGcp> getNewInstancesList() {
+    public List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewInstancesList() {
         return newInstancesList;
     }
 
-    public void setNewInstances(List<ApiElastigroupScaleUpNewInstancesListGcp> newInstancesList) {
+    public void setNewInstances(List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> newInstancesList) {
         isSet.add("newInstancesList");
         this.newInstancesList = newInstancesList;
     }

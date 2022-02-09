@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupGcp;
 import com.spotinst.sdkjava.model.converters.elastigroup.gcp.ElastigroupConverterGcp;
 
 import java.util.HashMap;

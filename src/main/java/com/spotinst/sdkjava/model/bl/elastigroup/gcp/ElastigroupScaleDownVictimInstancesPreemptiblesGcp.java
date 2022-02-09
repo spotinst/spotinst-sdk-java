@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiElastigroupScaleDownVictimInstancesListGcp {
+public class ElastigroupScaleDownVictimInstancesPreemptiblesGcp {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -17,7 +17,7 @@ public class ApiElastigroupScaleDownVictimInstancesListGcp {
     private String      zone;
     private String      machineType;
 
-    public ApiElastigroupScaleDownVictimInstancesListGcp() {
+    public ElastigroupScaleDownVictimInstancesPreemptiblesGcp() {
         isSet = new HashSet<>();
     }
 
@@ -56,6 +56,39 @@ public class ApiElastigroupScaleDownVictimInstancesListGcp {
         this.machineType = machineType;
     }
 
+    public static class Builder {
+        private ElastigroupScaleDownVictimInstancesPreemptiblesGcp elastigroupScaleDownvictimInstancesPreemptiblesGcp;
+
+        private Builder() {
+            this.elastigroupScaleDownvictimInstancesPreemptiblesGcp = new ElastigroupScaleDownVictimInstancesPreemptiblesGcp();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setInstanceName(final String instanceName) {
+            elastigroupScaleDownvictimInstancesPreemptiblesGcp.setInstanceName(instanceName);
+            return this;
+        }
+
+        public Builder setZone(final String zone) {
+            elastigroupScaleDownvictimInstancesPreemptiblesGcp.setZone(zone);
+            return this;
+        }
+
+        public Builder setMachineType(final String machineType) {
+            elastigroupScaleDownvictimInstancesPreemptiblesGcp.setMachineType(machineType);
+            return this;
+        }
+
+        public ElastigroupScaleDownVictimInstancesPreemptiblesGcp build() {
+            return elastigroupScaleDownvictimInstancesPreemptiblesGcp;
+        }
+
+    }
+
     @JsonIgnore
     public boolean isInstanceNameSet() {
         return isSet.contains("instanceName");
@@ -68,5 +101,7 @@ public class ApiElastigroupScaleDownVictimInstancesListGcp {
     public boolean isMachineTypeSet() {
         return isSet.contains("machineType");
     }
+
+
 
 }
