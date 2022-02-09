@@ -4,8 +4,8 @@ import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
 import java.util.List;
@@ -77,4 +77,28 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Boolean> retryItfMigration(String elastiGroupId, RetryItfMigrationRequest request,
                                                           String authToken, String account);
+
+    RepoGenericResponse<Boolean> updateCapacity(String elastigroupId, ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacity, String authToken, String account);
+
+    RepoGenericResponse<Elastigroup> importEC2Instance(ElastigroupImportEC2Instance elastigroupImportInstance, String instanceId, String region,
+                                                       String authToken, String account);
+
+    RepoGenericResponse<Boolean> pauseStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                              String authToken, String account);
+
+    RepoGenericResponse<Boolean> resumeStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                       String authToken, String account);
+
+    RepoGenericResponse<Boolean> recycleStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                        String authToken, String account);
+
+    RepoGenericResponse<Boolean> deallocateStatefulInstance(String elastigroupId, String statefulInstanceId,
+                                                         String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> listStatefulInstances(String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<Boolean> deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId, String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupGetElastilogResponse>> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId, String authToken);
+
 }

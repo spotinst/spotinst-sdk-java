@@ -8,7 +8,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -168,6 +167,10 @@ public class ElastigroupUsageExample {
         //Get ITF migation list
         System.out.println("----------retry ITF migration --------------");
         retryItfMigration(elastigroupClient, "elastigroup-id");
+
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<ElastigroupGetElastilogResponse> getLogs = getElastilog(elastigroupClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "elastigroupId");
 
     }
 
@@ -971,7 +974,7 @@ public class ElastigroupUsageExample {
     }
 
     private static ElastigroupGetDeploymentStatusResponse getDeploymentStatus(SpotinstElastigroupClient elastigroupClient, String elastigroupId,
-                                                                              String deploymentId) {
+                                                                                                                      String deploymentId) {
 
         ElastigroupGetDeploymentStatusResponse GetDeploymentStatusResponse = elastigroupClient.getDeploymentStatus(elastigroupId, deploymentId);
 
@@ -1079,6 +1082,26 @@ public class ElastigroupUsageExample {
 
         return retryStatus;
 
+    }
+
+    private static List<ElastigroupGetElastilogResponse> getElastilog(SpotinstElastigroupClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String elastigroupId) {
+
+        // Build get request
+        ElastigroupGetElastilogRequest.Builder getElastilogRequestBuilder = ElastigroupGetElastilogRequest.Builder.get();
+        ElastigroupGetElastilogRequest request = getElastilogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setLimit(limit).setResourceId(resourceId)
+                .setSeverity(severity).setToDate(toDate).build();
+
+        List<ElastigroupGetElastilogResponse> elastigroupGetLogsResponse =
+                client.getElastilog(request, elastigroupId);
+
+        for (ElastigroupGetElastilogResponse logs : elastigroupGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return elastigroupGetLogsResponse;
     }
 
 }

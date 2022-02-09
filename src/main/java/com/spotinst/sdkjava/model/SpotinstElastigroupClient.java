@@ -10,7 +10,6 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetDeploymentStatusResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -843,5 +842,206 @@ public class SpotinstElastigroupClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
         return retVal;
+    }
+
+    public Boolean updateCapacity(ElastigroupUpdateCapacityRequest updateCapacityRequest, String elastigroupId) {
+
+        Boolean updateCapacity;
+
+        ElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacityRequest = updateCapacityRequest.getElastigroupUpdateCapacity();
+
+        RepoGenericResponse<Boolean> updateCapacityResponse =
+                getSpotinstElastigroupRepo().updateCapacity(elastigroupId, elastigroupUpdateCapacityRequest, authToken, account);
+
+        if(updateCapacityResponse.isRequestSucceed()){
+            updateCapacity =updateCapacityResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateCapacityResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to update capacity. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return updateCapacity;
+
+    }
+
+    public Elastigroup importEC2Instance(ElastigroupImportEC2InstanceRequest importEC2InstanceRequest, String instanceId, String region) {
+
+        Elastigroup importEC2Instance;
+
+        ElastigroupImportEC2Instance elastigroupImportEC2Instance = importEC2InstanceRequest.getElastigroupImportEC2Instance();
+
+        RepoGenericResponse<Elastigroup> importEC2InstanceResponse =
+                getSpotinstElastigroupRepo().importEC2Instance(elastigroupImportEC2Instance, instanceId, region, authToken, account);
+
+        if(importEC2InstanceResponse.isRequestSucceed()){
+            importEC2Instance =importEC2InstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importEC2InstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import EC2 instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return importEC2Instance;
+
+    }
+
+    public Boolean pauseStatefulInstance(String elastigroupId, String statefulInstanceId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> pauseStatefulInstanceResponse = getSpotinstElastigroupRepo().pauseStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+        if (pauseStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = pauseStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = pauseStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to pause the stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean resumeStatefulInstance(String elastigroupId, String statefulInstanceId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> resumeStatefulInstanceResponse = getSpotinstElastigroupRepo().resumeStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+        if (resumeStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = resumeStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = resumeStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to resume the stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean recycleStatefulInstance(String elastigroupId, String statefulInstanceId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> recycleStatefulInstanceResponse = getSpotinstElastigroupRepo().recycleStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+        if (recycleStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = recycleStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = recycleStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to recycle the stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean deallocateStatefulInstance(String elastigroupId, String statefulInstanceId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deallocateStatefulInstanceResponse = getSpotinstElastigroupRepo().deallocateStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
+
+        if (deallocateStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = deallocateStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deallocateStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to deallocate the stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupListStatefulInstancesResponse> listStatefulInstances(String elastigroupId) {
+
+        List<ElastigroupListStatefulInstancesResponse> listStatefulInstances;
+
+        RepoGenericResponse <List<ElastigroupListStatefulInstancesResponse>> listStatefulInstancesResponse =
+                getSpotinstElastigroupRepo().listStatefulInstances(elastigroupId, authToken, account);
+
+        if(listStatefulInstancesResponse.isRequestSucceed()){
+            listStatefulInstances =listStatefulInstancesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listStatefulInstancesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to list the stateful instances. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return listStatefulInstances;
+
+    }
+
+    public Boolean deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteVolumeInStatefulInstanceResponse = getSpotinstElastigroupRepo().deleteVolumeInStatefulInstance(elastigroupId, statefulInstanceId, volumeId, authToken, account);
+
+        if (deleteVolumeInStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = deleteVolumeInStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteVolumeInStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete the volume in stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupGetElastilogResponse> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId) {
+
+        List<ElastigroupGetElastilogResponse> getLogs;
+
+        RepoGenericResponse <List<ElastigroupGetElastilogResponse>> getLogsResponse =
+                getSpotinstElastigroupRepo().getElastilog(elastigroupGetElastilogRequest, elastigroupId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the Elastilog. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
+
     }
 }

@@ -1,40 +1,36 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by aharontwizer on 8/24/15.
+ * Created by Janetlin Kiruba on 01/15/22.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiCapacity implements IPartialUpdateEntity {
+public class ElastigroupUpdateCapacityConfiguration {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
     private Integer     minimum;
     private Integer     maximum;
     private Integer     target;
-    private String      unit;
     //endregion
 
     //region Constructor
 
-    public ApiCapacity() {
+    public ElastigroupUpdateCapacityConfiguration() {
         isSet = new HashSet<>();
     }
-
-
     //endregion
 
-    //region Getters & Setters
+    //region Getter and Setter methods
+
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -43,7 +39,6 @@ public class ApiCapacity implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    //region Minimum
     public Integer getMinimum() {
         return minimum;
     }
@@ -53,9 +48,6 @@ public class ApiCapacity implements IPartialUpdateEntity {
         this.minimum = minimum;
     }
 
-    //endregion
-
-    //region Maximum
     public Integer getMaximum() {
         return maximum;
     }
@@ -65,9 +57,6 @@ public class ApiCapacity implements IPartialUpdateEntity {
         this.maximum = maximum;
     }
 
-    //endregion
-
-    //region Target
     public Integer getTarget() {
         return target;
     }
@@ -76,20 +65,47 @@ public class ApiCapacity implements IPartialUpdateEntity {
         isSet.add("target");
         this.target = target;
     }
+
     //endregion
 
-    //region Unit
-    public String getUnit() {
-        return unit;
-    }
+    //endregion
 
-    public void setUnit(String unit) {
-        isSet.add("unit");
-        this.unit = unit;
+    //region Builder class
+    public static class Builder {
+        private ElastigroupUpdateCapacityConfiguration capacity;
+
+        private Builder() {
+            this.capacity = new ElastigroupUpdateCapacityConfiguration();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setMinimum(final Integer minimum) {
+            capacity.setMinimum(minimum);
+            return this;
+        }
+
+        public Builder setMaximum(final Integer maximum) {
+            capacity.setMaximum(maximum);
+            return this;
+        }
+
+        public Builder setTarget(final Integer target) {
+            capacity.setTarget(target);
+            return this;
+        }
+
+        public ElastigroupUpdateCapacityConfiguration build() {
+            // TODO : Validations
+            return capacity;
+        }
     }
     //endregion
 
-    //region isset methods
+    //region isSet methods
     // Is minimum Set boolean method
     @JsonIgnore
     public boolean isMinimumSet() {
@@ -107,12 +123,6 @@ public class ApiCapacity implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isTargetSet() {
         return isSet.contains("target");
-    }
-
-    // Is unit Set boolean method
-    @JsonIgnore
-    public boolean isUnitSet() {
-        return isSet.contains("unit");
     }
     //endregion
 }

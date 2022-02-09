@@ -69,7 +69,7 @@ public class ElastigroupConverterAzure {
             if (tasksConfiguration.isIsEnabledSet()) {
                 retVal.setIsEnabled(tasksConfiguration.getIsEnabled());
             }
-            if (tasksConfiguration.isFrequencySet()) {
+            if (tasksConfiguration.isFrequencySet() && tasksConfiguration.getFrequency() != null) {
                 retVal.setFrequency(tasksConfiguration.getFrequency().getName());
             }
             if (tasksConfiguration.isStartTimeSet()) {
@@ -78,8 +78,8 @@ public class ElastigroupConverterAzure {
             if (tasksConfiguration.isCronExpressionSet()) {
                 retVal.setCronExpression(tasksConfiguration.getCronExpression());
             }
-            if (tasksConfiguration.isTaskTypeSet()) {
-                retVal.setTaskType(tasksConfiguration.getTaskType().getName());
+            if (tasksConfiguration.isTypeSet() && tasksConfiguration.getType() != null) {
+                retVal.setType(tasksConfiguration.getType().getName());
             }
             if (tasksConfiguration.isScaleTargetCapacitySet()) {
                 retVal.setScaleTargetCapacity(tasksConfiguration.getScaleTargetCapacity());
@@ -923,8 +923,8 @@ public class ElastigroupConverterAzure {
             if (apiScheduledTask.isCronExpressionSet()) {
                 blTasksBuilder.setCronExpression(apiScheduledTask.getCronExpression());
             }
-            if (apiScheduledTask.isTaskTypeSet()) {
-                blTasksBuilder.setTaskType(SchedulingTaskTypeEnumAzure.fromName(apiScheduledTask.getTaskType()));
+            if (apiScheduledTask.isTypeSet()) {
+                blTasksBuilder.setType(SchedulingTaskTypeEnumAzure.fromName(apiScheduledTask.getType()));
             }
             if (apiScheduledTask.isScaleTargetCapacitySet()) {
                 blTasksBuilder.setScaleTargetCapacity(apiScheduledTask.getScaleTargetCapacity());
