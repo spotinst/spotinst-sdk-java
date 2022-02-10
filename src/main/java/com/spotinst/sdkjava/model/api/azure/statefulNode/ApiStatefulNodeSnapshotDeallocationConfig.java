@@ -49,7 +49,7 @@ public class ApiStatefulNodeSnapshotDeallocationConfig implements IPartialUpdate
     }
 
     public void setTtlInHours(Integer ttlInHours) {
-        isSet.add("setTtlInHours");
+        isSet.add("ttlInHours");
         this.ttlInHours = ttlInHours;
     }
 
