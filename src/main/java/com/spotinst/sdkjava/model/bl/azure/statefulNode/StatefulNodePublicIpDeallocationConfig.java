@@ -46,7 +46,7 @@ public class StatefulNodePublicIpDeallocationConfig {
     }
 
     public void setTtlInHours(Integer ttlInHours) {
-        isSet.add("setTtlInHours");
+        isSet.add("ttlInHours");
         this.ttlInHours = ttlInHours;
     }
 
