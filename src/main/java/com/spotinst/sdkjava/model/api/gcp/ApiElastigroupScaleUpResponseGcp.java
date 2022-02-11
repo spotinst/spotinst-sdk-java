@@ -17,8 +17,8 @@ public class ApiElastigroupScaleUpResponseGcp implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp>  newPreemptiblesList;
-    private List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp>     newInstancesList;
+    private List<ApiElastigroupScaleUpNewInstancesGcp>     newPreemptibles;
+    private List<ApiElastigroupScaleUpNewInstancesGcp>     newInstances;
 
     public ApiElastigroupScaleUpResponseGcp() {
         isSet = new HashSet<>();
@@ -32,32 +32,32 @@ public class ApiElastigroupScaleUpResponseGcp implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewPreemptiblesList() {
-        return newPreemptiblesList;
+    public List<ApiElastigroupScaleUpNewInstancesGcp> getNewPreemptibles() {
+        return newPreemptibles;
     }
 
-    public void setNewPreemptibles(List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> newPreemptiblesList) {
-        isSet.add("newPreemptiblesList");
-        this.newPreemptiblesList = newPreemptiblesList;
+    public void setNewPreemptibles(List<ApiElastigroupScaleUpNewInstancesGcp> newPreemptibles) {
+        isSet.add("newPreemptibles");
+        this.newPreemptibles = newPreemptibles;
     }
 
-    public List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewInstancesList() {
-        return newInstancesList;
+    public List<ApiElastigroupScaleUpNewInstancesGcp> getNewInstances() {
+        return newInstances;
     }
 
-    public void setNewInstances(List<ApiElastigroupScaleUpNewInstancesPreemptiblesGcp> newInstancesList) {
-        isSet.add("newInstancesList");
-        this.newInstancesList = newInstancesList;
+    public void setNewInstances(List<ApiElastigroupScaleUpNewInstancesGcp> newInstances) {
+        isSet.add("newInstances");
+        this.newInstances = newInstances;
     }
 
     @JsonIgnore
     public boolean isNewPreemptiblesSet() {
-        return isSet.contains("newPreemptiblesList");
+        return isSet.contains("newPreemptibles");
     }
 
     @JsonIgnore
     public boolean isNewInstancesSet() {
-        return isSet.contains("newInstancesList");
+        return isSet.contains("newInstances");
     }
 
 }

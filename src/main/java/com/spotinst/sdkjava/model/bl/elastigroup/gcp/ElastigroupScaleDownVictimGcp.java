@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp {
+public class ElastigroupScaleDownVictimGcp {
 
     @JsonIgnore
     private Set<String> isSet;
@@ -17,7 +17,7 @@ public class ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp {
     private String      zone;
     private String      machineType;
 
-    public ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp() {
+    public ElastigroupScaleDownVictimGcp() {
         isSet = new HashSet<>();
     }
 
@@ -56,6 +56,39 @@ public class ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp {
         this.machineType = machineType;
     }
 
+    public static class Builder {
+        private ElastigroupScaleDownVictimGcp elastigroupScaleDownvictimGcp;
+
+        private Builder() {
+            this.elastigroupScaleDownvictimGcp = new ElastigroupScaleDownVictimGcp();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setInstanceName(final String instanceName) {
+            elastigroupScaleDownvictimGcp.setInstanceName(instanceName);
+            return this;
+        }
+
+        public Builder setZone(final String zone) {
+            elastigroupScaleDownvictimGcp.setZone(zone);
+            return this;
+        }
+
+        public Builder setMachineType(final String machineType) {
+            elastigroupScaleDownvictimGcp.setMachineType(machineType);
+            return this;
+        }
+
+        public ElastigroupScaleDownVictimGcp build() {
+            return elastigroupScaleDownvictimGcp;
+        }
+
+    }
+
     @JsonIgnore
     public boolean isInstanceNameSet() {
         return isSet.contains("instanceName");
@@ -68,5 +101,7 @@ public class ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp {
     public boolean isMachineTypeSet() {
         return isSet.contains("machineType");
     }
+
+
 
 }

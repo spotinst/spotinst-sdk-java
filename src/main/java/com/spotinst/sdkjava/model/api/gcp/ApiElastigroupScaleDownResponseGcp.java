@@ -17,8 +17,8 @@ public class ApiElastigroupScaleDownResponseGcp implements IPartialUpdateEntity 
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp>  victimPreemptiblesList;
-    private List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList;
+    private List<ApiElastigroupScaleDownVictimGcp>  victimPreemptibles;
+    private List<ApiElastigroupScaleDownVictimGcp> victimInstances;
 
     public ApiElastigroupScaleDownResponseGcp() {
         isSet = new HashSet<>();
@@ -32,32 +32,32 @@ public class ApiElastigroupScaleDownResponseGcp implements IPartialUpdateEntity 
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimPreemptiblesList() {
-        return victimPreemptiblesList;
+    public List<ApiElastigroupScaleDownVictimGcp> getVictimPreemptibles() {
+        return victimPreemptibles;
     }
 
-    public void setVictimPreemptibles(List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList) {
-        isSet.add("victimPreemptiblesList");
-        this.victimPreemptiblesList = victimPreemptiblesList;
+    public void setVictimPreemptibles(List<ApiElastigroupScaleDownVictimGcp> victimPreemptibles) {
+        isSet.add("victimPreemptibles");
+        this.victimPreemptibles = victimPreemptibles;
     }
 
-    public List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimInstancesList() {
-        return victimInstancesList;
+    public List<ApiElastigroupScaleDownVictimGcp> getVictimInstances() {
+        return victimInstances;
     }
 
-    public void setVictimInstancesList(List<ApiElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList) {
-        isSet.add("victimInstancesList");
-        this.victimInstancesList = victimInstancesList;
-    }
-
-    @JsonIgnore
-    public boolean isVictimPreemptiblesListSet() {
-        return isSet.contains("victimPreemptiblesList");
+    public void setVictimInstances(List<ApiElastigroupScaleDownVictimGcp> victimInstances) {
+        isSet.add("victimInstances");
+        this.victimInstances = victimInstances;
     }
 
     @JsonIgnore
-    public boolean isVictimInstancesListSet() {
-        return isSet.contains("victimInstancesList");
+    public boolean isVictimPreemptiblesSet() {
+        return isSet.contains("victimPreemptibles");
+    }
+
+    @JsonIgnore
+    public boolean isVictimInstancesSet() {
+        return isSet.contains("victimInstances");
     }
 
 }

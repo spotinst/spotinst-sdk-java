@@ -14,8 +14,8 @@ public class ElastigroupScaleDownResponseGcp {
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp>  victimPreemptiblesList;
-    private List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList;
+    private List<ElastigroupScaleDownVictimGcp>  victimPreemptibles;
+    private List<ElastigroupScaleDownVictimGcp> victimInstances;
 
     public ElastigroupScaleDownResponseGcp() {
         isSet = new HashSet<>();
@@ -29,22 +29,22 @@ public class ElastigroupScaleDownResponseGcp {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimPreemptiblesList() {
-        return victimPreemptiblesList;
+    public List<ElastigroupScaleDownVictimGcp> getVictimPreemptibles() {
+        return victimPreemptibles;
     }
 
-    public void setVictimPreemptibles(List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList) {
-        isSet.add("victimPreemptiblesList");
-        this.victimPreemptiblesList = victimPreemptiblesList;
+    public void setVictimPreemptibles(List<ElastigroupScaleDownVictimGcp> victimPreemptibles) {
+        isSet.add("victimPreemptibles");
+        this.victimPreemptibles = victimPreemptibles;
     }
 
-    public List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> getVictimInstancesList() {
-        return victimInstancesList;
+    public List<ElastigroupScaleDownVictimGcp> getVictimInstances() {
+        return victimInstances;
     }
 
-    public void setVictimInstancesList(List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList) {
-        isSet.add("victimInstancesList");
-        this.victimInstancesList = victimInstancesList;
+    public void setVictimInstances(List<ElastigroupScaleDownVictimGcp> victimInstances) {
+        isSet.add("victimInstances");
+        this.victimInstances = victimInstances;
     }
 
 
@@ -60,13 +60,13 @@ public class ElastigroupScaleDownResponseGcp {
             return builder;
         }
 
-        public Builder setVictimPreemptibles(final List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimPreemptiblesList) {
-            elastigroupScaleDownResponseGcp.setVictimPreemptibles(victimPreemptiblesList);
+        public Builder setVictimPreemptibles(final List<ElastigroupScaleDownVictimGcp> victimPreemptibles) {
+            elastigroupScaleDownResponseGcp.setVictimPreemptibles(victimPreemptibles);
             return this;
         }
 
-        public Builder setVictimInstancesList(final List<ElastigroupScaleDownVictimInstancesPreemptiblesGcp> victimInstancesList) {
-            elastigroupScaleDownResponseGcp.setVictimInstancesList(victimInstancesList);
+        public Builder setVictimInstances(final List<ElastigroupScaleDownVictimGcp> victimInstances) {
+            elastigroupScaleDownResponseGcp.setVictimInstances(victimInstances);
             return this;
         }
         public ElastigroupScaleDownResponseGcp build() {
@@ -76,13 +76,13 @@ public class ElastigroupScaleDownResponseGcp {
     }
 
     @JsonIgnore
-    public boolean isVictimPreemptiblesListSet() {
-        return isSet.contains("victimPreemptiblesList");
+    public boolean isVictimPreemptiblesSet() {
+        return isSet.contains("victimPreemptibles");
     }
 
     @JsonIgnore
-    public boolean isVictimInstancesListSet() {
-        return isSet.contains("victimInstancesList");
+    public boolean isVictimInstancesSet() {
+        return isSet.contains("victimInstances");
     }
 
 }

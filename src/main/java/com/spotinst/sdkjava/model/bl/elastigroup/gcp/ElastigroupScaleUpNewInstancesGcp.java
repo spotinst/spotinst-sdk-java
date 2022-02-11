@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,14 +9,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiElastigroupScaleUpNewInstancesPreemptiblesGcp {
+public class ElastigroupScaleUpNewInstancesGcp {
 
     @JsonIgnore
     private Set<String> isSet;
     private String      instanceName;
 
 
-    public ApiElastigroupScaleUpNewInstancesPreemptiblesGcp() {
+    public ElastigroupScaleUpNewInstancesGcp() {
         isSet = new HashSet<>();
     }
 
@@ -37,10 +37,10 @@ public class ApiElastigroupScaleUpNewInstancesPreemptiblesGcp {
         this.instanceName = instanceName;
     }
     public static class Builder {
-        private ApiElastigroupScaleUpNewInstancesPreemptiblesGcp apiElastigroupScaleUpNewInstancesPreemptiblesGcp;
+        private ElastigroupScaleUpNewInstancesGcp elastigroupScaleUpNewInstancesGcp;
 
         private Builder() {
-            this.apiElastigroupScaleUpNewInstancesPreemptiblesGcp = new ApiElastigroupScaleUpNewInstancesPreemptiblesGcp();
+            this.elastigroupScaleUpNewInstancesGcp = new ElastigroupScaleUpNewInstancesGcp();
         }
 
         public static Builder get() {
@@ -49,13 +49,13 @@ public class ApiElastigroupScaleUpNewInstancesPreemptiblesGcp {
         }
 
         public Builder setInstanceName(final String instanceName) {
-            apiElastigroupScaleUpNewInstancesPreemptiblesGcp.setInstanceName(instanceName);
+            elastigroupScaleUpNewInstancesGcp.setInstanceName(instanceName);
             return this;
         }
 
 
-        public ApiElastigroupScaleUpNewInstancesPreemptiblesGcp build() {
-            return apiElastigroupScaleUpNewInstancesPreemptiblesGcp;
+        public ElastigroupScaleUpNewInstancesGcp build() {
+            return elastigroupScaleUpNewInstancesGcp;
         }
 
     }

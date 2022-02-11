@@ -14,8 +14,8 @@ public class ElastigroupScaleUpResponseGcp {
 
     @JsonIgnore
     private Set<String>                                     isSet;
-    private List<ElastigroupScaleUpNewInstancesPreemptiblesGcp>  newPreemptiblesList;
-    private List<ElastigroupScaleUpNewInstancesPreemptiblesGcp>     newInstancesList;
+    private List<ElastigroupScaleUpNewInstancesGcp>  newPreemptibles;
+    private List<ElastigroupScaleUpNewInstancesGcp>     newInstances;
 
     public ElastigroupScaleUpResponseGcp() {
         isSet = new HashSet<>();
@@ -29,22 +29,22 @@ public class ElastigroupScaleUpResponseGcp {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewPreemptiblesList() {
-        return newPreemptiblesList;
+    public List<ElastigroupScaleUpNewInstancesGcp> getNewPreemptibles() {
+        return newPreemptibles;
     }
 
-    public void setNewPreemptibles(List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newPreemptiblesList) {
-        isSet.add("newPreemptiblesList");
-        this.newPreemptiblesList = newPreemptiblesList;
+    public void setNewPreemptibles(List<ElastigroupScaleUpNewInstancesGcp> newPreemptibles) {
+        isSet.add("newPreemptibles");
+        this.newPreemptibles = newPreemptibles;
     }
 
-    public List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> getNewInstancesList() {
-        return newInstancesList;
+    public List<ElastigroupScaleUpNewInstancesGcp> getNewInstances() {
+        return newInstances;
     }
 
-    public void setNewInstances(List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newInstancesList) {
-        isSet.add("newInstancesList");
-        this.newInstancesList = newInstancesList;
+    public void setNewInstances(List<ElastigroupScaleUpNewInstancesGcp> newInstances) {
+        isSet.add("newInstances");
+        this.newInstances = newInstances;
     }
 
 
@@ -60,13 +60,13 @@ public class ElastigroupScaleUpResponseGcp {
             return builder;
         }
 
-        public Builder setNewPreemptibles(final List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newPreemptiblesList) {
-            elastigroupScaleUpResponseGcp.setNewPreemptibles(newPreemptiblesList);
+        public Builder setNewPreemptibles(final List<ElastigroupScaleUpNewInstancesGcp> newPreemptibles) {
+            elastigroupScaleUpResponseGcp.setNewPreemptibles(newPreemptibles);
             return this;
         }
 
-        public Builder setNewInstances(final List<ElastigroupScaleUpNewInstancesPreemptiblesGcp> newInstancesList) {
-            elastigroupScaleUpResponseGcp.setNewInstances(newInstancesList);
+        public Builder setNewInstances(final List<ElastigroupScaleUpNewInstancesGcp> newInstances) {
+            elastigroupScaleUpResponseGcp.setNewInstances(newInstances);
             return this;
         }
         public ElastigroupScaleUpResponseGcp build() {
@@ -77,12 +77,12 @@ public class ElastigroupScaleUpResponseGcp {
 
     @JsonIgnore
     public boolean isNewPreemptiblesSet() {
-        return isSet.contains("newPreemptiblesList");
+        return isSet.contains("newPreemptibles");
     }
 
     @JsonIgnore
     public boolean isNewInstancesSet() {
-        return isSet.contains("newInstancesList");
+        return isSet.contains("newInstances");
     }
 
 }
