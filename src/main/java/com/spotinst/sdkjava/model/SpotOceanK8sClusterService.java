@@ -4,10 +4,14 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiGetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
+import com.spotinst.sdkjava.model.responses.ocean.kubernetes.GetK8sClusterHeartBeatStatusApiResponse;
 import org.apache.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SpotOceanK8sClusterService extends BaseSpotinstService {
@@ -162,5 +166,80 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static List<ApiOceanK8sCluster> getAllK8sClusters(String authToken, String account) {
+
+        List<ApiOceanK8sCluster> getClustersResponse = new ArrayList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/cluster", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ClusterApiResponse
+                clusterApiResponse = getCastedResponse(response, ClusterApiResponse.class);
+
+        if (clusterApiResponse.getResponse().getCount() > 0) {
+            getClustersResponse = clusterApiResponse.getResponse().getItems();
+        }
+
+        return getClustersResponse;
+
+    }
+
+    public static ApiGetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(String clusterId, String authToken, String account) {
+
+        ApiGetK8sClusterHeartBeatStatusResponse getClusterHeartBeatResponse = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/k8s/cluster/%s/controllerHeartbeat", apiEndpoint, clusterId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        GetK8sClusterHeartBeatStatusApiResponse
+                clusterHeartBeatApiResponse = getCastedResponse(response, GetK8sClusterHeartBeatStatusApiResponse.class);
+
+        if (clusterHeartBeatApiResponse.getResponse().getCount() > 0) {
+            getClusterHeartBeatResponse = clusterHeartBeatApiResponse.getResponse().getItems().get(0);
+        }
+
+        return getClusterHeartBeatResponse;
+
     }
 }
