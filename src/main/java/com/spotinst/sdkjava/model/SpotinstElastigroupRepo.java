@@ -222,11 +222,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> enterInstanceStandby(String instanceId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.enterGroupStandby(groupId, authToken, account);
+            Boolean success = SpotinstElastigroupService.enterInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -237,11 +237,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> exitInstanceStandby(String instanceId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.exitGroupStandby(groupId, authToken, account);
+            Boolean success = SpotinstElastigroupService.exitInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -250,6 +250,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
 
     @Override
     public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,

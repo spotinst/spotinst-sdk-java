@@ -487,7 +487,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean enterGroupStandby(String groupId, String authToken,
+    public static Boolean enterInstanceStandby(String instanceId, String authToken,
                                             String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
@@ -508,24 +508,22 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, groupId);
+        String uri = String.format("%s/aws/ec2/instance/%s/standby/enter", apiEndpoint, instanceId);
 
         // Send the request.
         RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiResponse updateResponse = getCastedResponse(response, ElastigroupApiResponse.class);
-        if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
         return retVal;
     }
 
-
-
-    public static Boolean exitGroupStandby(String groupId, String authToken,
-                                           String account) throws SpotinstHttpException {
+    public static Boolean exitInstanceStandby(String instanceId, String authToken,
+                                               String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
 
@@ -545,19 +543,20 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group/%s/standby", apiEndpoint, groupId);
+        String uri = String.format("%s/aws/ec2/instance/%s/standby/exit", apiEndpoint, instanceId);
 
         // Send the request.
-        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
 
         // Handle the response.
-        ElastigroupApiResponse updateResponse = getCastedResponse(response, ElastigroupApiResponse.class);
-        if (updateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
         }
 
         return retVal;
     }
+
 
     /**
      * This function is the final step to scaling up your elastigroup. It takes in a scaling ElastigroupScalingRequest
