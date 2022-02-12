@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.gcp;
+package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -126,7 +126,7 @@ public class ElastigroupGcp {
         }
 
         //region Build methods
-        protected Builder setId(final String elastigroupId) {
+        public Builder setId(final String elastigroupId) {
             elastigroup.setId(elastigroupId);
             return this;
         }

@@ -3,8 +3,12 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupScaleUpResponseGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleDownResponseGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupScaleUpResponseGcp;
+import com.spotinst.sdkjava.model.converters.elastigroup.gcp.ElastigroupConverterGcp;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,6 +90,7 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         return retVal;
     }
 
+
     @Override
     public RepoGenericResponse<ElastigroupGcp> get(String elastigroupId, String authToken, String account) {
         RepoGenericResponse<ElastigroupGcp> retVal;
@@ -101,6 +106,76 @@ class SpotinstElastigroupRepoGcp implements ISpotinstElastigroupRepoGcp {
         }
 
         return retVal;
+    }
+
+
+    @Override
+    public RepoGenericResponse<Boolean> lockInstance(String authToken, String accountId, String ttlInMinutes, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupServiceGcp.lockInstance(authToken, accountId, ttlInMinutes, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> unlockInstance(String authToken, String accountId, String instanceId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = SpotinstElastigroupServiceGcp.unlockInstance(authToken, accountId, instanceId);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp(String elastigroupId, String adjustment, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> scaleUp;
+
+        try {
+            List<ApiElastigroupScaleUpResponseGcp> apiElastigroupScalingResponse =
+                    SpotinstElastigroupServiceGcp.scaleUpGroup(elastigroupId, adjustment, authToken, account);
+
+            List<ElastigroupScaleUpResponseGcp> elastigroupScalingResponse =
+                    apiElastigroupScalingResponse.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
+            scaleUp = new RepoGenericResponse<>(elastigroupScalingResponse);
+
+
+        }
+        catch (SpotinstHttpException e) {
+            scaleUp = ExceptionHelper.handleHttpException(e);
+        }
+
+        return scaleUp;
+    }
+
+    @Override
+    public RepoGenericResponse <List<ElastigroupScaleDownResponseGcp>> scaleDown(String elastigroupId, String adjustment, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> scaleDown;
+
+        try {
+            List<ApiElastigroupScaleDownResponseGcp> apiElastigroupScalingResponse =
+                    SpotinstElastigroupServiceGcp.scaleDownGroup(elastigroupId, adjustment, authToken, account);
+
+            List<ElastigroupScaleDownResponseGcp> elastigroupScalingResponse =
+                    apiElastigroupScalingResponse.stream().map(ElastigroupConverterGcp::toBl).collect(Collectors.toList());
+            scaleDown = new RepoGenericResponse<>(elastigroupScalingResponse);
+        } catch (SpotinstHttpException e) {
+            scaleDown = ExceptionHelper.handleHttpException(e);
+        }
+
+        return scaleDown;
     }
 
 
