@@ -175,6 +175,7 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
+
         // Build query params
         Map<String, String> queryParams = new HashMap<>();
 
