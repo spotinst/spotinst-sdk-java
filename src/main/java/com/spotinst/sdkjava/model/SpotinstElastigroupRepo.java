@@ -779,4 +779,25 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<Elastigroup> importASG(ElastigroupImportASG elastigroupImportASG, String asgName, String dryRun, String region, String authToken, String account) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+
+            ApiElastigroup importASG = SpotinstElastigroupService
+                    .importASG(elastigroupImportASG, asgName, dryRun, region, authToken, account);
+            Elastigroup importedASG = ElastigroupConverter.toBl(importASG);
+
+            retVal = new RepoGenericResponse<>(importedASG);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
 }

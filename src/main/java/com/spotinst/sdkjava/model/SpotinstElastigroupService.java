@@ -1580,4 +1580,63 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
+    public static ApiElastigroup importASG(ElastigroupImportASG request, String asgName, String dryRun, String region,
+                                                   String authToken, String account) {
+
+        ApiElastigroup retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add auto scaling group name Query param
+        if (asgName != null) {
+            queryParams.put("autoScalingGroupName", asgName);
+        }
+
+        // Add dry run Query param
+        if (dryRun != null) {
+            queryParams.put("dryRun", dryRun);
+        }
+
+        // Add region Query param
+        if (region != null) {
+            queryParams.put("region", region);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/autoScalingGroup/import", apiEndpoint);
+
+        // Write to json
+        Map<String, ElastigroupImportASG> groupRequest = new HashMap<>();
+        groupRequest.put("group", request);
+        String body = JsonMapper.toJson(groupRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupApiResponse
+                castedApiResponse = getCastedResponse(response, ElastigroupApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0) {
+            retVal = castedApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+
+    }
+
 }

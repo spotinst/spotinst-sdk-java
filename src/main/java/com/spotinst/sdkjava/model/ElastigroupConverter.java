@@ -3161,4 +3161,57 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiElastigroupImportASG toDal(ElastigroupImportASG elastigroupImportASG) {
+        ApiElastigroupImportASG retVal = null;
+
+        if (elastigroupImportASG != null) {
+
+            retVal = new ApiElastigroupImportASG();
+
+            if (elastigroupImportASG.isProductSet()) {
+                retVal.setProduct(elastigroupImportASG.getProduct());
+            }
+
+            if (elastigroupImportASG.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportASG.getSpotInstanceTypes());
+            }
+
+            if (elastigroupImportASG.isNameSet()) {
+                retVal.setName(elastigroupImportASG.getName());
+            }
+
+            if (elastigroupImportASG.isAvailabilityVsCostSet()) {
+                retVal.setAvailabilityVsCost(elastigroupImportASG.getAvailabilityVsCost());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupImportASG toBl(
+            ApiElastigroupImportASG elastigroupImportASG) {
+        ElastigroupImportASG retVal = null;
+
+        if (elastigroupImportASG != null) {
+            retVal = new ElastigroupImportASG();
+
+            if (elastigroupImportASG.isProductSet()) {
+                retVal.setProduct(elastigroupImportASG.getProduct());
+            }
+            if (elastigroupImportASG.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(elastigroupImportASG.getSpotInstanceTypes());
+            }
+            if (elastigroupImportASG.isNameSet()) {
+                retVal.setName(elastigroupImportASG.getName());
+            }
+            if (elastigroupImportASG.isAvailabilityVsCostSet()) {
+                retVal.setAvailabilityVsCost(elastigroupImportASG.getAvailabilityVsCost());
+            }
+
+        }
+
+        return retVal;
+    }
+
 }

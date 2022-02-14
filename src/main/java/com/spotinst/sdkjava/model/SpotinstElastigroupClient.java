@@ -1041,4 +1041,30 @@ public class SpotinstElastigroupClient {
         return getLogs;
 
     }
+
+    public Elastigroup importASG(ElastigroupImportASGRequest importASGRequest, String asgName, String dryRun, String region) {
+
+        Elastigroup importASG;
+
+        ElastigroupImportASG elastigroupImportASG = importASGRequest.getElastigroupImportASG();
+
+        RepoGenericResponse<Elastigroup> importASGResponse =
+                getSpotinstElastigroupRepo().importASG(elastigroupImportASG, asgName, dryRun, region, authToken, account);
+
+        if(importASGResponse.isRequestSucceed()){
+            importASG =importASGResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import ASG. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return importASG;
+
+    }
+
 }
