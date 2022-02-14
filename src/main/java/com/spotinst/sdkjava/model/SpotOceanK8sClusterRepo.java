@@ -89,9 +89,9 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
 
         try {
 
-            List<ApiOceanK8sCluster> getClusters = SpotOceanK8sClusterService
+            List<ApiOceanK8sCluster> getAllClustersApi = SpotOceanK8sClusterService
                     .getAllK8sClusters(authToken, account);
-            List<OceanK8sCluster> getAllClusters = getClusters.stream().map(OceanK8sConverter::toBl)
+            List<OceanK8sCluster> getAllClusters = getAllClustersApi.stream().map(OceanK8sConverter::toBl)
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllClusters);
