@@ -2,8 +2,13 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiGetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.GetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanK8sCluster;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
 
@@ -76,5 +81,48 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
         }
 
         return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<OceanK8sCluster>> getAllK8sClusters(String authToken, String account) {
+        RepoGenericResponse<List<OceanK8sCluster>> retVal;
+
+        try {
+
+            List<ApiOceanK8sCluster> getAllClustersApi = SpotOceanK8sClusterService
+                    .getAllK8sClusters(authToken, account);
+            List<OceanK8sCluster> getAllClusters = getAllClustersApi.stream().map(OceanK8sConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllClusters);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<GetK8sClusterHeartBeatStatusResponse> getK8sClusterHeartBeatStatus(String clusterIdId, String authToken, String account) {
+        RepoGenericResponse<GetK8sClusterHeartBeatStatusResponse> retVal;
+
+        try {
+
+            ApiGetK8sClusterHeartBeatStatusResponse getClusterHeartBeatResponse = SpotOceanK8sClusterService
+                    .getK8sClusterHeartBeatStatus( clusterIdId, authToken, account);
+            GetK8sClusterHeartBeatStatusResponse getClusterHeartBeat = OceanK8sConverter.toBl(getClusterHeartBeatResponse);
+
+            retVal = new RepoGenericResponse<>(getClusterHeartBeat);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
     }
 }

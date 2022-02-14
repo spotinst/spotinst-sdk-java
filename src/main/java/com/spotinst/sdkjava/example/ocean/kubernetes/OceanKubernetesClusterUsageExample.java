@@ -30,6 +30,16 @@ public class OceanKubernetesClusterUsageExample {
         getCluster(clusterClient,clusterId);
         updateCluster(clusterClient, clusterId);
         deleteCluster(clusterClient, clusterId);
+
+        //Get all clusters
+        System.out.println("----------Get all clusters--------------");
+        List<OceanK8sCluster> getClusters = getAllK8sClusters(clusterClient);
+
+        //Get cluster heartbeat status
+        System.out.println("----------Get cluster heartbeat status-------------");
+        GetK8sClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
+
+
     }
 
     private static String createCluster(SpotOceanK8sClusterClient client) {
@@ -181,6 +191,25 @@ public class OceanKubernetesClusterUsageExample {
             System.out.println("Get Cluster successfully: " + oceanK8sCluster.getId());
         }
         return oceanK8sCluster;
+    }
+
+    private static List<OceanK8sCluster> getAllK8sClusters(SpotOceanK8sClusterClient client) {
+
+        System.out.println("Getting all Kubernetes Clusters");
+        List<OceanK8sCluster> clusters = client.getAllK8sClusters();
+
+        return clusters;
+    }
+
+    private static GetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanK8sClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Getting the Heartbeat status for the Kubernetes Cluster: %s", clusterId));
+        GetK8sClusterHeartBeatStatusResponse clusterHeartBeatStatus = client.getK8sClusterHeartBeatStatus(clusterId);
+
+        System.out.println(String.format("Status: %s", clusterHeartBeatStatus.getStatus()));
+        System.out.println(String.format("LastHeartBeat: %s", clusterHeartBeatStatus.getLastHeartbeat()));
+
+        return clusterHeartBeatStatus;
     }
 
 
