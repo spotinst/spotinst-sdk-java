@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
 
@@ -25,9 +26,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                            String account);
 
-    RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> enterInstanceStandby(String instanceId, String authToken, String account);
 
-    RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> exitInstanceStandby(String instanceId, String authToken, String account);
 
     RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
                                                              String authToken, String account);
@@ -95,4 +96,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
                                                          String authToken, String account);
 
     RepoGenericResponse<List<ElastigroupListStatefulInstancesResponse>> listStatefulInstances(String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<Boolean> deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId, String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupGetElastilogResponse>> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId, String authToken);
+
 }

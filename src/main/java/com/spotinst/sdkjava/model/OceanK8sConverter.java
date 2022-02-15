@@ -787,6 +787,25 @@ public class OceanK8sConverter {
         return retVal;
     }
 
+    public static GetK8sClusterHeartBeatStatusResponse toBl(
+            ApiGetK8sClusterHeartBeatStatusResponse clusterHeartBeatStatus) {
+        GetK8sClusterHeartBeatStatusResponse retVal = null;
+
+        if (clusterHeartBeatStatus != null) {
+            retVal = new GetK8sClusterHeartBeatStatusResponse();
+
+            if (clusterHeartBeatStatus.isStatusSet()) {
+                retVal.setStatus(clusterHeartBeatStatus.getStatus());
+            }
+            if (clusterHeartBeatStatus.isLastHeartbeatSet()) {
+                retVal.setLastHeartbeat(clusterHeartBeatStatus.getLastHeartbeat());
+            }
+
+        }
+
+        return retVal;
+    }
+
 
     //endregion
 }

@@ -153,12 +153,11 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+    public Boolean enterInstanceStandby(String instanceId) {
         Boolean retVal;
-        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().enterStandby(groupId, authToken, account);
+                getSpotinstElastigroupRepo().enterInstanceStandby(instanceId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -166,7 +165,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
+                    "Error encountered while attempting to enter instance standby mode. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -174,13 +173,11 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+    public Boolean exitInstanceStandby(String instanceId) {
         Boolean retVal;
-        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
-
+                getSpotinstElastigroupRepo().exitInstanceStandby(instanceId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -188,7 +185,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
+                    "Error encountered while attempting to exit instance standby mode. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -998,6 +995,50 @@ public class SpotinstElastigroupClient {
         }
 
         return listStatefulInstances;
+
+    }
+
+    public Boolean deleteVolumeInStatefulInstance(String elastigroupId, String statefulInstanceId, String volumeId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteVolumeInStatefulInstanceResponse = getSpotinstElastigroupRepo().deleteVolumeInStatefulInstance(elastigroupId, statefulInstanceId, volumeId, authToken, account);
+
+        if (deleteVolumeInStatefulInstanceResponse.isRequestSucceed()) {
+            retVal = deleteVolumeInStatefulInstanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteVolumeInStatefulInstanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete the volume in stateful instance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupGetElastilogResponse> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId) {
+
+        List<ElastigroupGetElastilogResponse> getLogs;
+
+        RepoGenericResponse <List<ElastigroupGetElastilogResponse>> getLogsResponse =
+                getSpotinstElastigroupRepo().getElastilog(elastigroupGetElastilogRequest, elastigroupId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the Elastilog. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
 
     }
 }

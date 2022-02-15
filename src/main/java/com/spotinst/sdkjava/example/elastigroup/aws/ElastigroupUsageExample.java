@@ -21,6 +21,7 @@ import static com.spotinst.sdkjava.utils.Constants.*;
 public class ElastigroupUsageExample {
     private final static String auth_token    = "your-token";
     private final static String act_id        = "your-account-id";
+    private final static String instanceId        = "instance-id";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -33,10 +34,10 @@ public class ElastigroupUsageExample {
         String elastigroupId = createGroup(elastigroupClient);
 
         // Enter Group Standby
-        enterGroupStandby(elastigroupClient, elastigroupId);
+        enterInstanceStandby(elastigroupClient, instanceId);
 
         // Exit Group Standby
-        exitGroupStandby(elastigroupClient, elastigroupId);
+        exitInstanceStandby(elastigroupClient, instanceId);
 
         // Clone group
         String clonedElastigroupId = cloneGroup(elastigroupClient, elastigroupId);
@@ -104,14 +105,14 @@ public class ElastigroupUsageExample {
         // Remove all active suspensions
         removeSuspendedProcesses(elastigroupClient, activeSuspensions.getGroupId(), activeSuspensionNames);
 
-        // Enter Group Standby
-        enterGroupStandby(elastigroupClient, elastigroupId);
+        // Enter Instance Standby
+        enterInstanceStandby(elastigroupClient, instanceId);
 
         // List suspended processes
         getSuspendedProcesses(elastigroupClient, elastigroupId);
 
         // Exit Group Standby
-        exitGroupStandby(elastigroupClient, elastigroupId);
+        exitInstanceStandby(elastigroupClient, instanceId);
 
         // Get Group Events Logs
         getEventsLogs(elastigroupClient, elastigroupId, LOGS_FROM_DATE_EXAMPLE, LOGS_TO_DATE_EXAMPLE, ALL, null,
@@ -167,6 +168,10 @@ public class ElastigroupUsageExample {
         //Get ITF migation list
         System.out.println("----------retry ITF migration --------------");
         retryItfMigration(elastigroupClient, "elastigroup-id");
+
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<ElastigroupGetElastilogResponse> getLogs = getElastilog(elastigroupClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "elastigroupId");
 
     }
 
@@ -711,33 +716,23 @@ public class ElastigroupUsageExample {
         }
     }
 
-    private static void enterGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
-
-        // Build standby elastigroup request
-        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest postRequest =
-                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+    private static void enterInstanceStandby(SpotinstElastigroupClient client, String instanceId) {
 
         // enter group standby
-        Boolean updateSuccess = client.enterGroupStandby(postRequest);
+        Boolean updateSuccess = client.enterInstanceStandby(instanceId);
 
         if (updateSuccess) {
-            System.out.println("Group successfully entered standby mode.");
+            System.out.println("Instance successfully entered standby mode.");
         }
     }
 
-    private static void exitGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
-
-        // Build standby elastigroup request
-        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest deleteRequest =
-                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+    private static void exitInstanceStandby(SpotinstElastigroupClient client, String instanceId) {
 
         // exit group standby
-        Boolean updateSuccess = client.exitGroupStandby(deleteRequest);
+        Boolean updateSuccess = client.exitInstanceStandby(instanceId);
 
         if (updateSuccess) {
-            System.out.println("Group successfully exited standby mode.");
+            System.out.println("Instance successfully exited standby mode.");
         }
     }
 
@@ -1078,6 +1073,26 @@ public class ElastigroupUsageExample {
 
         return retryStatus;
 
+    }
+
+    private static List<ElastigroupGetElastilogResponse> getElastilog(SpotinstElastigroupClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String elastigroupId) {
+
+        // Build get request
+        ElastigroupGetElastilogRequest.Builder getElastilogRequestBuilder = ElastigroupGetElastilogRequest.Builder.get();
+        ElastigroupGetElastilogRequest request = getElastilogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setLimit(limit).setResourceId(resourceId)
+                .setSeverity(severity).setToDate(toDate).build();
+
+        List<ElastigroupGetElastilogResponse> elastigroupGetLogsResponse =
+                client.getElastilog(request, elastigroupId);
+
+        for (ElastigroupGetElastilogResponse logs : elastigroupGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return elastigroupGetLogsResponse;
     }
 
 }

@@ -16,7 +16,7 @@ public class SpotOceanK8sClusterClient {
     private              ISpotOceanK8sClusterRepo spotOceanK8sClusterRepo;
 
     public ISpotOceanK8sClusterRepo getSpotOceanK8sClusterRepo() {
-        return spotOceanK8sClusterRepo;
+        return this.spotOceanK8sClusterRepo;
     }
 
     public void setSpotinstOceanClusterRepo() {
@@ -112,5 +112,51 @@ public class SpotOceanK8sClusterClient {
         }
 
         return retVal;
+    }
+
+    public List<OceanK8sCluster> getAllK8sClusters() {
+
+        List<OceanK8sCluster> getK8sClusters;
+
+        RepoGenericResponse <List<OceanK8sCluster>> getK8sClustersResponse =
+                getSpotOceanK8sClusterRepo().getAllK8sClusters(authToken, account);
+
+        if(getK8sClustersResponse.isRequestSucceed()){
+            getK8sClusters =getK8sClustersResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getK8sClustersResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get all the Ocean K8s clusters. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getK8sClusters;
+
+    }
+
+    public GetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(String clusterId) {
+
+        GetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus;
+
+        RepoGenericResponse<GetK8sClusterHeartBeatStatusResponse> getK8sClusterHeartBeatStatusResponse =
+                getSpotOceanK8sClusterRepo().getK8sClusterHeartBeatStatus(clusterId, authToken, account);
+
+        if(getK8sClusterHeartBeatStatusResponse.isRequestSucceed()){
+            getK8sClusterHeartBeatStatus =getK8sClusterHeartBeatStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getK8sClusterHeartBeatStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Ocean K8s cluster heartbeat status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getK8sClusterHeartBeatStatus;
+
     }
 }
