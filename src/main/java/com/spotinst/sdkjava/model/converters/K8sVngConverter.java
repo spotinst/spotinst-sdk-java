@@ -144,7 +144,7 @@ public class K8sVngConverter {
         if (vngAutoScaleSpec != null) {
             retval = new ApiK8sVngAutoScaleSpec();
 
-            if (vngAutoScaleSpec.isHeadroomSet()) {
+            if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<ApiK8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
                                                                         .stream()
                                                                         .map(K8sVngConverter::toDal)
@@ -152,7 +152,7 @@ public class K8sVngConverter {
                 retval.setHeadrooms(headrooms);
             }
 
-            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet()) {
+            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet() && vngAutoScaleSpec.getAutoHeadroomPercentage() != null) {
                 retval.setAutoHeadroomPercentage(vngAutoScaleSpec.getAutoHeadroomPercentage());
             }
         }
@@ -546,7 +546,7 @@ public class K8sVngConverter {
         if (vngAutoScaleSpec != null) {
             K8sVngAutoScaleSpec.Builder autoScaleBuilder = K8sVngAutoScaleSpec.Builder.get();
 
-            if (vngAutoScaleSpec.isHeadroomSet()) {
+            if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<K8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
                                                                      .stream()
                                                                      .map(K8sVngConverter::toBl)
@@ -554,7 +554,7 @@ public class K8sVngConverter {
                 autoScaleBuilder.setHeadrooms(headrooms);
             }
 
-            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet()) {
+            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet() && vngAutoScaleSpec.getAutoHeadroomPercentage() != null) {
                 autoScaleBuilder.setAutoHeadroomPercentage(vngAutoScaleSpec.getAutoHeadroomPercentage());
             }
 
