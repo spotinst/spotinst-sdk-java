@@ -1042,11 +1042,11 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public Elastigroup importASG(ElastigroupImportASGRequest importASGRequest, String asgName, String dryRun, String region) {
+    public Elastigroup importASG(ImportASGRequest importASGRequest, String asgName, String dryRun, String region) {
 
         Elastigroup importASG;
 
-        ElastigroupImportASG elastigroupImportASG = importASGRequest.getElastigroupImportASG();
+        ImportASG elastigroupImportASG = importASGRequest.getImportASG();
 
         RepoGenericResponse<Elastigroup> importASGResponse =
                 getSpotinstElastigroupRepo().importASG(elastigroupImportASG, asgName, dryRun, region, authToken, account);

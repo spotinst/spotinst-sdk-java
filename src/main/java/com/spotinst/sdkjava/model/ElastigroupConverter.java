@@ -3161,27 +3161,27 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static ApiElastigroupImportASG toDal(ElastigroupImportASG elastigroupImportASG) {
-        ApiElastigroupImportASG retVal = null;
+    public static ApiImportASG toDal(ImportASG importASG) {
+        ApiImportASG retVal = null;
 
-        if (elastigroupImportASG != null) {
+        if (importASG != null) {
 
-            retVal = new ApiElastigroupImportASG();
+            retVal = new ApiImportASG();
 
-            if (elastigroupImportASG.isProductSet()) {
-                retVal.setProduct(elastigroupImportASG.getProduct());
+            if (importASG.isProductSet()) {
+                retVal.setProduct(importASG.getProduct());
             }
 
-            if (elastigroupImportASG.isSpotInstanceTypesSet()) {
-                retVal.setSpotInstanceTypes(elastigroupImportASG.getSpotInstanceTypes());
+            if (importASG.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(importASG.getSpotInstanceTypes());
             }
 
-            if (elastigroupImportASG.isNameSet()) {
-                retVal.setName(elastigroupImportASG.getName());
+            if (importASG.isNameSet()) {
+                retVal.setName(importASG.getName());
             }
 
-            if (elastigroupImportASG.isAvailabilityVsCostSet()) {
-                retVal.setAvailabilityVsCost(elastigroupImportASG.getAvailabilityVsCost());
+            if (importASG.isAvailabilityVsCostSet()) {
+                retVal.setAvailabilityVsCost(importASG.getAvailabilityVsCost());
             }
 
         }
@@ -3189,12 +3189,12 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static ElastigroupImportASG toBl(
-            ApiElastigroupImportASG elastigroupImportASG) {
-        ElastigroupImportASG retVal = null;
+    public static ImportASG toBl(
+            ApiImportASG elastigroupImportASG) {
+        ImportASG retVal = null;
 
         if (elastigroupImportASG != null) {
-            retVal = new ElastigroupImportASG();
+            retVal = new ImportASG();
 
             if (elastigroupImportASG.isProductSet()) {
                 retVal.setProduct(elastigroupImportASG.getProduct());

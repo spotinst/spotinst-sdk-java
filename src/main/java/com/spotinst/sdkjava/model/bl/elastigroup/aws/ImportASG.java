@@ -17,7 +17,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ElastigroupImportASG implements IPartialUpdateEntity {
+public class ImportASG implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>               isSet;
@@ -30,7 +30,7 @@ public class ElastigroupImportASG implements IPartialUpdateEntity {
 
     //region Constructor
 
-    public ElastigroupImportASG() {
+    public ImportASG() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -86,55 +86,53 @@ public class ElastigroupImportASG implements IPartialUpdateEntity {
     //region Builder class
     public static class Builder {
         //region Members
-        private ElastigroupImportASG elastigroupImportASG;
+        private ImportASG importASG;
 
         //endregion
 
 
         private Builder() {
-            this.elastigroupImportASG = new ElastigroupImportASG();
+            this.importASG = new ImportASG();
         }
 
         public static Builder get() {
-            ElastigroupImportASG.Builder builder = new Builder();
+            ImportASG.Builder builder = new Builder();
             return builder;
         }
 
         //region Build methods
         public Builder setProduct(final String product) {
-            elastigroupImportASG.setProduct(product);
+            importASG.setProduct(product);
             return this;
         }
 
         public Builder setSpotInstanceTypes(List<String> spotInstanceTypes) {
-            elastigroupImportASG.setSpotInstanceTypes(spotInstanceTypes);
+            importASG.setSpotInstanceTypes(spotInstanceTypes);
             return this;
         }
 
         public Builder setName(final String name) {
-            elastigroupImportASG.setName(name);
+            importASG.setName(name);
             return this;
         }
 
         public Builder setAvailabilityVsCost(final String availabilityVsCost) {
-            elastigroupImportASG.setAvailabilityVsCost(availabilityVsCost);
+            importASG.setAvailabilityVsCost(availabilityVsCost);
             return this;
         }
 
-        public ElastigroupImportASG build() {
+        public ImportASG build() {
             // Validations
-            return elastigroupImportASG;
+            return importASG;
         }
         //endregion
     }
     //endregion
 
-
     //region isSet methods
     // Is name Set boolean method
     @JsonIgnore
-    public boolean isProductSet() {
-        return isSet.contains("product");
+    public boolean isProductSet() { return isSet.contains("product");
     }
 
     // Is spotInstanceTypes Set boolean method

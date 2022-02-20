@@ -780,7 +780,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Elastigroup> importASG(ElastigroupImportASG elastigroupImportASG, String asgName, String dryRun, String region, String authToken, String account) {
+    public RepoGenericResponse<Elastigroup> importASG(ImportASG elastigroupImportASG, String asgName, String dryRun, String region, String authToken, String account) {
         RepoGenericResponse<Elastigroup> retVal;
 
         try {

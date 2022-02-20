@@ -17,7 +17,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiElastigroupImportASG implements IPartialUpdateEntity {
+public class ApiImportASG implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>               isSet;
@@ -29,7 +29,7 @@ public class ApiElastigroupImportASG implements IPartialUpdateEntity {
 
     //region Constructor
 
-    public ApiElastigroupImportASG() {
+    public ApiImportASG() {
         isSet = new HashSet<>();
     }
     //endregion

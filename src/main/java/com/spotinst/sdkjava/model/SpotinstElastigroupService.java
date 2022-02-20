@@ -1580,8 +1580,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static ApiElastigroup importASG(ElastigroupImportASG request, String asgName, String dryRun, String region,
-                                                   String authToken, String account) {
+    public static ApiElastigroup importASG(ImportASG request, String asgName, String dryRun, String region,
+                                           String authToken, String account) {
 
         ApiElastigroup retVal = null;
 
@@ -1619,7 +1619,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/autoScalingGroup/import", apiEndpoint);
 
         // Write to json
-        Map<String, ElastigroupImportASG> groupRequest = new HashMap<>();
+        Map<String, ImportASG> groupRequest = new HashMap<>();
         groupRequest.put("group", request);
         String body = JsonMapper.toJson(groupRequest);
 
