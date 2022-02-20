@@ -11,6 +11,7 @@ public class K8sVngAutoScaleSpec {
     @JsonIgnore
     private Set<String>                 isSet;
     private List<K8sVngHeadroomSpec>    headrooms;
+    private Integer                     autoHeadroomPercentage;
 
     private K8sVngAutoScaleSpec() {
         isSet = new HashSet<>();
@@ -33,6 +34,15 @@ public class K8sVngAutoScaleSpec {
         this.headrooms = headrooms;
     }
 
+    public Integer getAutoHeadroomPercentage() {
+        return autoHeadroomPercentage;
+    }
+
+    public void setAutoHeadroomPercentage(Integer autoHeadroomPercentage) {
+        isSet.add("autoHeadroomPercentage");
+        this.autoHeadroomPercentage = autoHeadroomPercentage;
+    }
+
     public static class Builder {
         private K8sVngAutoScaleSpec autoScale;
 
@@ -49,6 +59,11 @@ public class K8sVngAutoScaleSpec {
             return this;
         }
 
+        public Builder setAutoHeadroomPercentage(Integer autoHeadroomPercentage) {
+            autoScale.setAutoHeadroomPercentage(autoHeadroomPercentage);
+            return this;
+        }
+
         public K8sVngAutoScaleSpec build() {
             return autoScale;
         }
@@ -57,5 +72,10 @@ public class K8sVngAutoScaleSpec {
     @JsonIgnore
     public boolean isHeadroomSet() {
         return isSet.contains("headrooms");
+    }
+
+    @JsonIgnore
+    public boolean isAutoHeadroomPercentageSet() {
+        return isSet.contains("autoHeadroomPercentage");
     }
 }

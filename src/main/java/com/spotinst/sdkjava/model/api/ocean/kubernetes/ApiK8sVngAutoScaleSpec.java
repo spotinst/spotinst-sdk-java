@@ -17,7 +17,8 @@ public class ApiK8sVngAutoScaleSpec implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                         isSet;
-    private List<ApiK8sVngHeadroomSpec>  headrooms;
+    private List<ApiK8sVngHeadroomSpec>         headrooms;
+    private Integer                             autoHeadroomPercentage;
 
     public ApiK8sVngAutoScaleSpec() {
         isSet = new HashSet<>();
@@ -40,8 +41,22 @@ public class ApiK8sVngAutoScaleSpec implements IPartialUpdateEntity {
         this.headrooms = headrooms;
     }
 
+    public Integer getAutoHeadroomPercentage() {
+        return autoHeadroomPercentage;
+    }
+
+    public void setAutoHeadroomPercentage(Integer autoHeadroomPercentage) {
+        isSet.add("autoHeadroomPercentage");
+        this.autoHeadroomPercentage = autoHeadroomPercentage;
+    }
+
     @JsonIgnore
     public boolean isHeadroomSet() {
         return isSet.contains("headrooms");
+    }
+
+    @JsonIgnore
+    public boolean isAutoHeadroomPercentageSet() {
+        return isSet.contains("autoHeadroomPercentage");
     }
 }
