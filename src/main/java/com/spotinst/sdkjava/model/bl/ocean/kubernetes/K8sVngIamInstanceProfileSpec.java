@@ -63,7 +63,7 @@ public class K8sVngIamInstanceProfileSpec {
         }
 
         public Builder setName(final String name) {
-            iamInstanceProfile.setArn(name);
+            iamInstanceProfile.setName(name);
             return this;
         }
 

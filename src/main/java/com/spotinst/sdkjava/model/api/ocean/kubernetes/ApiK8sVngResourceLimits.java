@@ -16,6 +16,7 @@ public class ApiK8sVngResourceLimits implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                isSet;
     private Integer                    maxInstanceCount;
+    private Integer                    minInstanceCount;
 
     public ApiK8sVngResourceLimits() {
         isSet = new HashSet<>();
@@ -38,8 +39,22 @@ public class ApiK8sVngResourceLimits implements IPartialUpdateEntity {
         this.maxInstanceCount = maxInstanceCount;
     }
 
+    public Integer getMinInstanceCount() {
+        return minInstanceCount;
+    }
+
+    public void setMinInstanceCount(Integer minInstanceCount) {
+        isSet.add("minInstanceCount");
+        this.minInstanceCount = minInstanceCount;
+    }
+
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {
         return isSet.contains("maxInstanceCount");
+    }
+
+    @JsonIgnore
+    public boolean isMinInstanceCountSet() {
+        return isSet.contains("minInstanceCount");
     }
 }

@@ -26,9 +26,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                            String account);
 
-    RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> enterInstanceStandby(String instanceId, String authToken, String account);
 
-    RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> exitInstanceStandby(String instanceId, String authToken, String account);
 
     RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
                                                              String authToken, String account);
