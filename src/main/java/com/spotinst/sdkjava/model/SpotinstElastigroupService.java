@@ -1580,4 +1580,47 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
+    public static List<ApiElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region, String authToken, String account) {
+
+        List<ApiElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add region Query param
+        if (region != null) {
+            queryParams.put("region", region);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/spotType", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        ElastigroupGetInstanceTypesByRegionApiResponse
+                InstanceTypesResponse = getCastedResponse(response, ElastigroupGetInstanceTypesByRegionApiResponse.class);
+
+        if (InstanceTypesResponse.getResponse().getCount() > 0) {
+            getInstanceTypesByRegionResponse = InstanceTypesResponse.getResponse().getItems();
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
 }

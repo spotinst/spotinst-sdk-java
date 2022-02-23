@@ -3161,4 +3161,19 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ElastigroupGetInstanceTypesByRegionResponse toBl(
+            ApiElastigroupGetInstanceTypesByRegionResponse elastigroupGetInstanceTypesByRegion) {
+        ElastigroupGetInstanceTypesByRegionResponse retVal = null;
+
+        if (elastigroupGetInstanceTypesByRegion != null) {
+            retVal = new ElastigroupGetInstanceTypesByRegionResponse();
+
+            if (elastigroupGetInstanceTypesByRegion.isInstanceTypeSet()) {
+                retVal.setInstanceType(elastigroupGetInstanceTypesByRegion.getInstanceType());
+            }
+        }
+        return retVal;
+
+    }
+
 }
