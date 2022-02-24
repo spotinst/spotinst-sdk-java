@@ -175,7 +175,7 @@ public class ElastigroupUsageExample {
 
         //Get Instance types by region
         System.out.println("----------Get Instance Types by region--------------");
-        List<ElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
+        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
 
 
     }
@@ -1100,13 +1100,13 @@ public class ElastigroupUsageExample {
         return elastigroupGetLogsResponse;
     }
 
-    private static List<ElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegion(SpotinstElastigroupClient client, String region) {
+    private static List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(SpotinstElastigroupClient client, String region) {
 
 
-        List<ElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse =
+        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse =
                 client.getInstanceTypesByRegion(region);
 
-        for (ElastigroupGetInstanceTypesByRegionResponse instanceType : getInstanceTypesByRegionResponse) {
+        for (GetInstanceTypesByRegionResponse instanceType : getInstanceTypesByRegionResponse) {
             System.out.println(String.format("InstanceType: %s", instanceType.getInstanceType()));
         }
 

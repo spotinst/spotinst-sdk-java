@@ -1,21 +1,24 @@
-package com.spotinst.sdkjava.model.bl.elastigroup.aws;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ElastigroupGetInstanceTypesByRegionResponse {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiGetInstanceTypesByRegionResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                        isSet;
     private String                                             instanceType;
 
-    public ElastigroupGetInstanceTypesByRegionResponse() {
+    public ApiGetInstanceTypesByRegionResponse() {
         isSet = new HashSet<>();
     }
 
@@ -34,29 +37,6 @@ public class ElastigroupGetInstanceTypesByRegionResponse {
     public void setInstanceType(String instanceType) {
         isSet.add("instanceType");
         this.instanceType = instanceType;
-    }
-
-    public static class Builder {
-        private ElastigroupGetInstanceTypesByRegionResponse elastigroupGetDeploymentStatusInstances;
-
-        private Builder() {
-            this.elastigroupGetDeploymentStatusInstances = new ElastigroupGetInstanceTypesByRegionResponse();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        public ElastigroupGetInstanceTypesByRegionResponse.Builder setInstanceType(final String instanceType) {
-            elastigroupGetDeploymentStatusInstances.setInstanceType(instanceType);
-            return this;
-        }
-
-        public ElastigroupGetInstanceTypesByRegionResponse build() {
-            return elastigroupGetDeploymentStatusInstances;
-        }
-
     }
 
     @JsonIgnore

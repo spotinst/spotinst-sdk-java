@@ -1580,9 +1580,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static List<ApiElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region, String authToken, String account) {
+    public static List<ApiGetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region, String authToken, String account) {
 
-        List<ApiElastigroupGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
+        List<ApiGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1612,11 +1612,11 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Handle the response.
 
-        ElastigroupGetInstanceTypesByRegionApiResponse
-                InstanceTypesResponse = getCastedResponse(response, ElastigroupGetInstanceTypesByRegionApiResponse.class);
+        GetInstanceTypesByRegionApiResponse
+                instanceTypesResponse = getCastedResponse(response, GetInstanceTypesByRegionApiResponse.class);
 
-        if (InstanceTypesResponse.getResponse().getCount() > 0) {
-            getInstanceTypesByRegionResponse = InstanceTypesResponse.getResponse().getItems();
+        if (instanceTypesResponse.getResponse().getCount() > 0) {
+            getInstanceTypesByRegionResponse = instanceTypesResponse.getResponse().getItems();
         }
 
         return getInstanceTypesByRegionResponse;

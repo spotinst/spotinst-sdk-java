@@ -101,5 +101,5 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<List<ElastigroupGetElastilogResponse>> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId, String authToken);
 
-    RepoGenericResponse<List<ElastigroupGetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account);
+    RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account);
 }

@@ -14,7 +14,6 @@ import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationR
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
-import com.spotinst.sdkjava.model.responses.elastigroup.aws.ElastigroupGetElastilogApiResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -781,14 +780,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupGetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupGetInstanceTypesByRegionResponse>> retVal;
+    public RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> retVal;
 
         try {
 
-            List<ApiElastigroupGetInstanceTypesByRegionResponse> getInstanceTypes = SpotinstElastigroupService
+            List<ApiGetInstanceTypesByRegionResponse> getInstanceTypes = SpotinstElastigroupService
                     .getInstanceTypesByRegion(region, authToken, account);
-            List<ElastigroupGetInstanceTypesByRegionResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+            List<GetInstanceTypesByRegionResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllInstanceTypes);
