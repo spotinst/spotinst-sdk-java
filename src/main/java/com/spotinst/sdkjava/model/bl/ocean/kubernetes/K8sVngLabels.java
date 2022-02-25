@@ -63,7 +63,7 @@ public class K8sVngLabels {
         }
 
         public Builder setValue(final String value) {
-            labels.setKey(value);
+            labels.setValue(value);
             return this;
         }
 
