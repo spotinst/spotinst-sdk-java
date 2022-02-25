@@ -1051,7 +1051,7 @@ public class SpotinstElastigroupClient {
                 getSpotinstElastigroupRepo().importASG(importASGRequest, authToken);
 
         if(importASGResponse.isRequestSucceed()){
-            elastigroup =importASGResponse.getValue();
+            elastigroup = importASGResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = importASGResponse.getHttpExceptions();
