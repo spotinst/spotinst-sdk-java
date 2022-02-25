@@ -1042,17 +1042,17 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public Elastigroup importASG(ImportASGRequest importASGRequest, String asgName, String dryRun, String region) {
+    public Elastigroup importASG(ImportASGRequest importASGRequest) {
 
-        Elastigroup importASG;
+        Elastigroup elastigroup;
 
-        ImportASG elastigroupImportASG = importASGRequest.getImportASG();
+        //ImportASG importASG = importASGRequest.getImportASG();
 
         RepoGenericResponse<Elastigroup> importASGResponse =
-                getSpotinstElastigroupRepo().importASG(elastigroupImportASG, asgName, dryRun, region, authToken, account);
+                getSpotinstElastigroupRepo().importASG(importASGRequest, authToken);
 
         if(importASGResponse.isRequestSucceed()){
-            importASG =importASGResponse.getValue();
+            elastigroup =importASGResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = importASGResponse.getHttpExceptions();
@@ -1063,7 +1063,7 @@ public class SpotinstElastigroupClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return importASG;
+        return elastigroup;
 
     }
 

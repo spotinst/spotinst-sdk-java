@@ -9,6 +9,11 @@ public class ImportASGRequest {
 
     private ImportASG importASG;
 
+    private String    accountId;
+    private String    autoScalingGroupName;
+    private String    dryRun;
+    private String    region;
+
     private ImportASGRequest() {
     }
 
@@ -18,6 +23,36 @@ public class ImportASGRequest {
 
     public void setImportASG(ImportASG importASG) {
         this.importASG = importASG;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public String getAutoScalingGroupName() {
+        return autoScalingGroupName;
+    }
+
+    public void setAutoScalingGroupName(String autoScalingGroupName) { this.autoScalingGroupName = autoScalingGroupName; }
+
+    public String getDryRun() {
+        return dryRun;
+    }
+
+    public void setDryRun(String dryRun) {
+        this.dryRun = dryRun;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public static class Builder {
@@ -32,8 +67,28 @@ public class ImportASGRequest {
             return builder;
         }
 
-        public Builder setElastigroupImportASG(ImportASG importASG) {
+        public Builder setImportASG(ImportASG importASG) {
             importASGRequest.setImportASG(importASG);
+            return this;
+        }
+
+        public Builder setAccountId(final String accountId) {
+            importASGRequest.setAccountId(accountId);
+            return this;
+        }
+
+        public Builder setAutoScalingGroupName(final String autoScalingGroupName) {
+            importASGRequest.setAutoScalingGroupName(autoScalingGroupName);
+            return this;
+        }
+
+        public Builder setDryRun(final String dryRun) {
+            importASGRequest.setDryRun(dryRun);
+            return this;
+        }
+
+        public Builder setRegion(final String region) {
+            importASGRequest.setRegion(region);
             return this;
         }
 

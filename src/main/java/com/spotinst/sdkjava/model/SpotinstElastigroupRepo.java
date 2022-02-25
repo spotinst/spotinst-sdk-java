@@ -10,10 +10,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSusp
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroupConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -780,13 +777,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Elastigroup> importASG(ImportASG elastigroupImportASG, String asgName, String dryRun, String region, String authToken, String account) {
+    public RepoGenericResponse<Elastigroup> importASG(ImportASGRequest importASGRequest, String authToken) {
         RepoGenericResponse<Elastigroup> retVal;
 
         try {
 
             ApiElastigroup importASG = SpotinstElastigroupService
-                    .importASG(elastigroupImportASG, asgName, dryRun, region, authToken, account);
+                    .importASG(importASGRequest, authToken);
             Elastigroup importedASG = ElastigroupConverter.toBl(importASG);
 
             retVal = new RepoGenericResponse<>(importedASG);

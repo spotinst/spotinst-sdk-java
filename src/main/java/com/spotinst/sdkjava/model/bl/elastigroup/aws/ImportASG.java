@@ -16,8 +16,7 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ImportASG implements IPartialUpdateEntity {
+public class ImportASG {
     //region Members
     @JsonIgnore
     private Set<String>               isSet;

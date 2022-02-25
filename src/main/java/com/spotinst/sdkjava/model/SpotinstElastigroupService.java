@@ -12,6 +12,7 @@ import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLock
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ImportASGRequest;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.*;
 import org.apache.http.HttpStatus;
 
@@ -1464,7 +1465,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         // Build URI
         String uri = String.format("%s/aws/ec2/group/%s/statefulInstance", apiEndpoint, elastigroupId);
-        
+
         // Send the request.
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
@@ -1580,10 +1581,11 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static ApiElastigroup importASG(ImportASG request, String asgName, String dryRun, String region,
-                                           String authToken, String account) {
+    public static ApiElastigroup importASG(ImportASGRequest importASGRequest, String authToken) {
 
         ApiElastigroup retVal = null;
+
+        ImportASG importASG = importASGRequest.getImportASG();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1593,23 +1595,24 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
-        if (account != null) {
-            queryParams.put("accountId", account);
+        if (importASGRequest.getAccountId() != null) {
+            queryParams.put("accountId", importASGRequest.getAccountId());
         }
 
+
         // Add auto scaling group name Query param
-        if (asgName != null) {
-            queryParams.put("autoScalingGroupName", asgName);
+        if (importASGRequest.getAutoScalingGroupName() != null) {
+            queryParams.put("autoScalingGroupName", importASGRequest.getAutoScalingGroupName());
         }
 
         // Add dry run Query param
-        if (dryRun != null) {
-            queryParams.put("dryRun", dryRun);
+        if (importASGRequest.getDryRun() != null) {
+            queryParams.put("dryRun", importASGRequest.getDryRun());
         }
 
         // Add region Query param
-        if (region != null) {
-            queryParams.put("region", region);
+        if (importASGRequest.getRegion() != null) {
+            queryParams.put("region", importASGRequest.getRegion());
         }
 
         // Get the headers
@@ -1619,9 +1622,12 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/autoScalingGroup/import", apiEndpoint);
 
         // Write to json
-        Map<String, ImportASG> groupRequest = new HashMap<>();
-        groupRequest.put("group", request);
-        String body = JsonMapper.toJson(groupRequest);
+        String body = null;
+        if(importASG != null) {
+            Map<String, ImportASG> groupRequest = new HashMap<>();
+            groupRequest.put("group", importASG);
+             body = JsonMapper.toJson(groupRequest);
+        }
 
         // Send the request.
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);

@@ -3189,29 +3189,4 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static ImportASG toBl(
-            ApiImportASG elastigroupImportASG) {
-        ImportASG retVal = null;
-
-        if (elastigroupImportASG != null) {
-            retVal = new ImportASG();
-
-            if (elastigroupImportASG.isProductSet()) {
-                retVal.setProduct(elastigroupImportASG.getProduct());
-            }
-            if (elastigroupImportASG.isSpotInstanceTypesSet()) {
-                retVal.setSpotInstanceTypes(elastigroupImportASG.getSpotInstanceTypes());
-            }
-            if (elastigroupImportASG.isNameSet()) {
-                retVal.setName(elastigroupImportASG.getName());
-            }
-            if (elastigroupImportASG.isAvailabilityVsCostSet()) {
-                retVal.setAvailabilityVsCost(elastigroupImportASG.getAvailabilityVsCost());
-            }
-
-        }
-
-        return retVal;
-    }
-
 }
