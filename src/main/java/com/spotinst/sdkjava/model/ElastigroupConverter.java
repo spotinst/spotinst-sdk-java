@@ -3161,6 +3161,34 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiImportASG toDal(ImportASG importASG) {
+        ApiImportASG retVal = null;
+
+        if (importASG != null) {
+
+            retVal = new ApiImportASG();
+
+            if (importASG.isProductSet()) {
+                retVal.setProduct(importASG.getProduct());
+            }
+
+            if (importASG.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(importASG.getSpotInstanceTypes());
+            }
+
+            if (importASG.isNameSet()) {
+                retVal.setName(importASG.getName());
+            }
+
+            if (importASG.isAvailabilityVsCostSet()) {
+                retVal.setAvailabilityVsCost(importASG.getAvailabilityVsCost());
+            }
+
+        }
+
+        return retVal;
+    }
+  
     public static GetInstanceTypesByRegionResponse toBl(
             ApiGetInstanceTypesByRegionResponse getInstanceTypesByRegion) {
         GetInstanceTypesByRegionResponse retVal = null;
@@ -3173,7 +3201,4 @@ public class ElastigroupConverter {
             }
         }
         return retVal;
-
     }
-
-}
