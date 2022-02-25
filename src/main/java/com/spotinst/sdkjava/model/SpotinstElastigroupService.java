@@ -489,7 +489,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean enterInstanceStandby(String instanceId, String authToken,
-                                            String account) throws SpotinstHttpException {
+                                               String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
 
@@ -524,7 +524,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean exitInstanceStandby(String instanceId, String authToken,
-                                               String account) throws SpotinstHttpException {
+                                              String account) throws SpotinstHttpException {
         //Init retVal
         Boolean retVal = null;
 
@@ -1005,7 +1005,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static ApiElastigroupGetDeploymentStatusResponse getDeploymentStatus(String groupId, String deploymentId,
-                                                                        String authToken, String account) {
+                                                                                String authToken, String account) {
 
         ApiElastigroupGetDeploymentStatusResponse getDeploymentStatus = null;
 
@@ -1235,7 +1235,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
                 castedApiResponse = getCastedResponse(response, ElastigroupUpdateCapacityApiResponse.class);
 
         if (castedApiResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
-           retVal = true;
+            retVal = true;
         }
 
         return retVal;
@@ -1243,7 +1243,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static ApiElastigroup importEC2Instance(ElastigroupImportEC2Instance request, String instanceId, String region,
-                                                                            String authToken, String account) {
+                                                   String authToken, String account) {
 
         ApiElastigroup retVal = null;
 
@@ -1297,7 +1297,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean pauseStatefulInstance(String groupId, String statefulInstanceId,
-                                         String authToken, String account) {
+                                                String authToken, String account) {
 
         Boolean retVal = false;
 
@@ -1334,7 +1334,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean resumeStatefulInstance(String groupId, String statefulInstanceId,
-                                                String authToken, String account) {
+                                                 String authToken, String account) {
 
         Boolean retVal = false;
 
@@ -1371,7 +1371,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean recycleStatefulInstance(String groupId, String statefulInstanceId,
-                                                 String authToken, String account) {
+                                                  String authToken, String account) {
 
         Boolean retVal = false;
 
@@ -1408,7 +1408,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
     }
 
     public static Boolean deallocateStatefulInstance(String groupId, String statefulInstanceId,
-                                                  String authToken, String account) {
+                                                     String authToken, String account) {
 
         Boolean retVal = false;
 
@@ -1622,12 +1622,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/autoScalingGroup/import", apiEndpoint);
 
         // Write to json
-        String body = null;
-        if(importASG != null) {
-            Map<String, ImportASG> groupRequest = new HashMap<>();
-            groupRequest.put("group", importASG);
-             body = JsonMapper.toJson(groupRequest);
-        }
+        Map<String, ImportASG> groupRequest = new HashMap<>();
+        groupRequest.put("group", importASG);
+        String body = JsonMapper.toJson(groupRequest);
 
         // Send the request.
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);

@@ -99,8 +99,8 @@ public class ImportASGRequest {
 
     //region Json methods
     public String toJson() {
-        ApiImportASG elastigroupImportASGRequest = ElastigroupConverter.toDal(importASG);
-        String                        importASG              = JsonMapper.toJson(elastigroupImportASGRequest);
+        ApiImportASG apiImportASG = ElastigroupConverter.toDal(importASG);
+        String       importASG    = JsonMapper.toJson(apiImportASG);
         return importASG;
     }
 
