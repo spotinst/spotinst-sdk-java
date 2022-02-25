@@ -1599,7 +1599,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
             queryParams.put("accountId", importASGRequest.getAccountId());
         }
 
-
         // Add auto scaling group name Query param
         if (importASGRequest.getAutoScalingGroupName() != null) {
             queryParams.put("autoScalingGroupName", importASGRequest.getAutoScalingGroupName());

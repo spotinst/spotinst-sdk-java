@@ -1046,8 +1046,6 @@ public class SpotinstElastigroupClient {
 
         Elastigroup elastigroup;
 
-        //ImportASG importASG = importASGRequest.getImportASG();
-
         RepoGenericResponse<Elastigroup> importASGResponse =
                 getSpotinstElastigroupRepo().importASG(importASGRequest, authToken);
 
