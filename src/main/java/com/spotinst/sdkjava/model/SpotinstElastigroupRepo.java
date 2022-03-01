@@ -10,10 +10,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSusp
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroupConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -779,4 +776,43 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<Elastigroup> importASG(ImportASGRequest importASGRequest, String authToken) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+
+            ApiElastigroup importASG = SpotinstElastigroupService
+                    .importASG(importASGRequest, authToken);
+            Elastigroup importedASG = ElastigroupConverter.toBl(importASG);
+
+            retVal = new RepoGenericResponse<>(importedASG);
+          } 
+          catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+   @Override  
+   public RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> retVal;
+
+        try {
+
+            List<ApiGetInstanceTypesByRegionResponse> getInstanceTypes = SpotinstElastigroupService
+                    .getInstanceTypesByRegion(region, authToken, account);
+            List<GetInstanceTypesByRegionResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllInstanceTypes);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }

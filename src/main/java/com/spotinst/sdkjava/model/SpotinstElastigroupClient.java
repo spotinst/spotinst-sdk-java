@@ -1041,4 +1041,52 @@ public class SpotinstElastigroupClient {
         return getLogs;
 
     }
+
+
+    public Elastigroup importASG(ImportASGRequest importASGRequest) {
+
+        Elastigroup elastigroup;
+
+        RepoGenericResponse<Elastigroup> importASGResponse =
+                getSpotinstElastigroupRepo().importASG(importASGRequest, authToken);
+
+        if(importASGResponse.isRequestSucceed()){
+            elastigroup = importASGResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import ASG. Code: %s. Message: %s.",
+                     httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        
+        return elastigroup;
+    }
+  
+    public List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region) {
+
+        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getInstanceTypesByRegion(region, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the instance types by region. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            
+          throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
 }

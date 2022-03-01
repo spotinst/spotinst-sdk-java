@@ -144,12 +144,16 @@ public class K8sVngConverter {
         if (vngAutoScaleSpec != null) {
             retval = new ApiK8sVngAutoScaleSpec();
 
-            if (vngAutoScaleSpec.isHeadroomSet()) {
+            if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<ApiK8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
                                                                         .stream()
                                                                         .map(K8sVngConverter::toDal)
                                                                         .collect(Collectors.toList());
                 retval.setHeadrooms(headrooms);
+            }
+
+            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet() && vngAutoScaleSpec.getAutoHeadroomPercentage() != null) {
+                retval.setAutoHeadroomPercentage(vngAutoScaleSpec.getAutoHeadroomPercentage());
             }
         }
 
@@ -336,6 +340,10 @@ public class K8sVngConverter {
             if (iamInstanceProfileSpec.isArnSet()) {
                 retVal.setArn(iamInstanceProfileSpec.getArn());
             }
+
+            if (iamInstanceProfileSpec.isNameSet()) {
+                retVal.setName(iamInstanceProfileSpec.getName());
+            }
         }
 
         return retVal;
@@ -349,6 +357,10 @@ public class K8sVngConverter {
 
             if (k8sVngResourceLimits.isMaxInstanceCountSet()) {
                 retVal.setMaxInstanceCount(k8sVngResourceLimits.getMaxInstanceCount());
+            }
+
+            if (k8sVngResourceLimits.isMinInstanceCountSet()) {
+                retVal.setMinInstanceCount(k8sVngResourceLimits.getMinInstanceCount());
             }
         }
 
@@ -534,13 +546,18 @@ public class K8sVngConverter {
         if (vngAutoScaleSpec != null) {
             K8sVngAutoScaleSpec.Builder autoScaleBuilder = K8sVngAutoScaleSpec.Builder.get();
 
-            if (vngAutoScaleSpec.isHeadroomSet()) {
+            if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<K8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
                                                                      .stream()
                                                                      .map(K8sVngConverter::toBl)
                                                                      .collect(Collectors.toList());
                 autoScaleBuilder.setHeadrooms(headrooms);
             }
+
+            if (vngAutoScaleSpec.isAutoHeadroomPercentageSet() && vngAutoScaleSpec.getAutoHeadroomPercentage() != null) {
+                autoScaleBuilder.setAutoHeadroomPercentage(vngAutoScaleSpec.getAutoHeadroomPercentage());
+            }
+
             retval = autoScaleBuilder.build();
         }
         return retval;
@@ -747,6 +764,10 @@ public class K8sVngConverter {
                 iamInstanceProfileSpecBuilder.setArn(iamInstanceProfileSpec.getArn());
             }
 
+            if (iamInstanceProfileSpec.isNameSet()) {
+                iamInstanceProfileSpecBuilder.setName(iamInstanceProfileSpec.getName());
+            }
+
             retVal = iamInstanceProfileSpecBuilder.build();
         }
 
@@ -781,6 +802,10 @@ public class K8sVngConverter {
 
             if (apiK8sVngResourceLimits.isMaxInstanceCountSet()) {
                 vngResourceLimitsBuilder.setMaxInstanceCount((apiK8sVngResourceLimits.getMaxInstanceCount()));
+            }
+
+            if (apiK8sVngResourceLimits.isMinInstanceCountSet()) {
+                vngResourceLimitsBuilder.setMinInstanceCount((apiK8sVngResourceLimits.getMinInstanceCount()));
             }
 
             retVal = vngResourceLimitsBuilder.build();
