@@ -1089,4 +1089,28 @@ public class SpotinstElastigroupClient {
 
     }
 
+    public List<GetInstanceTypesByRegionResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
+
+        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getSuggestedInstanceTypes(suggestedInstanceTypeRequest, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the suggested instance types. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
 }

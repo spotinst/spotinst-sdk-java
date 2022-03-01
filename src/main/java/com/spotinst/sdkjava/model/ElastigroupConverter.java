@@ -1493,6 +1493,48 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiGetSuggestedInstanceType toDal(GetSuggestedInstanceType suggestedInstanceType) {
+        ApiGetSuggestedInstanceType apisuggestedInstanceType = null;
+
+        if (suggestedInstanceType != null) {
+            apisuggestedInstanceType = new ApiGetSuggestedInstanceType();
+
+            if (suggestedInstanceType.isRegionSet()) {
+                apisuggestedInstanceType.setRegion(suggestedInstanceType.getRegion());
+            }
+            if (suggestedInstanceType.isBaselineInstanceTypeSet() && suggestedInstanceType.getBaselineInstanceType() != null) {
+                apisuggestedInstanceType.setBaselineInstanceType(suggestedInstanceType.getBaselineInstanceType());
+            }
+            if (suggestedInstanceType.isRequiredVCpuSet() && suggestedInstanceType.getRequiredVCpu() != null) {
+                apisuggestedInstanceType.setRequiredVCpu(toDal(suggestedInstanceType.getRequiredVCpu()));
+            }
+            if (suggestedInstanceType.isRequiredMemoryGibSet() && suggestedInstanceType.getRequiredMemoryGib() != null) {
+                apisuggestedInstanceType.setRequiredMemoryGib(toDal(suggestedInstanceType.getRequiredMemoryGib()));
+            }
+        }
+
+        return apisuggestedInstanceType;
+    }
+
+    private static ApiRequiredVCpuRequiredMemoryGib toDal(RequiredVCpuRequiredMemoryGib requiredVCpuMemory) {
+        ApiRequiredVCpuRequiredMemoryGib retVal = null;
+
+        if (requiredVCpuMemory != null) {
+
+            retVal = new ApiRequiredVCpuRequiredMemoryGib();
+
+            if (requiredVCpuMemory.isMinimumSet()) {
+                retVal.setMinimum(requiredVCpuMemory.getMinimum());
+            }
+
+            if (requiredVCpuMemory.isMaximumSet()) {
+                retVal.setMaximum(requiredVCpuMemory.getMaximum());
+            }
+        }
+
+        return retVal;
+    }
+
     //endregion
 
     //region DAL -> BL

@@ -9,10 +9,7 @@ import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ImportASGRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.*;
 import org.apache.http.HttpStatus;
 
@@ -1680,5 +1677,48 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static List<ApiGetInstanceTypesByRegionResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest, String authToken, String account) {
+
+        List<ApiGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
+        GetSuggestedInstanceType suggestedInstanceTypeReq = suggestedInstanceTypeRequest.getSuggestedInstanceType();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instanceTypeRecommendation", apiEndpoint);
+
+        // Write to json
+        Map<String, GetSuggestedInstanceType> suggestedInstanceType = new HashMap<>();
+        suggestedInstanceType.put("requirements", suggestedInstanceTypeReq);
+        String body = JsonMapper.toJson(suggestedInstanceType);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        GetInstanceTypesByRegionApiResponse
+                instanceTypesResponse = getCastedResponse(response, GetInstanceTypesByRegionApiResponse.class);
+
+        if (instanceTypesResponse.getResponse().getCount() > 0) {
+            getInstanceTypesByRegionResponse = instanceTypesResponse.getResponse().getItems();
+        }
+
+        return getInstanceTypesByRegionResponse;
     }
 }

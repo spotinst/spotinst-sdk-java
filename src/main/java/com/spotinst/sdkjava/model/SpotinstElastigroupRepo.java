@@ -815,4 +815,25 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceType, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> retVal;
+
+        try {
+
+            List<ApiGetInstanceTypesByRegionResponse> getInstanceTypes = SpotinstElastigroupService
+                    .getSuggestedInstanceTypes(suggestedInstanceType, authToken, account);
+            List<GetInstanceTypesByRegionResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllInstanceTypes);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }
