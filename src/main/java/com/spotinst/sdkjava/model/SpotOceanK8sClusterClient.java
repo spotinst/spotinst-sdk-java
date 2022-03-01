@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,6 +158,52 @@ public class SpotOceanK8sClusterClient {
         }
 
         return getK8sClusterHeartBeatStatus;
+
+    }
+
+    public OceanK8sCluster importASGToOceanCluster(ImportAsgToClusterInstanceTypes importAsg, String autoScalingGroupName, String region) {
+
+        OceanK8sCluster importASGToCluster;
+
+        RepoGenericResponse<OceanK8sCluster> importASGToOceanClusterResponse =
+                getSpotOceanK8sClusterRepo().importASGToOceanCluster(importAsg, autoScalingGroupName, region, authToken, account);
+
+        if(importASGToOceanClusterResponse.isRequestSucceed()){
+            importASGToCluster =importASGToOceanClusterResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGToOceanClusterResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import ASG to ocean cluster. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return importASGToCluster;
+
+    }
+
+    public List<K8sClusterFetchElastilogResponse> fetchElastilog(K8sClusterFetchElastilogRequest elastigroupGetElastilogRequest, String clusterId) {
+
+        List<K8sClusterFetchElastilogResponse> getLogs;
+
+        RepoGenericResponse <List<K8sClusterFetchElastilogResponse>> getLogsResponse =
+                getSpotOceanK8sClusterRepo().fetchElastilog(elastigroupGetElastilogRequest, clusterId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the ocean EKS Elastilog. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
 
     }
 }

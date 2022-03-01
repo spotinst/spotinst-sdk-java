@@ -7,12 +7,17 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiGetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.GetK8sClusterHeartBeatStatusApiResponse;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sClusterFetchElastilogResponse;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterInstanceTypes;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
+import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sClusterFetchElastilogApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 public class SpotOceanK8sClusterService extends BaseSpotinstService {
 
@@ -241,6 +246,122 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         }
 
         return getClusterHeartBeatResponse;
+
+    }
+
+    public static ApiOceanK8sCluster importASGToOceanCluster(ImportAsgToClusterInstanceTypes importRequest, String autoScalingGroupName, String region, String authToken, String account) {
+
+        ApiOceanK8sCluster importASGToOceanCluster = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add autoScalingGroupName Query param
+        if (autoScalingGroupName != null) {
+            queryParams.put("autoScalingGroupName", autoScalingGroupName);
+        }
+
+        // Add region Query param
+        if (region != null) {
+            queryParams.put("region", region);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ImportAsgToClusterInstanceTypes> importClusterRequest = new HashMap<>();
+        importClusterRequest.put("cluster", importRequest);
+        String body = JsonMapper.toJson(importClusterRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/cluster/autoScalingGroup/import", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        ClusterApiResponse
+                importASGToClusterResponse = getCastedResponse(response, ClusterApiResponse.class);
+
+        if (importASGToClusterResponse.getResponse().getCount() > 0) {
+            importASGToOceanCluster = importASGToClusterResponse.getResponse().getItems().get(0);
+        }
+
+        return importASGToOceanCluster;
+
+    }
+
+    public static List<ApiK8sClusterFetchElastilogResponse> fetchElastilog(K8sClusterFetchElastilogRequest k8sClusterGetElastilogRequest, String clusterId, String authToken) {
+
+        List<ApiK8sClusterFetchElastilogResponse> getElastilogResponse = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (k8sClusterGetElastilogRequest.getAccountId() != null) {
+            queryParams.put("accountId", k8sClusterGetElastilogRequest.getAccountId());
+        }
+
+        // Add from date Query param
+        if (k8sClusterGetElastilogRequest.getFromDate() != null) {
+            queryParams.put("fromDate", k8sClusterGetElastilogRequest.getFromDate());
+        }
+
+        // Add limit Query param
+        if (k8sClusterGetElastilogRequest.getLimit() != null) {
+            queryParams.put("LIMIT", k8sClusterGetElastilogRequest.getLimit());
+        }
+
+        // Add resource Id Query param
+        if (k8sClusterGetElastilogRequest.getResourceId() != null) {
+            queryParams.put("resourceId", k8sClusterGetElastilogRequest.getResourceId());
+        }
+
+        // Add severity Query param
+        if (k8sClusterGetElastilogRequest.getSeverity() != null) {
+            queryParams.put("SEVERITY", k8sClusterGetElastilogRequest.getSeverity());
+        }
+
+        // Add to date Query param
+        if (k8sClusterGetElastilogRequest.getToDate() != null) {
+            queryParams.put("toDate", k8sClusterGetElastilogRequest.getToDate());
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/cluster/%s/log", apiEndpoint, clusterId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        K8sClusterFetchElastilogApiResponse
+                castedApiResponse = getCastedResponse(response, K8sClusterFetchElastilogApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0) {
+            getElastilogResponse = castedApiResponse.getResponse().getItems();
+        }
+
+        return getElastilogResponse;
 
     }
 }

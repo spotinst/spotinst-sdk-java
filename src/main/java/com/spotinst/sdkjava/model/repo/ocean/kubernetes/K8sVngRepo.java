@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.repo.ocean.kubernetes;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
 import com.spotinst.sdkjava.model.service.ocean.kubernetes.K8sVngSpecService;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
@@ -95,6 +96,41 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
             retVal = new RepoGenericResponse<>(k8sVngSpec);
         }
 		
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<K8sVngSpec> importASGToVng(K8sVngSpec importASGRequest, String autoScalingGroupName, String oceanId, String authToken, String account) {
+        RepoGenericResponse<K8sVngSpec> retVal;
+
+        try {
+            ApiK8sVngSpec apiImportASGToVng = K8sVngConverter.toDal(importASGRequest);
+            ApiK8sVngSpec apiImportASG = K8sVngSpecService.importASGToVng(apiImportASGToVng, autoScalingGroupName, oceanId, authToken, account);
+            K8sVngSpec ImportedK8sVngSpec = K8sVngConverter.toBl(apiImportASG);
+            retVal = new RepoGenericResponse<>(ImportedK8sVngSpec);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<K8sVngSpec> importCluterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importClusterVngRequest, String authToken) {
+        RepoGenericResponse<K8sVngSpec> retVal;
+
+        try {
+            ApiK8sVngSpec apiImportClusterVngToVng = K8sVngSpecService.importCluterVngToOceanVng(importClusterVngRequest, authToken);
+            K8sVngSpec ImportedK8sVngSpec = K8sVngConverter.toBl(apiImportClusterVngToVng);
+            retVal = new RepoGenericResponse<>(ImportedK8sVngSpec);
+        }
+
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
