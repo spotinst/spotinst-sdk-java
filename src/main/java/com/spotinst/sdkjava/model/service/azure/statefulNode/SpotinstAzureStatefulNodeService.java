@@ -4,12 +4,11 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusResponse;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeLogsResponse;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateChangeRequest;
-import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiGetStatusResponse;
-import com.spotinst.sdkjava.model.responses.azure.statefulNode.StatefulNodeApiResponse;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
+import com.spotinst.sdkjava.model.responses.azure.statefulNode.*;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -268,6 +267,194 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
+        }
+        return retVal;
+    }
+
+    public static ApiImportConfiguration importNode(ApiImportConfiguration nodeToImport, String authToken, String account) throws SpotinstHttpException {
+
+        ApiImportConfiguration retVal = null;
+
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiImportConfiguration> nodeRequest = new HashMap<>();
+        nodeRequest.put("statefulNodeImport", nodeToImport);
+        String body = JsonMapper.toJson(nodeRequest);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/import", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeImportApiResponse nodeApiResponse =
+                getCastedResponse(response, StatefulNodeImportApiResponse.class);
+
+        if (nodeApiResponse.getResponse().getCount() > 0) {
+            retVal = nodeApiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static ApiNodeImportStatusResponse getNodeImportStatus(String importId, String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiNodeImportStatusResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/import/%s/status", apiEndpoint, importId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeGetImportStatusApiResponse nodeImportStatusResponse =
+                getCastedResponse(response, StatefulNodeGetImportStatusApiResponse.class);
+
+        if (nodeImportStatusResponse.getResponse().getCount() > 0) {
+            retVal = nodeImportStatusResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static ApiStatefulNode getImportVmConfiguration(String vmName, String resourceGroupName, String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiStatefulNode retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/resourceGroup/%s/virtualMachine/%s/importConfiguration", apiEndpoint, resourceGroupName, vmName);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeApiResponse statefulNodeGetApiResponse =
+                getCastedResponse(response, StatefulNodeApiResponse.class);
+
+        if (statefulNodeGetApiResponse.getResponse().getCount() > 0) {
+            retVal = statefulNodeGetApiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static List<ApiStatefulNodeLogsResponse> getStatefulNodeLogs(StatefulNodeGetLogsRequest nodeLogsRequest, String nodeId, String authToken) {
+
+        List<ApiStatefulNodeLogsResponse> getNodeLogs = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (nodeLogsRequest.getAccountId() != null) {
+            queryParams.put("accountId", nodeLogsRequest.getAccountId());
+        }
+
+        // Add from date Query param
+        if (nodeLogsRequest.getFromDate() != null) {
+            queryParams.put("fromDate", nodeLogsRequest.getFromDate());
+        }
+
+        // Add to date Query param
+        if (nodeLogsRequest.getToDate() != null) {
+            queryParams.put("toDate", nodeLogsRequest.getToDate());
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/%s/log", apiEndpoint, nodeId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        StatefulNodeGetLogsApiResponse
+                castedApiResponse = getCastedResponse(response, StatefulNodeGetLogsApiResponse.class);
+
+        if (castedApiResponse.getResponse().getCount() > 0) {
+            getNodeLogs = castedApiResponse.getResponse().getItems();
+        }
+
+        return getNodeLogs;
+
+    }
+
+    public static ApiStatefulNodeResourceResponse getNodeResources(String nodeId, String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiStatefulNodeResourceResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/%s/resources", apiEndpoint, nodeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeGetResourcesApiResponse getNodeResourcesResponse =
+                getCastedResponse(response, StatefulNodeGetResourcesApiResponse.class);
+
+        if (getNodeResourcesResponse.getResponse().getCount() > 0) {
+            retVal = getNodeResourcesResponse.getResponse().getItems().get(0);
         }
         return retVal;
     }

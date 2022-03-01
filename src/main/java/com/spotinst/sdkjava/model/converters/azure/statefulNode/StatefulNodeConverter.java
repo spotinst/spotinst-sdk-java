@@ -682,6 +682,35 @@ public class StatefulNodeConverter {
         return retVal;
     }
 
+    public static ApiImportConfiguration toDal(ImportConfiguration importConfiguration) {
+        ApiImportConfiguration apiImportConfiguration = null;
+
+        if (importConfiguration != null) {
+            apiImportConfiguration = new ApiImportConfiguration();
+
+            if (importConfiguration.isOriginalVmNameSet()) {
+                apiImportConfiguration.setOriginalVmName(importConfiguration.getOriginalVmName());
+            }
+            if (importConfiguration.isDrainingTimeoutSet()) {
+                apiImportConfiguration.setDrainingTimeout(importConfiguration.getDrainingTimeout());
+            }
+            if (importConfiguration.isResourcesRetentionTimeSet()) {
+                apiImportConfiguration.setResourcesRetentionTime(importConfiguration.getResourcesRetentionTime());
+            }
+            if (importConfiguration.isStatefulImportIdSet()) {
+                apiImportConfiguration.setStatefulImportId(importConfiguration.getStatefulImportId());
+            }
+            if (importConfiguration.isResourceGroupNameSet()) {
+                apiImportConfiguration.setResourceGroupName(importConfiguration.getResourceGroupName());
+            }
+            if (importConfiguration.isNodeSet()) {
+                apiImportConfiguration.setNode(toDal(importConfiguration.getNode()));
+            }
+        }
+
+        return apiImportConfiguration;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -1467,6 +1496,417 @@ public class StatefulNodeConverter {
 
         }
         return statefulNodeStatus;
+    }
+
+    public static ImportConfiguration toBl(ApiImportConfiguration apiImportConfiguration) {
+        ImportConfiguration importConfiguration = null;
+
+        if (apiImportConfiguration != null) {
+            ImportConfiguration.Builder importBuilder = ImportConfiguration.Builder.get();
+
+            if (apiImportConfiguration.isOriginalVmNameSet()) {
+                importBuilder.setOriginalVmName(apiImportConfiguration.getOriginalVmName());
+            }
+            if (apiImportConfiguration.isDrainingTimeoutSet()) {
+                importBuilder.setDrainingTimeout(apiImportConfiguration.getDrainingTimeout());
+            }
+            if (apiImportConfiguration.isResourcesRetentionTimeSet()) {
+                importBuilder.setResourcesRetentionTime(apiImportConfiguration.getResourcesRetentionTime());
+            }
+            if (apiImportConfiguration.isResourceGroupNameSet()) {
+                importBuilder.setResourceGroupName(apiImportConfiguration.getResourceGroupName());
+            }
+            if (apiImportConfiguration.isStatefulImportIdSet()) {
+                importBuilder.setStatefulImportId(apiImportConfiguration.getStatefulImportId());
+            }
+            if (apiImportConfiguration.isNodeSet()) {
+                importBuilder.setNode(toBl(apiImportConfiguration.getNode()));
+            }
+
+            importConfiguration = importBuilder.build();
+
+        }
+        return importConfiguration;
+    }
+
+    public static NodeImportStatusResponse toBl(ApiNodeImportStatusResponse apiNodeImportStatus) {
+        NodeImportStatusResponse importStatus = null;
+
+        if (apiNodeImportStatus != null) {
+            NodeImportStatusResponse.Builder importStatusBuilder = NodeImportStatusResponse.Builder.get();
+
+            if (apiNodeImportStatus.isStatefulImportIdSet()) {
+                importStatusBuilder.setStatefulImportId(apiNodeImportStatus.getStatefulImportId());
+            }
+            if (apiNodeImportStatus.isStatefulNodeIdSet()) {
+                importStatusBuilder.setStatefulNodeId(apiNodeImportStatus.getStatefulNodeId());
+            }
+            if (apiNodeImportStatus.isVmNameSet()) {
+                importStatusBuilder.setVmName(apiNodeImportStatus.getVmName());
+            }
+            if (apiNodeImportStatus.isStateSet()) {
+                importStatusBuilder.setState(apiNodeImportStatus.getState());
+            }
+
+            importStatus = importStatusBuilder.build();
+
+        }
+        return importStatus;
+    }
+
+    public static StatefulNodeLogsResponse toBl(ApiStatefulNodeLogsResponse apiNodeLogs) {
+        StatefulNodeLogsResponse nodeLogs = null;
+
+        if (apiNodeLogs != null) {
+            StatefulNodeLogsResponse.Builder logsBuilder = StatefulNodeLogsResponse.Builder.get();
+
+            if (apiNodeLogs.isMessageSet()) {
+                logsBuilder.setMessage(apiNodeLogs.getMessage());
+            }
+
+            if (apiNodeLogs.isSeveritySet()) {
+                logsBuilder.setSeverity(apiNodeLogs.getSeverity());
+            }
+
+            if (apiNodeLogs.isCreatedAtSet()) {
+                logsBuilder.setCreatedAt(apiNodeLogs.getCreatedAt());
+            }
+
+            nodeLogs = logsBuilder.build();
+
+        }
+        return nodeLogs;
+    }
+
+    private static StatefulNodeResourceOsDisk toBl(ApiStatefulNodeResourceOsDisk apiOsDisk) {
+        StatefulNodeResourceOsDisk osDisk = null;
+
+        if (apiOsDisk != null) {
+            StatefulNodeResourceOsDisk.Builder osDiskBuilder = StatefulNodeResourceOsDisk.Builder.get();
+
+            if (apiOsDisk.isNameSet()) {
+                osDiskBuilder.setName(apiOsDisk.getName());
+            }
+
+            if (apiOsDisk.isResourceGroupNameSet()) {
+                osDiskBuilder.setResourceGroupName(apiOsDisk.getResourceGroupName());
+            }
+
+            if (apiOsDisk.isOsTypeSet()) {
+                osDiskBuilder.setOsType(apiOsDisk.getOsType());
+            }
+
+            if (apiOsDisk.isStorageAccountTypeSet()) {
+                osDiskBuilder.setStorageAccountType(apiOsDisk.getStorageAccountType());
+            }
+
+            if (apiOsDisk.isSizeGbSet()) {
+                osDiskBuilder.setSizeGb(apiOsDisk.getSizeGb());
+            }
+
+            if (apiOsDisk.isSnapshotSet()) {
+                osDiskBuilder.setSnapshot(apiOsDisk.getSnapshot());
+            }
+
+            if (apiOsDisk.isLastCompletedSnapshotSet()) {
+                osDiskBuilder.setLastCompletedSnapshot(apiOsDisk.getLastCompletedSnapshot());
+            }
+
+            osDisk = osDiskBuilder.build();
+
+        }
+        return osDisk;
+    }
+
+    private static StatefulNodeResourceDataDisks toBl(ApiStatefulNodeResourceDataDisks apiDataDisk) {
+        StatefulNodeResourceDataDisks dataDisk = null;
+
+        if (apiDataDisk != null) {
+            StatefulNodeResourceDataDisks.Builder dataDiskBuilder = StatefulNodeResourceDataDisks.Builder.get();
+
+            if (apiDataDisk.isNameSet()) {
+                dataDiskBuilder.setName(apiDataDisk.getName());
+            }
+
+            if (apiDataDisk.isResourceGroupNameSet()) {
+                dataDiskBuilder.setResourceGroupName(apiDataDisk.getResourceGroupName());
+            }
+
+            if (apiDataDisk.isStorageAccountTypeSet()) {
+                dataDiskBuilder.setStorageAccountType(apiDataDisk.getStorageAccountType());
+            }
+
+            if (apiDataDisk.isSizeGbSet()) {
+                dataDiskBuilder.setSizeGb(apiDataDisk.getSizeGb());
+            }
+
+            if (apiDataDisk.isLunSet()) {
+                dataDiskBuilder.setLun(apiDataDisk.getLun());
+            }
+
+            if (apiDataDisk.isSnapshotSet()) {
+                dataDiskBuilder.setSnapshot(apiDataDisk.getSnapshot());
+            }
+
+            if (apiDataDisk.isLastCompletedSnapshotSet()) {
+                dataDiskBuilder.setLastCompletedSnapshot(apiDataDisk.getLastCompletedSnapshot());
+            }
+
+            dataDisk = dataDiskBuilder.build();
+
+        }
+        return dataDisk;
+    }
+
+
+    private static StatefulNodeResourceStorage toBl(ApiStatefulNodeResourceStorage apiStorage) {
+        StatefulNodeResourceStorage storage = null;
+
+        if (apiStorage != null) {
+            StatefulNodeResourceStorage.Builder storageBuilder = StatefulNodeResourceStorage.Builder.get();
+
+            if (apiStorage.isDataDiskSet()) {
+                if (apiStorage.getDataDisk() != null) {
+                    List<StatefulNodeResourceDataDisks> dataDisksList =
+                            apiStorage.getDataDisk().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    storageBuilder.setDataDisk(dataDisksList);
+                }
+            }
+
+            if (apiStorage.isOsDiskSet()) {
+                storageBuilder.setOsDisk(toBl(apiStorage.getOsDisk()));
+            }
+
+            storage = storageBuilder.build();
+
+        }
+        return storage;
+    }
+
+    private static StatefulNodeResourceVirtualNetwork toBl(ApiStatefulNodeResourceVirtualNetwork apiVirtualNetworl) {
+        StatefulNodeResourceVirtualNetwork virtualNetwork = null;
+
+        if (apiVirtualNetworl != null) {
+            StatefulNodeResourceVirtualNetwork.Builder virtualNetworkBuilder = StatefulNodeResourceVirtualNetwork.Builder.get();
+
+            if (apiVirtualNetworl.isNameSet()) {
+                virtualNetworkBuilder.setName(apiVirtualNetworl.getName());
+            }
+
+            if (apiVirtualNetworl.isResourceGroupNameSet()) {
+                virtualNetworkBuilder.setResourceGroupName(apiVirtualNetworl.getResourceGroupName());
+            }
+
+            virtualNetwork = virtualNetworkBuilder.build();
+
+        }
+        return virtualNetwork;
+    }
+
+    private static StatefulNodeResourceNetworkSubnet toBl(ApiStatefulNodeResourceNetworkSubnet apiSubnet) {
+        StatefulNodeResourceNetworkSubnet subnet = null;
+
+        if (apiSubnet != null) {
+            StatefulNodeResourceNetworkSubnet.Builder subnetBuilder = StatefulNodeResourceNetworkSubnet.Builder.get();
+
+            if (apiSubnet.isNameSet()) {
+                subnetBuilder.setName(apiSubnet.getName());
+            }
+
+            if (apiSubnet.isResourceGroupNameSet()) {
+                subnetBuilder.setResourceGroupName(apiSubnet.getResourceGroupName());
+            }
+
+            if (apiSubnet.isAddressPrefixSet()) {
+                subnetBuilder.setAddressPrefix(apiSubnet.getAddressPrefix());
+            }
+
+            subnet = subnetBuilder.build();
+
+        }
+        return subnet;
+    }
+
+    private static StatefulNodeResourceNetworkPublicIp toBl(ApiStatefulNodeResourceNetworkPublicIp apiPublicIp) {
+        StatefulNodeResourceNetworkPublicIp publicIp = null;
+
+        if (apiPublicIp != null) {
+            StatefulNodeResourceNetworkPublicIp.Builder publicIpBuilder = StatefulNodeResourceNetworkPublicIp.Builder.get();
+
+            if (apiPublicIp.isNameSet()) {
+                publicIpBuilder.setName(apiPublicIp.getName());
+            }
+
+            if (apiPublicIp.isResourceGroupNameSet()) {
+                publicIpBuilder.setResourceGroupName(apiPublicIp.getResourceGroupName());
+            }
+
+            if (apiPublicIp.isIpAddressSet()) {
+                publicIpBuilder.setIpAddress(apiPublicIp.getIpAddress());
+            }
+
+            if (apiPublicIp.isSkuNameSet()) {
+                publicIpBuilder.setSkuName(apiPublicIp.getSkuName());
+            }
+
+            publicIp = publicIpBuilder.build();
+
+        }
+        return publicIp;
+    }
+
+    private static StatefulNodeResourceNetworkIpConfigurations toBl(ApiStatefulNodeResourceNetworkIpConfigurations apiIpConfigurations) {
+        StatefulNodeResourceNetworkIpConfigurations ipConfigurations = null;
+
+        if (apiIpConfigurations != null) {
+            StatefulNodeResourceNetworkIpConfigurations.Builder ipConfigurationsBuilder = StatefulNodeResourceNetworkIpConfigurations.Builder.get();
+
+            if (apiIpConfigurations.isNameSet()) {
+                ipConfigurationsBuilder.setName(apiIpConfigurations.getName());
+            }
+
+            if (apiIpConfigurations.isSubnetSet()) {
+                ipConfigurationsBuilder.setSubnet(toBl(apiIpConfigurations.getSubnet()));
+            }
+
+            if (apiIpConfigurations.isPublicIpSet()) {
+                ipConfigurationsBuilder.setPublicip(toBl(apiIpConfigurations.getPublicIp()));
+            }
+
+            if (apiIpConfigurations.isPrivateIpAddressSet()) {
+                ipConfigurationsBuilder.setPrivateIpAddress(apiIpConfigurations.getPrivateIpAddress());
+            }
+
+            if (apiIpConfigurations.isPrivateIPAddressVersionSet()) {
+                ipConfigurationsBuilder.setPrivateIPAddressVersion(apiIpConfigurations.getPrivateIPAddressVersion());
+            }
+
+            if (apiIpConfigurations.isPrivateIpAllocationMethodSet()) {
+                ipConfigurationsBuilder.setPrivateIpAllocationMethod(apiIpConfigurations.getPrivateIpAllocationMethod());
+            }
+
+            if (apiIpConfigurations.isApplicationSecurityGroupsSet()) {
+                ipConfigurationsBuilder.setApplicationSecurityGroups(apiIpConfigurations.getApplicationSecurityGroups());
+            }
+
+            if (apiIpConfigurations.isPrimarySet()) {
+                ipConfigurationsBuilder.setPrimary(apiIpConfigurations.getPrimary());
+            }
+
+            ipConfigurations = ipConfigurationsBuilder.build();
+
+        }
+        return ipConfigurations;
+    }
+
+    private static StatefulNodeResourceNetworkInterfaces toBl(ApiStatefulNodeResourceNetworkInterfaces apiNetworkInterfaces){
+
+        StatefulNodeResourceNetworkInterfaces networkInterfaces = null;
+
+        if(apiNetworkInterfaces != null) {
+
+            StatefulNodeResourceNetworkInterfaces.Builder networkInterfacesBuilder = StatefulNodeResourceNetworkInterfaces.Builder.get();
+
+            if (apiNetworkInterfaces.isNameSet()) {
+                networkInterfacesBuilder.setName(apiNetworkInterfaces.getName());
+            }
+
+            if (apiNetworkInterfaces.isResourceGroupNameSet()) {
+                networkInterfacesBuilder.setResourceGroupName(apiNetworkInterfaces.getResourceGroupName());
+            }
+
+            if (apiNetworkInterfaces.isIsPrimarySet()) {
+                networkInterfacesBuilder.setIsPrimary(apiNetworkInterfaces.getIsPrimary());
+            }
+
+            if (apiNetworkInterfaces.isNetworkSecurityGroupSet()){
+                networkInterfacesBuilder.setNetworkSecurityGroup(toBl(apiNetworkInterfaces.getNetworkSecurityGroup()));
+            }
+
+            if (apiNetworkInterfaces.isNetworkIpConfigurationsSet()) {
+                if (apiNetworkInterfaces.getNetworkIpConfigurations() != null) {
+                    List<StatefulNodeResourceNetworkIpConfigurations> ipConfigurationList =
+                            apiNetworkInterfaces.getNetworkIpConfigurations().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    networkInterfacesBuilder.setNetworkIpConfigurations(ipConfigurationList);
+                }
+            }
+
+            if (apiNetworkInterfaces.isMacAddressSet()) {
+                networkInterfacesBuilder.setMacAddress(apiNetworkInterfaces.getMacAddress());
+            }
+
+            if (apiNetworkInterfaces.isEnableAcceleratedNetworkingSet()) {
+                networkInterfacesBuilder.setEnableAcceleratedNetworking(apiNetworkInterfaces.getEnableAcceleratedNetworking());
+            }
+
+            if (apiNetworkInterfaces.isEnableIpForwardingSet()) {
+                networkInterfacesBuilder.setEnableIpForwarding(apiNetworkInterfaces.getEnableIpForwarding());
+            }
+            networkInterfaces = networkInterfacesBuilder.build();
+        }
+
+        return networkInterfaces;
+    }
+
+    private static StatefulNodeResourceNetwork toBl(ApiStatefulNodeResourceNetwork apiNetwork){
+
+        StatefulNodeResourceNetwork network = null;
+
+        if(apiNetwork != null) {
+
+            StatefulNodeResourceNetwork.Builder networkBuilder = StatefulNodeResourceNetwork.Builder.get();
+
+            if (apiNetwork.isVirtualNetworkSet()) {
+                networkBuilder.setVirtualNetwork(toBl(apiNetwork.getVirtualNetwork()));
+            }
+
+            if (apiNetwork.isNetworkInterfacesSet()) {
+                if (apiNetwork.getNetworkInterfaces() != null) {
+                    List<StatefulNodeResourceNetworkInterfaces> ipConfigurationList =
+                            apiNetwork.getNetworkInterfaces().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    networkBuilder.setNetworkInterfaces(ipConfigurationList);
+                }
+            }
+
+            network = networkBuilder.build();
+        }
+
+        return network;
+    }
+
+    public static StatefulNodeResourceResponse toBl(ApiStatefulNodeResourceResponse apiResource){
+
+        StatefulNodeResourceResponse resources = null;
+
+        if(apiResource != null) {
+
+            StatefulNodeResourceResponse.Builder resourcesBuilder = StatefulNodeResourceResponse.Builder.get();
+
+            if (apiResource.isIdSet()) {
+                resourcesBuilder.setId(apiResource.getId());
+            }
+
+            if (apiResource.isNameSet()) {
+                resourcesBuilder.setName(apiResource.getName());
+            }
+
+            if (apiResource.isResourceGroupNameSet()) {
+                resourcesBuilder.setResourceGroupName(apiResource.getResourceGroupName());
+            }
+
+            if (apiResource.isNetworkSet()) {
+                resourcesBuilder.setNetwork(toBl(apiResource.getNetwork()));
+            }
+
+            if (apiResource.isStorageSet()) {
+                resourcesBuilder.setStorage(toBl(apiResource.getStorage()));
+            }
+
+
+            resources = resourcesBuilder.build();
+        }
+
+        return resources;
     }
 
 }

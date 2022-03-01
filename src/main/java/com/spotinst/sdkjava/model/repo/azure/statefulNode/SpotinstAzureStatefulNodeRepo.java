@@ -4,14 +4,11 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNode;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeGetStatusResponse;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusResponse;
+import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateChangeRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
 
@@ -162,6 +159,106 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<ImportConfiguration> importNode(ImportConfiguration nodeToImport, String authToken, String account) {
 
+        RepoGenericResponse<ImportConfiguration> retVal;
+
+        try {
+            ApiImportConfiguration apiNodeToImport = StatefulNodeConverter.toDal(nodeToImport);
+            ApiImportConfiguration apiCreatedNode          = SpotinstAzureStatefulNodeService
+                    .importNode(apiNodeToImport, authToken, account);
+
+            ImportConfiguration importedNode = StatefulNodeConverter.toBl(apiCreatedNode);
+            retVal = new RepoGenericResponse<>(importedNode);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<NodeImportStatusResponse> getNodeImportStatus(String importId, String authToken, String account) {
+        RepoGenericResponse<NodeImportStatusResponse> retVal;
+
+        try {
+            ApiNodeImportStatusResponse apiGetNodeStatus  = SpotinstAzureStatefulNodeService
+                    .getNodeImportStatus(importId, authToken, account);
+
+            NodeImportStatusResponse getStatefulNodeImportStatus = StatefulNodeConverter.toBl(apiGetNodeStatus);
+            retVal = new RepoGenericResponse<>(getStatefulNodeImportStatus);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<StatefulNode> getImportVmConfiguration(String vmName, String resouceGroup, String authToken, String account) {
+
+        RepoGenericResponse<StatefulNode> retVal;
+
+        try {
+            ApiStatefulNode apiGetImportConfig          = SpotinstAzureStatefulNodeService
+                    .getImportVmConfiguration(vmName, resouceGroup, authToken, account);
+
+            StatefulNode getImportConfig = StatefulNodeConverter.toBl(apiGetImportConfig);
+            retVal = new RepoGenericResponse<>(getImportConfig);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+
+    @Override
+    public RepoGenericResponse<List<StatefulNodeLogsResponse>> getStatefulNodeLogs(StatefulNodeGetLogsRequest nodeLogsRequest, String nodeId, String authToken) {
+        RepoGenericResponse<List<StatefulNodeLogsResponse>> retVal;
+
+        try {
+
+            List<ApiStatefulNodeLogsResponse> getLogs = SpotinstAzureStatefulNodeService
+                    .getStatefulNodeLogs(nodeLogsRequest, nodeId, authToken);
+            List<StatefulNodeLogsResponse> getAllLogs = getLogs.stream().map(StatefulNodeConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllLogs);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<StatefulNodeResourceResponse> getNodeResources(String nodeId, String authToken, String account) {
+        RepoGenericResponse<StatefulNodeResourceResponse> retVal;
+
+        try {
+
+            ApiStatefulNodeResourceResponse getResource = SpotinstAzureStatefulNodeService
+                    .getNodeResources(nodeId, authToken, account);
+            StatefulNodeResourceResponse getNodeResources = StatefulNodeConverter.toBl(getResource);
+
+            retVal = new RepoGenericResponse<>(getNodeResources);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
 
 }

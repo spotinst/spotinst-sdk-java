@@ -4,9 +4,7 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.SpotinstAzureStatefulNodeClient;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,17 +14,20 @@ import java.util.List;
 public class AzureStatefulNodeExample {
 
     private final static String       auth_token          = "auth-token";
-    private final static String       act_id              = "act-id";
+    private final static String       act_id              = "act-no";
     private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> zones               = Arrays.asList("1", "2", "3");
     private final static List<String> loadBalancers       = Arrays.asList();
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
+    private final static String       vmName              = "SDK-Testing";
+    private final static String       resourceGroup       = "AutomationResourceGroup";
 
     public static void main(String[] args) throws InterruptedException {
 
         SpotinstAzureStatefulNodeClient nodeClient = SpotinstClient.getAzureStatefulNodeClient(auth_token, act_id);
+
 
         //Create Stateful Node
         System.out.println("----------Creation of azure stateful node--------------");
@@ -88,6 +89,28 @@ public class AzureStatefulNodeExample {
         System.out.println("----------Delete Stateful Node--------------");
         deleteStatefulNode(nodeClient, nodeId);
 
+        //Get Import VM configuration
+        System.out.println("----------Get VM Configuration--------------");
+        getImportVmConfiguration(nodeClient, vmName, resourceGroup);
+
+
+        //Import VM to a Stateful Node
+        System.out.println("----------Importing VM to Stateful Node--------------");
+        ImportConfiguration importId = importStatefulNode(nodeClient);
+        String nodeImportId = importId.getStatefulImportId();
+
+        //Get Stateful node import status
+        System.out.println("----------Get Stateful Node Import Status--------------");
+        getNodeImportStatus(nodeClient, nodeImportId);
+
+        //Get Stateful node import status
+        System.out.println("----------Get Stateful Node Recources --------------");
+        getNodeResources(nodeClient, nodeId);
+
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<StatefulNodeLogsResponse> getLogs = getStaefulNodeLogs(nodeClient, act_id, "fromDate", "toDate", "nodeId");
+
     }
 
     private static String createStatefulNode(SpotinstAzureStatefulNodeClient client) {
@@ -109,20 +132,20 @@ public class AzureStatefulNodeExample {
         LaunchSpecNetworkSecurityGroupConfiguration.Builder networkSecurityGroupBuilder =
                 LaunchSpecNetworkSecurityGroupConfiguration.Builder.get();
         LaunchSpecNetworkSecurityGroupConfiguration networkSecurityGroup =
-                networkSecurityGroupBuilder.setName("ManualQA-NSG-Public").setResourceGroupName("ManualQAResourceGroup")
+                networkSecurityGroupBuilder.setName("Automation-NSG-PublicSubnet").setResourceGroupName(resourceGroup)
                                            .build();
 
         //Build Network Interfaces
         LaunchSpecNetworkInterfacesConfiguration.Builder networkInterfacesBuilder =
                 LaunchSpecNetworkInterfacesConfiguration.Builder.get();
         LaunchSpecNetworkInterfacesConfiguration networkInterfaces =
-                networkInterfacesBuilder.setIsPrimary(true).setSubnetName("ManualQA-PublicSubnet").setAssignPublicIp(true)
+                networkInterfacesBuilder.setIsPrimary(true).setSubnetName("Automation-PublicSubnet").setAssignPublicIp(true)
                                         .setPublicIpSku("Standard").setNetworkSecurityGroup(networkSecurityGroup).build();
         List<LaunchSpecNetworkInterfacesConfiguration> networkInterfacesList = Collections.singletonList(networkInterfaces);
 
         //Build network
         LaunchSpecNetworkConfiguration.Builder networkBuilder = LaunchSpecNetworkConfiguration.Builder.get();
-        LaunchSpecNetworkConfiguration network = networkBuilder.setResourceGroupName("ManualQAResourceGroup").setVirtualNetworkName("ManualQA-VirtualNetwork")
+        LaunchSpecNetworkConfiguration network = networkBuilder.setResourceGroupName(resourceGroup).setVirtualNetworkName("Automation-VirtualNetwork")
                                                                .setNetworkInterfaces(networkInterfacesList).build();
 
         //Build Data Disk
@@ -148,7 +171,9 @@ public class AzureStatefulNodeExample {
         List<LaunchSpecExtensionsSpecification> extensionsList = Collections.singletonList(extensions);
         // Build Login
         LaunchSpecLoginSpecification login =
-                LaunchSpecLoginSpecification.Builder.get().setUserName("ubuntu").setPassword("NetApp@123@321").setSshPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==").build();
+                LaunchSpecLoginSpecification.Builder.get().setUserName("ubuntu").setPassword("NetApp@123@321")
+//                        .setSshPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==")
+                        .build();
 
         // Build Tags
         LaunchSpecTagsSpecification tags =
@@ -575,6 +600,178 @@ public class AzureStatefulNodeExample {
 
         return resumeStatefulNodeResponse;
 
+    }
+
+
+    private static ImportConfiguration importStatefulNode(SpotinstAzureStatefulNodeClient client) {
+
+        //Build VmSizes
+        StatefulNodeVmSizesConfiguration.Builder vmSizesBuilder = StatefulNodeVmSizesConfiguration.Builder.get();
+        StatefulNodeVmSizesConfiguration vmSizes =
+                vmSizesBuilder.setOdSizes(odSizes).setSpotSizes(spotSizes).setPreferredSpotSizes(preferredSpotSizes).build();
+
+        //Build Network Security Group
+        LaunchSpecNetworkSecurityGroupConfiguration.Builder networkSecurityGroupBuilder =
+                LaunchSpecNetworkSecurityGroupConfiguration.Builder.get();
+        LaunchSpecNetworkSecurityGroupConfiguration networkSecurityGroup =
+                networkSecurityGroupBuilder.setName("Automation-NSG-PublicSubnet").setResourceGroupName(resourceGroup)
+                        .build();
+
+        //Build Network Interfaces
+        LaunchSpecNetworkInterfacesConfiguration.Builder networkInterfacesBuilder =
+                LaunchSpecNetworkInterfacesConfiguration.Builder.get();
+        LaunchSpecNetworkInterfacesConfiguration networkInterfaces =
+                networkInterfacesBuilder.setIsPrimary(true).setSubnetName("Automation-PublicSubnet").setAssignPublicIp(true)
+                        .setPublicIpSku("Standard").setNetworkSecurityGroup(networkSecurityGroup).build();
+        List<LaunchSpecNetworkInterfacesConfiguration> networkInterfacesList = Collections.singletonList(networkInterfaces);
+
+        //Build network
+        LaunchSpecNetworkConfiguration.Builder networkBuilder = LaunchSpecNetworkConfiguration.Builder.get();
+        LaunchSpecNetworkConfiguration network = networkBuilder.setResourceGroupName(resourceGroup).setVirtualNetworkName("Automation-VirtualNetwork")
+                .setNetworkInterfaces(networkInterfacesList).build();
+
+        //Build Data Disk
+        LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(1).setSizeGB(15).setType("Standard_LRS").build();
+        List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
+
+        // Build Tags
+        LaunchSpecTagsSpecification tags =
+                LaunchSpecTagsSpecification.Builder.get().setTagKey("creator").setTagValue("spotau@netapp.com").build();
+        List<LaunchSpecTagsSpecification> tagsList = Collections.singletonList(tags);
+
+        //Build Launch Specification
+        StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
+        StatefulNodeLaunchSpecification launchSpecification =
+                launchSpecificationBuilder.setNetwork(network).setDataDisks(dataDisks).setTags(tagsList).build();
+
+        // Build LoadBalancers Config
+        StatefulNodeLoadBalancersConfig loadBalancersList =
+                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadBalancers).build();
+
+        //Build Compute
+        StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
+        StatefulNodeComputeConfiguration compute = computeBuilder.setPreferredZone("1").setLaunchSpecification(launchSpecification)
+                .setLoadBalancersConfig(loadBalancersList).setVmSizes(vmSizes).setZones(zones).build();
+
+        //Build Signals
+        StatefulNodeSignalConfiguration signal =
+                StatefulNodeSignalConfiguration.Builder.get().setTimeout(180).setType(ElastigroupVmSignalEnumAzure.vmReady).build();
+        List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
+
+        //Build RevertToSpot
+        StatefulNodeRevertToSpotConfiguration revertToSpot =
+                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
+        //Build Strategy
+        StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
+        StatefulNodeStrategyConfiguration strategy =
+                strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(120).setPreferredLifecycle(
+                        AzureStatefulNodeLifeCycleTypeEnum.SPOT)
+                        .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
+
+        //Build Scheduling Tasks
+        StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
+        StatefulNodeTasksConfiguration task1 =
+                tasksBuilder1.setIsEnabled(false).setCronExpression("0 1 * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
+
+        StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
+        StatefulNodeTasksConfiguration task2 =
+                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
+        List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
+        tasksList.add(task1);
+        tasksList.add(task2);
+
+        //Build Scheduling
+        StatefulNodeSchedulingConfiguration scheduling =
+                StatefulNodeSchedulingConfiguration.Builder.get().setTasks(tasksList).build();
+
+        // Build persistent
+        StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
+        StatefulNodePersistenceConfiguration persistent =
+                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(true).setDataDisksPersistenceMode(
+                        AzureStatefulNodeDiskModeEnum.ONLAUNCH)
+                        .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.ONLAUNCH).build();
+
+        //Build Health
+        List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();
+        healthCheckTypesList.add(HealthCheckTypeEnumAzure.VM_STATE);
+        StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
+        StatefulNodeHealthConfiguration health =
+                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing(true).build();
+
+        // Build Stateful Node
+        StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
+        StatefulNode statefulNode =
+                statefulNodeBuilder.setName("Automation-java-SDK-Import-StatefulNode").setRegion("eastus").setResourceGroupName(resourceGroup)
+                        .setDescription("stateful node for tests").setCompute(compute).setStrategy(strategy).setScheduling(scheduling).setPersistence(persistent).setHealth(health).build();
+
+        ImportConfiguration.Builder importNodeBuilder = ImportConfiguration.Builder.get();
+        ImportConfiguration importNode =
+                importNodeBuilder.setNode(statefulNode).setDrainingTimeout(120).setResourceGroupName(resourceGroup)
+                        .setResourcesRetentionTime(0).setOriginalVmName(vmName).build();
+
+        // Build node creation request
+        StatefulNodeImportRequest.Builder nodeImportRequestBuilder = StatefulNodeImportRequest.Builder.get();
+        StatefulNodeImportRequest importRequest = nodeImportRequestBuilder.setImportNode(importNode).build();
+
+        // Convert node to API object json
+        System.out.println(importRequest.toJson());
+
+        // Create stateful Node by importing VM
+        ImportConfiguration importedNode = client.importNode(importRequest);
+        System.out.println(String.format("Stateful Node successfully imported with importId %s ", importedNode.getStatefulImportId()));
+
+        return importedNode;
+    }
+
+    private static NodeImportStatusResponse getNodeImportStatus(SpotinstAzureStatefulNodeClient client, String importId) {
+
+        // Get stateful Node Import status
+        NodeImportStatusResponse getNodeImportStatusResponse = client.getNodeImportStatus(importId);
+
+        System.out.println(String.format("Status of the import process is %s for the importId %s with nodeId %s", getNodeImportStatusResponse.getState(),
+                getNodeImportStatusResponse.getStatefulImportId(), getNodeImportStatusResponse.getStatefulNodeId()));
+
+        return getNodeImportStatusResponse;
+    }
+
+    private static StatefulNode getImportVmConfiguration(SpotinstAzureStatefulNodeClient client, String vmName, String resourceGroup) {
+
+        // Get Import VM configuration
+        StatefulNode getNodeResponse = client.getImportVmConfiguration(vmName, resourceGroup);
+        System.out.println(String.format("Get Import VM configuration %s is Successful for the ResourceGroup %s",
+                getNodeResponse.getName(), getNodeResponse.getResourceGroupName()));
+
+        return getNodeResponse;
+    }
+
+    private static List<StatefulNodeLogsResponse> getStaefulNodeLogs(SpotinstAzureStatefulNodeClient client, String accountId, String fromDate, String toDate, String nodeId) {
+
+        // Build get request
+        StatefulNodeGetLogsRequest.Builder getNodelogRequestBuilder = StatefulNodeGetLogsRequest.Builder.get();
+        StatefulNodeGetLogsRequest request = getNodelogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setToDate(toDate).build();
+
+        List<StatefulNodeLogsResponse> nodeGetLogsResponse =
+                client.getStatefulNodeLogs(request, nodeId);
+
+        for (StatefulNodeLogsResponse logs : nodeGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return nodeGetLogsResponse;
+    }
+
+    private static StatefulNodeResourceResponse getNodeResources(SpotinstAzureStatefulNodeClient client, String nodeId) {
+
+        // Get stateful Node Resources
+        StatefulNodeResourceResponse getNodeResponse = client.getStatefulNodeResources(nodeId);
+        System.out.println(String.format("Get Stateful Node Resources is Successful with Id %s with Name %s ",
+                getNodeResponse.getId() , getNodeResponse.getName()));
+
+        return getNodeResponse;
     }
 
 }

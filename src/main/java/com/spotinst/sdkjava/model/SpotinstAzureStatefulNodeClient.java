@@ -2,12 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNode;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDeallocationConfig;
-import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeGetStatusResponse;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeCreationRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDeletionRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -186,6 +182,119 @@ public class SpotinstAzureStatefulNodeClient {
         }
 
         return retVal;
+    }
+
+    public ImportConfiguration importNode(StatefulNodeImportRequest nodeImportRequest) {
+        ImportConfiguration retVal;
+
+        ImportConfiguration statefulNodeToImport = nodeImportRequest.getImportNode();
+
+        RepoGenericResponse<ImportConfiguration> importResponse =
+                getSpotAzureStatefulNodeRepo().importNode(statefulNodeToImport, authToken, account);
+
+        if (importResponse.isRequestSucceed()) {
+            retVal = importResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import Vm from Azure to create stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public NodeImportStatusResponse getNodeImportStatus(String importId) {
+        NodeImportStatusResponse retVal;
+
+        RepoGenericResponse<NodeImportStatusResponse> getNodeImportStatusResponse =
+                getSpotAzureStatefulNodeRepo().getNodeImportStatus(importId, authToken, account);
+
+        if (getNodeImportStatusResponse.isRequestSucceed()) {
+            retVal = getNodeImportStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodeImportStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Azure stateful Node Import Status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
+    public StatefulNode getImportVmConfiguration(String nodeId, String resourceGroup) {
+        StatefulNode retVal;
+
+        RepoGenericResponse<StatefulNode> getNodeResponse =
+                getSpotAzureStatefulNodeRepo().getImportVmConfiguration(nodeId, resourceGroup, authToken, account);
+
+        if (getNodeResponse.isRequestSucceed()) {
+            retVal = getNodeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Configuration of the VM. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
+    public List<StatefulNodeLogsResponse> getStatefulNodeLogs(StatefulNodeGetLogsRequest nodeLogsRequest, String nodeId) {
+
+        List<StatefulNodeLogsResponse> getLogs;
+
+        RepoGenericResponse <List<StatefulNodeLogsResponse>> getLogsResponse =
+                getSpotAzureStatefulNodeRepo().getStatefulNodeLogs(nodeLogsRequest, nodeId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the Node Logs. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
+
+    }
+
+    public StatefulNodeResourceResponse getStatefulNodeResources(String nodeId) {
+
+        StatefulNodeResourceResponse getResources;
+
+        RepoGenericResponse <StatefulNodeResourceResponse> getResourceResponse =
+                getSpotAzureStatefulNodeRepo().getNodeResources(nodeId, authToken, account);
+
+        if(getResourceResponse.isRequestSucceed()){
+            getResources =getResourceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResourceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the Node Resources. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getResources;
+
     }
 
 
