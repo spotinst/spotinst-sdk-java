@@ -58,7 +58,7 @@ public class ElastigroupConverter {
                 if (schedulingConfiguration.getTasks() != null) {
                     List<ApiElastigroupScheduledTask> taskList =
                             schedulingConfiguration.getTasks().stream().map(ElastigroupConverter::toDal)
-                                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setTasks(taskList);
                 }
             }
@@ -283,7 +283,7 @@ public class ElastigroupConverter {
                 if (autoScale.getAttributes() != null) {
                     List<ApiAttributes> attributesList =
                             autoScale.getAttributes().stream().map(ElastigroupConverter::toDal)
-                                     .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setAttributes(attributesList);
                 }
             }
@@ -337,7 +337,7 @@ public class ElastigroupConverter {
                 if (compute.getAvailabilityZones() != null) {
                     List<ApiPlacement> optPlacements =
                             compute.getAvailabilityZones().stream().map(ElastigroupConverter::toDal)
-                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     optCompute.setAvailabilityZones(optPlacements);
                 }
             }
@@ -358,7 +358,7 @@ public class ElastigroupConverter {
                 if (compute.getEbsVolumePool() != null) {
                     List<ApiVolumePool> optVolumePool =
                             compute.getEbsVolumePool().stream().map(ElastigroupConverter::toDal)
-                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     optCompute.setEbsVolumePool(optVolumePool);
                 }
             }
@@ -467,7 +467,7 @@ public class ElastigroupConverter {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<ApiBlockDevice> optimizerBDM =
                             launchSpecification.getBlockDeviceMappings().stream().map(ElastigroupConverter::toDal)
-                                               .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setBlockDeviceMappings(optimizerBDM);
                 }
             }
@@ -482,7 +482,7 @@ public class ElastigroupConverter {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<ApiNetworkInterface> optimizerNIC =
                             launchSpecification.getNetworkInterfaces().stream().map(ElastigroupConverter::toDal)
-                                               .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retVal.setNetworkInterfaces(optimizerNIC);
                 }
             }
@@ -490,7 +490,7 @@ public class ElastigroupConverter {
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
                     List<ApiTag> optimizerTags = launchSpecification.getTags().stream().map(ElastigroupConverter::toDal)
-                                                                    .collect(Collectors.toList());
+                            .collect(Collectors.toList());
                     retVal.setTags(optimizerTags);
                 }
             }
@@ -604,8 +604,8 @@ public class ElastigroupConverter {
     }
 
     private static ApiLoadBalancersConfig toDal(LoadBalancersConfig loadBalancersConfig) {
-        ApiLoadBalancersConfig retVal           = new ApiLoadBalancersConfig();
-        List<ApiLoadBalancer>  apiLoadBalancers = null;
+        ApiLoadBalancersConfig retVal = new ApiLoadBalancersConfig();
+        List<ApiLoadBalancer> apiLoadBalancers = null;
 
         List<LoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
 
@@ -911,7 +911,7 @@ public class ElastigroupConverter {
 
             if (instanceTypes.isWeightsSet()) {
                 if (instanceTypes.getWeights() != null) {
-                    List <ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List<ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                     retVal.setWeights(optWeights);
                 }
             }
@@ -1410,7 +1410,7 @@ public class ElastigroupConverter {
     public static ApiElastigroupDeploymentRoll toDal(ElastigroupDeploymentRoll elastigroupStopDeployment) {
         ApiElastigroupDeploymentRoll retVal = null;
 
-        if(elastigroupStopDeployment != null) {
+        if (elastigroupStopDeployment != null) {
 
             retVal = new ApiElastigroupDeploymentRoll();
 
@@ -1458,6 +1458,34 @@ public class ElastigroupConverter {
 
             if (elastigroupUpdateCapacity.isTargetSet()) {
                 retVal.setTarget(elastigroupUpdateCapacity.getTarget());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static ApiImportASG toDal(ImportASG importASG) {
+        ApiImportASG retVal = null;
+
+        if (importASG != null) {
+
+            retVal = new ApiImportASG();
+
+            if (importASG.isProductSet()) {
+                retVal.setProduct(importASG.getProduct());
+            }
+
+            if (importASG.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(importASG.getSpotInstanceTypes());
+            }
+
+            if (importASG.isNameSet()) {
+                retVal.setName(importASG.getName());
+            }
+
+            if (importASG.isAvailabilityVsCostSet()) {
+                retVal.setAvailabilityVsCost(importASG.getAvailabilityVsCost());
             }
 
         }
@@ -1530,7 +1558,7 @@ public class ElastigroupConverter {
                 if (apiScheduling.getTasks() != null) {
                     List<TasksConfiguration> tasksConfigurationList =
                             apiScheduling.getTasks().stream().map(ElastigroupConverter::toBl)
-                                         .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     blSchedulingConfigurationBuilder.setTasks(tasksConfigurationList);
                 }
             }
@@ -1768,7 +1796,7 @@ public class ElastigroupConverter {
                 if (apiAutoScale.getAttributes() != null) {
                     List<ElastigroupAttributesSpecification> attributesSpecificationList =
                             apiAutoScale.getAttributes().stream().map(ElastigroupConverter::toBl)
-                                        .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     blAutoScaleBuilder.setAttributes(attributesSpecificationList);
                 }
             }
@@ -1827,7 +1855,7 @@ public class ElastigroupConverter {
             if (compute.isAvailabilityZonesSet()) {
                 if (compute.getAvailabilityZones() != null) {
                     List<Placement> placements = compute.getAvailabilityZones().stream().map(ElastigroupConverter::toBl)
-                                                        .collect(Collectors.toList());
+                            .collect(Collectors.toList());
                     blComputeBuilder.setAvailabilityZones(placements);
                 }
             }
@@ -1849,7 +1877,7 @@ public class ElastigroupConverter {
                 if (compute.getEbsVolumePool() != null) {
                     List<ElastigroupEbsVolumePool> blVolumePool =
                             compute.getEbsVolumePool().stream().map(ElastigroupConverter::toBl)
-                                   .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     blComputeBuilder.setEbsVolumePools(blVolumePool);
                 }
             }
@@ -2003,7 +2031,7 @@ public class ElastigroupConverter {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<BlockDeviceMapping> blBDM =
                             launchSpecification.getBlockDeviceMappings().stream().map(ElastigroupConverter::toBl)
-                                               .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setBlockDeviceMappings(blBDM);
                 }
             }
@@ -2018,7 +2046,7 @@ public class ElastigroupConverter {
                 if (launchSpecification.getNetworkInterfaces() != null) {
                     List<NetworkInterface> blNIC =
                             launchSpecification.getNetworkInterfaces().stream().map(ElastigroupConverter::toBl)
-                                               .collect(Collectors.toList());
+                                    .collect(Collectors.toList());
                     retValBuilder.setNetworkInterfaces(blNIC);
                 }
             }
@@ -2026,7 +2054,7 @@ public class ElastigroupConverter {
             if (launchSpecification.isTagsSet()) {
                 if (launchSpecification.getTags() != null) {
                     List<Tag> tags = launchSpecification.getTags().stream().map(ElastigroupConverter::toBl)
-                                                        .collect(Collectors.toList());
+                            .collect(Collectors.toList());
                     retValBuilder.setTags(tags);
                 }
             }
@@ -2190,7 +2218,7 @@ public class ElastigroupConverter {
             if (targetGroupConfig.isTagsSet()) {
                 if (targetGroupConfig.getTags() != null) {
                     List<ElastigroupTargetGroupConfigTag> blItfTags = targetGroupConfig.getTags().stream().map(ElastigroupConverter::toBl)
-                                             .collect(Collectors.toList());
+                            .collect(Collectors.toList());
                     retValBuilder.setTags(blItfTags);
                 }
             }
@@ -2618,7 +2646,7 @@ public class ElastigroupConverter {
 
         if (loadBalancersConfig != null) {
             LoadBalancersConfig.Builder retValBuilder = LoadBalancersConfig.Builder.get();
-            List<ApiLoadBalancer>       loadBalancers = loadBalancersConfig.getLoadBalancers();
+            List<ApiLoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
 
             if (loadBalancersConfig.isLoadBalancersSet() && loadBalancers != null) {
                 List<LoadBalancer> blLoadBalancers =
@@ -2994,7 +3022,7 @@ public class ElastigroupConverter {
 
                 List<ElastigroupDeploymentStatusInstances> instancesList =
                         elastigroupGetDeploymentStatusResponse.getInstances().stream().map(ElastigroupConverter::toBl)
-                                     .collect(Collectors.toList());
+                                .collect(Collectors.toList());
                 retVal.setInstances(instancesList);
             }
 
@@ -3013,13 +3041,13 @@ public class ElastigroupConverter {
             if (elastigroupGetDeploymentStatusInstances.isBlueSet()) {
                 List<ElastigroupDeploymentStatusInstancesBlue> blueInstancesList =
                         elastigroupGetDeploymentStatusInstances.getBlue().stream().map(ElastigroupConverter::toBl)
-                                                               .collect(Collectors.toList());
+                                .collect(Collectors.toList());
                 retVal.setBlue(blueInstancesList);
             }
 
             if (elastigroupGetDeploymentStatusInstances.isGreenSet()) {
                 List<ElastigroupDeploymentStatusInstancesGreen> greenInstancesList = elastigroupGetDeploymentStatusInstances.getGreen().stream().map(ElastigroupConverter::toBl)
-                                                                                                                            .collect(Collectors.toList());
+                        .collect(Collectors.toList());
                 retVal.setGreen(greenInstancesList);
             }
         }
@@ -3161,4 +3189,17 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static GetInstanceTypesByRegionResponse toBl(
+            ApiGetInstanceTypesByRegionResponse getInstanceTypesByRegion) {
+        GetInstanceTypesByRegionResponse retVal = null;
+
+        if (getInstanceTypesByRegion != null) {
+            retVal = new GetInstanceTypesByRegionResponse();
+
+            if (getInstanceTypesByRegion.isInstanceTypeSet()) {
+                retVal.setInstanceType(getInstanceTypesByRegion.getInstanceType());
+            }
+        }
+        return retVal;
+    }
 }
