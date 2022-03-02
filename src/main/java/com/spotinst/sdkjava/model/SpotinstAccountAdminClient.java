@@ -106,12 +106,16 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public User createUser(User userRequest) {
+    public User createUser(User userRequest ) {
+        return createUser(userRequest, false);
+    }
+
+    public User createUser(User userRequest, Boolean generateToken) {
 
         User retVal = null;
 
         RepoGenericResponse<User> creationResponse =
-                getSpotinstAccountAdminRepo().createUser(userRequest, authToken, account);
+                getSpotinstAccountAdminRepo().createUser(userRequest, generateToken, authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -132,7 +136,7 @@ public class SpotinstAccountAdminClient {
         UserDetails retVal = null;
 
         RepoGenericResponse<UserDetails> getResponse =
-                getSpotinstAccountAdminRepo().getUserDetails(userId, authToken, account);
+                getSpotinstAccountAdminRepo().getUserDetails(userId, authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -148,12 +152,12 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest, String shouldGenerateToken) {
+    public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest) {
 
         ProgrammaticUserResponse retVal = null;
 
         RepoGenericResponse<ProgrammaticUserResponse> creationResponse =
-                getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest,shouldGenerateToken, authToken, account);
+                getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest, authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -174,7 +178,7 @@ public class SpotinstAccountAdminClient {
         List<OrganizationUsers> retVal = null;
 
         RepoGenericResponse<List<OrganizationUsers>> getResponse =
-                getSpotinstAccountAdminRepo().getOrganizationUsers(authToken, account);
+                getSpotinstAccountAdminRepo().getOrganizationUsers(authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -195,7 +199,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> getResponse =
-                getSpotinstAccountAdminRepo().updateGroupsOfUser(userId, userGroupIds, authToken, account);
+                getSpotinstAccountAdminRepo().updateGroupsOfUser(userId, userGroupIds, authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -216,7 +220,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> getResponse =
-                getSpotinstAccountAdminRepo().updateUserDirectPolicies(userId, updateRequest, authToken, account);
+                getSpotinstAccountAdminRepo().updateUserDirectPolicies(userId, updateRequest, authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -237,7 +241,7 @@ public class SpotinstAccountAdminClient {
         Policy retVal = null;
 
         RepoGenericResponse<Policy> creationResponse =
-                getSpotinstAccountAdminRepo().createPolicy(createRequest, authToken, account);
+                getSpotinstAccountAdminRepo().createPolicy(createRequest, authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -258,7 +262,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updatePolicy(policyId, updateRequest, authToken, account);
+                getSpotinstAccountAdminRepo().updatePolicy(policyId, updateRequest, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -279,7 +283,7 @@ public class SpotinstAccountAdminClient {
         List<Policy> retVal = null;
 
         RepoGenericResponse<List<Policy>> creationResponse =
-                getSpotinstAccountAdminRepo().getAllPolicies( authToken, account);
+                getSpotinstAccountAdminRepo().getAllPolicies( authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -300,7 +304,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> deleteResponse =
-                getSpotinstAccountAdminRepo().deletePolicy(policyId, authToken, account);
+                getSpotinstAccountAdminRepo().deletePolicy(policyId, authToken);
 
         if (deleteResponse.isRequestSucceed()) {
             retVal = deleteResponse.getValue();
@@ -321,7 +325,7 @@ public class SpotinstAccountAdminClient {
         UserGroup retVal = null;
 
         RepoGenericResponse<UserGroup> creationResponse =
-                getSpotinstAccountAdminRepo().createUserGroup(createRequest, authToken, account);
+                getSpotinstAccountAdminRepo().createUserGroup(createRequest, authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
@@ -342,7 +346,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updateUserGroupMappedPolicies(groupId, updateRequest, authToken, account);
+                getSpotinstAccountAdminRepo().updateUserGroupMappedPolicies(groupId, updateRequest, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -363,7 +367,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updateUserGroupMappedUsers(groupId, userIds, authToken, account);
+                getSpotinstAccountAdminRepo().updateUserGroupMappedUsers(groupId, userIds, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -384,7 +388,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updateUserGroupDetails(groupId, name, description, authToken, account);
+                getSpotinstAccountAdminRepo().updateUserGroupDetails(groupId, name, description, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -405,7 +409,7 @@ public class SpotinstAccountAdminClient {
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().deleteUserGroup(groupId, authToken, account);
+                getSpotinstAccountAdminRepo().deleteUserGroup(groupId, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -426,7 +430,7 @@ public class SpotinstAccountAdminClient {
         UserGroupDetails retVal = null;
 
         RepoGenericResponse<UserGroupDetails> getResponse =
-                getSpotinstAccountAdminRepo().getUserGroup(groupId, authToken, account);
+                getSpotinstAccountAdminRepo().getUserGroup(groupId, authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -447,7 +451,7 @@ public class SpotinstAccountAdminClient {
         List<OrganizationUserGroups> retVal = null;
 
         RepoGenericResponse<List<OrganizationUserGroups>> getResponse =
-                getSpotinstAccountAdminRepo().getOrganizationUserGroups(authToken, account);
+                getSpotinstAccountAdminRepo().getOrganizationUserGroups(authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();

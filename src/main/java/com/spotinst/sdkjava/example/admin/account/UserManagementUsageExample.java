@@ -11,11 +11,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class UserManagementUsageExample {
-    private final static String authToken = "auth-token";
-    private final static String accountId = "account-id";
+    private final static String authToken = "auth_token";
 
     public static void main(String[] args) {
-        SpotinstAccountAdminClient adminClient = SpotinstClient.getAdminAccountClient(authToken, accountId);
+        SpotinstAccountAdminClient adminClient = SpotinstClient.getAdminAccountClient(authToken);
 
         // User APIs
         String userId = createUser(adminClient);
@@ -46,7 +45,7 @@ public class UserManagementUsageExample {
         // Build user
         User.Builder userBuilder = User.Builder.get();
         User userRequest =
-                userBuilder.setFirstName("test").setLastName("123").setEmail("test@gmail.com").setPassword("test123!")
+                userBuilder.setFirstName("test").setLastName("123").setEmail("test@gmail.com").setPassword("Netapp123!")
                            .build();
         User userResponse = adminClient.createUser(userRequest);
         return userResponse.getUserId();
@@ -61,14 +60,14 @@ public class UserManagementUsageExample {
     }
 
     private static String createProgammaticUser(SpotinstAccountAdminClient adminClient) {
-        UserPolicies.Builder policiesBuilder  = UserPolicies.Builder.get();
-        UserPolicies         userPolicies     = policiesBuilder.setPolicyId("4").build();
-        List<UserPolicies>   userPoliciesList = Collections.singletonList(userPolicies);
+        UserPolicy.Builder policiesBuilder = UserPolicy.Builder.get();
+        UserPolicy         userPolicy      = policiesBuilder.setPolicyId("4").build();
+        List<UserPolicy>   userPolicyList  = Collections.singletonList(userPolicy);
 
         ProgrammaticUser.Builder userBuilder = ProgrammaticUser.Builder.get();
-        ProgrammaticUser userReqeest = userBuilder.setName("testProgram").setDescription("my programmatic user")
-                                                  .setPolicies(userPoliciesList).build();
-        ProgrammaticUserResponse createResponse = adminClient.createProgrammaticUser(userReqeest, "true");
+        ProgrammaticUser userRequest = userBuilder.setName("testProgram").setDescription("my programmatic user")
+                                                  .setPolicies(userPolicyList).build();
+        ProgrammaticUserResponse createResponse = adminClient.createProgrammaticUser(userRequest);
         System.out.println(String.format("User Id: %s", createResponse.getId()));
         System.out.println(String.format("Token: %s", createResponse.getToken()));
         System.out.println(String.format("name: %s", createResponse.getName()));
@@ -133,8 +132,8 @@ public class UserManagementUsageExample {
         List<String> resources = new ArrayList<>();
         resources.add("*");
 
-        PolicyStatements.Builder statementBuilder = PolicyStatements.Builder.get();
-        PolicyStatements statements =
+        PolicyStatement.Builder statementBuilder = PolicyStatement.Builder.get();
+        PolicyStatement statements =
                 statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions).setResources(resources).build();
 
         PolicyContent.Builder contentBuilder = PolicyContent.Builder.get();
@@ -157,8 +156,8 @@ public class UserManagementUsageExample {
         List<String> resources = new ArrayList<>();
         resources.add("*");
 
-        PolicyStatements.Builder statementBuilder = PolicyStatements.Builder.get();
-        PolicyStatements statements =
+        PolicyStatement.Builder statementBuilder = PolicyStatement.Builder.get();
+        PolicyStatement statements =
                 statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions).setResources(resources).build();
 
         PolicyContent.Builder contentBuilder = PolicyContent.Builder.get();

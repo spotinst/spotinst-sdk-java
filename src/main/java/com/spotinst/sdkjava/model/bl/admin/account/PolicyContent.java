@@ -12,8 +12,8 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PolicyContent {
     @JsonIgnore
-    private Set<String>            isSet;
-    private List<PolicyStatements> statements;
+    private Set<String>           isSet;
+    private List<PolicyStatement> statements;
 
     public PolicyContent() {
         isSet = new HashSet<>();
@@ -27,11 +27,11 @@ public class PolicyContent {
         this.isSet = isSet;
     }
 
-    public List<PolicyStatements> getStatements() {
+    public List<PolicyStatement> getStatements() {
         return statements;
     }
 
-    public void setStatements(List<PolicyStatements> statements) {
+    public void setStatements(List<PolicyStatement> statements) {
         isSet.add("statements");
         this.statements = statements;
     }
@@ -48,7 +48,7 @@ public class PolicyContent {
             return builder;
         }
 
-        public Builder setStatements(final List<PolicyStatements> statements) {
+        public Builder setStatements(final List<PolicyStatement> statements) {
             content.setStatements(statements);
             return this;
         }

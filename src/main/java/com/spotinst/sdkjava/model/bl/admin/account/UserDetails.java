@@ -20,7 +20,7 @@ public class UserDetails {
     private String                  email;
     private String                  description;
     private String                  mfa;
-    private List<UserPolicies>      policies;
+    private List<UserPolicy>        policies;
     private List<UserTokens>        tokens;
     private List<UserDetailsGroups> groups;
 
@@ -90,11 +90,11 @@ public class UserDetails {
         this.mfa = mfa;
     }
 
-    public List<UserPolicies> getPolicies() {
+    public List<UserPolicy> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<UserPolicies> policies) {
+    public void setPolicies(List<UserPolicy> policies) {
         isSet.add("policies");
         this.policies = policies;
     }
@@ -154,7 +154,7 @@ public class UserDetails {
             return this;
         }
 
-        public Builder setPolicies(final List<UserPolicies> policies) {
+        public Builder setPolicies(final List<UserPolicy> policies) {
             userDetails.setPolicies(policies);
             return this;
         }

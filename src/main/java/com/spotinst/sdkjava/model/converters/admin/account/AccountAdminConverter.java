@@ -71,11 +71,11 @@ public class AccountAdminConverter {
         return apiPolicies;
     }
 
-    public static ApiPolicyStatements toDal(PolicyStatements src) {
-        ApiPolicyStatements statements = null;
+    public static ApiPolicyStatement toDal(PolicyStatement src) {
+        ApiPolicyStatement statements = null;
 
         if(src != null) {
-            statements = new ApiPolicyStatements();
+            statements = new ApiPolicyStatement();
 
             if (src.isEffectSet()) {
                 statements.setEffect(src.getEffect());
@@ -97,7 +97,7 @@ public class AccountAdminConverter {
             policyContent = new ApiPolicyContent();
 
             if (src.isStatementSet()) {
-                List<ApiPolicyStatements> statements =
+                List<ApiPolicyStatement> statements =
                         src.getStatements().stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
                 policyContent.setStatements(statements);
             }
@@ -192,9 +192,9 @@ public class AccountAdminConverter {
                 userDetails.setEmail(src.getEmail());
             }
             if (src.isPoliciesSet()) {
-                List<UserPolicies> userPoliciesList =
+                List<UserPolicy> userPolicyList =
                         src.getPolicies().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
-                userDetails.setPolicies(userPoliciesList);
+                userDetails.setPolicies(userPolicyList);
             }
             if (src.isTokensSet()) {
                 List<UserTokens> userTokensList =
@@ -238,29 +238,29 @@ public class AccountAdminConverter {
         return orgUsers;
     }
     
-    public static UserPolicies toBl(ApiUserPolicies src) {
-        UserPolicies userPolicies = null;
+    public static UserPolicy toBl(ApiUserPolicy src) {
+        UserPolicy userPolicy = null;
 
         if (src != null) {
-            userPolicies = new UserPolicies();
+            userPolicy = new UserPolicy();
 
             if (src.isPolicyIdSet()) {
-                userPolicies.setPolicyId(src.getPolicyId());
+                userPolicy.setPolicyId(src.getPolicyId());
             }
             if (src.isPolicyNameSet()) {
-                userPolicies.setPolicyName(src.getPolicyName());
+                userPolicy.setPolicyName(src.getPolicyName());
             }
             if (src.isPolicyTypeSet()) {
-                userPolicies.setPolicyType(src.getPolicyType());
+                userPolicy.setPolicyType(src.getPolicyType());
             }
             if (src.isUserGroupIdsSet()) {
-                userPolicies.setUserGroupIds(src.getUserGroupIds());
+                userPolicy.setUserGroupIds(src.getUserGroupIds());
             }
             if (src.isAccountIdsSet()) {
-                userPolicies.setAccountIds(src.getAccountIds());
+                userPolicy.setAccountIds(src.getAccountIds());
             }
         }
-        return userPolicies;
+        return userPolicy;
     }
 
     public static UserDetailsGroups toBl(ApiUserDetailsGroups src) {
@@ -282,11 +282,11 @@ public class AccountAdminConverter {
         return groups;
     }
 
-    public static ApiUserPolicies toDal(UserPolicies src) {
-        ApiUserPolicies policies = null;
+    public static ApiUserPolicy toDal(UserPolicy src) {
+        ApiUserPolicy policies = null;
 
         if (src != null) {
-            policies = new ApiUserPolicies();
+            policies = new ApiUserPolicy();
 
             if (src.isPolicyIdSet()) {
                 policies.setPolicyId(src.getPolicyId());
@@ -336,7 +336,7 @@ public class AccountAdminConverter {
                 apiProgrammaticUser.setDescription(src.getDescription());
             }
             if (src.isPoliciesSet()) {
-                List<ApiUserPolicies> policiesList =
+                List<ApiUserPolicy> policiesList =
                         src.getPolicies().stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
                 apiProgrammaticUser.setPolicies(policiesList);
             }
@@ -363,11 +363,11 @@ public class AccountAdminConverter {
         return ProgrammeticUser;
     }
 
-    public static PolicyStatements toBl(ApiPolicyStatements src) {
-        PolicyStatements statements = null;
+    public static PolicyStatement toBl(ApiPolicyStatement src) {
+        PolicyStatement statements = null;
 
         if(src != null) {
-            statements = new PolicyStatements();
+            statements = new PolicyStatement();
 
             if (src.isEffectSet()) {
                 statements.setEffect(src.getEffect());
@@ -389,7 +389,7 @@ public class AccountAdminConverter {
             policyContent = new PolicyContent();
 
             if (src.isStatementSet()) {
-                List<PolicyStatements> statements =
+                List<PolicyStatement> statements =
                         src.getStatements().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
                 policyContent.setStatements(statements);
             }
@@ -446,7 +446,7 @@ public class AccountAdminConverter {
             if (src.isUserIdsSet()) {
                 userGroup.setUserIds(src.getUserIds());
             }
-            if (src.isPoliciesSet()) {
+            if (src.isPoliciesSet() && src.getPolicies()!=null ) {
                 List<UserGroupMappedPolicies> userGroupMappedPolicies =
                         src.getPolicies().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
                 userGroup.setPolicies(userGroupMappedPolicies);

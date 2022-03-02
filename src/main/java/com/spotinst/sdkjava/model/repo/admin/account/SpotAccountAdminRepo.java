@@ -53,7 +53,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<User> createUser(User userRequest,String authToken, String account) {
+    public RepoGenericResponse<User> createUser(User userRequest,Boolean generateToken, String authToken ) {
         RepoGenericResponse<User> retVal;
 
         try {
@@ -61,7 +61,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             ApiUser apiUserRequest = AccountAdminConverter.toDal(userRequest);
 
             ApiUser apiResponse =
-                    SpotAccountAdminService.createUser(apiUserRequest, authToken, account);
+                    SpotAccountAdminService.createUser(apiUserRequest, generateToken, authToken );
             User userResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(userResponse);
@@ -74,13 +74,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<UserDetails> getUserDetails(String userId,String authToken, String account) {
+    public RepoGenericResponse<UserDetails> getUserDetails(String userId,String authToken ) {
         RepoGenericResponse<UserDetails> retVal;
 
         try {
 
             ApiUserDetails apiResponse =
-                    SpotAccountAdminService.getUserDetails(userId, authToken, account);
+                    SpotAccountAdminService.getUserDetails(userId, authToken );
             UserDetails userResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(userResponse);
@@ -93,7 +93,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<ProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String shouldGenerateToken, String authToken, String account) {
+    public RepoGenericResponse<ProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String authToken ) {
         RepoGenericResponse<ProgrammaticUserResponse> retVal;
 
         try {
@@ -101,7 +101,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             ApiProgrammaticUser apiCreateRequest = AccountAdminConverter.toDal(createRequest);
 
             ApiProgrammaticUserResponse apiResponse =
-                    SpotAccountAdminService.createProgrammaticUser(apiCreateRequest, shouldGenerateToken,authToken, account);
+                    SpotAccountAdminService.createProgrammaticUser(apiCreateRequest, authToken );
             ProgrammaticUserResponse userResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(userResponse);
@@ -114,13 +114,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<OrganizationUsers>> getOrganizationUsers(String authToken, String account) {
+    public RepoGenericResponse<List<OrganizationUsers>> getOrganizationUsers(String authToken ) {
         RepoGenericResponse<List<OrganizationUsers>> retVal;
 
         try {
 
             List<ApiOrganizationUsers> apiResponse =
-                    SpotAccountAdminService.getOrganizationUsers(authToken, account);
+                    SpotAccountAdminService.getOrganizationUsers(authToken );
             List<OrganizationUsers> getResponse =
                     apiResponse.stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
 
@@ -134,13 +134,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateGroupsOfUser(String userId, List<String> groupIds, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateGroupsOfUser(String userId, List<String> groupIds, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             Boolean updateResponse =
-                    SpotAccountAdminService.updateGroupsOfUser(userId, groupIds, authToken, account);
+                    SpotAccountAdminService.updateGroupsOfUser(userId, groupIds, authToken );
 
             retVal = new RepoGenericResponse<>(updateResponse);
         }
@@ -152,14 +152,14 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             ApiUpdateUserDirectPoliciesRequest apiUpdateRequest = AccountAdminConverter.toDal(updateRequest);
             Boolean updateResponse =
-                    SpotAccountAdminService.updateUserDirectPolicies(userId, apiUpdateRequest, authToken, account);
+                    SpotAccountAdminService.updateUserDirectPolicies(userId, apiUpdateRequest, authToken );
 
             retVal = new RepoGenericResponse<>(updateResponse);
         }
@@ -171,7 +171,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Policy> createPolicy(Policy createRequest,String authToken, String account) {
+    public RepoGenericResponse<Policy> createPolicy(Policy createRequest,String authToken ) {
         RepoGenericResponse<Policy> retVal;
 
         try {
@@ -179,7 +179,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             ApiPolicy apiCreateRequest = AccountAdminConverter.toDal(createRequest);
 
             ApiPolicy apiResponse =
-                    SpotAccountAdminService.createPolicy(apiCreateRequest, authToken, account);
+                    SpotAccountAdminService.createPolicy(apiCreateRequest, authToken );
             Policy createResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(createResponse);
@@ -192,7 +192,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updatePolicy(String policyId, Policy createRequest,String authToken, String account) {
+    public RepoGenericResponse<Boolean> updatePolicy(String policyId, Policy createRequest,String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -200,7 +200,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             ApiPolicy apiCreateRequest = AccountAdminConverter.toDal(createRequest);
 
             Boolean updateStatus=
-                    SpotAccountAdminService.updatePolicy(policyId,apiCreateRequest, authToken, account);
+                    SpotAccountAdminService.updatePolicy(policyId,apiCreateRequest, authToken );
 
             retVal = new RepoGenericResponse<>(updateStatus);
         }
@@ -212,12 +212,12 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<Policy>> getAllPolicies(String authToken, String account) {
+    public RepoGenericResponse<List<Policy>> getAllPolicies(String authToken ) {
         RepoGenericResponse<List<Policy>> retVal;
 
         try {
             List<ApiPolicy> apiResponse =
-                    SpotAccountAdminService.getAllPolicies( authToken, account);
+                    SpotAccountAdminService.getAllPolicies( authToken );
             List<Policy> getResponse =
                     apiResponse.stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
 
@@ -231,12 +231,12 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> deletePolicy(String policyId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> deletePolicy(String policyId, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
             Boolean updateStatus=
-                    SpotAccountAdminService.deletePolicy(policyId, authToken, account);
+                    SpotAccountAdminService.deletePolicy(policyId, authToken );
 
             retVal = new RepoGenericResponse<>(updateStatus);
         }
@@ -248,7 +248,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest,String authToken, String account) {
+    public RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest,String authToken ) {
         RepoGenericResponse<UserGroup> retVal;
 
         try {
@@ -256,7 +256,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             ApiUserGroup apiCreateRequest = AccountAdminConverter.toDal(createRequest);
 
             ApiUserGroup apiResponse =
-                    SpotAccountAdminService.createUserGroup(apiCreateRequest, authToken, account);
+                    SpotAccountAdminService.createUserGroup(apiCreateRequest, authToken );
             UserGroup createResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(createResponse);
@@ -269,7 +269,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -278,7 +278,7 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
                     apiUserGroupMappedPolicies = updateRequest.stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
 
             Boolean status =
-                    SpotAccountAdminService.updateUserGroupMappedPolicies(groupId, apiUserGroupMappedPolicies, authToken, account);
+                    SpotAccountAdminService.updateUserGroupMappedPolicies(groupId, apiUserGroupMappedPolicies, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }
@@ -290,13 +290,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             Boolean status =
-                    SpotAccountAdminService.updateUserGroupMappedUsers(groupId, userIds, authToken, account);
+                    SpotAccountAdminService.updateUserGroupMappedUsers(groupId, userIds, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }
@@ -308,13 +308,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserGroupDetails(String groupId, String name, String description, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateUserGroupDetails(String groupId, String name, String description, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             Boolean status =
-                    SpotAccountAdminService.updateUserGroupDetails(groupId, name, description, authToken, account);
+                    SpotAccountAdminService.updateUserGroupDetails(groupId, name, description, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }
@@ -326,13 +326,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             Boolean status =
-                    SpotAccountAdminService.deleteUserGroup(groupId, authToken, account);
+                    SpotAccountAdminService.deleteUserGroup(groupId, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }
@@ -344,13 +344,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId,String authToken, String account) {
+    public RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId,String authToken ) {
         RepoGenericResponse<UserGroupDetails> retVal;
 
         try {
 
             ApiUserGroupDetails apiResponse =
-                    SpotAccountAdminService.getUserGroup(groupId, authToken, account);
+                    SpotAccountAdminService.getUserGroup(groupId, authToken );
             UserGroupDetails getResponse = AccountAdminConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(getResponse);
@@ -363,13 +363,13 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken, String account) {
+    public RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken ) {
         RepoGenericResponse<List<OrganizationUserGroups>> retVal;
 
         try {
 
             List<ApiOrganizationUserGroups> apiResponse =
-                    SpotAccountAdminService.getOrganizationUserGroups(authToken, account);
+                    SpotAccountAdminService.getOrganizationUserGroups(authToken );
             List<OrganizationUserGroups> getResponse = apiResponse.stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getResponse);

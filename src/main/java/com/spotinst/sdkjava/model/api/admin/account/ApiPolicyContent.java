@@ -15,8 +15,8 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiPolicyContent implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>            isSet;
-    private List<ApiPolicyStatements> statements;
+    private Set<String>              isSet;
+    private List<ApiPolicyStatement> statements;
 
     public ApiPolicyContent() {
         isSet = new HashSet<>();
@@ -30,11 +30,11 @@ public class ApiPolicyContent implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiPolicyStatements> getStatements() {
+    public List<ApiPolicyStatement> getStatements() {
         return statements;
     }
 
-    public void setStatements(List<ApiPolicyStatements> statements) {
+    public void setStatements(List<ApiPolicyStatement> statements) {
         isSet.add("statements");
         this.statements = statements;
     }

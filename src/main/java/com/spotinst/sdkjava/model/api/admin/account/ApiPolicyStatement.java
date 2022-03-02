@@ -14,14 +14,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiPolicyStatements implements IPartialUpdateEntity {
+public class ApiPolicyStatement implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>      isSet;
     private PolicyEffectEnum effect;
     private List<String>     actions;
     private List<String>     resources;
 
-    public ApiPolicyStatements() {
+    public ApiPolicyStatement() {
         isSet = new HashSet<>();
     }
 

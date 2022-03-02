@@ -23,7 +23,7 @@ public class ApiUserDetails implements IPartialUpdateEntity {
     private String                     email;
     private String                     description;
     private String                     mfa;
-    private List<ApiUserPolicies>      policies;
+    private List<ApiUserPolicy>        policies;
     private List<ApiUserTokens>        tokens;
     private List<ApiUserDetailsGroups> groups;
 
@@ -93,11 +93,11 @@ public class ApiUserDetails implements IPartialUpdateEntity {
         this.mfa = mfa;
     }
 
-    public List<ApiUserPolicies> getPolicies() {
+    public List<ApiUserPolicy> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<ApiUserPolicies> policies) {
+    public void setPolicies(List<ApiUserPolicy> policies) {
         isSet.add("policies");
         this.policies = policies;
     }

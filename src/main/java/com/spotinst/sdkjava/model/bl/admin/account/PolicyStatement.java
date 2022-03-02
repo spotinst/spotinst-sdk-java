@@ -11,14 +11,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PolicyStatements {
+public class PolicyStatement {
     @JsonIgnore
     private Set<String>      isSet;
     private PolicyEffectEnum effect;
     private List<String>     actions;
     private List<String>     resources;
 
-    public PolicyStatements() {
+    public PolicyStatement() {
         isSet = new HashSet<>();
     }
 
@@ -58,10 +58,10 @@ public class PolicyStatements {
     }
 
     public static class Builder {
-        private PolicyStatements statements;
+        private PolicyStatement statements;
 
         private Builder() {
-            this.statements = new PolicyStatements();
+            this.statements = new PolicyStatement();
         }
 
         public static Builder get() {
@@ -84,7 +84,7 @@ public class PolicyStatements {
             return this;
         }
 
-        public PolicyStatements build() {
+        public PolicyStatement build() {
             return statements;
         }
     }

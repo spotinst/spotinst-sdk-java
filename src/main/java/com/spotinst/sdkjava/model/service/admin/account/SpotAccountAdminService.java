@@ -81,7 +81,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiUser createUser(ApiUser apiUserRequest, String authToken,String accountId ) throws SpotinstHttpException {
+    public static ApiUser createUser(ApiUser apiUserRequest, Boolean generateToken, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         ApiUser retVal = null;
@@ -89,11 +89,10 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
 
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
+
+        queryParams.put("generateToken", generateToken.toString());
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -117,7 +116,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiUserDetails getUserDetails(String userId, String authToken,String accountId ) throws SpotinstHttpException {
+    public static ApiUserDetails getUserDetails(String userId, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         ApiUserDetails retVal = null;
@@ -125,11 +124,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -150,7 +145,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiProgrammaticUserResponse createProgrammaticUser(ApiProgrammaticUser apiUserRequest, String shouldGenerateToken, String authToken, String accountId) throws SpotinstHttpException {
+    public static ApiProgrammaticUserResponse createProgrammaticUser(ApiProgrammaticUser apiUserRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         ApiProgrammaticUserResponse retVal = null;
@@ -158,12 +153,8 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
 
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
-        queryParams.put("shouldGenerateToken", shouldGenerateToken);
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
 
@@ -186,7 +177,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiOrganizationUsers> getOrganizationUsers(String authToken,String accountId ) throws SpotinstHttpException {
+    public static List<ApiOrganizationUsers> getOrganizationUsers(String authToken) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiOrganizationUsers> retVal = null;
@@ -194,11 +185,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -219,7 +206,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateGroupsOfUser(String userId, List<String> userGroupIds, String authToken,String accountId ) throws SpotinstHttpException {
+    public static Boolean updateGroupsOfUser(String userId, List<String> userGroupIds, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -227,11 +214,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -253,7 +236,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserDirectPolicies(String userId, ApiUpdateUserDirectPoliciesRequest apiUpdateRequest, String authToken,String accountId ) throws SpotinstHttpException {
+    public static Boolean updateUserDirectPolicies(String userId, ApiUpdateUserDirectPoliciesRequest apiUpdateRequest, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -261,11 +244,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -285,7 +264,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiPolicy createPolicy(ApiPolicy policyCreateRequest, String authToken,String accountId ) throws SpotinstHttpException {
+    public static ApiPolicy createPolicy(ApiPolicy policyCreateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         ApiPolicy retVal = null;
@@ -293,11 +272,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -321,7 +296,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updatePolicy(String policyId, ApiPolicy updateRequest, String authToken,String accountId ) throws SpotinstHttpException {
+    public static Boolean updatePolicy(String policyId, ApiPolicy updateRequest, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -329,11 +304,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -354,7 +325,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiPolicy> getAllPolicies(String authToken,String accountId ) throws SpotinstHttpException {
+    public static List<ApiPolicy> getAllPolicies(String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiPolicy> retVal = null;
@@ -362,11 +333,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -386,7 +353,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deletePolicy(String policyId, String authToken,String accountId ) throws SpotinstHttpException {
+    public static Boolean deletePolicy(String policyId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -394,11 +361,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -415,7 +378,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiUserGroup createUserGroup(ApiUserGroup apiCreateRequest, String authToken,String accountId ) throws SpotinstHttpException {
+    public static ApiUserGroup createUserGroup(ApiUserGroup apiCreateRequest, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         ApiUserGroup retVal = null;
@@ -423,11 +386,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -449,7 +408,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserGroupMappedPolicies(String groupId, List<ApiUserGroupMappedPolicies> apiUpdateRequest, String authToken, String accountId) throws SpotinstHttpException {
+    public static Boolean updateUserGroupMappedPolicies(String groupId, List<ApiUserGroupMappedPolicies> apiUpdateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;
@@ -457,11 +416,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -483,7 +438,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken, String accountId) throws SpotinstHttpException {
+    public static Boolean updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;
@@ -491,11 +446,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -517,7 +468,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserGroupDetails(String groupId, String name,String description, String authToken, String accountId) throws SpotinstHttpException {
+    public static Boolean updateUserGroupDetails(String groupId, String name,String description, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;
@@ -525,11 +476,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -552,7 +499,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteUserGroup(String groupId, String authToken, String accountId) throws SpotinstHttpException {
+    public static Boolean deleteUserGroup(String groupId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;
@@ -560,11 +507,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -582,7 +525,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiUserGroupDetails getUserGroup(String groupId, String authToken,String accountId ) throws SpotinstHttpException {
+    public static ApiUserGroupDetails getUserGroup(String groupId, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         ApiUserGroupDetails retVal = null;
@@ -590,11 +533,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -615,7 +554,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiOrganizationUserGroups> getOrganizationUserGroups(String authToken,String accountId ) throws SpotinstHttpException {
+    public static List<ApiOrganizationUserGroups> getOrganizationUserGroups(String authToken) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiOrganizationUserGroups> retVal = null;
@@ -623,11 +562,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        apiEndpoint = "http://api-public.dev.spotinst.com:7900";
         Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        queryParams.put("accountId", accountId);
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);

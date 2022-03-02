@@ -12,10 +12,10 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProgrammaticUser {
     @JsonIgnore
-    private Set<String>        isSet;
-    private String             name;
-    private String             description;
-    private List<UserPolicies> policies;
+    private Set<String>      isSet;
+    private String           name;
+    private String           description;
+    private List<UserPolicy> policies;
 
     public ProgrammaticUser() {
         isSet = new HashSet<>();
@@ -47,11 +47,11 @@ public class ProgrammaticUser {
         this.description = description;
     }
 
-    public List<UserPolicies> getPolicies() {
+    public List<UserPolicy> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<UserPolicies> policies) {
+    public void setPolicies(List<UserPolicy> policies) {
         isSet.add("policies");
         this.policies = policies;
     }
@@ -78,7 +78,7 @@ public class ProgrammaticUser {
             return this;
         }
 
-        public Builder setPolicies(final List<UserPolicies> policies) {
+        public Builder setPolicies(final List<UserPolicy> policies) {
             programmaticUser.setPolicies(policies);
             return this;
         }
