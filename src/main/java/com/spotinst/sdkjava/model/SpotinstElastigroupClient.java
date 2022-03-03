@@ -1065,11 +1065,11 @@ public class SpotinstElastigroupClient {
         return elastigroup;
     }
   
-    public List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region) {
+    public List<GetInstanceTypesResponse> getInstanceTypesByRegion(String region) {
 
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
 
-        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
                 getSpotinstElastigroupRepo().getInstanceTypesByRegion(region, authToken, account);
 
         if(getInstanceTypesResponse.isRequestSucceed()){
@@ -1089,11 +1089,11 @@ public class SpotinstElastigroupClient {
 
     }
 
-    public List<GetInstanceTypesByRegionResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
+    public List<GetInstanceTypesResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
 
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
 
-        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
                 getSpotinstElastigroupRepo().getSuggestedInstanceTypes(suggestedInstanceTypeRequest, authToken, account);
 
         if(getInstanceTypesResponse.isRequestSucceed()){

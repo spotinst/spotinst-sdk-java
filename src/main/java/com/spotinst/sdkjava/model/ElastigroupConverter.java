@@ -3231,12 +3231,12 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    public static GetInstanceTypesByRegionResponse toBl(
-            ApiGetInstanceTypesByRegionResponse getInstanceTypesByRegion) {
-        GetInstanceTypesByRegionResponse retVal = null;
+    public static GetInstanceTypesResponse toBl(
+            ApiGetInstanceTypesResponse getInstanceTypesByRegion) {
+        GetInstanceTypesResponse retVal = null;
 
         if (getInstanceTypesByRegion != null) {
-            retVal = new GetInstanceTypesByRegionResponse();
+            retVal = new GetInstanceTypesResponse();
 
             if (getInstanceTypesByRegion.isInstanceTypeSet()) {
                 retVal.setInstanceType(getInstanceTypesByRegion.getInstanceType());
