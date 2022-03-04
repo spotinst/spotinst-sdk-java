@@ -797,14 +797,35 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
    @Override  
-   public RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
-        RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> retVal;
+   public RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesResponse>> retVal;
 
         try {
 
-            List<ApiGetInstanceTypesByRegionResponse> getInstanceTypes = SpotinstElastigroupService
+            List<ApiGetInstanceTypesResponse> getInstanceTypes = SpotinstElastigroupService
                     .getInstanceTypesByRegion(region, authToken, account);
-            List<GetInstanceTypesByRegionResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+            List<GetInstanceTypesResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllInstanceTypes);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetInstanceTypesResponse>> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceType, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesResponse>> retVal;
+
+        try {
+
+            List<ApiGetInstanceTypesResponse> getInstanceTypes = SpotinstElastigroupService
+                    .getSuggestedInstanceTypes(suggestedInstanceType, authToken, account);
+            List<GetInstanceTypesResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllInstanceTypes);

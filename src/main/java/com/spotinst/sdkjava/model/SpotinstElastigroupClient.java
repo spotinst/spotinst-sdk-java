@@ -1066,11 +1066,11 @@ public class SpotinstElastigroupClient {
         return elastigroup;
     }
   
-    public List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region) {
+    public List<GetInstanceTypesResponse> getInstanceTypesByRegion(String region) {
 
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
 
-        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
                 getSpotinstElastigroupRepo().getInstanceTypesByRegion(region, authToken, account);
 
         if(getInstanceTypesResponse.isRequestSucceed()){
@@ -1090,6 +1090,31 @@ public class SpotinstElastigroupClient {
 
     }
 
+    public List<GetInstanceTypesResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getSuggestedInstanceTypes(suggestedInstanceTypeRequest, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the suggested instance types. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
+
     public List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId) {
 
         List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponses;
@@ -1105,12 +1130,14 @@ public class SpotinstElastigroupClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
                     "Error encountered while attempting to get the instance types by region. Code: %s. Message: %s.",
+
                     httpException.getCode(), httpException.getMessage()));
 
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return codeDeployBGDeploymentResponses;
+
     }
 
 }

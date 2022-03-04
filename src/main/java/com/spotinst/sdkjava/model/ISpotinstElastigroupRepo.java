@@ -102,7 +102,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<Elastigroup> importASG(ImportASGRequest importASGRequest, String authToken);
 
-    RepoGenericResponse<List<GetInstanceTypesByRegionResponse>> getInstanceTypesByRegion(String region, String authToken, String account);
+    RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account);
+
+    RepoGenericResponse<List<GetInstanceTypesResponse>> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceType, String authToken, String account);
 
     RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account);
 }

@@ -1580,9 +1580,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
     }
 
-    public static List<ApiGetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region, String authToken, String account) {
+    public static List<ApiGetInstanceTypesResponse> getInstanceTypesByRegion(String region, String authToken, String account) {
 
-        List<ApiGetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
+        List<ApiGetInstanceTypesResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1680,6 +1680,50 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static List<ApiGetInstanceTypesResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest, String authToken, String account) {
+
+        List<ApiGetInstanceTypesResponse> getInstanceTypesByRegionResponse = new LinkedList<>();
+        GetSuggestedInstanceType suggestedInstanceTypeReq = suggestedInstanceTypeRequest.getSuggestedInstanceType();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instanceTypeRecommendation", apiEndpoint);
+
+        // Write to json
+        Map<String, GetSuggestedInstanceType> suggestedInstanceType = new HashMap<>();
+        suggestedInstanceType.put("requirements", suggestedInstanceTypeReq);
+        String body = JsonMapper.toJson(suggestedInstanceType);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+
+        GetInstanceTypesByRegionApiResponse
+                instanceTypesResponse = getCastedResponse(response, GetInstanceTypesByRegionApiResponse.class);
+
+        if (instanceTypesResponse.getResponse().getCount() > 0) {
+            getInstanceTypesByRegionResponse = instanceTypesResponse.getResponse().getItems();
+        }
+
+        return getInstanceTypesByRegionResponse;
+    }
+
 
     public static List<ApiCodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account) {
 

@@ -12,13 +12,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiGetInstanceTypesByRegionResponse implements IPartialUpdateEntity {
+public class ApiGetInstanceTypesResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>                                        isSet;
     private String                                             instanceType;
 
-    public ApiGetInstanceTypesByRegionResponse() {
+    public ApiGetInstanceTypesResponse() {
         isSet = new HashSet<>();
     }
 
