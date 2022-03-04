@@ -1114,7 +1114,6 @@ public class SpotinstElastigroupClient {
 
     }
 
-
     public List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId) {
 
         List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponses;

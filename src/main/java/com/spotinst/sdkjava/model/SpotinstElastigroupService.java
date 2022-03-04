@@ -1724,7 +1724,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return getInstanceTypesByRegionResponse;
     }
 
-
     public static List<ApiCodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account) {
 
         List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = new LinkedList<>();
@@ -1765,4 +1764,5 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return apiCodeDeployResponse;
     }
+
 }

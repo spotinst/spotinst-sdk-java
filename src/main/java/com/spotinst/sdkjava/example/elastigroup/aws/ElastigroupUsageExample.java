@@ -182,10 +182,9 @@ public class ElastigroupUsageExample {
         System.out.println("----------Get Suggested Instance Types--------------");
         List<GetInstanceTypesResponse> getSuggestedInstanceTypes = getSuggestedInstanceTypes(elastigroupClient);
 
-        //Start deployment
+        //Create deployment
         System.out.println("----------Create CodeDeploy B/G Deployment--------------");
         String deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
-
 
     }
 
@@ -1141,8 +1140,6 @@ public class ElastigroupUsageExample {
 
     }
 
-
-
     private static CodeDeployBGDeploymentResponse createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
                                                                                String elastigroupId) {
 
@@ -1182,6 +1179,5 @@ public class ElastigroupUsageExample {
         return startDeploymentResponse;
 
     }
-
 
 }
