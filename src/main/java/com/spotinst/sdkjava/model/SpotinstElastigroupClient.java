@@ -10,6 +10,7 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 import com.spotinst.sdkjava.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1087,6 +1088,29 @@ public class SpotinstElastigroupClient {
 
         return getInstanceTypesByRegionResponse;
 
+    }
+
+    public List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId) {
+
+        List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponses;
+
+        RepoGenericResponse <List<CodeDeployBGDeploymentResponse>> getCodeDeployResponse =
+                getSpotinstElastigroupRepo().createCodeDeployBGDeployment(request, elastigroupId, authToken, account);
+
+        if(getCodeDeployResponse.isRequestSucceed()){
+            codeDeployBGDeploymentResponses = getCodeDeployResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getCodeDeployResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the instance types by region. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return codeDeployBGDeploymentResponses;
     }
 
 }

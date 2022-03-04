@@ -11,6 +11,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroup
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -815,4 +816,26 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
+    @Override
+       public RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account){
+        RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> retVal;
+
+        try {
+
+            List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = SpotinstElastigroupService
+                    .createCodeDeployBGDeployment(request, elastigroupId, authToken, account);
+            List<CodeDeployBGDeploymentResponse> codeDeployResponse = apiCodeDeployResponse.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(codeDeployResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
 }

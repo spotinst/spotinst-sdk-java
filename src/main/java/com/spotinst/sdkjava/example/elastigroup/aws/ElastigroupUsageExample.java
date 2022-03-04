@@ -8,6 +8,8 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentApiResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -176,6 +178,10 @@ public class ElastigroupUsageExample {
         //Get Instance types by region
         System.out.println("----------Get Instance Types by region--------------");
         List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
+
+        //Start deployment
+        System.out.println("----------Create CodeDeploy B/G Deployment--------------");
+        String deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
 
 
     }
@@ -1112,5 +1118,46 @@ public class ElastigroupUsageExample {
 
         return getInstanceTypesByRegionResponse;
     }
+
+    private static CodeDeployBGDeploymentResponse createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
+                                                                  String elastigroupId) {
+
+        // Build Onfailure
+        ElastigroupDeploymentStrategyOnFailure onfailure =
+                ElastigroupDeploymentStrategyOnFailure.Builder.get().setActionType(AwsElastigroupActionTypeEnum.DETACH_NEW)
+                        .setDrainingTimeout(200)
+                        .setShouldDecrementTargetCapacity(true)
+                        .setShouldHandleAllBatches(false).build();
+
+        // Build Strategy
+        ElastigroupDeploymentStrategy strategy =
+                ElastigroupDeploymentStrategy.Builder.get().setAction(AwsElastigroupActionEnum.RESTART_SERVER).setBatchMinHealthyPercentage(50).setOnFailure(onfailure)
+                        .build();
+
+        //Build Elastigroup Deployment
+        ElastigroupStartDeployment.Builder requestBuilder = ElastigroupStartDeployment.Builder.get();
+        ElastigroupStartDeployment elastigroupStartDeployment =
+                requestBuilder.setBatchSizePercentage(100).setDrainingTimeout(240).setGracePeriod(10)
+                        .setHealthCheckType(AwsElastigroupHealthCheckTypeEnum.NONE).setStrategy(strategy).build();
+
+        ElastigroupStartDeploymentRequest.Builder startDeploymentRequestBuilder = ElastigroupStartDeploymentRequest.Builder.get();
+        ElastigroupStartDeploymentRequest startDeploymentRequest =
+                startDeploymentRequestBuilder.setElastigroupDeployment(elastigroupStartDeployment).build();
+
+        System.out.println("Start Deployment Request for elastigroup:" + elastigroupId);
+        System.out.println(startDeploymentRequest.toJson());
+
+        ElastigroupStartDeploymentResponse startDeploymentResponse =
+                elastigroupClient.createCodeDeployBGDeployment(startDeploymentRequest, elastigroupId);
+
+        System.out.println("Start Deployment for  elastigroup: " + elastigroupId + " with id " + startDeploymentResponse.getId() +
+                " and status " + startDeploymentResponse.getStatus() + " in current batch " +
+                startDeploymentResponse.getCurrentBatch() + " out of " + startDeploymentResponse.getNumOfBatches() +
+                " total batches");
+
+        return startDeploymentResponse;
+
+    }
+
 
 }

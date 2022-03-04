@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -3189,6 +3190,27 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    private static ElastigroupDeploymentTags toBl(ApiElastigroupDeploymentTags apiElastigroupDeploymentTags) {
+        ElastigroupDeploymentTags blDeploymentTags = null;
+
+        if (apiElastigroupDeploymentTags != null) {
+            ElastigroupDeploymentTags.Builder blDeploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
+
+            if (apiElastigroupDeploymentTags.isTagKeySet()) {
+                blDeploymentTagsBuilder.setTagKey(apiElastigroupDeploymentTags.getTagKey());
+            }
+
+            if (apiElastigroupDeploymentTags.isTagValueSet()) {
+                blDeploymentTagsBuilder.setTagValue(apiElastigroupDeploymentTags.getTagValue());
+            }
+
+            blDeploymentTags = blDeploymentTagsBuilder.build();
+        }
+
+        return blDeploymentTags;
+    }
+
+
     public static GetInstanceTypesByRegionResponse toBl(
             ApiGetInstanceTypesByRegionResponse getInstanceTypesByRegion) {
         GetInstanceTypesByRegionResponse retVal = null;
@@ -3202,4 +3224,112 @@ public class ElastigroupConverter {
         }
         return retVal;
     }
+
+    public static ApiElastigroupCodeDeployBGDeployment toDal(ElastigroupCodeDeployBGDeployment codeDeployBGDeployment) {
+        ApiElastigroupCodeDeployBGDeployment retVal = null;
+
+        if (codeDeployBGDeployment != null) {
+            retVal = new ApiElastigroupCodeDeployBGDeployment();
+
+            if (codeDeployBGDeployment.isTimeoutSet()) {
+                retVal.setTimeout(codeDeployBGDeployment.getTimeout());
+            }
+
+            if (codeDeployBGDeployment.isDeploymentTagsSet()) {
+                if (codeDeployBGDeployment.getDeploymentTags() != null) {
+                    List<ApiElastigroupDeploymentTags> deploymentTags =
+                            codeDeployBGDeployment.getDeploymentTags().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setDeploymentTags(deploymentTags);
+                }
+            }
+
+            if (codeDeployBGDeployment.isDeploymentGroupsSet()) {
+                if (codeDeployBGDeployment.getDeploymentGroups() != null) {
+                    List<ApiDeploymentGroup> deploymentGroups =
+                            codeDeployBGDeployment.getDeploymentGroups().stream().map((ElastigroupConverter::toDal))
+                                    .collect(Collectors.toList());
+                    retVal.setDeploymentGroups(deploymentGroups);
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiElastigroupDeploymentTags toDal(ElastigroupDeploymentTags deploymentTags) {
+        ApiElastigroupDeploymentTags retVal = null;
+
+        if (deploymentTags != null) {
+            retVal = new ApiElastigroupDeploymentTags();
+
+            if (deploymentTags.isTagKeySet()) {
+                retVal.setTagKey(deploymentTags.getTagKey());
+            }
+
+            if (deploymentTags.isTagValueSet()) {
+                retVal.setTagValue(deploymentTags.getTagValue());
+            }
+
+        }
+        return retVal;
+
+    }
+
+
+    public static CodeDeployBGDeploymentResponse toBl(ApiCodeDeployBGDeploymentResponse apiCodeDeployBGResponse) {
+        CodeDeployBGDeploymentResponse retVal = null;
+
+        if (apiCodeDeployBGResponse != null) {
+
+            retVal = new CodeDeployBGDeploymentResponse();
+
+            if (apiCodeDeployBGResponse.isIdSet()) {
+                retVal.setId(apiCodeDeployBGResponse.getId());
+            }
+
+            if (apiCodeDeployBGResponse.isGroupIdSet()) {
+                retVal.setGroupId(apiCodeDeployBGResponse.getGroupId());
+            }
+
+            if (apiCodeDeployBGResponse.isStateSet()) {
+                retVal.setState(apiCodeDeployBGResponse.getState());
+            }
+
+            if (apiCodeDeployBGResponse.isConfigSet()) {
+                retVal.setConfig(apiCodeDeployBGResponse.getConfig());
+            }
+
+        }
+        return retVal;
+    }
+
+    private static CodeDeployConfig toBl(ApiCodeDeployConfig apiCodeDeployConfig) {
+        CodeDeployConfig retVal = null;
+
+        if (apiCodeDeployConfig != null) {
+
+            retVal = new CodeDeployConfig();
+
+            if (apiCodeDeployConfig.isTimeoutSet()) {
+                retVal.setTimeout(apiCodeDeployConfig.getTimeout());
+            }
+
+            if (apiCodeDeployConfig.isDeploymentTagsSet()) {
+                List<ElastigroupDeploymentTags> deploymentTags =
+                        apiCodeDeployConfig.getDeploymentTags().stream().map(ElastigroupConverter::toBl)
+                                .collect(Collectors.toList());
+                retVal.setDeploymentTags(deploymentTags);
+            }
+
+            if (apiCodeDeployConfig.isDeploymentGroupsSet()) {
+                List<ElastigroupDeploymentGroup> deploymentGroups =
+                        apiCodeDeployConfig.getDeploymentGroups().stream().map(ElastigroupConverter::toBl)
+                                .collect(Collectors.toList());
+                retVal.setDeploymentGroups(deploymentGroups);
+            }
+
+        }
+        return retVal;
+    }
+
 }
