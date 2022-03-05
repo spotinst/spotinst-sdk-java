@@ -175,7 +175,11 @@ public class ElastigroupUsageExample {
 
         //Get Instance types by region
         System.out.println("----------Get Instance Types by region--------------");
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
+        List<GetInstanceTypesResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
+
+        //Get suggested Instance types
+        System.out.println("----------Get Suggested Instance Types--------------");
+        List<GetInstanceTypesResponse> getSuggestedInstanceTypes = getSuggestedInstanceTypes(elastigroupClient);
 
 
     }
@@ -1100,17 +1104,36 @@ public class ElastigroupUsageExample {
         return elastigroupGetLogsResponse;
     }
 
-    private static List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(SpotinstElastigroupClient client, String region) {
+    private static List<GetInstanceTypesResponse> getInstanceTypesByRegion(SpotinstElastigroupClient client, String region) {
 
 
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse =
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse =
                 client.getInstanceTypesByRegion(region);
 
-        for (GetInstanceTypesByRegionResponse instanceType : getInstanceTypesByRegionResponse) {
+        for (GetInstanceTypesResponse instanceType : getInstanceTypesByRegionResponse) {
             System.out.println(String.format("InstanceType: %s", instanceType.getInstanceType()));
         }
 
         return getInstanceTypesByRegionResponse;
+    }
+
+    private static List<GetInstanceTypesResponse> getSuggestedInstanceTypes(SpotinstElastigroupClient elastigroupClient) {
+
+        GetSuggestedInstanceType.Builder instanceTypeBuilder = GetSuggestedInstanceType.Builder.get();
+        GetSuggestedInstanceType         instanceType        = instanceTypeBuilder.setRegion("us-west-2").setBaselineInstanceType("m5.large").build();
+
+        GetSuggestedInstanceTypeRequest.Builder requestBuilder = GetSuggestedInstanceTypeRequest.Builder.get();
+        GetSuggestedInstanceTypeRequest instanceTypesReq = requestBuilder.setSuggestedInstanceType(instanceType).build();
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse =
+                elastigroupClient.getSuggestedInstanceTypes(instanceTypesReq);
+
+        for (GetInstanceTypesResponse instances : getInstanceTypesByRegionResponse) {
+            System.out.println(String.format("InstanceType: %s", instances.getInstanceType()));
+        }
+
+        return getInstanceTypesByRegionResponse;
+
     }
 
 }
