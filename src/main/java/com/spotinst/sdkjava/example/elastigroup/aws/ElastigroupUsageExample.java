@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
+import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.SuspendGroupProcessesAzure;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
@@ -184,7 +185,7 @@ public class ElastigroupUsageExample {
 
         //Create deployment
         System.out.println("----------Create CodeDeploy B/G Deployment--------------");
-        String deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
+        deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
 
     }
 
@@ -1140,43 +1141,46 @@ public class ElastigroupUsageExample {
 
     }
 
-    private static CodeDeployBGDeploymentResponse createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
+    private List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
                                                                                String elastigroupId) {
 
-        // Build Onfailure
-        ElastigroupDeploymentStrategyOnFailure onfailure =
-                ElastigroupDeploymentStrategyOnFailure.Builder.get().setActionType(AwsElastigroupActionTypeEnum.DETACH_NEW)
-                        .setDrainingTimeout(200)
-                        .setShouldDecrementTargetCapacity(true)
-                        .setShouldHandleAllBatches(false).build();
+        //Build deploymentTags
+        ElastigroupDeploymentTags.Builder deploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
+        ElastigroupDeploymentTags deploymentTags =
+                deploymentTagsBuilder.setTagKey("ver").setTagValue("pink").build();
+        List<ElastigroupDeploymentTags> deploymentTagsArrayList = new ArrayList<>();
+        deploymentTagsArrayList.add(deploymentTags);
 
-        // Build Strategy
-        ElastigroupDeploymentStrategy strategy =
-                ElastigroupDeploymentStrategy.Builder.get().setAction(AwsElastigroupActionEnum.RESTART_SERVER).setBatchMinHealthyPercentage(50).setOnFailure(onfailure)
-                        .build();
+        //Build deploymentGroup
+        ElastigroupDeploymentGroup.Builder deploymentGroupBuilder = ElastigroupDeploymentGroup.Builder.get();
+        ElastigroupDeploymentGroup deploymentGroup =
+                deploymentGroupBuilder.setApplicationName("appTest").setDeploymentGroupName("deploymentGroupName").build();
+        List<ElastigroupDeploymentGroup> deploymentGroupArrayList = new ArrayList<>();
+        deploymentGroupArrayList.add(deploymentGroup);
 
-        //Build Elastigroup Deployment
-        ElastigroupStartDeployment.Builder requestBuilder = ElastigroupStartDeployment.Builder.get();
-        ElastigroupStartDeployment elastigroupStartDeployment =
-                requestBuilder.setBatchSizePercentage(100).setDrainingTimeout(240).setGracePeriod(10)
-                        .setHealthCheckType(AwsElastigroupHealthCheckTypeEnum.NONE).setStrategy(strategy).build();
+        //Build CodeDeploy
+        ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
+        ElastigroupCodeDeployBGDeployment codeDeploy =
+                codeDeployBuilder.setTimeout("120").setDeploymentTags(deploymentTagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
-        ElastigroupStartDeploymentRequest.Builder startDeploymentRequestBuilder = ElastigroupStartDeploymentRequest.Builder.get();
-        ElastigroupStartDeploymentRequest startDeploymentRequest =
-                startDeploymentRequestBuilder.setElastigroupDeployment(elastigroupStartDeployment).build();
+        //Build Create CodeDeploy Deployment Request
+        ElastigroupCreateCodeDeployRequest.Builder createCodeDeployRequestBuilder = ElastigroupCreateCodeDeployRequest.Builder.get();
+        ElastigroupCreateCodeDeployRequest createCodeDeployRequest =
+                createCodeDeployRequestBuilder.setCodeDeployBGDeployment(codeDeploy).build();
 
-        System.out.println("Start Deployment Request for elastigroup:" + elastigroupId);
-        System.out.println(startDeploymentRequest.toJson());
+        System.out.println("Create Deployment Request for elastigroup:" + elastigroupId);
+        System.out.println(createCodeDeployRequest.toJson());
 
-        ElastigroupStartDeploymentResponse startDeploymentResponse =
-                elastigroupClient.createCodeDeployBGDeployment(startDeploymentRequest, elastigroupId);
+        List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponse =
+                elastigroupClient.createCodeDeployBGDeployment(createCodeDeployRequest, elastigroupId);
 
-        System.out.println("Start Deployment for  elastigroup: " + elastigroupId + " with id " + startDeploymentResponse.getId() +
-                " and status " + startDeploymentResponse.getStatus() + " in current batch " +
-                startDeploymentResponse.getCurrentBatch() + " out of " + startDeploymentResponse.getNumOfBatches() +
-                " total batches");
+        System.out.println("Create deployment for  elastigroup: " + elastigroupId + " with id " + codeDeployBGDeploymentResponse.get(0).getId() +
+                " with groupid " + codeDeployBGDeploymentResponse.get(0).getGroupId() +
+                " and state " + codeDeployBGDeploymentResponse.get(0).getState());
 
-        return startDeploymentResponse;
+        return codeDeployBGDeploymentResponse;
+
+
 
     }
 

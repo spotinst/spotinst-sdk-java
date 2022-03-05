@@ -89,6 +89,11 @@ public class ElastigroupCodeDeployBGDeployment implements IPartialUpdateEntity {
         }
 
         //region Build methods
+        public Builder setTimeout(String timeout) {
+            codeDeployBGDeployment.setTimeout(timeout);
+            return this;
+        }
+
         public Builder setDeploymentTags(List<ElastigroupDeploymentTags> deploymentTags) {
             codeDeployBGDeployment.setDeploymentTags(deploymentTags);
             return this;
