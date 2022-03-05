@@ -379,7 +379,21 @@ public class OceanK8sConverter {
 
         return retVal;
     }
+    public static ApiImportAsgToClusterInstanceTypes toDal(ImportAsgToClusterConfiguration instanceTypes) {
+        ApiImportAsgToClusterInstanceTypes retVal = null;
 
+        if (instanceTypes != null) {
+
+            retVal = new ApiImportAsgToClusterInstanceTypes();
+
+            if (instanceTypes.isInstanceTypesSet()) {
+                retVal.setInstanceTypes(instanceTypes.getInstanceTypes());
+            }
+
+        }
+
+        return retVal;
+    }
     //endregion
 
     //region DAL -> BL
@@ -694,10 +708,10 @@ public class OceanK8sConverter {
             ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
 
             if (apiInstanceTypes.isBlacklistSet()) {
-                apiInstanceTypes.setBlacklist(apiInstanceTypes.getBlacklist());
+                instanceTypesBuilder.setBlacklist(apiInstanceTypes.getBlacklist());
             }
             if (apiInstanceTypes.isWhitelistSet()) {
-                apiInstanceTypes.setWhitelist(apiInstanceTypes.getWhitelist());
+                instanceTypesBuilder.setWhitelist(apiInstanceTypes.getWhitelist());
             }
 
             retVal = instanceTypesBuilder.build();
@@ -806,6 +820,29 @@ public class OceanK8sConverter {
         return retVal;
     }
 
+    public static K8sClusterFetchElastilogResponse toBl(
+            ApiK8sClusterFetchElastilogResponse clusterGetElastilogResponse) {
+        K8sClusterFetchElastilogResponse retVal = null;
+
+        if (clusterGetElastilogResponse != null) {
+            retVal = new K8sClusterFetchElastilogResponse();
+
+            if (clusterGetElastilogResponse.isMessageSet()) {
+                retVal.setMessage(clusterGetElastilogResponse.getMessage());
+            }
+
+            if (clusterGetElastilogResponse.isSeveritySet()) {
+                retVal.setSeverity(clusterGetElastilogResponse.getSeverity());
+            }
+
+            if (clusterGetElastilogResponse.isCreatedAtSet()) {
+                retVal.setCreatedAt(clusterGetElastilogResponse.getCreatedAt());
+            }
+
+        }
+        return retVal;
+
+    }
 
     //endregion
 }
