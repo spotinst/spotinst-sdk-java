@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.requests.ocean.kubernetes.*;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OceanKubernetesVngSpecUsageExample {
@@ -300,24 +301,23 @@ public class OceanKubernetesVngSpecUsageExample {
         System.out.println("-------------------------Import ASG to virtual node group------------------------");
 
         //Build labels
-        K8sVngLabels.Builder labelsBuilder = K8sVngLabels.Builder.get();
+        K8sVngLabel.Builder labelsBuilder = K8sVngLabel.Builder.get();
 
-        K8sVngLabels       label     = labelsBuilder.setKey("Creator").setValue("testingSdkOcean").build();
-        List<K8sVngLabels> labelsList = Collections.singletonList(label);
+        K8sVngLabel label     = labelsBuilder.setKey("app").setValue("frontend").build();
+        List<K8sVngLabel> labelsList = new LinkedList<>();
+        labelsList.add(label);
 
         //Build taints
         K8sVngTaints.Builder taintsBuilder = K8sVngTaints.Builder.get();
 
-        K8sVngTaints       taints     = taintsBuilder.setKey("Creator").setValue("testingSdkOcean").setEffect("NoSchedule").build();
-        List<K8sVngTaints> taintsList = Collections.singletonList(taints);
+        K8sVngTaints       taints     = taintsBuilder.setKey("app").setValue("frontend").setEffect("NoSchedule").build();
+        List<K8sVngTaints> taintsList = new LinkedList<>();
+        taintsList.add(taints);
 
         // Build launch spec
         K8sVngSpec.Builder asgImportRequestBuilder = K8sVngSpec.Builder.get();
         K8sVngSpec asgImportRequest               =
                 asgImportRequestBuilder.setName("specialty.nodes.spotk8s.com").setLabels(labelsList).setTaints(taintsList).build();
-
-        //Convert launch spec to API object json
-        System.out.println(asgImportRequest.toString());
 
         // Import ASG to VNG
         K8sVngSpec      importASGResponse = client.importASGToVng(asgImportRequest, autoScalingGroupName, oceanId);
@@ -328,32 +328,34 @@ public class OceanKubernetesVngSpecUsageExample {
     }
 
     private static K8sVngSpec importClusterVngToOceanVng(K8sVngClient client) {
-        System.out.println("-------------------------Import ASG to virtual node group------------------------");
+        System.out.println("-------------------------Import EKS VNG to Ocean VNG------------------------");
 
         //Build labels
-        K8sVngLabels.Builder labelsBuilder = K8sVngLabels.Builder.get();
+        K8sVngLabel.Builder labelsBuilder = K8sVngLabel.Builder.get();
 
-        K8sVngLabels       label     = labelsBuilder.setKey("Creator").setValue("testingSdkOcean").build();
-        List<K8sVngLabels> labelsList = Collections.singletonList(label);
-
+        List<K8sVngLabel> labelsList = new LinkedList<>();
+        K8sVngLabel label1     = labelsBuilder.setKey("Group ").setValue("Platform").build();
+        labelsList.add(label1);
+        K8sVngLabel label2     = labelsBuilder.setKey("Service ").setValue("Frontend").build();
+        labelsList.add(label2);
 
         // Build launch spec
-        ImportEKSK8sVngSpec.Builder asgImportRequestBuilder = ImportEKSK8sVngSpec.Builder.get();
-        ImportEKSK8sVngSpec asgImportRequest               =
-                asgImportRequestBuilder.setName("specialty.nodes.spotk8s.com").setLabels(labelsList).build();
+        ImportEKSK8sVngSpec.Builder vngRequestBuilder = ImportEKSK8sVngSpec.Builder.get();
+        ImportEKSK8sVngSpec vngImportRequest               =
+                vngRequestBuilder.setName("specialty.nodes.spotk8s.com").setLabels(labelsList).build();
 
         //Build launch spec creation request
         K8sImportClusterVngToOceanVngRequest.Builder vngImportRequestBuilder = K8sImportClusterVngToOceanVngRequest.Builder.get();
-        K8sImportClusterVngToOceanVngRequest        importRequest           = vngImportRequestBuilder.setVngLaunchSpec(asgImportRequest).setAccountId(accountId).setEksClusterName("test").setEksNodeGroupName("test_vng").setOceanId(oceanId).build();
+        K8sImportClusterVngToOceanVngRequest        importRequest           = vngImportRequestBuilder.setVngLaunchSpec(vngImportRequest).setAccountId(accountId).setEksClusterName("test").setEksNodeGroupName("test_vng").setOceanId(oceanId).build();
 
         //Convert launch spec to API object json
         System.out.println(importRequest.toJson());
 
-        // Import ASG to VNG
-        K8sVngSpec      importASGResponse = client.importClusterVngToOceanVng(importRequest);
+        // Import EKS VNG to Ocean VNG
+        K8sVngSpec      importASGToVngConfigResponse = client.importClusterVngToOceanVng(importRequest);
 
-        System.out.println(String.format("Response: %s", importASGResponse.toString()));
+        System.out.println(String.format("Response: %s", importASGToVngConfigResponse.toString()));
 
-        return importASGResponse;
+        return importASGToVngConfigResponse;
     }
 }

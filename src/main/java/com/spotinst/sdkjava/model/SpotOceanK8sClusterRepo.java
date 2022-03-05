@@ -7,7 +7,7 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.GetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanK8sCluster;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sClusterFetchElastilogResponse;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterInstanceTypes;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterConfiguration;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sClusterFetchElastilogResponse;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 
@@ -131,7 +131,7 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
     }
 
     @Override
-    public RepoGenericResponse<OceanK8sCluster> importASGToOceanCluster(ImportAsgToClusterInstanceTypes importRequest, String autoScalingGroupName, String region, String authToken, String account) {
+    public RepoGenericResponse<OceanK8sCluster> importASGToOceanCluster(ImportAsgToClusterConfiguration importRequest, String autoScalingGroupName, String region, String authToken, String account) {
         RepoGenericResponse<OceanK8sCluster> retVal;
 
         try {

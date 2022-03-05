@@ -8,9 +8,9 @@ import java.util.Set;
 
 public class ImportEKSK8sVngSpec {
     @JsonIgnore
-    private Set<String>                     isSet;
-    private String                          name;
-	private List<K8sVngLabels>			 	labels;
+    private Set<String>                      isSet;
+    private String                            name;
+	private List<K8sVngLabel>			 	labels;
 
     private ImportEKSK8sVngSpec() {
         isSet = new HashSet<>();
@@ -33,11 +33,11 @@ public class ImportEKSK8sVngSpec {
         this.name = name;
     }
 
-    public List<K8sVngLabels> getLabels() {
+    public List<K8sVngLabel> getLabels() {
         return labels;
     }
     
-    public void setLabels(List<K8sVngLabels> labels) {
+    public void setLabels(List<K8sVngLabel> labels) {
         isSet.add("labels");
         this.labels = labels;
     }
@@ -59,7 +59,7 @@ public class ImportEKSK8sVngSpec {
             return this;
         }
 
-        public Builder setLabels(final List<K8sVngLabels> labels) {
+        public Builder setLabels(final List<K8sVngLabel> labels) {
             launchSpecification.setLabels(labels);
             return this;
         }

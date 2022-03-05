@@ -17,7 +17,7 @@ public class ApiImportEKSK8sVngSpec implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                      isSet;
     private String                           name;
-    private List<ApiK8sVngLabels>			 labels;
+    private List<ApiK8sVngLabel>			 labels;
 
     public ApiImportEKSK8sVngSpec() {
         isSet = new HashSet<>();
@@ -40,11 +40,11 @@ public class ApiImportEKSK8sVngSpec implements IPartialUpdateEntity {
         this.name = name;
     }
 
-    public List<ApiK8sVngLabels> getLabels() {
+    public List<ApiK8sVngLabel> getLabels() {
         return labels;
     }
 
-    public void setLabels (List<ApiK8sVngLabels> labels) {
+    public void setLabels (List<ApiK8sVngLabel> labels) {
         isSet.add("labels");
         this.labels = labels;
     }

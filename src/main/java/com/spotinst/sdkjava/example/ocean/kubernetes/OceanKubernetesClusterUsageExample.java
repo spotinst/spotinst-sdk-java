@@ -4,7 +4,6 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.ImportASGToK8sClusterRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 
 import java.util.Arrays;
@@ -224,17 +223,15 @@ public class OceanKubernetesClusterUsageExample {
     private static OceanK8sCluster importASGToOceanCluster(SpotOceanK8sClusterClient client, String autoscalingGroupName, String region) {
 
         System.out.println(String.format("Import ASG to ocean cluster. ASG name: %s", autoscalingGroupName));
-        ImportAsgToClusterInstanceTypes.Builder instanceTypesBuilder = ImportAsgToClusterInstanceTypes.Builder.get();
-        List<String> instancetypes = Arrays.asList("c4.xlarge");
-        ImportAsgToClusterInstanceTypes instanceTypes = instanceTypesBuilder.setInstanceTypes(instancetypes).build();
+        ImportAsgToClusterConfiguration.Builder instanceTypesBuilder = ImportAsgToClusterConfiguration.Builder.get();
+        List<String> instancetypes = Arrays.asList("t2.medium", "t3.medium", "c4.xlarge");
+        ImportAsgToClusterConfiguration instanceTypes = instanceTypesBuilder.setInstanceTypes(instancetypes).build();
 
-        System.out.println(instanceTypes.toString());
+        OceanK8sCluster asgConfigToImport = client.importASGToOceanCluster(instanceTypes, autoscalingGroupName, region);
 
-        OceanK8sCluster importASGToOceanCluster = client.importASGToOceanCluster(instanceTypes, autoscalingGroupName, region);
+        System.out.println(String.format("Response: %s", asgConfigToImport.toString()));
 
-        System.out.println(String.format("Response: %s", importASGToOceanCluster.toString()));
-
-        return importASGToOceanCluster;
+        return asgConfigToImport;
     }
 
     private static List<K8sClusterFetchElastilogResponse> fetchElastilog(SpotOceanK8sClusterClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String clusterId) {

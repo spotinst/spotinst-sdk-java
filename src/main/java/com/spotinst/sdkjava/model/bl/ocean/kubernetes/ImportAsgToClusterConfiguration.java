@@ -10,12 +10,12 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImportAsgToClusterInstanceTypes {
+public class ImportAsgToClusterConfiguration {
     @JsonIgnore
     private Set<String>                isSet;
     private List<String>       instanceTypes;
 
-    private ImportAsgToClusterInstanceTypes() {
+    private ImportAsgToClusterConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -37,14 +37,14 @@ public class ImportAsgToClusterInstanceTypes {
     }
 
     public static class Builder {
-        private ImportAsgToClusterInstanceTypes importAsg;
+        private ImportAsgToClusterConfiguration importAsg;
 
         private Builder() {
-            this.importAsg = new ImportAsgToClusterInstanceTypes();
+            this.importAsg = new ImportAsgToClusterConfiguration();
         }
 
         public static Builder get() {
-            ImportAsgToClusterInstanceTypes.Builder builder = new Builder();
+            ImportAsgToClusterConfiguration.Builder builder = new Builder();
             return builder;
         }
 
@@ -53,7 +53,7 @@ public class ImportAsgToClusterInstanceTypes {
             return this;
         }
 
-        public ImportAsgToClusterInstanceTypes build() {
+        public ImportAsgToClusterConfiguration build() {
             return importAsg;
         }
     }

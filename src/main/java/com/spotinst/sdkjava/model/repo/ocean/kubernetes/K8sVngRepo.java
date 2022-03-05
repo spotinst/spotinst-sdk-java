@@ -126,7 +126,7 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
         RepoGenericResponse<K8sVngSpec> retVal;
 
         try {
-            ApiK8sVngSpec apiImportClusterVngToVng = K8sVngSpecService.importCluterVngToOceanVng(importClusterVngRequest, authToken);
+            ApiK8sVngSpec apiImportClusterVngToVng = K8sVngSpecService.importClusterVngToOceanVng(importClusterVngRequest, authToken);
             K8sVngSpec ImportedK8sVngSpec = K8sVngConverter.toBl(apiImportClusterVngToVng);
             retVal = new RepoGenericResponse<>(ImportedK8sVngSpec);
         }

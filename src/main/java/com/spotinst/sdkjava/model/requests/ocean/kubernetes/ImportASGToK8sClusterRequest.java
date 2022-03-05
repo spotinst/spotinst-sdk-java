@@ -3,14 +3,14 @@ package com.spotinst.sdkjava.model.requests.ocean.kubernetes;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.OceanK8sConverter;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiImportAsgToClusterInstanceTypes;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterInstanceTypes;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 
 public class ImportASGToK8sClusterRequest {
     //region Members
     @JsonProperty("cluster")
-    private ImportAsgToClusterInstanceTypes importAsgToClusterInstanceTypes;
+    private ImportAsgToClusterConfiguration instanceTypes;
     //endregion
 
     //region Private Constructor
@@ -22,12 +22,12 @@ public class ImportASGToK8sClusterRequest {
 
     //region Getters & Setters
 
-    public ImportAsgToClusterInstanceTypes getImportAsgToCluster() {
-        return importAsgToClusterInstanceTypes;
+    public ImportAsgToClusterConfiguration getImportAsgToCluster() {
+        return instanceTypes;
     }
 
-    public void setImportAsgToCluster(ImportAsgToClusterInstanceTypes importAsgToClusterInstanceTypes) {
-        this.importAsgToClusterInstanceTypes = importAsgToClusterInstanceTypes;
+    public void setImportAsgToCluster(ImportAsgToClusterConfiguration importAsgToClusterInstanceTypes) {
+        this.instanceTypes = importAsgToClusterInstanceTypes;
     }
     //endregion
 
@@ -44,7 +44,7 @@ public class ImportASGToK8sClusterRequest {
             return builder;
         }
 
-        public Builder setImportAsgToCluster(final ImportAsgToClusterInstanceTypes importAsgToCluster) {
+        public Builder setImportAsgToCluster(final ImportAsgToClusterConfiguration importAsgToCluster) {
             importAsgToClusterRequest.setImportAsgToCluster(importAsgToCluster);
             return this;
         }
@@ -56,7 +56,7 @@ public class ImportASGToK8sClusterRequest {
 
     //region Json methods
     public String toJson() {
-        ApiImportAsgToClusterInstanceTypes importAsgToClusterInstanceTypesRequest = OceanK8sConverter.toDal(importAsgToClusterInstanceTypes);
+        ApiImportAsgToClusterInstanceTypes importAsgToClusterInstanceTypesRequest = OceanK8sConverter.toDal(instanceTypes);
         Map<String, ApiImportAsgToClusterInstanceTypes> importAsgToClusterInstanceTypes = new HashMap<>();
         importAsgToClusterInstanceTypes.put("cluster", importAsgToClusterInstanceTypesRequest);
         String   importAsgToClusterInstanceTypesJson    = JsonMapper.toJson(importAsgToClusterInstanceTypes);

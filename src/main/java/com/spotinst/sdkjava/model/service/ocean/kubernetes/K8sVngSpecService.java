@@ -258,7 +258,7 @@ public class K8sVngSpecService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiK8sVngSpec importCluterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importClusterVngRequest, String authToken) throws SpotinstHttpException {
+    public static ApiK8sVngSpec importClusterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importClusterVngRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         ApiK8sVngSpec retVal = null;

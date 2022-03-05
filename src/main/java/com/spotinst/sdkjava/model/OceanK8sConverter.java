@@ -379,7 +379,7 @@ public class OceanK8sConverter {
 
         return retVal;
     }
-    public static ApiImportAsgToClusterInstanceTypes toDal(ImportAsgToClusterInstanceTypes instanceTypes) {
+    public static ApiImportAsgToClusterInstanceTypes toDal(ImportAsgToClusterConfiguration instanceTypes) {
         ApiImportAsgToClusterInstanceTypes retVal = null;
 
         if (instanceTypes != null) {
@@ -708,10 +708,6 @@ public class OceanK8sConverter {
             ClusterInstanceTypes.Builder instanceTypesBuilder = ClusterInstanceTypes.Builder.get();
 
             if (apiInstanceTypes.isBlacklistSet()) {
-                apiInstanceTypes.setBlacklist(apiInstanceTypes.getBlacklist());
-            }
-            if (apiInstanceTypes.isWhitelistSet()) {
-                apiInstanceTypes.setWhitelist(apiInstanceTypes.getWhitelist());
                 instanceTypesBuilder.setBlacklist(apiInstanceTypes.getBlacklist());
             }
             if (apiInstanceTypes.isWhitelistSet()) {

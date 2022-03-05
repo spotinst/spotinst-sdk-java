@@ -1,32 +1,22 @@
-package com.spotinst.sdkjava.model.api.ocean.kubernetes;
+package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-
-public class ApiK8sVngLabels implements IPartialUpdateEntity {
+public class K8sVngLabel {
     @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
-    public ApiK8sVngLabels() {
+    private K8sVngLabel() {
         isSet = new HashSet<>();
-    }
-
-    public ApiK8sVngLabels(String key, String value) {
-        isSet = new HashSet<>();
-        this.setKey(key);
-        this.setValue(value);
     }
 
     public Set<String> getIsSet() {
@@ -55,10 +45,40 @@ public class ApiK8sVngLabels implements IPartialUpdateEntity {
         this.value = value;
     }
 
-    @JsonIgnore
-    public boolean isKeySet() {return isSet.contains("key");}
+    public static class Builder {
+        private K8sVngLabel labels;
+
+        private Builder() {
+            this.labels = new K8sVngLabel();
+        }
+
+        public static Builder get() {
+            Builder builder = new K8sVngLabel.Builder();
+            return builder;
+        }
+
+        public Builder setKey(final String key) {
+            labels.setKey(key);
+            return this;
+        }
+
+        public Builder setValue(final String value) {
+            labels.setValue(value);
+            return this;
+        }
+
+        public K8sVngLabel build() {
+            return labels;
+        }
+    }
 
     @JsonIgnore
-    public boolean isValueSet() {return isSet.contains("value");}
+    public boolean isKeySet() {
+        return isSet.contains("key");
+    }
+
+    @JsonIgnore
+    public boolean isValueSet() {
+        return isSet.contains("value");
+    }
 }
-

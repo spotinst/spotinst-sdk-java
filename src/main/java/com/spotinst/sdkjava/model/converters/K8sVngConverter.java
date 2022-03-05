@@ -59,7 +59,7 @@ public class K8sVngConverter {
 
                 if (vngLaunchSpec.isLabelsSet()) {
                     if (vngLaunchSpec.getLabels() != null) {
-                        List<ApiK8sVngLabels> k8sVngLabels = vngLaunchSpec.getLabels()
+                        List<ApiK8sVngLabel> k8sVngLabels = vngLaunchSpec.getLabels()
                                 .stream()
                                 .map(K8sVngConverter::toDal)
                                 .collect(Collectors.toList());
@@ -309,12 +309,12 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngLabels toDal(K8sVngLabels k8sVngLabels) {
-        ApiK8sVngLabels retVal = null;
+    private static ApiK8sVngLabel toDal(K8sVngLabel k8sVngLabels) {
+        ApiK8sVngLabel retVal = null;
 
         if (k8sVngLabels != null) {
             if (k8sVngLabels.isKeySet() && k8sVngLabels.isValueSet()) {
-                retVal = new ApiK8sVngLabels(k8sVngLabels.getKey(), k8sVngLabels.getValue());
+                retVal = new ApiK8sVngLabel(k8sVngLabels.getKey(), k8sVngLabels.getValue());
             }
         }
 
@@ -413,7 +413,7 @@ public class K8sVngConverter {
 
             if (importVngLaunchSpec.isLabelsSet()) {
                 if (importVngLaunchSpec.getLabels() != null) {
-                    List<ApiK8sVngLabels> k8sVngLabels = importVngLaunchSpec.getLabels()
+                    List<ApiK8sVngLabel> k8sVngLabels = importVngLaunchSpec.getLabels()
                             .stream()
                             .map(K8sVngConverter::toDal)
                             .collect(Collectors.toList());
@@ -479,7 +479,7 @@ public class K8sVngConverter {
             if (apiVngLaunchSpec.isLabelsSet()) {
 
                 if (apiVngLaunchSpec.getLabels() != null) {
-                    List<K8sVngLabels> k8sVngLabels = apiVngLaunchSpec.getLabels()
+                    List<K8sVngLabel> k8sVngLabels = apiVngLaunchSpec.getLabels()
                             .stream()
                             .map(K8sVngConverter::toBl)
                             .collect(Collectors.toList());
@@ -751,12 +751,12 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngLabels toBl(ApiK8sVngLabels apiK8sVngLabels) {
-        K8sVngLabels retVal = null;
+    private static K8sVngLabel toBl(ApiK8sVngLabel apiK8sVngLabels) {
+        K8sVngLabel retVal = null;
 
         if (apiK8sVngLabels != null) {
             if (apiK8sVngLabels.isKeySet() && apiK8sVngLabels.isValueSet()) {
-                K8sVngLabels.Builder k8sVngLabelsBuilder = K8sVngLabels.Builder.get();
+                K8sVngLabel.Builder k8sVngLabelsBuilder = K8sVngLabel.Builder.get();
                 retVal = k8sVngLabelsBuilder.setKey(apiK8sVngLabels.getKey())
                         .setValue((apiK8sVngLabels.getValue()))
                         .build();
@@ -871,7 +871,7 @@ public class K8sVngConverter {
             if (apiImportVngLaunchSpec.isLabelsSet()) {
 
                 if (apiImportVngLaunchSpec.getLabels() != null) {
-                    List<K8sVngLabels> k8sVngLabels = apiImportVngLaunchSpec.getLabels()
+                    List<K8sVngLabel> k8sVngLabels = apiImportVngLaunchSpec.getLabels()
                             .stream()
                             .map(K8sVngConverter::toBl)
                             .collect(Collectors.toList());

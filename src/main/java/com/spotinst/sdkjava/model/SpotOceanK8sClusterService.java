@@ -8,7 +8,7 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiGetK8sClusterHeartBeat
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.GetK8sClusterHeartBeatStatusApiResponse;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sClusterFetchElastilogResponse;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterInstanceTypes;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterConfiguration;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sClusterFetchElastilogApiResponse;
 import org.apache.http.HttpStatus;
@@ -249,7 +249,7 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
 
     }
 
-    public static ApiOceanK8sCluster importASGToOceanCluster(ImportAsgToClusterInstanceTypes importRequest, String autoScalingGroupName, String region, String authToken, String account) {
+    public static ApiOceanK8sCluster importASGToOceanCluster(ImportAsgToClusterConfiguration importASGConfiguration, String autoScalingGroupName, String region, String authToken, String account) {
 
         ApiOceanK8sCluster importASGToOceanCluster = null;
 
@@ -279,8 +279,8 @@ public class SpotOceanK8sClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Write to json
-        Map<String, ImportAsgToClusterInstanceTypes> importClusterRequest = new HashMap<>();
-        importClusterRequest.put("cluster", importRequest);
+        Map<String, ImportAsgToClusterConfiguration> importClusterRequest = new HashMap<>();
+        importClusterRequest.put("cluster", importASGConfiguration);
         String body = JsonMapper.toJson(importClusterRequest);
 
         // Build URI

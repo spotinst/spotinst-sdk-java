@@ -161,15 +161,15 @@ public class SpotOceanK8sClusterClient {
 
     }
 
-    public OceanK8sCluster importASGToOceanCluster(ImportAsgToClusterInstanceTypes importAsg, String autoScalingGroupName, String region) {
+    public OceanK8sCluster importASGToOceanCluster(ImportAsgToClusterConfiguration instanceTypes, String autoScalingGroupName, String region) {
 
-        OceanK8sCluster importASGToCluster;
+        OceanK8sCluster importedClusterConfiguration;
 
         RepoGenericResponse<OceanK8sCluster> importASGToOceanClusterResponse =
-                getSpotOceanK8sClusterRepo().importASGToOceanCluster(importAsg, autoScalingGroupName, region, authToken, account);
+                getSpotOceanK8sClusterRepo().importASGToOceanCluster(instanceTypes, autoScalingGroupName, region, authToken, account);
 
         if(importASGToOceanClusterResponse.isRequestSucceed()){
-            importASGToCluster =importASGToOceanClusterResponse.getValue();
+            importedClusterConfiguration =importASGToOceanClusterResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = importASGToOceanClusterResponse.getHttpExceptions();
@@ -180,16 +180,16 @@ public class SpotOceanK8sClusterClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return importASGToCluster;
+        return importedClusterConfiguration;
 
     }
 
-    public List<K8sClusterFetchElastilogResponse> fetchElastilog(K8sClusterFetchElastilogRequest elastigroupGetElastilogRequest, String clusterId) {
+    public List<K8sClusterFetchElastilogResponse> fetchElastilog(K8sClusterFetchElastilogRequest clusterGetElastilogRequest, String clusterId) {
 
         List<K8sClusterFetchElastilogResponse> getLogs;
 
         RepoGenericResponse <List<K8sClusterFetchElastilogResponse>> getLogsResponse =
-                getSpotOceanK8sClusterRepo().fetchElastilog(elastigroupGetElastilogRequest, clusterId, authToken);
+                getSpotOceanK8sClusterRepo().fetchElastilog(clusterGetElastilogRequest, clusterId, authToken);
 
         if(getLogsResponse.isRequestSucceed()){
             getLogs =getLogsResponse.getValue();
