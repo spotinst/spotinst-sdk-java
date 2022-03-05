@@ -1,12 +1,10 @@
 package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
-import com.spotinst.sdkjava.model.ElastigroupCodeDeploy;
 import com.spotinst.sdkjava.model.ElastigroupConverter;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupCodeDeployBGDeployment;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupImportEC2Instance;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupCodeDeployBGDeployment;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupImportEC2Instance;
+
 /**
  * @author: Saikumar Jalda
  * @since: 01/03/2022

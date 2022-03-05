@@ -108,4 +108,6 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account);
 
+    RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> getCodeDeployBGDeployment(ElastigroupGetCodeDeployRequest request, String elastigroupId, String authToken, String account);
+
 }

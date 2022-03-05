@@ -859,4 +859,26 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> getCodeDeployBGDeployment(ElastigroupGetCodeDeployRequest request, String elastigroupId, String authToken, String account){
+        RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> retVal;
+
+        try {
+
+            List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = SpotinstElastigroupService
+                    .getCodeDeployBGDeployment(request, elastigroupId, authToken, account);
+            List<CodeDeployBGDeploymentResponse> codeDeployResponse = apiCodeDeployResponse.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(codeDeployResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+
 }

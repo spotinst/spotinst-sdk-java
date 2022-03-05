@@ -4,7 +4,6 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
-import com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3.SuspendGroupProcessesAzure;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
@@ -183,9 +182,13 @@ public class ElastigroupUsageExample {
         System.out.println("----------Get Suggested Instance Types--------------");
         List<GetInstanceTypesResponse> getSuggestedInstanceTypes = getSuggestedInstanceTypes(elastigroupClient);
 
-        //Create deployment
+        //Create codeDeploy B/G deployment
         System.out.println("----------Create CodeDeploy B/G Deployment--------------");
-        deploymentId = startDeployment(elastigroupClient, "elastigroup-id").getId();
+        deploymentId = createCodeDeployBGDeployment(elastigroupClient, "elastigroup-id").get(0).getId();
+
+        //Get codeDeploy B/G deployment
+        System.out.println("----------Get CodeDeploy B/G Deployment--------------");
+        String getDeploymentId = getCodeDeployBGDeployment(elastigroupClient, "elastigroup-id").get(0).getId();
 
     }
 
@@ -1141,7 +1144,7 @@ public class ElastigroupUsageExample {
 
     }
 
-    private List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
+    private static List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
                                                                                String elastigroupId) {
 
         //Build deploymentTags
@@ -1180,7 +1183,46 @@ public class ElastigroupUsageExample {
 
         return codeDeployBGDeploymentResponse;
 
+    }
 
+    private static List<CodeDeployBGDeploymentResponse> getCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
+                                                                              String elastigroupId) {
+
+        //Build deploymentTags
+        ElastigroupDeploymentTags.Builder deploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
+        ElastigroupDeploymentTags deploymentTags =
+                deploymentTagsBuilder.setTagKey("ver").setTagValue("pink").build();
+        List<ElastigroupDeploymentTags> deploymentTagsArrayList = new ArrayList<>();
+        deploymentTagsArrayList.add(deploymentTags);
+
+        //Build deploymentGroup
+        ElastigroupDeploymentGroup.Builder deploymentGroupBuilder = ElastigroupDeploymentGroup.Builder.get();
+        ElastigroupDeploymentGroup deploymentGroup =
+                deploymentGroupBuilder.setApplicationName("appTest").setDeploymentGroupName("deploymentGroupName").build();
+        List<ElastigroupDeploymentGroup> deploymentGroupArrayList = new ArrayList<>();
+        deploymentGroupArrayList.add(deploymentGroup);
+
+        //Build CodeDeploy
+        ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
+        ElastigroupCodeDeployBGDeployment codeDeploy =
+                codeDeployBuilder.setTimeout("120").setDeploymentTags(deploymentTagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+
+        //Build Get CodeDeploy Deployment Request
+        ElastigroupGetCodeDeployRequest.Builder getCodeDeployRequestBuilder = ElastigroupGetCodeDeployRequest.Builder.get();
+        ElastigroupGetCodeDeployRequest getCodeDeployRequest =
+                getCodeDeployRequestBuilder.setCodeDeployBGDeployment(codeDeploy).build();
+
+        System.out.println("Get Deployment Request for elastigroup:" + elastigroupId);
+        System.out.println(getCodeDeployRequest.toJson());
+
+        List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponse =
+                elastigroupClient.getCodeDeployBGDeployment(getCodeDeployRequest, elastigroupId);
+
+        System.out.println("Get deployment for  elastigroup: " + elastigroupId + " with id " + codeDeployBGDeploymentResponse.get(0).getId() +
+                " with groupid " + codeDeployBGDeploymentResponse.get(0).getGroupId() +
+                " and state " + codeDeployBGDeploymentResponse.get(0).getState());
+
+        return codeDeployBGDeploymentResponse;
 
     }
 

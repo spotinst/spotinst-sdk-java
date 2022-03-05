@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.ApiDeploymentGroup;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupDeploymentTags;
 
 import java.util.HashSet;
 import java.util.List;
