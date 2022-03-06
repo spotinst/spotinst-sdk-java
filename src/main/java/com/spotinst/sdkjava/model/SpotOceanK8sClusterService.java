@@ -13,10 +13,6 @@ import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElast
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sClusterFetchElastilogApiResponse;
 import org.apache.http.HttpStatus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 public class SpotOceanK8sClusterService extends BaseSpotinstService {

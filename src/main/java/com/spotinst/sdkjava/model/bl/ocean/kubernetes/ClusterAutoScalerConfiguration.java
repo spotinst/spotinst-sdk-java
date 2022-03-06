@@ -105,8 +105,7 @@ public class ClusterAutoScalerConfiguration {
         }
 
         public static ClusterAutoScalerConfiguration.Builder get() {
-            ClusterAutoScalerConfiguration.Builder builder = new ClusterAutoScalerConfiguration.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setIsEnabled(final Boolean isEnabled) {

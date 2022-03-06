@@ -29,7 +29,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -72,7 +72,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -107,7 +107,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -144,7 +144,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -213,7 +213,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -311,7 +311,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -578,7 +578,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
         queryParams.put("adjustment", scalingRequest.getAdjustment().toString());
 
         // Add account Id Query param
@@ -630,7 +630,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
         queryParams.put("adjustment", scalingRequest.getAdjustment().toString());
 
         // Add account Id Query param
@@ -800,9 +800,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         RestResponse        response = RestClient.sendDelete(uri, body, headers, queryParams);
 
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
-        Boolean                  retVal        = true;
 
-        return retVal;
+        return true;
     }
 
     public static ApiSuspendedScalingPolicy suspendScalingPolicies(String elastiGroupId, String policyName,

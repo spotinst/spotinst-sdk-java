@@ -40,8 +40,7 @@ public class VolumeUpdateRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVolume(final AzureStorageVolume volume) {
@@ -61,9 +60,8 @@ public class VolumeUpdateRequest {
 
         Map<String, ApiAzureStorageVolume> groupRequest = new HashMap<>();
         groupRequest.put("volume", volumeToCreate);
-        String volumeJson = JsonMapper.toJson(groupRequest);
 
-        return volumeJson;
+        return JsonMapper.toJson(groupRequest);
     }
     //endregion
 

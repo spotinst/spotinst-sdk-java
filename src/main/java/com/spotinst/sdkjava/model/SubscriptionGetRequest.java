@@ -34,8 +34,7 @@ public class SubscriptionGetRequest {
         }
 
         public static SubscriptionGetRequest.Builder get() {
-            SubscriptionGetRequest.Builder builder = new SubscriptionGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public SubscriptionGetRequest.Builder setSubscriptionId(final String subscriptionId) {

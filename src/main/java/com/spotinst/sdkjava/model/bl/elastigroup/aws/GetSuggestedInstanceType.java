@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiRequiredVCpuRequiredMemoryGib;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -94,8 +93,7 @@ public class GetSuggestedInstanceType implements IPartialUpdateEntity {
         }
 
         public static Builder get() {
-            GetSuggestedInstanceType.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

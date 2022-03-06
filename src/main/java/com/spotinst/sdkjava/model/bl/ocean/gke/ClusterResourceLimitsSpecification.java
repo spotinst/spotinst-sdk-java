@@ -54,8 +54,7 @@ public class ClusterResourceLimitsSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setMaxMemoryGib(final Integer maxMemoryGib) {

@@ -74,8 +74,7 @@ public class SpectrumMetricDataRequest {
     }
 
     public static SpectrumMetricDataRequest.Builder get() {
-      SpectrumMetricDataRequest.Builder builder = new SpectrumMetricDataRequest.Builder();
-      return builder;
+        return new Builder();
     }
 
     public SpectrumMetricDataRequest.Builder setMetricData(final Queue<SpectrumMetricData> spectrumMetricData) {

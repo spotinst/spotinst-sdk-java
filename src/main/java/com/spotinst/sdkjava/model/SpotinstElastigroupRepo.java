@@ -426,7 +426,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
     public RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeployment(String elastigroupId, ElastigroupStartDeployment elastiGroupDeployment,
                                                                                    String authToken, String account) {
-       RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal = null;
+       RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal;
 
         try {
 
@@ -473,7 +473,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
     public RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId,
                                                                                            String authToken, String account) {
-        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal = null;
+        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal;
 
         try {
 

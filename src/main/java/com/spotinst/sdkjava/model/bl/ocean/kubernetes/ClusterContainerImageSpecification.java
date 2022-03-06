@@ -46,8 +46,7 @@ public class ClusterContainerImageSpecification {
         }
 
         public static ClusterContainerImageSpecification.Builder get() {
-            ClusterContainerImageSpecification.Builder builder = new ClusterContainerImageSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setApprovedImages(final List<String> approvedImages) {

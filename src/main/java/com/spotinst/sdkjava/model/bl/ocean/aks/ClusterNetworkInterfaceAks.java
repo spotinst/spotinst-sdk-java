@@ -144,8 +144,7 @@ public class ClusterNetworkInterfaceAks {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
         public Builder setAssignPublicIp(final boolean assignPublicIp) {
             clusterNetworkInterfaceAks.setAssignPublicIp(assignPublicIp);

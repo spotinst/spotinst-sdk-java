@@ -47,7 +47,7 @@ public enum AwsSpotRequestStatusEnum {
     // Spotinst custom codes
     SPOTINST_REALTIME_PRICE_IS_TOO_HIGH("market-banned-spot-prices-too-high", 601, null);
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsSpotRequestStatusEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsSpotRequestStatusEnum.class);
     private String awsName;
     private Integer code;
     private AwsSpotRequestStatusFamilyEnum statusFamily;

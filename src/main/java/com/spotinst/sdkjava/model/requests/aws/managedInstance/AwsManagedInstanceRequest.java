@@ -41,8 +41,7 @@ public class AwsManagedInstanceRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setManagedInstance(final ManagedInstance managedInstance) {
@@ -66,8 +65,7 @@ public class AwsManagedInstanceRequest {
 
         Map<String, ApiManagedInstance> managedInstanceRequest = new HashMap<>();
         managedInstanceRequest.put("managedInstance", apiManagedInstance);
-        String managedInstanceJson = JsonMapper.toJson(managedInstanceRequest);
 
-        return managedInstanceJson;
+        return JsonMapper.toJson(managedInstanceRequest);
     }
 }

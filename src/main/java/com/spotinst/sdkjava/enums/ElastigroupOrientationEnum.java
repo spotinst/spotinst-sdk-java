@@ -12,7 +12,7 @@ public enum ElastigroupOrientationEnum {
     AVAILABILITY_ORIENTED("availabilityOriented"),
     BALANCED("balanced");
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ElastigroupOrientationEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupOrientationEnum.class);
     private final String name;
 
     private ElastigroupOrientationEnum(String name) {

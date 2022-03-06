@@ -60,7 +60,7 @@ public class SpotOceanGkeLaunchSpecRepo implements ISpotOceanGKELaunchSpecRepo {
             List<ApiLaunchSpecSpecification> apiLaunchSpecSpecification =
                     SpotOceanGkeClusterService.getAllLaunchSpec(authToken, account, oceanId);
             List<LaunchSpecSpecification> launchSpecs = apiLaunchSpecSpecification.stream().map(OceanGkeConverter::toBl).collect(Collectors.toList());
-            retVal = new RepoGenericResponse<List<LaunchSpecSpecification>>(launchSpecs);
+            retVal = new RepoGenericResponse<>(launchSpecs);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

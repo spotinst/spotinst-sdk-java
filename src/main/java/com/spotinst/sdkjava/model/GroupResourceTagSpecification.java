@@ -69,8 +69,7 @@ public class GroupResourceTagSpecification {
         }
 
         public static GroupResourceTagSpecification.Builder get() {
-            GroupResourceTagSpecification.Builder builder = new GroupResourceTagSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public GroupResourceTagSpecification.Builder setTagVolume(GroupTagSpecification volumes) {

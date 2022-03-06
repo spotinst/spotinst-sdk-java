@@ -113,8 +113,7 @@ public class LoadBalancer {
         }
 
         public static LoadBalancer.Builder get() {
-            LoadBalancer.Builder builder = new LoadBalancer.Builder();
-            return builder;
+            return new Builder();
         }
 
         public LoadBalancer.Builder setName(final String name) {

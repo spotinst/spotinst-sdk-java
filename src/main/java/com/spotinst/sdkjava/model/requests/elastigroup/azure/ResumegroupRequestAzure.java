@@ -44,8 +44,7 @@ public class ResumegroupRequestAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setResumeGroup(final List<ResumeGroupProcessesAzure> resumeGroup) {
@@ -67,8 +66,7 @@ public class ResumegroupRequestAzure {
         List<ApiResumeGroupProcessesAzure> apiResumeGroup = ElastigroupConverterAzure.toDal(resumeGroup);
         Map<String, List<ApiResumeGroupProcessesAzure>> resumeRequest = new HashMap<>();
         resumeRequest.put("processes", apiResumeGroup);
-        String resumeGroupJson = JsonMapper.toJson(resumeRequest);
 
-        return resumeGroupJson;
+        return JsonMapper.toJson(resumeRequest);
     }
 }

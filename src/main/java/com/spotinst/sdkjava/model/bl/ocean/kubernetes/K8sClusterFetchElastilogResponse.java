@@ -64,8 +64,7 @@ public class K8sClusterFetchElastilogResponse {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sClusterFetchElastilogResponse.Builder setMessage(final String message) {

@@ -70,8 +70,7 @@ public class K8sVngHeadroomSpec {
         }
 
         public static K8sVngHeadroomSpec.Builder get() {
-            K8sVngHeadroomSpec.Builder builder = new K8sVngHeadroomSpec.Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sVngHeadroomSpec.Builder setCpuPerUnit(final Integer cpuPerUnit) {

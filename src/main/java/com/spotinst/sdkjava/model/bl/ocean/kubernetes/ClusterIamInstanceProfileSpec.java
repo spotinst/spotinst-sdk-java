@@ -53,8 +53,7 @@ public class ClusterIamInstanceProfileSpec {
         }
 
         public static Builder get() {
-            Builder builder = new ClusterIamInstanceProfileSpec.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setArn(final String arn) {

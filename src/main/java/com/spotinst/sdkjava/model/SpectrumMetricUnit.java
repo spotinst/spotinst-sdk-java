@@ -33,7 +33,7 @@ public enum SpectrumMetricUnit {
     COUNT_PER_SECOND("count/second"),
     NONE("none");
 
-  private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SpectrumMetricUnit.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SpectrumMetricUnit.class);
   private final String name;
 
   SpectrumMetricUnit(String name) {

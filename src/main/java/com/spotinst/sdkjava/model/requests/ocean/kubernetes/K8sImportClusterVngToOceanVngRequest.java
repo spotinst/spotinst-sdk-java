@@ -79,8 +79,7 @@ public class K8sImportClusterVngToOceanVngRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVngLaunchSpec(final ImportEKSK8sVngSpec k8sVirtualNodeGroup) {
@@ -124,8 +123,7 @@ public class K8sImportClusterVngToOceanVngRequest {
 
         Map<String, ApiImportEKSK8sVngSpec> launchSpecRequest = new HashMap<>();
         launchSpecRequest.put("launchSpec", apiLaunchSpecToCreate);
-        String launchSpecJson = JsonMapper.toJson(launchSpecRequest);
 
-        return launchSpecJson;
+        return JsonMapper.toJson(launchSpecRequest);
     }
 }

@@ -204,9 +204,8 @@ public class OceanKubernetesClusterUsageExample {
     private static List<OceanK8sCluster> getAllK8sClusters(SpotOceanK8sClusterClient client) {
 
         System.out.println("Getting all Kubernetes Clusters");
-        List<OceanK8sCluster> clusters = client.getAllK8sClusters();
 
-        return clusters;
+        return client.getAllK8sClusters();
     }
 
     private static GetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanK8sClusterClient client, String clusterId) {

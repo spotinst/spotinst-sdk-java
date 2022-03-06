@@ -190,8 +190,7 @@ public class TasksConfiguration {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setIsEnabled(final Boolean isEnabled) {

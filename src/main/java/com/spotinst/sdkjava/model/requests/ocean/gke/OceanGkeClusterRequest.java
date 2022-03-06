@@ -48,8 +48,7 @@ public class OceanGkeClusterRequest {
         }
 
         public static Builder get() {
-            Builder builder = new OceanGkeClusterRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCluster(final OceanGkeCluster oceanGkeCluster) {
@@ -73,9 +72,8 @@ public class OceanGkeClusterRequest {
         ApiOceanGkeCluster              apiClusterToCreate = OceanGkeConverter.toDal(cluster);
         Map<String, ApiOceanGkeCluster> clusterRequest     = new HashMap<>();
         clusterRequest.put("cluster", apiClusterToCreate);
-        String clusterJson = JsonMapper.toJson(clusterRequest);
 
-        return clusterJson;
+        return JsonMapper.toJson(clusterRequest);
     }
     //endregion
 }

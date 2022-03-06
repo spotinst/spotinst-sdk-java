@@ -31,8 +31,7 @@ public class ApiMrScalerAwsGetRequest {
         }
 
         public static ApiMrScalerAwsGetRequest.Builder get() {
-            ApiMrScalerAwsGetRequest.Builder builder = new ApiMrScalerAwsGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ApiMrScalerAwsGetRequest.Builder setMrScalerId(final String mrScalerId) {

@@ -36,8 +36,7 @@ public class ElastigroupGetActiveInstancesRequest {
         }
 
         public static ElastigroupGetActiveInstancesRequest.Builder get() {
-            ElastigroupGetActiveInstancesRequest.Builder builder = new ElastigroupGetActiveInstancesRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetActiveInstancesRequest.Builder setElastigroupId(final String elastigroupId) {

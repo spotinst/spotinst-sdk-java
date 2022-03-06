@@ -33,8 +33,7 @@ public class AksClusterCreationRequest {
         }
 
         public static AksClusterCreationRequest.Builder get() {
-            AksClusterCreationRequest.Builder builder = new AksClusterCreationRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AksClusterCreationRequest.Builder setCluster(final OceanClusterAks clusterAks) {
@@ -54,9 +53,8 @@ public class AksClusterCreationRequest {
 
         Map<String, ApiClusterAks> clusterRequest = new HashMap<>();
         clusterRequest.put("cluster", apiClusterToCreate);
-        String clusterJson = JsonMapper.toJson(clusterRequest);
 
-        return clusterJson;
+        return JsonMapper.toJson(clusterRequest);
     }
 
 }

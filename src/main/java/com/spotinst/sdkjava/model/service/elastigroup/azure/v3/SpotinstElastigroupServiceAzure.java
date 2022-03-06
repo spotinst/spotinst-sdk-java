@@ -33,7 +33,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -76,7 +76,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -173,7 +173,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -336,7 +336,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -371,7 +371,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -404,7 +404,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
         if (account != null) {
             queryParams.put("accountId", account);
         }
@@ -436,7 +436,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
         if (account != null) {
             queryParams.put("accountId", account);
         }
@@ -468,7 +468,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -498,7 +498,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -534,7 +534,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         }
 
         Map<String, String> headers = buildHeaders(authToken);
-        String uri = String.format("%s/azure/compute/vm/signal", apiEndpoint, vmSignalRequestAzure.getVmSignalAzure());
+        String uri = String.format("%s/azure/compute/vm/signal", apiEndpoint);
         RestResponse response = RestClient.sendPost(uri, vmSignalRequestAzure.toJson(), headers, queryParams);
 
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
@@ -552,7 +552,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -581,7 +581,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -609,7 +609,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -634,7 +634,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -716,7 +716,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);
@@ -745,7 +745,7 @@ public class SpotinstElastigroupServiceAzure extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         if (account != null) {
             queryParams.put("accountId", account);

@@ -53,8 +53,7 @@ public class ClusterResourceLimitsSpecification {
         }
 
         public static ClusterResourceLimitsSpecification.Builder get() {
-            ClusterResourceLimitsSpecification.Builder builder = new ClusterResourceLimitsSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterResourceLimitsSpecification.Builder setMaxMemoryGib(final Integer maxMemoryGib) {

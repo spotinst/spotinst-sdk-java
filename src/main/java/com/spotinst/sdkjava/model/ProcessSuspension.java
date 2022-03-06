@@ -40,8 +40,7 @@ public class ProcessSuspension {
         }
 
         public static ProcessSuspension.Builder get() {
-            ProcessSuspension.Builder builder = new ProcessSuspension.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ProcessSuspension.Builder setName(final ProcessNameEnum name) {

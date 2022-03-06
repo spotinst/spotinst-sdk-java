@@ -67,8 +67,7 @@ public class ClusterConfigurationAks{
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setName(final String name) {

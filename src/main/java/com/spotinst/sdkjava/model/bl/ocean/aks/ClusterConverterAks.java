@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
 

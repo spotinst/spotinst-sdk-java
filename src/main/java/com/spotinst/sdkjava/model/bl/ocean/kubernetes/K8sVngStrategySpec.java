@@ -40,8 +40,7 @@ public class K8sVngStrategySpec {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setSpotPercentage(final Integer spotPercentage) {

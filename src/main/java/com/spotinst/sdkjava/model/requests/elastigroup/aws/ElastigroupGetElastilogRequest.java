@@ -77,8 +77,7 @@ public class ElastigroupGetElastilogRequest {
         }
 
         public static ElastigroupGetElastilogRequest.Builder get() {
-            ElastigroupGetElastilogRequest.Builder builder = new ElastigroupGetElastilogRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetElastilogRequest.Builder setAccountId(final String accountId) {

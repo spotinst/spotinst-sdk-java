@@ -50,8 +50,7 @@ public class AzureStorageVolumeThroughput {
         }
 
         public static AzureStorageVolumeThroughput.Builder get() {
-            AzureStorageVolumeThroughput.Builder builder = new AzureStorageVolumeThroughput.Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

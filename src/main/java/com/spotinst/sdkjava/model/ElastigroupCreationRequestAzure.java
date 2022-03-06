@@ -43,8 +43,7 @@ public class ElastigroupCreationRequestAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroup(final ElastigroupAzure elastigroup) {
@@ -66,9 +65,8 @@ public class ElastigroupCreationRequestAzure {
 
         Map<String, ApiElastigroupAzure> groupRequest = new HashMap<>();
         groupRequest.put("group", apiElastigroupToCreate);
-        String elastigroupJson = JsonMapper.toJson(groupRequest);
 
-        return elastigroupJson;
+        return JsonMapper.toJson(groupRequest);
     }
     //endregion
 

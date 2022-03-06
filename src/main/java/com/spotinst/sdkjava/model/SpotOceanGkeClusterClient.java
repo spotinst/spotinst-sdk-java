@@ -58,7 +58,7 @@ public class SpotOceanGkeClusterClient {
     }
 
     public List<LaunchSpecSpecification> getAllLaunchSpec(String oceanId){
-        List<LaunchSpecSpecification>     retVal          = null;
+        List<LaunchSpecSpecification>     retVal;
         RepoGenericResponse<List<LaunchSpecSpecification>> getAllResponse    =
                 spotOceanGkeClusterLaunchSpecRepo.getAllStatus(authToken,account,oceanId);
 

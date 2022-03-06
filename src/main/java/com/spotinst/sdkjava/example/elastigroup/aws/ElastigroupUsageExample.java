@@ -7,7 +7,6 @@ import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -749,7 +748,7 @@ public class ElastigroupUsageExample {
 
         Boolean success = false;
 
-        if(Operation == "LOCK") {
+        if(Operation.equals("LOCK")) {
             // Build lock request
             ElastigroupInstanceLockRequest.Builder elastigroupLockRequestBuilder = ElastigroupInstanceLockRequest.Builder.get();
             ElastigroupInstanceLockRequest request =  elastigroupLockRequestBuilder.setAccountId(accountId)
@@ -757,7 +756,7 @@ public class ElastigroupUsageExample {
 
             success = client.lockInstance(request, instanceId);
         }
-        else if(Operation == "UNLOCK") {
+        else if(Operation.equals("UNLOCK")) {
             // Build unlock request
             ElastigroupInstanceUnLockRequest.Builder elastigroupUnLockRequestBuilder = ElastigroupInstanceUnLockRequest.Builder.get();
             ElastigroupInstanceUnLockRequest request = elastigroupUnLockRequestBuilder.setAccountId(accountId).build();
@@ -775,7 +774,7 @@ public class ElastigroupUsageExample {
 
     private static void interruptInstances(SpotinstElastigroupClient client, List<String> listOfInstances) {
 
-        Boolean success = false;
+        Boolean success;
 
         success = client.simulateInstanceInterruption(listOfInstances);
 
@@ -1016,8 +1015,8 @@ public class ElastigroupUsageExample {
 
         System.out.println("Group Deployment Status for  elastigroup: " + elastigroupId + " is as below : ");
 
-        for (int i = 0; i < GetGroupDeploymentStatusResponse.size(); i++) {
-            System.out.println(GetGroupDeploymentStatusResponse.get(i).getId() + " : " + GetGroupDeploymentStatusResponse.get(i).getStatus());
+        for (ElastigroupGroupDeploymentStatusResponse response : GetGroupDeploymentStatusResponse) {
+            System.out.println(response.getId() + " : " + response.getStatus());
         }
 
         return GetGroupDeploymentStatusResponse;
@@ -1077,10 +1076,7 @@ public class ElastigroupUsageExample {
 
         System.out.println("ITF migration retry for elastigroup:" + elastigroupId);
 
-        Boolean retryStatus =
-                elastigroupClient.retryItfMigration(retryItfMigration);
-
-        return retryStatus;
+        return elastigroupClient.retryItfMigration(retryItfMigration);
 
     }
 

@@ -19,7 +19,7 @@ public enum RecurrenceFrequencyEnum {
     }
 
     private final        String name;
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(RecurrenceFrequencyEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecurrenceFrequencyEnum.class);
 
     public static RecurrenceFrequencyEnum fromName(String name)
     {
