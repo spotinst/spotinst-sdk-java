@@ -43,8 +43,7 @@ public class LoadBalancersConfigAzure {
         }
 
         public static LoadBalancersConfigAzure.Builder get() {
-            LoadBalancersConfigAzure.Builder builder = new LoadBalancersConfigAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public LoadBalancersConfigAzure.Builder setLoadBalancers(final List<LoadBalancerAzure> loadBalancers) {

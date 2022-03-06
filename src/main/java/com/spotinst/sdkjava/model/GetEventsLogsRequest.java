@@ -83,8 +83,7 @@ public class GetEventsLogsRequest {
         }
 
         public static GetEventsLogsRequest.Builder get() {
-            GetEventsLogsRequest.Builder builder = new GetEventsLogsRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public GetEventsLogsRequest.Builder setFromDate(final String fromDate) {

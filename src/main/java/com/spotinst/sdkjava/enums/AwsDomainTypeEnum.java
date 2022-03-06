@@ -14,7 +14,7 @@ public enum AwsDomainTypeEnum {
     //endregion
 
     //region Members
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsDomainTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsDomainTypeEnum.class);
     private String name;
     //endregion
 

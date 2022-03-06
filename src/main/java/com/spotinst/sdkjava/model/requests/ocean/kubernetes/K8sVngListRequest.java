@@ -34,8 +34,7 @@ public class K8sVngListRequest {
         }
 
         public static K8sVngListRequest.Builder get() {
-            K8sVngListRequest.Builder builder = new K8sVngListRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sVngListRequest.Builder setAccountId(final String accountId) {

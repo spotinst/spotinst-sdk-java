@@ -6,7 +6,6 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportEKSK8sVngSpec;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sVngSpec;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sVngApiResponse;
 import org.apache.http.HttpStatus;

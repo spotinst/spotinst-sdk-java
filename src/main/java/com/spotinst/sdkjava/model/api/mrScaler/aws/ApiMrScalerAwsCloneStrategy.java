@@ -59,8 +59,7 @@ public class ApiMrScalerAwsCloneStrategy {
         private Builder(){ this.mrScalerAwsCloneStrategy = new ApiMrScalerAwsCloneStrategy(); }
 
         public static Builder get(){
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         // builders

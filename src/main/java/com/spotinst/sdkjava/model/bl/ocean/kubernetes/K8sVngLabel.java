@@ -53,8 +53,7 @@ public class K8sVngLabel {
         }
 
         public static Builder get() {
-            Builder builder = new K8sVngLabel.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setKey(final String key) {

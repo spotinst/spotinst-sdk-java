@@ -42,9 +42,8 @@ public class RestClient {
         addHeaders(getRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(getRequest);
 
-        return retVal;
+        return sendRequest(getRequest);
     }
 
     public static RestResponse sendPut(
@@ -78,9 +77,8 @@ public class RestClient {
         addHeaders(putRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(putRequest);
 
-        return retVal;
+        return sendRequest(putRequest);
     }
 
     public static RestResponse sendPost(
@@ -114,9 +112,8 @@ public class RestClient {
         addHeaders(postRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(postRequest);
 
-        return retVal;
+        return sendRequest(postRequest);
     }
 
     public static RestResponse sendDelete(
@@ -150,13 +147,12 @@ public class RestClient {
         addHeaders(deleteRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(deleteRequest);
 
-        return retVal;
+        return sendRequest(deleteRequest);
     }
 
     private static RestResponse sendRequest(HttpUriRequest urlRequest) throws SpotinstHttpException {
-        RestResponse retVal = null;
+        RestResponse retVal;
 
         // Get the client.
         HttpClient httpclient;
@@ -227,15 +223,15 @@ public class RestClient {
     }
 
     private static RestResponse buildRestResponse(HttpResponse response) throws SpotinstHttpException {
-        RestResponse retVal = null;
+        RestResponse retVal;
 
-        BufferedReader rd = null;
+        BufferedReader rd;
         try {
             StringBuffer result = new StringBuffer();
             if (response.getEntity() != null) {
                 rd = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));
-                String line = "";
+                String line;
                 while ((line = rd.readLine()) != null) {
                     result.append(line);
                 }

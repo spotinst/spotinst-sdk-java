@@ -81,8 +81,7 @@ public class ElastigroupGetAllRequest {
         }
 
         public static ElastigroupGetAllRequest.Builder get() {
-            ElastigroupGetAllRequest.Builder builder = new ElastigroupGetAllRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetAllRequest.Builder setMaxCreatedAt(final Date maxCreatedAt) {

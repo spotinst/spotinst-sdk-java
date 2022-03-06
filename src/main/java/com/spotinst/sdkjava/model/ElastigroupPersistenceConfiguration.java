@@ -90,8 +90,7 @@ public class ElastigroupPersistenceConfiguration {
         }
 
         public static ElastigroupPersistenceConfiguration.Builder get() {
-            ElastigroupPersistenceConfiguration.Builder builder = new ElastigroupPersistenceConfiguration.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupPersistenceConfiguration.Builder setShouldPersistPrivateIp(final Boolean shouldPersistPrivateIp) {

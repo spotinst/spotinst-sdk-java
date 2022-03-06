@@ -42,8 +42,7 @@ public class UpdateCapacityRequestAzure {
         }
 
         public static UpdateCapacityRequestAzure.Builder get() {
-            UpdateCapacityRequestAzure.Builder builder = new UpdateCapacityRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCapacityAzure(final UpdateCapacityAzure capacityAzure) {
@@ -66,7 +65,6 @@ public class UpdateCapacityRequestAzure {
         ApiUpdateCapacityAzure apiCapacity = ElastigroupConverterAzure.toDal(capacityAzure);
         Map<String, ApiUpdateCapacityAzure> capacityRequest = new HashMap<>();
         capacityRequest.put("capacity", apiCapacity);
-        String elastigroupJson = JsonMapper.toJson(capacityRequest);
-        return elastigroupJson;
+        return JsonMapper.toJson(capacityRequest);
     }
 }

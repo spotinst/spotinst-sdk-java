@@ -31,8 +31,7 @@ public class ElastigroupGetDeploymentActionRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
         public Builder setElastigroupDeploymentAction(final ElastigroupDeploymentStrategyOnFailure elastigroupDeploymentAction) {
             elastigroupDeploymentRequest.setElastigroupDeploymentAction(elastigroupDeploymentAction);
@@ -48,7 +47,6 @@ public class ElastigroupGetDeploymentActionRequest {
     public String toJson() {
         ApiElastigroupDeploymentStrategyOnFailure elastigroupDeploymentActionRequest = ElastigroupConverter
                 .toDal(elastigroupDeploymentAction);
-        String  startDeployment              = JsonMapper.toJson(elastigroupDeploymentActionRequest);
-        return startDeployment;
+        return JsonMapper.toJson(elastigroupDeploymentActionRequest);
     }
 }

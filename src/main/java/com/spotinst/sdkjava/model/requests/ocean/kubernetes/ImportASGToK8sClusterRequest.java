@@ -40,8 +40,7 @@ public class ImportASGToK8sClusterRequest {
         }
 
         public static Builder get() {
-            ImportASGToK8sClusterRequest.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setImportAsgToCluster(final ImportAsgToClusterConfiguration importAsgToCluster) {
@@ -59,9 +58,8 @@ public class ImportASGToK8sClusterRequest {
         ApiImportAsgToClusterInstanceTypes importAsgToClusterInstanceTypesRequest = OceanK8sConverter.toDal(instanceTypes);
         Map<String, ApiImportAsgToClusterInstanceTypes> importAsgToClusterInstanceTypes = new HashMap<>();
         importAsgToClusterInstanceTypes.put("cluster", importAsgToClusterInstanceTypesRequest);
-        String   importAsgToClusterInstanceTypesJson    = JsonMapper.toJson(importAsgToClusterInstanceTypes);
 
-        return importAsgToClusterInstanceTypesJson;
+        return JsonMapper.toJson(importAsgToClusterInstanceTypes);
     }
 
     //endregion

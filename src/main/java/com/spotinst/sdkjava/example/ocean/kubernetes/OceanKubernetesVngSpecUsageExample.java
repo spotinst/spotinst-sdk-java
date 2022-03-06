@@ -176,8 +176,8 @@ public class OceanKubernetesVngSpecUsageExample {
         List<K8sVngSpec> k8sVng = client.listK8sVngSpec(listRequest);
 
         if (k8sVng.size() > 0) {
-            for(int i = 0; i < k8sVng.size(); i++) {
-                System.out.println("List Virtual Node Group Successfully: " + k8sVng.get(i).getName());
+            for (K8sVngSpec spec : k8sVng) {
+                System.out.println("List Virtual Node Group Successfully: " + spec.getName());
             }
         }
 

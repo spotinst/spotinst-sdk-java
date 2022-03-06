@@ -78,8 +78,7 @@ public class ElastigroupGetAllRequestAzure {
         }
 
         public static ElastigroupGetAllRequestAzure.Builder get() {
-            ElastigroupGetAllRequestAzure.Builder builder = new ElastigroupGetAllRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetAllRequestAzure.Builder setMaxCreatedAt(final Date maxCreatedAt) {

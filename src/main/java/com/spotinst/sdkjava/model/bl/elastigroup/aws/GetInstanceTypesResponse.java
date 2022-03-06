@@ -44,8 +44,7 @@ public class GetInstanceTypesResponse {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public GetInstanceTypesResponse.Builder setInstanceType(final String instanceType) {

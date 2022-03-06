@@ -54,8 +54,7 @@ public class AwsManagedInstanceDeletionRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDeallocationConfig(final DeallocationConfig deallocationConfig) {
@@ -86,8 +85,7 @@ public class AwsManagedInstanceDeletionRequest {
         Map<String, Object> managedInstanceDeleteRequest = new HashMap<>();
         managedInstanceDeleteRequest.put("deallocationConfig", apiDeallocationConfig);
         managedInstanceDeleteRequest.put("amiBackup", apiAmiBackup);
-        String managedInstanceDeleteJson = JsonMapper.toJson(managedInstanceDeleteRequest);
 
-        return managedInstanceDeleteJson;
+        return JsonMapper.toJson(managedInstanceDeleteRequest);
     }
 }

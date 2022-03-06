@@ -52,8 +52,7 @@ public class LaunchSpecIamInstanceProfileSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new LaunchSpecIamInstanceProfileSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setArn(final String arn) {

@@ -1,19 +1,11 @@
 package com.spotinst.sdkjava.example.elastigroup.aws;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.*;
-import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StatefulElastigroupUsageExample {
     private final static String auth_token    = "your-token";

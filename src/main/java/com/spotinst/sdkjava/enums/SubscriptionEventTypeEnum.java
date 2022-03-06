@@ -15,7 +15,7 @@ public enum SubscriptionEventTypeEnum {
     GROUP_ROLL_FAILED("GROUP_ROLL_FAILED"),
     GROUP_ROLL_FINISHED("GROUP_ROLL_FINISHED");
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SubscriptionEventTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionEventTypeEnum.class);
     private final String name;
 
     private SubscriptionEventTypeEnum(String name) {

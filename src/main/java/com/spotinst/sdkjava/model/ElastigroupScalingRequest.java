@@ -1,10 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.client.rest.JsonMapper;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by aharontwizer on 8/24/15.
  */
@@ -49,8 +44,7 @@ public class ElastigroupScalingRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroupId(final String elastigroupId) {

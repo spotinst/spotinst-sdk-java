@@ -70,8 +70,7 @@ public class ClusterHeadroomSpecification {
         }
 
         public static ClusterHeadroomSpecification.Builder get() {
-            ClusterHeadroomSpecification.Builder builder = new ClusterHeadroomSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterHeadroomSpecification.Builder setCpuPerUnit(final Integer cpuPerUnit) {

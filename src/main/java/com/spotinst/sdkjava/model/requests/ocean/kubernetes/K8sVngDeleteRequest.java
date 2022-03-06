@@ -24,8 +24,7 @@ public class K8sVngDeleteRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setOceanLaunchSpecId(final String oceanLaunchSpecId) {

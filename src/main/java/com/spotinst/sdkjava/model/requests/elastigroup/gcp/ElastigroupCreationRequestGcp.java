@@ -42,8 +42,7 @@ public class ElastigroupCreationRequestGcp {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroup(final ElastigroupGcp elastigroup) {
@@ -64,9 +63,8 @@ public class ElastigroupCreationRequestGcp {
 
         Map<String, ApiElastigroupGcp> groupRequest = new HashMap<>();
         groupRequest.put("group", apiElastigroupToCreate);
-        String retVal = JsonMapper.toJson(groupRequest);
 
-        return retVal;
+        return JsonMapper.toJson(groupRequest);
     }
     //endregion
 

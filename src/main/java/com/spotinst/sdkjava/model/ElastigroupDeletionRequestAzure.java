@@ -32,8 +32,7 @@ public class ElastigroupDeletionRequestAzure {
         }
 
         public static ElastigroupDeletionRequestAzure.Builder get() {
-            ElastigroupDeletionRequestAzure.Builder builder = new ElastigroupDeletionRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupDeletionRequestAzure.Builder setElastigroupId(final String elastigroupId) {

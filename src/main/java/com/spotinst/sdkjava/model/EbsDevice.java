@@ -2,7 +2,6 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterDynamicVolumeSize;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -140,8 +139,7 @@ public class EbsDevice {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVolumeType(final AwsVolumeTypeEnum volumeType) {

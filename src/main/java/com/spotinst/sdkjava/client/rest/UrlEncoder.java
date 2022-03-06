@@ -6,7 +6,6 @@ package com.spotinst.sdkjava.client.rest;
 public class UrlEncoder {
 
     public static String encode(String url) {
-        String encodedUrl = url.replaceAll(" ", "%20");
-        return encodedUrl;
+        return url.replaceAll(" ", "%20");
     }
 }

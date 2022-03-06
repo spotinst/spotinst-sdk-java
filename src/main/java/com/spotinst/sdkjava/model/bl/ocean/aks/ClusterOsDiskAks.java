@@ -50,8 +50,7 @@ public class ClusterOsDiskAks {
         }
 
         public static ClusterOsDiskAks.Builder get() {
-            ClusterOsDiskAks.Builder builder = new ClusterOsDiskAks.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterOsDiskAks.Builder setSizeGB(final Integer sizeGB) {
