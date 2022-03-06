@@ -6,6 +6,10 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiGetK8sClusterHeartBeat
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiOceanK8sCluster;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.GetK8sClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.OceanK8sCluster;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sClusterFetchElastilogResponse;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportAsgToClusterConfiguration;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sClusterFetchElastilogResponse;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -116,6 +120,49 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
             GetK8sClusterHeartBeatStatusResponse getClusterHeartBeat = OceanK8sConverter.toBl(getClusterHeartBeatResponse);
 
             retVal = new RepoGenericResponse<>(getClusterHeartBeat);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<OceanK8sCluster> importASGToOceanCluster(ImportAsgToClusterConfiguration importRequest, String autoScalingGroupName, String region, String authToken, String account) {
+        RepoGenericResponse<OceanK8sCluster> retVal;
+
+        try {
+
+            ApiOceanK8sCluster importASGToOceanClusterResponse = SpotOceanK8sClusterService
+                    .importASGToOceanCluster(importRequest, autoScalingGroupName, region, authToken, account);
+            OceanK8sCluster importASGToOceanCluster = OceanK8sConverter.toBl(importASGToOceanClusterResponse);
+
+            retVal = new RepoGenericResponse<>(importASGToOceanCluster);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<List<K8sClusterFetchElastilogResponse>> fetchElastilog(K8sClusterFetchElastilogRequest k8sClusterGetElastilogRequest, String clusterId, String authToken) {
+        RepoGenericResponse<List<K8sClusterFetchElastilogResponse>> retVal;
+
+        try {
+
+            List<ApiK8sClusterFetchElastilogResponse> getLogs = SpotOceanK8sClusterService
+                    .fetchElastilog(k8sClusterGetElastilogRequest, clusterId, authToken);
+            List<K8sClusterFetchElastilogResponse> getAllLogs = getLogs.stream().map(OceanK8sConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllLogs);
         }
 
         catch (SpotinstHttpException ex) {

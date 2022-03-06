@@ -1793,7 +1793,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String body = JsonMapper.toJson(getDeploymentRequest);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendGetWithBody(uri, body, headers, queryParams);
 
         // Handle the response.
         CodeDeployBGDeploymentApiResponse
@@ -1805,6 +1805,5 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return apiCodeDeployResponse;
     }
-
 
 }

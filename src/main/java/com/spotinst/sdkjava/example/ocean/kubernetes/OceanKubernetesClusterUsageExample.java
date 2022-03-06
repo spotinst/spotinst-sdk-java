@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -39,6 +40,13 @@ public class OceanKubernetesClusterUsageExample {
         System.out.println("----------Get cluster heartbeat status-------------");
         GetK8sClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
 
+        //Import ASG to ocean cluster
+        System.out.println("----------Import ASG to ocean cluster--------------");
+        OceanK8sCluster importASGResponse = importASGToOceanCluster(clusterClient, "ASGName", "region");
+
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<K8sClusterFetchElastilogResponse> getLogs = fetchElastilog(clusterClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "clusterId");
 
     }
 
@@ -212,6 +220,38 @@ public class OceanKubernetesClusterUsageExample {
         return clusterHeartBeatStatus;
     }
 
+    private static OceanK8sCluster importASGToOceanCluster(SpotOceanK8sClusterClient client, String autoscalingGroupName, String region) {
 
+        System.out.println(String.format("Import ASG to ocean cluster. ASG name: %s", autoscalingGroupName));
+        ImportAsgToClusterConfiguration.Builder instanceTypesBuilder = ImportAsgToClusterConfiguration.Builder.get();
+        List<String> instancetypes = Arrays.asList("t2.medium", "t3.medium", "c4.xlarge");
+        ImportAsgToClusterConfiguration instanceTypes = instanceTypesBuilder.setInstanceTypes(instancetypes).build();
+
+        OceanK8sCluster asgConfigToImport = client.importASGToOceanCluster(instanceTypes, autoscalingGroupName, region);
+
+        System.out.println(String.format("Response: %s", asgConfigToImport.toString()));
+
+        return asgConfigToImport;
+    }
+
+    private static List<K8sClusterFetchElastilogResponse> fetchElastilog(SpotOceanK8sClusterClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String clusterId) {
+
+        // Build get request
+        K8sClusterFetchElastilogRequest.Builder getElastilogRequestBuilder = K8sClusterFetchElastilogRequest.Builder.get();
+        K8sClusterFetchElastilogRequest request = getElastilogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setLimit(limit).setResourceId(resourceId)
+                .setSeverity(severity).setToDate(toDate).build();
+
+        List<K8sClusterFetchElastilogResponse> k8sGetLogsResponse =
+                client.fetchElastilog(request, clusterId);
+
+        for (K8sClusterFetchElastilogResponse logs : k8sGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return k8sGetLogsResponse;
+    }
 
 }
