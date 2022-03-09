@@ -441,7 +441,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
     public static Boolean updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -471,7 +471,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
     public static Boolean updateUserGroupDetails(String groupId, String name,String description, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -502,7 +502,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
     public static Boolean deleteUserGroup(String groupId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
