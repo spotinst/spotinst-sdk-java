@@ -28,8 +28,7 @@ public class ElastigroupUpdateCapacityRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroupUpdateCapacity(final ElastigroupUpdateCapacityConfiguration elastigroupCapacity) {
@@ -45,8 +44,7 @@ public class ElastigroupUpdateCapacityRequest {
     //region Json methods
     public String toJson() {
         ApiElastigroupUpdateCapacityConfiguration elastigroupUpdateCapacityRequest = ElastigroupConverter.toDal(elastigroupCapacity);
-        String                        updateCapacity              = JsonMapper.toJson(elastigroupUpdateCapacityRequest);
-        return updateCapacity;
+        return JsonMapper.toJson(elastigroupUpdateCapacityRequest);
     }
 
     //endregion

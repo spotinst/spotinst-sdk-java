@@ -74,8 +74,7 @@ public class ResourceTagSpecification {
         }
 
         public static ResourceTagSpecification.Builder get() {
-            ResourceTagSpecification.Builder builder = new ResourceTagSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ResourceTagSpecification.Builder setTagVolume(TagSpecification volumes) {

@@ -186,8 +186,7 @@ public class ApiMrScalerAws {
         private Builder() { this.apiMrScalerAws = new ApiMrScalerAws(); }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
 
         }
 

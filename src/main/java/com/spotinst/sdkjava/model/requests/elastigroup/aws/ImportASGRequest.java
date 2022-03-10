@@ -63,8 +63,7 @@ public class ImportASGRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setImportASG(ImportASG importASG) {
@@ -100,8 +99,7 @@ public class ImportASGRequest {
     //region Json methods
     public String toJson() {
         ApiImportASG apiImportASG = ElastigroupConverter.toDal(importASG);
-        String       importASG    = JsonMapper.toJson(apiImportASG);
-        return importASG;
+        return JsonMapper.toJson(apiImportASG);
     }
 
     //endregion

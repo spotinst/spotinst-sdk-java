@@ -56,8 +56,7 @@ public class PredictiveScale {
 
     @Override
     public int hashCode() {
-        int result = mode.hashCode();
-        return result;
+        return mode.hashCode();
     }
     //endregion
 
@@ -70,8 +69,7 @@ public class PredictiveScale {
         }
 
         public static PredictiveScale.Builder get() {
-            PredictiveScale.Builder builder = new PredictiveScale.Builder();
-            return builder;
+            return new Builder();
         }
 
         public PredictiveScale.Builder setMode(final ScalingPredictiveModeEnum mode) {

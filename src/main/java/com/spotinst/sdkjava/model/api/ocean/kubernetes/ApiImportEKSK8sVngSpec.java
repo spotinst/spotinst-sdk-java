@@ -7,26 +7,20 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-
-public class ApiK8sVngLabels implements IPartialUpdateEntity {
+public class ApiImportEKSK8sVngSpec implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private String      key;
-    private String      value;
+    private Set<String>                      isSet;
+    private String                           name;
+    private List<ApiK8sVngLabel>			 labels;
 
-    public ApiK8sVngLabels() {
+    public ApiImportEKSK8sVngSpec() {
         isSet = new HashSet<>();
-    }
-
-    public ApiK8sVngLabels(String key, String value) {
-        isSet = new HashSet<>();
-        this.setKey(key);
-        this.setValue(value);
     }
 
     public Set<String> getIsSet() {
@@ -37,28 +31,31 @@ public class ApiK8sVngLabels implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        isSet.add("key");
-        this.key = key;
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public List<ApiK8sVngLabel> getLabels() {
+        return labels;
     }
 
-    public void setValue(String value) {
-        isSet.add("value");
-        this.value = value;
+    public void setLabels (List<ApiK8sVngLabel> labels) {
+        isSet.add("labels");
+        this.labels = labels;
     }
 
     @JsonIgnore
-    public boolean isKeySet() {return isSet.contains("key");}
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
 
     @JsonIgnore
-    public boolean isValueSet() {return isSet.contains("value");}
+    public boolean isLabelsSet() {
+        return isSet.contains("labels");
+    }
 }
-

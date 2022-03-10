@@ -16,126 +16,128 @@ public class K8sVngConverter {
             retVal = new ApiK8sVngSpec();
 
             if (vngLaunchSpec.isIdSet()) {
-                retVal.setId(vngLaunchSpec.getId());
-            }
-
-            if (vngLaunchSpec.isNameSet()) {
-                retVal.setName(vngLaunchSpec.getName());
-            }
-
-            if (vngLaunchSpec.isAssociatePublicIpAddressSet()) {
-                retVal.setAssociatePublicIpAddress(vngLaunchSpec.getAssociatePublicIpAddress());
-            }
-
-            if (vngLaunchSpec.isAutoScaleSet()) {
-                retVal.setAutoScale(toDal(vngLaunchSpec.getAutoScale()));
-            }
-
-            if (vngLaunchSpec.isBlockDevicesSet()) {
-                if (vngLaunchSpec.getBlockDevices() != null) {
-                    List<ApiK8sVngBlockDevice> vngBlockDeviceList = vngLaunchSpec.getBlockDevices()
-                                                                                 .stream()
-                                                                                 .map(K8sVngConverter::toDal)
-                                                                                 .collect(Collectors.toList());
-                    retVal.setBlockDeviceMappings(vngBlockDeviceList);
+                if (vngLaunchSpec.isIdSet() && vngLaunchSpec.getId() != null) {
+                    retVal.setId(vngLaunchSpec.getId());
                 }
             }
 
-            if (vngLaunchSpec.isElasticIpPoolSet()) {
-                retVal.setElasticIpPool(toDal(vngLaunchSpec.getElasticIpPool()));
-            }
+                if (vngLaunchSpec.isNameSet()) {
+                    retVal.setName(vngLaunchSpec.getName());
+                }
 
-            if (vngLaunchSpec.isTagsSet()) {
-                if (vngLaunchSpec.getTags() != null) {
-                    List<ApiK8sVngTag> k8sVngTagList = vngLaunchSpec.getTags()
-                                                                    .stream()
-                                                                    .map(K8sVngConverter::toDal)
-                                                                    .collect(Collectors.toList());
-                    retVal.setTags(k8sVngTagList);
+                if (vngLaunchSpec.isAssociatePublicIpAddressSet()) {
+                    retVal.setAssociatePublicIpAddress(vngLaunchSpec.getAssociatePublicIpAddress());
+                }
+
+                if (vngLaunchSpec.isAutoScaleSet()) {
+                    retVal.setAutoScale(toDal(vngLaunchSpec.getAutoScale()));
+                }
+
+                if (vngLaunchSpec.isBlockDevicesSet()) {
+                    if (vngLaunchSpec.getBlockDevices() != null) {
+                        List<ApiK8sVngBlockDevice> vngBlockDeviceList = vngLaunchSpec.getBlockDevices()
+                                .stream()
+                                .map(K8sVngConverter::toDal)
+                                .collect(Collectors.toList());
+                        retVal.setBlockDeviceMappings(vngBlockDeviceList);
+                    }
+                }
+
+                if (vngLaunchSpec.isElasticIpPoolSet()) {
+                    retVal.setElasticIpPool(toDal(vngLaunchSpec.getElasticIpPool()));
+                }
+
+                if (vngLaunchSpec.isTagsSet()) {
+                    if (vngLaunchSpec.getTags() != null) {
+                        List<ApiK8sVngTag> k8sVngTagList = vngLaunchSpec.getTags()
+                                .stream()
+                                .map(K8sVngConverter::toDal)
+                                .collect(Collectors.toList());
+                        retVal.setTags(k8sVngTagList);
+                    }
+                }
+
+                if (vngLaunchSpec.isLabelsSet()) {
+                    if (vngLaunchSpec.getLabels() != null) {
+                        List<ApiK8sVngLabel> k8sVngLabels = vngLaunchSpec.getLabels()
+                                .stream()
+                                .map(K8sVngConverter::toDal)
+                                .collect(Collectors.toList());
+
+                        retVal.setLabels(k8sVngLabels);
+                    }
+                }
+
+                if (vngLaunchSpec.isTaintsSet()) {
+                    if (vngLaunchSpec.getTaints() != null) {
+                        List<ApiK8sVngTaints> k8sVngTaints = vngLaunchSpec.getTaints()
+                                .stream()
+                                .map(K8sVngConverter::toDal)
+                                .collect(Collectors.toList());
+
+                        retVal.setTaints(k8sVngTaints);
+                    }
+                }
+
+                if (vngLaunchSpec.isIamInstanceProfileSet()) {
+                    if (vngLaunchSpec.getIamInstanceProfile() != null) {
+                        retVal.setIamInstanceProfile(toDal(vngLaunchSpec.getIamInstanceProfile()));
+                    }
+                }
+
+                if (vngLaunchSpec.isImageIdSet()) {
+                    retVal.setImageId(vngLaunchSpec.getImageId());
+                }
+                if (vngLaunchSpec.isInstanceMetadataOptionsSet()) {
+                    if (vngLaunchSpec.getInstanceMetadataOptions() != null) {
+                        retVal.setInstanceMetadataOptions(toDal(vngLaunchSpec.getInstanceMetadataOptions()));
+                    }
+                }
+
+                if (vngLaunchSpec.isInstanceTypesSet()) {
+                    retVal.setInstanceTypes(vngLaunchSpec.getInstanceTypes());
+                }
+
+                if (vngLaunchSpec.isOceanIdSet()) {
+                    retVal.setOceanId(vngLaunchSpec.getOceanId());
+                }
+
+                if (vngLaunchSpec.isPreferredSpotTypesSet()) {
+                    retVal.setPreferredSpotTypes(vngLaunchSpec.getPreferredSpotTypes());
+                }
+
+                if (vngLaunchSpec.isResourceLimitsSet()) {
+                    if (vngLaunchSpec.getResourceLimits() != null) {
+                        retVal.setResourceLimits(toDal(vngLaunchSpec.getResourceLimits()));
+                    }
+                }
+
+                if (vngLaunchSpec.isRestrictScaleDownSet()) {
+                    retVal.setRestrictScaleDown(vngLaunchSpec.getRestrictScaleDown());
+                }
+
+                if (vngLaunchSpec.isRootVolumeSizeSet()) {
+                    retVal.setRootVolumeSize(vngLaunchSpec.getRootVolumeSize());
+                }
+
+                if (vngLaunchSpec.isSecurityGroupIdsSet()) {
+                    retVal.setSecurityGroupIds(vngLaunchSpec.getSecurityGroupIds());
+                }
+
+                if (vngLaunchSpec.isStrategySet()) {
+                    retVal.setStrategy(toDal(vngLaunchSpec.getStrategy()));
+                }
+
+                if (vngLaunchSpec.isSubnetIdsSet()) {
+                    retVal.setSubnetIds(vngLaunchSpec.getSubnetIds());
+                }
+
+                if (vngLaunchSpec.isUserDataSet()) {
+                    retVal.setUserData(vngLaunchSpec.getUserData());
                 }
             }
-
-            if (vngLaunchSpec.isLabelsSet()) {
-                if (vngLaunchSpec.getLabels() != null) {
-                    List<ApiK8sVngLabels> k8sVngLabels = vngLaunchSpec.getLabels()
-                                                                      .stream()
-                                                                      .map(K8sVngConverter::toDal)
-                                                                      .collect(Collectors.toList());
-
-                    retVal.setLabels(k8sVngLabels);
-                }
-            }
-
-            if (vngLaunchSpec.isTaintsSet()) {
-                if (vngLaunchSpec.getTaints() != null) {
-                    List<ApiK8sVngTaints> k8sVngTaints = vngLaunchSpec.getTaints()
-                                                                      .stream()
-                                                                      .map(K8sVngConverter::toDal)
-                                                                      .collect(Collectors.toList());
-
-                    retVal.setTaints(k8sVngTaints);
-                }
-            }
-
-            if (vngLaunchSpec.isIamInstanceProfileSet()) {
-                if (vngLaunchSpec.getIamInstanceProfile() != null) {
-                    retVal.setIamInstanceProfile(toDal(vngLaunchSpec.getIamInstanceProfile()));
-                }
-            }
-
-            if (vngLaunchSpec.isImageIdSet()) {
-                retVal.setImageId(vngLaunchSpec.getImageId());
-            }
-            if (vngLaunchSpec.isInstanceMetadataOptionsSet()) {
-                if (vngLaunchSpec.getInstanceMetadataOptions() != null) {
-                    retVal.setInstanceMetadataOptions(toDal(vngLaunchSpec.getInstanceMetadataOptions()));
-                }
-            }
-
-            if (vngLaunchSpec.isInstanceTypesSet()) {
-                retVal.setInstanceTypes(vngLaunchSpec.getInstanceTypes());
-            }
-
-            if (vngLaunchSpec.isOceanIdSet()) {
-                retVal.setOceanId(vngLaunchSpec.getOceanId());
-            }
-
-            if (vngLaunchSpec.isPreferredSpotTypesSet()) {
-                retVal.setPreferredSpotTypes(vngLaunchSpec.getPreferredSpotTypes());
-            }
-
-            if (vngLaunchSpec.isResourceLimitsSet()) {
-                if (vngLaunchSpec.getResourceLimits() != null) {
-                    retVal.setResourceLimits(toDal(vngLaunchSpec.getResourceLimits()));
-                }
-            }
-
-            if (vngLaunchSpec.isRestrictScaleDownSet()) {
-                retVal.setRestrictScaleDown(vngLaunchSpec.getRestrictScaleDown());
-            }
-
-            if (vngLaunchSpec.isRootVolumeSizeSet()) {
-                retVal.setRootVolumeSize(vngLaunchSpec.getRootVolumeSize());
-            }
-
-            if (vngLaunchSpec.isSecurityGroupIdsSet()) {
-                retVal.setSecurityGroupIds(vngLaunchSpec.getSecurityGroupIds());
-            }
-
-            if (vngLaunchSpec.isStrategySet()) {
-                retVal.setStrategy(toDal(vngLaunchSpec.getStrategy()));
-            }
-
-            if (vngLaunchSpec.isSubnetIdsSet()) {
-                retVal.setSubnetIds(vngLaunchSpec.getSubnetIds());
-            }
-
-            if (vngLaunchSpec.isUserDataSet()) {
-                retVal.setUserData(vngLaunchSpec.getUserData());
-            }
-        }
-
         return retVal;
+
     }
 
     private static ApiK8sVngAutoScaleSpec toDal(K8sVngAutoScaleSpec vngAutoScaleSpec) {
@@ -146,9 +148,9 @@ public class K8sVngConverter {
 
             if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<ApiK8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
-                                                                        .stream()
-                                                                        .map(K8sVngConverter::toDal)
-                                                                        .collect(Collectors.toList());
+                        .stream()
+                        .map(K8sVngConverter::toDal)
+                        .collect(Collectors.toList());
                 retval.setHeadrooms(headrooms);
             }
 
@@ -183,7 +185,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngBlockDevice toDal (K8sVngBlockDevice blockDeviceMapping) {
+    private static ApiK8sVngBlockDevice toDal(K8sVngBlockDevice blockDeviceMapping) {
         ApiK8sVngBlockDevice retVal = null;
         if (blockDeviceMapping != null) {
             retVal = new ApiK8sVngBlockDevice();
@@ -199,7 +201,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngEbsDevice toDal (K8sVngEbsDevice VngEbsDevice) {
+    private static ApiK8sVngEbsDevice toDal(K8sVngEbsDevice VngEbsDevice) {
         ApiK8sVngEbsDevice retVal = null;
         if (VngEbsDevice != null) {
             retVal = new ApiK8sVngEbsDevice();
@@ -242,7 +244,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngDynamicVolumeSize toDal (K8sVngDynamicVolumeSize dynamicVolumeSize) {
+    private static ApiK8sVngDynamicVolumeSize toDal(K8sVngDynamicVolumeSize dynamicVolumeSize) {
         ApiK8sVngDynamicVolumeSize retVal = null;
         if (dynamicVolumeSize != null) {
             retVal = new ApiK8sVngDynamicVolumeSize();
@@ -262,7 +264,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngElasticIpPool toDal (K8sVngElasticIpPool k8sVngElasticIpPool) {
+    private static ApiK8sVngElasticIpPool toDal(K8sVngElasticIpPool k8sVngElasticIpPool) {
         ApiK8sVngElasticIpPool retVal = null;
 
         if (k8sVngElasticIpPool != null) {
@@ -276,7 +278,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngTagSelector toDal (K8sVngTagSelector k8sVngTagSelector) {
+    private static ApiK8sVngTagSelector toDal(K8sVngTagSelector k8sVngTagSelector) {
         ApiK8sVngTagSelector retVal = null;
 
         if (k8sVngTagSelector != null) {
@@ -307,19 +309,19 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngLabels toDal (K8sVngLabels k8sVngLabels) {
-        ApiK8sVngLabels retVal = null;
+    private static ApiK8sVngLabel toDal(K8sVngLabel k8sVngLabels) {
+        ApiK8sVngLabel retVal = null;
 
         if (k8sVngLabels != null) {
             if (k8sVngLabels.isKeySet() && k8sVngLabels.isValueSet()) {
-                retVal = new ApiK8sVngLabels(k8sVngLabels.getKey(), k8sVngLabels.getValue());
+                retVal = new ApiK8sVngLabel(k8sVngLabels.getKey(), k8sVngLabels.getValue());
             }
         }
 
         return retVal;
     }
 
-    private static ApiK8sVngTaints toDal (K8sVngTaints k8sVngTaints) {
+    private static ApiK8sVngTaints toDal(K8sVngTaints k8sVngTaints) {
         ApiK8sVngTaints retVal = null;
 
         if (k8sVngTaints != null) {
@@ -331,7 +333,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngIamInstanceProfileSpec toDal (K8sVngIamInstanceProfileSpec iamInstanceProfileSpec) {
+    private static ApiK8sVngIamInstanceProfileSpec toDal(K8sVngIamInstanceProfileSpec iamInstanceProfileSpec) {
         ApiK8sVngIamInstanceProfileSpec retVal = null;
 
         if (iamInstanceProfileSpec != null) {
@@ -349,10 +351,10 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngResourceLimits toDal (K8sVngResourceLimits k8sVngResourceLimits) {
+    private static ApiK8sVngResourceLimits toDal(K8sVngResourceLimits k8sVngResourceLimits) {
         ApiK8sVngResourceLimits retVal = null;
 
-        if(k8sVngResourceLimits != null) {
+        if (k8sVngResourceLimits != null) {
             retVal = new ApiK8sVngResourceLimits();
 
             if (k8sVngResourceLimits.isMaxInstanceCountSet()) {
@@ -367,17 +369,17 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngInstanceMetadataOptions toDal (K8sVngInstanceMetadataOptions instanceMetadataOptions) {
+    private static ApiK8sVngInstanceMetadataOptions toDal(K8sVngInstanceMetadataOptions instanceMetadataOptions) {
         ApiK8sVngInstanceMetadataOptions retVal = null;
 
         if (instanceMetadataOptions != null) {
             retVal = new ApiK8sVngInstanceMetadataOptions();
 
-            if(instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
+            if (instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
                 retVal.setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
             }
 
-            if(instanceMetadataOptions.isHttpTokensSet()) {
+            if (instanceMetadataOptions.isHttpTokensSet()) {
                 retVal.setHttpTokens(instanceMetadataOptions.getHttpTokens().getName());
             }
         }
@@ -385,13 +387,13 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static ApiK8sVngStrategySpec toDal (K8sVngStrategySpec strategy) {
+    private static ApiK8sVngStrategySpec toDal(K8sVngStrategySpec strategy) {
         ApiK8sVngStrategySpec retVal = null;
 
-        if(strategy != null) {
+        if (strategy != null) {
             retVal = new ApiK8sVngStrategySpec();
 
-            if(strategy.isSpotPercentageSet()) {
+            if (strategy.isSpotPercentageSet()) {
                 retVal.setSpotPercentage(strategy.getSpotPercentage());
             }
         }
@@ -399,8 +401,33 @@ public class K8sVngConverter {
         return retVal;
     }
 
+    public static ApiImportEKSK8sVngSpec toDal(ImportEKSK8sVngSpec importVngLaunchSpec) {
+        ApiImportEKSK8sVngSpec retVal = null;
+
+        if (importVngLaunchSpec != null) {
+            retVal = new ApiImportEKSK8sVngSpec();
+
+            if (importVngLaunchSpec.isNameSet()) {
+                retVal.setName(importVngLaunchSpec.getName());
+            }
+
+            if (importVngLaunchSpec.isLabelsSet()) {
+                if (importVngLaunchSpec.getLabels() != null) {
+                    List<ApiK8sVngLabel> k8sVngLabels = importVngLaunchSpec.getLabels()
+                            .stream()
+                            .map(K8sVngConverter::toDal)
+                            .collect(Collectors.toList());
+
+                    retVal.setLabels(k8sVngLabels);
+                }
+            }
+        }
+
+        return retVal;
+    }
+
     //Dal-> Bl
-    public static K8sVngSpec toBl (ApiK8sVngSpec apiVngLaunchSpec) {
+    public static K8sVngSpec toBl(ApiK8sVngSpec apiVngLaunchSpec) {
         K8sVngSpec retVal = null;
 
         if (apiVngLaunchSpec != null) {
@@ -425,9 +452,9 @@ public class K8sVngConverter {
             if (apiVngLaunchSpec.isBlockDeviceMappingsSet()) {
                 if (apiVngLaunchSpec.getBlockDeviceMappings() != null) {
                     List<K8sVngBlockDevice> vngBlockDeviceList = apiVngLaunchSpec.getBlockDeviceMappings()
-                                                                                 .stream()
-                                                                                 .map(K8sVngConverter::toBl)
-                                                                                 .collect(Collectors.toList());
+                            .stream()
+                            .map(K8sVngConverter::toBl)
+                            .collect(Collectors.toList());
                     vngLaunchSpecBuilder.setBlockDevices(vngBlockDeviceList);
                 }
             }
@@ -442,9 +469,9 @@ public class K8sVngConverter {
 
                 if (apiVngLaunchSpec.getTags() != null) {
                     List<K8sVngTag> k8sVngTagList = apiVngLaunchSpec.getTags()
-                                                                    .stream()
-                                                                    .map(K8sVngConverter::toBl)
-                                                                    .collect(Collectors.toList());
+                            .stream()
+                            .map(K8sVngConverter::toBl)
+                            .collect(Collectors.toList());
                     vngLaunchSpecBuilder.setTags(k8sVngTagList);
                 }
             }
@@ -452,10 +479,10 @@ public class K8sVngConverter {
             if (apiVngLaunchSpec.isLabelsSet()) {
 
                 if (apiVngLaunchSpec.getLabels() != null) {
-                    List<K8sVngLabels> k8sVngLabels = apiVngLaunchSpec.getLabels()
-                                                                    .stream()
-                                                                    .map(K8sVngConverter::toBl)
-                                                                    .collect(Collectors.toList());
+                    List<K8sVngLabel> k8sVngLabels = apiVngLaunchSpec.getLabels()
+                            .stream()
+                            .map(K8sVngConverter::toBl)
+                            .collect(Collectors.toList());
 
                     vngLaunchSpecBuilder.setLabels(k8sVngLabels);
                 }
@@ -465,9 +492,9 @@ public class K8sVngConverter {
 
                 if (apiVngLaunchSpec.getTaints() != null) {
                     List<K8sVngTaints> k8sVngTaints = apiVngLaunchSpec.getTaints()
-                                                                      .stream()
-                                                                      .map(K8sVngConverter::toBl)
-                                                                      .collect(Collectors.toList());
+                            .stream()
+                            .map(K8sVngConverter::toBl)
+                            .collect(Collectors.toList());
 
                     vngLaunchSpecBuilder.setTaints(k8sVngTaints);
                 }
@@ -548,9 +575,9 @@ public class K8sVngConverter {
 
             if (vngAutoScaleSpec.isHeadroomSet() && vngAutoScaleSpec.getHeadrooms() != null) {
                 List<K8sVngHeadroomSpec> headrooms = vngAutoScaleSpec.getHeadrooms()
-                                                                     .stream()
-                                                                     .map(K8sVngConverter::toBl)
-                                                                     .collect(Collectors.toList());
+                        .stream()
+                        .map(K8sVngConverter::toBl)
+                        .collect(Collectors.toList());
                 autoScaleBuilder.setHeadrooms(headrooms);
             }
 
@@ -589,7 +616,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngBlockDevice toBl (ApiK8sVngBlockDevice apiVngBlockDeviceMapping) {
+    private static K8sVngBlockDevice toBl(ApiK8sVngBlockDevice apiVngBlockDeviceMapping) {
         K8sVngBlockDevice retVal = null;
         if (apiVngBlockDeviceMapping != null) {
             K8sVngBlockDevice.Builder blockDeviceMappingBuilder = K8sVngBlockDevice.Builder.get();
@@ -607,7 +634,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngEbsDevice toBl (ApiK8sVngEbsDevice apiVNGEbsDevice) {
+    private static K8sVngEbsDevice toBl(ApiK8sVngEbsDevice apiVNGEbsDevice) {
         K8sVngEbsDevice retVal = null;
         if (apiVNGEbsDevice != null) {
             K8sVngEbsDevice.Builder VngEbsDeviceBuilder = K8sVngEbsDevice.Builder.get();
@@ -653,7 +680,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngElasticIpPool toBl (ApiK8sVngElasticIpPool apiK8sVngElasticIpPool) {
+    private static K8sVngElasticIpPool toBl(ApiK8sVngElasticIpPool apiK8sVngElasticIpPool) {
         K8sVngElasticIpPool retVal = null;
         if (apiK8sVngElasticIpPool != null) {
             K8sVngElasticIpPool.Builder vngElasticIpPoolBuilder = K8sVngElasticIpPool.Builder.get();
@@ -668,7 +695,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngTagSelector toBl (ApiK8sVngTagSelector apiK8sVngTagSelector) {
+    private static K8sVngTagSelector toBl(ApiK8sVngTagSelector apiK8sVngTagSelector) {
         K8sVngTagSelector retVal = null;
         if (apiK8sVngTagSelector != null) {
             K8sVngTagSelector.Builder vngTagSelectorBuilder = K8sVngTagSelector.Builder.get();
@@ -684,10 +711,10 @@ public class K8sVngConverter {
             retVal = vngTagSelectorBuilder.build();
         }
 
-        return  retVal;
+        return retVal;
     }
 
-    private static K8sVngDynamicVolumeSize toBl (ApiK8sVngDynamicVolumeSize apiDynamicVolumeSize) {
+    private static K8sVngDynamicVolumeSize toBl(ApiK8sVngDynamicVolumeSize apiDynamicVolumeSize) {
         K8sVngDynamicVolumeSize retVal = null;
         if (apiDynamicVolumeSize != null) {
             K8sVngDynamicVolumeSize.Builder dynamicVolumeSizeBuilder = K8sVngDynamicVolumeSize.Builder.get();
@@ -716,45 +743,46 @@ public class K8sVngConverter {
             if (apiK8sVngTag.isTagKeySet() && apiK8sVngTag.isTagValueSet()) {
                 K8sVngTag.Builder k8sVngTagBuilder = K8sVngTag.Builder.get();
                 retVal = k8sVngTagBuilder.setTagKey(apiK8sVngTag.getTagKey())
-                                         .setTagValue(apiK8sVngTag.getTagValue())
-                                         .build();
+                        .setTagValue(apiK8sVngTag.getTagValue())
+                        .build();
             }
         }
 
         return retVal;
     }
 
-    private static K8sVngLabels toBl (ApiK8sVngLabels apiK8sVngLabels) {
-        K8sVngLabels retVal = null;
+    private static K8sVngLabel toBl(ApiK8sVngLabel apiK8sVngLabels) {
+        K8sVngLabel retVal = null;
 
         if (apiK8sVngLabels != null) {
             if (apiK8sVngLabels.isKeySet() && apiK8sVngLabels.isValueSet()) {
-                K8sVngLabels.Builder k8sVngLabelsBuilder = K8sVngLabels.Builder.get();
+                K8sVngLabel.Builder k8sVngLabelsBuilder = K8sVngLabel.Builder.get();
                 retVal = k8sVngLabelsBuilder.setKey(apiK8sVngLabels.getKey())
-                                            .setValue((apiK8sVngLabels.getValue()))
-                                            .build();
+                        .setValue((apiK8sVngLabels.getValue()))
+                        .build();
             }
         }
 
         return retVal;
     }
 
-    private static K8sVngTaints toBl (ApiK8sVngTaints apiK8sVngTaints) {
+    private static K8sVngTaints toBl(ApiK8sVngTaints apiK8sVngTaints) {
         K8sVngTaints retVal = null;
 
         if (apiK8sVngTaints != null) {
             if (apiK8sVngTaints.isEffectSet() && apiK8sVngTaints.isKeySet() && apiK8sVngTaints.isValueSet()) {
                 K8sVngTaints.Builder vngTaintsBuilder = K8sVngTaints.Builder.get();
                 retVal = vngTaintsBuilder.setEffect(apiK8sVngTaints.getEffect())
-                                         .setKey(apiK8sVngTaints.getKey())
-                                         .setValue(apiK8sVngTaints.getValue())
-                                         .build();
+                        .setKey(apiK8sVngTaints.getKey())
+                        .setValue(apiK8sVngTaints.getValue())
+                        .build();
             }
         }
 
         return retVal;
     }
-    private static K8sVngIamInstanceProfileSpec toBl (ApiK8sVngIamInstanceProfileSpec iamInstanceProfileSpec) {
+
+    private static K8sVngIamInstanceProfileSpec toBl(ApiK8sVngIamInstanceProfileSpec iamInstanceProfileSpec) {
         K8sVngIamInstanceProfileSpec retVal = null;
 
         if (iamInstanceProfileSpec != null) {
@@ -774,17 +802,17 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngInstanceMetadataOptions toBl (ApiK8sVngInstanceMetadataOptions apiInstanceMetadataOptions) {
+    private static K8sVngInstanceMetadataOptions toBl(ApiK8sVngInstanceMetadataOptions apiInstanceMetadataOptions) {
         K8sVngInstanceMetadataOptions retVal = null;
 
         if (apiInstanceMetadataOptions != null) {
             K8sVngInstanceMetadataOptions.Builder vngInstanceMetadataOptions = K8sVngInstanceMetadataOptions.Builder.get();
 
-            if(apiInstanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
+            if (apiInstanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
                 vngInstanceMetadataOptions.setHttpPutResponseHopLimit(apiInstanceMetadataOptions.getHttpPutResponseHopLimit());
             }
 
-            if(apiInstanceMetadataOptions.isHttpTokensSet()) {
+            if (apiInstanceMetadataOptions.isHttpTokensSet()) {
                 vngInstanceMetadataOptions.setHttpTokens(K8sVngHttpTokensEnum.fromName(apiInstanceMetadataOptions.getHttpTokens()));
             }
 
@@ -794,7 +822,7 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngResourceLimits toBl (ApiK8sVngResourceLimits apiK8sVngResourceLimits) {
+    private static K8sVngResourceLimits toBl(ApiK8sVngResourceLimits apiK8sVngResourceLimits) {
         K8sVngResourceLimits retVal = null;
 
         if (apiK8sVngResourceLimits != null) {
@@ -814,17 +842,45 @@ public class K8sVngConverter {
         return retVal;
     }
 
-    private static K8sVngStrategySpec toBl (ApiK8sVngStrategySpec apiStrategy) {
+    private static K8sVngStrategySpec toBl(ApiK8sVngStrategySpec apiStrategy) {
         K8sVngStrategySpec retVal = null;
 
-        if(apiStrategy != null) {
+        if (apiStrategy != null) {
             K8sVngStrategySpec.Builder strategyBuilder = K8sVngStrategySpec.Builder.get();
 
-            if(apiStrategy.isSpotPercentageSet()) {
+            if (apiStrategy.isSpotPercentageSet()) {
                 strategyBuilder.setSpotPercentage(apiStrategy.getSpotPercentage());
             }
 
             retVal = strategyBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ImportEKSK8sVngSpec toBl(ApiImportEKSK8sVngSpec apiImportVngLaunchSpec) {
+        ImportEKSK8sVngSpec retVal = null;
+
+        if (apiImportVngLaunchSpec != null) {
+            ImportEKSK8sVngSpec.Builder vngLaunchSpecBuilder = ImportEKSK8sVngSpec.Builder.get();
+
+            if (apiImportVngLaunchSpec.isNameSet()) {
+                vngLaunchSpecBuilder.setName(apiImportVngLaunchSpec.getName());
+            }
+
+            if (apiImportVngLaunchSpec.isLabelsSet()) {
+
+                if (apiImportVngLaunchSpec.getLabels() != null) {
+                    List<K8sVngLabel> k8sVngLabels = apiImportVngLaunchSpec.getLabels()
+                            .stream()
+                            .map(K8sVngConverter::toBl)
+                            .collect(Collectors.toList());
+
+                    vngLaunchSpecBuilder.setLabels(k8sVngLabels);
+                }
+            }
+
+            retVal = vngLaunchSpecBuilder.build();
         }
 
         return retVal;

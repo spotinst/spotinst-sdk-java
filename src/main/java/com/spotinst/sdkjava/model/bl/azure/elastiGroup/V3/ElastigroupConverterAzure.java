@@ -686,7 +686,7 @@ public class ElastigroupConverterAzure {
 
         List<ApiSuspendgroupProcessesAzure> retVal = null;
         if (suspendGroupProcesses != null) {
-            retVal = new ArrayList<ApiSuspendgroupProcessesAzure>();
+            retVal = new ArrayList<>();
             for(SuspendGroupProcessesAzure process : suspendGroupProcesses) {
                 ApiSuspendgroupProcessesAzure apiProcess = new ApiSuspendgroupProcessesAzure();
                 if (process.isNameSet()) {
@@ -704,7 +704,7 @@ public class ElastigroupConverterAzure {
     public static List<ApiResumeGroupProcessesAzure> toDal(List<ResumeGroupProcessesAzure> resumeGroupProcesses) {
         List<ApiResumeGroupProcessesAzure> retVal = null;
         if (resumeGroupProcesses != null) {
-            retVal = new ArrayList<ApiResumeGroupProcessesAzure>();
+            retVal = new ArrayList<>();
             for(ResumeGroupProcessesAzure groupProcess : resumeGroupProcesses) {
                 ApiResumeGroupProcessesAzure apiProcess = new ApiResumeGroupProcessesAzure();
                 if (groupProcess.isNameSet()) {

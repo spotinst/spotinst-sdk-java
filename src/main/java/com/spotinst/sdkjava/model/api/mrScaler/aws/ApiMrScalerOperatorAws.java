@@ -60,8 +60,7 @@ public class ApiMrScalerOperatorAws {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

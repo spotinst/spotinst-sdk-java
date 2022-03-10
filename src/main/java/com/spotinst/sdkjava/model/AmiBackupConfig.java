@@ -31,8 +31,7 @@ public class AmiBackupConfig {
         }
 
         public static AmiBackupConfig.Builder get() {
-            AmiBackupConfig.Builder builder = new AmiBackupConfig.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AmiBackupConfig.Builder setShouldDeleteImages(final Boolean shouldDeleteImages) {

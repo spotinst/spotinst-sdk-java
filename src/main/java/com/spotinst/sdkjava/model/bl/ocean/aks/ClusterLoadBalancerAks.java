@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model.bl.ocean.aks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -112,8 +111,7 @@ public class ClusterLoadBalancerAks {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
         public Builder setBackendPoolNames(final List<String> backendPoolNames) {
             clusterLoadBalancerAks.setBackendPoolNames(backendPoolNames);

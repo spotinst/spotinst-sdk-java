@@ -32,8 +32,7 @@ public class BeanstalkDeleteConfig {
         }
 
         public static BeanstalkDeleteConfig.Builder get() {
-            BeanstalkDeleteConfig.Builder builder = new BeanstalkDeleteConfig.Builder();
-            return builder;
+            return new Builder();
         }
 
         public BeanstalkDeleteConfig.Builder setRollbackToAsg(final Boolean rollbackToAsg) {

@@ -35,8 +35,7 @@ public class ElastigroupGetRequestAzure {
         }
 
         public static ElastigroupGetRequestAzure.Builder get() {
-            ElastigroupGetRequestAzure.Builder builder = new ElastigroupGetRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetRequestAzure.Builder setElastigroupId(final String elastigroupId) {

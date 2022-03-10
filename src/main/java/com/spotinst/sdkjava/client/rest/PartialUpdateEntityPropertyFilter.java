@@ -20,7 +20,6 @@ public class PartialUpdateEntityPropertyFilter extends SimpleBeanPropertyFilter
 
                 if (contains) {
                     writer.serializeAsField(pojo, jgen, provider);
-                    return;
                 }
             } else if (!jgen.canOmitFields()) { // since 2.3
                 writer.serializeAsOmittedField(pojo, jgen, provider);

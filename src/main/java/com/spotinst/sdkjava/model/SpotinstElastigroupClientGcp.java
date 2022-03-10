@@ -11,7 +11,6 @@ import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupCreationRe
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class SpotinstElastigroupClientGcp {
@@ -178,7 +177,7 @@ public class SpotinstElastigroupClientGcp {
 
     public List<GroupActiveInstanceStatusGcp> getInstanceStatus(
             ElastigroupGetGroupInstanceStatusRequestGcp elastigroupGetInstanceHealthinessRequest) {
-        List<GroupActiveInstanceStatusGcp> retVal = new LinkedList<>();
+        List<GroupActiveInstanceStatusGcp> retVal;
 
 
         String elastigroupId = elastigroupGetInstanceHealthinessRequest.getElastigroupId();
@@ -201,7 +200,7 @@ public class SpotinstElastigroupClientGcp {
 
     public Boolean lockInstance(String accountId, String ttlInMinutes, String instanceId) {
 
-        Boolean isLock = false;
+        Boolean isLock;
         RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepoGcp().lockInstance(authToken, accountId, ttlInMinutes, instanceId);
 
         if (lockResponse.isRequestSucceed()) {
@@ -222,7 +221,7 @@ public class SpotinstElastigroupClientGcp {
 
     public Boolean unlockInstance(String accountId, String instanceId) {
 
-        Boolean isUnLock = false;
+        Boolean isUnLock;
         RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepoGcp().unlockInstance(authToken, accountId, instanceId);
 
         if (unlockResponse.isRequestSucceed()) {
@@ -243,7 +242,7 @@ public class SpotinstElastigroupClientGcp {
     }
 
     public List<ElastigroupScaleUpResponseGcp> scaleUpGroup(String groupId, String adjustment) {
-        List<ElastigroupScaleUpResponseGcp> scaleUp = null;
+        List<ElastigroupScaleUpResponseGcp> scaleUp;
         RepoGenericResponse<List<ElastigroupScaleUpResponseGcp>> elastigroupScalingResponse =
                 getSpotinstElastigroupRepoGcp().scaleUp(groupId, adjustment, authToken, account);
 
@@ -262,7 +261,7 @@ public class SpotinstElastigroupClientGcp {
     }
 
     public List<ElastigroupScaleDownResponseGcp> scaleDownGroup(String elastigroupId, String adjustment) {
-        List<ElastigroupScaleDownResponseGcp> scaleDown = null;
+        List<ElastigroupScaleDownResponseGcp> scaleDown;
         RepoGenericResponse<List<ElastigroupScaleDownResponseGcp>> elastigroupScalingResponse =
                 getSpotinstElastigroupRepoGcp().scaleDown(elastigroupId, adjustment, authToken, account);
 

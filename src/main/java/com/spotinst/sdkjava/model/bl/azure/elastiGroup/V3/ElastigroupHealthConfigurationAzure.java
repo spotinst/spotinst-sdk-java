@@ -82,8 +82,7 @@ public class ElastigroupHealthConfigurationAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setHealthCheckTypes(final List<String> healthCheckTypes) {

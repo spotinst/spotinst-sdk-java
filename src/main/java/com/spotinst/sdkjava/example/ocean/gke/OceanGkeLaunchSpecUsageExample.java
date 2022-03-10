@@ -44,10 +44,10 @@ public class OceanGkeLaunchSpecUsageExample {
         System.out.println("--------------Get all launch specs----------------------");
         List<LaunchSpecSpecification> allLaunchSpecs = getAllLaunchSpecs(spotOceanGkeClusterClient);
         if(allLaunchSpecs.size() > 0){
-            for (int i = 0; i < allLaunchSpecs.size(); i++) {
+            for (LaunchSpecSpecification launchSpec : allLaunchSpecs) {
                 System.out.println("Below are the launch specs details");
-                System.out.println("LaunchSpec Id: " + allLaunchSpecs.get(i).getId() + "and Launch Spec Name: " +
-                                   allLaunchSpecs.get(i).getName());
+                System.out.println("LaunchSpec Id: " + launchSpec.getId() + "and Launch Spec Name: " +
+                        launchSpec.getName());
             }
         }else{
             System.out.println("Failed to get all launch specs so exiting from the script");
@@ -79,7 +79,7 @@ public class OceanGkeLaunchSpecUsageExample {
         oceanGKEMetadata.add(metadata);
 
         // Form a instance type request builder
-        List<String> instanceTypes = Arrays.asList(new String[]{"n1-standard-1","n1-standard-2"});
+        List<String> instanceTypes = Arrays.asList("n1-standard-1","n1-standard-2");
 
         // Form a taints request builder
         List<LaunchSpecTaintsSpecification> taints = new ArrayList<>();

@@ -75,8 +75,7 @@ public class ElastigroupAttributesSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setkey (final String key){

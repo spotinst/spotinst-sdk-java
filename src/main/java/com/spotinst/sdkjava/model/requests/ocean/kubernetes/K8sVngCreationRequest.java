@@ -34,8 +34,7 @@ public class K8sVngCreationRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVngLaunchSpec(final K8sVngSpec k8sVirtualNodeGroup) {
@@ -54,8 +53,7 @@ public class K8sVngCreationRequest {
 
         Map<String, ApiK8sVngSpec> launchSpecRequest = new HashMap<>();
         launchSpecRequest.put("launchSpec", apiLaunchSpecToCreate);
-        String launchSpecJson = JsonMapper.toJson(launchSpecRequest);
 
-        return launchSpecJson;
+        return JsonMapper.toJson(launchSpecRequest);
     }
 }

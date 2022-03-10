@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.spotStorage;
 
 import com.spotinst.sdkjava.model.api.spotStorage.*;
-import com.spotinst.sdkjava.model.api.spotStorage.ApiAzureStorageVolume;
 
 import java.util.LinkedList;
 import java.util.List;

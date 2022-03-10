@@ -28,8 +28,7 @@ public class AccountDeleteRequest {
         }
 
         public static AccountDeleteRequest.Builder get() {
-            AccountDeleteRequest.Builder builder = new AccountDeleteRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AccountDeleteRequest.Builder setAccountId(final String account) {

@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.bl.aws.managedInstance;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -136,8 +135,7 @@ public class ManagedInstance {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCompute(final Compute compute) {

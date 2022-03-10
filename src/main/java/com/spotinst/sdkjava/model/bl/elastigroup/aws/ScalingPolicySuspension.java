@@ -43,8 +43,7 @@ public class ScalingPolicySuspension {
         }
 
         public static ScalingPolicySuspension.Builder get() {
-            ScalingPolicySuspension.Builder builder = new ScalingPolicySuspension.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ScalingPolicySuspension.Builder setTtlInMinutes(final Integer ttlInMinutes) {

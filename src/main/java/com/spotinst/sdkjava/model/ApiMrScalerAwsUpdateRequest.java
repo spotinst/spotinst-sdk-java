@@ -40,8 +40,7 @@ public class ApiMrScalerAwsUpdateRequest {
         }
 
         public static ApiMrScalerAwsUpdateRequest.Builder get() {
-            ApiMrScalerAwsUpdateRequest.Builder builder = new ApiMrScalerAwsUpdateRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setMrScaler(final ApiMrScalerAws mrScaler) {
@@ -62,9 +61,8 @@ public class ApiMrScalerAwsUpdateRequest {
 
         Map<String, BlMrScalerAws> mrScalerRequest = new HashMap<>();
         mrScalerRequest.put("mrScaler", blMrScalerToCreate);
-        String mrScalerJson = JsonMapper.toJson(mrScalerRequest);
 
-        return mrScalerJson;
+        return JsonMapper.toJson(mrScalerRequest);
     }
     //endregion
 }

@@ -48,8 +48,7 @@ public class ApiDeleteGroupRequest {
         }
 
         public static ApiDeleteGroupRequest.Builder get() {
-            ApiDeleteGroupRequest.Builder builder = new ApiDeleteGroupRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ApiDeleteGroupRequest.Builder setStatefulDeallocation(final StatefulDeallocationConfig statefulDeallocation) {

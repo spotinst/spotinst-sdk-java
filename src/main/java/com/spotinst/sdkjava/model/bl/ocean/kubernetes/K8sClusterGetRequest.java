@@ -27,8 +27,7 @@ public class K8sClusterGetRequest {
         }
 
         public static K8sClusterGetRequest.Builder get() {
-            K8sClusterGetRequest.Builder builder = new K8sClusterGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sClusterGetRequest.Builder setClusterId(final String oceanCluster) {

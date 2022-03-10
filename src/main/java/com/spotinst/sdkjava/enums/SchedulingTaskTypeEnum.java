@@ -26,7 +26,7 @@ public enum SchedulingTaskTypeEnum {
     }
 
     private final String name;
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SchedulingTaskTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SchedulingTaskTypeEnum.class);
 
     public static SchedulingTaskTypeEnum fromName(String name) {
         SchedulingTaskTypeEnum retVal = null;

@@ -9,13 +9,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GetInstanceTypesByRegionResponse {
+public class GetInstanceTypesResponse {
 
     @JsonIgnore
     private Set<String>                                        isSet;
     private String                                             instanceType;
 
-    public GetInstanceTypesByRegionResponse() {
+    public GetInstanceTypesResponse() {
         isSet = new HashSet<>();
     }
 
@@ -37,23 +37,22 @@ public class GetInstanceTypesByRegionResponse {
     }
 
     public static class Builder {
-        private GetInstanceTypesByRegionResponse getInstanceTypesByRegion;
+        private GetInstanceTypesResponse getInstanceTypesByRegion;
 
         private Builder() {
-            this.getInstanceTypesByRegion = new GetInstanceTypesByRegionResponse();
+            this.getInstanceTypesByRegion = new GetInstanceTypesResponse();
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
-        public GetInstanceTypesByRegionResponse.Builder setInstanceType(final String instanceType) {
+        public GetInstanceTypesResponse.Builder setInstanceType(final String instanceType) {
             getInstanceTypesByRegion.setInstanceType(instanceType);
             return this;
         }
 
-        public GetInstanceTypesByRegionResponse build() {
+        public GetInstanceTypesResponse build() {
             return getInstanceTypesByRegion;
         }
 

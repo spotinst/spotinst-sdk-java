@@ -1,7 +1,5 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
-
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
+
 public class ClusterAutoScalerConfiguration {
     @JsonIgnore
     private Set<String>                        isSet;
@@ -107,8 +105,7 @@ public class ClusterAutoScalerConfiguration {
         }
 
         public static ClusterAutoScalerConfiguration.Builder get() {
-            ClusterAutoScalerConfiguration.Builder builder = new ClusterAutoScalerConfiguration.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setIsEnabled(final Boolean isEnabled) {

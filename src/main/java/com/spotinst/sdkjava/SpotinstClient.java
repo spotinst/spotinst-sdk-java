@@ -4,7 +4,6 @@ package com.spotinst.sdkjava;
 import com.spotinst.sdkjava.client.http.UserAgentConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 
 import java.util.List;
 
@@ -15,26 +14,20 @@ public class SpotinstClient {
 
     //region Methods
     public static SpotOceanGkeClusterClient getSpotOceanGkeLaunchSpecClient(String authToken, String account) {
-        SpotOceanGkeClusterClient
-                spotinstOceanGKELaunchSpecClientTest = new SpotOceanGkeClusterClient(authToken, account);
-        return spotinstOceanGKELaunchSpecClientTest;
+        return new SpotOceanGkeClusterClient(authToken, account);
     }
     @Deprecated
     public static SpotinstElastigroupClient getElastigroupClient(String authToken) {
-        SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, null);
-        return spotinstElastigroupClient;
+        return new SpotinstElastigroupClient(authToken, null);
     }
 
     public static SpotinstElastigroupClient getElastigroupClient(String authToken, String account) {
-        SpotinstElastigroupClient spotinstElastigroupClient = new SpotinstElastigroupClient(authToken, account);
-        return spotinstElastigroupClient;
+        return new SpotinstElastigroupClient(authToken, account);
     }
 
     public static SpotinstElastigroupClient getElastigroupClient(String authToken, String account,
                                                                  List<UserAgentConfig> userAgentConfigurations) {
-        SpotinstElastigroupClient spotinstElastigroupClient =
-                new SpotinstElastigroupClient(authToken, account, userAgentConfigurations);
-        return spotinstElastigroupClient;
+        return new SpotinstElastigroupClient(authToken, account, userAgentConfigurations);
     }
 
     public static void setNonDefaultEndpoint(String newEndpoint) {
@@ -43,78 +36,62 @@ public class SpotinstClient {
 
     @Deprecated
     public static SpotinstSubscriptionClient getSubscriptionClient(String authToken) {
-        SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken, null);
-        return spotinstSubscriptionClient;
+        return new SpotinstSubscriptionClient(authToken, null);
     }
 
     public static SpotinstSubscriptionClient getSubscriptionClient(String authToken, String account) {
-        SpotinstSubscriptionClient spotinstSubscriptionClient = new SpotinstSubscriptionClient(authToken, account);
-        return spotinstSubscriptionClient;
+        return new SpotinstSubscriptionClient(authToken, account);
     }
 
     @Deprecated
     public static SpotinstSpectrumClient getSpectrumClient(String authToken) {
-        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken, null);
-        return spotinstSpectrumClient;
+        return new SpotinstSpectrumClient(authToken, null);
     }
 
     public static SpotinstSpectrumClient getSpectrumClient(String authToken, String account) {
-        SpotinstSpectrumClient spotinstSpectrumClient = new SpotinstSpectrumClient(authToken, account);
-        return spotinstSpectrumClient;
+        return new SpotinstSpectrumClient(authToken, account);
     }
 
     public static SpotinstMrScalerAwsClient getMrScalerAwsClient(String authToken, String account) {
-        SpotinstMrScalerAwsClient spotinstMrScalerAwsClient = new SpotinstMrScalerAwsClient(authToken, account);
-        return spotinstMrScalerAwsClient;
+        return new SpotinstMrScalerAwsClient(authToken, account);
     }
 
     public static SpotOceanK8sClusterClient getOceanClusterClient(String authToken, String account) {
-        SpotOceanK8sClusterClient spotOceanK8sClusterClient = new SpotOceanK8sClusterClient(authToken, account);
-        return spotOceanK8sClusterClient;
+        return new SpotOceanK8sClusterClient(authToken, account);
     }
 
     public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken) {
-        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure = new SpotinstElastigroupClientAzure(authToken, null);
-        return spotinstElastigroupClientAzure;
+        return new SpotinstElastigroupClientAzure(authToken, null);
     }
 
     public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken, String account) {
-        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure = new SpotinstElastigroupClientAzure(authToken, account);
-        return spotinstElastigroupClientAzure;
+        return new SpotinstElastigroupClientAzure(authToken, account);
     }
 
     public static SpotinstElastigroupClientAzure getElastigroupClientAzure(String authToken, String account,
                                                                  List<UserAgentConfig> userAgentConfigurations) {
-        SpotinstElastigroupClientAzure spotinstElastigroupClientAzure =
-                new SpotinstElastigroupClientAzure(authToken, account, userAgentConfigurations);
-        return spotinstElastigroupClientAzure;
+        return new SpotinstElastigroupClientAzure(authToken, account, userAgentConfigurations);
     }
 
     public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken) {
-        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp = new SpotinstElastigroupClientGcp(authToken, null);
-        return spotinstElastigroupClientGcp;
+        return new SpotinstElastigroupClientGcp(authToken, null);
     }
 
     public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken, String account) {
-        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp = new SpotinstElastigroupClientGcp(authToken, account);
-        return spotinstElastigroupClientGcp;
+        return new SpotinstElastigroupClientGcp(authToken, account);
     }
 
     public static SpotinstElastigroupClientGcp getElastigroupClientGcp(String authToken, String account,
                                                                            List<UserAgentConfig> userAgentConfigurations) {
-        SpotinstElastigroupClientGcp spotinstElastigroupClientGcp =
-                new SpotinstElastigroupClientGcp(authToken, account, userAgentConfigurations);
-        return spotinstElastigroupClientGcp;
+        return new SpotinstElastigroupClientGcp(authToken, account, userAgentConfigurations);
     }
 
     public static SpotOceanAzureAksClusterClient getOceanAzureAksClusterClient(String authToken, String account) {
-        SpotOceanAzureAksClusterClient spotOceanAzureAksClusterClient = new SpotOceanAzureAksClusterClient(authToken, account);
-        return spotOceanAzureAksClusterClient;
+        return new SpotOceanAzureAksClusterClient(authToken, account);
     }
 
     public static SpotinstAccountAdminClient getAdminAccountClient(String authToken) {
-        SpotinstAccountAdminClient spotAdminAccountClient = new SpotinstAccountAdminClient(authToken);
-        return spotAdminAccountClient;
+        return new SpotinstAccountAdminClient(authToken);
     }
 
     public static SpotinstAccountAdminClient getAdminAccountClient(String authToken, String account) {
@@ -123,28 +100,23 @@ public class SpotinstClient {
     }
 
     public static SpotStorageAzureVolumeClient getVolumeClient(String authToken, String account) {
-        SpotStorageAzureVolumeClient spotStorageAzureVolumeClient = new SpotStorageAzureVolumeClient(authToken, account);
-        return spotStorageAzureVolumeClient;
+        return new SpotStorageAzureVolumeClient(authToken, account);
     }
     public static SpotOceanEcsClusterClient getOceanEcsClusterClient(String authToken, String account) {
-        SpotOceanEcsClusterClient spotOceanEcsClusterClient = new SpotOceanEcsClusterClient(authToken, account);
-        return spotOceanEcsClusterClient;
+        return new SpotOceanEcsClusterClient(authToken, account);
     }
 
     public static SpotOceanGkeClusterClient getOceanGkeClusterClient(String authToken, String account) {
-        SpotOceanGkeClusterClient spotOceanGkeClusterClient = new SpotOceanGkeClusterClient(authToken, account);
-        return spotOceanGkeClusterClient;
+        return new SpotOceanGkeClusterClient(authToken, account);
     }
 
     public static SpotAwsManagedInstanceClient getManagedInstanceClient(String authToken, String account) {
-        SpotAwsManagedInstanceClient spotAwsManagedInstanceClient = new SpotAwsManagedInstanceClient(authToken, account);
-        return spotAwsManagedInstanceClient;
+        return new SpotAwsManagedInstanceClient(authToken, account);
 
     }
 
     public static K8sVngClient getK8sVngClient(String authToken, String account) {
-        K8sVngClient k8sVngClient = new K8sVngClient(authToken, account);
-        return k8sVngClient;
+        return new K8sVngClient(authToken, account);
     }
 
     //endregion

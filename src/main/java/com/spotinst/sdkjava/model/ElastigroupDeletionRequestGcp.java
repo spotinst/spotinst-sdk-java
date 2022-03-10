@@ -31,8 +31,7 @@ public class ElastigroupDeletionRequestGcp {
         }
 
         public static ElastigroupDeletionRequestGcp.Builder get() {
-            ElastigroupDeletionRequestGcp.Builder builder = new ElastigroupDeletionRequestGcp.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupDeletionRequestGcp.Builder setElastigroupId(final String elastigroupId) {
