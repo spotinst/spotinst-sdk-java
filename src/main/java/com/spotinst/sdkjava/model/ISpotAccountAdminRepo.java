@@ -15,7 +15,7 @@ public interface ISpotAccountAdminRepo extends IRepository<BlAccountAdmin, Void,
 
     RepoGenericResponse<Boolean> updateGroupsOfUser(String userId, List<String> groupIds, String authToken);
 
-    RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest, String authToken);
+    RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateDirectPoliciesRequest updateRequest, String authToken);
 
     RepoGenericResponse<Policy> createPolicy(Policy createRequest,String authToken);
 
@@ -27,7 +27,7 @@ public interface ISpotAccountAdminRepo extends IRepository<BlAccountAdmin, Void,
 
     RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest,String authToken);
 
-    RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> apiUpdateRequest, String authToken);
+    RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, UpdateDirectPoliciesRequest apiUpdateRequest, String authToken);
 
     RepoGenericResponse<Boolean> updateUserGroupMappedUsers(String groupId, List<String> userIds, String authToken);
 

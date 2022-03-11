@@ -5,16 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserGroupMappedPolicies {
+public class PolicyMapping {
     @JsonIgnore
-    private Set<String> isSet;
-    private String      policyId;
+    private Set<String>  isSet;
+    private String       policyId;
+    private List<String> accountIds;
 
-    public UserGroupMappedPolicies() {
+    public PolicyMapping() {
         isSet = new HashSet<>();
     }
 
@@ -35,11 +37,20 @@ public class UserGroupMappedPolicies {
         this.policyId = policyId;
     }
 
+    public List<String> getAccountIds() {
+        return accountIds;
+    }
+
+    public void setAccountIds(List<String> accountIds) {
+        isSet.add("accountIds");
+        this.accountIds = accountIds;
+    }
+
     public static class Builder {
-        private UserGroupMappedPolicies policies;
+        private PolicyMapping policy;
 
         private Builder() {
-            this.policies = new UserGroupMappedPolicies();
+            this.policy = new PolicyMapping();
         }
 
         public static Builder get() {
@@ -48,17 +59,26 @@ public class UserGroupMappedPolicies {
         }
 
         public Builder setPolicyId(final String policyId) {
-            policies.setPolicyId(policyId);
+            policy.setPolicyId(policyId);
             return this;
         }
 
-        public UserGroupMappedPolicies build() {
-            return policies;
+        public Builder setAccountIds(final List<String> accountIds) {
+            policy.setAccountIds(accountIds);
+            return this;
+        }
+        public PolicyMapping build() {
+            return policy;
         }
     }
 
     @JsonIgnore
     public boolean isPolicyIdSet() {
-            return isSet.contains("policyId");
-        }
+        return isSet.contains("policyId");
+    }
+
+    @JsonIgnore
+    public boolean isAccountIdsSet() {
+        return isSet.contains("accountIds");
+    }
 }

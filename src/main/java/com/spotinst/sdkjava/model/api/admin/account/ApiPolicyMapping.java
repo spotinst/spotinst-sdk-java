@@ -13,13 +13,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiUserDirectPolicies implements IPartialUpdateEntity {
+public class ApiPolicyMapping implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private String       policyId;
     private List<String> accountIds;
 
-    public ApiUserDirectPolicies() {
+    public ApiPolicyMapping() {
         isSet = new HashSet<>();
     }
 

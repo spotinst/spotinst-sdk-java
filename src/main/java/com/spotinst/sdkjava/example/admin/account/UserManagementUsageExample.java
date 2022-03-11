@@ -106,21 +106,21 @@ public class UserManagementUsageExample {
         accountIds.add("act-1ac5e5df");
 
         // Build policy 1
-        UserDirectPolicies.Builder updatePolicyBuilder1 = UserDirectPolicies.Builder.get();
-        UserDirectPolicies policy1 = updatePolicyBuilder1.setAccountIds(accountIds).setPolicyId("7").build();
+        PolicyMapping.Builder updatePolicyBuilder1 = PolicyMapping.Builder.get();
+        PolicyMapping         policy1              = updatePolicyBuilder1.setAccountIds(accountIds).setPolicyId("7").build();
 
         //Build policy 2
-        UserDirectPolicies.Builder updatePolicyBuilder2 = UserDirectPolicies.Builder.get();
-        UserDirectPolicies         policy2              = updatePolicyBuilder2.setPolicyId("4").build();
+        PolicyMapping.Builder updatePolicyBuilder2 = PolicyMapping.Builder.get();
+        PolicyMapping         policy2              = updatePolicyBuilder2.setPolicyId("4").build();
 
-        List<UserDirectPolicies> policies = new ArrayList<>();
+        List<PolicyMapping> policies = new ArrayList<>();
         policies.add(policy1);
         policies.add(policy2);
 
-        UpdateUserDirectPoliciesRequest.Builder requestBuilder = UpdateUserDirectPoliciesRequest.Builder.get();
-        UpdateUserDirectPoliciesRequest updateUserDirectPoliciesRequest = requestBuilder.setPolicies(policies).build();
+        UpdateDirectPoliciesRequest.Builder requestBuilder              = UpdateDirectPoliciesRequest.Builder.get();
+        UpdateDirectPoliciesRequest         updateDirectPoliciesRequest = requestBuilder.setPolicies(policies).build();
 
-        Boolean updateStatus = adminClient.updateUserDirectPolicies(userId, updateUserDirectPoliciesRequest);
+        Boolean updateStatus = adminClient.updateUserDirectPolicies(userId, updateDirectPoliciesRequest);
 
         System.out.println(String.format("Update user group status: %s", updateStatus));
     }
@@ -191,15 +191,27 @@ public class UserManagementUsageExample {
 
     private static String createUserGroup(SpotinstAccountAdminClient adminClient) {
 
-        UserGroupMappedPolicies.Builder policiesBuilder = UserGroupMappedPolicies.Builder.get();
-        UserGroupMappedPolicies         policies        = policiesBuilder.setPolicyId("4").build();
+        List<String> accountIds = new ArrayList<>();
+        accountIds.add("act-1ac5e5df");
+
+        // Build policy 1
+        PolicyMapping.Builder updatePolicyBuilder1 = PolicyMapping.Builder.get();
+        PolicyMapping         policy1              = updatePolicyBuilder1.setAccountIds(accountIds).setPolicyId("7").build();
+
+        //Build policy 2
+        PolicyMapping.Builder updatePolicyBuilder2 = PolicyMapping.Builder.get();
+        PolicyMapping         policy2              = updatePolicyBuilder2.setPolicyId("4").build();
+
+        List<PolicyMapping> policies = new ArrayList<>();
+        policies.add(policy1);
+        policies.add(policy2);
 
         UserGroup.Builder groupBuilder = UserGroup.Builder.get();
         List<String>      userIds      = new ArrayList<>();
         userIds.add("u-ff653112");
         UserGroup createGroupRequest =
                 groupBuilder.setName("SuganyaGroup").setDescription("create group").setUserIds(userIds)
-                            .setPolicies(Collections.singletonList(policies)).build();
+                            .setPolicies(policies).build();
 
         UserGroup createResponse = adminClient.createUserGroup(createGroupRequest);
         System.out.println(String.format("New group id: %s", createResponse.getId()));
@@ -208,10 +220,25 @@ public class UserManagementUsageExample {
 
     private static void updateUserGroupMappedPolicies(String groupId, SpotinstAccountAdminClient adminClient) {
 
-        UserGroupMappedPolicies.Builder policiesBuilder = UserGroupMappedPolicies.Builder.get();
-        UserGroupMappedPolicies         policies        = policiesBuilder.setPolicyId("4").build();
+        List<String> accountIds = new ArrayList<>();
+        accountIds.add("act-1ac5e5df");
 
-        Boolean status = adminClient.updateUserGroupMappedPolicies(groupId, Collections.singletonList(policies));
+        // Build policy 1
+        PolicyMapping.Builder updatePolicyBuilder1 = PolicyMapping.Builder.get();
+        PolicyMapping         policy1              = updatePolicyBuilder1.setAccountIds(accountIds).setPolicyId("7").build();
+
+        //Build policy 2
+        PolicyMapping.Builder updatePolicyBuilder2 = PolicyMapping.Builder.get();
+        PolicyMapping         policy2              = updatePolicyBuilder2.setPolicyId("4").build();
+
+        List<PolicyMapping> policies = new ArrayList<>();
+        policies.add(policy1);
+        policies.add(policy2);
+
+        UpdateDirectPoliciesRequest.Builder requestBuilder              = UpdateDirectPoliciesRequest.Builder.get();
+        UpdateDirectPoliciesRequest         updateDirectPoliciesRequest = requestBuilder.setPolicies(policies).build();
+
+        Boolean status = adminClient.updateUserGroupMappedPolicies(groupId, updateDirectPoliciesRequest);
         System.out.println(String.format("Update status: %s", status));
     }
 

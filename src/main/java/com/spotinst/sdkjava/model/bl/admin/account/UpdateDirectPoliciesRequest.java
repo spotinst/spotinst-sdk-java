@@ -10,12 +10,12 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UpdateUserDirectPoliciesRequest {
+public class UpdateDirectPoliciesRequest {
     @JsonIgnore
-    private Set<String>              isSet;
-    private List<UserDirectPolicies> policies;
+    private Set<String>         isSet;
+    private List<PolicyMapping> policies;
 
-    public UpdateUserDirectPoliciesRequest() {
+    public UpdateDirectPoliciesRequest() {
         isSet = new HashSet<>();
     }
 
@@ -27,20 +27,20 @@ public class UpdateUserDirectPoliciesRequest {
         this.isSet = isSet;
     }
 
-    public List<UserDirectPolicies> getPolicies() {
+    public List<PolicyMapping> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<UserDirectPolicies> policies) {
+    public void setPolicies(List<PolicyMapping> policies) {
         isSet.add("policies");
         this.policies = policies;
     }
 
     public static class Builder {
-        private UpdateUserDirectPoliciesRequest policyRequest;
+        private UpdateDirectPoliciesRequest policyRequest;
 
         private Builder() {
-            this.policyRequest = new UpdateUserDirectPoliciesRequest();
+            this.policyRequest = new UpdateDirectPoliciesRequest();
         }
 
         public static Builder get() {
@@ -48,12 +48,12 @@ public class UpdateUserDirectPoliciesRequest {
             return builder;
         }
 
-        public Builder setPolicies(final List<UserDirectPolicies> policies) {
+        public Builder setPolicies(final List<PolicyMapping> policies) {
             policyRequest.setPolicies(policies);
             return this;
         }
 
-        public UpdateUserDirectPoliciesRequest build() {
+        public UpdateDirectPoliciesRequest build() {
             return policyRequest;
         }
     }

@@ -152,12 +152,12 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest, String authToken ) {
+    public RepoGenericResponse<Boolean> updateUserDirectPolicies(String userId, UpdateDirectPoliciesRequest updateRequest, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
-            ApiUpdateUserDirectPoliciesRequest apiUpdateRequest = AccountAdminConverter.toDal(updateRequest);
+            ApiUpdateDirectPoliciesRequest apiUpdateRequest = AccountAdminConverter.toDal(updateRequest);
             Boolean updateResponse =
                     SpotAccountAdminService.updateUserDirectPolicies(userId, apiUpdateRequest, authToken );
 
@@ -269,16 +269,15 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest, String authToken ) {
+    public RepoGenericResponse<Boolean> updateUserGroupMappedPolicies(String groupId, UpdateDirectPoliciesRequest updateRequest, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
-            List<ApiUserGroupMappedPolicies>
-                    apiUserGroupMappedPolicies = updateRequest.stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
+            ApiUpdateDirectPoliciesRequest apiUpdateRequest = AccountAdminConverter.toDal(updateRequest);
 
             Boolean status =
-                    SpotAccountAdminService.updateUserGroupMappedPolicies(groupId, apiUserGroupMappedPolicies, authToken );
+                    SpotAccountAdminService.updateUserGroupMappedPolicies(groupId, apiUpdateRequest, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }

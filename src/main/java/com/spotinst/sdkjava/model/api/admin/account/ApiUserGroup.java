@@ -20,7 +20,7 @@ public class ApiUserGroup implements IPartialUpdateEntity {
     private String                           name;
     private String                           description;
     private List<String>                     userIds;
-    private List<ApiUserGroupMappedPolicies> policies;
+    private List<ApiPolicyMapping> policies;
 
     public ApiUserGroup() {
         isSet = new HashSet<>();
@@ -70,11 +70,11 @@ public class ApiUserGroup implements IPartialUpdateEntity {
         this.userIds = userIds;
     }
 
-    public List<ApiUserGroupMappedPolicies> getPolicies() {
+    public List<ApiPolicyMapping> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<ApiUserGroupMappedPolicies> policies) {
+    public void setPolicies(List<ApiPolicyMapping> policies) {
         isSet.add("policies");
         this.policies = policies;
     }

@@ -236,7 +236,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserDirectPolicies(String userId, ApiUpdateUserDirectPoliciesRequest apiUpdateRequest, String authToken ) throws SpotinstHttpException {
+    public static Boolean updateUserDirectPolicies(String userId, ApiUpdateDirectPoliciesRequest apiUpdateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -252,7 +252,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         String body = JsonMapper.toJson(apiUpdateRequest);
 
         //Build URI
-        String uri = String.format("%s/setup/user/%s/policyMapping", apiEndpoint,userId);
+        String uri = String.format("%s/setup/user/%s/PolicyMapping", apiEndpoint,userId);
 
         // Send the request.
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
@@ -408,7 +408,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserGroupMappedPolicies(String groupId, List<ApiUserGroupMappedPolicies> apiUpdateRequest, String authToken) throws SpotinstHttpException {
+    public static Boolean updateUserGroupMappedPolicies(String groupId, ApiUpdateDirectPoliciesRequest apiUpdateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;
@@ -421,12 +421,10 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
 
-        Map<String, List<ApiUserGroupMappedPolicies>> request = new HashMap<>();
-        request.put("policies",apiUpdateRequest);
-        String body = JsonMapper.toJson(request);
+        String body = JsonMapper.toJson(apiUpdateRequest);
 
         //Build URI
-        String uri = String.format("%s/setup/access/userGroup/%s/policyMapping", apiEndpoint,groupId);
+        String uri = String.format("%s/setup/access/userGroup/%s/PolicyMapping", apiEndpoint,groupId);
 
         // Send the request.
         RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);

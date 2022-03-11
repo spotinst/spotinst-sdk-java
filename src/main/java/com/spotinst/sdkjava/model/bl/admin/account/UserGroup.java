@@ -17,7 +17,7 @@ public class UserGroup {
     private String                        name;
     private String                        description;
     private List<String>                  userIds;
-    private List<UserGroupMappedPolicies> policies;
+    private List<PolicyMapping>           policies;
 
     public UserGroup() {
         isSet = new HashSet<>();
@@ -67,11 +67,11 @@ public class UserGroup {
         this.userIds = userIds;
     }
 
-    public List<UserGroupMappedPolicies> getPolicies() {
+    public List<PolicyMapping> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<UserGroupMappedPolicies> policies) {
+    public void setPolicies(List<PolicyMapping> policies) {
         isSet.add("policies");
         this.policies = policies;
     }
@@ -108,7 +108,7 @@ public class UserGroup {
             return this;
         }
 
-        public Builder setPolicies(final List<UserGroupMappedPolicies> policies) {
+        public Builder setPolicies(final List<PolicyMapping> policies) {
             userGroup.setPolicies(policies);
             return this;
         }

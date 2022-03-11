@@ -13,12 +13,12 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiUpdateUserDirectPoliciesRequest implements IPartialUpdateEntity {
+public class ApiUpdateDirectPoliciesRequest implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>              isSet;
-    private List<ApiUserDirectPolicies> policies;
+    private Set<String>            isSet;
+    private List<ApiPolicyMapping> policies;
 
-    public ApiUpdateUserDirectPoliciesRequest() {
+    public ApiUpdateDirectPoliciesRequest() {
         isSet = new HashSet<>();
     }
 
@@ -30,11 +30,11 @@ public class ApiUpdateUserDirectPoliciesRequest implements IPartialUpdateEntity 
         this.isSet = isSet;
     }
 
-    public List<ApiUserDirectPolicies> getPolicies() {
+    public List<ApiPolicyMapping> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<ApiUserDirectPolicies> policies) {
+    public void setPolicies(List<ApiPolicyMapping> policies) {
         isSet.add("policies");
         this.policies = policies;
     }

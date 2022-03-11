@@ -39,14 +39,14 @@ public class AccountAdminConverter {
         return apiUser;
     }
 
-    public static ApiUpdateUserDirectPoliciesRequest toDal(UpdateUserDirectPoliciesRequest src) {
-        ApiUpdateUserDirectPoliciesRequest apiPoliciesRequest = null;
+    public static ApiUpdateDirectPoliciesRequest toDal(UpdateDirectPoliciesRequest src) {
+        ApiUpdateDirectPoliciesRequest apiPoliciesRequest = null;
 
         if (src != null) {
-            apiPoliciesRequest = new ApiUpdateUserDirectPoliciesRequest();
+            apiPoliciesRequest = new ApiUpdateDirectPoliciesRequest();
 
             if (src.isPoliciesSet()) {
-                List<ApiUserDirectPolicies> policies =
+                List<ApiPolicyMapping> policies =
                         src.getPolicies().stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
                 apiPoliciesRequest.setPolicies(policies);
             }
@@ -55,11 +55,11 @@ public class AccountAdminConverter {
         return apiPoliciesRequest;
     }
 
-    public static ApiUserDirectPolicies toDal(UserDirectPolicies src) {
-        ApiUserDirectPolicies apiPolicies = null;
+    public static ApiPolicyMapping toDal(PolicyMapping src) {
+        ApiPolicyMapping apiPolicies = null;
 
         if(src != null) {
-            apiPolicies = new ApiUserDirectPolicies();
+            apiPolicies = new ApiPolicyMapping();
 
             if(src.isPolicyIdSet()) {
                 apiPolicies.setPolicyId(src.getPolicyId());
@@ -69,6 +69,22 @@ public class AccountAdminConverter {
             }
         }
         return apiPolicies;
+    }
+
+    public static PolicyMapping toBl(ApiPolicyMapping src) {
+        PolicyMapping policies = null;
+
+        if(src != null) {
+            policies = new PolicyMapping();
+
+            if(src.isPolicyIdSet()) {
+                policies.setPolicyId(src.getPolicyId());
+            }
+            if(src.isAccountIdsSet()) {
+                policies.setAccountIds(src.getAccountIds());
+            }
+        }
+        return policies;
     }
 
     public static ApiPolicyStatement toDal(PolicyStatement src) {
@@ -447,25 +463,12 @@ public class AccountAdminConverter {
                 userGroup.setUserIds(src.getUserIds());
             }
             if (src.isPoliciesSet() && src.getPolicies()!=null ) {
-                List<UserGroupMappedPolicies> userGroupMappedPolicies =
+                List<PolicyMapping> userGroupMappedPolicies =
                         src.getPolicies().stream().map(AccountAdminConverter::toBl).collect(Collectors.toList());
                 userGroup.setPolicies(userGroupMappedPolicies);
             }
         }
         return userGroup;
-    }
-
-    public static UserGroupMappedPolicies toBl(ApiUserGroupMappedPolicies src) {
-        UserGroupMappedPolicies policies = null;
-
-        if (src != null) {
-            policies = new UserGroupMappedPolicies();
-
-            if (src.isPolicyIdSet()) {
-                policies.setPolicyId(src.getPolicyId());
-            }
-        }
-        return policies;
     }
 
     public static ApiUserGroup toDal(UserGroup src) {
@@ -487,25 +490,12 @@ public class AccountAdminConverter {
                 userGroup.setUserIds(src.getUserIds());
             }
             if (src.isPoliciesSet()) {
-                List<ApiUserGroupMappedPolicies> groupPolicies =
+                List<ApiPolicyMapping> groupPolicies =
                         src.getPolicies().stream().map(AccountAdminConverter::toDal).collect(Collectors.toList());
                 userGroup.setPolicies(groupPolicies);
             }
         }
         return userGroup;
-    }
-
-    public static ApiUserGroupMappedPolicies toDal(UserGroupMappedPolicies src) {
-        ApiUserGroupMappedPolicies policies = null;
-
-        if (src != null) {
-            policies = new ApiUserGroupMappedPolicies();
-
-            if (src.isPolicyIdSet()) {
-                policies.setPolicyId(src.getPolicyId());
-            }
-        }
-        return policies;
     }
 
     public static UserGroupDetailsUsers toBl(ApiUserGroupDetailsUsers src) {

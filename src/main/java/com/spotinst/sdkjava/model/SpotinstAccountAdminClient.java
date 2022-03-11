@@ -215,7 +215,7 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public Boolean updateUserDirectPolicies(String userId, UpdateUserDirectPoliciesRequest updateRequest) {
+    public Boolean updateUserDirectPolicies(String userId, UpdateDirectPoliciesRequest updateRequest) {
 
         Boolean retVal = false;
 
@@ -341,7 +341,7 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public Boolean updateUserGroupMappedPolicies(String groupId, List<UserGroupMappedPolicies> updateRequest) {
+    public Boolean updateUserGroupMappedPolicies(String groupId, UpdateDirectPoliciesRequest updateRequest) {
 
         Boolean retVal = false;
 
