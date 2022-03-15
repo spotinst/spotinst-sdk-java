@@ -168,4 +168,43 @@ public class K8sVngClient {
 
         return retVal;
     }
+
+    public List<LaunchNodesInVNGResponse> launchNodesInVNG(LaunchNodesInVNG lauchNodes, String vngId) {
+        List<LaunchNodesInVNGResponse> retVal;
+        RepoGenericResponse<List<LaunchNodesInVNGResponse>> launchNodesResponse = getK8sVngRepo().launchNodesInVNG(lauchNodes, vngId, authToken, account);
+
+        if (launchNodesResponse.isRequestSucceed()) {
+            retVal = launchNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = launchNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to launch nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<GetClusterVNGNodesResponse> getClusterVNGNodes(GetClusterVNGNodesRequest getNodesRequest, String clusterId) {
+        List<GetClusterVNGNodesResponse> retVal;
+        RepoGenericResponse<List<GetClusterVNGNodesResponse>> getNodesResponse = getK8sVngRepo().getClusterVNGNodes(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 }

@@ -1,10 +1,12 @@
 package com.spotinst.sdkjava.example.ocean.kubernetes;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.K8sClusterRollEnumAws;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,6 +50,25 @@ public class OceanKubernetesClusterUsageExample {
         System.out.println("----------Get Elastilog--------------");
         List<K8sClusterFetchElastilogResponse> getLogs = fetchElastilog(clusterClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "clusterId");
 
+        //Detach instances
+        System.out.println("----------Detach Instances--------------");
+        Boolean detachStatus = detachClusterInstances(clusterClient, "cluster-id", Collections.singletonList("instances"), true, true);
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        ClusterRollResponse initiateRollResponse = initiateClusterRoll(clusterClient, "cluster-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        ClusterRollResponse getClusterRollStatus = getclusterRollStatus(clusterClient, "cluster-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<ClusterRollResponse> listClusterRolls = getAllClusterRolls(clusterClient, "cluster-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        ClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
     }
 
     private static String createCluster(SpotOceanK8sClusterClient client) {
@@ -253,4 +274,62 @@ public class OceanKubernetesClusterUsageExample {
         return k8sGetLogsResponse;
     }
 
+    private static Boolean detachClusterInstances(SpotOceanK8sClusterClient client, String clusterId, List instances, Boolean shouldDecrementTargetCapacity, Boolean shouldTerminateInstances) {
+
+        DetachInstances.Builder detachInstancesBuilder = DetachInstances.Builder.get();
+        DetachInstances detachInstances                = detachInstancesBuilder.setInstancesToDetach(instances).setShouldDecrementTargetCapacity(shouldDecrementTargetCapacity).setShouldTerminateInstances(shouldTerminateInstances).build();
+
+        System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
+        Boolean detachedStatus = client.detachInstances(detachInstances, clusterId);
+
+        return detachedStatus;
+    }
+
+    private static ClusterRollResponse initiateClusterRoll(SpotOceanK8sClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        InitiateRoll.Builder initiateRollBuilder = InitiateRoll.Builder.get();
+        InitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).setRespectPdb(respectPdb).setBatchMinHealthyPercentage(batchMinHealthyPercentage).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", clusterId));
+        ClusterRollResponse detachStatus = client.initiateRoll(initiateRoll, clusterId);
+
+        String rollId = detachStatus.getId();
+
+        return detachStatus;
+    }
+
+    private static ClusterRollResponse getclusterRollStatus(SpotOceanK8sClusterClient client, String clusterId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        ClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
+
+        K8sClusterRollEnumAws rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<ClusterRollResponse> getAllClusterRolls(SpotOceanK8sClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", clusterId));
+        List<ClusterRollResponse> getAllRolls = client.listRolls(clusterId);
+
+        for (ClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static ClusterRollResponse updateClusterRoll(SpotOceanK8sClusterClient client, String clusterId, String rollId, String status) {
+
+        UpdateRollRequest.Builder updateRollBuilder = UpdateRollRequest.Builder.get();
+        UpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        ClusterRollResponse response = client.updateRoll(updateRoll, clusterId, rollId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
 }

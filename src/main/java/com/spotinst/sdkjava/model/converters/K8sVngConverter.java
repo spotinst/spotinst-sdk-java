@@ -885,4 +885,136 @@ public class K8sVngConverter {
 
         return retVal;
     }
+
+    private static NewInstances toBl(ApiNewInstances apiNewInstances) {
+        NewInstances retVal = null;
+
+        if (apiNewInstances != null) {
+            NewInstances.Builder instancesBuilder = NewInstances.Builder.get();
+
+            if (apiNewInstances.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiNewInstances.getInstanceId());
+            }
+
+            if (apiNewInstances.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiNewInstances.getAvailabilityZone());
+            }
+
+            if (apiNewInstances.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiNewInstances.getInstanceType());
+            }
+
+            if (apiNewInstances.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiNewInstances.getLifeCycle());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static LaunchNodesInVNGResponse toBl(ApiLaunchNodesInVNGResponse apiLaunchNodesInVNG) {
+        LaunchNodesInVNGResponse retVal = null;
+
+        if (apiLaunchNodesInVNG != null) {
+            LaunchNodesInVNGResponse.Builder instancesBuilder = LaunchNodesInVNGResponse.Builder.get();
+
+            if (apiLaunchNodesInVNG.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiLaunchNodesInVNG.getLaunchSpecId());
+            }
+
+            if (apiLaunchNodesInVNG.isNewInstancesSet()) {
+
+                List<NewInstances> instancesList =
+                        apiLaunchNodesInVNG.getNewInstances().stream().map(K8sVngConverter::toBl)
+                                .collect(Collectors.toList());
+                instancesBuilder.setNewInstances(instancesList);
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static GetClusterVNGNodesResponse toBl(ApiGetClusterVNGNodesResponse apiClusterVNGNodes) {
+        GetClusterVNGNodesResponse retVal = null;
+
+        if (apiClusterVNGNodes != null) {
+            GetClusterVNGNodesResponse.Builder instancesBuilder = GetClusterVNGNodesResponse.Builder.get();
+
+            if (apiClusterVNGNodes.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiClusterVNGNodes.getLifeCycle());
+            }
+
+            if (apiClusterVNGNodes.isPublicIpSet()) {
+                instancesBuilder.setPublicIp(apiClusterVNGNodes.getPublicIp());
+            }
+
+            if (apiClusterVNGNodes.isWorkloadRequestedMilliCpuSet()) {
+                instancesBuilder.setWorkloadRequestedMilliCpu(apiClusterVNGNodes.getWorkloadRequestedMilliCpu());
+            }
+
+            if (apiClusterVNGNodes.isWorkloadRequestedMemoryInMiBSet()) {
+                instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterVNGNodes.getWorkloadRequestedMemoryInMiB());
+            }
+
+            if (apiClusterVNGNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterVNGNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterVNGNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterVNGNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterVNGNodes.isHeadroomRequestedMemoryInMiBSet()) {
+                instancesBuilder.setHeadroomRequestedMemoryInMiB(apiClusterVNGNodes.getHeadroomRequestedMemoryInMiB());
+            }
+
+            if (apiClusterVNGNodes.isAllocatableMilliCpuSet()) {
+                instancesBuilder.setAllocatableMilliCpu(apiClusterVNGNodes.getAllocatableMilliCpu());
+            }
+
+            if (apiClusterVNGNodes.isAllocatableMemoryInMiBSet()) {
+                instancesBuilder.setAllocatableMemoryInMiB(apiClusterVNGNodes.getAllocatableMemoryInMiB());
+            }
+
+            if (apiClusterVNGNodes.isNodeNameSet()) {
+                instancesBuilder.setNodeName(apiClusterVNGNodes.getNodeName());
+            }
+
+            if (apiClusterVNGNodes.isRegistrationStatusSet()) {
+                instancesBuilder.setRegistrationStatus(apiClusterVNGNodes.getRegistrationStatus());
+            }
+
+            if (apiClusterVNGNodes.isCreatedAtSet()) {
+                instancesBuilder.setCreatedAt(apiClusterVNGNodes.getCreatedAt());
+            }
+
+            if (apiClusterVNGNodes.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiClusterVNGNodes.getInstanceId());
+            }
+
+            if (apiClusterVNGNodes.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiClusterVNGNodes.getInstanceType());
+            }
+
+            if (apiClusterVNGNodes.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiClusterVNGNodes.getAvailabilityZone());
+            }
+
+            if (apiClusterVNGNodes.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiClusterVNGNodes.getLaunchSpecId());
+            }
+
+            if (apiClusterVNGNodes.isLaunchSpecNameSet()) {
+                instancesBuilder.setLaunchSpecName(apiClusterVNGNodes.getLaunchSpecName());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
 }
