@@ -5,7 +5,6 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.admin.account.*;
-import com.spotinst.sdkjava.model.bl.admin.account.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
