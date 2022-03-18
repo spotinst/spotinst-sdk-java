@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
+import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
@@ -32,6 +33,7 @@ class SpotinstRepoManager {
     private ISpotOceanAzureAksClusterRepo               spotOceanAzureAksClusterRepo;
     private ISpotinstEventsLogsRepo                     spotinstElastigroupEventLogRepo;
     private ISpotAccountAdminRepo                       spotAdminAccountRepo;
+    private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
     private ISpotOceanGkeClusterRepo                    spotinstOceanGkeClusterRepo;
     private ISpotOceanGKELaunchSpecRepo                 spotinstOceanGKELaunchSpecRepo;
     private ISpotOceanEcsClusterRepo                    spotinstOceanEcsClusterRepo;
@@ -59,6 +61,7 @@ class SpotinstRepoManager {
         this.spotOceanAzureAksClusterRepo = new SpotOceanAzureAksClusterRepo();
         this.spotinstElastigroupEventLogRepo = new SpotinstEventsLogsRepo();
         this.spotAdminAccountRepo = new SpotAccountAdminRepo();
+        this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
         this.spotinstOceanGKELaunchSpecRepo = new SpotOceanGkeLaunchSpecRepo();
         this.spotinstOceanGkeClusterRepo    = new SpotOceanGkeClusterRepo();
         this.spotinstOceanEcsClusterRepo = new SpotOceanEcsClusterRepo();
@@ -79,6 +82,14 @@ class SpotinstRepoManager {
 
     public ISpotinstElastigroupRepo getSpotinstElastigroupRepo() {
         return spotinstElastigroupRepo;
+    }
+
+    public ISpotAdminOrganizationRepo getSpotAdminOrganizationRepo() {
+        return spotAdminOrganizationRepo;
+    }
+
+    public void setSpotAdminOrganizationRepo(ISpotAdminOrganizationRepo spotAdminOrganizationRepo) {
+        this.spotAdminOrganizationRepo = spotAdminOrganizationRepo;
     }
 
     public void setSpotinstElastigroupRepo(ISpotinstElastigroupRepo spotinstElastigroupRepo) {

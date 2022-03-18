@@ -94,6 +94,10 @@ public class SpotinstClient {
         return new SpotinstAccountAdminClient(authToken);
     }
 
+    public static SpotinstAdminOrganizationClient getAdminOrganizationClient(String authToken) {
+        return new SpotinstAdminOrganizationClient(authToken);
+    }
+
     public static SpotinstAccountAdminClient getAdminAccountClient(String authToken, String account) {
         SpotinstAccountAdminClient spotAdminAccountClient = new SpotinstAccountAdminClient(authToken,account);
         return spotAdminAccountClient;

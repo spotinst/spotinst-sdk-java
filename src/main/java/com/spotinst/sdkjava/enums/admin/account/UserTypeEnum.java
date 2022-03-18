@@ -18,9 +18,9 @@ public enum UserTypeEnum {
     public static UserTypeEnum fromName(String name) {
         UserTypeEnum retVal = null;
 
-        for (UserTypeEnum policyTypeEnum : UserTypeEnum.values()) {
-            if (name.equalsIgnoreCase(policyTypeEnum.name)) {
-                retVal = policyTypeEnum;
+        for (UserTypeEnum userTypeEnum : UserTypeEnum.values()) {
+            if (name.equalsIgnoreCase(userTypeEnum.name)) {
+                retVal = userTypeEnum;
                 break;
             }
         }
