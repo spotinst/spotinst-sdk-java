@@ -885,4 +885,56 @@ public class K8sVngConverter {
 
         return retVal;
     }
+
+    private static NewInstances toBl(ApiNewInstances apiNewInstances) {
+        NewInstances retVal = null;
+
+        if (apiNewInstances != null) {
+            NewInstances.Builder instancesBuilder = NewInstances.Builder.get();
+
+            if (apiNewInstances.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiNewInstances.getInstanceId());
+            }
+
+            if (apiNewInstances.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiNewInstances.getAvailabilityZone());
+            }
+
+            if (apiNewInstances.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiNewInstances.getInstanceType());
+            }
+
+            if (apiNewInstances.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiNewInstances.getLifeCycle());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static LaunchNodesInVNGResponse toBl(ApiLaunchNodesInVNGResponse apiLaunchNodesInVNG) {
+        LaunchNodesInVNGResponse retVal = null;
+
+        if (apiLaunchNodesInVNG != null) {
+            LaunchNodesInVNGResponse.Builder instancesBuilder = LaunchNodesInVNGResponse.Builder.get();
+
+            if (apiLaunchNodesInVNG.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiLaunchNodesInVNG.getLaunchSpecId());
+            }
+
+            if (apiLaunchNodesInVNG.isNewInstancesSet()) {
+
+                List<NewInstances> instancesList =
+                        apiLaunchNodesInVNG.getNewInstances().stream().map(K8sVngConverter::toBl)
+                                .collect(Collectors.toList());
+                instancesBuilder.setNewInstances(instancesList);
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
 }
