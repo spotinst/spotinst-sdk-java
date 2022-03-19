@@ -1055,12 +1055,20 @@ public class OceanK8sConverter {
                 instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterNodes.getWorkloadRequestedMemoryInMiB());
             }
 
+            if (apiClusterNodes.isWorkloadRequestedGpuSet()) {
+                instancesBuilder.setWorkloadRequestedGpu(apiClusterNodes.getWorkloadRequestedGpu());
+            }
+
             if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
                 instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
             }
 
             if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
                 instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedGpuSet()) {
+                instancesBuilder.setHeadroomRequestedGpu(apiClusterNodes.getHeadroomRequestedGpu());
             }
 
             if (apiClusterNodes.isHeadroomRequestedMemoryInMiBSet()) {

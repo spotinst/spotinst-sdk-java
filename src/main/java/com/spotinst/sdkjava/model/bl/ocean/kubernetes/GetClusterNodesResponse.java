@@ -12,8 +12,10 @@ public class GetClusterNodesResponse {
     private String			                    publicIp;
     private Integer            workloadRequestedMilliCpu;
     private Integer         workloadRequestedMemoryInMiB;
+    private Integer                 workloadRequestedGpu;
     private Integer            headroomRequestedMilliCpu;
     private Integer         headroomRequestedMemoryInMiB;
+    private Integer                 headroomRequestedGpu;
     private Integer                  allocatableMilliCpu;
     private Integer               allocatableMemoryInMiB;
     private String                              nodeName;
@@ -73,6 +75,15 @@ public class GetClusterNodesResponse {
         this.workloadRequestedMemoryInMiB = workloadRequestedMemoryInMiB;
     }
 
+    public Integer getWorkloadRequestedGpu() {
+        return workloadRequestedGpu;
+    }
+
+    public void setWorkloadRequestedGpu(Integer workloadRequestedGpu) {
+        isSet.add("workloadRequestedGpu");
+        this.workloadRequestedGpu = workloadRequestedGpu;
+    }
+
     public Integer getHeadroomRequestedMilliCpu() {
         return headroomRequestedMilliCpu;
     }
@@ -89,6 +100,15 @@ public class GetClusterNodesResponse {
     public void setHeadroomRequestedMemoryInMiB(Integer headroomRequestedMemoryInMiB) {
         isSet.add("headroomRequestedMemoryInMiB");
         this.headroomRequestedMemoryInMiB = headroomRequestedMemoryInMiB;
+    }
+
+    public Integer getHeadroomRequestedGpu() {
+        return headroomRequestedGpu;
+    }
+
+    public void setHeadroomRequestedGpu(Integer headroomRequestedGpu) {
+        isSet.add("headroomRequestedGpu");
+        this.headroomRequestedGpu = headroomRequestedGpu;
     }
 
     public Integer getAllocatableMilliCpu() {
@@ -182,10 +202,10 @@ public class GetClusterNodesResponse {
     }
 
     public static class Builder {
-        private GetClusterNodesResponse clusterVNGNodes;
+        private GetClusterNodesResponse clusterNodes;
 
         private Builder() {
-            this.clusterVNGNodes = new GetClusterNodesResponse();
+            this.clusterNodes = new GetClusterNodesResponse();
         }
 
         public static Builder get() {
@@ -193,88 +213,98 @@ public class GetClusterNodesResponse {
         }
 
         public Builder setLifeCycle(final String lifeCycle) {
-            clusterVNGNodes.setLifeCycle(lifeCycle);
+            clusterNodes.setLifeCycle(lifeCycle);
             return this;
         }
 
         public Builder setPublicIp(final String publicIp) {
-            clusterVNGNodes.setPublicIp(publicIp);
+            clusterNodes.setPublicIp(publicIp);
             return this;
         }
 
         public Builder setWorkloadRequestedMilliCpu(final Integer workloadRequestedMilliCpu) {
-            clusterVNGNodes.setWorkloadRequestedMilliCpu(workloadRequestedMilliCpu);
+            clusterNodes.setWorkloadRequestedMilliCpu(workloadRequestedMilliCpu);
             return this;
         }
 
         public Builder setWorkloadRequestedMemoryInMiB(final Integer workloadRequestedMemoryInMiB) {
-            clusterVNGNodes.setWorkloadRequestedMemoryInMiB(workloadRequestedMemoryInMiB);
+            clusterNodes.setWorkloadRequestedMemoryInMiB(workloadRequestedMemoryInMiB);
+            return this;
+        }
+
+        public Builder setWorkloadRequestedGpu(final Integer workloadRequestedGpu) {
+            clusterNodes.setWorkloadRequestedGpu(workloadRequestedGpu);
             return this;
         }
 
         public Builder setHeadroomRequestedMilliCpu(final Integer headroomRequestedMilliCpu) {
-            clusterVNGNodes.setHeadroomRequestedMilliCpu(headroomRequestedMilliCpu);
+            clusterNodes.setHeadroomRequestedMilliCpu(headroomRequestedMilliCpu);
             return this;
         }
 
         public Builder setHeadroomRequestedMemoryInMiB(final Integer headroomRequestedMemoryInMiB) {
-            clusterVNGNodes.setHeadroomRequestedMemoryInMiB(headroomRequestedMemoryInMiB);
+            clusterNodes.setHeadroomRequestedMemoryInMiB(headroomRequestedMemoryInMiB);
+            return this;
+        }
+
+        public Builder setHeadroomRequestedGpu(final Integer headroomRequestedGpu) {
+            clusterNodes.setHeadroomRequestedGpu(headroomRequestedGpu);
             return this;
         }
 
         public Builder setAllocatableMilliCpu(final Integer allocatableMilliCpu) {
-            clusterVNGNodes.setAllocatableMilliCpu(allocatableMilliCpu);
+            clusterNodes.setAllocatableMilliCpu(allocatableMilliCpu);
             return this;
         }
 
         public Builder setAllocatableMemoryInMiB(final Integer allocatableMemoryInMiB) {
-            clusterVNGNodes.setAllocatableMemoryInMiB(allocatableMemoryInMiB);
+            clusterNodes.setAllocatableMemoryInMiB(allocatableMemoryInMiB);
             return this;
         }
 
         public Builder setNodeName(final String nodeName) {
-            clusterVNGNodes.setNodeName(nodeName);
+            clusterNodes.setNodeName(nodeName);
             return this;
         }
 
         public Builder setRegistrationStatus(final String registrationStatus) {
-            clusterVNGNodes.setRegistrationStatus(registrationStatus);
+            clusterNodes.setRegistrationStatus(registrationStatus);
             return this;
         }
 
         public Builder setCreatedAt(final String createdAt) {
-            clusterVNGNodes.setCreatedAt(createdAt);
+            clusterNodes.setCreatedAt(createdAt);
             return this;
         }
 
         public Builder setInstanceId(final String instanceId) {
-            clusterVNGNodes.setInstanceId(instanceId);
+            clusterNodes.setInstanceId(instanceId);
             return this;
         }
 
         public Builder setInstanceType(final String instanceType) {
-            clusterVNGNodes.setInstanceType(instanceType);
+            clusterNodes.setInstanceType(instanceType);
             return this;
         }
 
         public Builder setAvailabilityZone(final String availabilityZone) {
-            clusterVNGNodes.setAvailabilityZone(availabilityZone);
+            clusterNodes.setAvailabilityZone(availabilityZone);
             return this;
         }
 
         public Builder setLaunchSpecId(final String launchSpecId) {
-            clusterVNGNodes.setLaunchSpecId(launchSpecId);
+            clusterNodes.setLaunchSpecId(launchSpecId);
             return this;
         }
 
         public Builder setLaunchSpecName(final String launchSpecName) {
-            clusterVNGNodes.setLaunchSpecName(launchSpecName);
+            clusterNodes.setLaunchSpecName(launchSpecName);
             return this;
         }
 
         public GetClusterNodesResponse build() {
             // Validations
-            return clusterVNGNodes;
+            return clusterNodes;
         }
     }
 
@@ -296,6 +326,11 @@ public class GetClusterNodesResponse {
     @JsonIgnore
     public boolean isWorkloadRequestedMemoryInMiBSet() {
         return isSet.contains("workloadRequestedMemoryInMiB");
+    }
+
+    @JsonIgnore
+    public boolean isWorkloadRequestedGpuSet() {
+        return isSet.contains("workloadRequestedGpu");
     }
 
     @JsonIgnore

@@ -19,8 +19,10 @@ public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
     private String			                    publicIp;
     private Integer            workloadRequestedMilliCpu;
     private Integer         workloadRequestedMemoryInMiB;
+    private Integer                 workloadRequestedGpu;
     private Integer            headroomRequestedMilliCpu;
     private Integer         headroomRequestedMemoryInMiB;
+    private Integer                 headroomRequestedGpu;
     private Integer                  allocatableMilliCpu;
     private Integer               allocatableMemoryInMiB;
     private String                              nodeName;
@@ -81,6 +83,15 @@ public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
         this.workloadRequestedMemoryInMiB = workloadRequestedMemoryInMiB;
     }
 
+    public Integer getWorkloadRequestedGpu() {
+        return workloadRequestedGpu;
+    }
+
+    public void setWorkloadRequestedGpu(Integer workloadRequestedGpu) {
+        isSet.add("workloadRequestedGpu");
+        this.workloadRequestedGpu = workloadRequestedGpu;
+    }
+
     public Integer getHeadroomRequestedMilliCpu() {
         return headroomRequestedMilliCpu;
     }
@@ -97,6 +108,15 @@ public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
     public void setHeadroomRequestedMemoryInMiB(Integer headroomRequestedMemoryInMiB) {
         isSet.add("headroomRequestedMemoryInMiB");
         this.headroomRequestedMemoryInMiB = headroomRequestedMemoryInMiB;
+    }
+
+    public Integer getHeadroomRequestedGpu() {
+        return headroomRequestedGpu;
+    }
+
+    public void setHeadroomRequestedGpu(Integer headroomRequestedGpu) {
+        isSet.add("headroomRequestedGpu");
+        this.headroomRequestedGpu = headroomRequestedGpu;
     }
 
     public Integer getAllocatableMilliCpu() {
@@ -210,6 +230,11 @@ public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
+    public boolean isWorkloadRequestedGpuSet() {
+        return isSet.contains("workloadRequestedGpu");
+    }
+
+    @JsonIgnore
     public boolean isHeadroomRequestedMilliCpuSet() {
         return isSet.contains("headroomRequestedMilliCpu");
     }
@@ -217,6 +242,11 @@ public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isHeadroomRequestedMemoryInMiBSet() {
         return isSet.contains("headroomRequestedMemoryInMiB");
+    }
+
+    @JsonIgnore
+    public boolean isHeadroomRequestedGpuSet() {
+        return isSet.contains("headroomRequestedGpu");
     }
 
     @JsonIgnore
