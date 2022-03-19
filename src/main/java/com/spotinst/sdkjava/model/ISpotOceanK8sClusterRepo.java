@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 
@@ -24,4 +25,6 @@ public interface ISpotOceanK8sClusterRepo extends IRepository<OceanK8sCluster, V
     RepoGenericResponse<ClusterRollResponse> updateRoll(UpdateRollRequest updateRollRequest, String clusterId, String rollId, String authToken, String account);
 
     RepoGenericResponse<Boolean> detachInstances(DetachInstances instances, String clusterId, String authToken, String account);
+
+    RepoGenericResponse<List<GetClusterNodesResponse>> getClusterNodes(GetClusterNodesRequest getClusterNodes, String clusterId, String authToken);
 }

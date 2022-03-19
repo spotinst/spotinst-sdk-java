@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.K8sClusterRollEnumAws;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ClusterRollResponse {
     @JsonIgnore
     private Set<String>                            isSet;
     private String                                    id;
-    private K8sClusterRollEnumAws                 status;
+    private k8sClusterRollStatusEnum status;
     private Integer                         currentBatch;
     private Integer                         numOfBatches;
     private String                               comment;
@@ -63,11 +63,11 @@ public class ClusterRollResponse {
         this.numOfBatches = numOfBatches;
     }
 
-    public K8sClusterRollEnumAws getStatus() {
+    public k8sClusterRollStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(K8sClusterRollEnumAws status) {
+    public void setStatus(k8sClusterRollStatusEnum status) {
         isSet.add("status");
         this.status = status;
     }
@@ -169,7 +169,7 @@ public class ClusterRollResponse {
             return this;
         }
 
-        public Builder setStatus(final K8sClusterRollEnumAws status) {
+        public Builder setStatus(final k8sClusterRollStatusEnum status) {
             initiateRollResponse.setStatus(status);
             return this;
         }

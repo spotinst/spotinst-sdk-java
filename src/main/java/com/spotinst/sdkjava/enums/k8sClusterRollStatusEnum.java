@@ -3,24 +3,24 @@ package com.spotinst.sdkjava.enums;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum K8sClusterRollEnumAws {
+public enum k8sClusterRollStatusEnum {
 
         IN_PROGRESS("IN_PROGRESS"),
         COMPLETED("COMPLETED"),
         FAILED("FAILED"),
         STOPPED("STOPPED");
 
-        private static final Logger LOGGER = LoggerFactory.getLogger(K8sClusterRollEnumAws.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(k8sClusterRollStatusEnum.class);
         private String name;
 
-        private K8sClusterRollEnumAws(String name) {
+        private k8sClusterRollStatusEnum(String name) {
             this.name = name;
         }
 
-        public static K8sClusterRollEnumAws fromName(String name) {
-            K8sClusterRollEnumAws retVal = null;
+        public static k8sClusterRollStatusEnum fromName(String name) {
+            k8sClusterRollStatusEnum retVal = null;
 
-            for (K8sClusterRollEnumAws clusterRollStatusEnum : K8sClusterRollEnumAws.values()) {
+            for (k8sClusterRollStatusEnum clusterRollStatusEnum : k8sClusterRollStatusEnum.values()) {
                 if (name.equalsIgnoreCase(clusterRollStatusEnum.name)) {
                     retVal = clusterRollStatusEnum;
                     break;

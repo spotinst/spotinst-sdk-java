@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GetClusterVNGNodesResponse {
+public class GetClusterNodesResponse {
     @JsonIgnore
     private Set<String>                            isSet;
     private String                             lifeCycle;
@@ -25,7 +25,7 @@ public class GetClusterVNGNodesResponse {
     private String                          launchSpecId;
     private String                        launchSpecName;
 
-    private GetClusterVNGNodesResponse() {
+    private GetClusterNodesResponse() {
         isSet = new HashSet<>();
     }
 
@@ -182,10 +182,10 @@ public class GetClusterVNGNodesResponse {
     }
 
     public static class Builder {
-        private GetClusterVNGNodesResponse clusterVNGNodes;
+        private GetClusterNodesResponse clusterVNGNodes;
 
         private Builder() {
-            this.clusterVNGNodes = new GetClusterVNGNodesResponse();
+            this.clusterVNGNodes = new GetClusterNodesResponse();
         }
 
         public static Builder get() {
@@ -272,7 +272,7 @@ public class GetClusterVNGNodesResponse {
             return this;
         }
 
-        public GetClusterVNGNodesResponse build() {
+        public GetClusterNodesResponse build() {
             // Validations
             return clusterVNGNodes;
         }

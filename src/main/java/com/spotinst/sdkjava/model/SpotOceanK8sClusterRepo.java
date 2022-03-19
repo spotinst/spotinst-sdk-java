@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 
@@ -262,6 +263,29 @@ public class SpotOceanK8sClusterRepo implements ISpotOceanK8sClusterRepo {
             Boolean detachInstancesResponse = SpotOceanK8sClusterService
                     .detachInstances(apiDetachInstances, clusterId, authToken, account);
             retVal = new RepoGenericResponse<>(detachInstancesResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+
+
+    @Override
+    public RepoGenericResponse<List<GetClusterNodesResponse>> getClusterNodes(GetClusterNodesRequest getClusterNodes, String clusterId, String authToken) {
+        RepoGenericResponse<List<GetClusterNodesResponse>> retVal;
+
+        try {
+
+            List<ApiGetClusterNodesResponse> apiGetClusterNodes = SpotOceanK8sClusterService
+                    .getClusterNodes(getClusterNodes, clusterId, authToken);
+            List<GetClusterNodesResponse> getClusterNodesResponse = apiGetClusterNodes.stream().map(OceanK8sConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getClusterNodesResponse);
         }
 
         catch (SpotinstHttpException e) {

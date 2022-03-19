@@ -16,7 +16,7 @@ import java.util.Set;
 public class ApiInitiateRollDetailedStatus implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                              isSet;
-    private List<ApiInitiateRollOldInstances>  oldInstances;
+    private List<ApiInitiateRollResponseOldInstances>  oldInstances;
 
 
     public ApiInitiateRollDetailedStatus() {
@@ -31,11 +31,11 @@ public class ApiInitiateRollDetailedStatus implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiInitiateRollOldInstances> getOldInstances() {
+    public List<ApiInitiateRollResponseOldInstances> getOldInstances() {
         return oldInstances;
     }
 
-    public void setOldInstances(List<ApiInitiateRollOldInstances> oldInstances) {
+    public void setOldInstances(List<ApiInitiateRollResponseOldInstances> oldInstances) {
         isSet.add("oldInstances");
         this.oldInstances = oldInstances;
     }

@@ -904,11 +904,11 @@ public class OceanK8sConverter {
         return retVal;
     }
 
-    public static InitiateRollOldInstances toBl(ApiInitiateRollOldInstances oldInstances) {
-        InitiateRollOldInstances retVal = null;
+    public static InitiateRollResponseOldInstances toBl(ApiInitiateRollResponseOldInstances oldInstances) {
+        InitiateRollResponseOldInstances retVal = null;
 
         if (oldInstances != null) {
-            InitiateRollOldInstances.Builder instancesBuilder = InitiateRollOldInstances.Builder.get();
+            InitiateRollResponseOldInstances.Builder instancesBuilder = InitiateRollResponseOldInstances.Builder.get();
 
             if (oldInstances.isInstanceIdSet()) {
                 instancesBuilder.setInstanceId(oldInstances.getInstanceId());
@@ -932,7 +932,7 @@ public class OceanK8sConverter {
 
             if (detailedStatus.isOldInstancesSet()) {
 
-                List<InitiateRollOldInstances> instancesList =
+                List<InitiateRollResponseOldInstances> instancesList =
                         detailedStatus.getOldInstances().stream().map(OceanK8sConverter::toBl)
                                 .collect(Collectors.toList());
                 detailedStatusBuilder.setOldInstances(instancesList);
@@ -1026,6 +1026,88 @@ public class OceanK8sConverter {
                 responseBuilder.setUpdatedAt(initiateRollResponse.getUpdatedAt());
             }
             retVal = responseBuilder.build();
+        }
+
+        return retVal;
+    }
+
+
+
+    public static GetClusterNodesResponse toBl(ApiGetClusterNodesResponse apiClusterNodes) {
+        GetClusterNodesResponse retVal = null;
+
+        if (apiClusterNodes != null) {
+            GetClusterNodesResponse.Builder instancesBuilder = GetClusterNodesResponse.Builder.get();
+
+            if (apiClusterNodes.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiClusterNodes.getLifeCycle());
+            }
+
+            if (apiClusterNodes.isPublicIpSet()) {
+                instancesBuilder.setPublicIp(apiClusterNodes.getPublicIp());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMilliCpuSet()) {
+                instancesBuilder.setWorkloadRequestedMilliCpu(apiClusterNodes.getWorkloadRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMemoryInMiBSet()) {
+                instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterNodes.getWorkloadRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMemoryInMiBSet()) {
+                instancesBuilder.setHeadroomRequestedMemoryInMiB(apiClusterNodes.getHeadroomRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isAllocatableMilliCpuSet()) {
+                instancesBuilder.setAllocatableMilliCpu(apiClusterNodes.getAllocatableMilliCpu());
+            }
+
+            if (apiClusterNodes.isAllocatableMemoryInMiBSet()) {
+                instancesBuilder.setAllocatableMemoryInMiB(apiClusterNodes.getAllocatableMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isNodeNameSet()) {
+                instancesBuilder.setNodeName(apiClusterNodes.getNodeName());
+            }
+
+            if (apiClusterNodes.isRegistrationStatusSet()) {
+                instancesBuilder.setRegistrationStatus(apiClusterNodes.getRegistrationStatus());
+            }
+
+            if (apiClusterNodes.isCreatedAtSet()) {
+                instancesBuilder.setCreatedAt(apiClusterNodes.getCreatedAt());
+            }
+
+            if (apiClusterNodes.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiClusterNodes.getInstanceId());
+            }
+
+            if (apiClusterNodes.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiClusterNodes.getInstanceType());
+            }
+
+            if (apiClusterNodes.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiClusterNodes.getAvailabilityZone());
+            }
+
+            if (apiClusterNodes.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiClusterNodes.getLaunchSpecId());
+            }
+
+            if (apiClusterNodes.isLaunchSpecNameSet()) {
+                instancesBuilder.setLaunchSpecName(apiClusterNodes.getLaunchSpecName());
+            }
+
+            retVal = instancesBuilder.build();
         }
 
         return retVal;

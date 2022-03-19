@@ -7,9 +7,7 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportEKSK8sVngSpec;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.LaunchNodesInVNG;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterVNGNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
-import com.spotinst.sdkjava.model.responses.ocean.kubernetes.GetClusterVNGNodesApiResponse;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sVngApiResponse;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.LaunchNodesInVngApiResponse;
 import org.apache.http.HttpStatus;
@@ -365,49 +363,4 @@ public class K8sVngSpecService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiGetClusterVNGNodesResponse> getClusterVNGNodes(GetClusterVNGNodesRequest getClusterNodes, String clusterId, String authToken) throws SpotinstHttpException {
-
-        // Init retVal
-        List<ApiGetClusterVNGNodesResponse> retVal = null;
-
-        // Get endpoint
-        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
-        String             apiEndpoint = config.getEndpoint();
-
-        Map<String, String> queryParams = new HashMap<>();
-
-        // Add account Id Query param
-        if (getClusterNodes.getAccountId() != null) {
-            queryParams.put("accountId", getClusterNodes.getAccountId());
-        }
-
-        // Add instanceId Query param
-        if (getClusterNodes.getInstanceId() != null) {
-            queryParams.put("instanceId", getClusterNodes.getInstanceId());
-        }
-
-        // Add launchSpecId Query param
-        if (getClusterNodes.getLaunchSpecId() != null) {
-            queryParams.put("launchSpecId", getClusterNodes.getLaunchSpecId());
-        }
-
-        // Get the headers
-        Map<String, String> headers = buildHeaders(authToken);
-
-        // Build URI
-        String uri = String.format("%s/ocean/aws/k8s/cluster/%s/nodes", apiEndpoint, clusterId);
-
-        // Send the request
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
-
-        // Handle the response.
-        GetClusterVNGNodesApiResponse getNodesResponse =
-                getCastedResponse(response, GetClusterVNGNodesApiResponse.class);
-
-        if (getNodesResponse.getResponse().getCount() > 0) {
-            retVal = getNodesResponse.getResponse().getItems();
-        }
-
-        return retVal;
-    }
 }

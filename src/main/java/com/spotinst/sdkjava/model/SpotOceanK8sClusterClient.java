@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 import org.slf4j.Logger;
@@ -295,6 +296,27 @@ public class SpotOceanK8sClusterClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to detach instances from the Ocean cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
+
+    public List<GetClusterNodesResponse> getClusterNodes(GetClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetClusterNodesResponse>> getNodesResponse = getSpotOceanK8sClusterRepo().getClusterNodes(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster nodes in Virtual Node Group. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class InitiateRollOldInstances {
+public class InitiateRollResponseOldInstances {
     @JsonIgnore
     private Set<String>                     isSet;
     private String                     instanceId;
     private String                         status;
 
-    private InitiateRollOldInstances() {
+    private InitiateRollResponseOldInstances() {
         isSet = new HashSet<>();
     }
 
@@ -42,10 +42,10 @@ public class InitiateRollOldInstances {
     }
 
     public static class Builder {
-        private InitiateRollOldInstances initiateRollOldInstances;
+        private InitiateRollResponseOldInstances initiateRollOldInstances;
 
         private Builder() {
-            this.initiateRollOldInstances = new InitiateRollOldInstances();
+            this.initiateRollOldInstances = new InitiateRollResponseOldInstances();
         }
 
         public static Builder get() {
@@ -62,7 +62,7 @@ public class InitiateRollOldInstances {
             return this;
         }
 
-        public InitiateRollOldInstances build() {
+        public InitiateRollResponseOldInstances build() {
             return initiateRollOldInstances;
         }
     }

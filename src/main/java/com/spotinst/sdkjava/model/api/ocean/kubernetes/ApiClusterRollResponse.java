@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.K8sClusterRollEnumAws;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +18,7 @@ public class ApiClusterRollResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                           isSet;
     private String                                   id;
-    private K8sClusterRollEnumAws                status;
+    private k8sClusterRollStatusEnum status;
     private Integer                         currentBatch;
     private Integer                         numOfBatches;
     private String                               comment;
@@ -71,11 +71,11 @@ public class ApiClusterRollResponse implements IPartialUpdateEntity {
         this.numOfBatches = numOfBatches;
     }
 
-    public K8sClusterRollEnumAws getStatus() {
+    public k8sClusterRollStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(K8sClusterRollEnumAws status) {
+    public void setStatus(k8sClusterRollStatusEnum status) {
         isSet.add("status");
         this.status = status;
     }

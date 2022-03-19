@@ -57,13 +57,9 @@ public class OceanKubernetesVngSpecUsageExample {
         System.out.println("----------Import cluster VNG to ocean VNG--------------");
         K8sVngSpec importClusterVNGToOceanVNGResponse = importClusterVngToOceanVng(vngClient);
 
-        //Get cluster VNG nodes
-        System.out.println("----------Get cluster VNG Nodes--------------");
-        List<GetClusterVNGNodesResponse> nodes = getClusterNodes(vngClient, "oceanId");
-
         //Launch Nodes in VNG
         System.out.println("----------Launch Nodes in VNG--------------");
-        List<LaunchNodesInVNGResponse> nodesResponse = launchClusterNodes(vngClient, 2, "launchSpecId");
+        List<LaunchNodesInVNGResponse> nodesResponse = launchNodesInVNG(vngClient, 2, "launchSpecId");
     }
 
     private static String createK8sVng(K8sVngClient client) {
@@ -367,27 +363,7 @@ public class OceanKubernetesVngSpecUsageExample {
         return importASGToVngConfigResponse;
     }
 
-    private static List<GetClusterVNGNodesResponse> getClusterNodes(K8sVngClient client, String clusterId) {
-        System.out.println("-------------------------Get VNG Nodes------------------------");
-
-        GetClusterVNGNodesRequest.Builder getNodesBuilder = GetClusterVNGNodesRequest.Builder.get();
-        GetClusterVNGNodesRequest getNodesRequest = getNodesBuilder.setAccountId(accountId).build();
-
-        // Fetch the nodes
-        List<GetClusterVNGNodesResponse>  nodes = client.getClusterVNGNodes(getNodesRequest, clusterId);
-
-        for (GetClusterVNGNodesResponse node : nodes){
-            System.out.println(String.format("InstanceId: %s", node.getInstanceId()));
-            System.out.println(String.format("InstanceType: %s", node.getInstanceType()));
-            System.out.println(String.format("LaunchSpecId: %s", node.getLaunchSpecId()));
-            System.out.println(String.format("LaunchSpecName: %s", node.getLaunchSpecName()));
-            System.out.println(String.format("NodeName: %s", node.getNodeName()));
-        }
-
-        return nodes;
-    }
-
-    private static List<LaunchNodesInVNGResponse> launchClusterNodes(K8sVngClient client, Integer count, String launchSpecId) {
+    private static List<LaunchNodesInVNGResponse> launchNodesInVNG(K8sVngClient client, Integer count, String launchSpecId) {
         System.out.println("-------------------------Launch Cluster Nodes------------------------");
 
         LaunchNodesInVNG.Builder getNodesBuilder = LaunchNodesInVNG.Builder.get();

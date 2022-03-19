@@ -12,14 +12,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiInitiateRollOldInstances implements IPartialUpdateEntity {
+public class ApiInitiateRollResponseOldInstances implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                     isSet;
     private String                     instanceId;
     private String                         status;
 
 
-    public ApiInitiateRollOldInstances() {
+    public ApiInitiateRollResponseOldInstances() {
         isSet = new HashSet<>();
     }
 

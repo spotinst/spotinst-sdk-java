@@ -5,7 +5,6 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
-import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterVNGNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
 import com.spotinst.sdkjava.model.service.ocean.kubernetes.K8sVngSpecService;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
@@ -151,27 +150,6 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(launchNodesInVNG);
-        }
-
-        catch (SpotinstHttpException e) {
-            retVal = ExceptionHelper.handleHttpException(e);
-        }
-
-        return retVal;
-    }
-
-    @Override
-    public RepoGenericResponse<List<GetClusterVNGNodesResponse>> getClusterVNGNodes(GetClusterVNGNodesRequest getClusterNodes, String clusterId, String authToken) {
-        RepoGenericResponse<List<GetClusterVNGNodesResponse>> retVal;
-
-        try {
-
-            List<ApiGetClusterVNGNodesResponse> apiGetClusterNodes = K8sVngSpecService
-                    .getClusterVNGNodes(getClusterNodes, clusterId, authToken);
-            List<GetClusterVNGNodesResponse> getClusterNodesResponse = apiGetClusterNodes.stream().map(K8sVngConverter::toBl)
-                    .collect(Collectors.toList());
-
-            retVal = new RepoGenericResponse<>(getClusterNodesResponse);
         }
 
         catch (SpotinstHttpException e) {

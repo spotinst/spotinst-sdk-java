@@ -1,6 +1,6 @@
 package com.spotinst.sdkjava.model.requests.ocean.kubernetes;
 
-public class GetClusterVNGNodesRequest {
+public class GetClusterNodesRequest {
     //region Members
     private String    accountId;
     private String   instanceId;
@@ -9,7 +9,7 @@ public class GetClusterVNGNodesRequest {
 
     //region Private Constructor
 
-    private GetClusterVNGNodesRequest() {
+    private GetClusterNodesRequest() {
     }
 
     //endregion
@@ -43,33 +43,33 @@ public class GetClusterVNGNodesRequest {
 
     //Builder class
     public static class Builder {
-        private GetClusterVNGNodesRequest getClusterVNGNodesRequest;
+        private GetClusterNodesRequest getClusterNodesRequest;
 
         private Builder() {
-            this.getClusterVNGNodesRequest = new GetClusterVNGNodesRequest();
+            this.getClusterNodesRequest = new GetClusterNodesRequest();
         }
 
-        public static GetClusterVNGNodesRequest.Builder get() {
+        public static GetClusterNodesRequest.Builder get() {
             return new Builder();
         }
 
-        public GetClusterVNGNodesRequest.Builder setAccountId(final String accountId) {
-            getClusterVNGNodesRequest.setAccountId(accountId);
+        public GetClusterNodesRequest.Builder setAccountId(final String accountId) {
+            getClusterNodesRequest.setAccountId(accountId);
             return this;
         }
 
-        public GetClusterVNGNodesRequest.Builder setInstanceId(final String instanceId) {
-            getClusterVNGNodesRequest.setInstanceId(instanceId);
+        public GetClusterNodesRequest.Builder setInstanceId(final String instanceId) {
+            getClusterNodesRequest.setInstanceId(instanceId);
             return this;
         }
 
-        public GetClusterVNGNodesRequest.Builder setLaunchSpecId(final String launchSpecId) {
-            getClusterVNGNodesRequest.setLaunchSpecId(launchSpecId);
+        public GetClusterNodesRequest.Builder setLaunchSpecId(final String launchSpecId) {
+            getClusterNodesRequest.setLaunchSpecId(launchSpecId);
             return this;
         }
 
-        public GetClusterVNGNodesRequest build() {
-            return getClusterVNGNodesRequest;
+        public GetClusterNodesRequest build() {
+            return getClusterNodesRequest;
         }
     }
 }

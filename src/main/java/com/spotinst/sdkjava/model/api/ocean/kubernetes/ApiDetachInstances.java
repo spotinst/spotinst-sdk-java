@@ -15,9 +15,9 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiDetachInstances implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                              isSet;
-    private List<String>                 instancesToDetach;
-    private Boolean		          shouldTerminateInstances;
+    private Set<String>      isSet;
+    private List<String>     instancesToDetach;
+    private Boolean		     shouldTerminateInstances;
     private Boolean          shouldDecrementTargetCapacity;
 
     public ApiDetachInstances() {

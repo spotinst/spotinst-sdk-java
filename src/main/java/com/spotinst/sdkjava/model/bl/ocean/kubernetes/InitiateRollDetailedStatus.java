@@ -9,7 +9,7 @@ import java.util.Set;
 public class InitiateRollDetailedStatus {
     @JsonIgnore
     private Set<String>                     isSet;
-    private List<InitiateRollOldInstances> oldInstances;
+    private List<InitiateRollResponseOldInstances> oldInstances;
 
     private InitiateRollDetailedStatus() {
         isSet = new HashSet<>();
@@ -23,11 +23,11 @@ public class InitiateRollDetailedStatus {
         this.isSet = isSet;
     }
 
-    public List<InitiateRollOldInstances> getOldInstances() {
+    public List<InitiateRollResponseOldInstances> getOldInstances() {
         return oldInstances;
     }
 
-    public void setOldInstances(List<InitiateRollOldInstances> oldInstances) {
+    public void setOldInstances(List<InitiateRollResponseOldInstances> oldInstances) {
         isSet.add("oldInstances");
         this.oldInstances = oldInstances;
     }
@@ -43,7 +43,7 @@ public class InitiateRollDetailedStatus {
             return new Builder();
         }
 
-        public Builder setOldInstances(final List<InitiateRollOldInstances> oldInstances) {
+        public Builder setOldInstances(final List<InitiateRollResponseOldInstances> oldInstances) {
             initiateRollDetailedStatus.setOldInstances(oldInstances);
             return this;
         }

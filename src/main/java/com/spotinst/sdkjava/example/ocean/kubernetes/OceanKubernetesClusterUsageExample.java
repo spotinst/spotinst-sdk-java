@@ -1,10 +1,11 @@
 package com.spotinst.sdkjava.example.ocean.kubernetes;
 
 import com.spotinst.sdkjava.SpotinstClient;
-import com.spotinst.sdkjava.enums.K8sClusterRollEnumAws;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 
@@ -60,7 +61,7 @@ public class OceanKubernetesClusterUsageExample {
 
         //Get cluster Roll
         System.out.println("----------Get cluster Roll--------------");
-        ClusterRollResponse getClusterRollStatus = getclusterRollStatus(clusterClient, "cluster-id", "rollId");
+        ClusterRollResponse getClusterRollStatus = getClusterRollStatus (clusterClient, "cluster-id", "rollId");
 
         //List cluster Rolls
         System.out.println("----------List cluster Rolls--------------");
@@ -69,6 +70,10 @@ public class OceanKubernetesClusterUsageExample {
         //Update cluster Roll
         System.out.println("----------Update cluster Roll--------------");
         ClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
+
+        //Get cluster nodes
+        System.out.println("----------Get cluster Nodes--------------");
+        List<GetClusterNodesResponse> nodes = getClusterNodes(clusterClient, "cluster-id");
     }
 
     private static String createCluster(SpotOceanK8sClusterClient client) {
@@ -298,12 +303,12 @@ public class OceanKubernetesClusterUsageExample {
         return detachStatus;
     }
 
-    private static ClusterRollResponse getclusterRollStatus(SpotOceanK8sClusterClient client, String clusterId, String rollId) {
+    private static ClusterRollResponse getClusterRollStatus (SpotOceanK8sClusterClient client, String clusterId, String rollId) {
 
         System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
         ClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
 
-        K8sClusterRollEnumAws rollStatus = getRollResponse.getStatus();
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
 
         return getRollResponse;
     }
@@ -331,5 +336,27 @@ public class OceanKubernetesClusterUsageExample {
         System.out.println(String.format("RollStatus: %s", response.getStatus()));
 
         return response;
+    }
+
+
+
+    private static List<GetClusterNodesResponse> getClusterNodes(SpotOceanK8sClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetClusterNodesRequest.Builder getNodesBuilder = GetClusterNodesRequest.Builder.get();
+        GetClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetClusterNodesResponse>  nodes = client.getClusterNodes(getNodesRequest, clusterId);
+
+        for (GetClusterNodesResponse node : nodes){
+            System.out.println(String.format("InstanceId: %s", node.getInstanceId()));
+            System.out.println(String.format("InstanceType: %s", node.getInstanceType()));
+            System.out.println(String.format("LaunchSpecId: %s", node.getLaunchSpecId()));
+            System.out.println(String.format("LaunchSpecName: %s", node.getLaunchSpecName()));
+            System.out.println(String.format("NodeName: %s", node.getNodeName()));
+        }
+
+        return nodes;
     }
 }

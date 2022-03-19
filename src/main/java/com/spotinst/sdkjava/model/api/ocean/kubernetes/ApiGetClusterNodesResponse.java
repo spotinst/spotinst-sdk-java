@@ -12,7 +12,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiGetClusterVNGNodesResponse implements IPartialUpdateEntity {
+public class ApiGetClusterNodesResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                            isSet;
     private String                             lifeCycle;
@@ -33,7 +33,7 @@ public class ApiGetClusterVNGNodesResponse implements IPartialUpdateEntity {
     private String                        launchSpecName;
 
 
-    public ApiGetClusterVNGNodesResponse() {
+    public ApiGetClusterNodesResponse() {
         isSet = new HashSet<>();
     }
 

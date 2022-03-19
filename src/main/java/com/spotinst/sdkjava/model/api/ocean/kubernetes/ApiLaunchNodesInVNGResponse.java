@@ -15,7 +15,7 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiLaunchNodesInVNGResponse implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                            isSet;
+    private Set<String>                      isSet;
     private String                           launchSpecId;
     private List<ApiNewInstances>			 newInstances;
 
