@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.ApiDeploymentGroup;
+import com.spotinst.sdkjava.model.ApiTag;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ public class ApiCodeDeployConfig {
     @JsonIgnore
     private Set<String>                                     isSet;
     private String                                          timeout;
-    private List<ApiElastigroupDeploymentTags>              deploymentTags;
+    private List<ApiTag>                                    tags;
     private List<ApiDeploymentGroup>                        deploymentGroups;
 
     public ApiCodeDeployConfig() {
@@ -43,13 +44,13 @@ public class ApiCodeDeployConfig {
         this.timeout = timeout;
     }
 
-    public List<ApiElastigroupDeploymentTags> getDeploymentTags() {
-        return deploymentTags;
+    public List<ApiTag> getTag() {
+        return tags;
     }
 
-    public void setDeploymentTags(List<ApiElastigroupDeploymentTags> deploymentTags) {
-        isSet.add("deploymentTags");
-        this.deploymentTags = deploymentTags;
+    public void setTags(List<ApiTag> tags) {
+        isSet.add("tags");
+        this.tags = tags;
     }
 
     public List<ApiDeploymentGroup> getDeploymentGroups() {
@@ -67,8 +68,8 @@ public class ApiCodeDeployConfig {
     }
 
     @JsonIgnore
-    public boolean isDeploymentTagsSet() {
-        return isSet.contains("deploymentTags");
+    public boolean isTagsSet() {
+        return isSet.contains("tags");
     }
 
     @JsonIgnore

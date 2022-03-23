@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.CodeDeployConfig;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupCodeDeployBGDeployment;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class ApiCodeDeployBGDeploymentResponse implements IPartialUpdateEntity {
     private String                                     id;
     private String                                     groupId;
     private String                                     state;
-    private CodeDeployConfig                           config;
+    private ElastigroupCodeDeployBGDeployment          config;
 
     public ApiCodeDeployBGDeploymentResponse() {
         isSet = new HashSet<>();
@@ -58,11 +59,11 @@ public class ApiCodeDeployBGDeploymentResponse implements IPartialUpdateEntity {
         this.state = state;
     }
 
-    public CodeDeployConfig getConfig() {
+    public ElastigroupCodeDeployBGDeployment getConfig() {
         return config;
     }
 
-    public void setConfig(CodeDeployConfig config) {
+    public void setConfig(ElastigroupCodeDeployBGDeployment config) {
         isSet.add("config");
         this.config = config;
     }

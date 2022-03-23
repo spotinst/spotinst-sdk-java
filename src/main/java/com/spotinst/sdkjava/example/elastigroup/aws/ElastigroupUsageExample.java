@@ -1147,12 +1147,12 @@ public class ElastigroupUsageExample {
     private static List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
                                                                                String elastigroupId) {
 
-        //Build deploymentTags
-        ElastigroupDeploymentTags.Builder deploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
-        ElastigroupDeploymentTags deploymentTags =
-                deploymentTagsBuilder.setTagKey("ver").setTagValue("pink").build();
-        List<ElastigroupDeploymentTags> deploymentTagsArrayList = new ArrayList<>();
-        deploymentTagsArrayList.add(deploymentTags);
+        //Build Tags
+        Tag.Builder tagsBuilder = Tag.Builder.get();
+        Tag tags =
+                tagsBuilder.setTagKey("ver").setTagValue("pink").build();
+        List<Tag> tagsArrayList = new ArrayList<>();
+        tagsArrayList.add(tags);
 
         //Build deploymentGroup
         ElastigroupDeploymentGroup.Builder deploymentGroupBuilder = ElastigroupDeploymentGroup.Builder.get();
@@ -1164,7 +1164,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout("120").setDeploymentTags(deploymentTagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Create CodeDeploy Deployment Request
         ElastigroupCreateCodeDeployRequest.Builder createCodeDeployRequestBuilder = ElastigroupCreateCodeDeployRequest.Builder.get();
@@ -1188,12 +1188,12 @@ public class ElastigroupUsageExample {
     private static List<CodeDeployBGDeploymentResponse> getCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
                                                                               String elastigroupId) {
 
-        //Build deploymentTags
-        ElastigroupDeploymentTags.Builder deploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
-        ElastigroupDeploymentTags deploymentTags =
-                deploymentTagsBuilder.setTagKey("ver").setTagValue("pink").build();
-        List<ElastigroupDeploymentTags> deploymentTagsArrayList = new ArrayList<>();
-        deploymentTagsArrayList.add(deploymentTags);
+        //Build Tag
+        Tag.Builder tagsBuilder = Tag.Builder.get();
+        Tag tags =
+                tagsBuilder.setTagKey("ver").setTagValue("pink").build();
+        List<Tag> tagsArrayList = new ArrayList<>();
+        tagsArrayList.add(tags);
 
         //Build deploymentGroup
         ElastigroupDeploymentGroup.Builder deploymentGroupBuilder = ElastigroupDeploymentGroup.Builder.get();
@@ -1205,7 +1205,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout("120").setDeploymentTags(deploymentTagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Get CodeDeploy Deployment Request
         ElastigroupGetCodeDeployRequest.Builder getCodeDeployRequestBuilder = ElastigroupGetCodeDeployRequest.Builder.get();

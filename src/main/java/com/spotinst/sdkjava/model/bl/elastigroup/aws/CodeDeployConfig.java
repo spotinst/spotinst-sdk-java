@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.ElastigroupDeploymentGroup;
+import com.spotinst.sdkjava.model.Tag;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CodeDeployConfig {
     @JsonIgnore
     private Set<String>                                     isSet;
     private String                                          timeout;
-    private List<ElastigroupDeploymentTags>                 deploymentTags;
+    private List<Tag>                                       tags;
     private List<ElastigroupDeploymentGroup>                deploymentGroups;
 
     public CodeDeployConfig() {
@@ -45,13 +46,13 @@ public class CodeDeployConfig {
         this.timeout = timeout;
     }
 
-    public List<ElastigroupDeploymentTags> getDeploymentTags() {
-        return deploymentTags;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    public void setDeploymentTags(List<ElastigroupDeploymentTags> deploymentTags) {
-        isSet.add("deploymentTags");
-        this.deploymentTags = deploymentTags;
+    public void setTags(List<Tag> tags) {
+        isSet.add("tags");
+        this.tags = tags;
     }
 
     public List<ElastigroupDeploymentGroup> getDeploymentGroups() {
@@ -81,8 +82,8 @@ public class CodeDeployConfig {
             return this;
         }
 
-        public Builder setDeploymentTags(final List<ElastigroupDeploymentTags> deploymentTags) {
-            config.setDeploymentTags(deploymentTags);
+        public Builder setTags(final List<Tag> tags) {
+            config.setTags(tags);
             return this;
         }
 
@@ -103,8 +104,8 @@ public class CodeDeployConfig {
     }
 
     @JsonIgnore
-    public boolean isDeploymentTagsSet() {
-        return isSet.contains("deploymentTags");
+    public boolean isTagsSet() {
+        return isSet.contains("tags");
     }
 
     @JsonIgnore

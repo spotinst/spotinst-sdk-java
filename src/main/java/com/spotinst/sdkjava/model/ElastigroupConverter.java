@@ -3246,27 +3246,6 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-
-    private static ElastigroupDeploymentTags toBl(ApiElastigroupDeploymentTags apiElastigroupDeploymentTags) {
-        ElastigroupDeploymentTags blDeploymentTags = null;
-
-        if (apiElastigroupDeploymentTags != null) {
-            ElastigroupDeploymentTags.Builder blDeploymentTagsBuilder = ElastigroupDeploymentTags.Builder.get();
-
-            if (apiElastigroupDeploymentTags.isTagKeySet()) {
-                blDeploymentTagsBuilder.setTagKey(apiElastigroupDeploymentTags.getTagKey());
-            }
-
-            if (apiElastigroupDeploymentTags.isTagValueSet()) {
-                blDeploymentTagsBuilder.setTagValue(apiElastigroupDeploymentTags.getTagValue());
-            }
-
-            blDeploymentTags = blDeploymentTagsBuilder.build();
-        }
-
-        return blDeploymentTags;
-    }
-
     public static ApiElastigroupCodeDeployBGDeployment toDal(ElastigroupCodeDeployBGDeployment codeDeployBGDeployment) {
         ApiElastigroupCodeDeployBGDeployment retVal = null;
 
@@ -3277,12 +3256,12 @@ public class ElastigroupConverter {
                 retVal.setTimeout(codeDeployBGDeployment.getTimeout());
             }
 
-            if (codeDeployBGDeployment.isDeploymentTagsSet()) {
-                if (codeDeployBGDeployment.getDeploymentTags() != null) {
-                    List<ApiElastigroupDeploymentTags> deploymentTags =
-                            codeDeployBGDeployment.getDeploymentTags().stream().map(ElastigroupConverter::toDal)
+            if (codeDeployBGDeployment.isTagsSet()) {
+                if (codeDeployBGDeployment.getTags() != null) {
+                    List<ApiTag> tags =
+                            codeDeployBGDeployment.getTags().stream().map(ElastigroupConverter::toDal)
                                     .collect(Collectors.toList());
-                    retVal.setDeploymentTags(deploymentTags);
+                    retVal.setTags(tags);
                 }
             }
 
@@ -3297,26 +3276,6 @@ public class ElastigroupConverter {
         }
         return retVal;
     }
-
-    private static ApiElastigroupDeploymentTags toDal(ElastigroupDeploymentTags deploymentTags) {
-        ApiElastigroupDeploymentTags retVal = null;
-
-        if (deploymentTags != null) {
-            retVal = new ApiElastigroupDeploymentTags();
-
-            if (deploymentTags.isTagKeySet()) {
-                retVal.setTagKey(deploymentTags.getTagKey());
-            }
-
-            if (deploymentTags.isTagValueSet()) {
-                retVal.setTagValue(deploymentTags.getTagValue());
-            }
-
-        }
-        return retVal;
-
-    }
-
 
     public static CodeDeployBGDeploymentResponse toBl(ApiCodeDeployBGDeploymentResponse apiCodeDeployBGResponse) {
         CodeDeployBGDeploymentResponse retVal = null;
@@ -3356,11 +3315,11 @@ public class ElastigroupConverter {
                 retVal.setTimeout(apiCodeDeployConfig.getTimeout());
             }
 
-            if (apiCodeDeployConfig.isDeploymentTagsSet()) {
-                List<ElastigroupDeploymentTags> deploymentTags =
-                        apiCodeDeployConfig.getDeploymentTags().stream().map(ElastigroupConverter::toBl)
+            if (apiCodeDeployConfig.isTagsSet()) {
+                List<Tag> tags =
+                        apiCodeDeployConfig.getTag().stream().map(ElastigroupConverter::toBl)
                                 .collect(Collectors.toList());
-                retVal.setDeploymentTags(deploymentTags);
+                retVal.setTags(tags);
             }
 
             if (apiCodeDeployConfig.isDeploymentGroupsSet()) {
