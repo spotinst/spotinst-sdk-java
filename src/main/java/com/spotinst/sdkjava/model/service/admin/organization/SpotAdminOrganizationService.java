@@ -344,7 +344,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
     public static Boolean updateUserGroupMappedPolicies(String groupId, ApiUpdatePoliciesRequest apiUpdateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        Boolean retVal = null;
+        Boolean retVal = false;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();

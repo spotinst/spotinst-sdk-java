@@ -489,7 +489,7 @@ public class AdminOrganizationConverter {
             if (src.isUserIdsSet()) {
                 userGroup.setUserIds(src.getUserIds());
             }
-            if (src.isPoliciesSet()) {
+            if (src.isPoliciesSet()&& src.getPolicies()!=null ) {
                 List<ApiPolicyMapping> groupPolicies =
                         src.getPolicies().stream().map(AdminOrganizationConverter::toDal).collect(Collectors.toList());
                 userGroup.setPolicies(groupPolicies);
