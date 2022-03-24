@@ -6,6 +6,8 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 
 import com.spotinst.sdkjava.model.api.ocean.aks.ApiClusterAks;
+import com.spotinst.sdkjava.model.api.ocean.aks.ApiGetAzureAksClusterHeartBeatStatusResponse;
+import com.spotinst.sdkjava.model.responses.ocean.aks.GetAzureAksClusterHeartBeatStatusApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -198,5 +200,43 @@ public class SpotOceanAzureAksClusterService extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static ApiGetAzureAksClusterHeartBeatStatusResponse getAzureAksClusterHeartBeatStatus(String clusterId, String authToken, String account) {
+
+        ApiGetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeatResponse = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/k8s/cluster/%s/controllerHeartbeat", apiEndpoint, clusterId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+
+        GetAzureAksClusterHeartBeatStatusApiResponse
+                clusterHeartBeatApiResponse = getCastedResponse(response, GetAzureAksClusterHeartBeatStatusApiResponse.class);
+
+        if (clusterHeartBeatApiResponse.getResponse().getCount() > 0) {
+            getClusterHeartBeatResponse = clusterHeartBeatApiResponse.getResponse().getItems().get(0);
+        }
+
+        return getClusterHeartBeatResponse;
+
     }
 }
