@@ -114,5 +114,9 @@ public class SpotinstClient {
         return new K8sVngClient(authToken, account);
     }
 
+    public static AzureAksVngClient getAksVngClient(String authToken, String account) {
+        return new AzureAksVngClient(authToken, account);
+    }
+
     //endregion
 }
