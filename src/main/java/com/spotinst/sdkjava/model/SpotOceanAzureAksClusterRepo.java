@@ -4,6 +4,8 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.aks.ApiClusterAks;
 
+import com.spotinst.sdkjava.model.api.ocean.aks.ApiGetAzureAksClusterHeartBeatStatusResponse;
+import com.spotinst.sdkjava.model.bl.ocean.aks.GetAzureAksClusterHeartBeatStatusResponse;
 import com.spotinst.sdkjava.model.bl.ocean.aks.OceanClusterAks;
 import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterConverterAks;
 
@@ -102,4 +104,24 @@ public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRe
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<GetAzureAksClusterHeartBeatStatusResponse> getAzureAksClusterHeartBeatStatus(String clusterIdId, String authToken, String account) {
+        RepoGenericResponse<GetAzureAksClusterHeartBeatStatusResponse> retVal;
+
+        try {
+
+            ApiGetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeatResponse = SpotOceanAzureAksClusterService
+                    .getAzureAksClusterHeartBeatStatus( clusterIdId, authToken, account);
+            GetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeat = ClusterConverterAks.toBl(getClusterHeartBeatResponse);
+
+            retVal = new RepoGenericResponse<>(getClusterHeartBeat);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
 }

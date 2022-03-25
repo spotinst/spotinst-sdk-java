@@ -29,6 +29,10 @@ public class OceanAzureAksClusterUsageExample {
         listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
 
+        //Get cluster heartbeat status
+        System.out.println("----------Get cluster heartbeat status-------------");
+        GetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
+
     }
 
     private static String createCluster(SpotOceanAzureAksClusterClient client) {
@@ -181,6 +185,17 @@ public class OceanAzureAksClusterUsageExample {
     private static List<OceanClusterAks> listClusters(SpotOceanAzureAksClusterClient client) {
         System.out.println("-------------------------start listing ocean clusters------------------------");
         return client.ListOceanAksCluster();
+    }
+
+    private static GetAzureAksClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanAzureAksClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Getting the Heartbeat status for the Kubernetes Cluster: %s", clusterId));
+        GetAzureAksClusterHeartBeatStatusResponse clusterHeartBeatStatus = client.getAzureAksClusterHeartBeatStatus(clusterId);
+
+        System.out.println(String.format("Status: %s", clusterHeartBeatStatus.getStatus()));
+        System.out.println(String.format("LastHeartBeat: %s", clusterHeartBeatStatus.getLastHeartbeat()));
+
+        return clusterHeartBeatStatus;
     }
 }
 
