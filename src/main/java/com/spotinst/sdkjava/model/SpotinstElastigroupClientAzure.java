@@ -275,7 +275,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public GetElastigroupStatusResponseAzure getGroupStatus(String groupId) {
-        GetElastigroupStatusResponseAzure status = null;
+        GetElastigroupStatusResponseAzure status;
         RepoGenericResponse<GetElastigroupStatusResponseAzure> statusResponse =
                 getSpotinstElastigroupRepoAzure().getStatus(groupId, authToken, account);
 
@@ -286,8 +286,8 @@ public class SpotinstElastigroupClientAzure {
             List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to get the status of Elastigroup. Code: %s. Message: %s.",
-                    groupId,httpException.getCode(), httpException.getMessage()));
+                    "Error encountered while attempting to get the status of Elastigroup: %s. Code: %s. Message: %s.",
+                    groupId, httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
@@ -295,7 +295,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public List<ScalingResponseVms> scaleGroupUp(String groupId, Integer adjustment) {
-        List<ScalingResponseVms> scaleUp = null;
+        List<ScalingResponseVms> scaleUp;
         RepoGenericResponse<List<ScalingResponseVms>> elastigroupScalingResponse =
                 getSpotinstElastigroupRepoAzure().scaleUp(groupId, adjustment, authToken, account);
 
@@ -314,7 +314,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public List<ScalingResponseVms> scaleGroupDown(String groupId, Integer adjustment) {
-        List<ScalingResponseVms> scaleDown = null;
+        List<ScalingResponseVms> scaleDown;
         RepoGenericResponse<List<ScalingResponseVms>> elastigroupScalingResponse =
                 getSpotinstElastigroupRepoAzure().scaleDown(groupId, adjustment, authToken, account);
 
@@ -343,7 +343,7 @@ public class SpotinstElastigroupClientAzure {
         else {
             List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to import the group : %s. Code: %s. Message: %s.",
+            LOGGER.error(String.format("Error encountered while attempting to import - Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -363,7 +363,7 @@ public class SpotinstElastigroupClientAzure {
         else {
             List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(String.format("Error encountered while attempting to import the group : %s. Code: %s. Message: %s.",
+            LOGGER.error(String.format("Error encountered while attempting to import the group : Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -372,7 +372,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public Boolean createVmSignal(CreateVmSignalRequestAzure vmSignalRequestAzure) {
-        Boolean isCreated = false;
+        Boolean isCreated;
         RepoGenericResponse<Boolean> createResponse =
                 getSpotinstElastigroupRepoAzure().createVmSignal(vmSignalRequestAzure, authToken, account);
 
@@ -392,7 +392,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public UpdateCapacityAzure updateCapacity(UpdateCapacityRequestAzure capacityRequestAzure) {
-        UpdateCapacityAzure isUpdatedCapacity = null;
+        UpdateCapacityAzure isUpdatedCapacity;
         RepoGenericResponse<UpdateCapacityAzure> elastigroupUpdateCapacityResponse =
                 getSpotinstElastigroupRepoAzure().updateCapacity(capacityRequestAzure, authToken, account);
 
@@ -410,7 +410,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public List<VmHealthinessAzure> vmHealthiness(String groupId) {
-        List<VmHealthinessAzure> isVmHealthy = null;
+        List<VmHealthinessAzure> isVmHealthy;
         RepoGenericResponse<List<VmHealthinessAzure>> vmHealthinessResponse =
                 getSpotinstElastigroupRepoAzure().vmHealthiness(groupId, authToken, account);
 
@@ -428,7 +428,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public Boolean suspendGroup(SuspendgroupRequestAzure suspendGroupRequest) {
-        Boolean isSuspended = false;
+        Boolean isSuspended;
         RepoGenericResponse<Boolean> suspendResponse =
                 getSpotinstElastigroupRepoAzure().suspendGroup(suspendGroupRequest, authToken, account);
 
@@ -448,7 +448,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public Boolean resumeGroup(ResumegroupRequestAzure resumeGroupRequest) {
-        Boolean isResumed = false;
+        Boolean isResumed;
         RepoGenericResponse<Boolean> resumeResponse =
                 getSpotinstElastigroupRepoAzure().resumeGroup(resumeGroupRequest, authToken, account);
 
@@ -468,7 +468,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public Boolean vmProtection(String groupId, String vmName, Integer ttlInMinutes) {
-        Boolean isVmProtected = false;
+        Boolean isVmProtected;
         RepoGenericResponse<Boolean> vmProtectResponse =
                 getSpotinstElastigroupRepoAzure().vmProtection(groupId, vmName, authToken, account, ttlInMinutes);
 
@@ -488,7 +488,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public List<GetProtectedVmsReponseAzure> getAllProtectedVms(String groupId) {
-        List<GetProtectedVmsReponseAzure> protectedVms = null;
+        List<GetProtectedVmsReponseAzure> protectedVms;
         RepoGenericResponse<List<GetProtectedVmsReponseAzure>> protectedVmsesponse =
                 getSpotinstElastigroupRepoAzure().getAllProtectedVms(groupId, authToken, account);
 
@@ -506,7 +506,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public Boolean vmRemoveProtection(String groupId, String vmName) {
-        Boolean isVmProtectionRemoved = false;
+        Boolean isVmProtectionRemoved;
         RepoGenericResponse<Boolean> vmRemoveProtectResponse =
                 getSpotinstElastigroupRepoAzure().vmRemoveProtection(groupId, vmName, authToken, account);
 
@@ -526,7 +526,7 @@ public class SpotinstElastigroupClientAzure {
     }
 
     public DetachVmsResponseAzure detachVms(DetachVmsRequestAzure detachVmsRequestAzure) {
-        DetachVmsResponseAzure isVmDetached = null;
+        DetachVmsResponseAzure isVmDetached;
         RepoGenericResponse<DetachVmsResponseAzure> detachResponse =
                 getSpotinstElastigroupRepoAzure().detachVms(detachVmsRequestAzure, authToken, account);
 
@@ -558,8 +558,8 @@ public class SpotinstElastigroupClientAzure {
             List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to get the logs for Elastigroup. Code: %s. Message: %s.",
-                    groupId,httpException.getCode(), httpException.getMessage()));
+                    "Error encountered while attempting to get the logs for Elastigroup: %s. Code: %s. Message: %s.",
+                    groupId, httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 

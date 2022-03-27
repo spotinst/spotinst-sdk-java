@@ -42,8 +42,7 @@ public class LaunchSpecRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setOceanGKELaunchSpec(final LaunchSpecSpecification launchSpecSpecification) {
@@ -68,8 +67,7 @@ public class LaunchSpecRequest {
 
         Map<String, ApiLaunchSpecSpecification> createLaunchSpecRequest = new HashMap<>();
         createLaunchSpecRequest.put("launchSpec", apiLaunchSpecSpecification);
-        String retVal = JsonMapper.toJson(createLaunchSpecRequest);
 
-        return retVal;
+        return JsonMapper.toJson(createLaunchSpecRequest);
     }
 }

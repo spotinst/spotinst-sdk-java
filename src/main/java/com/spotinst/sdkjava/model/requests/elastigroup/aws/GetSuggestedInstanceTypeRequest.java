@@ -2,9 +2,7 @@ package com.spotinst.sdkjava.model.requests.elastigroup.aws;
 
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.ElastigroupConverter;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupImportEC2Instance;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiGetSuggestedInstanceType;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupImportEC2Instance;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.GetSuggestedInstanceType;
 
 public class GetSuggestedInstanceTypeRequest {
@@ -30,8 +28,7 @@ public class GetSuggestedInstanceTypeRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setSuggestedInstanceType(GetSuggestedInstanceType suggestedInstanceType) {
@@ -47,8 +44,7 @@ public class GetSuggestedInstanceTypeRequest {
     //region Json methods
     public String toJson() {
         ApiGetSuggestedInstanceType suggestedInstanceTypeRequest = ElastigroupConverter.toDal(suggestedInstanceType);
-        String                        suggestedInstanceType          = JsonMapper.toJson(suggestedInstanceTypeRequest);
-        return suggestedInstanceType;
+        return JsonMapper.toJson(suggestedInstanceTypeRequest);
     }
 
     //endregion

@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.client.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Created by snir on 13/12/15.

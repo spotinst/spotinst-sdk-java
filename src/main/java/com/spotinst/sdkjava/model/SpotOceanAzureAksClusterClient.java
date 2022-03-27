@@ -142,4 +142,27 @@ public class SpotOceanAzureAksClusterClient {
 
         return retVal;
     }
+
+    public GetAzureAksClusterHeartBeatStatusResponse getAzureAksClusterHeartBeatStatus(String clusterId) {
+
+        GetAzureAksClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus;
+
+        RepoGenericResponse<GetAzureAksClusterHeartBeatStatusResponse> getK8sClusterHeartBeatStatusResponse =
+                getSpotOceanAzureAksClusterRepo().getAzureAksClusterHeartBeatStatus(clusterId, authToken, account);
+
+        if(getK8sClusterHeartBeatStatusResponse.isRequestSucceed()){
+            getK8sClusterHeartBeatStatus =getK8sClusterHeartBeatStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getK8sClusterHeartBeatStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Ocean cluster heartbeat status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getK8sClusterHeartBeatStatus;
+
+    }
 }

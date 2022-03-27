@@ -48,8 +48,7 @@ public class OceanEcsClusterRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCluster(final OceanEcsCluster oceanEcsCluster) {
@@ -74,9 +73,8 @@ public class OceanEcsClusterRequest {
         ApiOceanEcsCluster apiClusterToCreate = OceanEcsConverter.toDal(cluster);
         Map<String, ApiOceanEcsCluster> clusterRequest = new HashMap<>();
         clusterRequest.put("cluster", apiClusterToCreate);
-        String clusterJson = JsonMapper.toJson(clusterRequest);
 
-        return clusterJson;
+        return JsonMapper.toJson(clusterRequest);
     }
     //endregion
 }

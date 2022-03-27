@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -74,8 +73,7 @@ public class RequiredVCpuRequiredMemoryGib implements IPartialUpdateEntity {
         }
 
         public static Builder get() {
-            RequiredVCpuRequiredMemoryGib.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ImageSpecAzure {
@@ -56,8 +55,7 @@ public class ImageSpecAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setMarketplace(final MarketplaceAzure marketplace) {

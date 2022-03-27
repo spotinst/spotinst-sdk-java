@@ -33,7 +33,7 @@ public class ElastigroupUpdateCapacityResponse {
 
     public void setCapacity(ElastigroupCapacityConfiguration capacity) {
         isSet.add("capacity");
-        this.capacity = this.capacity;
+        this.capacity = capacity;
     }
 
     public static class Builder {
@@ -44,8 +44,7 @@ public class ElastigroupUpdateCapacityResponse {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCapacity(ElastigroupCapacityConfiguration capacity) {

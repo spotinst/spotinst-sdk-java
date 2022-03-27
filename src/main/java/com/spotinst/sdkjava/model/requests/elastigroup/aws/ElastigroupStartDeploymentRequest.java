@@ -38,8 +38,7 @@ public class ElastigroupStartDeploymentRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroupDeployment(final ElastigroupStartDeployment elastigroupDeployment) {
@@ -61,8 +60,7 @@ public class ElastigroupStartDeploymentRequest {
     //region Json methods
     public String toJson() {
         ApiElastigroupStartDeployment elastigroupDeploymentRequest = ElastigroupConverter.toDal(elastigroupDeployment);
-        String                        startDeployment              = JsonMapper.toJson(elastigroupDeploymentRequest);
-        return startDeployment;
+        return JsonMapper.toJson(elastigroupDeploymentRequest);
     }
 
     //endregion

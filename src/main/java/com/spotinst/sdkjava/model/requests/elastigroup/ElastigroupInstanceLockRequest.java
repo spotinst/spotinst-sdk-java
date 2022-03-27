@@ -41,8 +41,7 @@ public class ElastigroupInstanceLockRequest {
         }
 
         public static ElastigroupInstanceLockRequest.Builder get() {
-            ElastigroupInstanceLockRequest.Builder builder = new ElastigroupInstanceLockRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupInstanceLockRequest.Builder setAccountId(final String accountId) {

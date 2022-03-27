@@ -1,10 +1,8 @@
 package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -95,8 +93,7 @@ public class ImportASG {
         }
 
         public static Builder get() {
-            ImportASG.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

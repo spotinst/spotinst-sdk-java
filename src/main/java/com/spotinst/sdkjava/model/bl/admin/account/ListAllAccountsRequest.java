@@ -25,8 +25,7 @@ public class ListAllAccountsRequest {
         }
 
         public static ListAllAccountsRequest.Builder get() {
-            ListAllAccountsRequest.Builder builder = new ListAllAccountsRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ListAllAccountsRequest.Builder setCloudAccountId(final String cloudAccountId) {

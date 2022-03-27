@@ -56,6 +56,10 @@ public class OceanKubernetesVngSpecUsageExample {
         //Import cluster VNG to ocean VNG
         System.out.println("----------Import cluster VNG to ocean VNG--------------");
         K8sVngSpec importClusterVNGToOceanVNGResponse = importClusterVngToOceanVng(vngClient);
+
+        //Launch Nodes in VNG
+        System.out.println("----------Launch Nodes in VNG--------------");
+        List<LaunchNodesInVNGResponse> nodesResponse = launchNodesInVNG(vngClient, 2, "launchSpecId");
     }
 
     private static String createK8sVng(K8sVngClient client) {
@@ -176,8 +180,8 @@ public class OceanKubernetesVngSpecUsageExample {
         List<K8sVngSpec> k8sVng = client.listK8sVngSpec(listRequest);
 
         if (k8sVng.size() > 0) {
-            for(int i = 0; i < k8sVng.size(); i++) {
-                System.out.println("List Virtual Node Group Successfully: " + k8sVng.get(i).getName());
+            for (K8sVngSpec spec : k8sVng) {
+                System.out.println("List Virtual Node Group Successfully: " + spec.getName());
             }
         }
 
@@ -357,5 +361,23 @@ public class OceanKubernetesVngSpecUsageExample {
         System.out.println(String.format("Response: %s", importASGToVngConfigResponse.toString()));
 
         return importASGToVngConfigResponse;
+    }
+
+    private static List<LaunchNodesInVNGResponse> launchNodesInVNG(K8sVngClient client, Integer count, String launchSpecId) {
+        System.out.println("-------------------------Launch Cluster Nodes------------------------");
+
+        LaunchNodesInVNG.Builder getNodesBuilder = LaunchNodesInVNG.Builder.get();
+        LaunchNodesInVNG launchNodes = getNodesBuilder.setAmount(count).build();
+        List<LaunchNodesInVNGResponse> nodesResponse = client.launchNodesInVNG(launchNodes, launchSpecId);
+
+        for (LaunchNodesInVNGResponse node : nodesResponse) {
+            for (NewInstances instances : node.getNewInstances()) {
+                System.out.println(String.format("InstanceId: %s", instances.getAvailabilityZone()));
+                System.out.println(String.format("InstanceType: %s", instances.getInstanceType()));
+                System.out.println(String.format("AvailabilityZone: %s", instances.getAvailabilityZone()));
+                System.out.println(String.format("LifeCycle: %s", instances.getLifeCycle()));
+            }
+        }
+        return nodesResponse;
     }
 }

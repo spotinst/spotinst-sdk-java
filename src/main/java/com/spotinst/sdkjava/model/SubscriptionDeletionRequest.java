@@ -34,8 +34,7 @@ public class SubscriptionDeletionRequest {
         }
 
         public static SubscriptionDeletionRequest.Builder get() {
-            SubscriptionDeletionRequest.Builder builder = new SubscriptionDeletionRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public SubscriptionDeletionRequest.Builder setSubscriptionId(final String subscriptionId) {

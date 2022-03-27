@@ -77,8 +77,7 @@ public class K8sClusterFetchElastilogRequest {
         }
 
         public static K8sClusterFetchElastilogRequest.Builder get() {
-            K8sClusterFetchElastilogRequest.Builder builder = new K8sClusterFetchElastilogRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sClusterFetchElastilogRequest.Builder setAccountId(final String accountId) {

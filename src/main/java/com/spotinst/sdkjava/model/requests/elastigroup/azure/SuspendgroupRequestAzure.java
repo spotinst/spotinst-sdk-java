@@ -44,8 +44,7 @@ public class SuspendgroupRequestAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setSuspendGroup(final List<SuspendGroupProcessesAzure> suspendGroup) {
@@ -67,8 +66,7 @@ public class SuspendgroupRequestAzure {
         List<ApiSuspendgroupProcessesAzure> apiSuspendGroup = ElastigroupConverterAzure.toDalForSuspendProcess(suspendGroup);
         Map<String, List<ApiSuspendgroupProcessesAzure>> suspendRequest = new HashMap<>();
         suspendRequest.put("processes", apiSuspendGroup);
-        String suspendGroupJson = JsonMapper.toJson(suspendRequest);
 
-        return suspendGroupJson;
+        return JsonMapper.toJson(suspendRequest);
     }
 }

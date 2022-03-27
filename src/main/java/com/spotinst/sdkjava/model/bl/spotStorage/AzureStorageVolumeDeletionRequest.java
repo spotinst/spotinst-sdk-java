@@ -30,8 +30,7 @@ public class AzureStorageVolumeDeletionRequest {
         }
 
         public static AzureStorageVolumeDeletionRequest.Builder get() {
-            AzureStorageVolumeDeletionRequest.Builder builder = new AzureStorageVolumeDeletionRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AzureStorageVolumeDeletionRequest.Builder setVolumeId(final String volumeId) {

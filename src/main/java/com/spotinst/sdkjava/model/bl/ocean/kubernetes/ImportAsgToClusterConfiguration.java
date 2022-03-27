@@ -44,8 +44,7 @@ public class ImportAsgToClusterConfiguration {
         }
 
         public static Builder get() {
-            ImportAsgToClusterConfiguration.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setInstanceTypes(final List<String> instanceTypes) {

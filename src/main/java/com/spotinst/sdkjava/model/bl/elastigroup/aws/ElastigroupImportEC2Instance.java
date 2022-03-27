@@ -74,8 +74,7 @@ public class ElastigroupImportEC2Instance implements IPartialUpdateEntity {
         }
 
         public static Builder get() {
-            ElastigroupImportEC2Instance.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         //region Build methods

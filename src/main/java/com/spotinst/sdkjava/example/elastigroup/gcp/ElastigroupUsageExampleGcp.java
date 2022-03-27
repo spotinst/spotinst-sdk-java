@@ -110,7 +110,7 @@ public class ElastigroupUsageExampleGcp {
         ElastigroupSubnetsGcp.Builder ElastigroupSubnetsGcpBuilder =
                 ElastigroupSubnetsGcp.Builder.get();
 
-        Set<String> SubnetsNamesList = new HashSet<String>();
+        Set<String> SubnetsNamesList = new HashSet<>();
         SubnetsNamesList.add("default");
 
         ElastigroupSubnetsGcp subnetsGcp =
@@ -303,9 +303,8 @@ public class ElastigroupUsageExampleGcp {
 
         ElastigroupGetRequestGcp.Builder requestBuilder = ElastigroupGetRequestGcp.Builder.get();
         ElastigroupGetRequestGcp requestById = requestBuilder.setElastigroupId(groupId).build();
-        ElastigroupGcp group = client.getElastigroup(requestById);
 
-        return group;
+        return client.getElastigroup(requestById);
 
     }
 
@@ -328,11 +327,11 @@ public class ElastigroupUsageExampleGcp {
 
         Boolean success = false;
 
-        if(Operation == "LOCK") {
+        if(Operation.equals("LOCK")) {
 
             success = client.lockInstance(accountId, ttlInMinutes, instanceId);
         }
-        else if(Operation == "UNLOCK") {
+        else if(Operation.equals("UNLOCK")) {
 
             success = client.unlockInstance(accountId, instanceId);
         }
@@ -347,16 +346,13 @@ public class ElastigroupUsageExampleGcp {
 
     private static List<ElastigroupScaleUpResponseGcp> scaleUpGroup(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId, String adjustment) {
 
-        List<ElastigroupScaleUpResponseGcp> elastigroupScalingResponse = elastigroupClient.scaleUpGroup(elastigroupId, adjustment);
-
-        return elastigroupScalingResponse;
+        return elastigroupClient.scaleUpGroup(elastigroupId, adjustment);
 
     }
 
     private static List<ElastigroupScaleDownResponseGcp> scaleDownGroup(SpotinstElastigroupClientGcp elastigroupClient, String elastigroupId, String adjustment) {
-        List<ElastigroupScaleDownResponseGcp> elastigroupScalingResponse = elastigroupClient.scaleDownGroup(elastigroupId, adjustment);
 
-        return elastigroupScalingResponse;
+        return elastigroupClient.scaleDownGroup(elastigroupId, adjustment);
 
     }
 }

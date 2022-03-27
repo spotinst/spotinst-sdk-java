@@ -42,8 +42,7 @@ public class OceanEcsClusterLaunchSpecRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setLaunchSpec(final ClusterLaunchSpecification launchSpecification) {
@@ -69,9 +68,8 @@ public class OceanEcsClusterLaunchSpecRequest {
 
         Map<String, ApiClusterLaunchSpecification> launchSpecRequest = new HashMap<>();
         launchSpecRequest.put("launchSpec", apiLaunchSpecToCreate);
-        String launchSpecJson = JsonMapper.toJson(launchSpecRequest);
 
-        return launchSpecJson;
+        return JsonMapper.toJson(launchSpecRequest);
     }
     //endregion
 }
