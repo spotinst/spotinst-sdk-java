@@ -929,4 +929,23 @@ public class ClusterConverterAks {
             }
         return retVal;
     }
+
+    public static GetAzureAksClusterHeartBeatStatusResponse toBl(
+            ApiGetAzureAksClusterHeartBeatStatusResponse clusterHeartBeatStatus) {
+        GetAzureAksClusterHeartBeatStatusResponse retVal = null;
+
+        if (clusterHeartBeatStatus != null) {
+            retVal = new GetAzureAksClusterHeartBeatStatusResponse();
+
+            if (clusterHeartBeatStatus.isStatusSet()) {
+                retVal.setStatus(clusterHeartBeatStatus.getStatus());
+            }
+            if (clusterHeartBeatStatus.isLastHeartbeatSet()) {
+                retVal.setLastHeartbeat(clusterHeartBeatStatus.getLastHeartbeat());
+            }
+
+        }
+
+        return retVal;
+    }
 }
