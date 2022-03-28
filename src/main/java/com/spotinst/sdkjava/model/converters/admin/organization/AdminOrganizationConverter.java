@@ -313,6 +313,12 @@ public class AdminOrganizationConverter {
             if (src.isPolicyTypeSet()) {
                 policies.setPolicyType(src.getPolicyType());
             }
+            if (src.isAccountIdsSet()) {
+                policies.setAccountIds(src.getAccountIds());
+            }
+            if (src.isUserGroupIdsSet()) {
+                policies.setUserGroupIds(src.getUserGroupIds());
+            }
         }
         return policies;
     }
