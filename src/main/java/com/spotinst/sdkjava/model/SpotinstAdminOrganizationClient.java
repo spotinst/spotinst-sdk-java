@@ -362,7 +362,28 @@ public class SpotinstAdminOrganizationClient {
             List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
-                    String.format("Error encountered while attempting to update user group details. Code: %s. Message: %s.",
+                    String.format("Error encountered while attempting to delete user group. Code: %s. Message: %s.",
+                                  httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteUser(String userId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().deleteUser(userId, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete user. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

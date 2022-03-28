@@ -40,6 +40,8 @@ public interface ISpotAdminOrganizationRepo extends IRepository<OrganizationUser
 
     RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken);
 
+    RepoGenericResponse<Boolean> deleteUser(String userId, String authToken);
+
     RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId, String authToken);
 
     RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken);

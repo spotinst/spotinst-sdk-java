@@ -305,6 +305,24 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
+    public RepoGenericResponse<Boolean> deleteUser(String userId, String authToken ) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean status =
+                    SpotAdminOrganizationService.deleteUser(userId, authToken );
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
     public RepoGenericResponse<UserGroupDetails> getUserGroup(String groupId,String authToken ) {
         RepoGenericResponse<UserGroupDetails> retVal;
 

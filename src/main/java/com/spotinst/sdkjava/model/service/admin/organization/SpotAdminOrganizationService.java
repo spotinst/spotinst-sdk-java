@@ -456,6 +456,32 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean deleteUser(String userId, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/user/%s", apiEndpoint,userId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri,  null, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
     public static ApiUserGroupDetails getUserGroup(String groupId, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
