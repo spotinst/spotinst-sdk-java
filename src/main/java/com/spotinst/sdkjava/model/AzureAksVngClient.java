@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterVirtualNodeGroup;
+import com.spotinst.sdkjava.model.bl.ocean.aks.LaunchNodesInAksVNG;
+import com.spotinst.sdkjava.model.bl.ocean.aks.LaunchNodesInAksVNGResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,6 +122,25 @@ public class AzureAksVngClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to list AKS Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<LaunchNodesInAksVNGResponse> launchNodesInVNG(LaunchNodesInAksVNG lauchNodes, String vngId) {
+        List<LaunchNodesInAksVNGResponse> retVal;
+        RepoGenericResponse<List<LaunchNodesInAksVNGResponse>> launchNodesResponse = getAksVngRepo().launchNodesInVNG(lauchNodes, vngId, authToken, account);
+
+        if (launchNodesResponse.isRequestSucceed()) {
+            retVal = launchNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = launchNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to launch nodes in Virtual Node Group. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.example.ocean.aks;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.AzureAksVngClient;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -29,6 +28,10 @@ public class OceanAzureAksVNGUsageExample {
         listAksVng(vngClient, oceanId);
         updateAksVng(vngClient,vngId);
         deleteAksVng(vngClient,vngId);
+
+        //Launch Nodes in VNG
+        System.out.println("----------Launch Nodes in VNG--------------");
+        List<LaunchNodesInAksVNGResponse> nodesResponse = launchNodesInVNG(vngClient, 2, "launchSpecId");
     }
 
     private static String createAksVng(AzureAksVngClient client) {
@@ -181,5 +184,22 @@ public class OceanAzureAksVNGUsageExample {
         if (successfulDeletion) {
             System.out.println("Virtual Node Group Deleted Successfully: " + vngId);
         }
+    }
+
+    private static List<LaunchNodesInAksVNGResponse> launchNodesInVNG(AzureAksVngClient client, Integer count, String launchSpecId) {
+        System.out.println("-------------------------Launch Cluster Nodes------------------------");
+
+        LaunchNodesInAksVNG.Builder getNodesBuilder = LaunchNodesInAksVNG.Builder.get();
+        LaunchNodesInAksVNG launchNodes = getNodesBuilder.setAmount(count).build();
+        List<LaunchNodesInAksVNGResponse> nodesResponse = client.launchNodesInVNG(launchNodes, launchSpecId);
+
+        for (LaunchNodesInAksVNGResponse node : nodesResponse) {
+            for (VmsDetails instances : node.getVms()) {
+                System.out.println(String.format("VM Name: %s", instances.getVmName()));
+                System.out.println(String.format("VM Size: %s", instances.getVmSize()));
+                System.out.println(String.format("VM Lifecycle: %s", instances.getLifeCycle()));
+            }
+        }
+        return nodesResponse;
     }
 }

@@ -5,7 +5,10 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAzureAksVngRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.ocean.aks.ApiClusterVirtualNodeGroup;
+import com.spotinst.sdkjava.model.api.ocean.aks.ApiLaunchNodesInAksVNGResponse;
 import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterVirtualNodeGroup;
+import com.spotinst.sdkjava.model.bl.ocean.aks.LaunchNodesInAksVNG;
+import com.spotinst.sdkjava.model.bl.ocean.aks.LaunchNodesInAksVNGResponse;
 import com.spotinst.sdkjava.model.converters.aks.AksVngConverter;
 import com.spotinst.sdkjava.model.service.ocean.aks.AzureAksVngSpecService;
 
@@ -93,6 +96,27 @@ public class AzureAksVngRepo implements ISpotAzureAksVngRepo {
             List<ApiClusterVirtualNodeGroup> apiGetAllVng = AzureAksVngSpecService.listAksVng(authToken, account, oceanId);
             List<ClusterVirtualNodeGroup> aksVngSpec = apiGetAllVng.stream().map(AksVngConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(aksVngSpec);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<LaunchNodesInAksVNGResponse>> launchNodesInVNG(LaunchNodesInAksVNG lauchNodes, String vngId, String authToken, String account) {
+        RepoGenericResponse<List<LaunchNodesInAksVNGResponse>> retVal;
+
+        try {
+
+            List<ApiLaunchNodesInAksVNGResponse> apiLaunchNodesInVNG = AzureAksVngSpecService
+                    .launchNodesInVNG(lauchNodes, vngId, authToken, account);
+            List<LaunchNodesInAksVNGResponse> launchNodesInVNG = apiLaunchNodesInVNG.stream().map(AksVngConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(launchNodesInVNG);
         }
 
         catch (SpotinstHttpException e) {

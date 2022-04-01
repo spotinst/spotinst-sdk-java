@@ -458,4 +458,45 @@ public class AksVngConverter {
 
         return retVal;
     }
+
+    public static LaunchNodesInAksVNGResponse toBl(ApiLaunchNodesInAksVNGResponse apiLaunchNodesInAksVNGResponse) {
+        LaunchNodesInAksVNGResponse retVal = null;
+
+        if (apiLaunchNodesInAksVNGResponse != null) {
+            LaunchNodesInAksVNGResponse.Builder vmsBuilder = LaunchNodesInAksVNGResponse.Builder.get();
+            if (apiLaunchNodesInAksVNGResponse.isVmsSet()) {
+                List<VmsDetails> vms = apiLaunchNodesInAksVNGResponse.getVms().stream().map(AksVngConverter::toBl)
+                        .collect(Collectors.toList());
+                vmsBuilder.setVms(vms);
+            }
+
+            retVal = vmsBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static VmsDetails toBl(ApiVmsDetails apiLaunchNodesInVNG) {
+        VmsDetails retVal = null;
+
+        if (apiLaunchNodesInVNG != null) {
+            VmsDetails.Builder instancesBuilder = VmsDetails.Builder.get();
+
+            if (apiLaunchNodesInVNG.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiLaunchNodesInVNG.getLifeCycle());
+            }
+
+            if (apiLaunchNodesInVNG.isVmNameSet()) {
+                instancesBuilder.setVmName(apiLaunchNodesInVNG.getVmName());
+            }
+
+            if (apiLaunchNodesInVNG.isVmSizeSet()) {
+                instancesBuilder.setVmSize(apiLaunchNodesInVNG.getVmSize());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
 }

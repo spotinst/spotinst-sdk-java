@@ -5,7 +5,10 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.aks.ApiClusterVirtualNodeGroup;
+import com.spotinst.sdkjava.model.api.ocean.aks.ApiLaunchNodesInAksVNGResponse;
+import com.spotinst.sdkjava.model.bl.ocean.aks.LaunchNodesInAksVNG;
 import com.spotinst.sdkjava.model.responses.ocean.aks.AzureAksVngApiResponse;
+import com.spotinst.sdkjava.model.responses.ocean.aks.LaunchNodesInAksVngApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -199,6 +202,47 @@ public class AzureAksVngSpecService extends BaseSpotinstService {
 
         if (vngCreateResponse.getResponse().getCount() > 0) {
             retVal = vngCreateResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiLaunchNodesInAksVNGResponse> launchNodesInVNG(LaunchNodesInAksVNG launchNodes, String vngId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiLaunchNodesInAksVNGResponse> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, LaunchNodesInAksVNG> launchNodesRequest = new HashMap<>();
+        launchNodesRequest.put("launchRequest", launchNodes);
+        String body = JsonMapper.toJson(launchNodesRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/azure/k8s/virtualNodeGroup/%s/launchVms", apiEndpoint, vngId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        LaunchNodesInAksVngApiResponse launchNodesResponse =
+                getCastedResponse(response, LaunchNodesInAksVngApiResponse.class);
+
+        if (launchNodesResponse.getResponse().getCount() > 0) {
+            retVal = launchNodesResponse.getResponse().getItems();
         }
 
         return retVal;

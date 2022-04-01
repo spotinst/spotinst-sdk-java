@@ -4,6 +4,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -164,5 +165,43 @@ public class SpotOceanAzureAksClusterClient {
 
         return getK8sClusterHeartBeatStatus;
 
+    }
+
+    public List<GetAksClusterNodesResponse> getClusterNodes(GetAksClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetAksClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetAksClusterNodesResponse>> getNodesResponse = getSpotOceanAzureAksClusterRepo().getClusterNodes(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<AksDetachInstancesResponse> detachVms(AksDetachInstances instances, String clusterId) {
+        List<AksDetachInstancesResponse> retVal;
+        RepoGenericResponse<List<AksDetachInstancesResponse>> detachInstancesResponse = getSpotOceanAzureAksClusterRepo().detachVms(instances, clusterId, authToken, account);
+
+        if (detachInstancesResponse.isRequestSucceed()) {
+            retVal = detachInstancesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = detachInstancesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to detach vms from the Ocean cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
     }
 }
