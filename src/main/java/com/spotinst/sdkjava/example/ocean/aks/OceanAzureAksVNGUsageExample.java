@@ -122,21 +122,21 @@ public class OceanAzureAksVNGUsageExample {
 
         //Build autoscale specification
         ClusterVngAutoScaleSpec.Builder autoScaleBuilder = ClusterVngAutoScaleSpec.Builder.get();
-        ClusterVngAutoScaleSpec         autoScale        = autoScaleBuilder.setAutoHeadroomPercentage(20).build();
+        ClusterVngAutoScaleSpec         autoScale        = autoScaleBuilder.setAutoHeadroomPercentage(30).build();
 
         //Build tags
         ClusterTagAks.Builder tagsBuilder = ClusterTagAks.Builder.get();
 
-        ClusterTagAks       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("testingSdkOcean").build();
+        ClusterTagAks       tag1     = tagsBuilder.setTagKey("Creator").setTagValue("testingUpdateSdkOcean").build();
         List<ClusterTagAks> tagsList = Collections.singletonList(tag1);
 
         ClusterVngResourceLimits.Builder recourceLimitsbuilder =
                 ClusterVngResourceLimits.Builder.get();
         ClusterVngResourceLimits recourceLimitsSpec =
-                recourceLimitsbuilder.setMaxInstanceCount(maxInstanceCount).build();
+                recourceLimitsbuilder.setMaxInstanceCount(10).build();
 
         ClusterVngOsDisk.Builder builder = ClusterVngOsDisk.Builder.get();
-        ClusterVngOsDisk osDisk = builder.setSizeGB(sizeGB).setType(type).setUtilizeEphemeralStorage(utilizeEphemeralStorage).build();
+        ClusterVngOsDisk osDisk = builder.setSizeGB(2).setUtilizeEphemeralStorage(false).build();
 
         ClusterVngLaunchSpecificaion.Builder launchSpecBuilder = ClusterVngLaunchSpecificaion.Builder.get();
 

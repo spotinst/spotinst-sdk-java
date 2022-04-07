@@ -1,7 +1,10 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.repo.ocean.aks;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ISpotOceanAzureAksClusterRepo;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
+import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterService;
 import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
@@ -11,7 +14,7 @@ import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRepo{
+public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRepo {
 
     @Override
     public RepoGenericResponse<OceanClusterAks> create(OceanClusterAks clusterToCreate, String authToken, String account) {
