@@ -1,19 +1,20 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.repo.ocean.aks;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.aks.ApiClusterAks;
+import com.spotinst.sdkjava.model.ISpotOceanAzureAksClusterRepo;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
+import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterService;
+import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
-import com.spotinst.sdkjava.model.api.ocean.aks.ApiGetAzureAksClusterHeartBeatStatusResponse;
-import com.spotinst.sdkjava.model.bl.ocean.aks.GetAzureAksClusterHeartBeatStatusResponse;
-import com.spotinst.sdkjava.model.bl.ocean.aks.OceanClusterAks;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterConverterAks;
+import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRepo{
+public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRepo {
 
     @Override
     public RepoGenericResponse<OceanClusterAks> create(OceanClusterAks clusterToCreate, String authToken, String account) {
@@ -123,5 +124,47 @@ public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRe
 
         return retVal;
 
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetAksClusterNodesResponse>> getClusterNodes(GetAksClusterNodesRequest getClusterNodes, String clusterId, String authToken) {
+        RepoGenericResponse<List<GetAksClusterNodesResponse>> retVal;
+
+        try {
+
+            List<ApiGetAksClusterNodesResponse> apiGetClusterNodes = SpotOceanAzureAksClusterService
+                    .getClusterNodes(getClusterNodes, clusterId, authToken);
+            List<GetAksClusterNodesResponse> getClusterNodesResponse = apiGetClusterNodes.stream().map(ClusterConverterAks::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getClusterNodesResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<AksDetachInstancesResponse>> detachVms(AksDetachInstances instances, String clusterId, String authToken, String account) {
+        RepoGenericResponse<List<AksDetachInstancesResponse>> retVal;
+
+        try {
+            ApiAksDetachInstances apiDetachInstances = ClusterConverterAks.toDal(instances);
+
+            List<ApiAksDetachInstancesResponse> apiDetachInstancesResponse = SpotOceanAzureAksClusterService
+                    .detachVms(apiDetachInstances, clusterId, authToken, account);
+            List<AksDetachInstancesResponse> detachInstancesResponse = apiDetachInstancesResponse.stream().map(ClusterConverterAks::toBl)
+                    .collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(detachInstancesResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
     }
 }

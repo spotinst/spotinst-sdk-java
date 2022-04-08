@@ -110,7 +110,7 @@ public class ElastigroupUsageExampleAzure {
         String message = logs.getCreatedAt();
         System.out.println("Logs : "+ message);
 
-        //Detach Vms
+        //Detach VmsDetails
         DetachVmsResponseAzure detachResponse = detachVms(elastigroupClient, "sig-94b203f9");
         String oldVmName = detachResponse.getDetachedVms().get(0).getVmName();
         String newvmName = detachResponse.getNewVmsAzure().get(0).getVmName();
