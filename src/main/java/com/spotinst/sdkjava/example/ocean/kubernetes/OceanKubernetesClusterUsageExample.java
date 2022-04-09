@@ -285,9 +285,8 @@ public class OceanKubernetesClusterUsageExample {
         DetachInstances detachInstances                = detachInstancesBuilder.setInstancesToDetach(instances).setShouldDecrementTargetCapacity(shouldDecrementTargetCapacity).setShouldTerminateInstances(shouldTerminateInstances).build();
 
         System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
-        Boolean detachedStatus = client.detachInstances(detachInstances, clusterId);
 
-        return detachedStatus;
+        return client.detachInstances(detachInstances, clusterId);
     }
 
     private static ClusterRollResponse initiateClusterRoll(SpotOceanK8sClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {

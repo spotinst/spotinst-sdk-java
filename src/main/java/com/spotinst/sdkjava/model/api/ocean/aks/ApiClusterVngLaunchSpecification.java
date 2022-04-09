@@ -36,7 +36,7 @@ public class ApiClusterVngLaunchSpecification implements IPartialUpdateEntity {
         return tags;
     }
 
-    public void setTags(List<ApiClusterTagAks> headrooms) {
+    public void setTags(List<ApiClusterTagAks> tags) {
         isSet.add("tags");
         this.tags = tags;
     }
