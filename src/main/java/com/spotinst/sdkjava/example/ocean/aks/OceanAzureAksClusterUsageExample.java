@@ -212,9 +212,8 @@ public class OceanAzureAksClusterUsageExample {
         AksDetachInstances detachInstances                = detachInstancesBuilder.setVmsToDetach(instances).build();
 
         System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
-        List<AksDetachInstancesResponse> detachedStatus = client.detachVms(detachInstances, clusterId);
 
-        return detachedStatus;
+        return client.detachVms(detachInstances, clusterId);
     }
 
     private static List<GetAksClusterNodesResponse> getClusterNodes(SpotOceanAzureAksClusterClient client, String clusterId) {
