@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.admin.organization;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
+import com.spotinst.sdkjava.enums.admin.organization.UserTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrganizationUsers {
+public class Users {
     @JsonIgnore
     private Set<String>  isSet;
     private String       userId;
@@ -21,7 +21,7 @@ public class OrganizationUsers {
     private String       mfa;
     private List<String> groupNames;
 
-    public OrganizationUsers() {
+    public Users() {
         isSet = new HashSet<>();
     }
 
@@ -88,10 +88,10 @@ public class OrganizationUsers {
     }
 
     public static class Builder {
-        private OrganizationUsers organizationUsers;
+        private Users organizationUsers;
 
         private Builder() {
-            this.organizationUsers = new OrganizationUsers();
+            this.organizationUsers = new Users();
         }
 
         public static Builder get() {
@@ -129,7 +129,7 @@ public class OrganizationUsers {
             return this;
         }
 
-        public OrganizationUsers build() {
+        public Users build() {
             return organizationUsers;
         }
     }

@@ -75,12 +75,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public List<OrganizationUsers> getOrganizationUsers() {
+    public List<Users> getUsers() {
 
-        List<OrganizationUsers> retVal = null;
+        List<Users> retVal = null;
 
-        RepoGenericResponse<List<OrganizationUsers>> getResponse =
-                getSpotinstAccountAdminRepo().getOrganizationUsers(authToken);
+        RepoGenericResponse<List<Users>> getResponse =
+                getSpotinstAccountAdminRepo().getUsers(authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -117,12 +117,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public Boolean updateUserGroupMapping(String groupId, List<String> userIds) {
+    public Boolean updateUserGroupMappingOfUser(String userId, List<String> userGroupIds) {
 
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().updateUserGroupMapping(groupId, userIds, authToken);
+                getSpotinstAccountAdminRepo().updateUserGroupMappingOfUser(userId, userGroupIds, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -201,12 +201,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public List<OrganizationUserGroups> getOrganizationUserGroups() {
+    public List<UserGroups> getUserGroups() {
 
-        List<OrganizationUserGroups> retVal = null;
+        List<UserGroups> retVal = null;
 
-        RepoGenericResponse<List<OrganizationUserGroups>> getResponse =
-                getSpotinstAccountAdminRepo().getOrganizationUserGroups(authToken);
+        RepoGenericResponse<List<UserGroups>> getResponse =
+                getSpotinstAccountAdminRepo().getUserGroups(authToken);
 
         if (getResponse.isRequestSucceed()) {
             retVal = getResponse.getValue();
@@ -285,12 +285,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public Boolean userGroupUpdateUserMapping(String groupId, List<String> userIds) {
+    public Boolean updateUserMappingOfUserGroup(String groupId, List<String> userIds) {
 
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().userGroupUpdateUserMapping(groupId, userIds, authToken);
+                getSpotinstAccountAdminRepo().updateUserMappingOfUserGroup(groupId, userIds, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -306,12 +306,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public Boolean userGroupUpdatePolicyMapping(String groupId, UpdatePoliciesRequest updateRequest) {
+    public Boolean updatePolicyMappingOfUserGroup(String groupId, UpdatePoliciesRequest updateRequest) {
 
         Boolean retVal = false;
 
         RepoGenericResponse<Boolean> updateResponse =
-                getSpotinstAccountAdminRepo().userGroupUpdatePolicyMapping(groupId, updateRequest, authToken);
+                getSpotinstAccountAdminRepo().updatePolicyMappingOfUserGroup(groupId, updateRequest, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -321,6 +321,26 @@ public class SpotinstAdminOrganizationClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to update user group mapped policies. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<GetAccountUserMapping> getAccountUserMapping(String userEmail) {
+
+        List<GetAccountUserMapping> retVal = null;
+
+        RepoGenericResponse<List<GetAccountUserMapping>> getResponse = getSpotinstAccountAdminRepo().getAccountUserMapping(userEmail, authToken);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get user's account mapping Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

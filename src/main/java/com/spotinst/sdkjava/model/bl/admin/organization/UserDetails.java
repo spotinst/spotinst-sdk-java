@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.admin.organization;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
+import com.spotinst.sdkjava.enums.admin.organization.UserTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +19,7 @@ public class UserDetails {
     private UserTypeEnum            type;
     private String                  email;
     private String                  mfa;
-    private List<UserDetailsPolicy> policies;
+    private List<UserDetailsPolicies> policies;
     private List<UserDetailsTokens> tokens;
     private List<UserDetailsGroups> groups;
 
@@ -80,11 +80,11 @@ public class UserDetails {
         this.mfa = mfa;
     }
 
-    public List<UserDetailsPolicy> getPolicies() {
+    public List<UserDetailsPolicies> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<UserDetailsPolicy> policies) {
+    public void setPolicies(List<UserDetailsPolicies> policies) {
         isSet.add("policies");
         this.policies = policies;
     }
@@ -139,7 +139,7 @@ public class UserDetails {
             return this;
         }
 
-        public Builder setPolicies(final List<UserDetailsPolicy> policies) {
+        public Builder setPolicies(final List<UserDetailsPolicies> policies) {
             userDetails.setPolicies(policies);
             return this;
         }

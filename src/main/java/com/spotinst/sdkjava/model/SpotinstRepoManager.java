@@ -234,7 +234,7 @@ class SpotinstRepoManager {
         return spotAksVngRepo;
     }
 
-    public void seAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
+    public void setAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
         this.spotAksVngRepo = aksVngRepo;
     }
 

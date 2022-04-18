@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.enums.admin.account;
+package com.spotinst.sdkjava.enums.admin.organization;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

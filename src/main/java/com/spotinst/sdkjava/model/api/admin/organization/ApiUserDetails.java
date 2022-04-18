@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
+import com.spotinst.sdkjava.enums.admin.organization.UserTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +22,7 @@ public class ApiUserDetails implements IPartialUpdateEntity {
     private UserTypeEnum               type;
     private String                     email;
     private String                     mfa;
-    private List<ApiUserDetailsPolicy> policies;
+    private List<ApiUserDetailsPolicies> policies;
     private List<ApiUserDetailsTokens> tokens;
     private List<ApiUserDetailsGroups> groups;
 
@@ -83,11 +83,11 @@ public class ApiUserDetails implements IPartialUpdateEntity {
         this.mfa = mfa;
     }
 
-    public List<ApiUserDetailsPolicy> getPolicies() {
+    public List<ApiUserDetailsPolicies> getPolicies() {
         return policies;
     }
 
-    public void setPolicies(List<ApiUserDetailsPolicy> policies) {
+    public void setPolicies(List<ApiUserDetailsPolicies> policies) {
         isSet.add("policies");
         this.policies = policies;
     }

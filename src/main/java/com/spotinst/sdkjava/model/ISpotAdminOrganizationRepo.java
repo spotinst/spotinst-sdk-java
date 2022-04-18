@@ -4,14 +4,14 @@ import com.spotinst.sdkjava.model.bl.admin.organization.*;
 
 import java.util.List;
 
-public interface ISpotAdminOrganizationRepo extends IRepository<OrganizationUsers, Void, String> {
+public interface ISpotAdminOrganizationRepo extends IRepository<Users, Void, String> {
     RepoGenericResponse<User> createUser(User userRequest, Boolean shouldGenerateToken, String authToken);
 
-    RepoGenericResponse<List<OrganizationUsers>> getOrganizationUsers(String authToken);
+    RepoGenericResponse<List<Users>> getUsers(String authToken);
 
     RepoGenericResponse<UserDetails> getUserDetails(String userId, String authToken);
 
-    RepoGenericResponse<Boolean> updateUserGroupMapping(String userId, List<String> groupIds, String authToken);
+    RepoGenericResponse<Boolean> updateUserGroupMappingOfUser(String userId, List<String> userGroupIds, String authToken);
 
     RepoGenericResponse<Boolean> deleteUser(String userId, String authToken);
 
@@ -20,7 +20,7 @@ public interface ISpotAdminOrganizationRepo extends IRepository<OrganizationUser
 
     RepoGenericResponse<UserGroup> createUserGroup(UserGroup createRequest, String authToken);
 
-    RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken);
+    RepoGenericResponse<List<UserGroups>> getUserGroups(String authToken);
 
     RepoGenericResponse<UserGroupDetails> getUserGroupDetails(String groupId, String authToken);
 
@@ -29,10 +29,11 @@ public interface ISpotAdminOrganizationRepo extends IRepository<OrganizationUser
 
     RepoGenericResponse<Boolean> deleteUserGroup(String groupId, String authToken);
 
-    RepoGenericResponse<Boolean> userGroupUpdateUserMapping(String groupId, List<String> userIds, String authToken);
+    RepoGenericResponse<Boolean> updateUserMappingOfUserGroup(String groupId, List<String> userIds, String authToken);
 
-    RepoGenericResponse<Boolean> userGroupUpdatePolicyMapping(String groupId,
+    RepoGenericResponse<Boolean> updatePolicyMappingOfUserGroup(String groupId,
                                                                UpdatePoliciesRequest apiUpdateRequest,
                                                                String authToken);
 
+    RepoGenericResponse<List<GetAccountUserMapping>> getAccountUserMapping(String userEmail, String authToken);
 }

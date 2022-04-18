@@ -129,11 +129,11 @@ public class AdminOrganizationConverter {
         return user;
     }
 
-    public static OrganizationUsers toBl(ApiOrganizationUsers src) {
-        OrganizationUsers orgUsers = null;
+    public static Users toBl(ApiUsers src) {
+        Users orgUsers = null;
 
         if (src != null) {
-            orgUsers = new OrganizationUsers();
+            orgUsers = new Users();
 
             if (src.isUserIdSet()) {
                 orgUsers.setUserId(src.getUserId());
@@ -179,7 +179,7 @@ public class AdminOrganizationConverter {
                 userDetails.setEmail(src.getEmail());
             }
             if (src.isPoliciesSet()) {
-                List<UserDetailsPolicy> userPolicyList =
+                List<UserDetailsPolicies> userPolicyList =
                         src.getPolicies().stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
                 userDetails.setPolicies(userPolicyList);
             }
@@ -197,11 +197,11 @@ public class AdminOrganizationConverter {
         return userDetails;
     }
 
-    public static UserDetailsPolicy toBl(ApiUserDetailsPolicy src) {
-        UserDetailsPolicy userPolicy = null;
+    public static UserDetailsPolicies toBl(ApiUserDetailsPolicies src) {
+        UserDetailsPolicies userPolicy = null;
 
         if (src != null) {
-            userPolicy = new UserDetailsPolicy();
+            userPolicy = new UserDetailsPolicies();
 
             if (src.isPolicyIdSet()) {
                 userPolicy.setPolicyId(src.getPolicyId());
@@ -306,11 +306,11 @@ public class AdminOrganizationConverter {
         return userGroup;
     }
 
-    public static OrganizationUserGroups toBl(ApiOrganizationUserGroups src) {
-        OrganizationUserGroups groupDetails = null;
+    public static UserGroups toBl(ApiUserGroups src) {
+        UserGroups groupDetails = null;
 
         if (src != null) {
-            groupDetails = new OrganizationUserGroups();
+            groupDetails = new UserGroups();
 
             if (src.isIdSet()) {
                 groupDetails.setId(src.getId());
@@ -407,5 +407,24 @@ public class AdminOrganizationConverter {
             }
         }
         return groupDetails;
+    }
+
+    public static GetAccountUserMapping toBl(ApiGetAccountUserMapping src) {
+        GetAccountUserMapping accountUserMapping = null;
+
+        if (src != null) {
+            accountUserMapping = new GetAccountUserMapping();
+
+            if (src.isAccountIdSet()) {
+                accountUserMapping.setAccountId(src.getAccountId());
+            }
+            if (src.isRoleSet()) {
+                accountUserMapping.setRole(src.getRole());
+            }
+            if (src.isPermissionStrategySet()) {
+                accountUserMapping.setPermissionStrategy(src.getPermissionStrategy());
+            }
+        }
+        return accountUserMapping;
     }
 }

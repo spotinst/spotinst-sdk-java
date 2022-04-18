@@ -49,10 +49,10 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiOrganizationUsers> getOrganizationUsers(String authToken) throws SpotinstHttpException {
+    public static List<ApiUsers> getOrganizationUsers(String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        List<ApiOrganizationUsers> retVal = null;
+        List<ApiUsers> retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -106,7 +106,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updateUserGroupMapping(String userId, List<String> userGroupIds, String authToken ) throws SpotinstHttpException {
+    public static Boolean updateUserGroupMappingOfUser(String userId, List<String> userGroupIds, String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -220,10 +220,10 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiOrganizationUserGroups> getOrganizationUserGroups(String authToken) throws SpotinstHttpException {
+    public static List<ApiUserGroups> getUserGroups(String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        List<ApiOrganizationUserGroups> retVal = null;
+        List<ApiUserGroups> retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -335,7 +335,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean userGroupUpdateUserMapping(String groupId, List<String> userIds, String authToken) throws SpotinstHttpException {
+    public static Boolean updateUserMappingOfUserGroup(String groupId, List<String> userIds, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -365,7 +365,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean userGroupUpdatePolicyMapping(String groupId, ApiUpdatePoliciesRequest apiUpdateRequest, String authToken) throws SpotinstHttpException {
+    public static Boolean updatePolicyMappingOfUserGroup(String groupId, ApiUpdatePoliciesRequest apiUpdateRequest, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -388,6 +388,40 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiGetAccountUserMapping> getAccountUserMapping(String userEmail, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiGetAccountUserMapping> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add userEmail Query param
+        if (userEmail != null) {
+            queryParams.put("userEmail", userEmail);
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/accountUserMapping", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        GetAccountUserMappingApiResponse apiResponse = getCastedResponse(response, GetAccountUserMappingApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems();
         }
 
         return retVal;

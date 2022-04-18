@@ -1,10 +1,8 @@
-package com.spotinst.sdkjava.model.api.admin.organization;
+package com.spotinst.sdkjava.model.bl.admin.organization;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,8 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiUserDetailsPolicy implements IPartialUpdateEntity {
+public class UserDetailsPolicies {
     @JsonIgnore
     private Set<String> isSet;
     private String      policyId;
@@ -22,7 +19,7 @@ public class ApiUserDetailsPolicy implements IPartialUpdateEntity {
     private List<String>  userGroupIds;
     private List<String>  accountIds;
 
-    public ApiUserDetailsPolicy() {
+    public UserDetailsPolicies() {
         isSet = new HashSet<>();
     }
 
@@ -77,6 +74,48 @@ public class ApiUserDetailsPolicy implements IPartialUpdateEntity {
     public void setAccountIds(List<String> accountIds) {
         isSet.add("accountIds");
         this.accountIds = accountIds;
+    }
+
+    public static class Builder {
+        private UserDetailsPolicies userPolicy;
+
+        private Builder() {
+            this.userPolicy = new UserDetailsPolicies();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setPolicyId(final String policyId) {
+            userPolicy.setPolicyId(policyId);
+            return this;
+        }
+
+        public Builder setPolicyName(final String policyName) {
+            userPolicy.setPolicyName(policyName);
+            return this;
+        }
+
+        public Builder setPolicyType(final String policyType) {
+            userPolicy.setPolicyType(policyType);
+            return this;
+        }
+
+        public Builder setAccountIds(final List<String> accountIds) {
+            userPolicy.setAccountIds(accountIds);
+            return this;
+        }
+
+        public Builder setUserGroupIds(final List<String> userGroupIds) {
+            userPolicy.setUserGroupIds(userGroupIds);
+            return this;
+        }
+
+        public UserDetailsPolicies build() {
+            return userPolicy;
+        }
     }
 
     @JsonIgnore

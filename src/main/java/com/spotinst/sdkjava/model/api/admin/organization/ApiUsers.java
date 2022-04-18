@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.admin.account.UserTypeEnum;
+import com.spotinst.sdkjava.enums.admin.organization.UserTypeEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiOrganizationUsers implements IPartialUpdateEntity {
+public class ApiUsers implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private String       userId;
@@ -24,7 +24,7 @@ public class ApiOrganizationUsers implements IPartialUpdateEntity {
     private String       mfa;
     private List<String> groupNames;
 
-    public ApiOrganizationUsers() {
+    public ApiUsers() {
         isSet = new HashSet<>();
     }
 

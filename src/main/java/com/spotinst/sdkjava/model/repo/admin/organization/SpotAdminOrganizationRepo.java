@@ -35,14 +35,14 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<OrganizationUsers>> getOrganizationUsers(String authToken) {
-        RepoGenericResponse<List<OrganizationUsers>> retVal;
+    public RepoGenericResponse<List<Users>> getUsers(String authToken) {
+        RepoGenericResponse<List<Users>> retVal;
 
         try {
 
-            List<ApiOrganizationUsers> apiResponse =
+            List<ApiUsers> apiResponse =
                     SpotAdminOrganizationService.getOrganizationUsers(authToken );
-            List<OrganizationUsers> getResponse =
+            List<Users> getResponse =
                     apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getResponse);
@@ -74,12 +74,12 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updateUserGroupMapping(String userId, List<String> groupIds, String authToken) {
+    public RepoGenericResponse<Boolean> updateUserGroupMappingOfUser(String userId, List<String> userGroupIds, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
-            Boolean updateResponse = SpotAdminOrganizationService.updateUserGroupMapping(userId, groupIds, authToken );
+            Boolean updateResponse = SpotAdminOrganizationService.updateUserGroupMappingOfUser(userId, userGroupIds, authToken );
 
             retVal = new RepoGenericResponse<>(updateResponse);
         }
@@ -149,14 +149,14 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<OrganizationUserGroups>> getOrganizationUserGroups(String authToken) {
-        RepoGenericResponse<List<OrganizationUserGroups>> retVal;
+    public RepoGenericResponse<List<UserGroups>> getUserGroups(String authToken) {
+        RepoGenericResponse<List<UserGroups>> retVal;
 
         try {
 
-            List<ApiOrganizationUserGroups> apiResponse =
-                    SpotAdminOrganizationService.getOrganizationUserGroups(authToken );
-            List<OrganizationUserGroups> getResponse = apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
+            List<ApiUserGroups> apiResponse =
+                    SpotAdminOrganizationService.getUserGroups(authToken );
+            List<UserGroups> getResponse = apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getResponse);
         }
@@ -223,13 +223,13 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> userGroupUpdateUserMapping(String groupId, List<String> userIds, String authToken ) {
+    public RepoGenericResponse<Boolean> updateUserMappingOfUserGroup(String groupId, List<String> userIds, String authToken ) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
 
             Boolean status =
-                    SpotAdminOrganizationService.userGroupUpdateUserMapping(groupId, userIds, authToken );
+                    SpotAdminOrganizationService.updateUserMappingOfUserGroup(groupId, userIds, authToken );
 
             retVal = new RepoGenericResponse<>(status);
         }
@@ -241,7 +241,7 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> userGroupUpdatePolicyMapping(String groupId, UpdatePoliciesRequest updateRequest, String authToken) {
+    public RepoGenericResponse<Boolean> updatePolicyMappingOfUserGroup(String groupId, UpdatePoliciesRequest updateRequest, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -249,9 +249,28 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
             ApiUpdatePoliciesRequest apiUpdateRequest = AdminOrganizationConverter.toDal(updateRequest);
 
             Boolean status =
-                    SpotAdminOrganizationService.userGroupUpdatePolicyMapping(groupId, apiUpdateRequest, authToken );
+                    SpotAdminOrganizationService.updatePolicyMappingOfUserGroup(groupId, apiUpdateRequest, authToken );
 
             retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetAccountUserMapping>> getAccountUserMapping(String userEmail, String authToken) {
+        RepoGenericResponse<List<GetAccountUserMapping>> retVal;
+
+        try {
+
+            List<ApiGetAccountUserMapping> apiResponse =
+                    SpotAdminOrganizationService.getAccountUserMapping(userEmail, authToken );
+            List<GetAccountUserMapping> getResponse = apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getResponse);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);

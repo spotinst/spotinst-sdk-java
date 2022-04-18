@@ -1,10 +1,8 @@
-package com.spotinst.sdkjava.model.api.admin.organization;
+package com.spotinst.sdkjava.model.bl.admin.organization;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,18 +10,17 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiOrganizationUserGroups implements IPartialUpdateEntity {
+public class UserGroups {
     @JsonIgnore
     private Set<String>                    isSet;
     private String                         id;
     private String                         name;
     private String                         description;
     private String                         createdAt;
-    private Integer   usersCount;
-    private List<String> policyNames;
+    private Integer                        usersCount;
+    private List<String>                   policyNames;
 
-    public ApiOrganizationUserGroups() {
+    public UserGroups() {
         isSet = new HashSet<>();
     }
 
@@ -89,6 +86,53 @@ public class ApiOrganizationUserGroups implements IPartialUpdateEntity {
         this.policyNames = policyNames;
     }
 
+    public static class Builder {
+        private UserGroups groupDetails;
+
+        private Builder() {
+            this.groupDetails = new UserGroups();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setId(final String id) {
+            groupDetails.setId(id);
+            return this;
+        }
+
+        public Builder setName(final String name) {
+            groupDetails.setName(name);
+            return this;
+        }
+
+        public Builder setDescription(final String description) {
+            groupDetails.setDescription(description);
+            return this;
+        }
+
+        public Builder setCreatedAt(final String createdAt) {
+            groupDetails.setCreatedAt(createdAt);
+            return this;
+        }
+
+        public Builder setUsersCount(final Integer usersCount) {
+            groupDetails.setUsersCount(usersCount);
+            return this;
+        }
+
+        public Builder setPolicyNames(final List<String > policies) {
+            groupDetails.setPolicyNames(policies);
+            return this;
+        }
+
+        public UserGroups build() {
+            return groupDetails;
+        }
+    }
+
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");
@@ -118,5 +162,4 @@ public class ApiOrganizationUserGroups implements IPartialUpdateEntity {
     public boolean isPolicyNamesSet() {
         return isSet.contains("policyNames");
     }
-
 }
