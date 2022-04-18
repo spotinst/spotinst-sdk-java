@@ -8,56 +8,62 @@ import com.spotinst.sdkjava.enums.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.SpotAwsManagedInstanceClient;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AwsManagedInstanceUsageExample {
 
-    private final static String       auth_token     = "auth-token";
-    private final static String       act_id         = "act-id";
+    private final static String       auth_token     = "63994d85163a245b634e07cca045cec80f16eb7ea6db959ca29c211e946530ba";
+    private final static String       act_id         = "act-b116740d";
     private final static String       image_id       = "ami-082b5a644766e0e6f";
     private final static List<String> subnetIds      = Arrays.asList("subnet-4333093a");
     private final static List<String> securityGroups = Arrays.asList("sg-0b44a6d6f3e286608");
     private final static List<String> types          = Arrays.asList("t3.nano", "t3a.nano");
     private final static List<String> timeWindows    = Arrays.asList("Mon:12:00-Tue:12:00", "Fri:12:00-Sat:12:00");
+    private final static String       region         = "us-west-2";
 
     public static void main(String[] args) {
         SpotAwsManagedInstanceClient managedInstanceClient = SpotinstClient.getManagedInstanceClient(auth_token, act_id);
 
-        System.out.println("----------Creation of ManagedInstance--------------");
-        String managedInstanceId = createManagedInstance(managedInstanceClient);
+//        System.out.println("----------Creation of ManagedInstance--------------");
+//        String managedInstanceId = createManagedInstance(managedInstanceClient);
+//
+//        System.out.println("----------Updation of ManagedInstance--------------");
+//        updateManagedInstanceName(managedInstanceClient, managedInstanceId);
+//        updateManagedInstance(managedInstanceClient, managedInstanceId);
+//
+//        System.out.println("----------Get managedInstances--------------");
+//        ManagedInstance managedInstance = getManagedInstance(managedInstanceClient,managedInstanceId);
+//         //Convert managedInstance response to json
+//        System.out.println(JsonMapper.toJson(managedInstance));
+//
+//        System.out.println("----------List of ManagedInstance--------------");
+//        List<ManagedInstance> allManagedInstances = listManagedInstance(managedInstanceClient);
+//
+//            for (ManagedInstance myManagedInstance : allManagedInstances) {
+//                System.out.println(String.format("ManagedInstance Id: %s, ManagedInstance Name: %s",
+//                        myManagedInstance.getId(), myManagedInstance.getName()));
+//        }
+//
+//        System.out.println("----------Deletion of ManagedInstance--------------");
+//        deleteManagedInstance(managedInstanceClient, managedInstanceId);
+//
+//        System.out.println("----------Pausing ManagedInstance--------------");
+//        pauseManagedInstance(managedInstanceClient, managedInstanceId);
+//
+//        System.out.println("----------Resuming ManagedInstance--------------");
+//        resumeManagedInstance(managedInstanceClient, managedInstanceId);
+//
+//        System.out.println("----------Recycling ManagedInstance--------------");
+//        recycleManagedInstance(managedInstanceClient, managedInstanceId);
 
-        System.out.println("----------Updation of ManagedInstance--------------");
-        updateManagedInstanceName(managedInstanceClient, managedInstanceId);
-        updateManagedInstance(managedInstanceClient, managedInstanceId);
-
-        System.out.println("----------Get managedInstances--------------");
-        ManagedInstance managedInstance = getManagedInstance(managedInstanceClient,managedInstanceId);
-         //Convert managedInstance response to json
-        System.out.println(JsonMapper.toJson(managedInstance));
-
-        System.out.println("----------List of ManagedInstance--------------");
-        List<ManagedInstance> allManagedInstances = listManagedInstance(managedInstanceClient);
-
-            for (ManagedInstance myManagedInstance : allManagedInstances) {
-                System.out.println(String.format("ManagedInstance Id: %s, ManagedInstance Name: %s",
-                        myManagedInstance.getId(), myManagedInstance.getName()));
-        }
-
-        System.out.println("----------Deletion of ManagedInstance--------------");
-        deleteManagedInstance(managedInstanceClient, managedInstanceId);
-
-        System.out.println("----------Pausing ManagedInstance--------------");
-        pauseManagedInstance(managedInstanceClient, managedInstanceId);
-
-        System.out.println("----------Resuming ManagedInstance--------------");
-        resumeManagedInstance(managedInstanceClient, managedInstanceId);
-
-        System.out.println("----------Recycling ManagedInstance--------------");
-        recycleManagedInstance(managedInstanceClient, managedInstanceId);
+        System.out.println("----------Importing ManagedInstance--------------");
+        String migrationId = importManagedInstance(managedInstanceClient, "i-0ae98d822a16c17e0");
     }
 
     private static String createManagedInstance(SpotAwsManagedInstanceClient client) {
@@ -441,5 +447,29 @@ public class AwsManagedInstanceUsageExample {
             System.out.println(String.format("ManagedInstance deleted successfully : %s", managedInstanceId));
         }
         return isManagedInstanceDeleted;
+    }
+
+    private static String importManagedInstance(SpotAwsManagedInstanceClient client, String instanceId) {
+
+        //Build spotInstanceTypes
+        List<String> spotInstanceTypes = Arrays.asList("t3.nano","t3a.nano");
+
+        Import importManagedInstance = Import.Builder.get().setManagedInstanceName("Automation_SDK_Imported_ManagedInstance").setOriginalInstanceId(instanceId)
+                                        .setShouldKeepPrivateIp(false).setRegion(region).setProduct("Linux/UNIX").setSpotInstanceTypes(spotInstanceTypes).build();
+
+        AwsManagedInstanceImportRequest.Builder importRequestBuilder = AwsManagedInstanceImportRequest.Builder.get();
+
+        AwsManagedInstanceImportRequest importRequest = importRequestBuilder.setImportInstance(importManagedInstance).build();
+
+        // Convert managed instance import request to API object json
+        System.out.println(importRequest.toJson());
+
+        // Create managed instance
+        ImportResponse importedManagedInstance = client.importManagedInstance(importRequest);
+        String                     migrationId      = importedManagedInstance.getMigrationId();
+
+        System.out.println(String.format("ManagedInstance successfully imported: %s", migrationId));
+
+        return migrationId;
     }
 }

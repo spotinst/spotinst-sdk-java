@@ -3,8 +3,11 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.Import;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.ImportResponse;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -229,5 +232,28 @@ public class SpotAwsManagedInstanceClient {
         }
 
         return status;
+    }
+
+    public ImportResponse importManagedInstance(AwsManagedInstanceImportRequest managedInstanceImportRequest) {
+        ImportResponse isImported;
+
+        Import managedInstanceToImport = managedInstanceImportRequest.getImportInstance();
+
+        RepoGenericResponse<ImportResponse>importResponse =
+                getSpotManagedInstanceRepo().importInstance(managedInstanceToImport, authToken, account);
+
+        if (importResponse.isRequestSucceed()) {
+            isImported = importResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isImported;
     }
 }

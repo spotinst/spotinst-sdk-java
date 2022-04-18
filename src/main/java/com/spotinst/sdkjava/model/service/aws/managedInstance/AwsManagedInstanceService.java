@@ -5,10 +5,13 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiGetStatus;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImport;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImportResponse;
 import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiManagedInstance;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiGetStatusResponse;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiResponse;
+import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceImportApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -378,4 +381,45 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
 
         return getStatus;
     }
+    public static ApiImportResponse importManagedInstance(ApiImport managedInstanceToImport,
+                                                          String authToken, String account) throws SpotinstHttpException {
+        // Init isImported
+        ApiImportResponse isImported = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiImport> managedInstanceImportRequest = new HashMap<>();
+        managedInstanceImportRequest.put("migration", managedInstanceToImport);
+        String body = JsonMapper.toJson(managedInstanceImportRequest);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/migration", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        AwsManagedInstanceImportApiResponse managedInstanceImportResponse =
+                getCastedResponse(response, AwsManagedInstanceImportApiResponse.class);
+
+        if (managedInstanceImportResponse.getResponse().getCount() > 0) {
+            isImported = managedInstanceImportResponse.getResponse().getItems().get(0);
+        }
+
+        return isImported;
+    }
+
 }

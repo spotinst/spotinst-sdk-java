@@ -67,6 +67,46 @@ public class AwsManagedInstanceConverter {
         return retVal;
     }
 
+
+    public static ApiImport toDal(Import importManagedInstance) {
+        ApiImport retVal = null;
+
+        if (importManagedInstance != null) {
+            retVal = new ApiImport();
+
+            if (importManagedInstance.isManagedInstanceNameSet()) {
+                retVal.setManagedInstanceName(importManagedInstance.getManagedInstanceName());
+            }
+
+            if (importManagedInstance.isRegionSet()) {
+                retVal.setRegion(importManagedInstance.getRegion());
+            }
+
+            if (importManagedInstance.isOriginalInstanceIdSet()) {
+                retVal.setOriginalInstanceId(importManagedInstance.getOriginalInstanceId());
+            }
+
+            if (importManagedInstance.isProductSet()) {
+                retVal.setProduct(importManagedInstance.getProduct());
+            }
+
+            if (importManagedInstance.isShouldKeepPrivateIpSet()) {
+                retVal.setShouldKeepPrivateIp(importManagedInstance.getShouldKeepPrivateIp());
+            }
+
+            if (importManagedInstance.isShouldTerminateInstanceSet()) {
+                retVal.setShouldTerminateInstance(importManagedInstance.getShouldTerminateInstance());
+            }
+
+            if (importManagedInstance.isSpotInstanceTypesSet()) {
+                retVal.setSpotInstanceTypes(importManagedInstance.getSpotInstanceTypes());
+            }
+
+
+        }
+        return retVal;
+    }
+
     public static ApiAmiBackup toDal(AmiBackup amiBackup) {
         ApiAmiBackup retVal = null;
 
@@ -728,6 +768,52 @@ public class AwsManagedInstanceConverter {
         return retVal;
     }
 
+    private static ApiImportResponse toDal(ImportResponse getImportStatus) {
+        ApiImportResponse retVal = null;
+
+        if (getImportStatus != null) {
+            retVal = new ApiImportResponse();
+
+            if (getImportStatus.isMigrationIdSet()) {
+                retVal.setMigrationId(getImportStatus.getMigrationId());
+            }
+
+            if (getImportStatus.isManagedInstanceIdSet()) {
+                retVal.setManagedInstanceId(getImportStatus.getManagedInstanceId());
+            }
+
+            if (getImportStatus.isDatSet()) {
+                 ApiImportDataResponse dataResponse = toDal(getImportStatus.getData());
+                 retVal.setData(dataResponse);
+            }
+
+            if (getImportStatus.isStateSet()) {
+                retVal.setState(getImportStatus.getState());
+            }
+
+        }
+        return retVal;
+    }
+
+
+    private static ApiImportDataResponse toDal(ImportDataResponse getImportData) {
+        ApiImportDataResponse retVal = null;
+
+        if (getImportData != null) {
+            retVal = new ApiImportDataResponse();
+
+            if (getImportData.isOriginalInstanceIdSet()) {
+                retVal.setOriginalInstanceId(getImportData.getOriginalInstanceId());
+            }
+
+            if (getImportData.isShouldKeepPrivateIpSet()) {
+                retVal.setShouldKeepPrivateIp(getImportData.getShouldKeepPrivateIp());
+            }
+
+        }
+        return retVal;
+    }
+
     //region DAL ->
     public static ManagedInstance toBl(ApiManagedInstance managedInstance) {
         ManagedInstance retVal = null;
@@ -779,6 +865,47 @@ public class AwsManagedInstanceConverter {
         }
         return retVal;
     }
+
+    public static Import toBl(ApiImport apiImport) {
+        Import retVal = null;
+
+        if (apiImport != null) {
+            Import.Builder importBuilder = Import.Builder.get();
+
+            if (apiImport.isManagedInstanceNameSet()) {
+                importBuilder.setManagedInstanceName(apiImport.getManagedInstanceName());
+            }
+
+            if (apiImport.isRegionSet()) {
+                importBuilder.setRegion(apiImport.getRegion());
+            }
+
+            if (apiImport.isOriginalInstanceIdSet()) {
+                importBuilder.setOriginalInstanceId(apiImport.getOriginalInstanceId());
+            }
+
+            if (apiImport.isProductSet()) {
+                importBuilder.setProduct(apiImport.getProduct());
+            }
+
+            if (apiImport.isShouldKeepPrivateIpSet()) {
+                importBuilder.setShouldKeepPrivateIp(apiImport.getShouldKeepPrivateIp());
+            }
+
+            if (apiImport.isShouldTerminateInstanceSet()) {
+                importBuilder.setShouldTerminateInstance(apiImport.getShouldTerminateInstance());
+            }
+
+            if (apiImport.isSpotInstanceTypesSet()) {
+                importBuilder.setSpotInstanceTypes(apiImport.getSpotInstanceTypes());
+            }
+
+            retVal = importBuilder.build();
+        }
+        return retVal;
+    }
+
+
 
     public static AmiBackup toBl(ApiAmiBackup amiBackup) {
         AmiBackup retVal = null;
@@ -1464,4 +1591,54 @@ public class AwsManagedInstanceConverter {
 
         return retVal;
     }
+
+    public static ImportResponse toBl(ApiImportResponse getStatus) {
+        ImportResponse retVal = null;
+
+        if (getStatus != null) {
+            ImportResponse.Builder getStatusBuilder = ImportResponse.Builder.get();
+
+            if (getStatus.isMigrationIdSet()) {
+                getStatusBuilder.setMigrationId(getStatus.getMigrationId());
+            }
+
+            if (getStatus.isManagedInstanceIdSet()) {
+                getStatusBuilder.setManagedInstanceId(getStatus.getManagedInstanceId());
+            }
+
+            if (getStatus.isDataSet()) {
+                getStatusBuilder.setData(toBl(getStatus.getData()));
+            }
+
+            if (getStatus.isStateSet()) {
+                getStatusBuilder.setState(getStatus.getState());
+            }
+
+            retVal = getStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+
+    public static ImportDataResponse toBl(ApiImportDataResponse getStatus) {
+        ImportDataResponse retVal = null;
+
+        if (getStatus != null) {
+            ImportDataResponse.Builder getStatusBuilder = ImportDataResponse.Builder.get();
+
+            if (getStatus.isOriginalInstanceIdSet()) {
+                getStatusBuilder.setOriginalInstanceId(getStatus.getOriginalInstanceId());
+            }
+
+            if (getStatus.isShouldKeepPrivateIpSet()) {
+                getStatusBuilder.setShouldKeepPrivateIp(getStatus.getShouldKeepPrivateIp());
+            }
+
+            retVal = getStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
 }
