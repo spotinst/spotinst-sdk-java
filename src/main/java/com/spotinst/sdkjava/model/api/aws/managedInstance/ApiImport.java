@@ -10,21 +10,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiImport implements IPartialUpdateEntity  {
 
     @JsonIgnore
-    private Set<String>  isSet;
-    private String       managedInstanceName;
-    private String       originalInstanceId;
-    private String       product;
-    private String       region;
-    private Boolean      shouldKeepPrivateIp;
-    private Boolean      shouldTerminateInstance;
-    private List<String> spotInstanceTypes;
+    private Set<String>                      isSet;
+    private String                           managedInstanceName;
+    private String                           originalInstanceId;
+    private String                           product;
+    private String                           region;
+    private Boolean                          shouldKeepPrivateIp;
+    private Boolean                          shouldTerminateInstance;
+    private List<String>                     spotInstanceTypes;
+    private List<ApiImportAvailabilityZones> availabilityZones;
 
     public ApiImport() {
         isSet = new HashSet<>();
@@ -79,6 +79,7 @@ public class ApiImport implements IPartialUpdateEntity  {
     }
 
     public void setShouldKeepPrivateIp(Boolean shouldKeepPrivateIp) {
+        isSet.add("shouldKeepPrivateIp");
         this.shouldKeepPrivateIp = shouldKeepPrivateIp;
     }
 
@@ -87,6 +88,7 @@ public class ApiImport implements IPartialUpdateEntity  {
     }
 
     public void setShouldTerminateInstance(Boolean shouldTerminateInstance) {
+        isSet.add("shouldTerminateInstance");
         this.shouldTerminateInstance = shouldTerminateInstance;
     }
 
@@ -95,9 +97,18 @@ public class ApiImport implements IPartialUpdateEntity  {
     }
 
     public void setSpotInstanceTypes(List<String> spotInstanceTypes) {
+        isSet.add("spotInstanceTypes");
         this.spotInstanceTypes = spotInstanceTypes;
     }
 
+    public List<ApiImportAvailabilityZones> getAvailabilityZones() {
+        return availabilityZones;
+    }
+
+    public void setAvailabilityZones(List<ApiImportAvailabilityZones> availabilityZones) {
+        isSet.add("availabilityZones");
+        this.availabilityZones = availabilityZones;
+    }
 
     @JsonIgnore
     public boolean isManagedInstanceNameSet() {
@@ -134,4 +145,8 @@ public class ApiImport implements IPartialUpdateEntity  {
         return isSet.contains("spotInstanceTypes");
     }
 
+    @JsonIgnore
+    public boolean isAvailabilityZonesSet() {
+        return isSet.contains("availabilityZones");
+    }
 }

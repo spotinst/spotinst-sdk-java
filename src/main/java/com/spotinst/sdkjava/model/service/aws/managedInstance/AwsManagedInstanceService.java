@@ -4,13 +4,11 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiGetStatus;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImport;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImportResponse;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiManagedInstance;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiGetStatusResponse;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiResponse;
+import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceGetMigrationStatusApiRespponse;
 import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceImportApiResponse;
 import org.apache.http.HttpStatus;
 
@@ -21,14 +19,14 @@ import java.util.Map;
 
 public class AwsManagedInstanceService extends BaseSpotinstService {
 
-    public static ApiManagedInstance createManagedInstance (ApiManagedInstance managedInstanceToCreate,
-                                                            String authToken, String account) throws SpotinstHttpException {
+    public static ApiManagedInstance createManagedInstance(ApiManagedInstance managedInstanceToCreate, String authToken,
+                                                           String account) throws SpotinstHttpException {
         // Init isCreated
         ApiManagedInstance isCreated = null;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<>();
 
@@ -62,8 +60,8 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return isCreated;
     }
 
-    public static Boolean updateManagedInstance(String managedInstanceId, ApiManagedInstance managedInstanceToUpdate, String authToken,
-                                                String account) throws SpotinstHttpException {
+    public static Boolean updateManagedInstance(String managedInstanceId, ApiManagedInstance managedInstanceToUpdate,
+                                                String authToken, String account) throws SpotinstHttpException {
         // Init isUpdated
         Boolean isUpdated = false;
 
@@ -224,8 +222,7 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return isDeleted;
     }
 
-    public static Boolean pauseManagedInstance(String managedInstanceId, String authToken,
-                                                String account) throws SpotinstHttpException {
+    public static Boolean pauseManagedInstance(String managedInstanceId, String authToken, String account) throws SpotinstHttpException {
         // Init isPaused
         Boolean isPaused = false;
 
@@ -263,8 +260,7 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return isPaused;
     }
 
-    public static Boolean resumeManagedInstance(String managedInstanceId, String authToken,
-                                               String account) throws SpotinstHttpException {
+    public static Boolean resumeManagedInstance(String managedInstanceId, String authToken, String account) throws SpotinstHttpException {
         // Init isResumed
         Boolean isResumed = false;
 
@@ -302,8 +298,7 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return isResumed;
     }
 
-    public static Boolean recycleManagedInstance(String managedInstanceId, String authToken,
-                                                  String account) throws SpotinstHttpException {
+    public static Boolean recycleManagedInstance(String managedInstanceId, String authToken, String account) throws SpotinstHttpException {
         // Init isrecycled
         Boolean isrecycled = false;
 
@@ -381,14 +376,14 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
 
         return getStatus;
     }
-    public static ApiImportResponse importManagedInstance(ApiImport managedInstanceToImport,
-                                                          String authToken, String account) throws SpotinstHttpException {
+
+    public static ApiImportResponse importManagedInstance(ApiImport managedInstanceToImport, String authToken, String account) throws SpotinstHttpException {
         // Init isImported
         ApiImportResponse isImported = null;
 
         // Get endpoint
-        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
-        String apiEndpoint = config.getEndpoint();
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
 
         Map<String, String> queryParams = new HashMap<>();
 
@@ -422,4 +417,44 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return isImported;
     }
 
+    public static ApiGetMigrationStatus getManagedInstanceMigrationStatus(String managedInstanceId, String authToken,
+                                                                          String account) throws SpotinstHttpException {
+        // Init status
+        ApiGetMigrationStatus getMigrationStatus = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add managedInstanceId Query param
+        if (managedInstanceId != null) {
+            queryParams.put("MI_ID", managedInstanceId);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/migration/%s", apiEndpoint, managedInstanceId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        AwsManagedInstanceGetMigrationStatusApiRespponse managedInstanceStatusResponse =
+                getCastedResponse(response, AwsManagedInstanceGetMigrationStatusApiRespponse.class);
+
+        if (managedInstanceStatusResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            getMigrationStatus = managedInstanceStatusResponse.getResponse().getItems().get(0);
+        }
+
+        return getMigrationStatus;
+    }
 }

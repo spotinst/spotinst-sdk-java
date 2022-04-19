@@ -14,14 +14,15 @@ import java.util.Set;
 public class Import {
 
     @JsonIgnore
-    private Set<String>  isSet;
-    private String       managedInstanceName;
-    private String       originalInstanceId;
-    private String       product;
-    private String       region;
-    private Boolean      shouldKeepPrivateIp;
-    private Boolean      shouldTerminateInstance;
-    private List<String> spotInstanceTypes;
+    private Set<String>                   isSet;
+    private String                        managedInstanceName;
+    private String                        originalInstanceId;
+    private String                        product;
+    private String                        region;
+    private Boolean                       shouldKeepPrivateIp;
+    private Boolean                       shouldTerminateInstance;
+    private List<String>                  spotInstanceTypes;
+    private List<ImportAvailabilityZones> availabilityZones;
 
     private Import() {
         isSet = new HashSet<>();
@@ -98,6 +99,15 @@ public class Import {
         this.spotInstanceTypes = spotInstanceTypes;
     }
 
+    public List<ImportAvailabilityZones> getAvailabilityZones() {
+        return availabilityZones;
+    }
+
+    public void setAvailabilityZones(List<ImportAvailabilityZones> availabilityZones) {
+        isSet.add("availabilityZones");
+        this.availabilityZones = availabilityZones;
+    }
+
     public static class Builder {
         private Import importBuilder;
 
@@ -144,6 +154,12 @@ public class Import {
             return this;
         }
 
+        public Builder setAvailabilityZones(final List<ImportAvailabilityZones> availabilityZones) {
+            importBuilder.setAvailabilityZones(availabilityZones);
+            return this;
+        }
+
+
         public Import build() {
             return importBuilder;
         }
@@ -182,6 +198,11 @@ public class Import {
     @JsonIgnore
     public boolean isSpotInstanceTypesSet() {
         return isSet.contains("spotInstanceTypes");
+    }
+
+    @JsonIgnore
+    public boolean isAvailabilityZonesSet() {
+        return isSet.contains("availabilityZones");
     }
 
 }

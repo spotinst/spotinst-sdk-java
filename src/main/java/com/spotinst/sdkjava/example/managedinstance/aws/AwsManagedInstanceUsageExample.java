@@ -18,8 +18,8 @@ import java.util.*;
 
 public class AwsManagedInstanceUsageExample {
 
-    private final static String       auth_token     = "63994d85163a245b634e07cca045cec80f16eb7ea6db959ca29c211e946530ba";
-    private final static String       act_id         = "act-b116740d";
+    private final static String       auth_token     = "auth-token";
+    private final static String       act_id         = "act-id";
     private final static String       image_id       = "ami-082b5a644766e0e6f";
     private final static List<String> subnetIds      = Arrays.asList("subnet-4333093a");
     private final static List<String> securityGroups = Arrays.asList("sg-0b44a6d6f3e286608");
@@ -30,40 +30,44 @@ public class AwsManagedInstanceUsageExample {
     public static void main(String[] args) {
         SpotAwsManagedInstanceClient managedInstanceClient = SpotinstClient.getManagedInstanceClient(auth_token, act_id);
 
-//        System.out.println("----------Creation of ManagedInstance--------------");
-//        String managedInstanceId = createManagedInstance(managedInstanceClient);
-//
-//        System.out.println("----------Updation of ManagedInstance--------------");
-//        updateManagedInstanceName(managedInstanceClient, managedInstanceId);
-//        updateManagedInstance(managedInstanceClient, managedInstanceId);
-//
-//        System.out.println("----------Get managedInstances--------------");
-//        ManagedInstance managedInstance = getManagedInstance(managedInstanceClient,managedInstanceId);
-//         //Convert managedInstance response to json
-//        System.out.println(JsonMapper.toJson(managedInstance));
-//
-//        System.out.println("----------List of ManagedInstance--------------");
-//        List<ManagedInstance> allManagedInstances = listManagedInstance(managedInstanceClient);
-//
-//            for (ManagedInstance myManagedInstance : allManagedInstances) {
-//                System.out.println(String.format("ManagedInstance Id: %s, ManagedInstance Name: %s",
-//                        myManagedInstance.getId(), myManagedInstance.getName()));
-//        }
-//
-//        System.out.println("----------Deletion of ManagedInstance--------------");
-//        deleteManagedInstance(managedInstanceClient, managedInstanceId);
-//
-//        System.out.println("----------Pausing ManagedInstance--------------");
-//        pauseManagedInstance(managedInstanceClient, managedInstanceId);
-//
-//        System.out.println("----------Resuming ManagedInstance--------------");
-//        resumeManagedInstance(managedInstanceClient, managedInstanceId);
-//
-//        System.out.println("----------Recycling ManagedInstance--------------");
-//        recycleManagedInstance(managedInstanceClient, managedInstanceId);
+        System.out.println("----------Creation of ManagedInstance--------------");
+        String managedInstanceId = createManagedInstance(managedInstanceClient);
+
+        System.out.println("----------Updation of ManagedInstance--------------");
+        updateManagedInstanceName(managedInstanceClient, managedInstanceId);
+        updateManagedInstance(managedInstanceClient, managedInstanceId);
+
+        System.out.println("----------Get managedInstances--------------");
+        ManagedInstance managedInstance = getManagedInstance(managedInstanceClient,managedInstanceId);
+         //Convert managedInstance response to json
+        System.out.println(JsonMapper.toJson(managedInstance));
+
+        System.out.println("----------List of ManagedInstance--------------");
+        List<ManagedInstance> allManagedInstances = listManagedInstance(managedInstanceClient);
+
+            for (ManagedInstance myManagedInstance : allManagedInstances) {
+                System.out.println(String.format("ManagedInstance Id: %s, ManagedInstance Name: %s",
+                        myManagedInstance.getId(), myManagedInstance.getName()));
+        }
+
+        System.out.println("----------Deletion of ManagedInstance--------------");
+        deleteManagedInstance(managedInstanceClient, managedInstanceId);
+
+        System.out.println("----------Pausing ManagedInstance--------------");
+        pauseManagedInstance(managedInstanceClient, managedInstanceId);
+
+        System.out.println("----------Resuming ManagedInstance--------------");
+        resumeManagedInstance(managedInstanceClient, managedInstanceId);
+
+        System.out.println("----------Recycling ManagedInstance--------------");
+        recycleManagedInstance(managedInstanceClient, managedInstanceId);
 
         System.out.println("----------Importing ManagedInstance--------------");
-        String migrationId = importManagedInstance(managedInstanceClient, "i-0ae98d822a16c17e0");
+        String migrationId = importManagedInstance(managedInstanceClient, "i-0d23b3e420e1421f0");
+
+        System.out.println("----------Get Status of Imported ManagedInstance--------------");
+        getInstanceMigrationStatus(managedInstanceClient, migrationId);
+
     }
 
     private static String createManagedInstance(SpotAwsManagedInstanceClient client) {
@@ -451,11 +455,18 @@ public class AwsManagedInstanceUsageExample {
 
     private static String importManagedInstance(SpotAwsManagedInstanceClient client, String instanceId) {
 
-        //Build spotInstanceTypes
-        List<String> spotInstanceTypes = Arrays.asList("t3.nano","t3a.nano");
+        //Build AvailabilityZones with Subnets
+        List<String> subnetIds = Arrays.asList("subnet-4333093a","subnet-42f1e418");
 
-        Import importManagedInstance = Import.Builder.get().setManagedInstanceName("Automation_SDK_Imported_ManagedInstance").setOriginalInstanceId(instanceId)
-                                        .setShouldKeepPrivateIp(false).setRegion(region).setProduct("Linux/UNIX").setSpotInstanceTypes(spotInstanceTypes).build();
+        ImportAvailabilityZones availabilityZones = ImportAvailabilityZones.Builder.get().setName("us-west-2a").setSubnetIds(subnetIds).build();
+        List<ImportAvailabilityZones> availabilityZonesList = Collections.singletonList(availabilityZones);
+
+        //Build spotInstanceTypes
+        List<String> spotInstanceTypes = Arrays.asList("t2.medium","t3.medium","t3a.medium","t2.small","t2.micro","t3.small","t3.micro");
+
+        Import importManagedInstance = Import.Builder.get().setManagedInstanceName("Automation_SDK_Imported_ManagedInstance").setOriginalInstanceId(instanceId).setRegion(region)
+                                                     .setProduct("Linux/UNIX").setShouldKeepPrivateIp(false).setSpotInstanceTypes(spotInstanceTypes).setShouldTerminateInstance(false)
+                                                     .setAvailabilityZones(availabilityZonesList).build();
 
         AwsManagedInstanceImportRequest.Builder importRequestBuilder = AwsManagedInstanceImportRequest.Builder.get();
 
@@ -472,4 +483,16 @@ public class AwsManagedInstanceUsageExample {
 
         return migrationId;
     }
+
+    private static String getInstanceMigrationStatus(SpotAwsManagedInstanceClient client, String migrationInstanceId) {
+
+        GetMigrationStatus migrationStatusResponse = client.getManagedInstanceMigrationStatus(migrationInstanceId);
+        String             managedInstanceId       = migrationStatusResponse.getManagedInstanceId();
+        String             migrationState          = migrationStatusResponse.getState();
+
+        System.out.println(String.format("ManagedInstance %s is imported successfully and migration State is : %s", managedInstanceId, migrationState));
+
+        return migrationState;
+    }
+
 }

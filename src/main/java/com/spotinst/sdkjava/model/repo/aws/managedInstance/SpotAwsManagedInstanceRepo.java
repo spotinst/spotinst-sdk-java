@@ -4,14 +4,8 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiGetStatus;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImport;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiImportResponse;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiManagedInstance;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.Import;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.ImportResponse;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.*;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.converters.aws.managedInstance.AwsManagedInstanceConverter;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.service.aws.managedInstance.AwsManagedInstanceService;
@@ -195,5 +189,24 @@ public class SpotAwsManagedInstanceRepo implements ISpotAwsManagedInstanceRepo {
 
         return importResponse;
     }
+
+    @Override
+    public RepoGenericResponse<GetMigrationStatus> getMigrationStatus(String migrationId, String authToken, String account) {
+        RepoGenericResponse<GetMigrationStatus> migrationStatus;
+
+        try {
+            ApiGetMigrationStatus apiGetManagedInstanceMigrationStatus = AwsManagedInstanceService
+                    .getManagedInstanceMigrationStatus(migrationId, authToken, account);
+            GetMigrationStatus getManagedInstanceMigrationStatus = AwsManagedInstanceConverter.toBl(apiGetManagedInstanceMigrationStatus);
+            migrationStatus = new RepoGenericResponse<>(getManagedInstanceMigrationStatus);
+        }
+
+        catch (SpotinstHttpException ex) {
+            migrationStatus = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return migrationStatus;
+    }
+
 
 }

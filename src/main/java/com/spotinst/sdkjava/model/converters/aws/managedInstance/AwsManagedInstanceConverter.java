@@ -102,6 +102,29 @@ public class AwsManagedInstanceConverter {
                 retVal.setSpotInstanceTypes(importManagedInstance.getSpotInstanceTypes());
             }
 
+            if(importManagedInstance.isAvailabilityZonesSet()){
+                List<ApiImportAvailabilityZones> availabilityZones = importManagedInstance.getAvailabilityZones().stream().map(AwsManagedInstanceConverter::toDal)
+                                                 .collect(Collectors.toList());
+                retVal.setAvailabilityZones(availabilityZones);
+            }
+
+        }
+        return retVal;
+    }
+
+    public static ApiImportAvailabilityZones toDal(ImportAvailabilityZones importAvailabilityZones) {
+        ApiImportAvailabilityZones retVal = null;
+
+        if (importAvailabilityZones != null) {
+            retVal = new ApiImportAvailabilityZones();
+
+            if (importAvailabilityZones.isNameSet()) {
+                retVal.setName(importAvailabilityZones.getName());
+            }
+
+            if(importAvailabilityZones.isSubnetIdsSet()){
+                retVal.setSubnetIds(importAvailabilityZones.getSubnetIds());
+            }
 
         }
         return retVal;
@@ -900,12 +923,35 @@ public class AwsManagedInstanceConverter {
                 importBuilder.setSpotInstanceTypes(apiImport.getSpotInstanceTypes());
             }
 
+            if (apiImport.isAvailabilityZonesSet()) {
+                List<ImportAvailabilityZones> availabilityZones =  apiImport.getAvailabilityZones().stream().map(AwsManagedInstanceConverter::toBl)
+                             .collect(Collectors.toList());
+                importBuilder.setAvailabilityZones(availabilityZones);
+            }
+
             retVal = importBuilder.build();
         }
         return retVal;
     }
 
+    public static ImportAvailabilityZones toBl(ApiImportAvailabilityZones amiBackup) {
+        ImportAvailabilityZones retVal = null;
 
+        if (amiBackup != null) {
+            ImportAvailabilityZones.Builder amiBackupBuilder = ImportAvailabilityZones.Builder.get();
+
+            if (amiBackup.isNameSet()) {
+                amiBackupBuilder.setName(amiBackup.getName());
+            }
+
+            if (amiBackup.isSubnetIdsSet()) {
+                amiBackupBuilder.setSubnetIds(amiBackup.getSubnetIds());
+            }
+
+            retVal = amiBackupBuilder.build();
+        }
+        return retVal;
+    }
 
     public static AmiBackup toBl(ApiAmiBackup amiBackup) {
         AmiBackup retVal = null;
@@ -1612,6 +1658,38 @@ public class AwsManagedInstanceConverter {
 
             if (getStatus.isStateSet()) {
                 getStatusBuilder.setState(getStatus.getState());
+            }
+
+            retVal = getStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static GetMigrationStatus toBl(ApiGetMigrationStatus getMigrationStatus) {
+        GetMigrationStatus retVal = null;
+
+        if (getMigrationStatus != null) {
+            GetMigrationStatus.Builder getStatusBuilder = GetMigrationStatus.Builder.get();
+
+            if (getMigrationStatus.isMigrationIdSet()) {
+                getStatusBuilder.setMigrationId(getMigrationStatus.getMigrationId());
+            }
+
+            if (getMigrationStatus.isManagedInstanceIdSet()) {
+                getStatusBuilder.setManagedInstanceId(getMigrationStatus.getManagedInstanceId());
+            }
+
+            if (getMigrationStatus.isStateSet()) {
+                getStatusBuilder.setState(getMigrationStatus.getState());
+            }
+
+            if (getMigrationStatus.isInstanceIdSet()) {
+                getStatusBuilder.setInstanceId(getMigrationStatus.getInstanceId());
+            }
+
+            if (getMigrationStatus.isStateDescriptionSet()) {
+                getStatusBuilder.setStateDescription(getMigrationStatus.getStateDescription());
             }
 
             retVal = getStatusBuilder.build();
