@@ -13,6 +13,7 @@ public class AwsManagedInstanceImportRequest {
 
     @JsonProperty("migration")
     private Import     importInstance;
+    private String     migrationId;
 
     private AwsManagedInstanceImportRequest() {
     }
@@ -21,6 +22,13 @@ public class AwsManagedInstanceImportRequest {
 
     public void setImportInstance(Import importInstance) { this.importInstance = importInstance; }
 
+    public String getMigrationId() {
+        return migrationId;
+    }
+
+    public void setMigrationId(String migrationId) {
+        this.migrationId = migrationId;
+    }
 
     public static class Builder {
         private AwsManagedInstanceImportRequest awsManagedInstanceImportRequest;
@@ -35,6 +43,11 @@ public class AwsManagedInstanceImportRequest {
 
         public Builder setImportInstance(final Import importInstance) {
             awsManagedInstanceImportRequest.setImportInstance(importInstance);
+            return this;
+        }
+
+        public Builder setMigrationId(final String migrationId) {
+            awsManagedInstanceImportRequest.setMigrationId(migrationId);
             return this;
         }
 
