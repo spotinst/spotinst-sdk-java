@@ -5,8 +5,12 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeAttachDataDiskConfiguration;
+import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeDetachDataDiskConfiguration;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeLogsResponse;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateChangeRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeAttachDataDiskRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDetachDataDiskRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
 import com.spotinst.sdkjava.model.responses.azure.statefulNode.*;
 import org.apache.http.HttpStatus;
@@ -455,6 +459,112 @@ public class SpotinstAzureStatefulNodeService extends BaseSpotinstService {
 
         if (getNodeResourcesResponse.getResponse().getCount() > 0) {
             retVal = getNodeResourcesResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static List<ApiStatefulNodeGetStatusResponse> getAllNodeStatus(String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiStatefulNodeGetStatusResponse> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/status", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        StatefulNodeApiGetStatusResponse nodeStatusApiResponse = getCastedResponse(response, StatefulNodeApiGetStatusResponse.class);
+
+        if (nodeStatusApiResponse.getResponse().getItems().size() > 0) {
+            retVal = nodeStatusApiResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static ApiStatefulNodeAttachDataDiskResponse attachDataDisk(ApiStatefulNodeAttachDataDiskConfiguration attachDataDisk, String nodeId , String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiStatefulNodeAttachDataDiskResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        String body = JsonMapper.toJson(attachDataDisk);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/%s/dataDisk/attach", apiEndpoint, nodeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        //Handle the response
+        StatefulNodeAttachDataDiskApiResponse attachDiskApiResponse =
+                getCastedResponse(response, StatefulNodeAttachDataDiskApiResponse.class);
+
+        if (attachDiskApiResponse.getResponse().getCount() > 0) {
+            retVal = attachDiskApiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static Boolean detachDataDisk(ApiStatefulNodeDetachDataDiskConfiguration detachDataDisk, String nodeId , String authToken, String account) throws SpotinstHttpException {
+        // Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<String, String>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        String body = JsonMapper.toJson(detachDataDisk);
+
+        // Build URI
+        String uri = String.format("%s/azure/compute/statefulNode/%s/dataDisk/detach", apiEndpoint, nodeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
         }
         return retVal;
     }
