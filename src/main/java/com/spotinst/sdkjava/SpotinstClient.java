@@ -118,5 +118,9 @@ public class SpotinstClient {
         return new AzureAksVngClient(authToken, account);
     }
 
+    public static SpotinstAdminOrganizationClient getAdminOrganizationClient(String authToken) {
+        return new SpotinstAdminOrganizationClient(authToken);
+    }
+
     //endregion
 }

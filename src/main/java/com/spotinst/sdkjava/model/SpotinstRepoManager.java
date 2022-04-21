@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
 import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.aks.AzureAksVngRepo;
@@ -41,6 +42,7 @@ class SpotinstRepoManager {
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
     private ISpotK8sVngRepo       						spotK8sVngRepo;
     private ISpotAzureAksVngRepo    					spotAksVngRepo;
+    private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
 
     //endregion
 
@@ -69,6 +71,7 @@ class SpotinstRepoManager {
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
         this.spotAksVngRepo = new AzureAksVngRepo();
+        this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
     }
     //endregion
 
@@ -231,8 +234,16 @@ class SpotinstRepoManager {
         return spotAksVngRepo;
     }
 
-    public void seAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
+    public void setAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
         this.spotAksVngRepo = aksVngRepo;
+    }
+
+    public ISpotAdminOrganizationRepo getSpotAdminOrganizationRepo() {
+        return spotAdminOrganizationRepo;
+    }
+
+    public void setSpotAdminOrganizationRepo(ISpotAdminOrganizationRepo spotAdminOrganizationRepo) {
+        this.spotAdminOrganizationRepo = spotAdminOrganizationRepo;
     }
     //endregion
 }
