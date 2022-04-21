@@ -322,7 +322,7 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> deleteOrganization(Integer organizationId, String authToken) {
+    public RepoGenericResponse<Boolean> deleteOrganization(String organizationId, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
         try {

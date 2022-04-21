@@ -389,7 +389,7 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public Boolean deleteOrganization(Integer organizationId) {
+    public Boolean deleteOrganization(String organizationId) {
 
         Boolean retVal = false;
 

@@ -41,5 +41,5 @@ public interface ISpotAdminOrganizationRepo extends IRepository<Users, Void, Str
 
     RepoGenericResponse<CreateOrganizationResponse> createOrganization(CreateOrganization createRequest, String authToken);
 
-    RepoGenericResponse<Boolean> deleteOrganization(Integer organizationId, String authToken);
+    RepoGenericResponse<Boolean> deleteOrganization(String organizationId, String authToken);
 }
