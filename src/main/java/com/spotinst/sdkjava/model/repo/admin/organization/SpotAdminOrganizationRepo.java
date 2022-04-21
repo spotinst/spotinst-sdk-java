@@ -280,95 +280,18 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<CreateProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String authToken) {
-        RepoGenericResponse<CreateProgrammaticUserResponse> retVal;
+    public RepoGenericResponse<ProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String authToken) {
+        RepoGenericResponse<ProgrammaticUserResponse> retVal;
 
         try {
 
             ApiProgrammaticUser apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
 
-            ApiCreateProgrammaticUserResponse apiResponse =
+            ApiProgrammaticUserResponse apiResponse =
                     SpotAdminOrganizationService.createProgrammaticUser(apiCreateRequest, authToken );
-            CreateProgrammaticUserResponse userResponse = AdminOrganizationConverter.toBl(apiResponse);
-
-            retVal = new RepoGenericResponse<>(userResponse);
-        }
-        catch (SpotinstHttpException ex) {
-            retVal = ExceptionHelper.handleHttpException(ex);
-        }
-
-        return retVal;
-    }
-
-    @Override
-    public RepoGenericResponse<ProgrammaticUserResponse> updateProgrammaticUser(ProgrammaticUser createRequest, String programmaticUserId, String authToken) {
-        RepoGenericResponse<ProgrammaticUserResponse> retVal;
-
-        try {
-
-            ApiProgrammaticUser apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
-
-            ApiProgrammaticUserResponse apiResponse =
-                    SpotAdminOrganizationService.updateProgrammaticUser(apiCreateRequest, programmaticUserId, authToken );
             ProgrammaticUserResponse userResponse = AdminOrganizationConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(userResponse);
-        }
-        catch (SpotinstHttpException ex) {
-            retVal = ExceptionHelper.handleHttpException(ex);
-        }
-
-        return retVal;
-    }
-
-    @Override
-    public RepoGenericResponse<ProgrammaticUserResponse> getProgrammaticUser(String programmaticUserId, String authToken) {
-        RepoGenericResponse<ProgrammaticUserResponse> retVal;
-
-        try {
-
-            ApiProgrammaticUserResponse apiResponse =
-                    SpotAdminOrganizationService.getProgrammaticUser(programmaticUserId, authToken );
-            ProgrammaticUserResponse userResponse = AdminOrganizationConverter.toBl(apiResponse);
-
-            retVal = new RepoGenericResponse<>(userResponse);
-        }
-        catch (SpotinstHttpException ex) {
-            retVal = ExceptionHelper.handleHttpException(ex);
-        }
-
-        return retVal;
-    }
-
-    @Override
-    public RepoGenericResponse<List<ProgrammaticUserResponse>> getAllProgrammaticUsers(String authToken) {
-        RepoGenericResponse<List<ProgrammaticUserResponse>> retVal;
-
-        try {
-
-            List<ApiProgrammaticUserResponse> apiResponse =
-                    SpotAdminOrganizationService.getAllProgrammaticUsers(authToken );
-            List<ProgrammaticUserResponse> userResponse = apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
-
-            retVal = new RepoGenericResponse<>(userResponse);
-        }
-        catch (SpotinstHttpException ex) {
-            retVal = ExceptionHelper.handleHttpException(ex);
-        }
-
-        return retVal;
-    }
-
-    @Override
-    public RepoGenericResponse<Boolean> deleteProgrammaticUser(String programmaticUserId, String authToken) {
-        RepoGenericResponse<Boolean> retVal;
-
-        try {
-
-            Boolean status =
-                    SpotAdminOrganizationService.deleteProgrammaticUser(programmaticUserId, authToken );
-
-            retVal = new RepoGenericResponse<>(status);
         }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);

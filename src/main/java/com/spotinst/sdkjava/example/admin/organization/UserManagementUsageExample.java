@@ -29,10 +29,6 @@ public class UserManagementUsageExample {
 
         // Programmatic User APIs
         String programmaticUserId = createProgammaticUser(adminClient);
-        updateProgammaticUser(adminClient, programmaticUserId);
-        getProgammaticUser(adminClient, programmaticUserId);
-        getAllProgammaticUsers(adminClient);
-        Boolean status = deleteProgammaticUser(adminClient, programmaticUserId);
 
         //User Group APIs
         String groupId = createUserGroup(adminClient);
@@ -257,70 +253,12 @@ public class UserManagementUsageExample {
         ProgrammaticUser.Builder userBuilder = ProgrammaticUser.Builder.get();
         ProgrammaticUser userRequest = userBuilder.setName("testProgram").setDescription("my programmatic user")
                 .setPolicies(userPolicyList).build();
-        CreateProgrammaticUserResponse createResponse = adminClient.createProgrammaticUser(userRequest);
+        ProgrammaticUserResponse createResponse = adminClient.createProgrammaticUser(userRequest);
         System.out.println(String.format("User Id: %s", createResponse.getId()));
         System.out.println(String.format("Token: %s", createResponse.getToken()));
         System.out.println(String.format("name: %s", createResponse.getName()));
 
         return createResponse.getId();
-    }
-
-    private static void updateProgammaticUser(SpotinstAdminOrganizationClient adminClient, String programmaticUserId) {
-
-        List<String> accountIds = new ArrayList<>();
-        accountIds.add(account_Id);
-
-        ProgrammaticUserAccounts.Builder accountsBuilder = ProgrammaticUserAccounts.Builder.get();
-        ProgrammaticUserAccounts account = accountsBuilder.setId(account_Id).setRole("viewer").build();
-        List<ProgrammaticUserAccounts> accountsList = Collections.singletonList(account);
-
-        ProgrammaticUser.Builder userBuilder = ProgrammaticUser.Builder.get();
-        ProgrammaticUser userRequest = userBuilder.setDescription("my programmatic user").setAccounts(accountsList).build();
-        ProgrammaticUserResponse updateResponse = adminClient.updateProgrammaticUser(userRequest, programmaticUserId);
-        System.out.println(String.format("User Id: %s", updateResponse.getId()));
-        System.out.println(String.format("UserName: %s", updateResponse.getUserName()));
-        System.out.println(String.format("Description: %s", updateResponse.getDescription()));
-
-        for (ProgrammaticUserAccounts accountDetails : updateResponse.getAccounts()) {
-            System.out.println(String.format("Account Id: %s", accountDetails.getId()));
-            System.out.println(String.format("Role: %s", accountDetails.getRole()));
-        }
-    }
-
-    private static void getProgammaticUser(SpotinstAdminOrganizationClient adminClient, String programmaticUserId) {
-
-        ProgrammaticUserResponse userResponse = adminClient.getProgrammaticUser(programmaticUserId);
-        System.out.println(String.format("User Id: %s", userResponse.getId()));
-        System.out.println(String.format("UserName: %s", userResponse.getUserName()));
-        System.out.println(String.format("Description: %s", userResponse.getDescription()));
-
-        for (ProgrammaticUserAccounts accountDetails : userResponse.getAccounts()) {
-            System.out.println(String.format("Account Id: %s", accountDetails.getId()));
-            System.out.println(String.format("Role: %s", accountDetails.getRole()));
-        }
-    }
-
-    private static void getAllProgammaticUsers(SpotinstAdminOrganizationClient adminClient) {
-
-        List<ProgrammaticUserResponse> userResponses = adminClient.getAllProgrammaticUsers();
-
-        for (ProgrammaticUserResponse userResponse : userResponses) {
-            System.out.println(String.format("User Id: %s", userResponse.getId()));
-            System.out.println(String.format("UserName: %s", userResponse.getUserName()));
-            System.out.println(String.format("Description: %s", userResponse.getDescription()));
-
-            for (ProgrammaticUserAccounts accountDetails : userResponse.getAccounts()) {
-                System.out.println(String.format("Account Id: %s", accountDetails.getId()));
-                System.out.println(String.format("Role: %s", accountDetails.getRole()));
-            }
-        }
-    }
-
-    private static Boolean deleteProgammaticUser(SpotinstAdminOrganizationClient adminClient, String programmaticUserId) {
-        Boolean status = adminClient.deleteProgrammaticUser(programmaticUserId);
-        System.out.println(String.format("Programmatic User deletion status: %s\n" ,status));
-
-        return status;
     }
 
     private static String createOrganization(SpotinstAdminOrganizationClient adminClient) {

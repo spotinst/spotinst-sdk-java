@@ -347,11 +347,11 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public CreateProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest) {
+    public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest) {
 
-        CreateProgrammaticUserResponse retVal = null;
+        ProgrammaticUserResponse retVal = null;
 
-        RepoGenericResponse<CreateProgrammaticUserResponse> creationResponse =
+        RepoGenericResponse<ProgrammaticUserResponse> creationResponse =
                 getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest, authToken);
 
         if (creationResponse.isRequestSucceed()) {
@@ -362,90 +362,6 @@ public class SpotinstAdminOrganizationClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to create programmatic user. Code: %s. Message: %s.",
-                            httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
-        }
-        return retVal;
-    }
-
-    public ProgrammaticUserResponse updateProgrammaticUser(ProgrammaticUser userRequest, String programmaticUserId) {
-
-        ProgrammaticUserResponse retVal = null;
-
-        RepoGenericResponse<ProgrammaticUserResponse> updationResponse =
-                getSpotinstAccountAdminRepo().updateProgrammaticUser(userRequest, programmaticUserId, authToken);
-
-        if (updationResponse.isRequestSucceed()) {
-            retVal = updationResponse.getValue();
-        }
-        else {
-            List<HttpError> httpExceptions = updationResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to update programmatic user. Code: %s. Message: %s.",
-                            httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
-        }
-        return retVal;
-    }
-
-    public ProgrammaticUserResponse getProgrammaticUser(String programmaticUserId) {
-
-        ProgrammaticUserResponse retVal = null;
-
-        RepoGenericResponse<ProgrammaticUserResponse> getResponse =
-                getSpotinstAccountAdminRepo().getProgrammaticUser(programmaticUserId, authToken);
-
-        if (getResponse.isRequestSucceed()) {
-            retVal = getResponse.getValue();
-        }
-        else {
-            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to get programmatic user %s. Code: %s. Message: %s.",programmaticUserId,
-                            httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
-        }
-        return retVal;
-    }
-
-    public List<ProgrammaticUserResponse> getAllProgrammaticUsers() {
-
-        List<ProgrammaticUserResponse> retVal = null;
-
-        RepoGenericResponse<List<ProgrammaticUserResponse>> getResponse =
-                getSpotinstAccountAdminRepo().getAllProgrammaticUsers(authToken);
-
-        if (getResponse.isRequestSucceed()) {
-            retVal = getResponse.getValue();
-        }
-        else {
-            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to get all programmatic users. Code: %s. Message: %s.",
-                            httpException.getCode(), httpException.getMessage()));
-            throw new SpotinstHttpException(httpException.getMessage());
-        }
-        return retVal;
-    }
-
-    public Boolean deleteProgrammaticUser(String programmaticUserId) {
-
-        Boolean retVal = false;
-
-        RepoGenericResponse<Boolean> deleteStatus =
-                getSpotinstAccountAdminRepo().deleteProgrammaticUser(programmaticUserId, authToken);
-
-        if (deleteStatus.isRequestSucceed()) {
-            retVal = deleteStatus.getValue();
-        }
-        else {
-            List<HttpError> httpExceptions = deleteStatus.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
-            LOGGER.error(
-                    String.format("Error encountered while attempting to delete programmatic user. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

@@ -496,11 +496,11 @@ public class AdminOrganizationConverter {
         return accountUserMapping;
     }
 
-    public static CreateProgrammaticUserResponse toBl(ApiCreateProgrammaticUserResponse src) {
-        CreateProgrammaticUserResponse ProgrammaticUser = null;
+    public static ProgrammaticUserResponse toBl(ApiProgrammaticUserResponse src) {
+        ProgrammaticUserResponse ProgrammaticUser = null;
 
         if (src != null) {
-            ProgrammaticUser = new CreateProgrammaticUserResponse();
+            ProgrammaticUser = new ProgrammaticUserResponse();
 
             if (src.isIdSet()) {
                 ProgrammaticUser.setId(src.getId());
@@ -529,31 +529,6 @@ public class AdminOrganizationConverter {
             }
         }
         return accounts;
-    }
-
-    public static ProgrammaticUserResponse toBl(ApiProgrammaticUserResponse src) {
-        ProgrammaticUserResponse ProgrammaticUser = null;
-
-        if (src != null) {
-            ProgrammaticUser = new ProgrammaticUserResponse();
-
-            if (src.isIdSet()) {
-                ProgrammaticUser.setId(src.getId());
-            }
-            if (src.isUserNameSet()) {
-                ProgrammaticUser.setUserName(src.getUserName());
-            }
-            if (src.isDescriptionSet()) {
-                ProgrammaticUser.setDescription(src.getDescription());
-            }
-
-            if (src.isAccountsSet()) {
-                List<ProgrammaticUserAccounts> accountsList =
-                        src.getAccounts().stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
-                ProgrammaticUser.setAccounts(accountsList);
-            }
-        }
-        return ProgrammaticUser;
     }
 
     public static CreateOrganizationResponse toBl(ApiCreateOrganizationResponse src) {
