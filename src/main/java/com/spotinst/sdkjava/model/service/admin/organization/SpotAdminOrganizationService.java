@@ -491,7 +491,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteOrganization(String organizationId, String authToken) throws SpotinstHttpException {
+    public static Boolean deleteOrganization(Integer organizationId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;

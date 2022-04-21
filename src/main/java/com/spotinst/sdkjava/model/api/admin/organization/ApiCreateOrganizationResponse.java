@@ -15,7 +15,7 @@ import java.util.Set;
 public class ApiCreateOrganizationResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                       isSet;
-    private String                            organizationId;
+    private Integer                           organizationId;
     private String                            organizationName;
 
     public ApiCreateOrganizationResponse() {
@@ -30,11 +30,11 @@ public class ApiCreateOrganizationResponse implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getOrganizationId() {
+    public Integer getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(String organizationId) {
+    public void setOrganizationId(Integer organizationId) {
         isSet.add("organizationId");
         this.organizationId = organizationId;
     }

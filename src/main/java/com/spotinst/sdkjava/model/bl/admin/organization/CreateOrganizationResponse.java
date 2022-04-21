@@ -11,9 +11,9 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateOrganizationResponse {
     @JsonIgnore
-    private Set<String>                    isSet;
-    private String                            organizationId;
-    private String                            organizationName;
+    private Set<String>                        isSet;
+    private Integer                            organizationId;
+    private String                             organizationName;
 
     public CreateOrganizationResponse() {
         isSet = new HashSet<>();
@@ -27,11 +27,11 @@ public class CreateOrganizationResponse {
         this.isSet = isSet;
     }
 
-    public String getOrganizationId() {
+    public Integer getOrganizationId() {
         return organizationId;
     }
 
-    public void setOrganizationId(String organizationId) {
+    public void setOrganizationId(Integer organizationId) {
         isSet.add("organizationId");
         this.organizationId = organizationId;
     }
@@ -62,7 +62,7 @@ public class CreateOrganizationResponse {
             return this;
         }
 
-        public Builder setOrganizationId(final String organizationId) {
+        public Builder setOrganizationId(final Integer organizationId) {
             organization.setOrganizationId(organizationId);
             return this;
         }

@@ -40,7 +40,7 @@ public class UserManagementUsageExample {
         updatePolicyMappingOfUserGroup(groupId, adminClient);
 
         //Organization APIs
-        String organizationId = createOrganization(adminClient);
+        Integer organizationId = createOrganization(adminClient);
         Boolean deleteStatus = deleteOrganization(adminClient, organizationId);
     }
 
@@ -261,7 +261,7 @@ public class UserManagementUsageExample {
         return createResponse.getId();
     }
 
-    private static String createOrganization(SpotinstAdminOrganizationClient adminClient) {
+    private static Integer createOrganization(SpotinstAdminOrganizationClient adminClient) {
 
         Organization.Builder organizationBuilder = Organization.Builder.get();
         Organization organization = organizationBuilder.setName("Test Organization").build();
@@ -274,7 +274,7 @@ public class UserManagementUsageExample {
         return organizationResponse.getOrganizationId();
     }
 
-    private static Boolean deleteOrganization(SpotinstAdminOrganizationClient adminClient, String OrganizationId) {
+    private static Boolean deleteOrganization(SpotinstAdminOrganizationClient adminClient, Integer OrganizationId) {
         Boolean status = adminClient.deleteOrganization(OrganizationId);
         System.out.println(String.format("Organization deletion status: %s\n" ,status));
 
