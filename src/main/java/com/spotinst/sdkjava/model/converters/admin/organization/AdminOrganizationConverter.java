@@ -92,6 +92,74 @@ public class AdminOrganizationConverter {
         return userGroup;
     }
 
+    public static ApiProgrammaticUserAccounts toDal(ProgrammaticUserAccounts src) {
+        ApiProgrammaticUserAccounts accounts = null;
+
+        if (src != null) {
+            accounts = new ApiProgrammaticUserAccounts();
+
+            if (src.isIdSet()) {
+                accounts.setId(src.getId());
+            }
+            if (src.isRoleSet()) {
+                accounts.setRole(src.getRole());
+            }
+        }
+        return accounts;
+    }
+
+    public static ApiProgrammaticUser toDal(ProgrammaticUser src) {
+        ApiProgrammaticUser apiProgrammaticUser = null;
+
+        if (src != null) {
+            apiProgrammaticUser = new ApiProgrammaticUser();
+
+            if (src.isNameSet() && src.getName() != null) {
+                apiProgrammaticUser.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                apiProgrammaticUser.setDescription(src.getDescription());
+            }
+            if (src.isPoliciesSet() && src.getPolicies() != null) {
+                List<ApiPolicyMapping> policiesList =
+                        src.getPolicies().stream().map(AdminOrganizationConverter::toDal).collect(Collectors.toList());
+                apiProgrammaticUser.setPolicies(policiesList);
+            }
+            if (src.isAccountsSet() && src.getAccounts() != null) {
+                List<ApiProgrammaticUserAccounts> accountsList =
+                        src.getAccounts().stream().map(AdminOrganizationConverter::toDal).collect(Collectors.toList());
+                apiProgrammaticUser.setAccounts(accountsList);
+            }
+        }
+        return apiProgrammaticUser;
+    }
+
+    public static ApiOrganization toDal(Organization src) {
+        ApiOrganization apiOrganization = null;
+
+        if (src != null) {
+            apiOrganization = new ApiOrganization();
+
+            if (src.isNameSet()) {
+                apiOrganization.setName(src.getName());
+            }
+        }
+        return apiOrganization;
+    }
+
+    public static ApiCreateOrganization toDal(CreateOrganization src) {
+        ApiCreateOrganization apiCreateOrganization = null;
+
+        if (src != null) {
+            apiCreateOrganization = new ApiCreateOrganization();
+
+            if (src.isOrganizationSet()) {
+                apiCreateOrganization.setOrganization(toDal(src.getOrganization()));
+            }
+        }
+        return apiCreateOrganization;
+    }
+
     public static User toBl(ApiUser src) {
         User user = null;
 
@@ -426,5 +494,56 @@ public class AdminOrganizationConverter {
             }
         }
         return accountUserMapping;
+    }
+
+    public static ProgrammaticUserResponse toBl(ApiProgrammaticUserResponse src) {
+        ProgrammaticUserResponse ProgrammaticUser = null;
+
+        if (src != null) {
+            ProgrammaticUser = new ProgrammaticUserResponse();
+
+            if (src.isIdSet()) {
+                ProgrammaticUser.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                ProgrammaticUser.setName(src.getName());
+            }
+            if (src.isTokenSet()) {
+                ProgrammaticUser.setToken(src.getToken());
+            }
+        }
+        return ProgrammaticUser;
+    }
+
+    public static ProgrammaticUserAccounts toBl(ApiProgrammaticUserAccounts src) {
+        ProgrammaticUserAccounts accounts = null;
+
+        if (src != null) {
+            accounts = new ProgrammaticUserAccounts();
+
+            if (src.isIdSet()) {
+                accounts.setId(src.getId());
+            }
+            if (src.isRoleSet()) {
+                accounts.setRole(src.getRole());
+            }
+        }
+        return accounts;
+    }
+
+    public static CreateOrganizationResponse toBl(ApiCreateOrganizationResponse src) {
+        CreateOrganizationResponse createOrganizationResponse = null;
+
+        if (src != null) {
+            createOrganizationResponse = new CreateOrganizationResponse();
+
+            if (src.isOrganizationIdSet()) {
+                createOrganizationResponse.setOrganizationId(src.getOrganizationId());
+            }
+            if (src.isOrganizationNameSet()) {
+                createOrganizationResponse.setOrganizationName(src.getOrganizationName());
+            }
+        }
+        return createOrganizationResponse;
     }
 }

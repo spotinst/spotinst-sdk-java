@@ -278,4 +278,64 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<ProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String authToken) {
+        RepoGenericResponse<ProgrammaticUserResponse> retVal;
+
+        try {
+
+            ApiProgrammaticUser apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
+
+            ApiProgrammaticUserResponse apiResponse =
+                    SpotAdminOrganizationService.createProgrammaticUser(apiCreateRequest, authToken );
+            ProgrammaticUserResponse userResponse = AdminOrganizationConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(userResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<CreateOrganizationResponse> createOrganization(CreateOrganization createRequest, String authToken) {
+        RepoGenericResponse<CreateOrganizationResponse> retVal;
+
+        try {
+
+            ApiCreateOrganization apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
+
+            ApiCreateOrganizationResponse apiResponse =
+                    SpotAdminOrganizationService.createOrganization(apiCreateRequest, authToken);
+            CreateOrganizationResponse userResponse = AdminOrganizationConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(userResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteOrganization(String organizationId, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean status =
+                    SpotAdminOrganizationService.deleteOrganization(organizationId, authToken );
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }

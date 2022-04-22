@@ -426,4 +426,94 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static ApiProgrammaticUserResponse createProgrammaticUser(ApiProgrammaticUser apiUserRequest, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiProgrammaticUserResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String body = JsonMapper.toJson(apiUserRequest);
+
+        //Build URI
+        String uri = String.format("%s/setup/user/programmatic", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ProgrammaticUserApiResponse ApiResponse = getCastedResponse(response, ProgrammaticUserApiResponse.class);
+
+
+        if (ApiResponse.getResponse().getCount() > 0) {
+            retVal = ApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static ApiCreateOrganizationResponse createOrganization(ApiCreateOrganization apiCreateRequest, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiCreateOrganizationResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        String body = JsonMapper.toJson(apiCreateRequest);
+
+        //Build URI
+        String uri = String.format("%s/setup/organization", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        OrganizationApiResponse organizationApiResponse = getCastedResponse(response, OrganizationApiResponse.class);
+
+
+        if (organizationApiResponse.getResponse().getCount() > 0) {
+            retVal = organizationApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static Boolean deleteOrganization(String organizationId, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/organization/%s", apiEndpoint,organizationId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
 }

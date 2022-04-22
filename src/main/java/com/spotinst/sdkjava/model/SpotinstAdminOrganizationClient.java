@@ -347,5 +347,68 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
+    public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest) {
+
+        ProgrammaticUserResponse retVal = null;
+
+        RepoGenericResponse<ProgrammaticUserResponse> creationResponse =
+                getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest, authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create programmatic user. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public CreateOrganizationResponse createOrganization(CreateOrganization organizationRequest) {
+
+        CreateOrganizationResponse retVal = null;
+
+        RepoGenericResponse<CreateOrganizationResponse> creationResponse =
+                getSpotinstAccountAdminRepo().createOrganization(organizationRequest, authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create organization. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteOrganization(String organizationId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> deleteStatus =
+                getSpotinstAccountAdminRepo().deleteOrganization(organizationId, authToken);
+
+        if (deleteStatus.isRequestSucceed()) {
+            retVal = deleteStatus.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteStatus.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete organization. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
     //endregion
 }
