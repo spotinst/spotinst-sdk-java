@@ -410,5 +410,89 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
+    public Policy createAccessPolicy(Policy createRequest) {
+
+        Policy retVal = null;
+
+        RepoGenericResponse<Policy> creationResponse =
+                getSpotinstAccountAdminRepo().createAccessPolicy(createRequest, authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create policy. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updateAccessPolicy(String policyId, Policy updateRequest) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> updateResponse =
+                getSpotinstAccountAdminRepo().updateAccessPolicy(policyId, updateRequest, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update policy. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<Policy> getAllPolicies() {
+
+        List<Policy> retVal = null;
+
+        RepoGenericResponse<List<Policy>> creationResponse =
+                getSpotinstAccountAdminRepo().getAllPolicies( authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all policies. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteAccessPolicy(String policyId) {
+
+        Boolean retVal = false;
+
+        RepoGenericResponse<Boolean> deleteResponse =
+                getSpotinstAccountAdminRepo().deleteAccessPolicy(policyId, authToken);
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete policy. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
     //endregion
 }

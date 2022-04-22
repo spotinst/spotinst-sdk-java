@@ -42,4 +42,12 @@ public interface ISpotAdminOrganizationRepo extends IRepository<Users, Void, Str
     RepoGenericResponse<CreateOrganizationResponse> createOrganization(CreateOrganization createRequest, String authToken);
 
     RepoGenericResponse<Boolean> deleteOrganization(String organizationId, String authToken);
+
+    RepoGenericResponse<Policy> createAccessPolicy(Policy createRequest, String authToken);
+
+    RepoGenericResponse<Boolean> updateAccessPolicy(String policyId, Policy createRequest, String authToken);
+
+    RepoGenericResponse<List<Policy>> getAllPolicies(String authToken);
+
+    RepoGenericResponse<Boolean> deleteAccessPolicy(String policyId, String authToken);
 }
