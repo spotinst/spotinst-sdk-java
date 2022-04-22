@@ -1695,8 +1695,8 @@ public class StatefulNodeConverter {
                 dataDiskBuilder.setStorageAccountType(apiDataDisk.getStorageAccountType());
             }
 
-            if (apiDataDisk.isSizeGbSet()) {
-                dataDiskBuilder.setSizeGb(apiDataDisk.getSizeGb());
+            if (apiDataDisk.isSizeGBSet()) {
+                dataDiskBuilder.setSizeGB(apiDataDisk.getSizeGB());
             }
 
             if (apiDataDisk.isLunSet()) {

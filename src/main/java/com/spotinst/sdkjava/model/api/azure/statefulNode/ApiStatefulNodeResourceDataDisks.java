@@ -19,7 +19,7 @@ public class ApiStatefulNodeResourceDataDisks implements IPartialUpdateEntity {
     private String                  name;
     private String                  resourceGroupName;
     private String                  storageAccountType;
-    private Integer                 sizeGb;
+    private Integer                 sizeGB;
     private Integer                 lun;
     private String                  snapshot;
     private String                  lastCompletedSnapshot;
@@ -63,13 +63,13 @@ public class ApiStatefulNodeResourceDataDisks implements IPartialUpdateEntity {
         this.storageAccountType = storageAccountType;
     }
 
-    public Integer getSizeGb() {
-        return sizeGb;
+    public Integer getSizeGB() {
+        return sizeGB;
     }
 
-    public void setSizeGb(Integer sizeGb) {
-        isSet.add("sizeGb");
-        this.sizeGb = sizeGb;
+    public void setSizeGB(Integer sizeGB) {
+        isSet.add("sizeGB");
+        this.sizeGB = sizeGB;
     }
 
     public Integer getLun() {
@@ -111,8 +111,8 @@ public class ApiStatefulNodeResourceDataDisks implements IPartialUpdateEntity {
     public boolean isStorageAccountTypeSet() { return isSet.contains("storageAccountType"); }
 
     @JsonIgnore
-    public boolean isSizeGbSet() {
-        return isSet.contains("sizeGb");
+    public boolean isSizeGBSet() {
+        return isSet.contains("sizeGB");
     }
 
     @JsonIgnore
