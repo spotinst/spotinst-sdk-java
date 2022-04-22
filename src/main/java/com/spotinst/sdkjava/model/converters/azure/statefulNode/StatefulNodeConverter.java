@@ -711,6 +711,56 @@ public class StatefulNodeConverter {
         return apiImportConfiguration;
     }
 
+    public static ApiStatefulNodeAttachDataDiskConfiguration toDal(StatefulNodeAttachDataDiskConfiguration attachDataDisk) {
+        ApiStatefulNodeAttachDataDiskConfiguration apiDataDisk = null;
+
+        if (attachDataDisk != null) {
+            apiDataDisk = new ApiStatefulNodeAttachDataDiskConfiguration();
+
+            if (attachDataDisk.isDataDiskNameSet()) {
+                apiDataDisk.setDataDiskName(attachDataDisk.getDataDiskName());
+            }
+            if (attachDataDisk.isDataDiskResourceGroupNameSet()) {
+                apiDataDisk.setDataDiskResourceGroupName(attachDataDisk.getDataDiskResourceGroupName());
+            }
+            if (attachDataDisk.isStorageAccountTypeSet()) {
+                apiDataDisk.setStorageAccountType(attachDataDisk.getStorageAccountType());
+            }
+            if (attachDataDisk.isSizeGBSet()) {
+                apiDataDisk.setSizeGB(attachDataDisk.getSizeGB());
+            }
+            if (attachDataDisk.isLunSet()) {
+                apiDataDisk.setLun(attachDataDisk.getLun());
+            }
+            if (attachDataDisk.isZoneSet()) {
+                apiDataDisk.setZone(attachDataDisk.getZone());
+            }
+        }
+        return apiDataDisk;
+    }
+
+    public static ApiStatefulNodeDetachDataDiskConfiguration toDal(StatefulNodeDetachDataDiskConfiguration detachDataDiskConfiguration) {
+        ApiStatefulNodeDetachDataDiskConfiguration apiDetachDataDisk = null;
+
+        if (detachDataDiskConfiguration != null) {
+            apiDetachDataDisk = new ApiStatefulNodeDetachDataDiskConfiguration();
+
+            if (detachDataDiskConfiguration.isDataDiskNameSet()) {
+                apiDetachDataDisk.setDataDiskName(detachDataDiskConfiguration.getDataDiskName());
+            }
+            if (detachDataDiskConfiguration.isDataDiskResourceGroupNameSet()) {
+                apiDetachDataDisk.setDataDiskResourceGroupName(detachDataDiskConfiguration.getDataDiskResourceGroupName());
+            }
+            if (detachDataDiskConfiguration.isShouldDeallocateSet()) {
+                apiDetachDataDisk.setShouldDeallocate(detachDataDiskConfiguration.getShouldDeallocate());
+            }
+            if (detachDataDiskConfiguration.isTtlnHoursSet()) {
+                apiDetachDataDisk.setTtlnHours(detachDataDiskConfiguration.getTtlnHours());
+            }
+        }
+        return apiDetachDataDisk;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -1465,6 +1515,9 @@ public class StatefulNodeConverter {
             if (apiStatefulNodeStatus.isRegionSet()) {
                 statefulNodeBuilder.setRegion(apiStatefulNodeStatus.getRegion());
             }
+            if (apiStatefulNodeStatus.isZoneSet()) {
+                statefulNodeBuilder.setZone(apiStatefulNodeStatus.getZone());
+            }
             if (apiStatefulNodeStatus.isResourceGroupNameSet()) {
                 statefulNodeBuilder.setResourceGroupName(apiStatefulNodeStatus.getResourceGroupName());
             }
@@ -1491,6 +1544,12 @@ public class StatefulNodeConverter {
             }
             if (apiStatefulNodeStatus.isPublicIpSet()) {
                 statefulNodeBuilder.setPublicIp(apiStatefulNodeStatus.getPublicIp());
+            }
+            if (apiStatefulNodeStatus.isCreatedAtSet()) {
+                statefulNodeBuilder.setCreatedAt(apiStatefulNodeStatus.getCreatedAt());
+            }
+            if (apiStatefulNodeStatus.isUpdatedAtSet()) {
+                statefulNodeBuilder.setUpdatedAt(apiStatefulNodeStatus.getUpdatedAt());
             }
             statefulNodeStatus = statefulNodeBuilder.build();
 
@@ -1665,11 +1724,11 @@ public class StatefulNodeConverter {
         if (apiStorage != null) {
             StatefulNodeResourceStorage.Builder storageBuilder = StatefulNodeResourceStorage.Builder.get();
 
-            if (apiStorage.isDataDiskSet()) {
-                if (apiStorage.getDataDisk() != null) {
+            if (apiStorage.isDataDisksSet()) {
+                if (apiStorage.getDataDisks() != null) {
                     List<StatefulNodeResourceDataDisks> dataDisksList =
-                            apiStorage.getDataDisk().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
-                    storageBuilder.setDataDisk(dataDisksList);
+                            apiStorage.getDataDisks().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    storageBuilder.setDataDisks(dataDisksList);
                 }
             }
 
@@ -1907,6 +1966,146 @@ public class StatefulNodeConverter {
         }
 
         return resources;
+    }
+
+    public static StatefulNodeAttachDataDiskConfiguration toBl(ApiStatefulNodeAttachDataDiskConfiguration apiDataDisk){
+
+        StatefulNodeAttachDataDiskConfiguration attachDataDisks = null;
+
+        if(apiDataDisk != null) {
+
+            StatefulNodeAttachDataDiskConfiguration.Builder resourcesBuilder = StatefulNodeAttachDataDiskConfiguration.Builder.get();
+
+            if (apiDataDisk.isDataDiskNameSet()) {
+                resourcesBuilder.setDataDiskName(apiDataDisk.getDataDiskName());
+            }
+
+            if (apiDataDisk.isDataDiskResourceGroupNameSet()) {
+                resourcesBuilder.setDataDiskResourceGroupName(apiDataDisk.getDataDiskResourceGroupName());
+            }
+
+            if (apiDataDisk.isSizeGBSet()) {
+                resourcesBuilder.setSizeGB(apiDataDisk.getSizeGB());
+            }
+
+            if (apiDataDisk.isStorageAccountTypeSet()) {
+                resourcesBuilder.setStorageAccountType(apiDataDisk.getStorageAccountType());
+            }
+
+            if (apiDataDisk.isLunSet()) {
+                resourcesBuilder.setLun(apiDataDisk.getLun());
+            }
+
+            if (apiDataDisk.isZoneSet()) {
+                resourcesBuilder.setZone(apiDataDisk.getZone());
+            }
+
+            attachDataDisks = resourcesBuilder.build();
+        }
+
+        return attachDataDisks;
+    }
+
+    public static StatefulNodeDetachDataDiskConfiguration toBl(ApiStatefulNodeDetachDataDiskConfiguration apiDetachDataDisk){
+
+        StatefulNodeDetachDataDiskConfiguration detachDataDisks = null;
+
+        if(apiDetachDataDisk != null) {
+
+            StatefulNodeDetachDataDiskConfiguration.Builder resourcesBuilder = StatefulNodeDetachDataDiskConfiguration.Builder.get();
+
+            if (apiDetachDataDisk.isDataDiskNameSet()) {
+                resourcesBuilder.setDataDiskName(apiDetachDataDisk.getDataDiskName());
+            }
+
+            if (apiDetachDataDisk.isDataDiskResourceGroupNameSet()) {
+                resourcesBuilder.setDataDiskResourceGroupName(apiDetachDataDisk.getDataDiskResourceGroupName());
+            }
+
+            if (apiDetachDataDisk.isShouldDeallocateSet()) {
+                resourcesBuilder.setShouldDeallocate(apiDetachDataDisk.getShouldDeallocate());
+            }
+
+            if (apiDetachDataDisk.isTtlnHoursSet()) {
+                resourcesBuilder.setTtlnHours(apiDetachDataDisk.getTtlnHours());
+            }
+
+            detachDataDisks = resourcesBuilder.build();
+        }
+
+        return detachDataDisks;
+    }
+
+    private static AttachDataDiskTagsResponse toBl(ApiAttachDataDiskTagsResponse apiAttachDiskTags){
+
+        AttachDataDiskTagsResponse tags = null;
+
+        if(apiAttachDiskTags != null) {
+
+            AttachDataDiskTagsResponse.Builder resourcesBuilder = AttachDataDiskTagsResponse.Builder.get();
+
+            if (apiAttachDiskTags.isTagKeySet()) {
+                resourcesBuilder.setTagKey(apiAttachDiskTags.getTagKey());
+            }
+
+            if (apiAttachDiskTags.isTagValueSet()) {
+                resourcesBuilder.setTagValue(apiAttachDiskTags.getTagValue());
+            }
+
+            tags = resourcesBuilder.build();
+        }
+
+        return tags;
+    }
+
+    public static StatefulNodeAttachDataDiskResponse toBl(ApiStatefulNodeAttachDataDiskResponse apiDataDiskResponse){
+
+        StatefulNodeAttachDataDiskResponse dataDisks = null;
+
+        if(apiDataDiskResponse != null) {
+
+            StatefulNodeAttachDataDiskResponse.Builder resourcesBuilder = StatefulNodeAttachDataDiskResponse.Builder.get();
+
+            if (apiDataDiskResponse.isNameSet()) {
+                resourcesBuilder.setName(apiDataDiskResponse.getName());
+            }
+
+            if (apiDataDiskResponse.isStorageAccountTypeSet()) {
+                resourcesBuilder.setStorageAccountType(apiDataDiskResponse.getStorageAccountType());
+            }
+
+            if (apiDataDiskResponse.isResourceGroupNameSet()) {
+                resourcesBuilder.setResourceGroupName(apiDataDiskResponse.getResourceGroupName());
+            }
+
+            if (apiDataDiskResponse.isRegionSet()) {
+                resourcesBuilder.setRegion(apiDataDiskResponse.getRegion());
+            }
+
+            if (apiDataDiskResponse.isLunSet()) {
+                resourcesBuilder.setLun(apiDataDiskResponse.getLun());
+            }
+
+            if (apiDataDiskResponse.isManagedBySet()) {
+                resourcesBuilder.setManagedBy(apiDataDiskResponse.getManagedBy());
+            }
+
+            if (apiDataDiskResponse.isSizeSet()) {
+                resourcesBuilder.setSize(apiDataDiskResponse.getSize());
+            }
+
+            if (apiDataDiskResponse.isZoneSet()) {
+                resourcesBuilder.setZone(apiDataDiskResponse.getZone());
+            }
+
+            if (apiDataDiskResponse.isTagsSet()) {
+                resourcesBuilder.setTags(toBl(apiDataDiskResponse.getTags()));
+            }
+
+            dataDisks = resourcesBuilder.build();
+        }
+
+        return dataDisks;
     }
 
 }

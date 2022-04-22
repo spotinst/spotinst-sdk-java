@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,7 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
     private String      id;
     private String      name;
     private String      region;
+    private String      zone;
     private String      resourceGroupName;
     private String      status;
     private String      vmName;
@@ -31,8 +33,10 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
     private String      errorReason;
     private String      privateIp;
     private String      publicIp;
+    private Date createdAt;
+    private Date        updatedAt;
 
-    private ApiStatefulNodeGetStatusResponse() {
+    public ApiStatefulNodeGetStatusResponse() {
         isSet = new HashSet<>();
     }
 
@@ -69,6 +73,15 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
     public void setRegion(String region) {
         isSet.add("region");
         this.region = region;
+    }
+
+    public String getZone() {
+        return zone;
+    }
+
+    public void setZone(String zone) {
+        isSet.add("zone");
+        this.zone = zone;
     }
 
     public String getResourceGroupName() {
@@ -151,6 +164,24 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
         this.publicIp = publicIp;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        isSet.add("createdAt");
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        isSet.add("updatedAt");
+        this.updatedAt = updatedAt;
+    }
+
     @JsonIgnore
     public boolean isIdSet() {
         return isSet.contains("id");
@@ -169,6 +200,11 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isRegionSet() {
         return isSet.contains("region");
+    }
+
+    @JsonIgnore
+    public boolean isZoneSet() {
+        return isSet.contains("zone");
     }
 
     @JsonIgnore
@@ -209,6 +245,16 @@ public class ApiStatefulNodeGetStatusResponse implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isPublicIpSet() {
         return isSet.contains("publicIp");
+    }
+
+    @JsonIgnore
+    public boolean isCreatedAtSet() {
+        return isSet.contains("createdAt");
+    }
+
+    @JsonIgnore
+    public boolean isUpdatedAtSet() {
+        return isSet.contains("updatedAt");
     }
 
 }

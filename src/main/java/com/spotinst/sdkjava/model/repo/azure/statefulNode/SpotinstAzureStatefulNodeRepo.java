@@ -7,9 +7,7 @@ import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.converters.azure.statefulNode.StatefulNodeConverter;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.ApiStatefulNodeStateChangeRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.service.azure.statefulNode.SpotinstAzureStatefulNodeService;
 
 import java.util.List;
@@ -253,6 +251,65 @@ public class SpotinstAzureStatefulNodeRepo implements ISpotAzureStatefulNodeRepo
             retVal = new RepoGenericResponse<>(getNodeResources);
         }
 
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<List<StatefulNodeGetStatusResponse>> getAllNodeStatus(String authToken, String account) {
+
+        RepoGenericResponse<List<StatefulNodeGetStatusResponse>> nodeStatusList;
+
+        try {
+            List<ApiStatefulNodeGetStatusResponse> apiGetAllNodes =
+                    SpotinstAzureStatefulNodeService.getAllNodeStatus(authToken, account);
+            List<StatefulNodeGetStatusResponse> statefulNodes = apiGetAllNodes.stream().map(StatefulNodeConverter::toBl).collect(
+                    Collectors.toList());
+            nodeStatusList = new RepoGenericResponse<>(statefulNodes);
+        }
+        catch (SpotinstHttpException ex) {
+            nodeStatusList = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return nodeStatusList;
+
+    }
+
+    @Override
+    public RepoGenericResponse<StatefulNodeAttachDataDiskResponse> attachDataDisk(StatefulNodeAttachDataDiskConfiguration attachDataDisk, String nodeId, String authToken, String account) {
+        RepoGenericResponse<StatefulNodeAttachDataDiskResponse> retVal;
+
+        try {
+            ApiStatefulNodeAttachDataDiskConfiguration apiDiskToAttach = StatefulNodeConverter.toDal(attachDataDisk);
+            ApiStatefulNodeAttachDataDiskResponse apiGetNodeStatus  = SpotinstAzureStatefulNodeService
+                    .attachDataDisk(apiDiskToAttach, nodeId, authToken, account);
+
+            StatefulNodeAttachDataDiskResponse attachDataDiskaResponse = StatefulNodeConverter.toBl(apiGetNodeStatus);
+            retVal = new RepoGenericResponse<>(attachDataDiskaResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> detachDataDisk(StatefulNodeDetachDataDiskConfiguration detachDataDisk, String nodeId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            ApiStatefulNodeDetachDataDiskConfiguration apiDiskToDetach = StatefulNodeConverter.toDal(detachDataDisk);
+            Boolean apiDetachDiskResponse  = SpotinstAzureStatefulNodeService
+                    .detachDataDisk(apiDiskToDetach, nodeId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(apiDetachDiskResponse);
+        }
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }

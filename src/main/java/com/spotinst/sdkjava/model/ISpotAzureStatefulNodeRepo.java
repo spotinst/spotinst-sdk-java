@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeAttachDataDiskRequest;
+import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDetachDataDiskRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 
@@ -56,4 +58,17 @@ public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Vo
     default RepoGenericResponse<StatefulNodeResourceResponse> getNodeResources(String importId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
+
+    default RepoGenericResponse<List<StatefulNodeGetStatusResponse>> getAllNodeStatus(String authToken, String account){
+        throw new SpotinstNotSupportedException();
+    }
+
+    default RepoGenericResponse<StatefulNodeAttachDataDiskResponse> attachDataDisk(StatefulNodeAttachDataDiskConfiguration attachDataDisk, String nodeId, String authToken, String account){
+        throw new SpotinstNotSupportedException();
+    }
+
+    default RepoGenericResponse<Boolean> detachDataDisk(StatefulNodeDetachDataDiskConfiguration detachDataDisk, String nodeId, String authToken, String account){
+        throw new SpotinstNotSupportedException();
+    }
+
 }

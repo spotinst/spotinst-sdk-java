@@ -23,6 +23,7 @@ public class AzureStatefulNodeExample {
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
     private final static String       vmName              = "SDK-Testing";
     private final static String       resourceGroup       = "AutomationResourceGroup";
+    private final static String       dataDiskName       = "Attach-Detach-DataDisk";
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -69,6 +70,10 @@ public class AzureStatefulNodeExample {
         System.out.println("----------List All Stateful Nodes--------------");
         getAllStatefulNode(nodeClient);
 
+        //Get All Stateful Node Status
+        System.out.println("----------List All Stateful Node Status--------------");
+        getAllStatefulNodeStatus(nodeClient);
+
         //Recycle Stateful Node
         System.out.println("----------Recycle Stateful Node--------------");
         recycleStatefulNode(nodeClient, nodeId);
@@ -104,12 +109,20 @@ public class AzureStatefulNodeExample {
         getNodeImportStatus(nodeClient, nodeImportId);
 
         //Get Stateful node import status
-        System.out.println("----------Get Stateful Node Recources --------------");
+        System.out.println("----------Get Stateful Node Resources --------------");
         getNodeResources(nodeClient, nodeId);
 
         //Get Elastilog
-        System.out.println("----------Get Elastilog--------------");
+        System.out.println("----------Get StatefulNode log--------------");
         List<StatefulNodeLogsResponse> getLogs = getStaefulNodeLogs(nodeClient, act_id, "fromDate", "toDate", "nodeId");
+
+        //attach the disk to stateful node
+        System.out.println("----------Attach DataDisk--------------");
+        attachDataDisk(nodeClient, nodeId, dataDiskName);
+
+        //attach the disk to stateful node
+        System.out.println("----------Detach DataDisk--------------");
+        detachDataDisk(nodeClient, nodeId, dataDiskName);
 
     }
 
@@ -772,6 +785,64 @@ public class AzureStatefulNodeExample {
                 getNodeResponse.getId() , getNodeResponse.getName()));
 
         return getNodeResponse;
+    }
+
+    private static List<StatefulNodeGetStatusResponse> getAllStatefulNodeStatus(SpotinstAzureStatefulNodeClient client) {
+
+        // Get All Stateful Node status
+        List<StatefulNodeGetStatusResponse> statefulNodesList = client.getAllNodeStatus();
+
+        System.out.println("Stateful Node status List: ");
+
+        for (int i=0; i< statefulNodesList.size(); i++){
+            System.out.println(String.format("Stateful Node Id: %s and Status: %s ",statefulNodesList.get(i).getId() , statefulNodesList.get(i).getStatus()));
+        }
+
+        return statefulNodesList;
+
+    }
+
+    private static StatefulNodeAttachDataDiskResponse attachDataDisk(SpotinstAzureStatefulNodeClient client, String nodeId, String dataDiskName) {
+
+        StatefulNodeAttachDataDiskConfiguration.Builder attachDiskBuilder = StatefulNodeAttachDataDiskConfiguration.Builder.get();
+        StatefulNodeAttachDataDiskConfiguration attachDiskConfig = attachDiskBuilder.setDataDiskName(dataDiskName)
+                .setDataDiskResourceGroupName(resourceGroup)
+                .setLun(2)
+                .setSizeGB(10)
+                .setStorageAccountType("Standard_LRS")
+                .setZone("2").build();
+        StatefulNodeAttachDataDiskRequest.Builder attachDiskRequest = StatefulNodeAttachDataDiskRequest.Builder.get();
+
+        StatefulNodeAttachDataDiskRequest attachDisk = attachDiskRequest.setAttachDataDisk(attachDiskConfig).build();
+
+        StatefulNodeAttachDataDiskResponse attachDiskResponse = client.attachDataDisk(attachDisk, nodeId);
+
+        System.out.println(String.format("Attached %s to the Stateful Node %s successfully ", attachDiskResponse.getName(), nodeId));
+
+        return attachDiskResponse;
+    }
+
+    private static Boolean detachDataDisk(SpotinstAzureStatefulNodeClient client, String nodeId, String dataDiskName) {
+
+        StatefulNodeDetachDataDiskConfiguration.Builder detachDiskBuilder = StatefulNodeDetachDataDiskConfiguration.Builder.get();
+        StatefulNodeDetachDataDiskConfiguration detachDiskConfig = detachDiskBuilder.setDataDiskName(dataDiskName)
+                .setDataDiskResourceGroupName(resourceGroup)
+                .setShouldDeallocate(true)
+                .setTtlnHours(0).build();
+        StatefulNodeDetachDataDiskRequest.Builder detachDiskRequest = StatefulNodeDetachDataDiskRequest.Builder.get();
+
+        StatefulNodeDetachDataDiskRequest detachDisk = detachDiskRequest.setDetachDataDisk(detachDiskConfig).build();
+
+        Boolean detachDiskResponse = client.detachDataDisk(detachDisk, nodeId);
+
+        if(detachDiskResponse) {
+            System.out.println(String.format("Detach DataDisk for stateful Node %s is successful ", nodeId));
+        }
+        else {
+            System.out.println(String.format("Detach DataDisk for stateful Node %s is not successful ", nodeId));
+        }
+
+        return detachDiskResponse;
     }
 
 }

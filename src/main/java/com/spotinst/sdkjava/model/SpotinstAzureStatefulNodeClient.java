@@ -297,5 +297,70 @@ public class SpotinstAzureStatefulNodeClient {
 
     }
 
+    public List<StatefulNodeGetStatusResponse> getAllNodeStatus() {
+
+        List<StatefulNodeGetStatusResponse> retVal;
+
+        RepoGenericResponse<List<StatefulNodeGetStatusResponse>> getAllNodeStatusResponse =
+                getSpotAzureStatefulNodeRepo().getAllNodeStatus(authToken, account);
+
+        if (getAllNodeStatusResponse.isRequestSucceed()) {
+            retVal = getAllNodeStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllNodeStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get All Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public StatefulNodeAttachDataDiskResponse attachDataDisk(StatefulNodeAttachDataDiskRequest attachDataDiskRequest, String nodeId) {
+        StatefulNodeAttachDataDiskResponse retVal;
+
+        StatefulNodeAttachDataDiskConfiguration diskToAttach = attachDataDiskRequest.getAttachDataDisk();
+        RepoGenericResponse<StatefulNodeAttachDataDiskResponse> attachDiskResponse =
+                getSpotAzureStatefulNodeRepo().attachDataDisk(diskToAttach, nodeId, authToken, account);
+
+        if (attachDiskResponse.isRequestSucceed()) {
+            retVal = attachDiskResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = attachDiskResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to attach the data disk to Azure Stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean detachDataDisk(StatefulNodeDetachDataDiskRequest detachDataDiskRequest, String nodeId) {
+        Boolean retVal;
+
+        StatefulNodeDetachDataDiskConfiguration diskToDetach = detachDataDiskRequest.getDetachDataDisk();
+        RepoGenericResponse<Boolean> detachDiskResponse =
+                getSpotAzureStatefulNodeRepo().detachDataDisk(diskToDetach , nodeId, authToken, account);
+
+        if (detachDiskResponse.isRequestSucceed()) {
+            retVal = detachDiskResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = detachDiskResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to detach the data disk from Azure stateful Node. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 
 }
