@@ -15,15 +15,16 @@ import java.util.Set;
 public class ApiStatefulNodeAttachDataDiskResponse implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>     isSet;
-    private String          name;
-    private String          resourceGroupName;
-    private String          region;
-    private String          zone;
-    private Integer         size;
-    private Integer         lun;
-    private String          storageAccountType;
-    private String          managedBy;
+    private Set<String>                     isSet;
+    private String                          name;
+    private String                          resourceGroupName;
+    private String                          region;
+    private String                          zone;
+    private Integer                         size;
+    private Integer                         lun;
+    private String                          storageAccountType;
+    private String                          managedBy;
+    private ApiAttachDataDiskTagsResponse   tags;
 
 
     public ApiStatefulNodeAttachDataDiskResponse() {
@@ -109,6 +110,15 @@ public class ApiStatefulNodeAttachDataDiskResponse implements IPartialUpdateEnti
         this.lun = lun;
     }
 
+    public ApiAttachDataDiskTagsResponse getTags() {
+        return tags;
+    }
+
+    public void setTags(ApiAttachDataDiskTagsResponse tags) {
+        isSet.add("tags");
+        this.tags = tags;
+    }
+
     @JsonIgnore
     public boolean isNameSet() {
         return isSet.contains("name");
@@ -149,4 +159,8 @@ public class ApiStatefulNodeAttachDataDiskResponse implements IPartialUpdateEnti
         return isSet.contains("storageAccountType");
     }
 
+    @JsonIgnore
+    public boolean isTagsSet() {
+        return isSet.contains("tags");
+    }
 }

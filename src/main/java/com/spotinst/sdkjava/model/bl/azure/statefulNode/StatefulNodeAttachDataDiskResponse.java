@@ -12,15 +12,16 @@ import java.util.Set;
 public class StatefulNodeAttachDataDiskResponse {
 
     @JsonIgnore
-    private Set<String>     isSet;
-    private String          name;
-    private String          resourceGroupName;
-    private String          region;
-    private String          zone;
-    private Integer         size;
-    private Integer         lun;
-    private String          storageAccountType;
-    private String          managedBy;
+    private Set<String>                 isSet;
+    private String                      name;
+    private String                      resourceGroupName;
+    private String                      region;
+    private String                      zone;
+    private Integer                     size;
+    private Integer                     lun;
+    private String                      storageAccountType;
+    private String                      managedBy;
+    private AttachDataDiskTagsResponse  tags;
 
 
     private StatefulNodeAttachDataDiskResponse() {
@@ -106,6 +107,15 @@ public class StatefulNodeAttachDataDiskResponse {
         this.lun = lun;
     }
 
+    public AttachDataDiskTagsResponse getTags() {
+        return tags;
+    }
+
+    public void setTags(AttachDataDiskTagsResponse tags) {
+        isSet.add("tags");
+        this.tags = tags;
+    }
+
 
     public static class Builder {
         private StatefulNodeAttachDataDiskResponse statefulNode;
@@ -158,6 +168,11 @@ public class StatefulNodeAttachDataDiskResponse {
             return this;
         }
 
+        public Builder setTags(final AttachDataDiskTagsResponse tags) {
+            statefulNode.setTags(tags);
+            return this;
+        }
+
         public StatefulNodeAttachDataDiskResponse build() {
             return statefulNode;
         }
@@ -201,6 +216,11 @@ public class StatefulNodeAttachDataDiskResponse {
     @JsonIgnore
     public boolean isStorageAccountTypeSet() {
         return isSet.contains("storageAccountType");
+    }
+
+    @JsonIgnore
+    public boolean isTagsSet() {
+        return isSet.contains("tags");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeAttachDataDiskConfiguration;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.StatefulNodeAttachDataDiskConfiguration;

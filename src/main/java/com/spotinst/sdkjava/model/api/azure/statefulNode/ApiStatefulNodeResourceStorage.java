@@ -15,7 +15,7 @@ public class ApiStatefulNodeResourceStorage {
     @JsonIgnore
     private Set<String>                                 isSet;
     private ApiStatefulNodeResourceOsDisk               osDisk;
-    private List<ApiStatefulNodeResourceDataDisks>      dataDisk;
+    private List<ApiStatefulNodeResourceDataDisks>      dataDisks;
 
     public ApiStatefulNodeResourceStorage() {
         isSet = new HashSet<>();
@@ -29,13 +29,13 @@ public class ApiStatefulNodeResourceStorage {
         this.isSet = isSet;
     }
 
-    public List<ApiStatefulNodeResourceDataDisks> getDataDisk() {
-        return dataDisk;
+    public List<ApiStatefulNodeResourceDataDisks> getDataDisks() {
+        return dataDisks;
     }
 
-    public void setDataDisk(List<ApiStatefulNodeResourceDataDisks> dataDisk) {
-        isSet.add("dataDisk");
-        this.dataDisk = dataDisk;
+    public void setDataDisks(List<ApiStatefulNodeResourceDataDisks> dataDisks) {
+        isSet.add("dataDisks");
+        this.dataDisks = dataDisks;
     }
 
     public ApiStatefulNodeResourceOsDisk getOsDisk() {
@@ -48,8 +48,8 @@ public class ApiStatefulNodeResourceStorage {
     }
 
     @JsonIgnore
-    public boolean isDataDiskSet() {
-        return isSet.contains("dataDisk");
+    public boolean isDataDisksSet() {
+        return isSet.contains("dataDisks");
     }
 
     @JsonIgnore

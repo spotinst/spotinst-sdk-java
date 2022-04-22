@@ -1724,11 +1724,11 @@ public class StatefulNodeConverter {
         if (apiStorage != null) {
             StatefulNodeResourceStorage.Builder storageBuilder = StatefulNodeResourceStorage.Builder.get();
 
-            if (apiStorage.isDataDiskSet()) {
-                if (apiStorage.getDataDisk() != null) {
+            if (apiStorage.isDataDisksSet()) {
+                if (apiStorage.getDataDisks() != null) {
                     List<StatefulNodeResourceDataDisks> dataDisksList =
-                            apiStorage.getDataDisk().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
-                    storageBuilder.setDataDisk(dataDisksList);
+                            apiStorage.getDataDisks().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    storageBuilder.setDataDisks(dataDisksList);
                 }
             }
 
@@ -2036,6 +2036,28 @@ public class StatefulNodeConverter {
         return detachDataDisks;
     }
 
+    private static AttachDataDiskTagsResponse toBl(ApiAttachDataDiskTagsResponse apiAttachDiskTags){
+
+        AttachDataDiskTagsResponse tags = null;
+
+        if(apiAttachDiskTags != null) {
+
+            AttachDataDiskTagsResponse.Builder resourcesBuilder = AttachDataDiskTagsResponse.Builder.get();
+
+            if (apiAttachDiskTags.isTagKeySet()) {
+                resourcesBuilder.setTagKey(apiAttachDiskTags.getTagKey());
+            }
+
+            if (apiAttachDiskTags.isTagValueSet()) {
+                resourcesBuilder.setTagValue(apiAttachDiskTags.getTagValue());
+            }
+
+            tags = resourcesBuilder.build();
+        }
+
+        return tags;
+    }
+
     public static StatefulNodeAttachDataDiskResponse toBl(ApiStatefulNodeAttachDataDiskResponse apiDataDiskResponse){
 
         StatefulNodeAttachDataDiskResponse dataDisks = null;
@@ -2074,6 +2096,10 @@ public class StatefulNodeConverter {
 
             if (apiDataDiskResponse.isZoneSet()) {
                 resourcesBuilder.setZone(apiDataDiskResponse.getZone());
+            }
+
+            if (apiDataDiskResponse.isTagsSet()) {
+                resourcesBuilder.setTags(toBl(apiDataDiskResponse.getTags()));
             }
 
             dataDisks = resourcesBuilder.build();

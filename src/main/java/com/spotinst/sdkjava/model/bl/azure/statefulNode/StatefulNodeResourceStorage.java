@@ -14,7 +14,7 @@ public class StatefulNodeResourceStorage {
 
     @JsonIgnore
     private Set<String>                                 isSet;
-    private List<StatefulNodeResourceDataDisks>         dataDisk;
+    private List<StatefulNodeResourceDataDisks>         dataDisks;
     private StatefulNodeResourceOsDisk                  osDisk;
 
     private StatefulNodeResourceStorage() {
@@ -29,13 +29,13 @@ public class StatefulNodeResourceStorage {
         this.isSet = isSet;
     }
 
-    public List<StatefulNodeResourceDataDisks> getDataDisk() {
-        return dataDisk;
+    public List<StatefulNodeResourceDataDisks> getDataDisks() {
+        return dataDisks;
     }
 
-    public void setDataDisk(List<StatefulNodeResourceDataDisks> dataDisk) {
-        isSet.add("dataDisk");
-        this.dataDisk = dataDisk;
+    public void setDataDisks(List<StatefulNodeResourceDataDisks> dataDisks) {
+        isSet.add("dataDisks");
+        this.dataDisks = dataDisks;
     }
 
     public StatefulNodeResourceOsDisk getOsDisk() {
@@ -60,8 +60,8 @@ public class StatefulNodeResourceStorage {
             return builder;
         }
 
-        public Builder setDataDisk(final List<StatefulNodeResourceDataDisks> dataDisk) {
-            nodeResourceStorage.setDataDisk(dataDisk);
+        public Builder setDataDisks(final List<StatefulNodeResourceDataDisks> dataDisks) {
+            nodeResourceStorage.setDataDisks(dataDisks);
             return this;
         }
 
@@ -76,8 +76,8 @@ public class StatefulNodeResourceStorage {
     }
 
     @JsonIgnore
-    public boolean isDataDiskSet() {
-        return isSet.contains("dataDisk");
+    public boolean isDataDisksSet() {
+        return isSet.contains("dataDisks");
     }
 
     @JsonIgnore
