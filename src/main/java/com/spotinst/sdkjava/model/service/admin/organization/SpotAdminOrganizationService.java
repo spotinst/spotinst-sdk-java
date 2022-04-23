@@ -516,4 +516,118 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static ApiPolicy createAccessPolicy(ApiPolicy policyCreateRequest, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiPolicy retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        Map<String, ApiPolicy> request = new HashMap<>();
+        request.put("policy",policyCreateRequest);
+        String body = JsonMapper.toJson(request);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/policy", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        PolicyApiResponse apiResponse = getCastedResponse(response, PolicyApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems().get(0);
+        }
+        return retVal;
+    }
+
+    public static Boolean updateAccessPolicy(String policyId, ApiPolicy updateRequest, String authToken ) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        Map<String, ApiPolicy> request = new HashMap<>();
+        request.put("policy",updateRequest);
+        String body = JsonMapper.toJson(request);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/policy/%s", apiEndpoint, policyId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+        return retVal;
+    }
+
+    public static List<ApiPolicy> getAllAccessPolicies(String authToken ) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiPolicy> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/organization/policy", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        PolicyApiResponse apiResponse = getCastedResponse(response, PolicyApiResponse.class);
+
+        if (apiResponse.getResponse().getCount() > 0) {
+            retVal = apiResponse.getResponse().getItems();
+        }
+        return retVal;
+    }
+
+    public static Boolean deleteAccessPolicy(String policyId, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/setup/access/policy/%s", apiEndpoint,policyId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+        if (response.getStatusCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+        return retVal;
+    }
 }

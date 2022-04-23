@@ -160,6 +160,71 @@ public class AdminOrganizationConverter {
         return apiCreateOrganization;
     }
 
+    public static ApiPolicyStatement toDal(PolicyStatement src) {
+        ApiPolicyStatement statements = null;
+
+        if(src != null) {
+            statements = new ApiPolicyStatement();
+
+            if (src.isEffectSet()) {
+                statements.setEffect(src.getEffect());
+            }
+            if (src.isActionsSet()) {
+                statements.setActions(src.getActions());
+            }
+            if (src.isResourcesSet()) {
+                statements.setResources(src.getResources());
+            }
+        }
+        return statements;
+    }
+
+    public static ApiPolicyContent toDal(PolicyContent src) {
+        ApiPolicyContent policyContent = null;
+
+        if (src != null) {
+            policyContent = new ApiPolicyContent();
+
+            if (src.isStatementSet()) {
+                List<ApiPolicyStatement> statements =
+                        src.getStatements().stream().map(AdminOrganizationConverter::toDal).collect(Collectors.toList());
+                policyContent.setStatements(statements);
+            }
+        }
+        return policyContent;
+    }
+
+    public static ApiPolicy toDal(Policy src) {
+        ApiPolicy policy = null;
+
+        if (src != null) {
+            policy = new ApiPolicy();
+
+            if (src.isPolicyContentSet()) {
+                policy.setPolicyContent(toDal(src.getPolicyContent()));
+            }
+            if (src.isIdSet()) {
+                policy.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                policy.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                policy.setDescription(src.getDescription());
+            }
+            if (src.isTypeSet()) {
+                policy.setType(src.getType());
+            }
+            if (src.isCreatedAtSet()) {
+                policy.setCreatedAt(src.getCreatedAt());
+            }
+            if (src.isUpdatedAtSet()) {
+                policy.setUpdatedAt(src.getUpdatedAt());
+            }
+        }
+        return policy;
+    }
+
     public static User toBl(ApiUser src) {
         User user = null;
 
@@ -545,5 +610,70 @@ public class AdminOrganizationConverter {
             }
         }
         return createOrganizationResponse;
+    }
+
+    public static PolicyStatement toBl(ApiPolicyStatement src) {
+        PolicyStatement statements = null;
+
+        if(src != null) {
+            statements = new PolicyStatement();
+
+            if (src.isEffectSet()) {
+                statements.setEffect(src.getEffect());
+            }
+            if (src.isActionsSet()) {
+                statements.setActions(src.getActions());
+            }
+            if (src.isResourcesSet()) {
+                statements.setResources(src.getResources());
+            }
+        }
+        return statements;
+    }
+
+    public static PolicyContent toBl(ApiPolicyContent src) {
+        PolicyContent policyContent = null;
+
+        if (src != null) {
+            policyContent = new PolicyContent();
+
+            if (src.isStatementSet()) {
+                List<PolicyStatement> statements =
+                        src.getStatements().stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
+                policyContent.setStatements(statements);
+            }
+        }
+        return policyContent;
+    }
+
+    public static Policy toBl(ApiPolicy src) {
+        Policy policy = null;
+
+        if (src != null) {
+            policy = new Policy();
+
+            if (src.isPolicyContentSet()) {
+                policy.setPolicyContent(toBl(src.getPolicyContent()));
+            }
+            if (src.isIdSet()) {
+                policy.setId(src.getId());
+            }
+            if (src.isNameSet()) {
+                policy.setName(src.getName());
+            }
+            if (src.isDescriptionSet()) {
+                policy.setDescription(src.getDescription());
+            }
+            if (src.isTypeSet()) {
+                policy.setType(src.getType());
+            }
+            if (src.isCreatedAtSet()) {
+                policy.setCreatedAt(src.getCreatedAt());
+            }
+            if (src.isUpdatedAtSet()) {
+                policy.setUpdatedAt(src.getUpdatedAt());
+            }
+        }
+        return policy;
     }
 }

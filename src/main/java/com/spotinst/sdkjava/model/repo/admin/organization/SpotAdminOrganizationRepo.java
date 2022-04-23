@@ -338,4 +338,81 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<Policy> createAccessPolicy(Policy createRequest, String authToken) {
+        RepoGenericResponse<Policy> retVal;
+
+        try {
+
+            ApiPolicy apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
+
+            ApiPolicy apiResponse =
+                    SpotAdminOrganizationService.createAccessPolicy(apiCreateRequest, authToken );
+            Policy createResponse = AdminOrganizationConverter.toBl(apiResponse);
+
+            retVal = new RepoGenericResponse<>(createResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateAccessPolicy(String policyId, Policy createRequest,String authToken ) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            ApiPolicy apiCreateRequest = AdminOrganizationConverter.toDal(createRequest);
+
+            Boolean updateStatus=
+                    SpotAdminOrganizationService.updateAccessPolicy(policyId,apiCreateRequest, authToken );
+
+            retVal = new RepoGenericResponse<>(updateStatus);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<Policy>> getAllAccessPolicies(String authToken ) {
+        RepoGenericResponse<List<Policy>> retVal;
+
+        try {
+            List<ApiPolicy> apiResponse =
+                    SpotAdminOrganizationService.getAllAccessPolicies( authToken );
+            List<Policy> getResponse =
+                    apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteAccessPolicy(String policyId, String authToken ) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean updateStatus=
+                    SpotAdminOrganizationService.deleteAccessPolicy(policyId, authToken );
+
+            retVal = new RepoGenericResponse<>(updateStatus);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
 }
