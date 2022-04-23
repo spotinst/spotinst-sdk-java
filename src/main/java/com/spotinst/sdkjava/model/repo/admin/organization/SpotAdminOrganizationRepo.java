@@ -381,12 +381,12 @@ public class SpotAdminOrganizationRepo implements ISpotAdminOrganizationRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<Policy>> getAllPolicies(String authToken ) {
+    public RepoGenericResponse<List<Policy>> getAllAccessPolicies(String authToken ) {
         RepoGenericResponse<List<Policy>> retVal;
 
         try {
             List<ApiPolicy> apiResponse =
-                    SpotAdminOrganizationService.getAllPolicies( authToken );
+                    SpotAdminOrganizationService.getAllAccessPolicies( authToken );
             List<Policy> getResponse =
                     apiResponse.stream().map(AdminOrganizationConverter::toBl).collect(Collectors.toList());
 

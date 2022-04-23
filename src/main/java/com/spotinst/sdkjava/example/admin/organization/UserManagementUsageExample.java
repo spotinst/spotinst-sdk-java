@@ -49,7 +49,7 @@ public class UserManagementUsageExample {
         String policyId = createAccessPolicy(adminClient);
         updateAccessPolicy(policyId, adminClient);
         deleteAccessPolicy(policyId, adminClient);
-        getAllPolicies(adminClient);
+        getAllAccessPolicies(adminClient);
     }
 
     private static String createUser(SpotinstAdminOrganizationClient adminClient) {
@@ -291,7 +291,7 @@ public class UserManagementUsageExample {
 
     private static String createAccessPolicy(SpotinstAdminOrganizationClient adminClient) {
         List<String> actions = new ArrayList<>();
-        actions.add("*");
+        actions.add("security:deletePreset");
 
         List<String> resources = new ArrayList<>();
         resources.add("*");
@@ -314,18 +314,31 @@ public class UserManagementUsageExample {
     }
 
     private static void updateAccessPolicy(String policyId, SpotinstAdminOrganizationClient adminClient) {
-        List<String> actions = new ArrayList<>();
-        actions.add("*");
+        List<String> actions1 = new ArrayList<>();
+        actions1.add("cloudAnalyzer:*");
 
-        List<String> resources = new ArrayList<>();
-        resources.add("*");
+        List<String> resources1 = new ArrayList<>();
+        resources1.add("*");
+
+        List<String> actions2 = new ArrayList<>();
+        actions2.add("eco:*");
+
+        List<String> resources2 = new ArrayList<>();
+        resources2.add("*");
 
         PolicyStatement.Builder statementBuilder = PolicyStatement.Builder.get();
-        PolicyStatement statements =
-                statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions).setResources(resources).build();
+        PolicyStatement statements1 =
+                statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions1).setResources(resources1).build();
+
+        PolicyStatement statements2 =
+                statementBuilder.setEffect(PolicyEffectEnum.DENY).setActions(actions2).setResources(resources2).build();
+
+        List<PolicyStatement> statements = new ArrayList<>();
+        statements.add(statements1);
+        statements.add(statements2);
 
         PolicyContent.Builder contentBuilder = PolicyContent.Builder.get();
-        PolicyContent policyContent = contentBuilder.setStatements(Collections.singletonList(statements)).build();
+        PolicyContent policyContent = contentBuilder.setStatements(statements).build();
 
         Policy.Builder policyBuilder = Policy.Builder.get();
         Policy         policy        = policyBuilder.setName("Test Policy").setPolicyContent(policyContent).build();
@@ -334,8 +347,8 @@ public class UserManagementUsageExample {
         System.out.println(String.format("Update policy status: %s", status));
     }
 
-    private static void getAllPolicies(SpotinstAdminOrganizationClient adminClient) {
-        List<Policy> policies = adminClient.getAllPolicies();
+    private static void getAllAccessPolicies(SpotinstAdminOrganizationClient adminClient) {
+        List<Policy> policies = adminClient.getAllAccessPolicies();
 
         for (Policy policy : policies) {
             System.out.println(String.format("Policy Id: %s", policy.getId()));

@@ -578,7 +578,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiPolicy> getAllPolicies(String authToken ) throws SpotinstHttpException {
+    public static List<ApiPolicy> getAllAccessPolicies(String authToken ) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiPolicy> retVal = null;

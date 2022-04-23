@@ -47,7 +47,7 @@ public interface ISpotAdminOrganizationRepo extends IRepository<Users, Void, Str
 
     RepoGenericResponse<Boolean> updateAccessPolicy(String policyId, Policy createRequest, String authToken);
 
-    RepoGenericResponse<List<Policy>> getAllPolicies(String authToken);
+    RepoGenericResponse<List<Policy>> getAllAccessPolicies(String authToken);
 
     RepoGenericResponse<Boolean> deleteAccessPolicy(String policyId, String authToken);
 }

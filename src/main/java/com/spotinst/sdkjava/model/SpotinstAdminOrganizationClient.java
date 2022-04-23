@@ -452,12 +452,12 @@ public class SpotinstAdminOrganizationClient {
         return retVal;
     }
 
-    public List<Policy> getAllPolicies() {
+    public List<Policy> getAllAccessPolicies() {
 
         List<Policy> retVal = null;
 
         RepoGenericResponse<List<Policy>> creationResponse =
-                getSpotinstAccountAdminRepo().getAllPolicies( authToken);
+                getSpotinstAccountAdminRepo().getAllAccessPolicies( authToken);
 
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
