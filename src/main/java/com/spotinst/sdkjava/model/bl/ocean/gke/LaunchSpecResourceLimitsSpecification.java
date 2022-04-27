@@ -52,8 +52,7 @@ public class LaunchSpecResourceLimitsSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setMaxInstanceCount(final Integer maxInstanceCount) {

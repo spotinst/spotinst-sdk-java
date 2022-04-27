@@ -28,8 +28,7 @@ public class CreateVmSignalRequestAzure {
         }
 
         public static CreateVmSignalRequestAzure.Builder get() {
-            CreateVmSignalRequestAzure.Builder builder = new CreateVmSignalRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public CreateVmSignalRequestAzure.Builder setVmSignalAzure(final VmSignalAzure vmSignalAzure) {
@@ -45,8 +44,7 @@ public class CreateVmSignalRequestAzure {
 
     public String toJson() {
         ApiVmSignalAzure apiVmSignal = ElastigroupConverterAzure.toDal(vmSignalAzure);
-        String elastigroupJson = JsonMapper.toJson(apiVmSignal);
 
-        return elastigroupJson;
+        return JsonMapper.toJson(apiVmSignal);
     }
 }

@@ -36,8 +36,7 @@ public class ElastigroupGetRequest {
         }
 
         public static ElastigroupGetRequest.Builder get() {
-            ElastigroupGetRequest.Builder builder = new ElastigroupGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetRequest.Builder setElastigroupId(final String elastigroupId) {

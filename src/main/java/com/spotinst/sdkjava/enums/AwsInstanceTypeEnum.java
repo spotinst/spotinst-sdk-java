@@ -369,7 +369,7 @@ public enum AwsInstanceTypeEnum {
     G4AD_8XLARGE("g4ad.8xlarge", AwsInstanceFamilyEnum.G4AD),
     G4AD_16XLARGE("g4ad.16xlarge", AwsInstanceFamilyEnum.G4AD);
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
     private AwsInstanceFamilyEnum family;
 

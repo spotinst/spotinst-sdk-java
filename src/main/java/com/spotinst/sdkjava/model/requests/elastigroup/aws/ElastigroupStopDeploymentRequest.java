@@ -39,8 +39,7 @@ public class ElastigroupStopDeploymentRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setRoll(final ElastigroupDeploymentRoll roll) {
@@ -60,8 +59,7 @@ public class ElastigroupStopDeploymentRequest {
         ApiElastigroupDeploymentRoll              apiElastigroupStopDeployment = ElastigroupConverter.toDal(roll);
         Map<String, ApiElastigroupDeploymentRoll> groupRequest                 = new HashMap<>();
         groupRequest.put("roll", apiElastigroupStopDeployment);
-        String elastigroupJson = JsonMapper.toJson(groupRequest);
-        return elastigroupJson;
+        return JsonMapper.toJson(groupRequest);
     }
 
     //endregion

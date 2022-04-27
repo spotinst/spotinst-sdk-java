@@ -14,7 +14,6 @@ public class K8sVngClient {
 
     private String                  authToken;
     private String                  account;
-    private String                  oceanId;
     private ISpotK8sVngRepo   		K8sVngRepo;
 
     public ISpotK8sVngRepo getK8sVngRepo() {
@@ -125,10 +124,68 @@ public class K8sVngClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to list ocean Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public K8sVngSpec importASGToVng(K8sVngSpec importASGRequest, String autoScalingGroupName, String oceanId) {
+        K8sVngSpec retVal;
+        RepoGenericResponse<K8sVngSpec> importASGToVngResponse = getK8sVngRepo().importASGToVng(importASGRequest, autoScalingGroupName, oceanId, authToken, account);
+
+        if (importASGToVngResponse.isRequestSucceed()) {
+            retVal = importASGToVngResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGToVngResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to import ASG to  Virtual Node Group. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return retVal;
     }
+
+    public K8sVngSpec importClusterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importVngRequest) {
+        K8sVngSpec retVal;
+        RepoGenericResponse<K8sVngSpec> importClusterVngToVngResponse = getK8sVngRepo().importCluterVngToOceanVng(importVngRequest, authToken);
+
+        if (importClusterVngToVngResponse.isRequestSucceed()) {
+            retVal = importClusterVngToVngResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importClusterVngToVngResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to import cluster vng to  ocean Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<LaunchNodesInVNGResponse> launchNodesInVNG(LaunchNodesInVNG lauchNodes, String vngId) {
+        List<LaunchNodesInVNGResponse> retVal;
+        RepoGenericResponse<List<LaunchNodesInVNGResponse>> launchNodesResponse = getK8sVngRepo().launchNodesInVNG(lauchNodes, vngId, authToken, account);
+
+        if (launchNodesResponse.isRequestSucceed()) {
+            retVal = launchNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = launchNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to launch nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 }

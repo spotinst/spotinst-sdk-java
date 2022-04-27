@@ -4,6 +4,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.List;
@@ -138,6 +139,67 @@ public class SpotOceanAzureAksClusterClient {
 
         for (int i = 0; i < retVal.size(); i++) {
             System.out.println("Cluster number:" + i + "   " + retVal.get(i).getName() + "   " + retVal.get(i).getControllerClusterId());
+        }
+
+        return retVal;
+    }
+
+    public GetAzureAksClusterHeartBeatStatusResponse getAzureAksClusterHeartBeatStatus(String clusterId) {
+
+        GetAzureAksClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus;
+
+        RepoGenericResponse<GetAzureAksClusterHeartBeatStatusResponse> getK8sClusterHeartBeatStatusResponse =
+                getSpotOceanAzureAksClusterRepo().getAzureAksClusterHeartBeatStatus(clusterId, authToken, account);
+
+        if(getK8sClusterHeartBeatStatusResponse.isRequestSucceed()){
+            getK8sClusterHeartBeatStatus =getK8sClusterHeartBeatStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getK8sClusterHeartBeatStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get Ocean cluster heartbeat status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getK8sClusterHeartBeatStatus;
+
+    }
+
+    public List<GetAksClusterNodesResponse> getClusterNodes(GetAksClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetAksClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetAksClusterNodesResponse>> getNodesResponse = getSpotOceanAzureAksClusterRepo().getClusterNodes(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<AksDetachInstancesResponse> detachVms(AksDetachInstances instances, String clusterId) {
+        List<AksDetachInstancesResponse> retVal;
+        RepoGenericResponse<List<AksDetachInstancesResponse>> detachInstancesResponse = getSpotOceanAzureAksClusterRepo().detachVms(instances, clusterId, authToken, account);
+
+        if (detachInstancesResponse.isRequestSucceed()) {
+            retVal = detachInstancesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = detachInstancesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to detach vms from the Ocean cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return retVal;

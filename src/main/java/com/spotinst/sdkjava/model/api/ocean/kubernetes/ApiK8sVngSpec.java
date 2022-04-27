@@ -26,7 +26,7 @@ public class ApiK8sVngSpec implements IPartialUpdateEntity {
     private String                           imageId;
     private ApiK8sVngInstanceMetadataOptions instanceMetadataOptions;
     private List<String>                     instanceTypes;
-    private List<ApiK8sVngLabels>			 labels;
+    private List<ApiK8sVngLabel>			 labels;
     private String                           oceanId;
     private List<String>                     preferredSpotTypes;
     private ApiK8sVngResourceLimits			 resourceLimits;
@@ -96,11 +96,11 @@ public class ApiK8sVngSpec implements IPartialUpdateEntity {
         this.blockDeviceMappings = blockDeviceMappings;
     }
 
-    public List<ApiK8sVngLabels> getLabels() {
+    public List<ApiK8sVngLabel> getLabels() {
         return labels;
     }
 
-    public void setLabels (List<ApiK8sVngLabels> labels) {
+    public void setLabels (List<ApiK8sVngLabel> labels) {
         isSet.add("labels");
         this.labels = labels;
     }

@@ -76,8 +76,7 @@ public class LoadBalancerAzure {
         }
 
         public static LoadBalancerAzure.Builder get() {
-            LoadBalancerAzure.Builder builder = new LoadBalancerAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public LoadBalancerAzure.Builder setName(final String name) {

@@ -35,8 +35,7 @@ public class K8sVngUpdateRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVngLaunchSpec(final K8sVngSpec launchSpec) {
@@ -56,8 +55,7 @@ public class K8sVngUpdateRequest {
 
         Map<String, ApiK8sVngSpec> virtualNodeGroupRequest = new HashMap<>();
         virtualNodeGroupRequest.put("launchSpec", apiVirtualNodeGroupToUpdate);
-        String virtualNodGroupJson = JsonMapper.toJson(virtualNodeGroupRequest);
 
-        return virtualNodGroupJson;
+        return JsonMapper.toJson(virtualNodeGroupRequest);
     }
 }

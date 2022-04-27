@@ -25,7 +25,7 @@ public class SpotinstSubscriptionClient {
 
     public Subscription subscribeToEvent(SubscriptionCreationRequest subscriptionCreationRequest) {
 
-        Subscription retVal = null;
+        Subscription retVal;
 
         Subscription subscriptionToCreate = subscriptionCreationRequest.getSubscription();
         RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.create(subscriptionToCreate, authToken, account);
@@ -42,7 +42,7 @@ public class SpotinstSubscriptionClient {
 
     public Subscription getSubscriptionEvent(SubscriptionGetRequest subscriptionGetRequest) {
 
-        Subscription retVal = null;
+        Subscription retVal;
         String subscriptionId = subscriptionGetRequest.getSubscriptionId();
         RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.get(subscriptionId, authToken,account);
         if (creationResponse.isRequestSucceed()) {
@@ -58,7 +58,7 @@ public class SpotinstSubscriptionClient {
 
     public Boolean deleteSubscription(SubscriptionDeletionRequest subscriptionDeletionRequest) {
 
-        Boolean retVal = null;
+        Boolean retVal;
 
         String subscriptionId = subscriptionDeletionRequest.getSubscriptionId();
 

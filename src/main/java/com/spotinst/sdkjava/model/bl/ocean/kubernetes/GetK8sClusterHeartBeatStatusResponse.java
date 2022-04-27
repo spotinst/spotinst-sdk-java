@@ -54,8 +54,7 @@ public class GetK8sClusterHeartBeatStatusResponse {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public GetK8sClusterHeartBeatStatusResponse.Builder setStatus(final String status) {

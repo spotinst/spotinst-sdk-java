@@ -55,8 +55,7 @@ public class ElastigroupLaunchSpecificationGcp {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDisks(final List<ElastigroupDisksGcp> disks) {

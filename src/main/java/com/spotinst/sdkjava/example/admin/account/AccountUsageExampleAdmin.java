@@ -21,12 +21,12 @@ public class AccountUsageExampleAdmin {
         System.out.println("Total Accounts Found - " + accountList.size());
 
         // For loop for iterating over the List
-        for (int i = 0; i < accountList.size(); i++) {
-            System.out.println("Account Id - " + accountList.get(i).getAccountId());
-            System.out.println("Organization Id - " + accountList.get(i).getOrganizationId());
-            System.out.println("Name - " + accountList.get(i).getName());
-            System.out.println("Cloud Provider - " + accountList.get(i).getCloudProvider());
-            System.out.println("Provider External Id - " + accountList.get(i).getProviderExternalId());
+        for (BlAccountAdmin account : accountList) {
+            System.out.println("Account Id - " + account.getAccountId());
+            System.out.println("Organization Id - " + account.getOrganizationId());
+            System.out.println("Name - " + account.getName());
+            System.out.println("Cloud Provider - " + account.getCloudProvider());
+            System.out.println("Provider External Id - " + account.getProviderExternalId());
         }
 
         // -------------------- Delete account Example ---------------------------

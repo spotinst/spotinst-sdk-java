@@ -32,8 +32,7 @@ public class VolumeGetRequest {
         }
 
         public static VolumeGetRequest.Builder get() {
-            VolumeGetRequest.Builder builder = new VolumeGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public VolumeGetRequest.Builder setVolumeId(final String volumeId) {

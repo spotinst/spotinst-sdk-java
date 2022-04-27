@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
 
@@ -457,6 +456,20 @@ public class ClusterConverterAks {
             }
         }
         return retVal;
+    }
+
+    public static ApiAksDetachInstances toDal(AksDetachInstances detachInstances) {
+        ApiAksDetachInstances retval = null;
+
+        if (detachInstances != null) {
+            retval = new ApiAksDetachInstances();
+
+            if (detachInstances.isVmsToDetachSet()) {
+                retval.setVmsToDetach(detachInstances.getVmsToDetach());
+            }
+        }
+
+        return retval;
     }
 
     //DAL -> BL
@@ -928,6 +941,151 @@ public class ClusterConverterAks {
 
                 retVal = builder.build();
             }
+        return retVal;
+    }
+
+    public static GetAzureAksClusterHeartBeatStatusResponse toBl(
+            ApiGetAzureAksClusterHeartBeatStatusResponse clusterHeartBeatStatus) {
+        GetAzureAksClusterHeartBeatStatusResponse retVal = null;
+
+        if (clusterHeartBeatStatus != null) {
+            retVal = new GetAzureAksClusterHeartBeatStatusResponse();
+
+            if (clusterHeartBeatStatus.isStatusSet()) {
+                retVal.setStatus(clusterHeartBeatStatus.getStatus());
+            }
+            if (clusterHeartBeatStatus.isLastHeartbeatSet()) {
+                retVal.setLastHeartbeat(clusterHeartBeatStatus.getLastHeartbeat());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    public static GetAksClusterNodesResponse toBl(ApiGetAksClusterNodesResponse apiClusterNodes) {
+        GetAksClusterNodesResponse retVal = null;
+
+        if (apiClusterNodes != null) {
+            GetAksClusterNodesResponse.Builder instancesBuilder = GetAksClusterNodesResponse.Builder.get();
+
+            if (apiClusterNodes.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiClusterNodes.getLifeCycle());
+            }
+
+            if (apiClusterNodes.isPublicIpSet()) {
+                instancesBuilder.setPublicIp(apiClusterNodes.getPublicIp());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMilliCpuSet()) {
+                instancesBuilder.setWorkloadRequestedMilliCpu(apiClusterNodes.getWorkloadRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMemoryInMiBSet()) {
+                instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterNodes.getWorkloadRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedGpuSet()) {
+                instancesBuilder.setWorkloadRequestedGpu(apiClusterNodes.getWorkloadRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMilliCpuSet()) {
+                instancesBuilder.setHeadroomRequestedMilliCpu(apiClusterNodes.getHeadroomRequestedMilliCpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedGpuSet()) {
+                instancesBuilder.setHeadroomRequestedGpu(apiClusterNodes.getHeadroomRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMemoryInMiBSet()) {
+                instancesBuilder.setHeadroomRequestedMemoryInMiB(apiClusterNodes.getHeadroomRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isAllocatableMilliCpuSet()) {
+                instancesBuilder.setAllocatableMilliCpu(apiClusterNodes.getAllocatableMilliCpu());
+            }
+
+            if (apiClusterNodes.isAllocatableMemoryInMiBSet()) {
+                instancesBuilder.setAllocatableMemoryInMiB(apiClusterNodes.getAllocatableMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isAllocatableGpuSet()) {
+                instancesBuilder.setAllocatableGpu(apiClusterNodes.getAllocatableGpu());
+            }
+
+            if (apiClusterNodes.isNodeNameSet()) {
+                instancesBuilder.setNodeName(apiClusterNodes.getNodeName());
+            }
+
+            if (apiClusterNodes.isRegistrationStatusSet()) {
+                instancesBuilder.setRegistrationStatus(apiClusterNodes.getRegistrationStatus());
+            }
+
+            if (apiClusterNodes.isCreatedAtSet()) {
+                instancesBuilder.setCreatedAt(apiClusterNodes.getCreatedAt());
+            }
+
+            if (apiClusterNodes.isVmNameSet()) {
+                instancesBuilder.setVmName(apiClusterNodes.getVmName());
+            }
+
+            if (apiClusterNodes.isVmSizeSet()) {
+                instancesBuilder.setVmSize(apiClusterNodes.getVmSize());
+            }
+
+            if (apiClusterNodes.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiClusterNodes.getAvailabilityZone());
+            }
+
+            if (apiClusterNodes.isVirtualNodeGroupIdSet()) {
+                instancesBuilder.setVirtualNodeGroupId(apiClusterNodes.getVirtualNodeGroupId());
+            }
+
+            if (apiClusterNodes.isVirtualNodeGroupNameSet()) {
+                instancesBuilder.setVirtualNodeGroupName(apiClusterNodes.getVirtualNodeGroupName());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static AksDetachInstancesResponse toBl(ApiAksDetachInstancesResponse apiDetachVms) {
+        AksDetachInstancesResponse retVal = null;
+
+        if (apiDetachVms != null) {
+            AksDetachInstancesResponse.Builder vmsBuilder = AksDetachInstancesResponse.Builder.get();
+
+            if (apiDetachVms.isDetachedVmsSet()) {
+                List<DetachedVms> vms = apiDetachVms.getDetachedVms().stream().map(ClusterConverterAks::toBl)
+                                .collect(Collectors.toList());
+                vmsBuilder.setDetachedVms(vms);
+            }
+
+            retVal = vmsBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static DetachedVms toBl(ApiDetachedVms apiDetachedvms){
+        DetachedVms retVal = null;
+
+        if (apiDetachedvms != null){
+
+            DetachedVms.Builder builder = DetachedVms.Builder.get();
+
+            if (apiDetachedvms.isVmNameSet()){
+                builder.setVmName(apiDetachedvms.getVmName());
+            }
+
+            retVal = builder.build();
+        }
         return retVal;
     }
 }

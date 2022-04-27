@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.junit.Before;
 import static org.mockito.Mockito.*;
 
-import static org.junit.Assert.*;
-
 public class SpotinstMrScalerAwsClientTest {
     public ISpotinstMrScalerAwsRepo mockedRepo;
     public String auth_token = "";

@@ -2,7 +2,6 @@ package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.swing.plaf.ButtonUI;
 import java.util.HashSet;
 import java.util.Set;
 

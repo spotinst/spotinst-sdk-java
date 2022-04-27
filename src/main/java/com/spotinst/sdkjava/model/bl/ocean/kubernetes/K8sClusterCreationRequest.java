@@ -37,8 +37,7 @@ public class K8sClusterCreationRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCluster(final OceanK8sCluster oceanK8sCluster) {
@@ -59,9 +58,8 @@ public class K8sClusterCreationRequest {
 
         Map<String, ApiOceanK8sCluster> clusterRequest = new HashMap<>();
         clusterRequest.put("cluster", apiClusterToCreate);
-        String clusterJson = JsonMapper.toJson(clusterRequest);
 
-        return clusterJson;
+        return JsonMapper.toJson(clusterRequest);
     }
     //endregion
 }

@@ -222,9 +222,8 @@ public class VolumeUsageExampleAzureStorage {
 
         VolumeGetRequest.Builder requestBuilder = VolumeGetRequest.Builder.get();
         VolumeGetRequest         requestById    = requestBuilder.setVolumeId(volumeId).build();
-        AzureStorageVolume       volume         = client.getVolume(requestById);
 
-        return volume;
+        return client.getVolume(requestById);
 
     }
 

@@ -32,8 +32,7 @@ public class ElastigroupInstanceUnLockRequest {
         }
 
         public static ElastigroupInstanceUnLockRequest.Builder get() {
-            ElastigroupInstanceUnLockRequest.Builder builder = new ElastigroupInstanceUnLockRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupInstanceUnLockRequest.Builder setAccountId(final String accountId) {

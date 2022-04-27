@@ -37,9 +37,8 @@ public class SubscriptionCreationRequest {
 
             Map<String, ApiSubscription> subscriptionRequest = new HashMap<>();
             subscriptionRequest.put("subscription", apiSubscriptionToCreate);
-            String elastigroupJson = JsonMapper.toJson(subscriptionRequest);
 
-            retVal = elastigroupJson;
+            retVal = JsonMapper.toJson(subscriptionRequest);
         }
         return retVal;
     }
@@ -54,8 +53,7 @@ public class SubscriptionCreationRequest {
         }
 
         public static SubscriptionCreationRequest.Builder get() {
-            SubscriptionCreationRequest.Builder builder = new SubscriptionCreationRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public SubscriptionCreationRequest.Builder setSubscription(final Subscription subscription) {

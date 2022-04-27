@@ -55,8 +55,7 @@ public class ClusterShutdownHoursSpecification {
         }
 
         public static ClusterShutdownHoursSpecification.Builder get() {
-            ClusterShutdownHoursSpecification.Builder builder = new ClusterShutdownHoursSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterShutdownHoursSpecification.Builder setEnabled(final Boolean isEnabled) {
