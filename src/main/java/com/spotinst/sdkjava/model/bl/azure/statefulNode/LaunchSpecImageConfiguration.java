@@ -13,8 +13,8 @@ public class LaunchSpecImageConfiguration {
     @JsonIgnore
     private Set<String>                        isSet;
     private LaunchSpecMarketplaceConfiguration marketplace;
-    private LaunchSpecCustomConfiguration      custom;
-    private LaunchSpecGalleryConfiguration     gallery;
+    private LaunchSpecCustomImageConfiguration custom;
+    private LaunchSpecImageGalleryConfiguration gallery;
 
     public LaunchSpecImageConfiguration() {
         isSet = new HashSet<>();
@@ -37,20 +37,20 @@ public class LaunchSpecImageConfiguration {
         this.marketplace = marketplace;
     }
 
-    public LaunchSpecCustomConfiguration getCustom() {
+    public LaunchSpecCustomImageConfiguration getCustom() {
         return custom;
     }
 
-    public void setCustom(LaunchSpecCustomConfiguration custom) {
+    public void setCustom(LaunchSpecCustomImageConfiguration custom) {
         isSet.add("custom");
         this.custom = custom;
     }
 
-    public LaunchSpecGalleryConfiguration getGallery() {
+    public LaunchSpecImageGalleryConfiguration getGallery() {
         return gallery;
     }
 
-    public void setGallery(LaunchSpecGalleryConfiguration gallery) {
+    public void setGallery(LaunchSpecImageGalleryConfiguration gallery) {
         isSet.add("gallery");
         this.gallery = gallery;
     }
@@ -72,12 +72,12 @@ public class LaunchSpecImageConfiguration {
             return this;
         }
 
-        public Builder setCustom(final LaunchSpecCustomConfiguration custom) {
+        public Builder setCustom(final LaunchSpecCustomImageConfiguration custom) {
             imageConfiguration.setCustom(custom);
             return this;
         }
 
-        public Builder setGallery(final LaunchSpecGalleryConfiguration gallery) {
+        public Builder setGallery(final LaunchSpecImageGalleryConfiguration gallery) {
             imageConfiguration.setGallery(gallery);
             return this;
         }

@@ -19,8 +19,8 @@ import java.util.Set;
 public class ApiStatefulNodeLoadBalancersConfig implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>  isSet;
-    private List<String> loadBalancers;
+    private Set<String>                         isSet;
+    private List<ApiStatefulNodeLoadBalancers>  loadBalancers;
 
     public ApiStatefulNodeLoadBalancersConfig() {
         isSet = new HashSet<>();
@@ -34,11 +34,11 @@ public class ApiStatefulNodeLoadBalancersConfig implements IPartialUpdateEntity 
         this.isSet = isSet;
     }
 
-    public List<String> getLoadBalancers() {
+    public List<ApiStatefulNodeLoadBalancers> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<String> loadBalancers) {
+    public void setLoadBalancers(List<ApiStatefulNodeLoadBalancers> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }

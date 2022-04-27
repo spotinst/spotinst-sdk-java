@@ -16,8 +16,8 @@ import java.util.Set;
 public class StatefulNodeLoadBalancersConfig {
 
     @JsonIgnore
-    private Set<String>  isSet;
-    private List<String> loadBalancers;
+    private Set<String>                     isSet;
+    private List<StatefulNodeLoadBalancers> loadBalancers;
 
     private StatefulNodeLoadBalancersConfig() {
         isSet = new HashSet<>();
@@ -31,11 +31,11 @@ public class StatefulNodeLoadBalancersConfig {
         this.isSet = isSet;
     }
 
-    public List<String> getLoadBalancers() {
+    public List<StatefulNodeLoadBalancers> getLoadBalancers() {
         return loadBalancers;
     }
 
-    public void setLoadBalancers(List<String> loadBalancers) {
+    public void setLoadBalancers(List<StatefulNodeLoadBalancers> loadBalancers) {
         isSet.add("loadBalancers");
         this.loadBalancers = loadBalancers;
     }
@@ -52,7 +52,7 @@ public class StatefulNodeLoadBalancersConfig {
             return builder;
         }
 
-        public Builder setLoadBalancers(final List<String> loadBalancers) {
+        public Builder setLoadBalancers(final List<StatefulNodeLoadBalancers> loadBalancers) {
             statefulNodeLoadBalancers.setLoadBalancers(loadBalancers);
             return this;
         }

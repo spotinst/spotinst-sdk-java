@@ -17,7 +17,7 @@ public class StatefulNodeResourceOsDisk {
     private String                  resourceGroupName;
     private String                  osType;
     private String                  storageAccountType;
-    private Integer                 sizeGb;
+    private Integer                 sizeGB;
     private String                  snapshot;
     private String                  lastCompletedSnapshot;
 
@@ -69,13 +69,13 @@ public class StatefulNodeResourceOsDisk {
         this.storageAccountType = storageAccountType;
     }
 
-    public Integer getSizeGb() {
-        return sizeGb;
+    public Integer getSizeGB() {
+        return sizeGB;
     }
 
-    public void setSizeGb(Integer sizeGb) {
-        isSet.add("sizeGb");
-        this.sizeGb = sizeGb;
+    public void setSizeGB(Integer sizeGB) {
+        isSet.add("sizeGB");
+        this.sizeGB = sizeGB;
     }
 
     public String getSnapshot() {
@@ -124,8 +124,8 @@ public class StatefulNodeResourceOsDisk {
             return this;
         }
 
-        public Builder setSizeGb(final Integer sizeGb) {
-            nodeResourceDataDisks.setSizeGb(sizeGb);
+        public Builder setSizeGB(final Integer sizeGB) {
+            nodeResourceDataDisks.setSizeGB(sizeGB);
             return this;
         }
 
@@ -161,8 +161,8 @@ public class StatefulNodeResourceOsDisk {
     public boolean isStorageAccountTypeSet() { return isSet.contains("storageAccountType"); }
 
     @JsonIgnore
-    public boolean isSizeGbSet() {
-        return isSet.contains("sizeGb");
+    public boolean isSizeGBSet() {
+        return isSet.contains("sizeGB");
     }
 
     @JsonIgnore

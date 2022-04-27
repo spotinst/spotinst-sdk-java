@@ -31,7 +31,7 @@ public interface ISpotAzureStatefulNodeRepo extends IRepository<StatefulNode, Vo
         throw new SpotinstNotSupportedException();
     }
 
-    default RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateChangeRequest recycleStatefulNodeRequest, String nodeId, String authToken, String account){
+    default RepoGenericResponse<Boolean> updateNodeState(StatefulNodeStateChangeRequest statefulNodeStateChangeRequest, String nodeId, String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
 

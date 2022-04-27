@@ -1,10 +1,10 @@
-package com.spotinst.sdkjava.enums;
+package com.spotinst.sdkjava.enums.azure.statefulNode;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzureStatefulNodeLifeCycleTypeEnum {
+public enum AzureStatefulNodePreferredLifeCycleEnum {
     //region Enum
     SPOT("spot"),
     OD("od");
@@ -15,20 +15,20 @@ public enum AzureStatefulNodeLifeCycleTypeEnum {
     //endregion
 
     //region Constructor
-    AzureStatefulNodeLifeCycleTypeEnum(String name) {
+    AzureStatefulNodePreferredLifeCycleEnum(String name) {
         this.name = name;
     }
     //endregion
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeLifeCycleTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodePreferredLifeCycleEnum.class);
 
     //region methods
-    public static AzureStatefulNodeLifeCycleTypeEnum fromName(String name) {
-        AzureStatefulNodeLifeCycleTypeEnum retVal = null;
+    public static AzureStatefulNodePreferredLifeCycleEnum fromName(String name) {
+        AzureStatefulNodePreferredLifeCycleEnum retVal = null;
 
-        for (AzureStatefulNodeLifeCycleTypeEnum productEnum : AzureStatefulNodeLifeCycleTypeEnum.values()) {
-            if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
-                retVal = productEnum;
+        for (AzureStatefulNodePreferredLifeCycleEnum enumValue : AzureStatefulNodePreferredLifeCycleEnum.values()) {
+            if (StringUtils.equalsIgnoreCase(name, enumValue.name)) {
+                retVal = enumValue;
                 break;
             }
         }

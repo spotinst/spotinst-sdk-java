@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureStatefulNodePerformAtEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodePerformAtEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,13 +13,13 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StatefulNodeRevertToSpotConfiguration {
+public class StatefulNodeStrategyRevertToSpotConfiguration {
 
     @JsonIgnore
     private Set<String>                    isSet;
     private AzureStatefulNodePerformAtEnum performAt;
 
-    private StatefulNodeRevertToSpotConfiguration() {
+    private StatefulNodeStrategyRevertToSpotConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -46,10 +46,10 @@ public class StatefulNodeRevertToSpotConfiguration {
     }
 
     public static class Builder {
-        private StatefulNodeRevertToSpotConfiguration statefulNodeRevertToSpot;
+        private StatefulNodeStrategyRevertToSpotConfiguration statefulNodeRevertToSpot;
 
         private Builder() {
-            this.statefulNodeRevertToSpot = new StatefulNodeRevertToSpotConfiguration();
+            this.statefulNodeRevertToSpot = new StatefulNodeStrategyRevertToSpotConfiguration();
         }
 
         public static Builder get() {
@@ -62,7 +62,7 @@ public class StatefulNodeRevertToSpotConfiguration {
             return this;
         }
 
-        public StatefulNodeRevertToSpotConfiguration build() {
+        public StatefulNodeStrategyRevertToSpotConfiguration build() {
             return statefulNodeRevertToSpot;
         }
     }

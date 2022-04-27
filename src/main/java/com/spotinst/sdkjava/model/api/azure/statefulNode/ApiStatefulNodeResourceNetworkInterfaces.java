@@ -17,15 +17,15 @@ import java.util.Set;
 public class ApiStatefulNodeResourceNetworkInterfaces implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                                         isSet;
-    private String                                              name;
-    private String                                              resourceGroupName;
-    private Boolean                                             isPrimary;
-    private ApiLaunchSpecNetworkSecurityGroupConfiguration      networkSecurityGroup;
-    private List<ApiStatefulNodeResourceNetworkIpConfigurations>networkIpConfigurations;
-    private String                                              macAddress;
-    private Boolean                                             enableAcceleratedNetworking;
-    private Boolean                                             enableIpForwarding;
+    private Set<String>                                             isSet;
+    private String                                                  name;
+    private String                                                  resourceGroupName;
+    private Boolean                                                 isPrimary;
+    private ApiLaunchSpecNetworkSecurityGroupConfiguration          networkSecurityGroup;
+    private List<ApiStatefulNodeResourceNetworkIpConfigurations>    ipConfigurations;
+    private String                                                  macAddress;
+    private Boolean                                                 enableAcceleratedNetworking;
+    private Boolean                                                 enableIpForwarding;
 
     public ApiStatefulNodeResourceNetworkInterfaces() {
         isSet = new HashSet<>();
@@ -75,13 +75,13 @@ public class ApiStatefulNodeResourceNetworkInterfaces implements IPartialUpdateE
         this.networkSecurityGroup = networkSecurityGroup;
     }
 
-    public List<ApiStatefulNodeResourceNetworkIpConfigurations> getNetworkIpConfigurations() {
-        return networkIpConfigurations;
+    public List<ApiStatefulNodeResourceNetworkIpConfigurations> getIpConfigurations() {
+        return ipConfigurations;
     }
 
-    public void setNetworkIpConfigurations(List<ApiStatefulNodeResourceNetworkIpConfigurations> networkIpConfigurations) {
-        isSet.add("networkIpConfigurations");
-        this.networkIpConfigurations = networkIpConfigurations;
+    public void setIpConfigurations(List<ApiStatefulNodeResourceNetworkIpConfigurations> ipConfigurations) {
+        isSet.add("ipConfigurations");
+        this.ipConfigurations = ipConfigurations;
     }
 
     public String getMacAddress() {
@@ -128,8 +128,8 @@ public class ApiStatefulNodeResourceNetworkInterfaces implements IPartialUpdateE
     }
 
     @JsonIgnore
-    public boolean isNetworkIpConfigurationsSet() {
-        return isSet.contains("networkIpConfigurations");
+    public boolean isIpConfigurationsSet() {
+        return isSet.contains("ipConfigurations");
     }
 
     @JsonIgnore

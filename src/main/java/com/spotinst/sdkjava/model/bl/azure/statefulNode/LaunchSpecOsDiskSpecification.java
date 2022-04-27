@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeDiskTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,10 +12,9 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecOsDiskSpecification {
     @JsonIgnore
-    private Set<String> isSet;
-    private String      name;
-    private Integer     sizeGB;
-    private String      type;
+    private Set<String>                     isSet;
+    private Integer                         sizeGB;
+    private AzureStatefulNodeDiskTypeEnum type;
 
     public LaunchSpecOsDiskSpecification() {
         isSet = new HashSet<>();
@@ -28,15 +28,6 @@ public class LaunchSpecOsDiskSpecification {
         this.isSet = isSet;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        isSet.add("name");
-        this.name = name;
-    }
-
     public Integer getSizeGB() {
         return sizeGB;
     }
@@ -46,11 +37,11 @@ public class LaunchSpecOsDiskSpecification {
         this.sizeGB = sizeGB;
     }
 
-    public String getType() {
+    public AzureStatefulNodeDiskTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AzureStatefulNodeDiskTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -72,12 +63,7 @@ public class LaunchSpecOsDiskSpecification {
             return this;
         }
 
-        public Builder setName(final String name) {
-            osDiskSpecification.setName(name);
-            return this;
-        }
-
-        public Builder setType(final String type) {
+        public Builder setType(final AzureStatefulNodeDiskTypeEnum type) {
             osDiskSpecification.setType(type);
             return this;
         }
@@ -89,11 +75,6 @@ public class LaunchSpecOsDiskSpecification {
 
     @JsonIgnore
     public boolean isSetSizeGBSet() { return isSet.contains("sizeGB"); }
-
-    @JsonIgnore
-    public boolean isNameSet() {
-        return isSet.contains("name");
-    }
 
     @JsonIgnore
     public boolean isTypeSet() {

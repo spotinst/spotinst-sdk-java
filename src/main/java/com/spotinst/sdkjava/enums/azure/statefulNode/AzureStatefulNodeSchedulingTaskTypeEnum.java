@@ -1,10 +1,10 @@
-package com.spotinst.sdkjava.enums;
+package com.spotinst.sdkjava.enums.azure.statefulNode;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzureStatefulNodeTaskTypeEnum {
+public enum AzureStatefulNodeSchedulingTaskTypeEnum {
     //region Enum
     PAUSE("pause"),
     RESUME("resume"),
@@ -16,20 +16,20 @@ public enum AzureStatefulNodeTaskTypeEnum {
     //endregion
 
     //region Constructor
-    AzureStatefulNodeTaskTypeEnum(String name) {
+    AzureStatefulNodeSchedulingTaskTypeEnum(String name) {
         this.name = name;
     }
     //endregion
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeTaskTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeSchedulingTaskTypeEnum.class);
 
     //region methods
-    public static AzureStatefulNodeTaskTypeEnum fromName(String name) {
-        AzureStatefulNodeTaskTypeEnum retVal = null;
+    public static AzureStatefulNodeSchedulingTaskTypeEnum fromName(String name) {
+        AzureStatefulNodeSchedulingTaskTypeEnum retVal = null;
 
-        for (AzureStatefulNodeTaskTypeEnum productEnum : AzureStatefulNodeTaskTypeEnum.values()) {
-            if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
-                retVal = productEnum;
+        for (AzureStatefulNodeSchedulingTaskTypeEnum enumValue : AzureStatefulNodeSchedulingTaskTypeEnum.values()) {
+            if (StringUtils.equalsIgnoreCase(name, enumValue.name)) {
+                retVal = enumValue;
                 break;
             }
         }

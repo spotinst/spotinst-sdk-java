@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureStatefulNodeLifeCycleTypeEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodePreferredLifeCycleEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,8 +20,8 @@ public class StatefulNodeStrategyConfiguration {
     private Set<String>                           isSet;
     private Boolean                               fallbackToOd;
     private Integer                               drainingTimeout;
-    private AzureStatefulNodeLifeCycleTypeEnum    preferredLifecycle;
-    private StatefulNodeRevertToSpotConfiguration revertToSpot;
+    private AzureStatefulNodePreferredLifeCycleEnum preferredLifecycle;
+    private StatefulNodeStrategyRevertToSpotConfiguration revertToSpot;
     private List<StatefulNodeSignalConfiguration> signals;
     private List<String>                          optimizationWindows;
 
@@ -55,20 +55,20 @@ public class StatefulNodeStrategyConfiguration {
         this.drainingTimeout = drainingTimeout;
     }
 
-    public AzureStatefulNodeLifeCycleTypeEnum getPreferredLifecycle() {
+    public AzureStatefulNodePreferredLifeCycleEnum getPreferredLifecycle() {
         return preferredLifecycle;
     }
 
-    public void setPreferredLifecycle(AzureStatefulNodeLifeCycleTypeEnum preferredLifecycle) {
+    public void setPreferredLifecycle(AzureStatefulNodePreferredLifeCycleEnum preferredLifecycle) {
         isSet.add("preferredLifecycle");
         this.preferredLifecycle = preferredLifecycle;
     }
 
-    public StatefulNodeRevertToSpotConfiguration getRevertToSpot() {
+    public StatefulNodeStrategyRevertToSpotConfiguration getRevertToSpot() {
         return revertToSpot;
     }
 
-    public void setRevertToSpot(StatefulNodeRevertToSpotConfiguration revertToSpot) {
+    public void setRevertToSpot(StatefulNodeStrategyRevertToSpotConfiguration revertToSpot) {
         isSet.add("revertToSpot");
         this.revertToSpot = revertToSpot;
     }
@@ -113,12 +113,12 @@ public class StatefulNodeStrategyConfiguration {
             return this;
         }
 
-        public Builder setPreferredLifecycle(final AzureStatefulNodeLifeCycleTypeEnum preferredLifecycle) {
+        public Builder setPreferredLifecycle(final AzureStatefulNodePreferredLifeCycleEnum preferredLifecycle) {
             statefulNodeStrategy.setPreferredLifecycle(preferredLifecycle);
             return this;
         }
 
-        public Builder setRevertToSpot(final StatefulNodeRevertToSpotConfiguration revertToSpot) {
+        public Builder setRevertToSpot(final StatefulNodeStrategyRevertToSpotConfiguration revertToSpot) {
             statefulNodeStrategy.setRevertToSpot(revertToSpot);
             return this;
         }

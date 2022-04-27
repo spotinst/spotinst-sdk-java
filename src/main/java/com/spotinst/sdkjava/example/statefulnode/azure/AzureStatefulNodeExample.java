@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.example.statefulnode.azure;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
+import com.spotinst.sdkjava.enums.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.SpotinstAzureStatefulNodeClient;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.*;
@@ -15,6 +16,8 @@ public class AzureStatefulNodeExample {
 
     private final static String       auth_token          = "auth-token";
     private final static String       act_id              = "act-no";
+    private final static String       userName          = "username";
+    private final static String       password          = "password";
     private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
@@ -184,8 +187,7 @@ public class AzureStatefulNodeExample {
         List<LaunchSpecExtensionsSpecification> extensionsList = Collections.singletonList(extensions);
         // Build Login
         LaunchSpecLoginSpecification login =
-                LaunchSpecLoginSpecification.Builder.get().setUserName("ubuntu").setPassword("NetApp@123@321")
-//                        .setSshPublicKey("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC6v8BnN6OcFZjDLQ85uSg3qM/p2WVddk8J2S921uO8ydT1M3lwy+vSNWT6O7/wUl2U0c+ZcFJSEZQCLJ7cs85Q9ER6b9oscABLFtnYdTR9OBNJ9B9oTkao+EgEEa3i8uX2iMzqVZndQJoJ1/N3ds1KhozKC2t76jD+rPRjHQJ4ReJHNHO+aalivssPwfofELg82dJ1urWksjXSdzO39OHBqfCIztS1wPeiWWYSuJWJuPL000bfH8ngU5Vzh0plPK9fdRmBIEx8GhY4hBfOSlRO5ITaIqQTXoZaMHCX2AwhIj+ZHiiWPY+5/9x9H6tdLXRJ9huCF5dNaTj2D8Jt1So1B6QuN8Iqchu7FzlpuSB+uOaChvJ5NfGEJvCO7SqosiSKhxOv0GAFY99Vj53JoUO3+7mFortO+kDmMKwrJmw0adTURHM+tetNd6txs+86FmU576b3MhvTBbssCH1A54gThdbtseOEqrRJMNQoicb0f2/IzkdjT6RWu4IG+vFMbHLOts1dDqP3paWY/vhHfTvNVcXU5gYzu4RZZOtespRt3/kSBgiZvmhiifVqShf6cgn6+9BGznT4FMtpQZQ9tqP/hUII/9uQn7CEU6X7Pualc7FiWjGbEVArTVHHTxIfUPTqnp9f7X1oG4+AYvSTQsJXJalrSBx6iok4+9Xk5pxrVQ==")
+                LaunchSpecLoginSpecification.Builder.get().setUserName(userName).setPassword(password)
                         .build();
 
         // Build Tags
@@ -214,23 +216,23 @@ public class AzureStatefulNodeExample {
         List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
 
         //Build RevertToSpot
-        StatefulNodeRevertToSpotConfiguration revertToSpot =
-                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
+        StatefulNodeStrategyRevertToSpotConfiguration revertToSpot =
+                StatefulNodeStrategyRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
                 strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(180).setPreferredLifecycle(
-                        AzureStatefulNodeLifeCycleTypeEnum.OD)
+                        AzureStatefulNodePreferredLifeCycleEnum.OD)
                                .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
 
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 1 * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.PAUSE).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.RESUME).build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);
@@ -243,8 +245,8 @@ public class AzureStatefulNodeExample {
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
                 persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(true).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
-                        AzureStatefulNodeDiskModeEnum.ONLAUNCH)
-                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.ONLAUNCH).build();
+                        AzureStatefulNodeDiskPersistenceModeEnum.ONLAUNCH)
+                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum.ONLAUNCH).build();
 
         //Build Health
         List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();
@@ -256,7 +258,7 @@ public class AzureStatefulNodeExample {
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNode =
-                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode").setRegion("eastus").setResourceGroupName("ManualQAResourceGroup")
+                statefulNodeBuilder.setName("Automation-java-SDK-StatefulNode").setRegion("eastus").setResourceGroupName(resourceGroup)
                                    .setDescription("stateful node for tests").setCompute(compute).setStrategy(strategy).setScheduling(scheduling).setPersistence(persistent).setHealth(health).build();
 
         // Build node creation request
@@ -326,14 +328,14 @@ public class AzureStatefulNodeExample {
         List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
 
         //Build RevertToSpot
-        StatefulNodeRevertToSpotConfiguration revertToSpot =
-                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.NEVER).build();
+        StatefulNodeStrategyRevertToSpotConfiguration revertToSpot =
+                StatefulNodeStrategyRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.NEVER).build();
 
         //Build Strategy to update
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
                 strategyBuilder.setSignals(signalList).setFallbackToOd(false).setDrainingTimeout(240).setPreferredLifecycle(
-                        AzureStatefulNodeLifeCycleTypeEnum.SPOT)
+                        AzureStatefulNodePreferredLifeCycleEnum.SPOT)
                                .setRevertToSpot(revertToSpot).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -424,11 +426,11 @@ public class AzureStatefulNodeExample {
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(true).setCronExpression("0 2 * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
+                tasksBuilder1.setIsEnabled(true).setCronExpression("0 2 * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.RESUME).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("25 * * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("25 * * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.PAUSE).build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);
@@ -489,8 +491,8 @@ public class AzureStatefulNodeExample {
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
                 persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
-                        AzureStatefulNodeDiskModeEnum.REATTACH)
-                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.REATTACH).build();
+                        AzureStatefulNodeDiskPersistenceModeEnum.REATTACH)
+                                 .setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum.REATTACH).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setPersistence(persistent).build();
@@ -673,23 +675,23 @@ public class AzureStatefulNodeExample {
         List<StatefulNodeSignalConfiguration> signalList = Collections.singletonList(signal);
 
         //Build RevertToSpot
-        StatefulNodeRevertToSpotConfiguration revertToSpot =
-                StatefulNodeRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
+        StatefulNodeStrategyRevertToSpotConfiguration revertToSpot =
+                StatefulNodeStrategyRevertToSpotConfiguration.Builder.get().setPerformAt(AzureStatefulNodePerformAtEnum.ALWAYS).build();
         //Build Strategy
         StatefulNodeStrategyConfiguration.Builder strategyBuilder = StatefulNodeStrategyConfiguration.Builder.get();
         StatefulNodeStrategyConfiguration strategy =
                 strategyBuilder.setSignals(signalList).setFallbackToOd(true).setDrainingTimeout(120).setPreferredLifecycle(
-                        AzureStatefulNodeLifeCycleTypeEnum.SPOT)
+                        AzureStatefulNodePreferredLifeCycleEnum.SPOT)
                         .setRevertToSpot(revertToSpot).setOptimizationWindows(optimizationWindows).build();
 
         //Build Scheduling Tasks
         StatefulNodeTasksConfiguration.Builder tasksBuilder1 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task1 =
-                tasksBuilder1.setIsEnabled(false).setCronExpression("0 1 * * *").setType(AzureStatefulNodeTaskTypeEnum.PAUSE).build();
+                tasksBuilder1.setIsEnabled(false).setCronExpression("0 1 * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.PAUSE).build();
 
         StatefulNodeTasksConfiguration.Builder tasksBuilder2 = StatefulNodeTasksConfiguration.Builder.get();
         StatefulNodeTasksConfiguration task2 =
-                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeTaskTypeEnum.RESUME).build();
+                tasksBuilder2.setIsEnabled(false).setCronExpression("37 * * * *").setType(AzureStatefulNodeSchedulingTaskTypeEnum.RESUME).build();
         List<StatefulNodeTasksConfiguration> tasksList = new ArrayList<>();
         tasksList.add(task1);
         tasksList.add(task2);
@@ -702,8 +704,8 @@ public class AzureStatefulNodeExample {
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
                 persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(true).setDataDisksPersistenceMode(
-                        AzureStatefulNodeDiskModeEnum.ONLAUNCH)
-                        .setOsDiskPersistenceMode(AzureStatefulNodeDiskModeEnum.ONLAUNCH).build();
+                        AzureStatefulNodeDiskPersistenceModeEnum.ONLAUNCH)
+                        .setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum.ONLAUNCH).build();
 
         //Build Health
         List<HealthCheckTypeEnumAzure> healthCheckTypesList = new ArrayList<>();

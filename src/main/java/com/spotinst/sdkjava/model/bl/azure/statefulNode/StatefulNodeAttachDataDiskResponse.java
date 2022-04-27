@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeDiskTypeEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeZoneEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,16 +14,16 @@ import java.util.Set;
 public class StatefulNodeAttachDataDiskResponse {
 
     @JsonIgnore
-    private Set<String>                 isSet;
-    private String                      name;
-    private String                      resourceGroupName;
-    private String                      region;
-    private String                      zone;
-    private Integer                     size;
-    private Integer                     lun;
-    private String                      storageAccountType;
-    private String                      managedBy;
-    private AttachDataDiskTagsResponse  tags;
+    private Set<String>                     isSet;
+    private String                          name;
+    private String                          resourceGroupName;
+    private String                          region;
+    private AzureStatefulNodeZoneEnum       zone;
+    private Integer                         size;
+    private Integer                         lun;
+    private AzureStatefulNodeDiskTypeEnum   storageAccountType;
+    private String                          managedBy;
+    private AttachDataDiskTagsResponse      tags;
 
 
     private StatefulNodeAttachDataDiskResponse() {
@@ -54,11 +56,11 @@ public class StatefulNodeAttachDataDiskResponse {
         this.region = region;
     }
 
-    public String getZone() {
+    public AzureStatefulNodeZoneEnum getZone() {
         return zone;
     }
 
-    public void setZone(String zone) {
+    public void setZone(AzureStatefulNodeZoneEnum zone) {
         isSet.add("zone");
         this.zone = zone;
     }
@@ -71,11 +73,11 @@ public class StatefulNodeAttachDataDiskResponse {
         isSet.add("resourceGroupName");
         this.resourceGroupName = resourceGroupName;
     }
-    public String getStorageAccountType() {
+    public AzureStatefulNodeDiskTypeEnum getStorageAccountType() {
         return storageAccountType;
     }
 
-    public void setStorageAccountType(String storageAccountType) {
+    public void setStorageAccountType(AzureStatefulNodeDiskTypeEnum storageAccountType) {
         isSet.add("storageAccountType");
         this.storageAccountType = storageAccountType;
     }
@@ -139,7 +141,7 @@ public class StatefulNodeAttachDataDiskResponse {
             return this;
         }
 
-        public Builder setZone(final String zone) {
+        public Builder setZone(final AzureStatefulNodeZoneEnum zone) {
             statefulNode.setZone(zone);
             return this;
         }
@@ -148,7 +150,7 @@ public class StatefulNodeAttachDataDiskResponse {
             statefulNode.setResourceGroupName(resourceGroupName);
             return this;
         }
-        public Builder setStorageAccountType(final String storageAccountType) {
+        public Builder setStorageAccountType(final AzureStatefulNodeDiskTypeEnum storageAccountType) {
             statefulNode.setStorageAccountType(storageAccountType);
             return this;
         }

@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureStatefulNodeTaskTypeEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeSchedulingTaskTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class StatefulNodeTasksConfiguration {
     private Set<String>                   isSet;
     private Boolean                       isEnabled;
     private String                        cronExpression;
-    private AzureStatefulNodeTaskTypeEnum type;
+    private AzureStatefulNodeSchedulingTaskTypeEnum type;
 
     public StatefulNodeTasksConfiguration() {
         isSet = new HashSet<>();
@@ -47,11 +47,11 @@ public class StatefulNodeTasksConfiguration {
         this.cronExpression = cronExpression;
     }
 
-    public AzureStatefulNodeTaskTypeEnum getType() {
+    public AzureStatefulNodeSchedulingTaskTypeEnum getType() {
         return type;
     }
 
-    public void setType(AzureStatefulNodeTaskTypeEnum type) {
+    public void setType(AzureStatefulNodeSchedulingTaskTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -77,7 +77,7 @@ public class StatefulNodeTasksConfiguration {
             return this;
         }
 
-        public Builder setType(final AzureStatefulNodeTaskTypeEnum type) {
+        public Builder setType(final AzureStatefulNodeSchedulingTaskTypeEnum type) {
             task.setType(type);
             return this;
         }

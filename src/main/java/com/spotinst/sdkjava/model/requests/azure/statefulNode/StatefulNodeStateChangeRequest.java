@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.AzureStatefulNodeStateEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeStateEnum;
 
 import java.util.Set;
 

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.enums;
+package com.spotinst.sdkjava.enums.azure.statefulNode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,9 @@ public enum AzureStatefulNodePerformAtEnum {
     public static AzureStatefulNodePerformAtEnum fromName(String name) {
         AzureStatefulNodePerformAtEnum retVal = null;
 
-        for (AzureStatefulNodePerformAtEnum instanceMarketEnum : AzureStatefulNodePerformAtEnum.values()) {
-            if (name.equalsIgnoreCase(instanceMarketEnum.name)) {
-                retVal = instanceMarketEnum;
+        for (AzureStatefulNodePerformAtEnum enumValue : AzureStatefulNodePerformAtEnum.values()) {
+            if (name.equalsIgnoreCase(enumValue.name)) {
+                retVal = enumValue;
                 break;
             }
         }

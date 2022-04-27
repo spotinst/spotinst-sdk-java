@@ -15,13 +15,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiStatefulNodeRevertToSpotConfiguration implements IPartialUpdateEntity {
+public class ApiStatefulNodeStrategyRevertToSpotConfiguration implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
     private String      performAt;
 
-    public ApiStatefulNodeRevertToSpotConfiguration() {
+    public ApiStatefulNodeStrategyRevertToSpotConfiguration() {
         isSet = new HashSet<>();
     }
 

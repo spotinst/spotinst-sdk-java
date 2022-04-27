@@ -23,7 +23,7 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
     private Boolean                                  fallbackToOd;
     private Integer                                  drainingTimeout;
     private String                                   preferredLifecycle;
-    private ApiStatefulNodeRevertToSpotConfiguration revertToSpot;
+    private ApiStatefulNodeStrategyRevertToSpotConfiguration revertToSpot;
     private List<ApiStatefulNodeSignalConfiguration> signals;
     private List<String>                             optimizationWindows;
 
@@ -67,11 +67,11 @@ public class ApiStatefulNodeStrategyConfiguration implements IPartialUpdateEntit
         this.preferredLifecycle = preferredLifecycle;
     }
 
-    public ApiStatefulNodeRevertToSpotConfiguration getRevertToSpot() {
+    public ApiStatefulNodeStrategyRevertToSpotConfiguration getRevertToSpot() {
         return revertToSpot;
     }
 
-    public void setRevertToSpot(ApiStatefulNodeRevertToSpotConfiguration revertToSpot) {
+    public void setRevertToSpot(ApiStatefulNodeStrategyRevertToSpotConfiguration revertToSpot) {
         isSet.add("revertToSpot");
         this.revertToSpot = revertToSpot;
     }

@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeDiskTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,10 +12,10 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class LaunchSpecDataDisksSpecification {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer     sizeGB;
-    private Integer     lun;
-    private String      type;
+    private Set<String>                     isSet;
+    private Integer                         sizeGB;
+    private Integer                         lun;
+    private AzureStatefulNodeDiskTypeEnum   type;
 
     public LaunchSpecDataDisksSpecification() {
         isSet = new HashSet<>();
@@ -46,11 +47,11 @@ public class LaunchSpecDataDisksSpecification {
         this.lun = lun;
     }
 
-    public String getType() {
+    public AzureStatefulNodeDiskTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(AzureStatefulNodeDiskTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -77,7 +78,7 @@ public class LaunchSpecDataDisksSpecification {
             return this;
         }
 
-        public Builder setType(final String type) {
+        public Builder setType(final AzureStatefulNodeDiskTypeEnum type) {
             dataDisksSpecification.setType(type);
             return this;
         }

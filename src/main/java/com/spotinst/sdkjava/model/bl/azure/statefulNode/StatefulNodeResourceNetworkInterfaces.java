@@ -18,7 +18,7 @@ public class StatefulNodeResourceNetworkInterfaces {
     private String                                              resourceGroupName;
     private Boolean                                             isPrimary;
     private LaunchSpecNetworkSecurityGroupConfiguration         networkSecurityGroup;
-    private List<StatefulNodeResourceNetworkIpConfigurations>   networkIpConfigurations;
+    private List<StatefulNodeResourceNetworkIpConfigurations>   ipConfigurations;
     private String                                              macAddress;
     private Boolean                                             enableAcceleratedNetworking;
     private Boolean                                             enableIpForwarding;
@@ -71,13 +71,13 @@ public class StatefulNodeResourceNetworkInterfaces {
         this.networkSecurityGroup = networkSecurityGroup;
     }
 
-    public List<StatefulNodeResourceNetworkIpConfigurations> getNetworkIpConfigurations() {
-        return networkIpConfigurations;
+    public List<StatefulNodeResourceNetworkIpConfigurations> getIpConfigurations() {
+        return ipConfigurations;
     }
 
-    public void setNetworkIpConfigurations(List<StatefulNodeResourceNetworkIpConfigurations> networkIpConfigurations) {
-        isSet.add("networkIpConfigurations");
-        this.networkIpConfigurations = networkIpConfigurations;
+    public void setIpConfigurations(List<StatefulNodeResourceNetworkIpConfigurations> ipConfigurations) {
+        isSet.add("ipConfigurations");
+        this.ipConfigurations = ipConfigurations;
     }
 
     public String getMacAddress() {
@@ -142,8 +142,8 @@ public class StatefulNodeResourceNetworkInterfaces {
             return this;
         }
 
-        public Builder setNetworkIpConfigurations(final List<StatefulNodeResourceNetworkIpConfigurations> networkIpConfigurations) {
-            networkInterfacesConfiguration.setNetworkIpConfigurations(networkIpConfigurations);
+        public Builder setIpConfigurations(final List<StatefulNodeResourceNetworkIpConfigurations> ipConfigurations) {
+            networkInterfacesConfiguration.setIpConfigurations(ipConfigurations);
             return this;
         }
 
@@ -184,8 +184,8 @@ public class StatefulNodeResourceNetworkInterfaces {
     }
 
     @JsonIgnore
-    public boolean isNetworkIpConfigurationsSet() {
-        return isSet.contains("networkIpConfigurations");
+    public boolean isIpConfigurationsSet() {
+        return isSet.contains("ipConfigurations");
     }
 
     @JsonIgnore

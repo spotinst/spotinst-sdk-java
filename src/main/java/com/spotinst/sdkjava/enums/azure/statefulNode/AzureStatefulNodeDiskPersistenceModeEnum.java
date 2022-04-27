@@ -1,10 +1,10 @@
-package com.spotinst.sdkjava.enums;
+package com.spotinst.sdkjava.enums.azure.statefulNode;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public enum AzureStatefulNodeDiskModeEnum {
+public enum AzureStatefulNodeDiskPersistenceModeEnum {
     //region Enum
     REATTACH("reattach"),
     ONLAUNCH("onLaunch");
@@ -15,18 +15,18 @@ public enum AzureStatefulNodeDiskModeEnum {
     //endregion
 
     //region Constructor
-    AzureStatefulNodeDiskModeEnum(String name) {
+    AzureStatefulNodeDiskPersistenceModeEnum(String name) {
         this.name = name;
     }
     //endregion
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeDiskModeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodeDiskPersistenceModeEnum.class);
 
     //region methods
-    public static AzureStatefulNodeDiskModeEnum fromName(String name) {
-        AzureStatefulNodeDiskModeEnum retVal = null;
+    public static AzureStatefulNodeDiskPersistenceModeEnum fromName(String name) {
+        AzureStatefulNodeDiskPersistenceModeEnum retVal = null;
 
-        for (AzureStatefulNodeDiskModeEnum productEnum : AzureStatefulNodeDiskModeEnum.values()) {
+        for (AzureStatefulNodeDiskPersistenceModeEnum productEnum : AzureStatefulNodeDiskPersistenceModeEnum.values()) {
             if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
                 retVal = productEnum;
                 break;

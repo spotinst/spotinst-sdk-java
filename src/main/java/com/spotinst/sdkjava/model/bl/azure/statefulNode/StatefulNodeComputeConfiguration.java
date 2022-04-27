@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.AzureStatefulNodeOsEnum;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeOsEnum;
 
 import java.util.HashSet;
 import java.util.List;

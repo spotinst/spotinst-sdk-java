@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.converters.azure.statefulNode;
 
 import com.spotinst.sdkjava.enums.*;
+import com.spotinst.sdkjava.enums.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.*;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
 
@@ -85,11 +86,11 @@ public class StatefulNodeConverter {
         return apiStatefulNodeStrategy;
     }
 
-    private static ApiStatefulNodeRevertToSpotConfiguration toDal(StatefulNodeRevertToSpotConfiguration statefulNodeRevertToSpot) {
-        ApiStatefulNodeRevertToSpotConfiguration apiStatefulNodeRevertToSpot = null;
+    private static ApiStatefulNodeStrategyRevertToSpotConfiguration toDal(StatefulNodeStrategyRevertToSpotConfiguration statefulNodeRevertToSpot) {
+        ApiStatefulNodeStrategyRevertToSpotConfiguration apiStatefulNodeRevertToSpot = null;
 
         if (statefulNodeRevertToSpot != null) {
-            apiStatefulNodeRevertToSpot = new ApiStatefulNodeRevertToSpotConfiguration();
+            apiStatefulNodeRevertToSpot = new ApiStatefulNodeStrategyRevertToSpotConfiguration();
 
             if (statefulNodeRevertToSpot.isPerformAtSet()) {
                 apiStatefulNodeRevertToSpot.setPerformAt(statefulNodeRevertToSpot.getPerformAt().getName());
@@ -236,9 +237,7 @@ public class StatefulNodeConverter {
             if (launchSpecOsDisk.isSetSizeGBSet()) {
                 apiLaunchSpecOsDisk.setSizeGB(launchSpecOsDisk.getSizeGB());
             }
-            if (launchSpecOsDisk.isNameSet()) {
-                apiLaunchSpecOsDisk.setName(launchSpecOsDisk.getName());
-            }
+
             if(launchSpecOsDisk.isTypeSet()){
                 apiLaunchSpecOsDisk.setType(launchSpecOsDisk.getType());
             }
@@ -433,11 +432,11 @@ public class StatefulNodeConverter {
         return apiLaunchSpecMarketplace;
     }
 
-    private static ApiLaunchSpecCustomConfiguration toDal(LaunchSpecCustomConfiguration launchSpecCustom){
-        ApiLaunchSpecCustomConfiguration apiLaunchSpecCustom = null;
+    private static ApiLaunchSpecCustomImageConfiguration toDal(LaunchSpecCustomImageConfiguration launchSpecCustom){
+        ApiLaunchSpecCustomImageConfiguration apiLaunchSpecCustom = null;
 
         if(launchSpecCustom != null){
-            apiLaunchSpecCustom = new ApiLaunchSpecCustomConfiguration();
+            apiLaunchSpecCustom = new ApiLaunchSpecCustomImageConfiguration();
 
             if(launchSpecCustom.isResourceGroupNameSet()){
                 apiLaunchSpecCustom.setResourceGroupName(launchSpecCustom.getResourceGroupName());
@@ -450,11 +449,11 @@ public class StatefulNodeConverter {
         return apiLaunchSpecCustom;
     }
 
-    private static ApiLaunchSpecGalleryConfiguration toDal(LaunchSpecGalleryConfiguration launchSpecCustom){
-        ApiLaunchSpecGalleryConfiguration apiLaunchSpecCustom = null;
+    private static ApiLaunchSpecImageGalleryConfiguration toDal(LaunchSpecImageGalleryConfiguration launchSpecCustom){
+        ApiLaunchSpecImageGalleryConfiguration apiLaunchSpecCustom = null;
 
         if(launchSpecCustom != null){
-            apiLaunchSpecCustom = new ApiLaunchSpecGalleryConfiguration();
+            apiLaunchSpecCustom = new ApiLaunchSpecImageGalleryConfiguration();
 
             if(launchSpecCustom.isResourceGroupNameSet()){
                 apiLaunchSpecCustom.setResourceGroupName(launchSpecCustom.getResourceGroupName());
@@ -473,6 +472,36 @@ public class StatefulNodeConverter {
         return apiLaunchSpecCustom;
     }
 
+    private static ApiStatefulNodeLoadBalancers toDal(StatefulNodeLoadBalancers statefulNodeLoadBalancers) {
+        ApiStatefulNodeLoadBalancers apiStatefulNodeLoadBalancers = null;
+
+        if (statefulNodeLoadBalancers != null) {
+            apiStatefulNodeLoadBalancers = new ApiStatefulNodeLoadBalancers();
+
+            if (statefulNodeLoadBalancers.isBackendPoolNamesSet()) {
+                apiStatefulNodeLoadBalancers.setBackendPoolNames(statefulNodeLoadBalancers.getBackendPoolNames());
+            }
+
+            if (statefulNodeLoadBalancers.isLoadBalancerSkuSet()) {
+                apiStatefulNodeLoadBalancers.setLoadBalancerSku(statefulNodeLoadBalancers.getLoadBalancerSku());
+            }
+
+            if (statefulNodeLoadBalancers.isNameSet()) {
+                apiStatefulNodeLoadBalancers.setName(statefulNodeLoadBalancers.getName());
+            }
+
+            if (statefulNodeLoadBalancers.isResourceGroupNameSet()) {
+                apiStatefulNodeLoadBalancers.setResourceGroupName(statefulNodeLoadBalancers.getResourceGroupName());
+            }
+
+            if (statefulNodeLoadBalancers.isTypeSet()) {
+                apiStatefulNodeLoadBalancers.setType(statefulNodeLoadBalancers.getType());
+            }
+
+        }
+        return apiStatefulNodeLoadBalancers;
+    }
+
     private static ApiStatefulNodeLoadBalancersConfig toDal(StatefulNodeLoadBalancersConfig statefulNodeLoadBalancers) {
         ApiStatefulNodeLoadBalancersConfig apiStatefulNodeLoadBalancers = null;
 
@@ -480,7 +509,8 @@ public class StatefulNodeConverter {
             apiStatefulNodeLoadBalancers = new ApiStatefulNodeLoadBalancersConfig();
 
             if (statefulNodeLoadBalancers.isLoadBalancersSet()) {
-                apiStatefulNodeLoadBalancers.setLoadBalancers(statefulNodeLoadBalancers.getLoadBalancers());
+                List<ApiStatefulNodeLoadBalancers> loadBalancers = statefulNodeLoadBalancers.getLoadBalancers().stream().map(StatefulNodeConverter::toDal).collect(Collectors.toList());
+                apiStatefulNodeLoadBalancers.setLoadBalancers(loadBalancers);
             }
 
         }
@@ -981,58 +1011,58 @@ public class StatefulNodeConverter {
         return launchSpecMarketplaceConfiguration;
     }
 
-    private static LaunchSpecCustomConfiguration toBl(
-            ApiLaunchSpecCustomConfiguration apiLaunchSpecCustomConfiguration){
+    private static LaunchSpecCustomImageConfiguration toBl(
+            ApiLaunchSpecCustomImageConfiguration apiLaunchSpecCustomImageConfiguration){
 
-        LaunchSpecCustomConfiguration launchSpecCustomConfiguration = null;
+        LaunchSpecCustomImageConfiguration launchSpecCustomImageConfiguration = null;
 
-        if(apiLaunchSpecCustomConfiguration != null) {
+        if(apiLaunchSpecCustomImageConfiguration != null) {
 
-            LaunchSpecCustomConfiguration.Builder launchSpecCustomImageConfigurationBuilder = LaunchSpecCustomConfiguration.Builder.get();
+            LaunchSpecCustomImageConfiguration.Builder launchSpecCustomImageConfigurationBuilder = LaunchSpecCustomImageConfiguration.Builder.get();
 
-            if (apiLaunchSpecCustomConfiguration.isResourceGroupNameSet()) {
+            if (apiLaunchSpecCustomImageConfiguration.isResourceGroupNameSet()) {
                 launchSpecCustomImageConfigurationBuilder.setResourceGroupName(
-                        apiLaunchSpecCustomConfiguration.getResourceGroupName());
+                        apiLaunchSpecCustomImageConfiguration.getResourceGroupName());
             }
 
-            if (apiLaunchSpecCustomConfiguration.isNameSet()) {
-                launchSpecCustomImageConfigurationBuilder.setName(apiLaunchSpecCustomConfiguration.getName());
+            if (apiLaunchSpecCustomImageConfiguration.isNameSet()) {
+                launchSpecCustomImageConfigurationBuilder.setName(apiLaunchSpecCustomImageConfiguration.getName());
             }
 
-            launchSpecCustomConfiguration = launchSpecCustomImageConfigurationBuilder.build();
+            launchSpecCustomImageConfiguration = launchSpecCustomImageConfigurationBuilder.build();
         }
 
-        return launchSpecCustomConfiguration;
+        return launchSpecCustomImageConfiguration;
     }
 
-    private static LaunchSpecGalleryConfiguration toBl(ApiLaunchSpecGalleryConfiguration apiLaunchSpecGalleryConfiguration){
+    private static LaunchSpecImageGalleryConfiguration toBl(ApiLaunchSpecImageGalleryConfiguration apiLaunchSpecImageGalleryConfiguration){
 
-        LaunchSpecGalleryConfiguration launchSpecGalleryConfiguration = null;
+        LaunchSpecImageGalleryConfiguration launchSpecImageGalleryConfiguration = null;
 
-        if(apiLaunchSpecGalleryConfiguration != null) {
+        if(apiLaunchSpecImageGalleryConfiguration != null) {
 
-            LaunchSpecGalleryConfiguration.Builder launchSpecGalleryConfigurationBuilder = LaunchSpecGalleryConfiguration.Builder.get();
+            LaunchSpecImageGalleryConfiguration.Builder launchSpecGalleryConfigurationBuilder = LaunchSpecImageGalleryConfiguration.Builder.get();
 
-            if (apiLaunchSpecGalleryConfiguration.isResourceGroupNameSet()) {
-                launchSpecGalleryConfigurationBuilder.setResourceGroupName(apiLaunchSpecGalleryConfiguration.getResourceGroupName());
+            if (apiLaunchSpecImageGalleryConfiguration.isResourceGroupNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setResourceGroupName(apiLaunchSpecImageGalleryConfiguration.getResourceGroupName());
             }
 
-            if (apiLaunchSpecGalleryConfiguration.isGalleryNameSet()) {
-                launchSpecGalleryConfigurationBuilder.setGalleryName(apiLaunchSpecGalleryConfiguration.getGalleryName());
+            if (apiLaunchSpecImageGalleryConfiguration.isGalleryNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setGalleryName(apiLaunchSpecImageGalleryConfiguration.getGalleryName());
             }
 
-            if (apiLaunchSpecGalleryConfiguration.isImageNameSet()) {
-                launchSpecGalleryConfigurationBuilder.setImageName(apiLaunchSpecGalleryConfiguration.getImageName());
+            if (apiLaunchSpecImageGalleryConfiguration.isImageNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setImageName(apiLaunchSpecImageGalleryConfiguration.getImageName());
             }
 
-            if (apiLaunchSpecGalleryConfiguration.isVersionNameSet()) {
-                launchSpecGalleryConfigurationBuilder.setVersionName(apiLaunchSpecGalleryConfiguration.getVersionName());
+            if (apiLaunchSpecImageGalleryConfiguration.isVersionNameSet()) {
+                launchSpecGalleryConfigurationBuilder.setVersionName(apiLaunchSpecImageGalleryConfiguration.getVersionName());
             }
 
-            launchSpecGalleryConfiguration = launchSpecGalleryConfigurationBuilder.build();
+            launchSpecImageGalleryConfiguration = launchSpecGalleryConfigurationBuilder.build();
         }
 
-        return launchSpecGalleryConfiguration;
+        return launchSpecImageGalleryConfiguration;
     }
 
     private static LaunchSpecNetworkConfiguration toBl(ApiLaunchSpecNetworkConfiguration apiLaunchSpecNetworkConfigurationn){
@@ -1129,10 +1159,6 @@ public class StatefulNodeConverter {
         if(apiLaunchSpecOsDiskSpecification != null) {
 
             LaunchSpecOsDiskSpecification.Builder launchSpecOsDiskSpecificationBuilder = LaunchSpecOsDiskSpecification.Builder.get();
-
-            if (apiLaunchSpecOsDiskSpecification.isNameSet()) {
-                launchSpecOsDiskSpecificationBuilder.setName(apiLaunchSpecOsDiskSpecification.getName());
-            }
 
             if (apiLaunchSpecOsDiskSpecification.isTypeSet()) {
                 launchSpecOsDiskSpecificationBuilder.setType(apiLaunchSpecOsDiskSpecification.getType());
@@ -1285,13 +1311,42 @@ public class StatefulNodeConverter {
             StatefulNodeLoadBalancersConfig.Builder statefulNodeLoadBalancersBuilder = StatefulNodeLoadBalancersConfig.Builder.get();
 
             if (apiStatefulNodeLoadBalancers.isLoadBalancersSet()) {
-                statefulNodeLoadBalancersBuilder.setLoadBalancers(apiStatefulNodeLoadBalancers.getLoadBalancers());
+                List<StatefulNodeLoadBalancers> loadBalancersList = apiStatefulNodeLoadBalancers.getLoadBalancers()
+                        .stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                statefulNodeLoadBalancersBuilder.setLoadBalancers(loadBalancersList);
             }
 
             statefulNodeLoadBalancers = statefulNodeLoadBalancersBuilder.build();
         }
 
         return statefulNodeLoadBalancers;
+    }
+
+    private static StatefulNodeLoadBalancers toBl(ApiStatefulNodeLoadBalancers apiLoadBalancers){
+        StatefulNodeLoadBalancers loadBalancers = null;
+
+        if(apiLoadBalancers != null) {
+
+            StatefulNodeLoadBalancers.Builder statefulNodeLoadBalancersBuilder = StatefulNodeLoadBalancers.Builder.get();
+            if (apiLoadBalancers.isBackendPoolNamesSet()) {
+                statefulNodeLoadBalancersBuilder.setBackendPoolNames(apiLoadBalancers.getBackendPoolNames());
+            }
+            if (apiLoadBalancers.isLoadBalancerSkuSet()) {
+                statefulNodeLoadBalancersBuilder.setLoadBalancerSku(apiLoadBalancers.getLoadBalancerSku());
+            }
+            if (apiLoadBalancers.isNameSet()) {
+                statefulNodeLoadBalancersBuilder.setName(apiLoadBalancers.getName());
+            }
+            if (apiLoadBalancers.isResourceGroupNameSet()) {
+                statefulNodeLoadBalancersBuilder.setResourceGroupName(apiLoadBalancers.getResourceGroupName());
+            }
+            if (apiLoadBalancers.isTypeSet()) {
+                statefulNodeLoadBalancersBuilder.setType(apiLoadBalancers.getType());
+            }
+
+            loadBalancers = statefulNodeLoadBalancersBuilder.build();
+        }
+        return loadBalancers;
     }
 
     private static StatefulNodeStrategyConfiguration toBl(ApiStatefulNodeStrategyConfiguration apiStatefulNodeStrategy){
@@ -1312,7 +1367,7 @@ public class StatefulNodeConverter {
 
             if (apiStatefulNodeStrategy.isPreferredLifecycleSet()) {
                 statefulNodeStrategyBuilder.setPreferredLifecycle(
-                        AzureStatefulNodeLifeCycleTypeEnum.fromName(apiStatefulNodeStrategy.getPreferredLifecycle()));
+                        AzureStatefulNodePreferredLifeCycleEnum.fromName(apiStatefulNodeStrategy.getPreferredLifecycle()));
             }
 
             if (apiStatefulNodeStrategy.isRevertToSpotSet()) {
@@ -1356,13 +1411,13 @@ public class StatefulNodeConverter {
         return statefulNodeSignal;
     }
 
-    private static StatefulNodeRevertToSpotConfiguration toBl(ApiStatefulNodeRevertToSpotConfiguration apiStatefulNodeRevertToSpot){
+    private static StatefulNodeStrategyRevertToSpotConfiguration toBl(ApiStatefulNodeStrategyRevertToSpotConfiguration apiStatefulNodeRevertToSpot){
 
-        StatefulNodeRevertToSpotConfiguration statefulNodeRevertToSpot = null;
+        StatefulNodeStrategyRevertToSpotConfiguration statefulNodeRevertToSpot = null;
 
         if(apiStatefulNodeRevertToSpot != null) {
 
-            StatefulNodeRevertToSpotConfiguration.Builder statefulNodeRevertToSpotBuilder = StatefulNodeRevertToSpotConfiguration.Builder.get();
+            StatefulNodeStrategyRevertToSpotConfiguration.Builder statefulNodeRevertToSpotBuilder = StatefulNodeStrategyRevertToSpotConfiguration.Builder.get();
 
             if (apiStatefulNodeRevertToSpot.isPerformAtSet()) {
                 statefulNodeRevertToSpotBuilder.setPerformAt(
@@ -1411,7 +1466,7 @@ public class StatefulNodeConverter {
             }
 
             if (apiStatefulNodeTasks.isTypeSet()) {
-                statefulNodeTasksBuilder.setType(AzureStatefulNodeTaskTypeEnum.fromName(apiStatefulNodeTasks.getType()));
+                statefulNodeTasksBuilder.setType(AzureStatefulNodeSchedulingTaskTypeEnum.fromName(apiStatefulNodeTasks.getType()));
             }
 
             statefulNodeTasks = statefulNodeTasksBuilder.build();
@@ -1443,12 +1498,12 @@ public class StatefulNodeConverter {
 
             if (apiStatefulNodePersistent.isOsDiskPersistenceModeSet()) {
                 statefulNodePersistentBuilder.setOsDiskPersistenceMode(
-                        AzureStatefulNodeDiskModeEnum.fromName(apiStatefulNodePersistent.getOsDiskPersistenceMode()));
+                        AzureStatefulNodeDiskPersistenceModeEnum.fromName(apiStatefulNodePersistent.getOsDiskPersistenceMode()));
             }
 
             if (apiStatefulNodePersistent.isDataDisksPersistenceModeSet()) {
                 statefulNodePersistentBuilder.setDataDisksPersistenceMode(
-                        AzureStatefulNodeDiskModeEnum.fromName(apiStatefulNodePersistent.getDataDisksPersistenceMode()));
+                        AzureStatefulNodeDiskPersistenceModeEnum.fromName(apiStatefulNodePersistent.getDataDisksPersistenceMode()));
             }
 
             statefulNodePersistent = statefulNodePersistentBuilder.build();
@@ -1659,8 +1714,8 @@ public class StatefulNodeConverter {
                 osDiskBuilder.setStorageAccountType(apiOsDisk.getStorageAccountType());
             }
 
-            if (apiOsDisk.isSizeGbSet()) {
-                osDiskBuilder.setSizeGb(apiOsDisk.getSizeGb());
+            if (apiOsDisk.isSizeGBSet()) {
+                osDiskBuilder.setSizeGB(apiOsDisk.getSizeGB());
             }
 
             if (apiOsDisk.isSnapshotSet()) {
@@ -1882,11 +1937,11 @@ public class StatefulNodeConverter {
                 networkInterfacesBuilder.setNetworkSecurityGroup(toBl(apiNetworkInterfaces.getNetworkSecurityGroup()));
             }
 
-            if (apiNetworkInterfaces.isNetworkIpConfigurationsSet()) {
-                if (apiNetworkInterfaces.getNetworkIpConfigurations() != null) {
+            if (apiNetworkInterfaces.isIpConfigurationsSet()) {
+                if (apiNetworkInterfaces.getIpConfigurations() != null) {
                     List<StatefulNodeResourceNetworkIpConfigurations> ipConfigurationList =
-                            apiNetworkInterfaces.getNetworkIpConfigurations().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
-                    networkInterfacesBuilder.setNetworkIpConfigurations(ipConfigurationList);
+                            apiNetworkInterfaces.getIpConfigurations().stream().map(StatefulNodeConverter::toBl).collect(Collectors.toList());
+                    networkInterfacesBuilder.setIpConfigurations(ipConfigurationList);
                 }
             }
 

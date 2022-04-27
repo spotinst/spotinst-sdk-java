@@ -1,18 +1,15 @@
-package com.spotinst.sdkjava.model.api.azure.statefulNode;
+package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiLaunchSpecGalleryConfiguration implements IPartialUpdateEntity {
+public class LaunchSpecImageGalleryConfiguration {
     @JsonIgnore
     private Set<String> isSet;
     private String      resourceGroupName;
@@ -20,7 +17,7 @@ public class ApiLaunchSpecGalleryConfiguration implements IPartialUpdateEntity {
     private String      imageName;
     private String      versionName;
 
-    public ApiLaunchSpecGalleryConfiguration() {
+    public LaunchSpecImageGalleryConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -67,6 +64,44 @@ public class ApiLaunchSpecGalleryConfiguration implements IPartialUpdateEntity {
     public void setVersionName(String versionName) {
         isSet.add("versionName");
         this.versionName = versionName;
+    }
+
+
+    public static class Builder {
+        private LaunchSpecImageGalleryConfiguration marketplaceConfiguration;
+
+        private Builder() {
+            this.marketplaceConfiguration = new LaunchSpecImageGalleryConfiguration();
+        }
+
+        public static Builder get() {
+            Builder builder = new Builder();
+            return builder;
+        }
+
+        public Builder setResourceGroupName(final String resourceGroupName) {
+            marketplaceConfiguration.setResourceGroupName(resourceGroupName);
+            return this;
+        }
+
+        public Builder setGalleryName(final String galleryName) {
+            marketplaceConfiguration.setGalleryName(galleryName);
+            return this;
+        }
+
+        public Builder setImageName(final String imageName) {
+            marketplaceConfiguration.setImageName(imageName);
+            return this;
+        }
+
+        public Builder setVersionName(final String versionName) {
+            marketplaceConfiguration.setVersionName(versionName);
+            return this;
+        }
+
+        public LaunchSpecImageGalleryConfiguration build() {
+            return marketplaceConfiguration;
+        }
     }
 
     @JsonIgnore

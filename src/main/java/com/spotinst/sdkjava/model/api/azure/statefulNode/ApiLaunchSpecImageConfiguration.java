@@ -16,8 +16,8 @@ public class ApiLaunchSpecImageConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                           isSet;
     private ApiLaunchSpecMarketplaceConfiguration marketplace;
-    private ApiLaunchSpecCustomConfiguration      custom;
-    private ApiLaunchSpecGalleryConfiguration     gallery;
+    private ApiLaunchSpecCustomImageConfiguration custom;
+    private ApiLaunchSpecImageGalleryConfiguration gallery;
 
     public ApiLaunchSpecImageConfiguration() {
         isSet = new HashSet<>();
@@ -39,20 +39,20 @@ public class ApiLaunchSpecImageConfiguration implements IPartialUpdateEntity {
         isSet.add("marketplace");
         this.marketplace = marketplace;
     }
-    public ApiLaunchSpecCustomConfiguration getCustom() {
+    public ApiLaunchSpecCustomImageConfiguration getCustom() {
         return custom;
     }
 
-    public void setCustom(ApiLaunchSpecCustomConfiguration custom) {
+    public void setCustom(ApiLaunchSpecCustomImageConfiguration custom) {
         isSet.add("custom");
         this.custom = custom;
     }
 
-    public ApiLaunchSpecGalleryConfiguration getGallery() {
+    public ApiLaunchSpecImageGalleryConfiguration getGallery() {
         return gallery;
     }
 
-    public void setGallery(ApiLaunchSpecGalleryConfiguration gallery) {
+    public void setGallery(ApiLaunchSpecImageGalleryConfiguration gallery) {
         isSet.add("gallery");
         this.gallery = gallery;
     }

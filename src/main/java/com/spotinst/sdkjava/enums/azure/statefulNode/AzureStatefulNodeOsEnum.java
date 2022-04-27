@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.enums;
+package com.spotinst.sdkjava.enums.azure.statefulNode;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -26,9 +26,9 @@ public enum AzureStatefulNodeOsEnum {
     public static AzureStatefulNodeOsEnum fromName(String name) {
         AzureStatefulNodeOsEnum retVal = null;
 
-        for (AzureStatefulNodeOsEnum productEnum : AzureStatefulNodeOsEnum.values()) {
-            if (StringUtils.equalsIgnoreCase(name, productEnum.name)) {
-                retVal = productEnum;
+        for (AzureStatefulNodeOsEnum enumValue : AzureStatefulNodeOsEnum.values()) {
+            if (StringUtils.equalsIgnoreCase(name, enumValue.name)) {
+                retVal = enumValue;
                 break;
             }
         }
