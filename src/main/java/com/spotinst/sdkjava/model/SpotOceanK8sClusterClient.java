@@ -3,6 +3,9 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -158,5 +161,166 @@ public class SpotOceanK8sClusterClient {
 
         return getK8sClusterHeartBeatStatus;
 
+    }
+
+    public OceanK8sCluster importASGToOceanCluster(ImportAsgToClusterConfiguration instanceTypes, String autoScalingGroupName, String region) {
+
+        OceanK8sCluster importedClusterConfiguration;
+
+        RepoGenericResponse<OceanK8sCluster> importASGToOceanClusterResponse =
+                getSpotOceanK8sClusterRepo().importASGToOceanCluster(instanceTypes, autoScalingGroupName, region, authToken, account);
+
+        if(importASGToOceanClusterResponse.isRequestSucceed()){
+            importedClusterConfiguration =importASGToOceanClusterResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGToOceanClusterResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import ASG to ocean cluster. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return importedClusterConfiguration;
+
+    }
+
+    public List<K8sClusterFetchElastilogResponse> fetchElastilog(K8sClusterFetchElastilogRequest clusterGetElastilogRequest, String clusterId) {
+
+        List<K8sClusterFetchElastilogResponse> getLogs;
+
+        RepoGenericResponse <List<K8sClusterFetchElastilogResponse>> getLogsResponse =
+                getSpotOceanK8sClusterRepo().fetchElastilog(clusterGetElastilogRequest, clusterId, authToken);
+
+        if(getLogsResponse.isRequestSucceed()){
+            getLogs =getLogsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getLogsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the ocean EKS Elastilog. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getLogs;
+    }
+
+    public ClusterRollResponse initiateRoll(InitiateRoll initiateRollRequest, String clusterId) {
+        ClusterRollResponse retVal;
+        RepoGenericResponse<ClusterRollResponse> initiateRollResponse = getSpotOceanK8sClusterRepo().initiateRoll(initiateRollRequest, clusterId, authToken, account);
+
+        if (initiateRollResponse.isRequestSucceed()) {
+            retVal = initiateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = initiateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to Initiate Roll. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ClusterRollResponse> listRolls(String clusterId) {
+        List<ClusterRollResponse> retVal;
+        RepoGenericResponse<List<ClusterRollResponse>> listRollsResponse = getSpotOceanK8sClusterRepo().listRolls(clusterId, authToken, account);
+
+        if (listRollsResponse.isRequestSucceed()) {
+            retVal = listRollsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listRollsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to list all the Rolls in the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ClusterRollResponse getRoll(String clusterId, String rollId) {
+        ClusterRollResponse retVal;
+        RepoGenericResponse<ClusterRollResponse> getRollResponse = getSpotOceanK8sClusterRepo().getRoll(clusterId, rollId,  authToken, account);
+
+        if (getRollResponse.isRequestSucceed()) {
+            retVal = getRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the requested Roll details for the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ClusterRollResponse updateRoll(UpdateRollRequest updateRollRequest, String clusterId, String rollId) {
+        ClusterRollResponse retVal;
+        RepoGenericResponse<ClusterRollResponse> updateRollResponse = getSpotOceanK8sClusterRepo().updateRoll(updateRollRequest, clusterId, rollId, authToken, account);
+
+        if (updateRollResponse.isRequestSucceed()) {
+            retVal = updateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update the roll status to Stopped. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean detachInstances(DetachInstances instances, String clusterId) {
+        Boolean retVal;
+        RepoGenericResponse<Boolean> detachInstancesResponse = getSpotOceanK8sClusterRepo().detachInstances(instances, clusterId, authToken, account);
+
+        if (detachInstancesResponse.isRequestSucceed()) {
+            retVal = detachInstancesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = detachInstancesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to detach instances from the Ocean cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+
+
+    public List<GetClusterNodesResponse> getClusterNodes(GetClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetClusterNodesResponse>> getNodesResponse = getSpotOceanK8sClusterRepo().getClusterNodes(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster nodes in Virtual Node Group. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
     }
 }

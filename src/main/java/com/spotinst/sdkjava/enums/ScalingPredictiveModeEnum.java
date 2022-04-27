@@ -8,7 +8,7 @@ public enum ScalingPredictiveModeEnum {
     FORECAST_ONLY("FORECAST_ONLY"),
     FORECAST_AND_SCALE("FORECAST_AND_SCALE");
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(ScalingPredictiveModeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ScalingPredictiveModeEnum.class);
     private final String name;
 
     private ScalingPredictiveModeEnum(String name) {

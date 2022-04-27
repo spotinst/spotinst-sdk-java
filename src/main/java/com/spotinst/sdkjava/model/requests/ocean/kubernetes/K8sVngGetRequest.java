@@ -25,8 +25,7 @@ public class K8sVngGetRequest {
         }
 
         public static K8sVngGetRequest.Builder get() {
-            K8sVngGetRequest.Builder builder = new K8sVngGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public K8sVngGetRequest.Builder setOceanLaunchSpecId(final String k8sVng) {

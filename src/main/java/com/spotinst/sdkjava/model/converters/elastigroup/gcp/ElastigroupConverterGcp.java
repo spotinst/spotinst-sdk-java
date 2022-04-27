@@ -704,7 +704,7 @@ public class ElastigroupConverterGcp {
                                 .collect(Collectors.toList());
                 retVal.setNewPreemptibles(newPreemptibles);            }
 
-            if (elastigroupScaleUpResponseGcp.isNewInstancesSet()== true && elastigroupScaleUpResponseGcp.getNewInstances()!=null) {
+            if (elastigroupScaleUpResponseGcp.isNewInstancesSet() && elastigroupScaleUpResponseGcp.getNewInstances()!=null) {
                 List<ElastigroupScaleUpNewInstancesGcp> newInstances =
                         elastigroupScaleUpResponseGcp.getNewInstances().stream().map(ElastigroupConverterGcp::toBl)
                         .collect(Collectors.toList());
@@ -745,7 +745,7 @@ public class ElastigroupConverterGcp {
                 retVal.setVictimPreemptibles(victimPreemptibles);
             }
 
-            if (elastigroupScaleDownResponseGcp.isVictimInstancesSet()== true && elastigroupScaleDownResponseGcp.getVictimInstances()!=null) {
+            if (elastigroupScaleDownResponseGcp.isVictimInstancesSet() && elastigroupScaleDownResponseGcp.getVictimInstances()!=null) {
                 List<ElastigroupScaleDownVictimGcp> victimInstances =
                         elastigroupScaleDownResponseGcp.getVictimInstances().stream().map(ElastigroupConverterGcp::toBl)
                                 .collect(Collectors.toList());

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.api.elastigroup.aws;
+package com.spotinst.sdkjava.model.api.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,18 +7,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiGetInstanceTypesByRegionResponse implements IPartialUpdateEntity {
-
+public class ApiAksDetachInstancesResponse implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                                        isSet;
-    private String                                             instanceType;
+    private Set<String>              isSet;
+    private List<ApiDetachedVms>     detachedVms;
 
-    public ApiGetInstanceTypesByRegionResponse() {
+    public ApiAksDetachInstancesResponse() {
         isSet = new HashSet<>();
     }
 
@@ -30,18 +30,19 @@ public class ApiGetInstanceTypesByRegionResponse implements IPartialUpdateEntity
         this.isSet = isSet;
     }
 
-    public String getInstanceType() {
-        return instanceType;
+    public List<ApiDetachedVms> getDetachedVms() {
+        return detachedVms;
     }
 
-    public void setInstanceType(String instanceType) {
-        isSet.add("instanceType");
-        this.instanceType = instanceType;
+    public void setDetachedVms(List<ApiDetachedVms> detachedVms) {
+        isSet.add("detachedVms");
+        this.detachedVms = detachedVms;
     }
 
     @JsonIgnore
-    public boolean isInstanceTypeSet() {
-        return isSet.contains("instanceType");
+    public boolean isDetachedVmsSet() {
+        return isSet.contains("detachedVms");
     }
+
 
 }

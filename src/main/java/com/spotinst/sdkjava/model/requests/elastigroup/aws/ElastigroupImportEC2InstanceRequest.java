@@ -5,8 +5,6 @@ import com.spotinst.sdkjava.model.ElastigroupConverter;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupImportEC2Instance;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupImportEC2Instance;
 
-import java.util.List;
-
 public class ElastigroupImportEC2InstanceRequest {
 
     private ElastigroupImportEC2Instance elastigroupImportEC2Instance;
@@ -30,8 +28,7 @@ public class ElastigroupImportEC2InstanceRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroupImportEC2Instance(ElastigroupImportEC2Instance elastigroupImportEC2Instance) {
@@ -47,8 +44,7 @@ public class ElastigroupImportEC2InstanceRequest {
     //region Json methods
     public String toJson() {
         ApiElastigroupImportEC2Instance elastigroupImportEC2InstanceRequest = ElastigroupConverter.toDal(elastigroupImportEC2Instance);
-        String                        importEC2Instance              = JsonMapper.toJson(elastigroupImportEC2InstanceRequest);
-        return importEC2Instance;
+        return JsonMapper.toJson(elastigroupImportEC2InstanceRequest);
     }
 
     //endregion

@@ -45,8 +45,7 @@ public class ClusterInstanceTypesConfiguration {
 
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterInstanceTypesConfiguration.Builder setWhitelist(final List<String> whitelist) {

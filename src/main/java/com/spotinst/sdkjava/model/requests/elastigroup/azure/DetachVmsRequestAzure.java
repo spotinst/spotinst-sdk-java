@@ -37,8 +37,7 @@ public class DetachVmsRequestAzure {
         }
 
         public static DetachVmsRequestAzure.Builder get() {
-            DetachVmsRequestAzure.Builder builder = new DetachVmsRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setGroupId(final String groupId) {
@@ -59,8 +58,7 @@ public class DetachVmsRequestAzure {
 
     public String toJson() {
         ApiDetachVmsAzure apiDetachVms = ElastigroupConverterAzure.toDal(detachVms);
-        String elastigroupJson = JsonMapper.toJson(apiDetachVms);
 
-        return elastigroupJson;
+        return JsonMapper.toJson(apiDetachVms);
     }
 }

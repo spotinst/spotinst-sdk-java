@@ -31,8 +31,7 @@ public class ApiMrScalerAwsDeleteRequest {
         }
 
         public static ApiMrScalerAwsDeleteRequest.Builder get() {
-            ApiMrScalerAwsDeleteRequest.Builder builder = new ApiMrScalerAwsDeleteRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ApiMrScalerAwsDeleteRequest.Builder setMrScalerId(final String mrScalerId) {

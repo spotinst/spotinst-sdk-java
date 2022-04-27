@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.client.response.*;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
@@ -16,7 +15,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

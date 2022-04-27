@@ -3,11 +3,12 @@ package com.spotinst.sdkjava.example.ocean.aks;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterClient;
-
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 
 import java.util.Arrays;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
@@ -29,6 +30,17 @@ public class OceanAzureAksClusterUsageExample {
         listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
 
+        //Get cluster heartbeat status
+        System.out.println("----------Get cluster heartbeat status-------------");
+        GetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
+
+        //Detach instances
+        System.out.println("----------Detach Instances--------------");
+        List<AksDetachInstancesResponse> detachStatus = detachClusterInstances(clusterClient, "cluster-id", Collections.singletonList("instances"), true, true);
+
+        //Get cluster nodes
+        System.out.println("----------Get cluster Nodes--------------");
+        List<GetAksClusterNodesResponse> nodes = getClusterNodes(clusterClient, "cluster-id");
     }
 
     private static String createCluster(SpotOceanAzureAksClusterClient client) {
@@ -181,6 +193,49 @@ public class OceanAzureAksClusterUsageExample {
     private static List<OceanClusterAks> listClusters(SpotOceanAzureAksClusterClient client) {
         System.out.println("-------------------------start listing ocean clusters------------------------");
         return client.ListOceanAksCluster();
+    }
+
+    private static GetAzureAksClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanAzureAksClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Getting the Heartbeat status for the Kubernetes Cluster: %s", clusterId));
+        GetAzureAksClusterHeartBeatStatusResponse clusterHeartBeatStatus = client.getAzureAksClusterHeartBeatStatus(clusterId);
+
+        System.out.println(String.format("Status: %s", clusterHeartBeatStatus.getStatus()));
+        System.out.println(String.format("LastHeartBeat: %s", clusterHeartBeatStatus.getLastHeartbeat()));
+
+        return clusterHeartBeatStatus;
+    }
+
+    private static List<AksDetachInstancesResponse> detachClusterInstances(SpotOceanAzureAksClusterClient client, String clusterId, List instances, Boolean shouldDecrementTargetCapacity, Boolean shouldTerminateInstances) {
+
+        AksDetachInstances.Builder detachInstancesBuilder = AksDetachInstances.Builder.get();
+        AksDetachInstances detachInstances                = detachInstancesBuilder.setVmsToDetach(instances).build();
+
+        System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
+
+        return client.detachVms(detachInstances, clusterId);
+    }
+
+    private static List<GetAksClusterNodesResponse> getClusterNodes(SpotOceanAzureAksClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetAksClusterNodesRequest.Builder getNodesBuilder = GetAksClusterNodesRequest.Builder.get();
+        GetAksClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetAksClusterNodesResponse>  nodes = client.getClusterNodes(getNodesRequest, clusterId);
+
+        for (GetAksClusterNodesResponse node : nodes){
+            System.out.println(String.format("VM Name: %s", node.getVmName()));
+            System.out.println(String.format("VM Size: %s", node.getVmSize()));
+            System.out.println(String.format("Node name: %s", node.getNodeName()));
+            System.out.println(String.format("VNG ID: %s", node.getVirtualNodeGroupId()));
+            System.out.println(String.format("VNG name: %s", node.getVirtualNodeGroupName()));
+            System.out.println(String.format("Public IP: %s", node.getPublicIp()));
+
+        }
+
+        return nodes;
     }
 }
 

@@ -54,8 +54,7 @@ public class Integrations {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setLoadBalancersConfig(final LoadBalancersConfig loadBalancersConfig) {

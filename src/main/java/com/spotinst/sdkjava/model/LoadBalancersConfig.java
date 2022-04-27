@@ -34,8 +34,7 @@ public class LoadBalancersConfig {
         }
 
         public static LoadBalancersConfig.Builder get() {
-            LoadBalancersConfig.Builder builder = new LoadBalancersConfig.Builder();
-            return builder;
+            return new Builder();
         }
 
         public LoadBalancersConfig.Builder setLoadBalancers(final List<LoadBalancer> loadBalancers) {

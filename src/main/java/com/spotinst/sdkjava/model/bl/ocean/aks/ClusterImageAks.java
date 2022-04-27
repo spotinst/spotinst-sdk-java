@@ -49,8 +49,7 @@ public static class Builder {
     }
 
     public static Builder get() {
-        Builder builder = new Builder();
-        return builder;
+        return new Builder();
     }
 
     public Builder setMarketplace(final ClusterMarketplaceAks marketplace) {

@@ -15,7 +15,7 @@ public class BaseExternalService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseExternalService.class);
 
     protected static <T> T getCastedResponse(RestResponse response, Class<T> contentClass) throws SpotinstHttpException {
-        T retVal = null;
+        T retVal;
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             // Desarialize the response.

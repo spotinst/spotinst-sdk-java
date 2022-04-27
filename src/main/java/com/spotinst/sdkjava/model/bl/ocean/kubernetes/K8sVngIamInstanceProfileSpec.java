@@ -53,8 +53,7 @@ public class K8sVngIamInstanceProfileSpec {
         }
 
         public static Builder get() {
-            Builder builder = new K8sVngIamInstanceProfileSpec.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setArn(final String arn) {

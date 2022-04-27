@@ -47,8 +47,7 @@ public class ApiMrScalerAwsNewStrategy {
         private Builder(){ this.newStrategy = new ApiMrScalerAwsNewStrategy(); }
 
         public static Builder get(){
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         // build methods

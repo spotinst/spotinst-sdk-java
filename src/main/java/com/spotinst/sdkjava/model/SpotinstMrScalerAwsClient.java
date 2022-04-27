@@ -61,7 +61,7 @@ public class SpotinstMrScalerAwsClient {
      * @return ApiMrScalerAws
      */
     public ApiMrScalerAws createMrScaler(ApiMrScalerAwsCreationRequest mrScalerCreationRequest) {
-        ApiMrScalerAws retVal = null;
+        ApiMrScalerAws retVal;
 
         ApiMrScalerAws mrScalerToCreate = mrScalerCreationRequest.getMrScaler();
 

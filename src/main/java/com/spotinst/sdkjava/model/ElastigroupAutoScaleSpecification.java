@@ -108,8 +108,7 @@ public class ElastigroupAutoScaleSpecification {
         }
 
         public static ElastigroupAutoScaleSpecification.Builder get() {
-            ElastigroupAutoScaleSpecification.Builder builder = new ElastigroupAutoScaleSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setIsEnabled(final Boolean isEnabled) {

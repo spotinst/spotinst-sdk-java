@@ -57,8 +57,7 @@ public class StatefulDeallocationConfig {
         }
 
         public static StatefulDeallocationConfig.Builder get() {
-            StatefulDeallocationConfig.Builder builder = new StatefulDeallocationConfig.Builder();
-            return builder;
+            return new Builder();
         }
 
         public StatefulDeallocationConfig.Builder setShouldDeleteNetworkInterfaces(final Boolean shouldDeleteNetworkInterfaces) {

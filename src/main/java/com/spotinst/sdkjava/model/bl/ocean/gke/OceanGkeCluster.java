@@ -129,8 +129,7 @@ public class OceanGkeCluster {
         }
 
         public static OceanGkeCluster.Builder get() {
-            OceanGkeCluster.Builder builder = new OceanGkeCluster.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setId(final String oceanGkeClusterId) {

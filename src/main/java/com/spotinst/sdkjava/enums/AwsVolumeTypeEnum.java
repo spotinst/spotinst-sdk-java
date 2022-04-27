@@ -17,7 +17,7 @@ public enum AwsVolumeTypeEnum {
     //endregion
 
     //region Members
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsVolumeTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsVolumeTypeEnum.class);
     private String name;
     //endregion
 

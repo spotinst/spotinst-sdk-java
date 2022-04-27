@@ -28,8 +28,7 @@ public class AksClusterDeleteRequest {
         }
 
         public static AksClusterDeleteRequest.Builder get() {
-            AksClusterDeleteRequest.Builder builder = new AksClusterDeleteRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AksClusterDeleteRequest.Builder setClusterId(final String oceanCluster) {

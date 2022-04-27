@@ -92,7 +92,7 @@ public class SpotinstElastigroupClient {
     //region Methods
     public Elastigroup createElastigroup(ElastigroupCreationRequest elastigroupCreationRequest) {
 
-        Elastigroup retVal = null;
+        Elastigroup retVal;
 
         Elastigroup elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
 
@@ -115,7 +115,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean updateElastigroup(ElastigroupUpdateRequest elastigroupUpdateRequest, String elastigroupId) {
 
-        Boolean retVal = null;
+        Boolean retVal;
 
         Elastigroup elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
         RepoGenericResponse<Boolean> updateResponse =
@@ -195,7 +195,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
-        Boolean               retVal                = null;
+        Boolean               retVal;
         String                elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
         ApiDeleteGroupRequest deleteRequest         = elastigroupDeletionRequest.getDeleteRequest();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
@@ -244,7 +244,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean lockInstance(ElastigroupInstanceLockRequest lockRequest, String instanceId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepo().lockInstance(lockRequest, authToken, instanceId);
 
@@ -265,7 +265,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest, String instanceId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepo().unlockInstance(unlockRequest, authToken, instanceId);
 
@@ -286,7 +286,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean simulateInstanceInterruption(List<String> instanceIds) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> interruptionResponse = getSpotinstElastigroupRepo().simulateInstanceInterruption(authToken, account, instanceIds);
 
@@ -308,7 +308,7 @@ public class SpotinstElastigroupClient {
     public List<ElastigroupActiveInstance> getActiveInstances(
             ElastigroupGetActiveInstancesRequest elastigroupGetActiveInstancesRequest) {
 
-        List<ElastigroupActiveInstance> retVal = null;
+        List<ElastigroupActiveInstance> retVal;
 
         String elastigroupId = elastigroupGetActiveInstancesRequest.getElastigroupId();
 
@@ -394,7 +394,7 @@ public class SpotinstElastigroupClient {
 
     public Elastigroup getElastigroup(ElastigroupGetRequest elastigroupGetRequest) {
 
-        Elastigroup retVal = null;
+        Elastigroup retVal;
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
 
@@ -424,7 +424,7 @@ public class SpotinstElastigroupClient {
      */
     public ElastigroupScalingResponse scaleGroupUp(ElastigroupScalingRequest elastigroupScalingRequest) {
 
-        ElastigroupScalingResponse retVal = null;
+        ElastigroupScalingResponse retVal;
 
         String elastigroupId = elastigroupScalingRequest.getElastigroupId();
 
@@ -455,7 +455,7 @@ public class SpotinstElastigroupClient {
      * @return ElastigroupScalingResponse Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
      */
     public ElastigroupScalingResponse scaleGroupDown(ElastigroupScalingRequest elastigroupScalingRequest) {
-        ElastigroupScalingResponse retVal = null;
+        ElastigroupScalingResponse retVal;
 
         String elastigroupId = elastigroupScalingRequest.getElastigroupId();
 
@@ -1065,11 +1065,11 @@ public class SpotinstElastigroupClient {
         return elastigroup;
     }
   
-    public List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegion(String region) {
+    public List<GetInstanceTypesResponse> getInstanceTypesByRegion(String region) {
 
-        List<GetInstanceTypesByRegionResponse> getInstanceTypesByRegionResponse;
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
 
-        RepoGenericResponse <List<GetInstanceTypesByRegionResponse>> getInstanceTypesResponse =
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
                 getSpotinstElastigroupRepo().getInstanceTypesByRegion(region, authToken, account);
 
         if(getInstanceTypesResponse.isRequestSucceed()){
@@ -1083,6 +1083,30 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             
           throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
+    public List<GetInstanceTypesResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getSuggestedInstanceTypes(suggestedInstanceTypeRequest, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the suggested instance types. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
         }
 
         return getInstanceTypesByRegionResponse;

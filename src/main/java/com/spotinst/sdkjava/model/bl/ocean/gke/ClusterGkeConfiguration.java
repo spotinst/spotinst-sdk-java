@@ -53,8 +53,7 @@ public class ClusterGkeConfiguration {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setClusterName(final String clusterName) {

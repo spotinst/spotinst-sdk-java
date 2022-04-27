@@ -75,8 +75,7 @@ public class ElastigroupDeploymentStatusInstancesBlue {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setInstanceId(final String instanceId) {

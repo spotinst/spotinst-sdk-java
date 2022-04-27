@@ -63,7 +63,7 @@ public class GroupActiveInstanceStatusGcp {
 
     public String getMachineType() { return machineType; }
 
-    public void setMachineType(String availabilityZone) { this.machineType = machineType; }
+    public void setMachineType(String machineType) { this.machineType = machineType; }
 
     public GcpInstanceLifecycleEnum getLifeCycle() {
         return lifeCycle;

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.ocean.kubernetes;
+package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,13 +9,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class K8sVngLabels {
+public class ClusterVngLabel {
     @JsonIgnore
     private Set<String> isSet;
     private String      key;
     private String      value;
 
-    private K8sVngLabels() {
+    private ClusterVngLabel() {
         isSet = new HashSet<>();
     }
 
@@ -46,15 +46,14 @@ public class K8sVngLabels {
     }
 
     public static class Builder {
-        private K8sVngLabels labels;
+        private ClusterVngLabel labels;
 
         private Builder() {
-            this.labels = new K8sVngLabels();
+            this.labels = new ClusterVngLabel();
         }
 
         public static Builder get() {
-            Builder builder = new K8sVngLabels.Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setKey(final String key) {
@@ -67,7 +66,7 @@ public class K8sVngLabels {
             return this;
         }
 
-        public K8sVngLabels build() {
+        public ClusterVngLabel build() {
             return labels;
         }
     }

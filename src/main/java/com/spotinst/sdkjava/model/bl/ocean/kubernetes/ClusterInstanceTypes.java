@@ -54,8 +54,7 @@ public class ClusterInstanceTypes {
         }
 
         public static ClusterInstanceTypes.Builder get() {
-            ClusterInstanceTypes.Builder builder = new ClusterInstanceTypes.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterInstanceTypes.Builder setWhitelist(final List<String> whitelist) {

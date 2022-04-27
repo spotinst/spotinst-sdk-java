@@ -27,8 +27,7 @@ public class AksClusterGetRequest {
         }
 
         public static AksClusterGetRequest.Builder get() {
-            AksClusterGetRequest.Builder builder = new AksClusterGetRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public AksClusterGetRequest.Builder setClusterId(final String oceanCluster) {
