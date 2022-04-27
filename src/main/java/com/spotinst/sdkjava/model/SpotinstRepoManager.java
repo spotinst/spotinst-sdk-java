@@ -1,8 +1,6 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
-import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
-import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
@@ -40,10 +38,8 @@ class SpotinstRepoManager {
     private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
-    private ISpotK8sVngRepo       						          spotK8sVngRepo;
+    private ISpotK8sVngRepo       						spotK8sVngRepo;
     private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
-    private ISpotAzureAksVngRepo    					          spotAksVngRepo;
-    private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
 
     //endregion
 
@@ -72,8 +68,6 @@ class SpotinstRepoManager {
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
         this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
-        this.spotAksVngRepo = new AzureAksVngRepo();
-        this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
     }
     //endregion
 
@@ -238,21 +232,6 @@ class SpotinstRepoManager {
         this.spotAzureStatefulNodeRepo = spotAzureStatefulNodeRepo;
     }
 
-    public ISpotAzureAksVngRepo getAksVngRepo() {
-        return spotAksVngRepo;
-    }
-
-    public void setAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
-        this.spotAksVngRepo = aksVngRepo;
-    }
-
-    public ISpotAdminOrganizationRepo getSpotAdminOrganizationRepo() {
-        return spotAdminOrganizationRepo;
-    }
-
-    public void setSpotAdminOrganizationRepo(ISpotAdminOrganizationRepo spotAdminOrganizationRepo) {
-        this.spotAdminOrganizationRepo = spotAdminOrganizationRepo;
-    }
     //endregion
 }
 
