@@ -122,5 +122,10 @@ public class SpotinstClient {
         return new SpotinstAdminOrganizationClient(authToken);
     }
 
+    public static SpotinstAzureStatefulNodeClient getAzureStatefulNodeClient(String authToken, String account){
+        SpotinstAzureStatefulNodeClient statefulNodeClient = new SpotinstAzureStatefulNodeClient(authToken, account);
+        return statefulNodeClient;
+    }
+
     //endregion
 }

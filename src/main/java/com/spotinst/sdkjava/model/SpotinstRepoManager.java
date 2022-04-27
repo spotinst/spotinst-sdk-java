@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
 import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
@@ -40,8 +41,9 @@ class SpotinstRepoManager {
     private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
-    private ISpotK8sVngRepo       						spotK8sVngRepo;
-    private ISpotAzureAksVngRepo    					spotAksVngRepo;
+    private ISpotK8sVngRepo       						          spotK8sVngRepo;
+    private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
+    private ISpotAzureAksVngRepo    					          spotAksVngRepo;
     private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
 
     //endregion
@@ -70,6 +72,7 @@ class SpotinstRepoManager {
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
+        this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
         this.spotAksVngRepo = new AzureAksVngRepo();
         this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
     }
@@ -228,6 +231,12 @@ class SpotinstRepoManager {
 
     public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
         this.spotK8sVngRepo = k8sVngRepo;
+    }
+
+    public ISpotAzureStatefulNodeRepo getSpotAzureStatefulNodeRepo() { return spotAzureStatefulNodeRepo; }
+
+    public void setSpotinstOceanEcsClusterRepo (ISpotAzureStatefulNodeRepo spotAzureStatefulNodeRepo) {
+        this.spotAzureStatefulNodeRepo = spotAzureStatefulNodeRepo;
     }
 
     public ISpotAzureAksVngRepo getAksVngRepo() {
