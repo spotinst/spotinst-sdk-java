@@ -15,18 +15,18 @@ import java.util.List;
 public class AzureStatefulNodeExample {
 
     private final static String       auth_token          = "auth-token";
-    private final static String       act_id              = "act-no";
-    private final static String       userName          = "username";
-    private final static String       password          = "password";
+    private final static String       act_id              = "act-id";
+    private final static String       userName            = "username";
+    private final static String       password            = "password";
     private final static List<String> spotSizes           = Arrays.asList("standard_ds1_v2", "standard_ds2_v2", "standard_ds3_v2", "standard_ds4_v2");
     private final static List<String> odSizes             = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> preferredSpotSizes  = Arrays.asList("standard_ds1_v2", "standard_ds2_v2");
     private final static List<String> zones               = Arrays.asList("1", "2", "3");
-    private final static List<String> loadBalancers       = Arrays.asList();
+    private final static List<String> backendPoolName     = Arrays.asList();
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
     private final static String       vmName              = "SDK-Testing";
     private final static String       resourceGroup       = "AutomationResourceGroup";
-    private final static String       dataDiskName       = "Attach-Detach-DataDisk";
+    private final static String       dataDiskName        = "Attach-Detach-DataDisk";
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -115,9 +115,9 @@ public class AzureStatefulNodeExample {
         System.out.println("----------Get Stateful Node Resources --------------");
         getNodeResources(nodeClient, nodeId);
 
-        //Get Elastilog
+        //Get Stateful node log
         System.out.println("----------Get StatefulNode log--------------");
-        List<StatefulNodeLogsResponse> getLogs = getStaefulNodeLogs(nodeClient, act_id, "fromDate", "toDate", "nodeId");
+        List<StatefulNodeLogsResponse> getLogs = getStaefulNodeLogs(nodeClient, act_id, "fromDate", "toDate", nodeId);
 
         //attach the disk to stateful node
         System.out.println("----------Attach DataDisk--------------");
@@ -166,13 +166,13 @@ public class AzureStatefulNodeExample {
 
         //Build Data Disk
         LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
-        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(1).setSizeGB(1).setType("Standard_LRS").build();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(1).setSizeGB(1).setType(AzureStatefulNodeDiskTypeEnum.Standard_LRS).build();
         List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
 
         //Build OsDisk
         LaunchSpecOsDiskSpecification.Builder osDiskBuilder = LaunchSpecOsDiskSpecification.Builder.get();
         LaunchSpecOsDiskSpecification osDisk =
-                osDiskBuilder.setName("Automation-OsDisk").setType("Standard_LRS").setSizeGB(33).build();
+                osDiskBuilder.setType(AzureStatefulNodeDiskTypeEnum.Standard_LRS).setSizeGB(33).build();
 
         //Build Extension Protected Settings
         LaunchSpecExtensionsProtectedSettings protectedSettings = LaunchSpecExtensionsProtectedSettings.Builder.get().setScript(
@@ -201,9 +201,17 @@ public class AzureStatefulNodeExample {
                 launchSpecificationBuilder.setImage(image).setNetwork(network).setDataDisks(dataDisks).setOsDisk(osDisk)
                                           .setExtensions(extensionsList).setLogin(login).setTags(tagsList).build();
 
+        StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
+                .setType(AzureStatefulNodeLoadBalancerTypeEnum.LOADBALANCER)
+                .setResourceGroupName(resourceGroup)
+                .setName("LoadBalancerName")
+                .setBackendPoolNames(backendPoolName)
+                .setLoadBalancerSku("loadBalcnerSku")
+                .build();
+        List<StatefulNodeLoadBalancers> loadBalancerssList = Collections.singletonList(loadBalancers);
         // Build LoadBalancers Config
         StatefulNodeLoadBalancersConfig loadBalancersList =
-                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadBalancers).build();
+                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadBalancerssList).build();
 
         //Build Compute
         StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
@@ -253,7 +261,7 @@ public class AzureStatefulNodeExample {
         healthCheckTypesList.add(HealthCheckTypeEnumAzure.VM_STATE);
         StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
         StatefulNodeHealthConfiguration health =
-                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(300).setGracePeriod(180).setAutoHealing(true).build();
+                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(120).setGracePeriod(180).setAutoHealing(true).build();
 
         // Build Stateful Node
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
@@ -359,7 +367,7 @@ public class AzureStatefulNodeExample {
 
         //Build Data Disk
         LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
-        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(2).setSizeGB(2).setType("StandardSSD_LRS").build();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(2).setSizeGB(2).setType(AzureStatefulNodeDiskTypeEnum.Standard_LRS).build();
         List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
 
         //Build Launch Specification
@@ -393,7 +401,7 @@ public class AzureStatefulNodeExample {
         //Build OsDisk
         LaunchSpecOsDiskSpecification.Builder osDiskBuilder = LaunchSpecOsDiskSpecification.Builder.get();
         LaunchSpecOsDiskSpecification osDisk =
-                osDiskBuilder.setName("Automation-OsDisk-updated").setType("Premium_LRS").setSizeGB(33).build();
+                osDiskBuilder.setType(AzureStatefulNodeDiskTypeEnum.Premium_LRS).setSizeGB(33).build();
 
         //Build Launch Specification
         StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
@@ -465,7 +473,7 @@ public class AzureStatefulNodeExample {
 
         StatefulNodeHealthConfiguration.Builder healthBuilder = StatefulNodeHealthConfiguration.Builder.get();
         StatefulNodeHealthConfiguration health =
-                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(200).setGracePeriod(240).setAutoHealing(false).build();
+                healthBuilder.setHealthCheckTypes(healthCheckTypesList).setUnhealthyDuration(300).setGracePeriod(240).setAutoHealing(false).build();
 
         StatefulNode.Builder statefulNodeBuilder = StatefulNode.Builder.get();
         StatefulNode statefulNodeToUpdate = statefulNodeBuilder.setHealth(health).build();
@@ -490,7 +498,7 @@ public class AzureStatefulNodeExample {
         // Build persistent
         StatefulNodePersistenceConfiguration.Builder persistentBuilder = StatefulNodePersistenceConfiguration.Builder.get();
         StatefulNodePersistenceConfiguration persistent =
-                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(false).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
+                persistentBuilder.setShouldPersistDataDisks(false).setShouldPersistNetwork(true).setShouldPersistOsDisk(false).setDataDisksPersistenceMode(
                         AzureStatefulNodeDiskPersistenceModeEnum.REATTACH)
                                  .setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum.REATTACH).build();
 
@@ -647,7 +655,7 @@ public class AzureStatefulNodeExample {
 
         //Build Data Disk
         LaunchSpecDataDisksSpecification.Builder dataDiskBuilder = LaunchSpecDataDisksSpecification.Builder.get();
-        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(1).setSizeGB(15).setType("Standard_LRS").build();
+        LaunchSpecDataDisksSpecification dataDisk = dataDiskBuilder.setLun(1).setSizeGB(15).setType(AzureStatefulNodeDiskTypeEnum.Standard_LRS).build();
         List<LaunchSpecDataDisksSpecification> dataDisks = Collections.singletonList(dataDisk);
 
         // Build Tags
@@ -661,13 +669,24 @@ public class AzureStatefulNodeExample {
                 launchSpecificationBuilder.setNetwork(network).setDataDisks(dataDisks).setTags(tagsList).build();
 
         // Build LoadBalancers Config
-        StatefulNodeLoadBalancersConfig loadBalancersList =
-                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadBalancers).build();
+
+//        StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
+//                .setType(AzureStatefulNodeLoadBalancerTypeEnum.LOADBALANCER)
+//                .setResourceGroupName(resourceGroup)
+//                .setName("LoadBalancerName")
+//                .setBackendPoolNames(backendPoolName)
+//                .setLoadBalancerSku("loadBalcnerSku")
+//                .build();
+//        List<StatefulNodeLoadBalancers> loadbalancers = Collections.singletonList(loadBalancers);
+//
+//        StatefulNodeLoadBalancersConfig loadBalancersConfig =
+//                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadbalancers).build();
 
         //Build Compute
         StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
         StatefulNodeComputeConfiguration compute = computeBuilder.setPreferredZone("1").setLaunchSpecification(launchSpecification)
-                .setLoadBalancersConfig(loadBalancersList).setVmSizes(vmSizes).setZones(zones).build();
+//                .setLoadBalancersConfig(loadBalancersConfig)
+                .setVmSizes(vmSizes).setZones(zones).build();
 
         //Build Signals
         StatefulNodeSignalConfiguration signal =
@@ -811,7 +830,7 @@ public class AzureStatefulNodeExample {
                 .setDataDiskResourceGroupName(resourceGroup)
                 .setLun(2)
                 .setSizeGB(10)
-                .setStorageAccountType("Standard_LRS")
+                .setStorageAccountType(AzureStatefulNodeDiskTypeEnum.Standard_LRS)
                 .setZone("2").build();
         StatefulNodeAttachDataDiskRequest.Builder attachDiskRequest = StatefulNodeAttachDataDiskRequest.Builder.get();
 
