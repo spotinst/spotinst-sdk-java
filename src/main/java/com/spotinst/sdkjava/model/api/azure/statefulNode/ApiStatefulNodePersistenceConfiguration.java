@@ -15,12 +15,12 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiStatefulNodePersistenceConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                                     isSet;
-    private Boolean                                         shouldPersistOsDisk;
-    private Boolean                                         shouldPersistDataDisks;
-    private Boolean                                         shouldPersistNetwork;
-    private AzureStatefulNodeDiskPersistenceModeEnum        dataDisksPersistenceMode;
-    private AzureStatefulNodeDiskPersistenceModeEnum        osDiskPersistenceMode;
+    private Set<String>           isSet;
+    private Boolean               shouldPersistOsDisk;
+    private Boolean               shouldPersistDataDisks;
+    private Boolean               shouldPersistNetwork;
+    private String                dataDisksPersistenceMode;
+    private String                osDiskPersistenceMode;
 
     public ApiStatefulNodePersistenceConfiguration() {
         isSet = new HashSet<>();
@@ -61,20 +61,20 @@ public class ApiStatefulNodePersistenceConfiguration implements IPartialUpdateEn
         this.shouldPersistNetwork = shouldPersistNetwork;
     }
 
-    public AzureStatefulNodeDiskPersistenceModeEnum getDataDisksPersistenceMode() {
+    public String getDataDisksPersistenceMode() {
         return dataDisksPersistenceMode;
     }
 
-    public void setDataDisksPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum dataDisksPersistenceMode) {
+    public void setDataDisksPersistenceMode(String dataDisksPersistenceMode) {
         isSet.add("dataDisksPersistenceMode");
         this.dataDisksPersistenceMode = dataDisksPersistenceMode;
     }
 
-    public AzureStatefulNodeDiskPersistenceModeEnum getOsDiskPersistenceMode() {
+    public String getOsDiskPersistenceMode() {
         return osDiskPersistenceMode;
     }
 
-    public void setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum osDiskPersistenceMode) {
+    public void setOsDiskPersistenceMode(String osDiskPersistenceMode) {
         isSet.add("osDiskPersistenceMode");
         this.osDiskPersistenceMode = osDiskPersistenceMode;
     }
