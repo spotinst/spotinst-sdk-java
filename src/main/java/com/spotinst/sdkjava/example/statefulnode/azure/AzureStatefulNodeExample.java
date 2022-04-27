@@ -669,18 +669,17 @@ public class AzureStatefulNodeExample {
                 launchSpecificationBuilder.setNetwork(network).setDataDisks(dataDisks).setTags(tagsList).build();
 
         // Build LoadBalancers Config
+        StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
+                .setType(AzureStatefulNodeLoadBalancerTypeEnum.LOADBALANCER)
+                .setResourceGroupName(resourceGroup)
+                .setName("LoadBalancerName")
+                .setBackendPoolNames(backendPoolName)
+                .setLoadBalancerSku("loadBalcnerSku")
+                .build();
+        List<StatefulNodeLoadBalancers> loadbalancers = Collections.singletonList(loadBalancers);
 
-//        StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
-//                .setType(AzureStatefulNodeLoadBalancerTypeEnum.LOADBALANCER)
-//                .setResourceGroupName(resourceGroup)
-//                .setName("LoadBalancerName")
-//                .setBackendPoolNames(backendPoolName)
-//                .setLoadBalancerSku("loadBalcnerSku")
-//                .build();
-//        List<StatefulNodeLoadBalancers> loadbalancers = Collections.singletonList(loadBalancers);
-//
-//        StatefulNodeLoadBalancersConfig loadBalancersConfig =
-//                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadbalancers).build();
+        StatefulNodeLoadBalancersConfig loadBalancersConfig =
+                StatefulNodeLoadBalancersConfig.Builder.get().setLoadBalancers(loadbalancers).build();
 
         //Build Compute
         StatefulNodeComputeConfiguration.Builder computeBuilder = StatefulNodeComputeConfiguration.Builder.get();
@@ -867,4 +866,3 @@ public class AzureStatefulNodeExample {
     }
 
 }
-

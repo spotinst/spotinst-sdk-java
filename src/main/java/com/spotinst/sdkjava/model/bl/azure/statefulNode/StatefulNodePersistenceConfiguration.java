@@ -12,12 +12,12 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatefulNodePersistenceConfiguration {
     @JsonIgnore
-    private Set<String>                   isSet;
-    private Boolean                       shouldPersistOsDisk;
-    private Boolean                       shouldPersistDataDisks;
-    private Boolean                       shouldPersistNetwork;
-    private AzureStatefulNodeDiskPersistenceModeEnum dataDisksPersistenceMode;
-    private AzureStatefulNodeDiskPersistenceModeEnum osDiskPersistenceMode;
+    private Set<String>                                 isSet;
+    private Boolean                                     shouldPersistOsDisk;
+    private Boolean                                     shouldPersistDataDisks;
+    private Boolean                                     shouldPersistNetwork;
+    private AzureStatefulNodeDiskPersistenceModeEnum    dataDisksPersistenceMode;
+    private AzureStatefulNodeDiskPersistenceModeEnum    osDiskPersistenceMode;
 
     private StatefulNodePersistenceConfiguration() {
         isSet = new HashSet<>();

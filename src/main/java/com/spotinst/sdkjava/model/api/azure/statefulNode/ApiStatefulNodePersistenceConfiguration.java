@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.azure.statefulNode.AzureStatefulNodeDiskPersistenceModeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,12 +15,12 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiStatefulNodePersistenceConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Boolean     shouldPersistOsDisk;
-    private Boolean     shouldPersistDataDisks;
-    private Boolean     shouldPersistNetwork;
-    private String      dataDisksPersistenceMode;
-    private String      osDiskPersistenceMode;
+    private Set<String>                                     isSet;
+    private Boolean                                         shouldPersistOsDisk;
+    private Boolean                                         shouldPersistDataDisks;
+    private Boolean                                         shouldPersistNetwork;
+    private AzureStatefulNodeDiskPersistenceModeEnum        dataDisksPersistenceMode;
+    private AzureStatefulNodeDiskPersistenceModeEnum        osDiskPersistenceMode;
 
     public ApiStatefulNodePersistenceConfiguration() {
         isSet = new HashSet<>();
@@ -60,20 +61,20 @@ public class ApiStatefulNodePersistenceConfiguration implements IPartialUpdateEn
         this.shouldPersistNetwork = shouldPersistNetwork;
     }
 
-    public String getDataDisksPersistenceMode() {
+    public AzureStatefulNodeDiskPersistenceModeEnum getDataDisksPersistenceMode() {
         return dataDisksPersistenceMode;
     }
 
-    public void setDataDisksPersistenceMode(String dataDisksPersistenceMode) {
+    public void setDataDisksPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum dataDisksPersistenceMode) {
         isSet.add("dataDisksPersistenceMode");
         this.dataDisksPersistenceMode = dataDisksPersistenceMode;
     }
 
-    public String getOsDiskPersistenceMode() {
+    public AzureStatefulNodeDiskPersistenceModeEnum getOsDiskPersistenceMode() {
         return osDiskPersistenceMode;
     }
 
-    public void setOsDiskPersistenceMode(String osDiskPersistenceMode) {
+    public void setOsDiskPersistenceMode(AzureStatefulNodeDiskPersistenceModeEnum osDiskPersistenceMode) {
         isSet.add("osDiskPersistenceMode");
         this.osDiskPersistenceMode = osDiskPersistenceMode;
     }
