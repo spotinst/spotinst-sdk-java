@@ -61,8 +61,7 @@ public class ApiStatefulNodeSnapshotDeallocationConfig implements IPartialUpdate
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setShouldDeallocate(final Boolean shouldDeallocate) {

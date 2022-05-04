@@ -31,8 +31,7 @@ public class StatefulNodeDetachDataDiskRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDetachDataDisk(final StatefulNodeDetachDataDiskConfiguration detachDataDisk) {
@@ -50,7 +49,6 @@ public class StatefulNodeDetachDataDiskRequest {
     public String toJson() {
         ApiStatefulNodeDetachDataDiskConfiguration apiStatefulNodeToDetach = StatefulNodeConverter.toDal(detachDataDisk);
         Map<String, ApiStatefulNodeDetachDataDiskConfiguration> diskRequest             = new HashMap<>();
-        String NodeJson = JsonMapper.toJson(diskRequest);
-        return NodeJson;
+        return JsonMapper.toJson(diskRequest);
     }
 }

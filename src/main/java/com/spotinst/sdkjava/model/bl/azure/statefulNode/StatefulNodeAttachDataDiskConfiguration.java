@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.bl.azure.statefulNode;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -96,8 +95,7 @@ public class StatefulNodeAttachDataDiskConfiguration {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDataDiskName(final String dataDiskName) {

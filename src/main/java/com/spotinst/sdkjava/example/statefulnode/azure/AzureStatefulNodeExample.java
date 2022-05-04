@@ -545,7 +545,7 @@ public class AzureStatefulNodeExample {
         StatefulNodeDeletionRequest.Builder nodeDeletionRequestBuilder = StatefulNodeDeletionRequest.Builder.get();
         StatefulNodeDeletionRequest         deletionRequest            = nodeDeletionRequestBuilder.setDeallocationConfig(statefulDeallocationConfig).build();
 
-        System.out.println(String.format("Stateful Node deletion Request: " + deletionRequest.toJson()));
+        System.out.println("Stateful Node deletion Request: " + deletionRequest.toJson());
         Boolean deleteNodeResponse = client.deleteNode(deletionRequest,nodeId);
 
         System.out.println(String.format("Stateful Node %s is successfully Deleted", nodeId));
@@ -559,8 +559,8 @@ public class AzureStatefulNodeExample {
 
         System.out.println("Stateful Nodes List: ");
 
-        for (int i=0; i< statefulNodesList.size(); i++){
-            System.out.println(String.format("Stateful Node Id: %s and Name: %s ",statefulNodesList.get(i).getId() , statefulNodesList.get(i).getName()));
+        for (StatefulNode statefulNode : statefulNodesList) {
+            System.out.println(String.format("Stateful Node Id: %s and Name: %s ", statefulNode.getId(), statefulNode.getName()));
 
         }
 
@@ -814,8 +814,8 @@ public class AzureStatefulNodeExample {
 
         System.out.println("Stateful Node status List: ");
 
-        for (int i=0; i< statefulNodesList.size(); i++){
-            System.out.println(String.format("Stateful Node Id: %s and Status: %s ",statefulNodesList.get(i).getId() , statefulNodesList.get(i).getStatus()));
+        for (StatefulNodeGetStatusResponse statefulNodeGetStatusResponse : statefulNodesList) {
+            System.out.println(String.format("Stateful Node Id: %s and Status: %s ", statefulNodeGetStatusResponse.getId(), statefulNodeGetStatusResponse.getStatus()));
         }
 
         return statefulNodesList;

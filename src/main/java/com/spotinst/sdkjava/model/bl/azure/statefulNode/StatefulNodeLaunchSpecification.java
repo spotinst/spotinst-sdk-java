@@ -105,8 +105,7 @@ public class StatefulNodeLaunchSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setImage(final LaunchSpecImageConfiguration image) {

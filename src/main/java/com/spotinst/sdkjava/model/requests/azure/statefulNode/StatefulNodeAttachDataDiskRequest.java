@@ -31,8 +31,7 @@ public class StatefulNodeAttachDataDiskRequest {
             }
 
             public static Builder get() {
-                Builder builder = new Builder();
-                return builder;
+                return new Builder();
             }
 
             public Builder setAttachDataDisk(final StatefulNodeAttachDataDiskConfiguration attachDataDisk) {
@@ -51,7 +50,6 @@ public class StatefulNodeAttachDataDiskRequest {
         public String toJson() {
             ApiStatefulNodeAttachDataDiskConfiguration apiStatefulNodeToAttach = StatefulNodeConverter.toDal(attachDataDisk);
             Map<String, ApiStatefulNodeAttachDataDiskConfiguration> diskRequest             = new HashMap<>();
-            String NodeJson = JsonMapper.toJson(diskRequest);
-            return NodeJson;
+            return JsonMapper.toJson(diskRequest);
         }
 }
