@@ -522,24 +522,14 @@ public class AzureStatefulNodeExample {
 
     private static Boolean deleteStatefulNode(SpotinstAzureStatefulNodeClient client, String nodeId) {
 
+        DeallocationConfig deallocationConfigBuilder = DeallocationConfig.Builder.get().setShouldDeallocate(true).setTtlInHours(0).build();
+
         // Build Stateful Deallocation Node
         StatefulNodeDeallocationConfig.Builder statefulDeallocationConfigBuilder = StatefulNodeDeallocationConfig.Builder.get();
 
-        // Build Network Deallocation Node
-        StatefulNodeNetworkDeallocationConfig networkDeallocationConfig = StatefulNodeNetworkDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
-
-        // Build Disk Deallocation Node
-        StatefulNodeDiskDeallocationConfig diskDeallocationConfig = StatefulNodeDiskDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
-
-        // Build Snapshot Deallocation Node
-        StatefulNodeSnapshotDeallocationConfig snapchatDeallocationConfig = StatefulNodeSnapshotDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
-
-        // Build PublicIp Deallocation Node
-        StatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig = StatefulNodePublicIpDeallocationConfig.Builder.get().setShouldDeallocate(true).build();
-
         StatefulNodeDeallocationConfig statefulDeallocationConfig = statefulDeallocationConfigBuilder.setShouldTerminateVms(true)
-                .setNetworkDeallocationConfig(networkDeallocationConfig).setDiskDeallocationConfig(diskDeallocationConfig)
-                .setSnapshotDeallocationConfig(snapchatDeallocationConfig).setPublicIpDeallocationConfig(publicIpDeallocationConfig).build();
+                .setNetworkDeallocationConfig(deallocationConfigBuilder).setDiskDeallocationConfig(deallocationConfigBuilder)
+                .setSnapshotDeallocationConfig(deallocationConfigBuilder).setPublicIpDeallocationConfig(deallocationConfigBuilder).build();
 
         // Build node deletion request
         StatefulNodeDeletionRequest.Builder nodeDeletionRequestBuilder = StatefulNodeDeletionRequest.Builder.get();

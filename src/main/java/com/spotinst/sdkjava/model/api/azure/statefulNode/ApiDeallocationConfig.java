@@ -9,20 +9,18 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Bansi Chapla on 23/11/2021.
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiStatefulNodeNetworkDeallocationConfig implements IPartialUpdateEntity {
+public class ApiDeallocationConfig implements IPartialUpdateEntity {
+
 
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldDeallocate;
     private Integer     ttlInHours;
 
-    public ApiStatefulNodeNetworkDeallocationConfig() {
+    public ApiDeallocationConfig() {
         isSet = new HashSet<>();
     }
 
@@ -33,7 +31,6 @@ public class ApiStatefulNodeNetworkDeallocationConfig implements IPartialUpdateE
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-
 
     public Boolean getShouldDeallocate() {
         return shouldDeallocate;
@@ -62,5 +59,4 @@ public class ApiStatefulNodeNetworkDeallocationConfig implements IPartialUpdateE
     public boolean isTtlInHoursSet() {
         return isSet.contains("ttlInHours");
     }
-
 }
