@@ -78,9 +78,8 @@ public class RestClient {
         addHeaders(getRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(getRequest);
 
-        return retVal;
+        return sendRequest(getRequest);
     }
 
 
@@ -265,7 +264,7 @@ public class RestClient {
 
         BufferedReader rd;
         try {
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             if (response.getEntity() != null) {
                 rd = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));

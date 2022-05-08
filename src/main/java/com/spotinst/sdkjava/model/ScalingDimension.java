@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -59,7 +60,7 @@ public class ScalingDimension {
         if (!name.equals(that.name)) {
             return false;
         }
-        return !(value != null ? !value.equals(that.value) : that.value != null);
+        return !(!Objects.equals(value, that.value));
 
     }
 

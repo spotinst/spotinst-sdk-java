@@ -85,8 +85,7 @@ public class StatefulNodeLoadBalancers {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setBackendPoolNames(final List<String> backendPoolNames) {

@@ -123,8 +123,7 @@ public class SpotinstClient {
     }
 
     public static SpotinstAzureStatefulNodeClient getAzureStatefulNodeClient(String authToken, String account){
-        SpotinstAzureStatefulNodeClient statefulNodeClient = new SpotinstAzureStatefulNodeClient(authToken, account);
-        return statefulNodeClient;
+        return new SpotinstAzureStatefulNodeClient(authToken, account);
     }
 
     //endregion

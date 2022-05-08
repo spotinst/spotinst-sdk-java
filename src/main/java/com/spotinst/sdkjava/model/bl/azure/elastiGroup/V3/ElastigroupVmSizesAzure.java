@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class ElastigroupVmSizesAzure {
@@ -59,10 +60,10 @@ public class ElastigroupVmSizesAzure {
             return false;
         }
         ElastigroupVmSizesAzure that = (ElastigroupVmSizesAzure) o;
-        if (odSizes != null ? !odSizes.equals(that.odSizes) : that.odSizes != null) {
+        if (!Objects.equals(odSizes, that.odSizes)) {
             return false;
         }
-        return spotSizes != null ? spotSizes.equals(that.spotSizes) : that.spotSizes == null;
+        return Objects.equals(spotSizes, that.spotSizes);
     }
 
     @Override

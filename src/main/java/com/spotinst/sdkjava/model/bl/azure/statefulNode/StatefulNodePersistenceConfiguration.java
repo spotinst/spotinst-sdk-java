@@ -84,8 +84,7 @@ public class StatefulNodePersistenceConfiguration {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setShouldPersistOsDisk(final Boolean shouldPersistOsDisk) {

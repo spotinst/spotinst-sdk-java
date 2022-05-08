@@ -187,8 +187,7 @@ public class StatefulNodeGetStatusResponse {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setId(final String id) {

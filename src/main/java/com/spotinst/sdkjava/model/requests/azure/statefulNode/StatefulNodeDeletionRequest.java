@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.requests.azure.statefulNode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.azure.statefulNode.ApiStatefulNodeDeallocationConfig;
@@ -46,8 +45,7 @@ public class StatefulNodeDeletionRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDeallocationConfig(final StatefulNodeDeallocationConfig deallocationConfig) {
@@ -68,9 +66,8 @@ public class StatefulNodeDeletionRequest {
         ApiStatefulNodeDeallocationConfig apiStatefulNodeToCreate = StatefulNodeConverter.toDal(deallocationConfig);
         Map<String, ApiStatefulNodeDeallocationConfig>      nodeRequest             = new HashMap<>();
         nodeRequest.put("deallocationConfig", apiStatefulNodeToCreate);
-        String NodeJson = JsonMapper.toJson(nodeRequest);
 
-        return NodeJson;
+        return JsonMapper.toJson(nodeRequest);
     }
     //endregion
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -119,15 +120,15 @@ public class NetworkInterface {
 
         if (associatePublicIpAddress != that.associatePublicIpAddress) return false;
         if (deleteOnTermination != that.deleteOnTermination) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (deviceIndex != null ? !deviceIndex.equals(that.deviceIndex) : that.deviceIndex != null) return false;
-        if (secondaryPrivateIpAddressCount != null ? !secondaryPrivateIpAddressCount.equals(that.secondaryPrivateIpAddressCount) : that.secondaryPrivateIpAddressCount != null)
+        if (!Objects.equals(description, that.description)) return false;
+        if (!Objects.equals(deviceIndex, that.deviceIndex)) return false;
+        if (!Objects.equals(secondaryPrivateIpAddressCount, that.secondaryPrivateIpAddressCount))
             return false;
-        if (networkInterfaceId != null ? !networkInterfaceId.equals(that.networkInterfaceId) : that.networkInterfaceId != null)
+        if (!Objects.equals(networkInterfaceId, that.networkInterfaceId))
             return false;
-        if (privateIpAddress != null ? !privateIpAddress.equals(that.privateIpAddress) : that.privateIpAddress != null)
+        if (!Objects.equals(privateIpAddress, that.privateIpAddress))
             return false;
-        return !(privateIpAddresses != null ? !privateIpAddresses.equals(that.privateIpAddresses) : that.privateIpAddresses != null);
+        return !(!Objects.equals(privateIpAddresses, that.privateIpAddresses));
 
     }
 

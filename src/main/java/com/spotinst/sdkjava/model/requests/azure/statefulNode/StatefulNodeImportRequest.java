@@ -34,8 +34,7 @@ public class StatefulNodeImportRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setImportNode(final ImportConfiguration importNode) {
@@ -53,8 +52,7 @@ public class StatefulNodeImportRequest {
         ApiImportConfiguration apiStatefulNodeToImport = StatefulNodeConverter.toDal(importNode);
         Map<String, ApiImportConfiguration> importNodeRequest             = new HashMap<>();
         importNodeRequest.put("statefulNodeImport", apiStatefulNodeToImport);
-        String NodeJson = JsonMapper.toJson(importNodeRequest);
 
-        return NodeJson;
+        return JsonMapper.toJson(importNodeRequest);
     }
 }

@@ -44,8 +44,7 @@ public class StatefulNodeCreationRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setNode(final StatefulNode statefulNode) {
@@ -69,9 +68,8 @@ public class StatefulNodeCreationRequest {
         ApiStatefulNode              apiStatefulNodeToCreate = StatefulNodeConverter.toDal(node);
         Map<String, ApiStatefulNode> nodeRequest             = new HashMap<>();
         nodeRequest.put("statefulNode", apiStatefulNodeToCreate);
-        String NodeJson = JsonMapper.toJson(nodeRequest);
 
-        return NodeJson;
+        return JsonMapper.toJson(nodeRequest);
     }
     //endregion
 }

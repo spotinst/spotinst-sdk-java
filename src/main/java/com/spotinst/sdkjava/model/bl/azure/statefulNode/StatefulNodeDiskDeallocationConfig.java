@@ -69,8 +69,7 @@ public class StatefulNodeDiskDeallocationConfig {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setShouldDeallocate(final Boolean shouldDeallocate) {

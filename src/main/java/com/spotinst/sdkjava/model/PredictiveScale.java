@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.enums.ScalingPredictiveModeEnum;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -51,7 +52,7 @@ public class PredictiveScale {
 
         PredictiveScale that = (PredictiveScale) o;
 
-        return !(mode != null ? !mode.equals(that.mode) : that.mode != null);
+        return !(!Objects.equals(mode, that.mode));
     }
 
     @Override

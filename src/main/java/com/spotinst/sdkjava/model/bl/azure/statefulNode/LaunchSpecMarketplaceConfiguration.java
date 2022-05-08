@@ -73,8 +73,7 @@ public class LaunchSpecMarketplaceConfiguration {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setPublisher(final String publisher) {

@@ -2,8 +2,6 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.azure.statefulNode.*;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeAttachDataDiskRequest;
-import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeDetachDataDiskRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeGetLogsRequest;
 import com.spotinst.sdkjava.model.requests.azure.statefulNode.StatefulNodeStateChangeRequest;
 
