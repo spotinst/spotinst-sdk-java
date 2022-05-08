@@ -9,20 +9,18 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by Bansi Chapla on 23/11/2021.
- */
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiStatefulNodeDiskDeallocationConfig implements IPartialUpdateEntity {
+public class ApiDeallocationConfig implements IPartialUpdateEntity {
+
 
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     shouldDeallocate;
     private Integer     ttlInHours;
 
-    public ApiStatefulNodeDiskDeallocationConfig() {
+    public ApiDeallocationConfig() {
         isSet = new HashSet<>();
     }
 
@@ -34,7 +32,6 @@ public class ApiStatefulNodeDiskDeallocationConfig implements IPartialUpdateEnti
         this.isSet = isSet;
     }
 
-
     public Boolean getShouldDeallocate() {
         return shouldDeallocate;
     }
@@ -43,6 +40,7 @@ public class ApiStatefulNodeDiskDeallocationConfig implements IPartialUpdateEnti
         isSet.add("shouldDeallocate");
         this.shouldDeallocate = shouldDeallocate;
     }
+
     public Integer getTtlInHours() {
         return ttlInHours;
     }
@@ -53,13 +51,12 @@ public class ApiStatefulNodeDiskDeallocationConfig implements IPartialUpdateEnti
     }
 
     @JsonIgnore
-    public boolean isTtlInHoursSet() {
-        return isSet.contains("ttlInHours");
-    }
-
-    @JsonIgnore
     public boolean isShouldDeallocateSet() {
         return isSet.contains("shouldDeallocate");
     }
 
+    @JsonIgnore
+    public boolean isTtlInHoursSet() {
+        return isSet.contains("ttlInHours");
+    }
 }
