@@ -18,12 +18,12 @@ import java.util.Set;
 public class ApiStatefulNodeDeallocationConfig implements IPartialUpdateEntity {
 
     @JsonIgnore
-    private Set<String>                               isSet;
-    private Boolean                                   shouldTerminateVm;
-    private ApiStatefulNodeNetworkDeallocationConfig  networkDeallocationConfig;
-    private ApiStatefulNodeDiskDeallocationConfig     diskDeallocationConfig;
-    private ApiStatefulNodeSnapshotDeallocationConfig snapshotDeallocationConfig;
-    private ApiStatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig;
+    private Set<String>             isSet;
+    private Boolean                 shouldTerminateVm;
+    private ApiDeallocationConfig   networkDeallocationConfig;
+    private ApiDeallocationConfig   diskDeallocationConfig;
+    private ApiDeallocationConfig   snapshotDeallocationConfig;
+    private ApiDeallocationConfig   publicIpDeallocationConfig;
 
     public ApiStatefulNodeDeallocationConfig() {
         isSet = new HashSet<>();
@@ -46,38 +46,38 @@ public class ApiStatefulNodeDeallocationConfig implements IPartialUpdateEntity {
         this.shouldTerminateVm = shouldTerminateVm;
     }
 
-    public ApiStatefulNodeNetworkDeallocationConfig getNetworkDeallocationConfig() {
+    public ApiDeallocationConfig getNetworkDeallocationConfig() {
         return networkDeallocationConfig;
     }
 
-    public void setNetworkDeallocationConfig(ApiStatefulNodeNetworkDeallocationConfig networkDeallocationConfig) {
+    public void setNetworkDeallocationConfig(ApiDeallocationConfig networkDeallocationConfig) {
         isSet.add("networkDeallocationConfig");
         this.networkDeallocationConfig = networkDeallocationConfig;
     }
 
-    public ApiStatefulNodeDiskDeallocationConfig getDiskDeallocationConfig() {
+    public ApiDeallocationConfig getDiskDeallocationConfig() {
         return diskDeallocationConfig;
     }
 
-    public void setDiskDeallocationConfig(ApiStatefulNodeDiskDeallocationConfig diskDeallocationConfig) {
+    public void setDiskDeallocationConfig(ApiDeallocationConfig diskDeallocationConfig) {
         isSet.add("diskDeallocationConfig");
         this.diskDeallocationConfig = diskDeallocationConfig;
     }
 
-    public ApiStatefulNodeSnapshotDeallocationConfig getSnapshotDeallocationConfig() {
+    public ApiDeallocationConfig getSnapshotDeallocationConfig() {
         return snapshotDeallocationConfig;
     }
 
-    public void setSnapshotDeallocationConfig(ApiStatefulNodeSnapshotDeallocationConfig snapshotDeallocationConfig) {
+    public void setSnapshotDeallocationConfig(ApiDeallocationConfig snapshotDeallocationConfig) {
         isSet.add("snapshotDeallocationConfig");
         this.snapshotDeallocationConfig = snapshotDeallocationConfig;
     }
 
-    public ApiStatefulNodePublicIpDeallocationConfig getPublicIpDeallocationConfig() {
+    public ApiDeallocationConfig getPublicIpDeallocationConfig() {
         return publicIpDeallocationConfig;
     }
 
-    public void setPublicIpDeallocationConfig(ApiStatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig) {
+    public void setPublicIpDeallocationConfig(ApiDeallocationConfig publicIpDeallocationConfig) {
         isSet.add("publicIpDeallocationConfig");
         this.publicIpDeallocationConfig = publicIpDeallocationConfig;
     }

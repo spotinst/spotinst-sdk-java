@@ -15,12 +15,12 @@ import java.util.Set;
 public class StatefulNodeDeallocationConfig {
 
     @JsonIgnore
-    private Set<String>                            isSet;
-    private Boolean                                shouldTerminateVm;
-    private StatefulNodeNetworkDeallocationConfig  networkDeallocationConfig;
-    private StatefulNodeDiskDeallocationConfig     diskDeallocationConfig;
-    private StatefulNodeSnapshotDeallocationConfig snapshotDeallocationConfig;
-    private StatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig;
+    private Set<String>         isSet;
+    private Boolean             shouldTerminateVm;
+    private DeallocationConfig  networkDeallocationConfig;
+    private DeallocationConfig  diskDeallocationConfig;
+    private DeallocationConfig  snapshotDeallocationConfig;
+    private DeallocationConfig  publicIpDeallocationConfig;
 
     private StatefulNodeDeallocationConfig() {
         isSet = new HashSet<>();
@@ -43,38 +43,38 @@ public class StatefulNodeDeallocationConfig {
         this.shouldTerminateVm = shouldTerminateVm;
     }
 
-    public StatefulNodeNetworkDeallocationConfig getNetworkDeallocationConfig() {
+    public DeallocationConfig getNetworkDeallocationConfig() {
         return networkDeallocationConfig;
     }
 
-    public void setNetworkDeallocationConfig(StatefulNodeNetworkDeallocationConfig networkDeallocationConfig) {
+    public void setNetworkDeallocationConfig(DeallocationConfig networkDeallocationConfig) {
         isSet.add("networkDeallocationConfig");
         this.networkDeallocationConfig = networkDeallocationConfig;
     }
 
-    public StatefulNodeDiskDeallocationConfig getDiskDeallocationConfig() {
+    public DeallocationConfig getDiskDeallocationConfig() {
         return diskDeallocationConfig;
     }
 
-    public void setDiskDeallocationConfig(StatefulNodeDiskDeallocationConfig diskDeallocationConfig) {
+    public void setDiskDeallocationConfig(DeallocationConfig diskDeallocationConfig) {
         isSet.add("diskDeallocationConfig");
         this.diskDeallocationConfig = diskDeallocationConfig;
     }
 
-    public StatefulNodeSnapshotDeallocationConfig getSnapshotDeallocationConfig() {
+    public DeallocationConfig getSnapshotDeallocationConfig() {
         return snapshotDeallocationConfig;
     }
 
-    public void setSnapshotDeallocationConfig(StatefulNodeSnapshotDeallocationConfig snapshotDeallocationConfig) {
+    public void setSnapshotDeallocationConfig(DeallocationConfig snapshotDeallocationConfig) {
         isSet.add("snapshotDeallocationConfig");
         this.snapshotDeallocationConfig = snapshotDeallocationConfig;
     }
 
-    public StatefulNodePublicIpDeallocationConfig getPublicIpDeallocationConfig() {
+    public DeallocationConfig getPublicIpDeallocationConfig() {
         return publicIpDeallocationConfig;
     }
 
-    public void setPublicIpDeallocationConfig(StatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig) {
+    public void setPublicIpDeallocationConfig(DeallocationConfig publicIpDeallocationConfig) {
         isSet.add("publicIpDeallocationConfig");
         this.publicIpDeallocationConfig = publicIpDeallocationConfig;
     }
@@ -96,21 +96,21 @@ public class StatefulNodeDeallocationConfig {
             return this;
         }
 
-        public Builder setNetworkDeallocationConfig(final StatefulNodeNetworkDeallocationConfig networkDeallocationConfig) {
+        public Builder setNetworkDeallocationConfig(final DeallocationConfig networkDeallocationConfig) {
             statefulNodeDeallocationConfig.setNetworkDeallocationConfig(networkDeallocationConfig);
             return this;
         }
-        public Builder setDiskDeallocationConfig(final StatefulNodeDiskDeallocationConfig diskDeallocationConfig) {
+        public Builder setDiskDeallocationConfig(final DeallocationConfig diskDeallocationConfig) {
             statefulNodeDeallocationConfig.setDiskDeallocationConfig(diskDeallocationConfig);
             return this;
         }
 
-        public Builder setSnapshotDeallocationConfig(final StatefulNodeSnapshotDeallocationConfig snapshotDeallocationConfig) {
+        public Builder setSnapshotDeallocationConfig(final DeallocationConfig snapshotDeallocationConfig) {
             statefulNodeDeallocationConfig.setSnapshotDeallocationConfig(snapshotDeallocationConfig);
             return this;
         }
 
-        public Builder setPublicIpDeallocationConfig(final StatefulNodePublicIpDeallocationConfig publicIpDeallocationConfig) {
+        public Builder setPublicIpDeallocationConfig(final DeallocationConfig publicIpDeallocationConfig) {
             statefulNodeDeallocationConfig.setPublicIpDeallocationConfig(publicIpDeallocationConfig);
             return this;
         }
