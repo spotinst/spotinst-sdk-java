@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
 import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
 import com.spotinst.sdkjava.model.service.ocean.kubernetes.K8sVngSpecService;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.converters.K8sVngConverter;
@@ -35,11 +36,11 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
+    public RepoGenericResponse<Boolean> deleteK8sVngSpec(K8sVngDeleteRequest vngDeletionRequest, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean deleted = K8sVngSpecService.deleteK8sVng(identifier, authToken, account);
+            Boolean deleted = K8sVngSpecService.deleteK8sVng(vngDeletionRequest, authToken, account);
             retVal = new RepoGenericResponse<>(deleted);
         }
 		
