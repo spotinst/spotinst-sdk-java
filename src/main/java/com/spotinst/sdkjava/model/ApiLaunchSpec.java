@@ -26,6 +26,7 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
     private String                           imageId;
+    private List<ApiImages>                  images;
     private ApiIamRole                       iamRole;
     private String                           keyPair;
     private Integer                          healthCheckUnhealthyDurationBeforeReplacement;
@@ -115,6 +116,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     public void setImageId(String imageId) {
         isSet.add("imageId");
         this.imageId = imageId;
+    }
+
+    public List<ApiImages> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ApiImages> images) {
+        isSet.add("images");
+        this.images = images;
     }
 
     public ApiIamRole getIamRole() {
@@ -247,6 +257,11 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         return isSet.contains("imageId");
     }
 
+    // Is images Set boolean method
+    @JsonIgnore
+    public boolean isImagesSet() {
+        return isSet.contains("images");
+    }
 
     // Is iamRole Set boolean method
     @JsonIgnore
