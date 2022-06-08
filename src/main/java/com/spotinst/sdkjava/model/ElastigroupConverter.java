@@ -439,8 +439,16 @@ public class ElastigroupConverter {
                 retVal.setEbsOptimized(launchSpecification.getEbsOptimized());
             }
 
-            if (launchSpecification.isImageIdSet()) {
+            if (launchSpecification.isImageIdSet() && launchSpecification.getImageId() != null) {
                 retVal.setImageId(launchSpecification.getImageId());
+            }
+
+            if (launchSpecification.isImagesSet()) {
+                if (launchSpecification.getImages() != null) {
+                    List<ApiImages> images = launchSpecification.getImages().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setImages(images);
+                }
             }
 
             if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
@@ -598,6 +606,19 @@ public class ElastigroupConverter {
             }
             if (resourceTagSpecification.isAmiSet()) {
                 retVal.setAmis(toDal(resourceTagSpecification.getAmis()));
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiImages toDal(Images images) {
+        ApiImages retVal = null;
+
+        if (images != null) {
+            retVal = new ApiImages();
+
+            if (images.isIdSet()) {
+                retVal.setId(images.getId());
             }
         }
         return retVal;
@@ -2049,8 +2070,16 @@ public class ElastigroupConverter {
                 retValBuilder.setEbsOptimized(launchSpecification.getEbsOptimized());
             }
 
-            if (launchSpecification.isImageIdSet()) {
+            if (launchSpecification.isImageIdSet() && launchSpecification.getImageId() != null) {
                 retValBuilder.setImageId(launchSpecification.getImageId());
+            }
+
+            if (launchSpecification.isImagesSet()) {
+                if (launchSpecification.getImages() != null) {
+                    List<Images> images = launchSpecification.getImages().stream().map(ElastigroupConverter::toBl)
+                            .collect(Collectors.toList());
+                    retValBuilder.setImages(images);
+                }
             }
 
             if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
@@ -2379,6 +2408,23 @@ public class ElastigroupConverter {
             if (blockDevice.isEbsSet()) {
                 retValBuilder.setEbsDevice(toBl(blockDevice.getEbs()));
             }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static Images toBl(ApiImages apiImages) {
+        Images retVal = null;
+
+        if (apiImages != null) {
+
+            Images.Builder retValBuilder = Images.Builder.get();
+
+            if (apiImages.isIdSet()) {
+                retValBuilder.setId(apiImages.getId());
+            }
+
             retVal = retValBuilder.build();
         }
 
