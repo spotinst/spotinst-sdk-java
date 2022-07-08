@@ -4,6 +4,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.AksUpdateRollRequest;
 import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -202,6 +203,101 @@ public class SpotOceanAzureAksClusterClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
+        return retVal;
+    }
+
+    public AksClusterRollResponse initiateRoll(AksInitiateRoll initiateRollRequest, String clusterId) {
+        AksClusterRollResponse retVal;
+        RepoGenericResponse<AksClusterRollResponse> initiateRollResponse = getSpotOceanAzureAksClusterRepo().initiateRoll(initiateRollRequest, clusterId, authToken, account);
+
+        if (initiateRollResponse.isRequestSucceed()) {
+            retVal = initiateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = initiateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to Initiate Roll. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public AksClusterRollResponse updateRoll(AksUpdateRollRequest updateRollRequest, String clusterId, String rollId) {
+        AksClusterRollResponse retVal;
+        RepoGenericResponse<AksClusterRollResponse> updateRollResponse = getSpotOceanAzureAksClusterRepo().updateRoll(updateRollRequest, clusterId, rollId, authToken, account);
+
+        if (updateRollResponse.isRequestSucceed()) {
+            retVal = updateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update the roll status to Stopped. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public AksClusterRollResponse getRoll(String clusterId, String rollId) {
+        AksClusterRollResponse retVal;
+        RepoGenericResponse<AksClusterRollResponse> getRollResponse = getSpotOceanAzureAksClusterRepo().getRoll(clusterId, rollId,  authToken, account);
+
+        if (getRollResponse.isRequestSucceed()) {
+            retVal = getRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the requested Roll details for the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<AksClusterRollResponse> listRolls(String clusterId) {
+        List<AksClusterRollResponse> retVal;
+        RepoGenericResponse<List<AksClusterRollResponse>> listRollsResponse = getSpotOceanAzureAksClusterRepo().listRolls(clusterId, authToken, account);
+
+        if (listRollsResponse.isRequestSucceed()) {
+            retVal = listRollsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listRollsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to list all the Rolls in the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ImportOceanClusterAksResponse importAksCluster(ImportOceanClusterAks oceanClusterImportRequest, String acdIdentifier) {
+
+        ImportOceanClusterAksResponse retVal;
+
+        RepoGenericResponse<ImportOceanClusterAksResponse> importResponse = getSpotOceanAzureAksClusterRepo().importAksCluster(oceanClusterImportRequest, acdIdentifier, authToken, account);
+        if (importResponse.isRequestSucceed()) {
+            retVal = importResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to import ocean cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
         return retVal;
     }
 }

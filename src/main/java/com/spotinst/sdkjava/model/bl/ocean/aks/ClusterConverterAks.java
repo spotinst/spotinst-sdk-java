@@ -472,6 +472,231 @@ public class ClusterConverterAks {
         return retval;
     }
 
+    public static ApiAksInitiateRoll toDal(AksInitiateRoll initiateRollRequest) {
+        ApiAksInitiateRoll retval = null;
+
+        if (initiateRollRequest != null) {
+            retval = new ApiAksInitiateRoll();
+
+            if (initiateRollRequest.isBatchSizePercentageSet()) {
+                retval.setBatchSizePercentage(initiateRollRequest.getBatchSizePercentage());
+            }
+
+            if (initiateRollRequest.isCommentSet()) {
+                retval.setComment(initiateRollRequest.getComment());
+            }
+
+            if (initiateRollRequest.isVmNamesSet() && initiateRollRequest.getVmNames() != null) {
+                retval.setVmNames(initiateRollRequest.getVmNames());
+            }
+
+            if (initiateRollRequest.isVirtualNodeGroupIdsSet() && initiateRollRequest.getVirtualNodeGroupIds() != null) {
+                retval.setVirtualNodeGroupIds(initiateRollRequest.getVirtualNodeGroupIds());
+            }
+        }
+
+        return retval;
+    }
+
+    public static ApiImportOceanClusterAks toDal(ImportOceanClusterAks src) {
+
+        ApiImportOceanClusterAks retVal = null;
+
+        if (src != null) {
+            retVal = new ApiImportOceanClusterAks();
+
+            if (src.isAksSet()) {
+                retVal.setAks(toDal(src.getAks()));
+            }
+
+            if (src.isControllerClusterIdSet()) {
+                retVal.setControllerClusterId(src.getControllerClusterId());
+            }
+
+            if (src.isNameSet()) {
+                retVal.setName(src.getName());
+            }
+
+            if (src.isVirtualNodeGroupTemplateSet()) {
+                retVal.setVirtualNodeGroupTemplate(toDal(src.getVirtualNodeGroupTemplate()));
+            }
+
+            if (src.isIdSet()){
+                retVal.setId(src.getId());
+            }
+
+            if (src.isAutoScalerSet()) {
+                retVal.setAutoScaler(toDal(src.getAutoScaler()));
+            }
+
+            if (src.isStrategySet()) {
+                retVal.setStrategy(toDal(src.getStrategy()));
+            }
+
+            if (src.isHealthSet()) {
+                retVal.setHealth(toDal(src.getHealth()));
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterVirtualNodeGroupTemplate toDal(ImportClusterVirtualNodeGroupTemplate virtualNodeGroupTemplateAks) {
+
+        ApiImportClusterVirtualNodeGroupTemplate retVal = null;
+
+        if (virtualNodeGroupTemplateAks != null) {
+            retVal = new ApiImportClusterVirtualNodeGroupTemplate();
+            if (virtualNodeGroupTemplateAks.isVmSizesSet()) {
+                retVal.setVmSizes(toDal(virtualNodeGroupTemplateAks.getVmSizes()));
+            }
+            if (virtualNodeGroupTemplateAks.isZonesSet()) {
+                retVal.setZones(virtualNodeGroupTemplateAks.getZones());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterWhitelist toDal(ImportClusterWhitelist whitelist) {
+
+        ApiImportClusterWhitelist retVal = null;
+
+        if (whitelist != null) {
+            retVal = new ApiImportClusterWhitelist();
+            if (whitelist.isWhitelistSet()) {
+                retVal.setWhitelist(whitelist.getWhitelist());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterAutoScalerConfiguration toDal(ImportClusterAutoScalerConfiguration autoScale) {
+
+        ApiImportClusterAutoScalerConfiguration retVal = null;
+
+        if (autoScale != null) {
+            retVal = new ApiImportClusterAutoScalerConfiguration();
+
+            if (autoScale.isIsEnabledSet()) {
+                retVal.setIsEnabled(autoScale.getIsEnabled());
+            }
+            if (autoScale.isResourceLimits()) {
+                retVal.setResourceLimits(toDal(autoScale.getResourceLimits()));
+            }
+            if (autoScale.isDownSet()) {
+                retVal.setDown(toDal(autoScale.getDown()));
+            }
+            if (autoScale.isHeadroomSet()) {
+                retVal.setHeadroom(toDal(autoScale.getHeadroom()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterResourceLimitsSpecification toDal(ImportClusterResourceLimitsSpecification resourceLimits) {
+
+        ApiImportClusterResourceLimitsSpecification retVal = null;
+
+        if (resourceLimits != null) {
+            retVal = new ApiImportClusterResourceLimitsSpecification();
+
+            if (resourceLimits.isMaxVCpuSet()) {
+                retVal.setMaxVCpu(resourceLimits.getMaxVCpu());
+            }
+            if (resourceLimits.isMaxMemoryGibSet()) {
+                retVal.setMaxMemoryGib(resourceLimits.getMaxMemoryGib());
+            }
+
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterDownSpecification toDal(ImportClusterDownSpecification down) {
+
+        ApiImportClusterDownSpecification retVal = null;
+
+        if (down != null) {
+            retVal = new ApiImportClusterDownSpecification();
+
+            if (down.isMaxScaleDownPercentageSet()) {
+                retVal.setMaxScaleDownPercentage(down.getMaxScaleDownPercentage());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterHeadroomSpecification toDal(ImportClusterHeadroomSpecification headroom) {
+
+        ApiImportClusterHeadroomSpecification retVal = null;
+
+        if (headroom != null) {
+            retVal = new ApiImportClusterHeadroomSpecification();
+
+            if (headroom.isAutomaticSet()) {
+                retVal.setAutomatic(toDal(headroom.getAutomatic()));
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterAutomatic toDal(ImportClusterAutomatic automatic) {
+
+        ApiImportClusterAutomatic retVal = null;
+
+        if (automatic != null) {
+            retVal = new ApiImportClusterAutomatic();
+
+            if (automatic.isIsEnabledSet()) {
+                retVal.setIsEnabled(automatic.getIsEnabled());
+            }
+            if (automatic.isPercentageSet()) {
+                retVal.setPercentage(automatic.getPercentage());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterStrategyConfiguration toDal(ImportClusterStrategyConfiguration strategy) {
+
+        ApiImportClusterStrategyConfiguration retVal = null;
+
+        if (strategy != null) {
+            retVal = new ApiImportClusterStrategyConfiguration();
+
+            if (strategy.isSpotPercentageSet()) {
+                retVal.setSpotPercentage(strategy.getSpotPercentage());
+            }
+            if (strategy.isFallbackToOdSet()) {
+                retVal.setFallbackToOd(strategy.getFallbackToOd());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiImportClusterHealth toDal(ImportClusterHealth health) {
+
+        ApiImportClusterHealth retVal = null;
+
+        if (health != null) {
+            retVal = new ApiImportClusterHealth();
+
+            if (health.isGracePeriodSet()) {
+                retVal.setGracePeriod(health.getGracePeriod());
+            }
+        }
+
+        return retVal;
+    }
+
     //DAL -> BL
 
     public static OceanClusterAks toBl(ApiClusterAks src) {
@@ -1086,6 +1311,541 @@ public class ClusterConverterAks {
 
             retVal = builder.build();
         }
+        return retVal;
+    }
+
+    public static AksClusterRollResponse toBl(ApiAksClusterRollResponse initiateRollResponse) {
+        AksClusterRollResponse retVal = null;
+
+        if (initiateRollResponse != null) {
+            AksClusterRollResponse.Builder responseBuilder = AksClusterRollResponse.Builder.get();
+
+            if (initiateRollResponse.isIdSet()) {
+                responseBuilder.setId(initiateRollResponse.getId());
+            }
+
+            if (initiateRollResponse.isStatusSet()) {
+                responseBuilder.setStatus(initiateRollResponse.getStatus());
+            }
+
+            if (initiateRollResponse.isCurrentBatchSet()) {
+                responseBuilder.setCurrentBatch(initiateRollResponse.getCurrentBatch());
+            }
+
+            if (initiateRollResponse.isNumOfBatchesSet()) {
+                responseBuilder.setNumOfBatches(initiateRollResponse.getNumOfBatches());
+            }
+
+            if (initiateRollResponse.isCommentSet()) {
+                responseBuilder.setComment(initiateRollResponse.getComment());
+            }
+
+            if (initiateRollResponse.isProgressSet()) {
+                responseBuilder.setProgress(toBl(initiateRollResponse.getProgress()));
+            }
+
+            if (initiateRollResponse.isOceanIdSet()) {
+                responseBuilder.setOceanId(initiateRollResponse.getOceanId());
+            }
+
+            if (initiateRollResponse.isVmNamesSet()) {
+                responseBuilder.setVmNames(initiateRollResponse.getVmNames());
+            }
+
+            if (initiateRollResponse.isVirtualNodeGroupIdsSet()) {
+                responseBuilder.setVirtualNodeGroupIds(initiateRollResponse.getVirtualNodeGroupIds());
+            }
+
+            if (initiateRollResponse.isCreatedAtSet()) {
+                responseBuilder.setCreatedAt(initiateRollResponse.getCreatedAt());
+            }
+
+            if (initiateRollResponse.isUpdatedAtSet()) {
+                responseBuilder.setUpdatedAt(initiateRollResponse.getUpdatedAt());
+            }
+            retVal = responseBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static AksInitiateRollResponseOldVms toBl(ApiAksInitiateRollResponseOldVms oldVms) {
+        AksInitiateRollResponseOldVms retVal = null;
+
+        if (oldVms != null) {
+            AksInitiateRollResponseOldVms.Builder instancesBuilder = AksInitiateRollResponseOldVms.Builder.get();
+
+            if (oldVms.isVmNameSet()) {
+                instancesBuilder.setVmName(oldVms.getVmName());
+            }
+
+            if (oldVms.isStatusSet()) {
+                instancesBuilder.setStatus(oldVms.getStatus());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static AksInitiateRollDetailedStatus toBl(ApiAksInitiateRollDetailedStatus detailedStatus) {
+        AksInitiateRollDetailedStatus retVal = null;
+
+        if (detailedStatus != null) {
+            AksInitiateRollDetailedStatus.Builder detailedStatusBuilder = AksInitiateRollDetailedStatus.Builder.get();
+
+            if (detailedStatus.isOldVmsSet()) {
+
+                List<AksInitiateRollResponseOldVms> vmsList =
+                        detailedStatus.getOldVms().stream().map(ClusterConverterAks::toBl)
+                                .collect(Collectors.toList());
+                detailedStatusBuilder.setOldVms(vmsList);
+            }
+
+            retVal = detailedStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static AksInitiateRollProgress toBl(ApiAksInitiateRollProgress progress) {
+        AksInitiateRollProgress retVal = null;
+
+        if (progress != null) {
+            AksInitiateRollProgress.Builder progressBuilder = AksInitiateRollProgress.Builder.get();
+
+            if (progress.isUnitSet()) {
+                progressBuilder.setUnit(progress.getUnit());
+            }
+
+            if (progress.isValueSet()) {
+                progressBuilder.setValue(progress.getValue());
+            }
+
+            if (progress.isDetailedStatusSet()) {
+                progressBuilder.setDetailedStatus(toBl(progress.getDetailedStatus()));
+            }
+
+            retVal = progressBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ImportOceanClusterAksResponse toBl(ApiImportOceanClusterAksResponse src) {
+
+        ImportOceanClusterAksResponse retVal = null;
+
+        if (src != null) {
+            ImportOceanClusterAksResponse.Builder builder = ImportOceanClusterAksResponse.Builder.get();
+
+            if (src.isAksSet()) {
+                builder.setAks(toBl(src.getAks()));
+            }
+
+            if (src.isControllerClusterIdSet()) {
+                builder.setControllerClusterId(src.getControllerClusterId());
+            }
+
+            if (src.isNameSet()) {
+                builder.setName(src.getName());
+            }
+
+            if (src.isVirtualNodeGroupTemplateSet()) {
+                builder.setVirtualNodeGroupTemplate(toBl(src.getVirtualNodeGroupTemplate()));
+            }
+
+            if (src.isIdSet()){
+                builder.setId(src.getId());
+            }
+
+            if (src.isAutoScalerSet()) {
+                builder.setAutoScaler(toBl(src.getAutoScaler()));
+            }
+
+            if (src.isStrategySet()) {
+                builder.setStrategy(toBl(src.getStrategy()));
+            }
+
+            if (src.isHealthSet()) {
+                builder.setHealth(toBl(src.getHealth()));
+            }
+
+            if (src.isCreatedAtSet()) {
+                builder.setCreatedAt(src.getCreatedAt());
+            }
+
+            if (src.isUpdatedAtSet()) {
+                builder.setUpdatedAt(src.getUpdatedAt());
+            }
+
+            retVal = builder.build();
+
+        }
+        return retVal;
+    }
+
+    private static ImportClusterVirtualNodeGroupTemplateResponse toBl(ApiImportClusterVirtualNodeGroupTemplateResponse virtualNodeGroupTemplateAks) {
+
+        ImportClusterVirtualNodeGroupTemplateResponse retVal = null;
+
+        if (virtualNodeGroupTemplateAks != null) {
+            ImportClusterVirtualNodeGroupTemplateResponse.Builder builder = ImportClusterVirtualNodeGroupTemplateResponse.Builder.get();
+            if (virtualNodeGroupTemplateAks.isVmSizesSet()) {
+                builder.setVmSizes(toBl(virtualNodeGroupTemplateAks.getVmSizes()));
+            }
+            if (virtualNodeGroupTemplateAks.isZonesSet()) {
+                builder.setZones(virtualNodeGroupTemplateAks.getZones());
+            }
+            if (virtualNodeGroupTemplateAks.isLaunchSpecificationSet()) {
+                builder.setLaunchSpecification(toBl(virtualNodeGroupTemplateAks.getLaunchSpecification()));
+            }
+
+            retVal = builder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterLaunchSpecificationAks toBl(ApiImportClusterLaunchSpecificationAks launchSpecificationAks) {
+
+        ImportClusterLaunchSpecificationAks retVal = null;
+
+        if (launchSpecificationAks != null) {
+
+            ImportClusterLaunchSpecificationAks.Builder builder = ImportClusterLaunchSpecificationAks.Builder.get();
+
+            if (launchSpecificationAks.isExtensionsSet()) {
+                if (launchSpecificationAks.getExtensions() != null){
+
+                    List<ClusterExtensionAks> extensions =
+                            launchSpecificationAks.getExtensions().stream().map(ClusterConverterAks::toBl)
+                                    .collect(Collectors.toList());
+                    builder.setExtensions(extensions);
+                }
+                else{
+                    builder.setExtensions(null);
+                }
+            }
+
+            if (launchSpecificationAks.isImageSet()) {
+                builder.setImage(toBl(launchSpecificationAks.getImage()));
+            }
+
+            if (launchSpecificationAks.isLoadBalancersConfigSet()){
+                builder.setLoadBalancersConfig(toBl(launchSpecificationAks.getLoadBalancersConfig()));
+            }
+
+            if (launchSpecificationAks.isLoginSet()){
+                builder.setLogin(toBl(launchSpecificationAks.getLogin()));
+            }
+
+            if (launchSpecificationAks.isNetworkSet()){
+                builder.setNetwork(toBl(launchSpecificationAks.getNetwork()));
+            }
+
+            if (launchSpecificationAks.isOsDiskSet()){
+                builder.setOsDisk(toBl(launchSpecificationAks.getOsDisk()));
+            }
+
+            if (launchSpecificationAks.isResourceGroupNameSet()){
+                builder.setResourceGroupName(launchSpecificationAks.getResourceGroupName());
+            }
+
+            if (launchSpecificationAks.isTagsSet()){
+
+                if (launchSpecificationAks.getTags() != null){
+                    List<ClusterTagAks> tags = launchSpecificationAks.getTags().stream()
+                            .map(ClusterConverterAks::toBl).collect(Collectors.toList());
+
+                    builder.setTags(tags);
+                }
+                else {
+                    builder.setTags(null);
+
+                }
+            }
+
+            retVal = builder.build();
+
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterOsDiskAks toBl(ApiImportClusterOsDiskAks osDiskAks){
+        ImportClusterOsDiskAks retVal = null;
+
+        if (osDiskAks != null) {
+            ImportClusterOsDiskAks.Builder builder = ImportClusterOsDiskAks.Builder.get();
+
+            if (osDiskAks.isSizeGBSet()) {
+                builder.setSizeGB(osDiskAks.getSizeGB());
+            }
+
+            if (osDiskAks.isTypeSet()) {
+                builder.setType(osDiskAks.getType());
+            }
+
+            retVal = builder.build();
+        }
+
+        return retVal;
+
+    }
+
+    private static ImportClusterLoginAks toBl(ApiImportClusterLoginAks loginAks){
+        ImportClusterLoginAks retVal = null;
+
+        if (loginAks != null){
+            ImportClusterLoginAks.Builder builder = ImportClusterLoginAks.Builder.get();
+
+            if (loginAks.isUserNameSet()){
+                builder.setUserName(loginAks.getUserName());
+            }
+            retVal = builder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterNetworkAks toBl(ApiImportClusterNetworkAks networkAks){
+        ImportClusterNetworkAks retVal = null;
+
+        if (networkAks != null){
+            ImportClusterNetworkAks.Builder builder = ImportClusterNetworkAks.Builder.get();
+
+            if (networkAks.isNetworkInterfacesSet()){
+
+                if (networkAks.getNetworkInterfaces() != null){
+                    List<ImportClusterNetworkInterfaceAks> networks =
+                            networkAks.getNetworkInterfaces().stream().map(ClusterConverterAks::toBl)
+                                    .collect(Collectors.toList());
+                    builder.setNetworkInterfaces(networks);
+                }
+                else{
+                    builder.setNetworkInterfaces(null);
+                }
+            }
+
+            if (networkAks.isResourceGroupNameSet()){
+                builder.setResourceGroupName(networkAks.getResourceGroupName());
+            }
+
+            if (networkAks.isVirtualNetworkNameSet()){
+                builder.setVirtualNetworkName(networkAks.getVirtualNetworkName());
+            }
+            retVal = builder.build();
+        }
+        return retVal;
+
+    }
+
+    private static ImportClusterNetworkInterfaceAks toBl(ApiImportClusterNetworkInterfaceAks networkInterfaceAks){
+        ImportClusterNetworkInterfaceAks retVal = null;
+
+        if (networkInterfaceAks != null){
+
+            ImportClusterNetworkInterfaceAks.Builder builder = ImportClusterNetworkInterfaceAks.Builder.get();
+
+            if (networkInterfaceAks.isAssignPublicIpSet()){
+                builder.setAssignPublicIp(networkInterfaceAks.getAssignPublicIp());
+            }
+
+            if (networkInterfaceAks.isEnableIPForwardingSet()){
+                builder.setEnableIPForwarding(networkInterfaceAks.getEnableIPForwarding());
+            }
+
+            if (networkInterfaceAks.isIsPrimarySet()){
+                builder.setIsPrimary(networkInterfaceAks.getIsPrimary());
+            }
+
+            if (networkInterfaceAks.isSecurityGroupSet()){
+                builder.setSecurityGroup(toBl(networkInterfaceAks.getSecurityGroup()));
+            }
+
+            if (networkInterfaceAks.isSubnetNameSet()){
+                builder.setSubnetName(networkInterfaceAks.getSubnetName());
+            }
+
+            if (networkInterfaceAks.isPublicIpSkuSet()){
+                builder.setPublicIpSku(networkInterfaceAks.getPublicIpSku());
+            }
+
+            if (networkInterfaceAks.isAdditionalIpConfigurationsSet()){
+                if (networkInterfaceAks.getAdditionalIpConfigurations() != null){
+
+                    List<ImportClusterAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toBl).collect(Collectors.toList());
+                    builder.setAdditionalIpConfigurations(configurationsAks);
+                }
+                else {
+                    builder.setAdditionalIpConfigurations(null);
+                }
+            }
+
+            retVal = builder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterAdditionalIpConfigurationsAks toBl(ApiImportClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
+        ImportClusterAdditionalIpConfigurationsAks retVal = null;
+
+        if (additionalIpConfigurationsAks != null){
+            ImportClusterAdditionalIpConfigurationsAks.Builder builder = ImportClusterAdditionalIpConfigurationsAks.Builder.get();
+
+            if (additionalIpConfigurationsAks.isNameSet()){
+                builder.setName(additionalIpConfigurationsAks.getName());
+            }
+            if (additionalIpConfigurationsAks.isPrivateIpAddressVersionSet()){
+                builder.setPrivateIpAddressVersion(additionalIpConfigurationsAks.getPrivateIpAddressVersion());
+            }
+            retVal = builder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterWhitelist toBl(ApiImportClusterWhitelist whitelist) {
+
+        ImportClusterWhitelist retVal = null;
+
+        if (whitelist != null) {
+            ImportClusterWhitelist.Builder builder = ImportClusterWhitelist.Builder.get();
+            if (whitelist.isWhitelistSet()) {
+                builder.setWhitelist(whitelist.getWhitelist());
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterAutoScalerConfiguration toBl(ApiImportClusterAutoScalerConfiguration autoScale) {
+
+        ImportClusterAutoScalerConfiguration retVal = null;
+
+        if (autoScale != null) {
+            ImportClusterAutoScalerConfiguration.Builder builder = ImportClusterAutoScalerConfiguration.Builder.get();
+
+            if (autoScale.isIsEnabledSet()) {
+                builder.setIsEnabled(autoScale.getIsEnabled());
+            }
+            if (autoScale.isResourceLimits()) {
+                builder.setResourceLimits(toBl(autoScale.getResourceLimits()));
+            }
+            if (autoScale.isDownSet()) {
+                builder.setDown(toBl(autoScale.getDown()));
+            }
+            if (autoScale.isHeadroomSet()) {
+                builder.setHeadroom(toBl(autoScale.getHeadroom()));
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterResourceLimitsSpecification toBl(ApiImportClusterResourceLimitsSpecification resourceLimits) {
+
+        ImportClusterResourceLimitsSpecification retVal = null;
+
+        if (resourceLimits != null) {
+            ImportClusterResourceLimitsSpecification.Builder builder = ImportClusterResourceLimitsSpecification.Builder.get();
+
+            if (resourceLimits.isMaxVCpuSet()) {
+                builder.setMaxVCpu(resourceLimits.getMaxVCpu());
+            }
+            if (resourceLimits.isMaxMemoryGibSet()) {
+                builder.setMaxMemoryGib(resourceLimits.getMaxMemoryGib());
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterDownSpecification toBl(ApiImportClusterDownSpecification down) {
+
+        ImportClusterDownSpecification retVal = null;
+
+        if (down != null) {
+            ImportClusterDownSpecification.Builder builder = ImportClusterDownSpecification.Builder.get();
+
+            if (down.isMaxScaleDownPercentageSet()) {
+                builder.setMaxScaleDownPercentage(down.getMaxScaleDownPercentage());
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterHeadroomSpecification toBl(ApiImportClusterHeadroomSpecification headroom) {
+
+        ImportClusterHeadroomSpecification retVal = null;
+
+        if (headroom != null) {
+            ImportClusterHeadroomSpecification.Builder builder = ImportClusterHeadroomSpecification.Builder.get();
+
+            if (headroom.isAutomaticSet()) {
+                builder.setAutomatic(toBl(headroom.getAutomatic()));
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterAutomatic toBl(ApiImportClusterAutomatic automatic) {
+
+        ImportClusterAutomatic retVal = null;
+
+        if (automatic != null) {
+            ImportClusterAutomatic.Builder builder = ImportClusterAutomatic.Builder.get();
+
+            if (automatic.isIsEnabledSet()) {
+                retVal.setIsEnabled(automatic.getIsEnabled());
+            }
+            if (automatic.isPercentageSet()) {
+                retVal.setPercentage(automatic.getPercentage());
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterStrategyConfiguration toBl(ApiImportClusterStrategyConfiguration strategy) {
+
+        ImportClusterStrategyConfiguration retVal = null;
+
+        if (strategy != null) {
+            ImportClusterStrategyConfiguration.Builder builder = ImportClusterStrategyConfiguration.Builder.get();
+
+            if (strategy.isSpotPercentageSet()) {
+                retVal.setSpotPercentage(strategy.getSpotPercentage());
+            }
+            if (strategy.isFallbackToOdSet()) {
+                retVal.setFallbackToOd(strategy.getFallbackToOd());
+            }
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ImportClusterHealth toBl(ApiImportClusterHealth health) {
+
+        ImportClusterHealth retVal = null;
+
+        if (health != null) {
+            ImportClusterHealth.Builder builder = ImportClusterHealth.Builder.get();
+
+            if (health.isGracePeriodSet()) {
+                retVal.setGracePeriod(health.getGracePeriod());
+            }
+            retVal = builder.build();
+        }
+
         return retVal;
     }
 }

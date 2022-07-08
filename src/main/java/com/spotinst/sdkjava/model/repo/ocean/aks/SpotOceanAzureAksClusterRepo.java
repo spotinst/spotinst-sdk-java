@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterService;
 import com.spotinst.sdkjava.model.api.ocean.aks.*;
 
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.AksUpdateRollRequest;
 import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 
 
@@ -159,6 +160,108 @@ public class SpotOceanAzureAksClusterRepo implements ISpotOceanAzureAksClusterRe
             List<AksDetachInstancesResponse> detachInstancesResponse = apiDetachInstancesResponse.stream().map(ClusterConverterAks::toBl)
                     .collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(detachInstancesResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<AksClusterRollResponse> initiateRoll(AksInitiateRoll rollRequest, String clusterId, String authToken, String account) {
+        RepoGenericResponse<AksClusterRollResponse> retVal;
+
+        try {
+
+            ApiAksInitiateRoll apiRollRequest = ClusterConverterAks.toDal(rollRequest);
+
+            ApiAksClusterRollResponse rollResponse = SpotOceanAzureAksClusterService
+                    .initiateRoll(apiRollRequest, clusterId, authToken, account);
+            AksClusterRollResponse getRollResponse = ClusterConverterAks.toBl(rollResponse);
+
+            retVal = new RepoGenericResponse<>(getRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<AksClusterRollResponse> updateRoll(AksUpdateRollRequest updateRollRequest, String clusterId, String rollId, String authToken, String account) {
+        RepoGenericResponse<AksClusterRollResponse> retVal;
+
+        try {
+
+            ApiAksClusterRollResponse apiGetRoll = SpotOceanAzureAksClusterService
+                    .updateRoll(updateRollRequest, clusterId, rollId, authToken, account);
+            AksClusterRollResponse updateRollResponse = ClusterConverterAks.toBl(apiGetRoll);
+
+            retVal = new RepoGenericResponse<>(updateRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<AksClusterRollResponse>> listRolls(String clusterId, String authToken, String account) {
+        RepoGenericResponse<List<AksClusterRollResponse>> retVal;
+
+        try {
+
+            List<ApiAksClusterRollResponse> apiListRolls = SpotOceanAzureAksClusterService.listRolls(clusterId, authToken, account);
+            List<AksClusterRollResponse> listRollsResponse = apiListRolls.stream().map(ClusterConverterAks::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(listRollsResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<AksClusterRollResponse> getRoll(String clusterId, String rollId, String authToken, String account) {
+        RepoGenericResponse<AksClusterRollResponse> retVal;
+
+        try {
+
+            ApiAksClusterRollResponse apiGetRoll = SpotOceanAzureAksClusterService.getRoll(clusterId, rollId, authToken, account);
+            AksClusterRollResponse getRollResponse = ClusterConverterAks.toBl(apiGetRoll);
+
+            retVal = new RepoGenericResponse<>(getRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ImportOceanClusterAksResponse> importAksCluster(ImportOceanClusterAks oceanClusterImportRequest, String acdIdentifier, String authToken, String account) {
+        RepoGenericResponse<ImportOceanClusterAksResponse> retVal;
+
+        try {
+
+            ApiImportOceanClusterAks apiOceanClusterImportRequest = ClusterConverterAks.toDal(oceanClusterImportRequest);
+
+            ApiImportOceanClusterAksResponse importResponse = SpotOceanAzureAksClusterService.importAksCluster(apiOceanClusterImportRequest, acdIdentifier, authToken, account);
+            ImportOceanClusterAksResponse importAksResponse = ClusterConverterAks.toBl(importResponse);
+
+            retVal = new RepoGenericResponse<>(importAksResponse);
         }
 
         catch (SpotinstHttpException e) {
