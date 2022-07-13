@@ -496,6 +496,36 @@ public class OceanEcsConverter {
         return retVal;
     }
 
+    public static ApiEcsInitiateRoll toDal(EcsInitiateRoll initiateRollRequest) {
+        ApiEcsInitiateRoll retval = null;
+
+        if (initiateRollRequest != null) {
+            retval = new ApiEcsInitiateRoll();
+
+            if (initiateRollRequest.isBatchSizePercentageSet()) {
+                retval.setBatchSizePercentage(initiateRollRequest.getBatchSizePercentage());
+            }
+
+            if (initiateRollRequest.isCommentSet()) {
+                retval.setComment(initiateRollRequest.getComment());
+            }
+
+            if (initiateRollRequest.isBatchMinHealthyPercentageSet()) {
+                retval.setBatchMinHealthyPercentage(initiateRollRequest.getBatchMinHealthyPercentage());
+            }
+
+            if (initiateRollRequest.isInstanceIdsSet() && initiateRollRequest.getInstanceIds() != null) {
+                retval.setInstanceIds(initiateRollRequest.getInstanceIds());
+            }
+
+            if (initiateRollRequest.isLaunchSpecIdsSet() && initiateRollRequest.getLaunchSpecIds() != null) {
+                retval.setLaunchSpecIds(initiateRollRequest.getLaunchSpecIds());
+            }
+        }
+
+        return retval;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -1021,6 +1051,129 @@ public class OceanEcsConverter {
             }
             retVal = tagBuilder.build();
         }
+        return retVal;
+    }
+
+    public static EcsInitiateRollResponseOldInstances toBl(ApiEcsInitiateRollResponseOldInstances oldInstances) {
+        EcsInitiateRollResponseOldInstances retVal = null;
+
+        if (oldInstances != null) {
+            EcsInitiateRollResponseOldInstances.Builder instancesBuilder = EcsInitiateRollResponseOldInstances.Builder.get();
+
+            if (oldInstances.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(oldInstances.getInstanceId());
+            }
+
+            if (oldInstances.isStatusSet()) {
+                instancesBuilder.setStatus(oldInstances.getStatus());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsInitiateRollDetailedStatus toBl(ApiEcsInitiateRollDetailedStatus detailedStatus) {
+        EcsInitiateRollDetailedStatus retVal = null;
+
+        if (detailedStatus != null) {
+            EcsInitiateRollDetailedStatus.Builder detailedStatusBuilder = EcsInitiateRollDetailedStatus.Builder.get();
+
+            if (detailedStatus.isOldInstancesSet()) {
+
+                List<EcsInitiateRollResponseOldInstances> instancesList =
+                        detailedStatus.getOldInstances().stream().map(OceanEcsConverter::toBl)
+                                .collect(Collectors.toList());
+                detailedStatusBuilder.setOldInstances(instancesList);
+            }
+
+            retVal = detailedStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsInitiateRollProgress toBl(ApiEcsInitiateRollProgress progress) {
+        EcsInitiateRollProgress retVal = null;
+
+        if (progress != null) {
+            EcsInitiateRollProgress.Builder progressBuilder = EcsInitiateRollProgress.Builder.get();
+
+            if (progress.isUnitSet()) {
+                progressBuilder.setUnit(progress.getUnit());
+            }
+
+            if (progress.isValueSet()) {
+                progressBuilder.setValue(progress.getValue());
+            }
+
+            if (progress.isDetailedStatusSet()) {
+                progressBuilder.setDetailedStatus(toBl(progress.getDetailedStatus()));
+            }
+
+            retVal = progressBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsClusterRollResponse toBl(ApiEcsClusterRollResponse initiateRollResponse) {
+        EcsClusterRollResponse retVal = null;
+
+        if (initiateRollResponse != null) {
+            EcsClusterRollResponse.Builder responseBuilder = EcsClusterRollResponse.Builder.get();
+
+            if (initiateRollResponse.isIdSet()) {
+                responseBuilder.setId(initiateRollResponse.getId());
+            }
+
+            if (initiateRollResponse.isStatusSet()) {
+                responseBuilder.setStatus(initiateRollResponse.getStatus());
+            }
+
+            if (initiateRollResponse.isCurrentBatchSet()) {
+                responseBuilder.setCurrentBatch(initiateRollResponse.getCurrentBatch());
+            }
+
+            if (initiateRollResponse.isNumOfBatchesSet()) {
+                responseBuilder.setNumOfBatches(initiateRollResponse.getNumOfBatches());
+            }
+
+            if (initiateRollResponse.isCommentSet()) {
+                responseBuilder.setComment(initiateRollResponse.getComment());
+            }
+
+            if (initiateRollResponse.isProgressSet()) {
+                responseBuilder.setProgress(toBl(initiateRollResponse.getProgress()));
+            }
+
+            if (initiateRollResponse.isOceanIdSet()) {
+                responseBuilder.setOceanId(initiateRollResponse.getOceanId());
+            }
+
+            if (initiateRollResponse.isInstanceIdsSet()) {
+                responseBuilder.setInstanceIds(initiateRollResponse.getInstanceIds());
+            }
+
+            if (initiateRollResponse.isLaunchSpecIdsSet()) {
+                responseBuilder.setLaunchSpecIds(initiateRollResponse.getLaunchSpecIds());
+            }
+
+            if (initiateRollResponse.isBatchMinHealthyPercentageSet()) {
+                responseBuilder.setBatchMinHealthyPercentage(initiateRollResponse.getBatchMinHealthyPercentage());
+            }
+
+            if (initiateRollResponse.isCreatedAtSet()) {
+                responseBuilder.setCreatedAt(initiateRollResponse.getCreatedAt());
+            }
+
+            if (initiateRollResponse.isUpdatedAtSet()) {
+                responseBuilder.setUpdatedAt(initiateRollResponse.getUpdatedAt());
+            }
+            retVal = responseBuilder.build();
+        }
+
         return retVal;
     }
 
