@@ -2,10 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsClusterRollResponse;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsInitiateRoll;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsCluster;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterRequest;
 
@@ -321,6 +319,25 @@ public class SpotOceanEcsClusterClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to update the roll status to Stopped. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<GetEcsClusterNodesResponse> getClusterContainerInstances(GetEcsClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetEcsClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetEcsClusterNodesResponse>> getNodesResponse = getSpotOceanEcsClusterRepo().getClusterContainerInstances(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster container instances. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 
@@ -67,6 +68,10 @@ public class OceanEcsClusterUsageExample {
         //Update cluster Roll
         System.out.println("----------Update cluster Roll--------------");
         EcsClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
+
+        //Get cluster container instances
+        System.out.println("----------Get cluster container instances--------------");
+        List<GetEcsClusterNodesResponse> nodes = getClusterContainerInstances(clusterClient, "cluster-id");
 
    }
 
@@ -423,6 +428,26 @@ public class OceanEcsClusterUsageExample {
         System.out.println(String.format("RollStatus: %s", response.getStatus()));
 
         return response;
+    }
+
+    private static List<GetEcsClusterNodesResponse> getClusterContainerInstances(SpotOceanEcsClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetEcsClusterNodesRequest.Builder getNodesBuilder = GetEcsClusterNodesRequest.Builder.get();
+        GetEcsClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetEcsClusterNodesResponse>  nodes = client.getClusterContainerInstances(getNodesRequest, clusterId);
+
+        for (GetEcsClusterNodesResponse node : nodes){
+            System.out.println(String.format("InstanceId: %s", node.getInstanceId()));
+            System.out.println(String.format("InstanceType: %s", node.getInstanceType()));
+            System.out.println(String.format("LaunchSpecId: %s", node.getLaunchSpecId()));
+            System.out.println(String.format("LaunchSpecName: %s", node.getLaunchSpecName()));
+            System.out.println(String.format("NodeName: %s", node.getContainerInstanceId()));
+        }
+
+        return nodes;
     }
 
 

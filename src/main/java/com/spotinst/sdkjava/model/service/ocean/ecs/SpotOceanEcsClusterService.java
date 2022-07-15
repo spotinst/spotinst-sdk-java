@@ -4,15 +4,14 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiEcsClusterRollResponse;
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiEcsInitiateRoll;
+import com.spotinst.sdkjava.model.api.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 import com.spotinst.sdkjava.model.responses.ocean.ecs.EcsInitiateRollApiResponse;
+import com.spotinst.sdkjava.model.responses.ocean.ecs.GetEcsClusterContainerInstancesApiResponse;
 import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsLaunchSpecApiResponse;
 import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsClusterApiResponse;
 
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiOceanEcsCluster;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -551,6 +550,52 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
 
         if (updateRollApiResponse.getResponse().getCount() > 0) {
             retVal = updateRollApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiGetEcsClusterNodesResponse> getClusterContainerInstances(GetEcsClusterNodesRequest getClusterNodes, String clusterId, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiGetEcsClusterNodesResponse> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (getClusterNodes.getAccountId() != null) {
+            queryParams.put("accountId", getClusterNodes.getAccountId());
+        }
+
+        // Add instanceId Query param
+        if (getClusterNodes.getInstanceId() != null) {
+            queryParams.put("instanceId", getClusterNodes.getInstanceId());
+        }
+
+        // Add launchSpecId Query param
+        if (getClusterNodes.getLaunchSpecId() != null) {
+            queryParams.put("launchSpecId", getClusterNodes.getLaunchSpecId());
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/containerInstances", apiEndpoint, clusterId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        GetEcsClusterContainerInstancesApiResponse getNodesResponse =
+                getCastedResponse(response, GetEcsClusterContainerInstancesApiResponse.class);
+
+        if (getNodesResponse.getResponse().getCount() > 0) {
+            retVal = getNodesResponse.getResponse().getItems();
         }
 
         return retVal;

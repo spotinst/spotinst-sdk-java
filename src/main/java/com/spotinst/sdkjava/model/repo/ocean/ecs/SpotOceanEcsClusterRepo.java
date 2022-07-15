@@ -4,10 +4,12 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsClusterRollResponse;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsInitiateRoll;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.GetEcsClusterNodesResponse;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsCluster;
 import com.spotinst.sdkjava.model.ISpotOceanEcsClusterRepo;
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 import com.spotinst.sdkjava.model.service.ocean.ecs.SpotOceanEcsClusterService;
 import com.spotinst.sdkjava.model.converters.ocean.ecs.OceanEcsConverter;
@@ -176,6 +178,26 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
             EcsClusterRollResponse updateRollResponse = OceanEcsConverter.toBl(apiGetRoll);
 
             retVal = new RepoGenericResponse<>(updateRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetEcsClusterNodesResponse>> getClusterContainerInstances(GetEcsClusterNodesRequest getClusterNodes, String clusterId, String authToken) {
+        RepoGenericResponse<List<GetEcsClusterNodesResponse>> retVal;
+
+        try {
+
+            List<ApiGetEcsClusterNodesResponse> apiGetClusterNodes = SpotOceanEcsClusterService.getClusterContainerInstances(getClusterNodes, clusterId, authToken);
+            List<GetEcsClusterNodesResponse> getClusterNodesResponse = apiGetClusterNodes.stream().map(OceanEcsConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getClusterNodesResponse);
         }
 
         catch (SpotinstHttpException e) {

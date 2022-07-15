@@ -1177,4 +1177,92 @@ public class OceanEcsConverter {
         return retVal;
     }
 
+    public static GetEcsClusterNodesResponse toBl(ApiGetEcsClusterNodesResponse apiClusterNodes) {
+        GetEcsClusterNodesResponse retVal = null;
+
+        if (apiClusterNodes != null) {
+            GetEcsClusterNodesResponse.Builder instancesBuilder = GetEcsClusterNodesResponse.Builder.get();
+
+            if (apiClusterNodes.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(apiClusterNodes.getLifeCycle());
+            }
+
+            if (apiClusterNodes.isPublicIpSet()) {
+                instancesBuilder.setPublicIp(apiClusterNodes.getPublicIp());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedCpuUnitSet()) {
+                instancesBuilder.setWorkloadRequestedCpuUnit(apiClusterNodes.getWorkloadRequestedCpuUnit());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMemoryInMiBSet()) {
+                instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterNodes.getWorkloadRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedGpuSet()) {
+                instancesBuilder.setWorkloadRequestedGpu(apiClusterNodes.getWorkloadRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedCpuUnitSet()) {
+                instancesBuilder.setHeadroomRequestedCpuUnit(apiClusterNodes.getHeadroomRequestedCpuUnit());
+            }
+
+            if (apiClusterNodes.isRegisteredCpuUnitSet()) {
+                instancesBuilder.setRegisteredCpuUnit(apiClusterNodes.getRegisteredCpuUnit());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedGpuSet()) {
+                instancesBuilder.setHeadroomRequestedGpu(apiClusterNodes.getHeadroomRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMemoryInMiBSet()) {
+                instancesBuilder.setHeadroomRequestedMemoryInMiB(apiClusterNodes.getHeadroomRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isRegisteredMemoryInMiBSet()) {
+                instancesBuilder.setRegisteredMemoryInMiB(apiClusterNodes.getRegisteredMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isRegisteredGpuSet()) {
+                instancesBuilder.setRegisteredGpu(apiClusterNodes.getRegisteredGpu());
+            }
+
+            if (apiClusterNodes.isContainerInstanceIdSet()) {
+                instancesBuilder.setContainerInstanceId(apiClusterNodes.getContainerInstanceId());
+            }
+
+            if (apiClusterNodes.isRegistrationStatusSet()) {
+                instancesBuilder.setRegistrationStatus(apiClusterNodes.getRegistrationStatus());
+            }
+
+            if (apiClusterNodes.isCreatedAtSet()) {
+                instancesBuilder.setCreatedAt(apiClusterNodes.getCreatedAt());
+            }
+
+            if (apiClusterNodes.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiClusterNodes.getInstanceId());
+            }
+
+            if (apiClusterNodes.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiClusterNodes.getInstanceType());
+            }
+
+            if (apiClusterNodes.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiClusterNodes.getAvailabilityZone());
+            }
+
+            if (apiClusterNodes.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiClusterNodes.getLaunchSpecId());
+            }
+
+            if (apiClusterNodes.isLaunchSpecNameSet()) {
+                instancesBuilder.setLaunchSpecName(apiClusterNodes.getLaunchSpecName());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
 }
