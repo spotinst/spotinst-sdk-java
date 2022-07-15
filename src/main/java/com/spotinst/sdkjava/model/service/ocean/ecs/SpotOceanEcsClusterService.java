@@ -5,12 +5,10 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.ImportEcsCluster;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.EcsInitiateRollApiResponse;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.GetEcsClusterContainerInstancesApiResponse;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsLaunchSpecApiResponse;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsClusterApiResponse;
+import com.spotinst.sdkjava.model.responses.ocean.ecs.*;
 
 import org.apache.http.HttpStatus;
 
@@ -596,6 +594,46 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
 
         if (getNodesResponse.getResponse().getCount() > 0) {
             retVal = getNodesResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static ApiImportOceanEcsClusterResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiImportOceanEcsClusterResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ImportEcsCluster> importEcsClusterRequest = new HashMap<>();
+        importEcsClusterRequest.put("roll", importEcsCluster);
+        String body = JsonMapper.toJson(importEcsClusterRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/import", apiEndpoint, ecsClusterName);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ImportOceanEcsClusterApiResponse importOceanEcsClusterApiResponse = getCastedResponse(response, ImportOceanEcsClusterApiResponse.class);
+
+        if (importOceanEcsClusterApiResponse.getResponse().getCount() > 0) {
+            retVal = importOceanEcsClusterApiResponse.getResponse().getItems().get(0);
         }
 
         return retVal;

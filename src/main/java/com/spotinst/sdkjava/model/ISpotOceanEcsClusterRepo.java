@@ -1,9 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsClusterRollResponse;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsInitiateRoll;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.GetEcsClusterNodesResponse;
-import  com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsCluster;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 
@@ -20,4 +17,6 @@ public interface ISpotOceanEcsClusterRepo extends IRepository<OceanEcsCluster, V
     RepoGenericResponse<EcsClusterRollResponse> updateRoll(OceanEcsUpdateRollRequest updateRollRequest, String clusterId, String rollId, String authToken, String account);
 
     RepoGenericResponse<List<GetEcsClusterNodesResponse>> getClusterContainerInstances(GetEcsClusterNodesRequest getClusterNodes, String clusterId, String authToken);
+
+    RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account);
 }

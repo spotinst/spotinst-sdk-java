@@ -345,4 +345,22 @@ public class SpotOceanEcsClusterClient {
         return retVal;
     }
 
+    public ImportOceanEcsClusterResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName) {
+        ImportOceanEcsClusterResponse retVal;
+        RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsClusterResponse = getSpotOceanEcsClusterRepo().importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
+
+        if (importEcsClusterResponse.isRequestSucceed()) {
+            retVal = importEcsClusterResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importEcsClusterResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to import ECS cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 }

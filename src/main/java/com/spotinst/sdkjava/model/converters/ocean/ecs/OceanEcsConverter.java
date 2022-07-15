@@ -1265,4 +1265,122 @@ public class OceanEcsConverter {
         return retVal;
     }
 
+    public static ImportOceanEcsClusterResponse toBl(ApiImportOceanEcsClusterResponse src) {
+        ImportOceanEcsClusterResponse cluster = null;
+
+        if (src != null) {
+            ImportOceanEcsClusterResponse.Builder clusterBuilder = ImportOceanEcsClusterResponse.Builder.get();
+
+            if (src.isNameSet()) {
+                clusterBuilder.setName(src.getName());
+            }
+            if (src.isRegionSet()) {
+                clusterBuilder.setRegion(src.getRegion());
+            }
+            if (src.isClusterNameSet()) {
+                clusterBuilder.setClusterName(src.getClusterName());
+            }
+            if (src.isComputeSet()) {
+                clusterBuilder.setCompute(toBl(src.getCompute()));
+            }
+
+            cluster = clusterBuilder.build();
+        }
+        return cluster;
+    }
+
+    private static ImportClusterComputeConfiguration toBl(ApiImportClusterComputeConfiguration apicompute) {
+        ImportClusterComputeConfiguration retVal = null;
+
+        if (apicompute != null) {
+            ImportClusterComputeConfiguration.Builder computeBuilder = ImportClusterComputeConfiguration.Builder.get();
+
+            if (apicompute.isSubnetIdsSet()) {
+                computeBuilder.setSubnetIds(apicompute.getSubnetIds());
+            }
+            if (apicompute.isLaunchSpecificationSet()) {
+                computeBuilder.setLaunchSpecification(toBl(apicompute.getLaunchSpecification()));
+            }
+            retVal = computeBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ImportClusterLaunchSpecification toBl(ApiImportClusterLaunchSpecification launchSpecification) {
+        ImportClusterLaunchSpecification retVal = null;
+
+        if (launchSpecification != null) {
+            ImportClusterLaunchSpecification.Builder clusterLaunchSpecBuilder = ImportClusterLaunchSpecification.Builder.get();
+
+            if (launchSpecification.isImageIdSet()) {
+                clusterLaunchSpecBuilder.setImageId(launchSpecification.getImageId());
+            }
+            if (launchSpecification.isKeyPairSet()) {
+                clusterLaunchSpecBuilder.setKeyPair(launchSpecification.getKeyPair());
+            }
+
+            if (launchSpecification.isIamInstanceProfileSet()) {
+                ImportClusterLaunchSpecIamInstanceProfileSpecification
+                        instanceProfileSpecs = toBl(launchSpecification.getIamInstanceProfile());
+                clusterLaunchSpecBuilder.setIamInstanceProfile(instanceProfileSpecs);
+            }
+            if (launchSpecification.isInstanceMetadataOptionsSet()) {
+                clusterLaunchSpecBuilder
+                        .setInstanceMetadataOptions(toBl(launchSpecification.getInstanceMetadataOptions()));
+            }
+            if (launchSpecification.isTagsSet()) {
+                List<LaunchSpecTagsSpecification> tags =
+                        launchSpecification.getTags().stream().map(OceanEcsConverter::toBl)
+                                .collect(Collectors.toList());
+                clusterLaunchSpecBuilder.setTags(tags);
+            }
+            if (launchSpecification.isUserDataSet()) {
+                clusterLaunchSpecBuilder.setUserData(launchSpecification.getUserData());
+            }
+            if (launchSpecification.isSecurityGroupIdsSet()) {
+                clusterLaunchSpecBuilder.setSecurityGroupIds(launchSpecification.getSecurityGroupIds());
+            }
+            retVal = clusterLaunchSpecBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterLaunchSpecIamInstanceProfileSpecification toBl(ApiImportClusterLaunchSpecIamInstanceProfileSpecification instanceProfile) {
+        ImportClusterLaunchSpecIamInstanceProfileSpecification retVal = null;
+
+        if (instanceProfile != null) {
+            ImportClusterLaunchSpecIamInstanceProfileSpecification.Builder IamInstanceProfileSpecBuilder =
+                    ImportClusterLaunchSpecIamInstanceProfileSpecification.Builder.get();
+
+            if (instanceProfile.isArnSet()) {
+                IamInstanceProfileSpecBuilder.setArn(instanceProfile.getArn());
+            }
+            retVal = IamInstanceProfileSpecBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterLaunchSpecInstanceMetadataOptions toBl(ApiImportClusterLaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
+        ImportClusterLaunchSpecInstanceMetadataOptions retVal = null;
+
+        if (instanceMetadataOptions != null) {
+            ImportClusterLaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
+                    ImportClusterLaunchSpecInstanceMetadataOptions.Builder.get();
+
+            if (instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
+                instanceMetadataOptionsBuilder
+                        .setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
+            }
+            if (instanceMetadataOptions.isHttpTokensSet()) {
+                instanceMetadataOptionsBuilder.setHttpTokens(instanceMetadataOptions.getHttpTokens());
+            }
+            if (instanceMetadataOptions.isHttpEndpointSet()) {
+                instanceMetadataOptionsBuilder.setHttpEndpoint(instanceMetadataOptions.getHttpEndpoint());
+            }
+            retVal = instanceMetadataOptionsBuilder.build();
+        }
+        return retVal;
+    }
+
 }

@@ -2,10 +2,7 @@ package com.spotinst.sdkjava.model.repo.ocean.ecs;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsClusterRollResponse;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.EcsInitiateRoll;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.GetEcsClusterNodesResponse;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsCluster;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
 import com.spotinst.sdkjava.model.ISpotOceanEcsClusterRepo;
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
@@ -198,6 +195,25 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getClusterNodesResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) {
+        RepoGenericResponse<ImportOceanEcsClusterResponse> retVal;
+
+        try {
+
+            ApiImportOceanEcsClusterResponse apiImportEcsCluster = SpotOceanEcsClusterService.importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
+            ImportOceanEcsClusterResponse importEcsClusterResponse = OceanEcsConverter.toBl(apiImportEcsCluster);
+
+            retVal = new RepoGenericResponse<>(importEcsClusterResponse);
         }
 
         catch (SpotinstHttpException e) {
