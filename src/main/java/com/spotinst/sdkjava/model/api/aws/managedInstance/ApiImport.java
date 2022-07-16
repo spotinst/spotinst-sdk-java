@@ -25,7 +25,6 @@ public class ApiImport implements IPartialUpdateEntity  {
     private Boolean                          shouldTerminateInstance;
     private List<String>                     spotInstanceTypes;
     private List<ApiImportAvailabilityZones> availabilityZones;
-    private String                           id;
 
     public ApiImport() {
         isSet = new HashSet<>();
@@ -111,15 +110,6 @@ public class ApiImport implements IPartialUpdateEntity  {
         this.availabilityZones = availabilityZones;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
-    }
-
     @JsonIgnore
     public boolean isManagedInstanceNameSet() {
         return isSet.contains("managedInstanceName");
@@ -159,10 +149,4 @@ public class ApiImport implements IPartialUpdateEntity  {
     public boolean isAvailabilityZonesSet() {
         return isSet.contains("availabilityZones");
     }
-
-    @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
-    }
-
 }

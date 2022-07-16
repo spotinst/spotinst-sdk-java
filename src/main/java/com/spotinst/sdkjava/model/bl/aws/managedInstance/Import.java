@@ -23,7 +23,6 @@ public class Import {
     private Boolean                       shouldTerminateInstance;
     private List<String>                  spotInstanceTypes;
     private List<ImportAvailabilityZones> availabilityZones;
-    private String                        id;
 
     private Import() {
         isSet = new HashSet<>();
@@ -109,15 +108,6 @@ public class Import {
         this.availabilityZones = availabilityZones;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
-    }
-
     public static class Builder {
         private Import importBuilder;
 
@@ -166,11 +156,6 @@ public class Import {
 
         public Builder setAvailabilityZones(final List<ImportAvailabilityZones> availabilityZones) {
             importBuilder.setAvailabilityZones(availabilityZones);
-            return this;
-        }
-
-        public Builder setId(final String id) {
-            importBuilder.setId(id);
             return this;
         }
 

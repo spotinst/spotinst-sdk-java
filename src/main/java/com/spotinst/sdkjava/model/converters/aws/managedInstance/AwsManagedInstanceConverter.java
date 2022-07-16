@@ -102,10 +102,6 @@ public class AwsManagedInstanceConverter {
                 retVal.setSpotInstanceTypes(importManagedInstance.getSpotInstanceTypes());
             }
 
-            if(importManagedInstance.isIdSet()){
-                retVal.setId(importManagedInstance.getId());
-            }
-
             if(importManagedInstance.isAvailabilityZonesSet()){
                 List<ApiImportAvailabilityZones> availabilityZones = importManagedInstance.getAvailabilityZones().stream().map(AwsManagedInstanceConverter::toDal)
                                                  .collect(Collectors.toList());
@@ -925,10 +921,6 @@ public class AwsManagedInstanceConverter {
 
             if (apiImport.isSpotInstanceTypesSet()) {
                 importBuilder.setSpotInstanceTypes(apiImport.getSpotInstanceTypes());
-            }
-
-            if (apiImport.isIdSet()) {
-                importBuilder.setId(apiImport.getId());
             }
 
             if (apiImport.isAvailabilityZonesSet()) {

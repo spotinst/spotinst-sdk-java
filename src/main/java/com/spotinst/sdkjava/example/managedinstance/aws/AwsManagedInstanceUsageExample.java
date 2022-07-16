@@ -465,7 +465,7 @@ public class AwsManagedInstanceUsageExample {
         List<String> spotInstanceTypes = Arrays.asList("t2.medium","t3.medium","t3a.medium","t2.small","t2.micro","t3.small","t3.micro");
 
         Import importManagedInstance = Import.Builder.get().setManagedInstanceName("Automation_SDK_Imported_ManagedInstance").setOriginalInstanceId(instanceId).setRegion(region)
-                                                     .setProduct("Linux/UNIX").setShouldKeepPrivateIp(false).setSpotInstanceTypes(spotInstanceTypes).setShouldTerminateInstance(false)
+                                                     .setProduct("Linux/UNIX").setShouldKeepPrivateIp(false).setSpotInstanceTypes(spotInstanceTypes)
                                                      .setAvailabilityZones(availabilityZonesList).build();
 
         AwsManagedInstanceImportRequest.Builder importRequestBuilder = AwsManagedInstanceImportRequest.Builder.get();
