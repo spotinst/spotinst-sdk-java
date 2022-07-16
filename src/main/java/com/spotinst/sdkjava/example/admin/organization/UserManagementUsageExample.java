@@ -1,10 +1,13 @@
 package com.spotinst.sdkjava.example.admin.organization;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.admin.organization.PolicyEffectEnum;
+import com.spotinst.sdkjava.enums.admin.organization.PolicyTypeEnum;
 import com.spotinst.sdkjava.model.SpotinstAdminOrganizationClient;
 import com.spotinst.sdkjava.model.bl.admin.organization.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserManagementUsageExample {
@@ -26,6 +29,9 @@ public class UserManagementUsageExample {
         updatePolicyMappingOfUser(adminClient, userId);
         getAccountUserMapping(adminClient, userEmail);
 
+        // Programmatic User APIs
+        String programmaticUserId = createProgammaticUser(adminClient);
+
         //User Group APIs
         String groupId = createUserGroup(adminClient);
         getUserGroups(adminClient);
@@ -34,6 +40,16 @@ public class UserManagementUsageExample {
         deleteUserGroup(groupId, adminClient);
         updateUserMappingOfUserGroup(groupId, adminClient);
         updatePolicyMappingOfUserGroup(groupId, adminClient);
+
+        //Organization APIs
+        String organizationId = createOrganization(adminClient);
+        Boolean deleteStatus = deleteOrganization(adminClient, organizationId);
+
+        // Policy APIs
+        String policyId = createAccessPolicy(adminClient);
+        updateAccessPolicy(policyId, adminClient);
+        deleteAccessPolicy(policyId, adminClient);
+        getAllAccessPolicies(adminClient);
     }
 
     private static String createUser(SpotinstAdminOrganizationClient adminClient) {
@@ -231,5 +247,122 @@ public class UserManagementUsageExample {
             System.out.println(String.format("Role: %s", account.getRole()));
             System.out.println(String.format("Permission Strategy: %s", account.getPermissionStrategy()));
         }
+    }
+
+    private static String createProgammaticUser(SpotinstAdminOrganizationClient adminClient) {
+
+        List<String> accountIds = new ArrayList<>();
+        accountIds.add(account_Id);
+
+        PolicyMapping.Builder policiesBuilder = PolicyMapping.Builder.get();
+        PolicyMapping         userPolicy      = policiesBuilder.setPolicyId("4").setAccountIds(accountIds).build();
+        List<PolicyMapping>   userPolicyList  = Collections.singletonList(userPolicy);
+
+        ProgrammaticUser.Builder userBuilder = ProgrammaticUser.Builder.get();
+        ProgrammaticUser userRequest = userBuilder.setName("testProgram").setDescription("my programmatic user")
+                .setPolicies(userPolicyList).build();
+        ProgrammaticUserResponse createResponse = adminClient.createProgrammaticUser(userRequest);
+        System.out.println(String.format("User Id: %s", createResponse.getId()));
+        System.out.println(String.format("Token: %s", createResponse.getToken()));
+        System.out.println(String.format("name: %s", createResponse.getName()));
+
+        return createResponse.getId();
+    }
+
+    private static String createOrganization(SpotinstAdminOrganizationClient adminClient) {
+
+        Organization.Builder organizationBuilder = Organization.Builder.get();
+        Organization organization = organizationBuilder.setName("Test Organization").build();
+
+        CreateOrganization.Builder createOrganizationBuilder = CreateOrganization.Builder.get();
+        CreateOrganization createOrganizationRequest = createOrganizationBuilder.setOrganization(organization).build();
+
+        CreateOrganizationResponse organizationResponse = adminClient.createOrganization(createOrganizationRequest);
+
+        return organizationResponse.getOrganizationId();
+    }
+
+    private static Boolean deleteOrganization(SpotinstAdminOrganizationClient adminClient, String OrganizationId) {
+        Boolean status = adminClient.deleteOrganization(OrganizationId);
+        System.out.println(String.format("Organization deletion status: %s\n" ,status));
+
+        return status;
+    }
+
+    private static String createAccessPolicy(SpotinstAdminOrganizationClient adminClient) {
+        List<String> actions = new ArrayList<>();
+        actions.add("security:deletePreset");
+
+        List<String> resources = new ArrayList<>();
+        resources.add("*");
+
+        PolicyStatement.Builder statementBuilder = PolicyStatement.Builder.get();
+        PolicyStatement statements =
+                statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions).setResources(resources).build();
+
+        PolicyContent.Builder contentBuilder = PolicyContent.Builder.get();
+        PolicyContent         policyContent  = contentBuilder.setStatements(Collections.singletonList(statements)).build();
+
+        Policy.Builder policyBuilder = Policy.Builder.get();
+        Policy policy = policyBuilder.setName("Test Policy").setDescription("My test policy")
+                .setType(PolicyTypeEnum.ORGANIZATION).setPolicyContent(policyContent).build();
+
+        Policy createPolicyResponse = adminClient.createAccessPolicy(policy);
+
+        System.out.println(String.format("Created policy Id: %s", createPolicyResponse.getId()));
+        return createPolicyResponse.getId();
+    }
+
+    private static void updateAccessPolicy(String policyId, SpotinstAdminOrganizationClient adminClient) {
+        List<String> actions1 = new ArrayList<>();
+        actions1.add("cloudAnalyzer:*");
+
+        List<String> resources1 = new ArrayList<>();
+        resources1.add("*");
+
+        List<String> actions2 = new ArrayList<>();
+        actions2.add("eco:*");
+
+        List<String> resources2 = new ArrayList<>();
+        resources2.add("*");
+
+        PolicyStatement.Builder statementBuilder = PolicyStatement.Builder.get();
+        PolicyStatement statements1 =
+                statementBuilder.setEffect(PolicyEffectEnum.ALLOW).setActions(actions1).setResources(resources1).build();
+
+        PolicyStatement statements2 =
+                statementBuilder.setEffect(PolicyEffectEnum.DENY).setActions(actions2).setResources(resources2).build();
+
+        List<PolicyStatement> statements = new ArrayList<>();
+        statements.add(statements1);
+        statements.add(statements2);
+
+        PolicyContent.Builder contentBuilder = PolicyContent.Builder.get();
+        PolicyContent policyContent = contentBuilder.setStatements(statements).build();
+
+        Policy.Builder policyBuilder = Policy.Builder.get();
+        Policy         policy        = policyBuilder.setName("Test Policy").setPolicyContent(policyContent).build();
+
+        Boolean status = adminClient.updateAccessPolicy(policyId, policy);
+        System.out.println(String.format("Update policy status: %s", status));
+    }
+
+    private static void getAllAccessPolicies(SpotinstAdminOrganizationClient adminClient) {
+        List<Policy> policies = adminClient.getAllAccessPolicies();
+
+        for (Policy policy : policies) {
+            System.out.println(String.format("Policy Id: %s", policy.getId()));
+            System.out.println(String.format("Policy Name: %s", policy.getName()));
+            System.out.println(String.format("Policy Description: %s", policy.getDescription()));
+            System.out.println(String.format("Policy Type: %s", policy.getType()));
+            System.out.println(String.format("Created At: %s", policy.getCreatedAt()));
+            System.out.println(String.format("Updated At: %s", policy.getUpdatedAt()));
+            System.out.println();
+        }
+    }
+
+    private static void deleteAccessPolicy(String policyId, SpotinstAdminOrganizationClient adminClient) {
+        Boolean deletionStatus = adminClient.deleteAccessPolicy(policyId);
+        System.out.println(String.format("Policy deletion status: %s", deletionStatus));
     }
 }

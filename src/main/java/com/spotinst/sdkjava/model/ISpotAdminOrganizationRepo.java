@@ -36,4 +36,18 @@ public interface ISpotAdminOrganizationRepo extends IRepository<Users, Void, Str
                                                                String authToken);
 
     RepoGenericResponse<List<GetAccountUserMapping>> getAccountUserMapping(String userEmail, String authToken);
+
+    RepoGenericResponse<ProgrammaticUserResponse> createProgrammaticUser(ProgrammaticUser createRequest, String authToken) ;
+
+    RepoGenericResponse<CreateOrganizationResponse> createOrganization(CreateOrganization createRequest, String authToken);
+
+    RepoGenericResponse<Boolean> deleteOrganization(String organizationId, String authToken);
+
+    RepoGenericResponse<Policy> createAccessPolicy(Policy createRequest, String authToken);
+
+    RepoGenericResponse<Boolean> updateAccessPolicy(String policyId, Policy createRequest, String authToken);
+
+    RepoGenericResponse<List<Policy>> getAllAccessPolicies(String authToken);
+
+    RepoGenericResponse<Boolean> deleteAccessPolicy(String policyId, String authToken);
 }

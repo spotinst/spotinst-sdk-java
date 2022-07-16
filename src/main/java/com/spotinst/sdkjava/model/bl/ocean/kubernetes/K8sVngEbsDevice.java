@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class K8sVngEbsDevice {
@@ -123,9 +124,9 @@ public class K8sVngEbsDevice {
 
         if (deleteOnTermination != ebsDevice.deleteOnTermination) return false;
         if (encrypted != ebsDevice.encrypted) return false;
-        if (iops != null ? !iops.equals(ebsDevice.iops) : ebsDevice.iops != null) return false;
-        if (snapshotId != null ? !snapshotId.equals(ebsDevice.snapshotId) : ebsDevice.snapshotId != null) return false;
-        if (volumeSize != null ? !volumeSize.equals(ebsDevice.volumeSize) : ebsDevice.volumeSize != null) return false;
+        if (!Objects.equals(iops, ebsDevice.iops)) return false;
+        if (!Objects.equals(snapshotId, ebsDevice.snapshotId)) return false;
+        if (!Objects.equals(volumeSize, ebsDevice.volumeSize)) return false;
         return volumeType == ebsDevice.volumeType;
 
     }

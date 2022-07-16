@@ -73,8 +73,7 @@ public class K8sVngClient {
 
     public Boolean deleteK8sVngSpec(K8sVngDeleteRequest vngDeletionRequest) {
         Boolean                      retVal;
-        String                       launchSpecIdToDelete     = vngDeletionRequest.getOceanLaunchSpecId();
-        RepoGenericResponse<Boolean> clusterDeletionResponse  = getK8sVngRepo().delete(launchSpecIdToDelete, authToken, account);
+        RepoGenericResponse<Boolean> clusterDeletionResponse  = getK8sVngRepo().deleteK8sVngSpec(vngDeletionRequest, authToken, account);
 
         if (clusterDeletionResponse.isRequestSucceed()) {
             retVal = clusterDeletionResponse.getValue();
