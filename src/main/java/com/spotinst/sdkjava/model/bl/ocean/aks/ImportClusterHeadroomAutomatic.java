@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ImportClusterAutomatic {
+public class ImportClusterHeadroomAutomatic {
 
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     isEnabled;
     private Integer     percentage;
 
-    private ImportClusterAutomatic() {
+    private ImportClusterHeadroomAutomatic() {
         isSet = new HashSet<>();
     }
 
@@ -43,13 +43,13 @@ public class ImportClusterAutomatic {
     }
 
     public static class Builder {
-        private ImportClusterAutomatic headroom;
+        private ImportClusterHeadroomAutomatic headroom;
 
         private Builder() {
-            this.headroom = new ImportClusterAutomatic();
+            this.headroom = new ImportClusterHeadroomAutomatic();
         }
 
-        public static ImportClusterAutomatic.Builder get() {
+        public static ImportClusterHeadroomAutomatic.Builder get() {
             return new Builder();
         }
 
@@ -58,12 +58,12 @@ public class ImportClusterAutomatic {
             return this;
         }
 
-        public ImportClusterAutomatic.Builder setPercentage(final Integer percentage) {
+        public ImportClusterHeadroomAutomatic.Builder setPercentage(final Integer percentage) {
             headroom.setPercentage(percentage);
             return this;
         }
 
-        public ImportClusterAutomatic build() {
+        public ImportClusterHeadroomAutomatic build() {
             return headroom;
         }
     }

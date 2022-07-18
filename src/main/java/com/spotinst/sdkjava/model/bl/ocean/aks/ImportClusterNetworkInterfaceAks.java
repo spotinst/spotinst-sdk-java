@@ -19,7 +19,7 @@ public class ImportClusterNetworkInterfaceAks {
     private ClusterSecurityGroupAks                           securityGroup;
     private boolean                                           enableIPForwarding;
     private String                                            publicIpSku;
-    private List<ImportClusterAdditionalIpConfigurationsAks>  additionalIpConfigurations;
+    private List<ImportClusterAdditionalIpConfigurationsAksResponse>  additionalIpConfigurations;
 
 
     private ImportClusterNetworkInterfaceAks() {
@@ -88,11 +88,11 @@ public class ImportClusterNetworkInterfaceAks {
         this.publicIpSku = publicIpSku;
     }
 
-    public List<ImportClusterAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
+    public List<ImportClusterAdditionalIpConfigurationsAksResponse> getAdditionalIpConfigurations() {
         return additionalIpConfigurations;
     }
 
-    public void setAdditionalIpConfigurations(List<ImportClusterAdditionalIpConfigurationsAks> additionalIpConfigurations) {
+    public void setAdditionalIpConfigurations(List<ImportClusterAdditionalIpConfigurationsAksResponse> additionalIpConfigurations) {
         isSet.add("additionalIpConfigurations");
         this.additionalIpConfigurations = additionalIpConfigurations;
     }
@@ -170,7 +170,7 @@ public class ImportClusterNetworkInterfaceAks {
             clusterNetworkInterfaceAks.setPublicIpSku(publicIpSku);
             return this;
         }
-        public Builder setAdditionalIpConfigurations(final List<ImportClusterAdditionalIpConfigurationsAks> additionalIpConfigurations){
+        public Builder setAdditionalIpConfigurations(final List<ImportClusterAdditionalIpConfigurationsAksResponse> additionalIpConfigurations){
             clusterNetworkInterfaceAks.setAdditionalIpConfigurations(additionalIpConfigurations);
             return this;
         }

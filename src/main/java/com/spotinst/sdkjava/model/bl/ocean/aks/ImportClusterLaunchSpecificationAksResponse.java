@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImportClusterLaunchSpecificationAks {
+public class ImportClusterLaunchSpecificationAksResponse {
     @JsonIgnore
     private Set<String>                         isSet;
     private List<ClusterExtensionAks>           extensions;
@@ -24,7 +24,7 @@ public class ImportClusterLaunchSpecificationAks {
     private List<ClusterTagAks>                 tags;
     private Integer                             maxPods;
 
-    private ImportClusterLaunchSpecificationAks() {
+    private ImportClusterLaunchSpecificationAksResponse() {
         isSet = new HashSet<>();
     }
 
@@ -136,10 +136,10 @@ public class ImportClusterLaunchSpecificationAks {
 
     public static class Builder {
 
-        private ImportClusterLaunchSpecificationAks clusterLaunchSpecificationAks;
+        private ImportClusterLaunchSpecificationAksResponse clusterLaunchSpecificationAks;
 
         private Builder() {
-            this.clusterLaunchSpecificationAks = new ImportClusterLaunchSpecificationAks();
+            this.clusterLaunchSpecificationAks = new ImportClusterLaunchSpecificationAksResponse();
         }
 
         public static Builder get() {
@@ -189,7 +189,7 @@ public class ImportClusterLaunchSpecificationAks {
             return this;
         }
 
-        public ImportClusterLaunchSpecificationAks build() {
+        public ImportClusterLaunchSpecificationAksResponse build() {
             return clusterLaunchSpecificationAks;
         }
     }

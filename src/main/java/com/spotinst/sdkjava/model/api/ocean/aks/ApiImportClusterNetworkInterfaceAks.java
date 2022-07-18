@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterSecurityGroupAks;
 
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ApiImportClusterNetworkInterfaceAks implements IPartialUpdateEntity
     private ApiClusterSecurityGroupAks                           securityGroup;
     private boolean                                              enableIPForwarding;
     private String                                               publicIpSku;
-    private List<ApiImportClusterAdditionalIpConfigurationsAks>  additionalIpConfigurations;
+    private List<ApiImportClusterAdditionalIpConfigurationsAksResponse>  additionalIpConfigurations;
 
 
     private ApiImportClusterNetworkInterfaceAks() {
@@ -92,11 +91,11 @@ public class ApiImportClusterNetworkInterfaceAks implements IPartialUpdateEntity
         this.publicIpSku = publicIpSku;
     }
 
-    public List<ApiImportClusterAdditionalIpConfigurationsAks> getAdditionalIpConfigurations() {
+    public List<ApiImportClusterAdditionalIpConfigurationsAksResponse> getAdditionalIpConfigurations() {
         return additionalIpConfigurations;
     }
 
-    public void setAdditionalIpConfigurations(List<ApiImportClusterAdditionalIpConfigurationsAks> additionalIpConfigurations) {
+    public void setAdditionalIpConfigurations(List<ApiImportClusterAdditionalIpConfigurationsAksResponse> additionalIpConfigurations) {
         isSet.add("additionalIpConfigurations");
         this.additionalIpConfigurations = additionalIpConfigurations;
     }

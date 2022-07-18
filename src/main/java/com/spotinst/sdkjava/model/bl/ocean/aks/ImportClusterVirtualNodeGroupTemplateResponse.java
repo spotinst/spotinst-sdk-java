@@ -12,7 +12,7 @@ public class ImportClusterVirtualNodeGroupTemplateResponse {
     private Set<String>                          isSet;
     private ImportClusterWhitelist               vmSizes;
     private List<String>                         zones;
-    private ImportClusterLaunchSpecificationAks  launchSpecification;
+    private ImportClusterLaunchSpecificationAksResponse launchSpecification;
 
     public ImportClusterVirtualNodeGroupTemplateResponse() {
         isSet = new HashSet<>();
@@ -44,11 +44,11 @@ public class ImportClusterVirtualNodeGroupTemplateResponse {
         this.zones = zones;
     }
 
-    public ImportClusterLaunchSpecificationAks getLaunchSpecification() {
+    public ImportClusterLaunchSpecificationAksResponse getLaunchSpecification() {
         return launchSpecification;
     }
 
-    public void setLaunchSpecification(ImportClusterLaunchSpecificationAks launchSpecification) {
+    public void setLaunchSpecification(ImportClusterLaunchSpecificationAksResponse launchSpecification) {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
@@ -74,7 +74,7 @@ public class ImportClusterVirtualNodeGroupTemplateResponse {
             return this;
         }
 
-        public Builder setLaunchSpecification(final ImportClusterLaunchSpecificationAks launchSpecification) {
+        public Builder setLaunchSpecification(final ImportClusterLaunchSpecificationAksResponse launchSpecification) {
             headroom.setLaunchSpecification(launchSpecification);
             return this;
         }

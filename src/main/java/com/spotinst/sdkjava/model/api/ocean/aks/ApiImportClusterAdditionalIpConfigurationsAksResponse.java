@@ -12,13 +12,13 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiImportClusterAdditionalIpConfigurationsAks implements IPartialUpdateEntity {
+public class ApiImportClusterAdditionalIpConfigurationsAksResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>               isSet;
     private String                    name;
     private String                    privateIpAddressVersion;
 
-    public ApiImportClusterAdditionalIpConfigurationsAks() {
+    public ApiImportClusterAdditionalIpConfigurationsAksResponse() {
         isSet = new HashSet<>();
     }
 

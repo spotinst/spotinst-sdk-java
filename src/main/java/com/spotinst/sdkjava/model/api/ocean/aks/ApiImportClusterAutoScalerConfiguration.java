@@ -21,11 +21,6 @@ public class ApiImportClusterAutoScalerConfiguration implements IPartialUpdateEn
     private ApiImportClusterResourceLimitsSpecification resourceLimits;
     private ApiImportClusterDownSpecification           down;
     private ApiImportClusterHeadroomSpecification       headroom;
-    private ApiImportClusterStrategyConfiguration       strategy;
-    private ApiImportClusterHealth                      health;
-    private ApiImportClusterVirtualNodeGroupTemplate    virtualNodeGroupTemplate;
-    private Date                                        createdAt;
-    private Date                                        updatedAt;
 
     public ApiImportClusterAutoScalerConfiguration() {
         isSet = new HashSet<>();
@@ -75,51 +70,6 @@ public class ApiImportClusterAutoScalerConfiguration implements IPartialUpdateEn
         this.headroom = headroom;
     }
 
-    public ApiImportClusterStrategyConfiguration getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(ApiImportClusterStrategyConfiguration strategy) {
-        isSet.add("strategy");
-        this.strategy = strategy;
-    }
-
-    public ApiImportClusterHealth getHealth() {
-        return health;
-    }
-
-    public void setHealth(ApiImportClusterHealth health) {
-        isSet.add("health");
-        this.health = health;
-    }
-
-    public ApiImportClusterVirtualNodeGroupTemplate getVirtualNodeGroupTemplate() {
-        return virtualNodeGroupTemplate;
-    }
-
-    public void setVirtualNodeGroupTemplate(ApiImportClusterVirtualNodeGroupTemplate virtualNodeGroupTemplate) {
-        isSet.add("virtualNodeGroupTemplate");
-        this.virtualNodeGroupTemplate = virtualNodeGroupTemplate;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        isSet.add("createdAt");
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        isSet.add("updatedAt");
-        this.updatedAt = updatedAt;
-    }
-
     @JsonIgnore
     public boolean isIsEnabledSet() {
         return isSet.contains("isEnabled");
@@ -138,31 +88,6 @@ public class ApiImportClusterAutoScalerConfiguration implements IPartialUpdateEn
     @JsonIgnore
     public boolean isHeadroomSet() {
         return isSet.contains("headroom");
-    }
-
-    @JsonIgnore
-    public boolean isStrategySet() {
-        return isSet.contains("strategy");
-    }
-
-    @JsonIgnore
-    public boolean isHealthSet() {
-        return isSet.contains("health");
-    }
-
-    @JsonIgnore
-    public boolean isVirtualNodeGroupTemplateSet() {
-        return isSet.contains("virtualNodeGroupTemplate");
-    }
-
-    @JsonIgnore
-    public boolean isCreatedAtSet() {
-        return isSet.contains("createdAt");
-    }
-
-    @JsonIgnore
-    public boolean isUpdatedAtSet() {
-        return isSet.contains("updatedAt");
     }
 
 }

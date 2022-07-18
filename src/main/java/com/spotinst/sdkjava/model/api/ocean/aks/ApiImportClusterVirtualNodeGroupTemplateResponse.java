@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ImportClusterLaunchSpecificationAks;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ImportClusterWhitelist;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +19,7 @@ public class ApiImportClusterVirtualNodeGroupTemplateResponse implements IPartia
     private Set<String>                             isSet;
     private ApiImportClusterWhitelist               vmSizes;
     private List<String>                            zones;
-    private ApiImportClusterLaunchSpecificationAks  launchSpecification;
+    private ApiImportClusterLaunchSpecificationAksResponse launchSpecification;
 
     private ApiImportClusterVirtualNodeGroupTemplateResponse() {
         isSet = new HashSet<>();
@@ -53,11 +51,11 @@ public class ApiImportClusterVirtualNodeGroupTemplateResponse implements IPartia
         this.zones = zones;
     }
 
-    public ApiImportClusterLaunchSpecificationAks getLaunchSpecification() {
+    public ApiImportClusterLaunchSpecificationAksResponse getLaunchSpecification() {
         return launchSpecification;
     }
 
-    public void setLaunchSpecification(ApiImportClusterLaunchSpecificationAks launchSpecification) {
+    public void setLaunchSpecification(ApiImportClusterLaunchSpecificationAksResponse launchSpecification) {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }

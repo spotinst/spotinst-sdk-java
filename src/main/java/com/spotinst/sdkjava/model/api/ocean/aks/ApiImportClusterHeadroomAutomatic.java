@@ -12,14 +12,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiImportClusterAutomatic implements IPartialUpdateEntity {
+public class ApiImportClusterHeadroomAutomatic implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
     private Boolean     isEnabled;
     private Integer     percentage;
 
-    public ApiImportClusterAutomatic() {
+    public ApiImportClusterHeadroomAutomatic() {
         isSet = new HashSet<>();
     }
 

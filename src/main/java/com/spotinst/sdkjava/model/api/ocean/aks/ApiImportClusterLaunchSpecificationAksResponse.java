@@ -14,7 +14,7 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiImportClusterLaunchSpecificationAks implements IPartialUpdateEntity {
+public class ApiImportClusterLaunchSpecificationAksResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                         isSet;
     private List<ApiClusterExtensionAks>           extensions;
@@ -28,7 +28,7 @@ public class ApiImportClusterLaunchSpecificationAks implements IPartialUpdateEnt
     private List<ApiClusterTagAks>                 tags;
     private Integer                             maxPods;
 
-    private ApiImportClusterLaunchSpecificationAks() {
+    private ApiImportClusterLaunchSpecificationAksResponse() {
         isSet = new HashSet<>();
     }
 

@@ -16,7 +16,7 @@ public class ApiImportClusterHeadroomSpecification implements IPartialUpdateEnti
 
     @JsonIgnore
     private Set<String> isSet;
-    private ApiImportClusterAutomatic automatic;
+    private ApiImportClusterHeadroomAutomatic automatic;
 
     public ApiImportClusterHeadroomSpecification() {
         isSet = new HashSet<>();
@@ -30,11 +30,11 @@ public class ApiImportClusterHeadroomSpecification implements IPartialUpdateEnti
         this.isSet = isSet;
     }
 
-    public ApiImportClusterAutomatic getAutomatic() {
+    public ApiImportClusterHeadroomAutomatic getAutomatic() {
         return automatic;
     }
 
-    public void setAutomatic(ApiImportClusterAutomatic automatic) {
+    public void setAutomatic(ApiImportClusterHeadroomAutomatic automatic) {
         isSet.add("automatic");
         this.automatic = automatic;
     }

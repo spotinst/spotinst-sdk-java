@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ImportClusterAdditionalIpConfigurationsAks {
+public class ImportClusterAdditionalIpConfigurationsAksResponse {
     @JsonIgnore
     private Set<String>               isSet;
     private String                    name;
     private String                    privateIpAddressVersion;
 
-    public ImportClusterAdditionalIpConfigurationsAks() {
+    public ImportClusterAdditionalIpConfigurationsAksResponse() {
         isSet = new HashSet<>();
     }
 
@@ -43,10 +43,10 @@ public class ImportClusterAdditionalIpConfigurationsAks {
 
     public static class Builder {
 
-        private ImportClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks;
+        private ImportClusterAdditionalIpConfigurationsAksResponse additionalIpConfigurationsAks;
 
         private Builder() {
-            this.additionalIpConfigurationsAks = new ImportClusterAdditionalIpConfigurationsAks();
+            this.additionalIpConfigurationsAks = new ImportClusterAdditionalIpConfigurationsAksResponse();
         }
 
         public static Builder get() {
@@ -63,7 +63,7 @@ public class ImportClusterAdditionalIpConfigurationsAks {
             return this;
         }
 
-        public ImportClusterAdditionalIpConfigurationsAks build() {
+        public ImportClusterAdditionalIpConfigurationsAksResponse build() {
             return additionalIpConfigurationsAks;
         }
     }

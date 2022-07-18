@@ -646,12 +646,12 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ApiImportClusterAutomatic toDal(ImportClusterAutomatic automatic) {
+    private static ApiImportClusterHeadroomAutomatic toDal(ImportClusterHeadroomAutomatic automatic) {
 
-        ApiImportClusterAutomatic retVal = null;
+        ApiImportClusterHeadroomAutomatic retVal = null;
 
         if (automatic != null) {
-            retVal = new ApiImportClusterAutomatic();
+            retVal = new ApiImportClusterHeadroomAutomatic();
 
             if (automatic.isIsEnabledSet()) {
                 retVal.setIsEnabled(automatic.getIsEnabled());
@@ -1507,13 +1507,13 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ImportClusterLaunchSpecificationAks toBl(ApiImportClusterLaunchSpecificationAks launchSpecificationAks) {
+    private static ImportClusterLaunchSpecificationAksResponse toBl(ApiImportClusterLaunchSpecificationAksResponse launchSpecificationAks) {
 
-        ImportClusterLaunchSpecificationAks retVal = null;
+        ImportClusterLaunchSpecificationAksResponse retVal = null;
 
         if (launchSpecificationAks != null) {
 
-            ImportClusterLaunchSpecificationAks.Builder builder = ImportClusterLaunchSpecificationAks.Builder.get();
+            ImportClusterLaunchSpecificationAksResponse.Builder builder = ImportClusterLaunchSpecificationAksResponse.Builder.get();
 
             if (launchSpecificationAks.isExtensionsSet()) {
                 if (launchSpecificationAks.getExtensions() != null){
@@ -1674,7 +1674,7 @@ public class ClusterConverterAks {
             if (networkInterfaceAks.isAdditionalIpConfigurationsSet()){
                 if (networkInterfaceAks.getAdditionalIpConfigurations() != null){
 
-                    List<ImportClusterAdditionalIpConfigurationsAks> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toBl).collect(Collectors.toList());
+                    List<ImportClusterAdditionalIpConfigurationsAksResponse> configurationsAks = networkInterfaceAks.getAdditionalIpConfigurations().stream().map(ClusterConverterAks::toBl).collect(Collectors.toList());
                     builder.setAdditionalIpConfigurations(configurationsAks);
                 }
                 else {
@@ -1687,11 +1687,11 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ImportClusterAdditionalIpConfigurationsAks toBl(ApiImportClusterAdditionalIpConfigurationsAks additionalIpConfigurationsAks){
-        ImportClusterAdditionalIpConfigurationsAks retVal = null;
+    private static ImportClusterAdditionalIpConfigurationsAksResponse toBl(ApiImportClusterAdditionalIpConfigurationsAksResponse additionalIpConfigurationsAks){
+        ImportClusterAdditionalIpConfigurationsAksResponse retVal = null;
 
         if (additionalIpConfigurationsAks != null){
-            ImportClusterAdditionalIpConfigurationsAks.Builder builder = ImportClusterAdditionalIpConfigurationsAks.Builder.get();
+            ImportClusterAdditionalIpConfigurationsAksResponse.Builder builder = ImportClusterAdditionalIpConfigurationsAksResponse.Builder.get();
 
             if (additionalIpConfigurationsAks.isNameSet()){
                 builder.setName(additionalIpConfigurationsAks.getName());
@@ -1795,12 +1795,12 @@ public class ClusterConverterAks {
         return retVal;
     }
 
-    private static ImportClusterAutomatic toBl(ApiImportClusterAutomatic automatic) {
+    private static ImportClusterHeadroomAutomatic toBl(ApiImportClusterHeadroomAutomatic automatic) {
 
-        ImportClusterAutomatic retVal = null;
+        ImportClusterHeadroomAutomatic retVal = null;
 
         if (automatic != null) {
-            ImportClusterAutomatic.Builder builder = ImportClusterAutomatic.Builder.get();
+            ImportClusterHeadroomAutomatic.Builder builder = ImportClusterHeadroomAutomatic.Builder.get();
 
             if (automatic.isIsEnabledSet()) {
                 retVal.setIsEnabled(automatic.getIsEnabled());

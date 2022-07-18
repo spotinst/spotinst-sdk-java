@@ -41,11 +41,6 @@ public class ApiImportClusterLoginAks implements IPartialUpdateEntity {
     }
 
     @JsonIgnore
-    public boolean isSshPublicKeySet() {
-        return isSet.contains("sshPublicKey");
-    }
-
-    @JsonIgnore
     public boolean isUserNameSet() {
         return isSet.contains("userName");
     }

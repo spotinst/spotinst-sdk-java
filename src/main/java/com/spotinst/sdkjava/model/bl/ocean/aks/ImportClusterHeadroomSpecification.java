@@ -9,7 +9,7 @@ public class ImportClusterHeadroomSpecification {
 
     @JsonIgnore
     private Set<String> isSet;
-    private ImportClusterAutomatic     automatic;
+    private ImportClusterHeadroomAutomatic automatic;
 
     private ImportClusterHeadroomSpecification() {
         isSet = new HashSet<>();
@@ -23,11 +23,11 @@ public class ImportClusterHeadroomSpecification {
         this.isSet = isSet;
     }
 
-    public ImportClusterAutomatic getAutomatic() {
+    public ImportClusterHeadroomAutomatic getAutomatic() {
         return automatic;
     }
 
-    public void setAutomatic(ImportClusterAutomatic automatic) {
+    public void setAutomatic(ImportClusterHeadroomAutomatic automatic) {
         isSet.add("automatic");
         this.automatic = automatic;
     }
@@ -43,7 +43,7 @@ public class ImportClusterHeadroomSpecification {
             return new Builder();
         }
 
-        public ImportClusterHeadroomSpecification.Builder setAutomatic(final ImportClusterAutomatic automatic) {
+        public ImportClusterHeadroomSpecification.Builder setAutomatic(final ImportClusterHeadroomAutomatic automatic) {
             headroom.setAutomatic(automatic);
             return this;
         }

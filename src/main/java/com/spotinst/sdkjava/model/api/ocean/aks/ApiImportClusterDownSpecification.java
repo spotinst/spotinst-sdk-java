@@ -16,7 +16,7 @@ public class ApiImportClusterDownSpecification implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String> isSet;
-    private Integer     maxScaleDownPercentage;
+    private double      maxScaleDownPercentage;
 
 
     public ApiImportClusterDownSpecification() {
@@ -33,11 +33,11 @@ public class ApiImportClusterDownSpecification implements IPartialUpdateEntity {
     }
 
 
-    public Integer getMaxScaleDownPercentage() {
+    public double getMaxScaleDownPercentage() {
         return maxScaleDownPercentage;
     }
 
-    public void setMaxScaleDownPercentage(Integer maxScaleDownPercentage) {
+    public void setMaxScaleDownPercentage(double maxScaleDownPercentage) {
         isSet.add("maxScaleDownPercentage");
         this.maxScaleDownPercentage = maxScaleDownPercentage;
     }
