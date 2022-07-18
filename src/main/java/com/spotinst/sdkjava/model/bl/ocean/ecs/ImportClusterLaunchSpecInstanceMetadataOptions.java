@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model.bl.ocean.ecs;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.AwsECSHttpEndpointEnum;
+import com.spotinst.sdkjava.enums.AwsECSHttpTokensEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,10 +13,10 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImportClusterLaunchSpecInstanceMetadataOptions {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer     httpPutResponseHopLimit;
-    private String      httpTokens;
-    private String      httpEndpoint;
+    private Set<String>            isSet;
+    private Integer                httpPutResponseHopLimit;
+    private AwsECSHttpTokensEnum   httpTokens;
+    private AwsECSHttpEndpointEnum httpEndpoint;
 
     private ImportClusterLaunchSpecInstanceMetadataOptions() {
         isSet = new HashSet<>();
@@ -37,20 +39,20 @@ public class ImportClusterLaunchSpecInstanceMetadataOptions {
         this.httpPutResponseHopLimit = httpPutResponseHopLimit;
     }
 
-    public String getHttpTokens() {
+    public AwsECSHttpTokensEnum getHttpTokens() {
         return httpTokens;
     }
 
-    public void setHttpTokens(String httpTokens) {
+    public void setHttpTokens(AwsECSHttpTokensEnum httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
     }
 
-    public String getHttpEndpoint() {
+    public AwsECSHttpEndpointEnum getHttpEndpoint() {
         return httpEndpoint;
     }
 
-    public void setHttpEndpoint(String httpEndpoint) {
+    public void setHttpEndpoint(AwsECSHttpEndpointEnum httpEndpoint) {
         isSet.add("httpEndpoint");
         this.httpEndpoint = httpEndpoint;
     }
@@ -72,12 +74,12 @@ public class ImportClusterLaunchSpecInstanceMetadataOptions {
             return this;
         }
 
-        public Builder setHttpTokens(final String httpTokens) {
+        public Builder setHttpTokens(final AwsECSHttpTokensEnum httpTokens) {
             launchSpecInstanceMetadataOptions.setHttpTokens(httpTokens);
             return this;
         }
 
-        public Builder setHttpEndpoint(final String httpEndpoint) {
+        public Builder setHttpEndpoint(final AwsECSHttpEndpointEnum httpEndpoint) {
             launchSpecInstanceMetadataOptions.setHttpEndpoint(httpEndpoint);
             return this;
         }

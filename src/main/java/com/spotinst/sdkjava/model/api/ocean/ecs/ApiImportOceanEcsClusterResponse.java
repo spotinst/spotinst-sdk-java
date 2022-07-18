@@ -22,7 +22,7 @@ public class ApiImportOceanEcsClusterResponse implements IPartialUpdateEntity {
     private String                                 name;
     private String                                 region;
     private String                                 clusterName;
-    private ApiImportClusterComputeConfiguration   compute;
+    private ApiImportClusterResponseComputeConfiguration compute;
 
     private ApiImportOceanEcsClusterResponse() {
         isSet = new HashSet<>();
@@ -63,11 +63,11 @@ public class ApiImportOceanEcsClusterResponse implements IPartialUpdateEntity {
         this.clusterName = clusterName;
     }
 
-    public ApiImportClusterComputeConfiguration getCompute() {
+    public ApiImportClusterResponseComputeConfiguration getCompute() {
         return compute;
     }
 
-    public void setCompute(ApiImportClusterComputeConfiguration compute) {
+    public void setCompute(ApiImportClusterResponseComputeConfiguration compute) {
         isSet.add("compute");
         this.compute = compute;
     }

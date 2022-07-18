@@ -1289,11 +1289,11 @@ public class OceanEcsConverter {
         return cluster;
     }
 
-    private static ImportClusterComputeConfiguration toBl(ApiImportClusterComputeConfiguration apicompute) {
-        ImportClusterComputeConfiguration retVal = null;
+    private static ImportClusterResponseComputeConfiguration toBl(ApiImportClusterResponseComputeConfiguration apicompute) {
+        ImportClusterResponseComputeConfiguration retVal = null;
 
         if (apicompute != null) {
-            ImportClusterComputeConfiguration.Builder computeBuilder = ImportClusterComputeConfiguration.Builder.get();
+            ImportClusterResponseComputeConfiguration.Builder computeBuilder = ImportClusterResponseComputeConfiguration.Builder.get();
 
             if (apicompute.isSubnetIdsSet()) {
                 computeBuilder.setSubnetIds(apicompute.getSubnetIds());
@@ -1307,11 +1307,11 @@ public class OceanEcsConverter {
         return retVal;
     }
 
-    public static ImportClusterLaunchSpecification toBl(ApiImportClusterLaunchSpecification launchSpecification) {
-        ImportClusterLaunchSpecification retVal = null;
+    public static ImportClusterResponseLaunchSpecification toBl(ApiImportClusterResponseLaunchSpecification launchSpecification) {
+        ImportClusterResponseLaunchSpecification retVal = null;
 
         if (launchSpecification != null) {
-            ImportClusterLaunchSpecification.Builder clusterLaunchSpecBuilder = ImportClusterLaunchSpecification.Builder.get();
+            ImportClusterResponseLaunchSpecification.Builder clusterLaunchSpecBuilder = ImportClusterResponseLaunchSpecification.Builder.get();
 
             if (launchSpecification.isImageIdSet()) {
                 clusterLaunchSpecBuilder.setImageId(launchSpecification.getImageId());

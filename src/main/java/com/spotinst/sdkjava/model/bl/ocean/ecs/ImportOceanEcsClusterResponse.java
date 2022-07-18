@@ -19,7 +19,7 @@ public class ImportOceanEcsClusterResponse {
     private String                                 name;
     private String                                 region;
     private String                                 clusterName;
-    private ImportClusterComputeConfiguration      compute;
+    private ImportClusterResponseComputeConfiguration compute;
 
     private ImportOceanEcsClusterResponse() {
         isSet = new HashSet<>();
@@ -60,11 +60,11 @@ public class ImportOceanEcsClusterResponse {
         this.clusterName = clusterName;
     }
 
-    public ImportClusterComputeConfiguration getCompute() {
+    public ImportClusterResponseComputeConfiguration getCompute() {
         return compute;
     }
 
-    public void setCompute(ImportClusterComputeConfiguration compute) {
+    public void setCompute(ImportClusterResponseComputeConfiguration compute) {
         isSet.add("compute");
         this.compute = compute;
     }
@@ -92,7 +92,7 @@ public class ImportOceanEcsClusterResponse {
             cluster.setclusterName(clusterName);
             return this;
         }
-        public Builder setCompute(final ImportClusterComputeConfiguration compute) {
+        public Builder setCompute(final ImportClusterResponseComputeConfiguration compute) {
             cluster.setCompute(compute);
             return this;
         }

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.AwsECSHttpEndpointEnum;
+import com.spotinst.sdkjava.enums.AwsECSHttpTokensEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,10 +16,10 @@ import java.util.Set;
 @JsonFilter("PartialUpdateEntityFilter")
 public class ApiImportClusterLaunchSpecInstanceMetadataOptions implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer     httpPutResponseHopLimit;
-    private String      httpTokens;
-    private String      httpEndpoint;
+    private Set<String>               isSet;
+    private Integer                   httpPutResponseHopLimit;
+    private AwsECSHttpTokensEnum      httpTokens;
+    private AwsECSHttpEndpointEnum    httpEndpoint;
 
     private ApiImportClusterLaunchSpecInstanceMetadataOptions() {
         isSet = new HashSet<>();
@@ -40,20 +42,20 @@ public class ApiImportClusterLaunchSpecInstanceMetadataOptions implements IParti
         this.httpPutResponseHopLimit = httpPutResponseHopLimit;
     }
 
-    public String getHttpTokens() {
+    public AwsECSHttpTokensEnum getHttpTokens() {
         return httpTokens;
     }
 
-    public void setHttpTokens(String httpTokens) {
+    public void setHttpTokens(AwsECSHttpTokensEnum httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
     }
 
-    public String getHttpEndpoint() {
+    public AwsECSHttpEndpointEnum getHttpEndpoint() {
         return httpEndpoint;
     }
 
-    public void setHttpEndpoint(String httpEndpoint) {
+    public void setHttpEndpoint(AwsECSHttpEndpointEnum httpEndpoint) {
         isSet.add("httpEndpoint");
         this.httpEndpoint = httpEndpoint;
     }

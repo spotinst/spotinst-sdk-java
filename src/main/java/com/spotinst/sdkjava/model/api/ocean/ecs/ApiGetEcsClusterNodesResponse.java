@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.AwsECSLifecycleEnum;
+import com.spotinst.sdkjava.enums.AwsECSRegistrationStatusEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +17,9 @@ import java.util.Set;
 public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                            isSet;
-    private String                             lifeCycle;
+    private AwsECSLifecycleEnum                lifeCycle;
     private String			                    publicIp;
-    private Integer             workloadRequestedCpuUnit;
+    private Double              workloadRequestedCpuUnit;
     private Integer         workloadRequestedMemoryInMiB;
     private Integer                 workloadRequestedGpu;
     private Integer             headroomRequestedCpuUnit;
@@ -26,7 +28,7 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
     private Integer                    registeredCpuUnit;
     private Integer                registeredMemoryInMiB;
     private Integer                        registeredGpu;
-    private String                    registrationStatus;
+    private AwsECSRegistrationStatusEnum registrationStatus;
     private String                             createdAt;
     private String                   containerInstanceId;
     private String                            instanceId;
@@ -47,11 +49,11 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getLifeCycle() {
+    public AwsECSLifecycleEnum getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(String lifeCycle) {
+    public void setLifeCycle(AwsECSLifecycleEnum lifeCycle) {
         isSet.add("lifeCycle");
         this.lifeCycle = lifeCycle;
     }
@@ -65,11 +67,11 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
         this.publicIp = publicIp;
     }
 
-    public Integer getWorkloadRequestedCpuUnit() {
+    public Double getWorkloadRequestedCpuUnit() {
         return workloadRequestedCpuUnit;
     }
 
-    public void setWorkloadRequestedCpuUnit(Integer workloadRequestedCpuUnit) {
+    public void setWorkloadRequestedCpuUnit(Double workloadRequestedCpuUnit) {
         isSet.add("workloadRequestedCpuUnit");
         this.workloadRequestedCpuUnit = workloadRequestedCpuUnit;
     }
@@ -146,11 +148,11 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
         this.containerInstanceId = containerInstanceId;
     }
 
-    public String getRegistrationStatus() {
+    public AwsECSRegistrationStatusEnum getRegistrationStatus() {
         return registrationStatus;
     }
 
-    public void setRegistrationStatus(String registrationStatus) {
+    public void setRegistrationStatus(AwsECSRegistrationStatusEnum registrationStatus) {
         isSet.add("registrationStatus");
         this.registrationStatus = registrationStatus;
     }

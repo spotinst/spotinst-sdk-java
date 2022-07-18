@@ -1,8 +1,10 @@
-package com.spotinst.sdkjava.model.bl.ocean.ecs;
+package com.spotinst.sdkjava.model.api.ocean.ecs;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -10,13 +12,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImportClusterComputeConfiguration {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiImportClusterResponseComputeConfiguration implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String>                       isSet;
-    private List<String>                      subnetIds;
-    private ImportClusterLaunchSpecification  launchSpecification;
+    private Set<String>                         isSet;
+    private List<String>                        subnetIds;
+    private ApiImportClusterResponseLaunchSpecification launchSpecification;
 
-    private ImportClusterComputeConfiguration() {
+    private ApiImportClusterResponseComputeConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -37,20 +40,20 @@ public class ImportClusterComputeConfiguration {
         this.subnetIds = subnetIds;
     }
 
-    public ImportClusterLaunchSpecification getLaunchSpecification() {
+    public ApiImportClusterResponseLaunchSpecification getLaunchSpecification() {
         return launchSpecification;
     }
 
-    public void setLaunchSpecification(ImportClusterLaunchSpecification launchSpecification) {
+    public void setLaunchSpecification(ApiImportClusterResponseLaunchSpecification launchSpecification) {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
 
     public static class Builder {
-        private ImportClusterComputeConfiguration compute;
+        private ApiImportClusterResponseComputeConfiguration compute;
 
         private Builder() {
-            this.compute = new ImportClusterComputeConfiguration();
+            this.compute = new ApiImportClusterResponseComputeConfiguration();
         }
 
         public static Builder get() {
@@ -62,12 +65,12 @@ public class ImportClusterComputeConfiguration {
             return this;
         }
 
-        public Builder setLaunchSpecification(final ImportClusterLaunchSpecification launchSpecification) {
+        public Builder setLaunchSpecification(final ApiImportClusterResponseLaunchSpecification launchSpecification) {
             compute.setLaunchSpecification(launchSpecification);
             return this;
         }
 
-        public ImportClusterComputeConfiguration build() {
+        public ApiImportClusterResponseComputeConfiguration build() {
             return compute;
         }
     }

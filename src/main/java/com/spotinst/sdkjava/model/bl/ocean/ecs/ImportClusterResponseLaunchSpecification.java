@@ -10,7 +10,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ImportClusterLaunchSpecification {
+public class ImportClusterResponseLaunchSpecification {
     @JsonIgnore
     private Set<String>                                                   isSet;
     private ImportClusterLaunchSpecIamInstanceProfileSpecification        iamInstanceProfile;
@@ -21,7 +21,7 @@ public class ImportClusterLaunchSpecification {
     private String                                                        userData;
     private String                                                        keyPair;
 
-    private ImportClusterLaunchSpecification() {
+    private ImportClusterResponseLaunchSpecification() {
         isSet = new HashSet<>();
     }
 
@@ -98,10 +98,10 @@ public class ImportClusterLaunchSpecification {
 
     public static class Builder {
 
-        private ImportClusterLaunchSpecification launchspec;
+        private ImportClusterResponseLaunchSpecification launchspec;
 
         private Builder() {
-            this.launchspec = new ImportClusterLaunchSpecification();
+            this.launchspec = new ImportClusterResponseLaunchSpecification();
         }
 
         public static Builder get() {
@@ -143,7 +143,7 @@ public class ImportClusterLaunchSpecification {
             return this;
         }
 
-        public ImportClusterLaunchSpecification build() {
+        public ImportClusterResponseLaunchSpecification build() {
             return launchspec;
         }
     }

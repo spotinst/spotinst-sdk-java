@@ -1,10 +1,8 @@
-package com.spotinst.sdkjava.model.api.ocean.ecs;
+package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,14 +10,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiImportClusterComputeConfiguration implements IPartialUpdateEntity {
+public class ImportClusterResponseComputeConfiguration {
     @JsonIgnore
-    private Set<String>                         isSet;
-    private List<String>                        subnetIds;
-    private ApiImportClusterLaunchSpecification launchSpecification;
+    private Set<String>                       isSet;
+    private List<String>                      subnetIds;
+    private ImportClusterResponseLaunchSpecification launchSpecification;
 
-    private ApiImportClusterComputeConfiguration() {
+    private ImportClusterResponseComputeConfiguration() {
         isSet = new HashSet<>();
     }
 
@@ -40,20 +37,20 @@ public class ApiImportClusterComputeConfiguration implements IPartialUpdateEntit
         this.subnetIds = subnetIds;
     }
 
-    public ApiImportClusterLaunchSpecification getLaunchSpecification() {
+    public ImportClusterResponseLaunchSpecification getLaunchSpecification() {
         return launchSpecification;
     }
 
-    public void setLaunchSpecification(ApiImportClusterLaunchSpecification launchSpecification) {
+    public void setLaunchSpecification(ImportClusterResponseLaunchSpecification launchSpecification) {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
 
     public static class Builder {
-        private ApiImportClusterComputeConfiguration compute;
+        private ImportClusterResponseComputeConfiguration compute;
 
         private Builder() {
-            this.compute = new ApiImportClusterComputeConfiguration();
+            this.compute = new ImportClusterResponseComputeConfiguration();
         }
 
         public static Builder get() {
@@ -65,12 +62,12 @@ public class ApiImportClusterComputeConfiguration implements IPartialUpdateEntit
             return this;
         }
 
-        public Builder setLaunchSpecification(final ApiImportClusterLaunchSpecification launchSpecification) {
+        public Builder setLaunchSpecification(final ImportClusterResponseLaunchSpecification launchSpecification) {
             compute.setLaunchSpecification(launchSpecification);
             return this;
         }
 
-        public ApiImportClusterComputeConfiguration build() {
+        public ImportClusterResponseComputeConfiguration build() {
             return compute;
         }
     }
