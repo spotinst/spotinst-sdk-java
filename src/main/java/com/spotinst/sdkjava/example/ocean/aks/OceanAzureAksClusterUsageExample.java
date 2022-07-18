@@ -2,8 +2,10 @@ package com.spotinst.sdkjava.example.ocean.aks;
 
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.AksUpdateRollRequest;
 import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 
 import java.util.Arrays;
@@ -41,6 +43,22 @@ public class OceanAzureAksClusterUsageExample {
         //Get cluster nodes
         System.out.println("----------Get cluster Nodes--------------");
         List<GetAksClusterNodesResponse> nodes = getClusterNodes(clusterClient, "cluster-id");
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        AksClusterRollResponse initiateRollResponse = initiateClusterRoll(clusterClient, "cluster-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        AksClusterRollResponse getClusterRollStatus = getClusterRollStatus (clusterClient, "cluster-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<AksClusterRollResponse> listClusterRolls = getAllClusterRolls(clusterClient, "cluster-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        AksClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
     }
 
     private static String createCluster(SpotOceanAzureAksClusterClient client) {
@@ -237,5 +255,54 @@ public class OceanAzureAksClusterUsageExample {
 
         return nodes;
     }
+
+    private static AksClusterRollResponse initiateClusterRoll(SpotOceanAzureAksClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        AksInitiateRoll.Builder initiateRollBuilder = AksInitiateRoll.Builder.get();
+        AksInitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", clusterId));
+        AksClusterRollResponse rollResponse = client.initiateRoll(initiateRoll, clusterId);
+
+        String rollId = rollResponse.getId();
+
+        return rollResponse;
+    }
+
+    private static AksClusterRollResponse getClusterRollStatus (SpotOceanAzureAksClusterClient client, String clusterId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        AksClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<AksClusterRollResponse> getAllClusterRolls(SpotOceanAzureAksClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", clusterId));
+        List<AksClusterRollResponse> getAllRolls = client.listRolls(clusterId);
+
+        for (AksClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static AksClusterRollResponse updateClusterRoll(SpotOceanAzureAksClusterClient client, String clusterId, String rollId, String status) {
+
+        AksUpdateRollRequest.Builder updateRollBuilder = AksUpdateRollRequest.Builder.get();
+        AksUpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        AksClusterRollResponse response = client.updateRoll(updateRoll, clusterId, rollId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
 }
 
