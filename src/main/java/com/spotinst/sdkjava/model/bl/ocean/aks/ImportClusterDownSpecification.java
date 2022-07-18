@@ -9,7 +9,7 @@ public class ImportClusterDownSpecification {
 
     @JsonIgnore
     private Set<String> isSet;
-    private double      maxScaleDownPercentage;
+    private Double      maxScaleDownPercentage;
 
 
     private ImportClusterDownSpecification() {
@@ -26,11 +26,11 @@ public class ImportClusterDownSpecification {
     }
 
 
-    public double getMaxScaleDownPercentage() {
+    public Double getMaxScaleDownPercentage() {
         return maxScaleDownPercentage;
     }
 
-    public void setMaxScaleDownPercentage(double maxScaleDownPercentage) {
+    public void setMaxScaleDownPercentage(Double maxScaleDownPercentage) {
         isSet.add("maxScaleDownPercentage");
         this.maxScaleDownPercentage = maxScaleDownPercentage;
     }
@@ -46,7 +46,7 @@ public class ImportClusterDownSpecification {
             return new Builder();
         }
 
-        public ImportClusterDownSpecification.Builder setMaxScaleDownPercentage(final double maxScaleDownPercentage) {
+        public ImportClusterDownSpecification.Builder setMaxScaleDownPercentage(final Double maxScaleDownPercentage) {
             down.setMaxScaleDownPercentage(maxScaleDownPercentage);
             return this;
         }
