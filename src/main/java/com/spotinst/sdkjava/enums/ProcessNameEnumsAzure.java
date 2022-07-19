@@ -16,7 +16,7 @@ public enum ProcessNameEnumsAzure {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessNameEnumsAzure.class);
     private String name;
 
-    private ProcessNameEnumsAzure(String name) {
+    ProcessNameEnumsAzure(String name) {
         this.name = name;
     }
 

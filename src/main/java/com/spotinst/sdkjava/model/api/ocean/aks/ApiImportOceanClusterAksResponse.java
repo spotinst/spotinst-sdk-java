@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ClusterConfigurationAks;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ImportClusterAutoScalerConfiguration;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ImportClusterHealth;
-import com.spotinst.sdkjava.model.bl.ocean.aks.ImportClusterStrategyConfiguration;
 
 import java.util.Date;
 import java.util.HashSet;

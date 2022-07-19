@@ -12,7 +12,7 @@ public enum AzureStatefulNodePerformAtEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStatefulNodePerformAtEnum.class);
     private              String name;
 
-    private AzureStatefulNodePerformAtEnum(String name) {
+    AzureStatefulNodePerformAtEnum(String name) {
         this.name = name;
     }
 

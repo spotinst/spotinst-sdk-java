@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiInitiateRollProgress;
 
 import java.util.HashSet;
 import java.util.List;

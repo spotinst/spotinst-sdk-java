@@ -51,7 +51,7 @@ public enum AwsSpotRequestStatusEnum {
     private String awsName;
     private Integer code;
     private AwsSpotRequestStatusFamilyEnum statusFamily;
-    private AwsSpotRequestStatusEnum(String awsName, Integer code, AwsSpotRequestStatusFamilyEnum statusFamily) {
+    AwsSpotRequestStatusEnum(String awsName, Integer code, AwsSpotRequestStatusFamilyEnum statusFamily) {
         this.awsName = awsName;
         this.code = code;
         this.statusFamily = statusFamily;

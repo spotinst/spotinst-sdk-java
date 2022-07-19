@@ -17,7 +17,7 @@ public enum SchedulingTaskTypeEnum {
     RESUME("resume"),
     RECYCLE("recycle");
 
-    private SchedulingTaskTypeEnum(String name) {
+    SchedulingTaskTypeEnum(String name) {
         this.name = name;
     }
 

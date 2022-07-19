@@ -17,7 +17,7 @@ public enum SubscriptionProtocolEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionProtocolEnum.class);
     private final String name;
 
-    private SubscriptionProtocolEnum(String name) {
+    SubscriptionProtocolEnum(String name) {
         this.name = name;
     }
 

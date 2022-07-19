@@ -12,7 +12,7 @@ public enum PerformAtEnumGcp {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
 
-    private PerformAtEnumGcp(String name) {
+    PerformAtEnumGcp(String name) {
         this.name = name;
     }
 

@@ -12,7 +12,7 @@ public enum GroupActiveInstanceStatusEnumGcp {
     NEW("new"),
     running("running");
 
-    private GroupActiveInstanceStatusEnumGcp(String name) {
+    GroupActiveInstanceStatusEnumGcp(String name) {
         this.name = name;
     }
 

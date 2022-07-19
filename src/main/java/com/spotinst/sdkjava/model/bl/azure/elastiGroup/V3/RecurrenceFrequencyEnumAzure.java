@@ -10,7 +10,7 @@ public enum RecurrenceFrequencyEnumAzure {
     WEEKLY("weekly"),
     CONTINUOUS("continuous");
 
-    private RecurrenceFrequencyEnumAzure(String name) {
+    RecurrenceFrequencyEnumAzure(String name) {
         this.name = name;
     }
 

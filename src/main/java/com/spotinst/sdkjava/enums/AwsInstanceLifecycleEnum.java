@@ -14,7 +14,7 @@ public enum AwsInstanceLifecycleEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
 
-    private AwsInstanceLifecycleEnum(String name) {
+    AwsInstanceLifecycleEnum(String name) {
         this.name = name;
     }
 

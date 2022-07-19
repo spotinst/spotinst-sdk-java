@@ -11,7 +11,7 @@ public enum UserTypeEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserTypeEnum.class);
     private              String name;
 
-    private UserTypeEnum(String name) {
+    UserTypeEnum(String name) {
         this.name = name;
     }
 

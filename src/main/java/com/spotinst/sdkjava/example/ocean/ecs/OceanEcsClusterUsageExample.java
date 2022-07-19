@@ -459,9 +459,8 @@ public class OceanEcsClusterUsageExample {
         ImportEcsCluster importEcsCluster = importEcsClusterBuilder.setName("ECS_Import").setRegion("us-west2").build();
 
         System.out.println(String.format("Import ECS Cluster. ClusterName: %s", ecsClusterName));
-        ImportOceanEcsClusterResponse response = client.importEcsCluster(importEcsCluster, ecsClusterName);
 
-        return response;
+        return client.importEcsCluster(importEcsCluster, ecsClusterName);
     }
 
 

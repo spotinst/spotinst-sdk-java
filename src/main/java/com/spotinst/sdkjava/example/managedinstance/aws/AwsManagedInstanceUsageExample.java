@@ -11,7 +11,6 @@ import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanc
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;

@@ -11,7 +11,7 @@ public enum PolicyEffectEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyEffectEnum.class);
     private              String name;
 
-    private PolicyEffectEnum(String name) {
+    PolicyEffectEnum(String name) {
         this.name = name;
     }
 

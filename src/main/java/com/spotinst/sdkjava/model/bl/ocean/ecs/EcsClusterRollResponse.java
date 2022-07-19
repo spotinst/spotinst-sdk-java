@@ -2,7 +2,6 @@ package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.InitiateRollProgress;
 
 import java.util.HashSet;
 import java.util.List;
