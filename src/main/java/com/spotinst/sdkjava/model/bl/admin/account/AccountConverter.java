@@ -72,4 +72,32 @@ public class AccountConverter {
         return retVal;
     }
     //endregion
+
+    //region DAL -> BL
+    public static Account toBl(ApiAccount src) {
+        Account retVal = null;
+
+        if (src != null) {
+            Account.Builder accountBuilder = Account.Builder.get();
+
+            if (src.isIdSet()) {
+                accountBuilder.setId(src.getId());
+            }
+
+            if (src.isNameSet()) {
+                accountBuilder.setName(src.getName());
+            }
+
+            if (src.isOrganizationIdSet()) {
+                accountBuilder.setOrganizationId(src.getOrganizationId());
+            }
+
+            retVal = accountBuilder.build();
+
+        }
+
+        return retVal;
+    }
+    //endregion
+
 }

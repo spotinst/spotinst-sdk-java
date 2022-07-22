@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.bl.admin.account;
+package com.spotinst.sdkjava.model.requests.admin.account;
 
 public class AccountDeleteRequest {
 
