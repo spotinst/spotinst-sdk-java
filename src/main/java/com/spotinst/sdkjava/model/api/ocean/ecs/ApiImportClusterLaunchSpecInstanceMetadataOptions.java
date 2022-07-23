@@ -18,8 +18,8 @@ public class ApiImportClusterLaunchSpecInstanceMetadataOptions implements IParti
     @JsonIgnore
     private Set<String>               isSet;
     private Integer                   httpPutResponseHopLimit;
-    private AwsECSHttpTokensEnum      httpTokens;
-    private AwsECSHttpEndpointEnum    httpEndpoint;
+    private String                    httpTokens;
+    private String                    httpEndpoint;
 
     private ApiImportClusterLaunchSpecInstanceMetadataOptions() {
         isSet = new HashSet<>();
@@ -42,20 +42,20 @@ public class ApiImportClusterLaunchSpecInstanceMetadataOptions implements IParti
         this.httpPutResponseHopLimit = httpPutResponseHopLimit;
     }
 
-    public AwsECSHttpTokensEnum getHttpTokens() {
+    public String getHttpTokens() {
         return httpTokens;
     }
 
-    public void setHttpTokens(AwsECSHttpTokensEnum httpTokens) {
+    public void setHttpTokens(String httpTokens) {
         isSet.add("httpTokens");
         this.httpTokens = httpTokens;
     }
 
-    public AwsECSHttpEndpointEnum getHttpEndpoint() {
+    public String getHttpEndpoint() {
         return httpEndpoint;
     }
 
-    public void setHttpEndpoint(AwsECSHttpEndpointEnum httpEndpoint) {
+    public void setHttpEndpoint(String httpEndpoint) {
         isSet.add("httpEndpoint");
         this.httpEndpoint = httpEndpoint;
     }
