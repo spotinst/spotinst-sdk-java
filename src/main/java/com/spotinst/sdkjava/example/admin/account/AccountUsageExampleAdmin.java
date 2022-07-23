@@ -52,8 +52,7 @@ public class AccountUsageExampleAdmin {
         }
 
         // -------------------- Delete account Example ---------------------------
-        String accountIdToDelete = accountId;
-        deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
+        deleteAccount(spotinstAccountAdminClient, accountId);
 
     }
 

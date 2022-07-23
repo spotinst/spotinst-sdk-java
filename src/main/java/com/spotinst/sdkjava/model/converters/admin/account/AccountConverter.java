@@ -1,6 +1,8 @@
-package com.spotinst.sdkjava.model.bl.admin.account;
+package com.spotinst.sdkjava.model.converters.admin.account;
 
 import com.spotinst.sdkjava.model.api.admin.account.*;
+import com.spotinst.sdkjava.model.bl.admin.account.Account;
+import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
 
 
 public class AccountConverter {

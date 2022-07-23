@@ -1,13 +1,16 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.repo.admin.account;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ISpotAccountAdminRepo;
+import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccount;
-import com.spotinst.sdkjava.model.bl.admin.account.AccountConverter;
+import com.spotinst.sdkjava.model.converters.admin.account.AccountConverter;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
+import com.spotinst.sdkjava.model.service.admin.account.SpotAccountAdminService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,11 +57,11 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> update(UpdateAccountRequest request, String authToken, String account) {
+    public RepoGenericResponse<Boolean> update(UpdateAccountRequest request, String authToken, String accountId) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotAccountAdminService.updateAccount(request, authToken, account);
+            Boolean success = SpotAccountAdminService.updateAccount(request, authToken, accountId);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.service.admin.account;
 
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
@@ -86,8 +86,6 @@ public class SpotAccountAdminService extends BaseSpotinstService {
 
         return retVal;
     }
-
-
 
 
     public static List<ApiAccountAdmin> listAccounts(String cloudAccountId, String authToken) throws SpotinstHttpException {
