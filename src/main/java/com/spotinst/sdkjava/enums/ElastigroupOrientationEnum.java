@@ -15,7 +15,7 @@ public enum ElastigroupOrientationEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupOrientationEnum.class);
     private final String name;
 
-    private ElastigroupOrientationEnum(String name) {
+    ElastigroupOrientationEnum(String name) {
         this.name = name;
     }
 

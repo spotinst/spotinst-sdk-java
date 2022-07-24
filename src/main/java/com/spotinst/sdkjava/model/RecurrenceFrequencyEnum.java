@@ -10,7 +10,7 @@ public enum RecurrenceFrequencyEnum {
     WEEKLY("weekly"),
     CONTINUOUS("continuous");
 
-    private RecurrenceFrequencyEnum(String name) {
+    RecurrenceFrequencyEnum(String name) {
         this.name = name;
     }
 

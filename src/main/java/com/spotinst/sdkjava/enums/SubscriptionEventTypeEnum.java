@@ -18,7 +18,7 @@ public enum SubscriptionEventTypeEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionEventTypeEnum.class);
     private final String name;
 
-    private SubscriptionEventTypeEnum(String name) {
+    SubscriptionEventTypeEnum(String name) {
         this.name = name;
     }
 

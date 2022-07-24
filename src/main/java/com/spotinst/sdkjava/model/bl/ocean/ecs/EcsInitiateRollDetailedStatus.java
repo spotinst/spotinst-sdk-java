@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.ecs;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.InitiateRollResponseOldInstances;
 
 import java.util.HashSet;
 import java.util.List;

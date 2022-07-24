@@ -20,7 +20,7 @@ public enum AwsImageStatusEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsImageStatusEnum.class);
     private String name;
 
-    private AwsImageStatusEnum(String name) {
+    AwsImageStatusEnum(String name) {
         this.name = name;
     }
 

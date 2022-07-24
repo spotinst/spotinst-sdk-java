@@ -1,7 +1,6 @@
 package com.spotinst.sdkjava.model.bl.ocean.aks;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.InitiateRollDetailedStatus;
 
 import java.util.HashSet;
 import java.util.Set;

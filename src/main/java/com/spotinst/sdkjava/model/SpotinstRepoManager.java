@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
+import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
 import com.spotinst.sdkjava.model.repo.ocean.aks.AzureAksVngRepo;

@@ -3,6 +3,10 @@ package com.spotinst.sdkjava.example.admin.account;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.admin.account.*;
+import com.spotinst.sdkjava.model.requests.admin.account.AccountDeleteRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.ListAllAccountsRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
+
 import java.util.*;
 import java.io.IOException;
 
@@ -13,6 +17,24 @@ public class AccountUsageExampleAdmin {
     public static void main(String[] args) throws IOException {
         // Get account service client
         SpotinstAccountAdminClient spotinstAccountAdminClient = SpotinstClient.getAdminAccountClient(authToken);
+
+        // -------------------- Create account Example ---------------------------
+        String accountNameToCreate = "your-account-to-create";
+        String accountId = createAccount(spotinstAccountAdminClient, accountNameToCreate);
+
+        System.out.println("Account Created with Account ID - " + accountId);
+
+        // -------------------- Update account Example ---------------------------
+        String accountNameToUpdate = "your-account-to-update";
+        Boolean status = updateAccount(spotinstAccountAdminClient, accountNameToUpdate, accountId);
+
+        if(status) {
+            System.out.println("Account Successfully Updated");
+        }
+        else {
+            System.out.println("Account Update Failed");
+        }
+
 
         // -------------------- List all accounts Example ---------------------------
         String yourCloudAccountId = "you-cloud-account-id"; // This parameter can be Null, if all the accounts in the organization to be listed.
@@ -30,10 +52,24 @@ public class AccountUsageExampleAdmin {
         }
 
         // -------------------- Delete account Example ---------------------------
-        String accountIdToDelete = "you-account-id-to-delete";
-        deleteAccount(spotinstAccountAdminClient, accountIdToDelete);
+        deleteAccount(spotinstAccountAdminClient, accountId);
 
     }
+
+    private static String createAccount(SpotinstAccountAdminClient client, String accountName) {
+
+        Account response = client.createAccount(accountName);
+
+        return response.getId();
+    }
+
+    private static Boolean updateAccount(SpotinstAccountAdminClient client, String newAccountName, String accountToUpdate) {
+        UpdateAccountRequest.Builder requestBuilder = UpdateAccountRequest.Builder.get();
+        UpdateAccountRequest updateAccountsRequest = requestBuilder.setName(newAccountName).build();
+
+        return client.updateAccount(updateAccountsRequest, accountToUpdate);
+    }
+
 
     private static List<BlAccountAdmin> listAllAccounts(SpotinstAccountAdminClient client, String cloudAccountId) {
         ListAllAccountsRequest.Builder listAccountsBuilder = ListAllAccountsRequest.Builder.get();
@@ -41,7 +77,6 @@ public class AccountUsageExampleAdmin {
 
         return client.listAllAccounts(listAccountsRequest);
     }
-
 
     private static void deleteAccount(SpotinstAccountAdminClient client, String accountIdToDelete) {
         AccountDeleteRequest.Builder deletionBuilder = AccountDeleteRequest.Builder.get();

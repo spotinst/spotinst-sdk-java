@@ -13,7 +13,7 @@ public enum PolicyTypeEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(PolicyTypeEnum.class);
     private              String name;
 
-    private PolicyTypeEnum(String name) {
+    PolicyTypeEnum(String name) {
         this.name = name;
     }
 
