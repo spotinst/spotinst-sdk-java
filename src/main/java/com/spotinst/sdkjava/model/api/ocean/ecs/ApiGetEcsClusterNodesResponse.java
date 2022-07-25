@@ -17,7 +17,7 @@ import java.util.Set;
 public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                            isSet;
-    private AwsECSLifecycleEnum                lifeCycle;
+    private String                             lifeCycle;
     private String			                    publicIp;
     private Double              workloadRequestedCpuUnit;
     private Integer         workloadRequestedMemoryInMiB;
@@ -28,7 +28,7 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
     private Integer                    registeredCpuUnit;
     private Integer                registeredMemoryInMiB;
     private Integer                        registeredGpu;
-    private AwsECSRegistrationStatusEnum registrationStatus;
+    private String                    registrationStatus;
     private String                             createdAt;
     private String                   containerInstanceId;
     private String                            instanceId;
@@ -49,11 +49,11 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public AwsECSLifecycleEnum getLifeCycle() {
+    public String getLifeCycle() {
         return lifeCycle;
     }
 
-    public void setLifeCycle(AwsECSLifecycleEnum lifeCycle) {
+    public void setLifeCycle(String lifeCycle) {
         isSet.add("lifeCycle");
         this.lifeCycle = lifeCycle;
     }
@@ -148,11 +148,11 @@ public class ApiGetEcsClusterNodesResponse implements IPartialUpdateEntity {
         this.containerInstanceId = containerInstanceId;
     }
 
-    public AwsECSRegistrationStatusEnum getRegistrationStatus() {
+    public String getRegistrationStatus() {
         return registrationStatus;
     }
 
-    public void setRegistrationStatus(AwsECSRegistrationStatusEnum registrationStatus) {
+    public void setRegistrationStatus(String registrationStatus) {
         isSet.add("registrationStatus");
         this.registrationStatus = registrationStatus;
     }

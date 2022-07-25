@@ -1,5 +1,9 @@
 package com.spotinst.sdkjava.model.converters.ocean.ecs;
 
+import com.spotinst.sdkjava.enums.AwsECSHttpEndpointEnum;
+import com.spotinst.sdkjava.enums.AwsECSHttpTokensEnum;
+import com.spotinst.sdkjava.enums.AwsECSLifecycleEnum;
+import com.spotinst.sdkjava.enums.AwsECSRegistrationStatusEnum;
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
 import java.util.List;
@@ -1184,7 +1188,7 @@ public class OceanEcsConverter {
             GetEcsClusterNodesResponse.Builder instancesBuilder = GetEcsClusterNodesResponse.Builder.get();
 
             if (apiClusterNodes.isLifeCycleSet()) {
-                instancesBuilder.setLifeCycle(apiClusterNodes.getLifeCycle());
+                instancesBuilder.setLifeCycle(AwsECSLifecycleEnum.fromName(apiClusterNodes.getLifeCycle()));
             }
 
             if (apiClusterNodes.isPublicIpSet()) {
@@ -1232,7 +1236,7 @@ public class OceanEcsConverter {
             }
 
             if (apiClusterNodes.isRegistrationStatusSet()) {
-                instancesBuilder.setRegistrationStatus(apiClusterNodes.getRegistrationStatus());
+                instancesBuilder.setRegistrationStatus(AwsECSRegistrationStatusEnum.fromName(apiClusterNodes.getRegistrationStatus()));
             }
 
             if (apiClusterNodes.isCreatedAtSet()) {
@@ -1373,10 +1377,10 @@ public class OceanEcsConverter {
                         .setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
             }
             if (instanceMetadataOptions.isHttpTokensSet()) {
-                instanceMetadataOptionsBuilder.setHttpTokens(instanceMetadataOptions.getHttpTokens());
+                instanceMetadataOptionsBuilder.setHttpTokens(AwsECSHttpTokensEnum.fromName(instanceMetadataOptions.getHttpTokens()));
             }
             if (instanceMetadataOptions.isHttpEndpointSet()) {
-                instanceMetadataOptionsBuilder.setHttpEndpoint(instanceMetadataOptions.getHttpEndpoint());
+                instanceMetadataOptionsBuilder.setHttpEndpoint(AwsECSHttpEndpointEnum.fromName(instanceMetadataOptions.getHttpEndpoint()));
             }
             retVal = instanceMetadataOptionsBuilder.build();
         }
