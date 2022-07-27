@@ -1,11 +1,7 @@
 package com.spotinst.sdkjava.model.converters.elastigroup.aws;
 
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupGetElastilogResponse;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesDevices;
-import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupListStatefulInstancesResponse;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupGetElastilogResponse;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupListStatefulInstancesDevices;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupListStatefulInstancesResponse;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -98,6 +94,114 @@ public class StatefulElastigroupConverter {
 
             if (elastigroupGetElastilogResponse.isCreatedAtSet()) {
                 retVal.setCreatedAt(elastigroupGetElastilogResponse.getCreatedAt());
+            }
+
+        }
+        return retVal;
+
+    }
+
+    public static ElastigroupImportStatefulInstanceDataResponse toBl(ApiElastigroupImportStatefulInstanceDataResponse data) {
+        ElastigroupImportStatefulInstanceDataResponse retVal = null;
+
+        if (data != null) {
+            ElastigroupImportStatefulInstanceDataResponse.Builder detailedStatusBuilder = ElastigroupImportStatefulInstanceDataResponse.Builder.get();
+
+            if (data.isOriginalInstanceIdSet()) {
+                detailedStatusBuilder.setOriginalInstanceId(data.getOriginalInstanceId());
+            }
+
+            if (data.isShouldKeepPrivateIpSet()) {
+                detailedStatusBuilder.setShouldKeepPrivateIp(data.getShouldKeepPrivateIp());
+            }
+
+            if (data.isShouldTerminateInstanceSet()) {
+                detailedStatusBuilder.setShouldTerminateInstance(data.getShouldTerminateInstance());
+            }
+
+            retVal = detailedStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupImportStatefulInstanceResponse toBl(
+            ApiElastigroupImportStatefulInstanceResponse elastigroupImportStatefulInstanceResponse) {
+        ElastigroupImportStatefulInstanceResponse retVal = null;
+
+        if (elastigroupImportStatefulInstanceResponse != null) {
+            retVal = new ElastigroupImportStatefulInstanceResponse();
+
+            if (elastigroupImportStatefulInstanceResponse.isIdSet()) {
+                retVal.setId(elastigroupImportStatefulInstanceResponse.getId());
+            }
+
+            if (elastigroupImportStatefulInstanceResponse.isGroupIdSet()) {
+                retVal.setGroupId(elastigroupImportStatefulInstanceResponse.getGroupId());
+            }
+
+            if (elastigroupImportStatefulInstanceResponse.isStateSet()) {
+                retVal.setState(elastigroupImportStatefulInstanceResponse.getState());
+            }
+
+            if (elastigroupImportStatefulInstanceResponse.isDataSet()) {
+                retVal.setData(toBl(elastigroupImportStatefulInstanceResponse.getData()));
+            }
+
+        }
+        return retVal;
+
+    }
+
+    public static ElastigroupGetImportStatefulStatusResponse toBl(
+            ApiElastigroupGetImportStatefulStatusResponse elastigroupGetImportStatefulStatusResponse) {
+        ElastigroupGetImportStatefulStatusResponse retVal = null;
+
+        if (elastigroupGetImportStatefulStatusResponse != null) {
+            retVal = new ElastigroupGetImportStatefulStatusResponse();
+
+            if (elastigroupGetImportStatefulStatusResponse.isStatefulMigrationIdSet()) {
+                retVal.setStatefulMigrationId(elastigroupGetImportStatefulStatusResponse.getStatefulMigrationId());
+            }
+
+            if (elastigroupGetImportStatefulStatusResponse.isInstanceIdSet()) {
+                retVal.setInstanceId(elastigroupGetImportStatefulStatusResponse.getInstanceId());
+            }
+
+            if (elastigroupGetImportStatefulStatusResponse.isGroupIdSet()) {
+                retVal.setGroupId(elastigroupGetImportStatefulStatusResponse.getGroupId());
+            }
+
+            if (elastigroupGetImportStatefulStatusResponse.isStateSet()) {
+                retVal.setState(elastigroupGetImportStatefulStatusResponse.getState());
+            }
+
+            if (elastigroupGetImportStatefulStatusResponse.isStateDescriptionSet()) {
+                retVal.setStateDescription(elastigroupGetImportStatefulStatusResponse.getStateDescription());
+            }
+
+        }
+        return retVal;
+
+    }
+
+    public static ElastigroupTerminateStatefulInstanceImportResponse toBl(
+            ApiElastigroupTerminateStatefulInstanceImportResponse elastigroupTerminateStatefulInstanceImportResponse) {
+        ElastigroupTerminateStatefulInstanceImportResponse retVal = null;
+
+        if (elastigroupTerminateStatefulInstanceImportResponse != null) {
+            retVal = new ElastigroupTerminateStatefulInstanceImportResponse();
+
+            if (elastigroupTerminateStatefulInstanceImportResponse.isIdSet()) {
+                retVal.setId(elastigroupTerminateStatefulInstanceImportResponse.getId());
+            }
+
+            if (elastigroupTerminateStatefulInstanceImportResponse.isGroupIdSet()) {
+                retVal.setGroupId(elastigroupTerminateStatefulInstanceImportResponse.getGroupId());
+            }
+
+            if (elastigroupTerminateStatefulInstanceImportResponse.isStateSet()) {
+                retVal.setState(elastigroupTerminateStatefulInstanceImportResponse.getState());
             }
 
         }
