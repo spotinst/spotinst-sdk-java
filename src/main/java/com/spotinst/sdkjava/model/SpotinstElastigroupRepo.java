@@ -1000,4 +1000,41 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
 
     }
+
+    @Override
+    public RepoGenericResponse<Boolean> createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean elastigroupCreateInstanceSignalResponse = SpotinstElastigroupService
+                    .createInstanceSignal(elastigroupCreateInstanceSignalReq, authToken, account);
+
+            retVal = new RepoGenericResponse<>(elastigroupCreateInstanceSignalResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetInstanceStatusResponse> getInstanceStatus(String instanceId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetInstanceStatusResponse> retVal;
+
+        try {
+            ApiElastigroupGetInstanceStatusResponse apiInstanceStatus = SpotinstElastigroupService.getInstanceStatus(instanceId, authToken, account);
+            ElastigroupGetInstanceStatusResponse    instanceStatus    = ElastigroupConverter.toBl(apiInstanceStatus);
+            retVal = new RepoGenericResponse<>(instanceStatus);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
 }

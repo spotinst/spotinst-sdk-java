@@ -3431,4 +3431,24 @@ public class ElastigroupConverter {
 
         return retVal;
     }
+
+    public static ElastigroupGetInstanceStatusResponse toBl(
+            ApiElastigroupGetInstanceStatusResponse elastigroupGetInstanceStatusResponse) {
+        ElastigroupGetInstanceStatusResponse retVal = null;
+
+        if (elastigroupGetInstanceStatusResponse != null) {
+            retVal = new ElastigroupGetInstanceStatusResponse();
+
+            if (elastigroupGetInstanceStatusResponse.isInstanceIdSet()) {
+                retVal.setInstanceId(elastigroupGetInstanceStatusResponse.getInstanceId());
+            }
+
+            if (elastigroupGetInstanceStatusResponse.isLifeCycleStateSet()) {
+                retVal.setLifeCycleState(elastigroupGetInstanceStatusResponse.getLifeCycleState());
+            }
+
+        }
+        return retVal;
+
+    }
 }

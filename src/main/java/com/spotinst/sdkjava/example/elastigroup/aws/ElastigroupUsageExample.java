@@ -196,6 +196,14 @@ public class ElastigroupUsageExample {
         System.out.println("----------Update cluster Roll--------------");
         ElastigroupEcsClusterRollResponse updateRollResponse = updateClusterRoll(elastigroupClient, "group-id", "STOPPED");
 
+        //Create Instance Signal
+        System.out.println("----------Create Instance Signal--------------");
+        Boolean createInstanceSignalStatus = createInstanceSignal(elastigroupClient);
+
+        // Get instance status
+        System.out.println("----------Get Instance Status--------------");
+        ElastigroupGetInstanceStatusResponse response = getInstanceStatus(elastigroupClient, instanceId);
+
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -1191,6 +1199,28 @@ public class ElastigroupUsageExample {
         ElastigroupEcsClusterRollResponse response = client.updateECSClusterRollinEG(updateRoll, groupId);
 
         System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
+    private static Boolean createInstanceSignal(SpotinstElastigroupClient elastigroupClient) {
+
+        ElastigroupCreateInstanceSignal.Builder instanceSignalBuilder = ElastigroupCreateInstanceSignal.Builder.get();
+        ElastigroupCreateInstanceSignal         instanceSignal        = instanceSignalBuilder.setInstanceId(instanceId).setSignal("INSTANCE_READY").build();
+
+        System.out.println("Create instance signal:" + instanceId);
+
+        return elastigroupClient.createInstanceSignal(instanceSignal);
+
+    }
+
+    private static ElastigroupGetInstanceStatusResponse getInstanceStatus(SpotinstElastigroupClient client, String instanceId) {
+
+        System.out.println(String.format("Get Instance Status. InstanceId: %s", instanceId));
+        ElastigroupGetInstanceStatusResponse response = client.getInstanceStatus(instanceId);
+
+        System.out.println(String.format("Instance ID: %s", response.getInstanceId()));
+        System.out.println(String.format("Lifecycle State: %s", response.getLifeCycleState()));
 
         return response;
     }

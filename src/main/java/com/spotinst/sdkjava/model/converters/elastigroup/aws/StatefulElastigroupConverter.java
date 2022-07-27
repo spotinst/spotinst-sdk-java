@@ -208,6 +208,4 @@ public class StatefulElastigroupConverter {
         return retVal;
 
     }
-
-
 }

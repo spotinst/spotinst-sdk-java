@@ -1272,4 +1272,46 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Boolean createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> elastigroupCreateInstanceSignalResponse = getSpotinstElastigroupRepo().createInstanceSignal(elastigroupCreateInstanceSignalReq, authToken, account);
+
+        if (elastigroupCreateInstanceSignalResponse.isRequestSucceed()) {
+            retVal = elastigroupCreateInstanceSignalResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupCreateInstanceSignalResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create instance signal. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupGetInstanceStatusResponse getInstanceStatus(String instanceId) {
+
+        ElastigroupGetInstanceStatusResponse retVal;
+
+        RepoGenericResponse<ElastigroupGetInstanceStatusResponse> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().getInstanceStatus(instanceId, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get instance status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 }

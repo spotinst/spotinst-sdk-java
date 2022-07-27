@@ -2032,4 +2032,78 @@ class SpotinstElastigroupService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static Boolean createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq, String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instance/signal", apiEndpoint);
+
+        // Write to json
+        String body = JsonMapper.toJson(elastigroupCreateInstanceSignalReq);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        // Handle the response.
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+
+    }
+
+    public static ApiElastigroupGetInstanceStatusResponse getInstanceStatus(String instanceId, String authToken,
+                                          String account) throws SpotinstHttpException {
+        // Init retVal
+        ApiElastigroupGetInstanceStatusResponse retVal = new ApiElastigroupGetInstanceStatusResponse();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/instance/%s", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupGetInstanceStatusApiResponse instanceStatusResponse = getCastedResponse(response, ElastigroupGetInstanceStatusApiResponse.class);
+
+        if (instanceStatusResponse.getResponse().getCount() > 0) {
+            retVal = instanceStatusResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
 }

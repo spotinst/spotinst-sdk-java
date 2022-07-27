@@ -120,4 +120,8 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> terminateStatefulInstanceImport(ElastigroupTerminateStatefulInstanceImportRequest elastigroupTerminateReq, String statefulMigrationGroupID, String authToken, String account);
 
     RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> deleteStatefulInstanceImport(String statefulMigrationGroupID, String authToken, String account);
+
+    RepoGenericResponse<Boolean> createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetInstanceStatusResponse> getInstanceStatus(String instanceId, String authToken, String account);
 }
