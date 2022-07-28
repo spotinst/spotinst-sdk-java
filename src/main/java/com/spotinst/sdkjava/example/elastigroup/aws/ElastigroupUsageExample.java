@@ -198,7 +198,8 @@ public class ElastigroupUsageExample {
 
         //Create Instance Signal
         System.out.println("----------Create Instance Signal--------------");
-        Boolean createInstanceSignalStatus = createInstanceSignal(elastigroupClient);
+        String signal = "INSTANCE_READY";
+        Boolean createInstanceSignalStatus = createInstanceSignal(elastigroupClient, signal);
 
         // Get instance status
         System.out.println("----------Get Instance Status--------------");
@@ -1203,10 +1204,10 @@ public class ElastigroupUsageExample {
         return response;
     }
 
-    private static Boolean createInstanceSignal(SpotinstElastigroupClient elastigroupClient) {
+    private static Boolean createInstanceSignal(SpotinstElastigroupClient elastigroupClient, String signal) {
 
         ElastigroupCreateInstanceSignal.Builder instanceSignalBuilder = ElastigroupCreateInstanceSignal.Builder.get();
-        ElastigroupCreateInstanceSignal         instanceSignal        = instanceSignalBuilder.setInstanceId(instanceId).setSignal("INSTANCE_READY").build();
+        ElastigroupCreateInstanceSignal         instanceSignal        = instanceSignalBuilder.setInstanceId(instanceId).setSignal(signal).build();
 
         System.out.println("Create instance signal:" + instanceId);
 
