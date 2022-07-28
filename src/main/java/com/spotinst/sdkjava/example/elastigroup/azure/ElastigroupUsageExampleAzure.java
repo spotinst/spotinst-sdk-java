@@ -536,7 +536,7 @@ public class ElastigroupUsageExampleAzure {
 
     public static DetachVmsResponseAzure detachVms(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
         DetachVmsAzure.Builder detachVmBuilder = DetachVmsAzure.Builder.get();
-        DetachVmsAzure detachVmAzure = detachVmBuilder.setDrainingTimeout("300")
+        DetachVmsAzure detachVmAzure = detachVmBuilder.setDrainingTimeout(300)
                 .setShouldDecrementTargetCapacity(false)
                 .setShouldTerminateVms(true)
                 .setVmsToDetach(vmList)
