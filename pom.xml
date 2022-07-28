@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
-  <version>1.0.98</version>
+  <version>1.0.99-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>spotinst-sdk-java</name>
   <description>A Spotinst Java SDK</description>
@@ -20,7 +20,7 @@
     <connection>scm:git:git://github.com/spotinst/spotinst-sdk-java.git</connection>
     <url>scm:git:https://github.com/spotinst/spotinst-sdk-java</url>
     <developerConnection>scm:git:https://github.com/spotinst/spotinst-sdk-java</developerConnection>
-    <tag>spotinst-sdk-java-1.0.98</tag>
+    <tag>HEAD</tag>
   </scm>
   <developers>
     <developer>
