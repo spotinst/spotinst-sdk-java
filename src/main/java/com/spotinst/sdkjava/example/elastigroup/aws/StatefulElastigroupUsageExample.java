@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.example.elastigroup.aws;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupTerminateStatefulInstanceImportRequest;
 
 import java.io.IOException;
 import java.util.*;
@@ -12,6 +13,7 @@ public class StatefulElastigroupUsageExample {
     private final static String act_id        = "your-account-id";
 
     private static final String ELASTIGROUP_ID = "stateful-elastigroup-id";
+    private static final String Instance_ID = "instance-id";
 
     public static void main(String[] args) throws IOException {
         // Get elastigroup service client
@@ -44,6 +46,24 @@ public class StatefulElastigroupUsageExample {
         //Delete volume in the stateful instance
         System.out.println("----------Delete volume in the stateful Instance--------------");
         Boolean deleteVolumeStatus = deleteVolumeInStatefulInstance(elastigroupClient, ELASTIGROUP_ID, statefulId, volumeId);
+
+        //Import stateful instance
+        System.out.println("----------Import stateful Instance--------------");
+        ElastigroupImportStatefulInstanceResponse importResponse = importStatefulInstance(elastigroupClient, Instance_ID);
+
+        //Terminate stateful instance
+        String statefulMigrationGroupID = null;
+        System.out.println("----------Terminate stateful Instance--------------");
+        ElastigroupTerminateStatefulInstanceImportResponse terminateResponse = terminateStatefulInstanceImport(elastigroupClient, statefulMigrationGroupID);
+
+        //Delete stateful instance
+        System.out.println("----------Delete stateful Instance--------------");
+        ElastigroupTerminateStatefulInstanceImportResponse deleteResponse = deleteStatefulInstanceImport(elastigroupClient, statefulMigrationGroupID);
+
+        //List stateful instance import status
+        System.out.println("----------List stateful Instance Import Status--------------");
+        ElastigroupGetImportStatefulStatusResponse importStatusResponse = getStatefulImportStatus(elastigroupClient, statefulMigrationGroupID);
+
     }
 
     private static Boolean pauseStatefulInstance(SpotinstElastigroupClient client, String elastigroupId, String statefulId) {
@@ -133,6 +153,47 @@ public class StatefulElastigroupUsageExample {
         }
 
         return elastigroupStatefulInstances;
+    }
+
+    private static ElastigroupImportStatefulInstanceResponse importStatefulInstance(SpotinstElastigroupClient client, String Instance_ID) {
+
+        ElastigroupImportStatefulInstance.Builder importBuilder = ElastigroupImportStatefulInstance.Builder.get();
+        ElastigroupImportStatefulInstance importStatus = importBuilder.setName("Test").setOriginalInstanceId(Instance_ID).setShouldKeepPrivateIp(false).build();
+
+        ElastigroupImportStatefulInstanceResponse importStatefulInstance = client.importStatefulInstance(importStatus);
+
+        return importStatefulInstance;
+    }
+
+    private static ElastigroupTerminateStatefulInstanceImportResponse terminateStatefulInstanceImport(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
+
+        ElastigroupTerminateStatefulInstanceImportRequest.Builder importBuilder = ElastigroupTerminateStatefulInstanceImportRequest.Builder.get();
+        ElastigroupTerminateStatefulInstanceImportRequest importStatus = importBuilder.setType("terminate").build();
+
+        ElastigroupTerminateStatefulInstanceImportResponse importStatefulInstanceRes = client.terminateStatefulInstanceImport(importStatus, statefulMigrationGroupID);
+
+        return importStatefulInstanceRes;
+    }
+
+    private static ElastigroupTerminateStatefulInstanceImportResponse deleteStatefulInstanceImport(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
+
+        ElastigroupTerminateStatefulInstanceImportResponse importStatefulInstanceRes = client.deleteStatefulInstanceImport(statefulMigrationGroupID);
+
+        return importStatefulInstanceRes;
+    }
+
+    private static ElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
+
+        ElastigroupGetImportStatefulStatusResponse elastigroupStatefulImportStatus =
+                client.getStatefulImportStatus(statefulMigrationGroupID);
+
+            System.out.println(String.format("Stateful Migration Id: %s", elastigroupStatefulImportStatus.getStatefulMigrationId()));
+            System.out.println(String.format("Stateful Instance Id: %s", elastigroupStatefulImportStatus.getInstanceId()));
+            System.out.println(String.format("Stateful Instance Group Id: %s", elastigroupStatefulImportStatus.getGroupId()));
+            System.out.println(String.format("Stateful Instance state description: %s", elastigroupStatefulImportStatus.getStateDescription()));
+            System.out.println(String.format("Stateful Instance state: %s", elastigroupStatefulImportStatus.getState()));
+
+        return elastigroupStatefulImportStatus;
     }
 
 }
