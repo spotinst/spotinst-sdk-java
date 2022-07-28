@@ -115,7 +115,7 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<ElastigroupImportStatefulInstanceResponse> importStatefulInstance(ElastigroupImportStatefulInstance elastigroupImportInstance, String authToken, String account);
 
-    RepoGenericResponse<List<ElastigroupGetImportStatefulStatusResponse>> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account);
+    RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account);
 
     RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> terminateStatefulInstanceImport(ElastigroupTerminateStatefulInstanceImportRequest elastigroupTerminateReq, String statefulMigrationGroupID, String authToken, String account);
 

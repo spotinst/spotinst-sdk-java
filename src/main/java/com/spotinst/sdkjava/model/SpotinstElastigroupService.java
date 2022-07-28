@@ -1916,9 +1916,9 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account) {
+    public static ApiElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account) {
 
-        List<ApiElastigroupGetImportStatefulStatusResponse> statefulInstanceImportStatus = new LinkedList<>();
+        ApiElastigroupGetImportStatefulStatusResponse statefulInstanceImportStatus = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -1947,7 +1947,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
                 castedApiResponse = getCastedResponse(response, ElastigroupGetImportStatefulStatusApiResponse.class);
 
         if (castedApiResponse.getResponse().getCount() > 0) {
-            statefulInstanceImportStatus = castedApiResponse.getResponse().getItems();
+            statefulInstanceImportStatus = castedApiResponse.getResponse().getItems().get(0);
         }
 
         return statefulInstanceImportStatus;

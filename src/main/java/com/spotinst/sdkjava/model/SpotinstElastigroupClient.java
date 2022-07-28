@@ -1211,11 +1211,11 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public List<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID) {
+    public ElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(String statefulMigrationGroupID) {
 
-        List<ElastigroupGetImportStatefulStatusResponse> listStatefulInstances;
+        ElastigroupGetImportStatefulStatusResponse listStatefulInstances;
 
-        RepoGenericResponse <List<ElastigroupGetImportStatefulStatusResponse>> getStatefulImportStatusResponse =
+        RepoGenericResponse <ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatusResponse =
                 getSpotinstElastigroupRepo().getStatefulImportStatus(statefulMigrationGroupID, authToken, account);
 
         if(getStatefulImportStatusResponse.isRequestSucceed()){

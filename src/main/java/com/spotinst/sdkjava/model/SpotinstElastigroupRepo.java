@@ -938,15 +938,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<ElastigroupGetImportStatefulStatusResponse>> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupGetImportStatefulStatusResponse>> retVal;
+    public RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> retVal;
 
         try {
 
-            List<ApiElastigroupGetImportStatefulStatusResponse> statefulInstanceStatus = SpotinstElastigroupService
+            ApiElastigroupGetImportStatefulStatusResponse statefulInstanceStatus = SpotinstElastigroupService
                     .getStatefulImportStatus(statefulMigrationGroupID, authToken, account);
-            List<ElastigroupGetImportStatefulStatusResponse> importStatus = statefulInstanceStatus.stream().map(StatefulElastigroupConverter::toBl)
-                    .collect(Collectors.toList());
+            ElastigroupGetImportStatefulStatusResponse importStatus = StatefulElastigroupConverter.toBl(statefulInstanceStatus);
 
             retVal = new RepoGenericResponse<>(importStatus);
         }

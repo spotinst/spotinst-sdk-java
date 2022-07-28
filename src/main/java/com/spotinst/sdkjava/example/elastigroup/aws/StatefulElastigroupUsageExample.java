@@ -62,7 +62,7 @@ public class StatefulElastigroupUsageExample {
 
         //List stateful instance import status
         System.out.println("----------List stateful Instance Import Status--------------");
-        List<ElastigroupGetImportStatefulStatusResponse> importStatusResponse = getStatefulImportStatus(elastigroupClient, statefulMigrationGroupID);
+        ElastigroupGetImportStatefulStatusResponse importStatusResponse = getStatefulImportStatus(elastigroupClient, statefulMigrationGroupID);
 
     }
 
@@ -182,18 +182,16 @@ public class StatefulElastigroupUsageExample {
         return importStatefulInstanceRes;
     }
 
-    private static List<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
+    private static ElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
 
-        List<ElastigroupGetImportStatefulStatusResponse> elastigroupStatefulImportStatus =
+        ElastigroupGetImportStatefulStatusResponse elastigroupStatefulImportStatus =
                 client.getStatefulImportStatus(statefulMigrationGroupID);
 
-        for (ElastigroupGetImportStatefulStatusResponse response : elastigroupStatefulImportStatus) {
-            System.out.println(String.format("Stateful Migration Id: %s", response.getStatefulMigrationId()));
-            System.out.println(String.format("Stateful Instance Id: %s", response.getInstanceId()));
-            System.out.println(String.format("Stateful Instance Group Id: %s", response.getGroupId()));
-            System.out.println(String.format("Stateful Instance state description: %s", response.getStateDescription()));
-            System.out.println(String.format("Stateful Instance state: %s", response.getState()));
-        }
+            System.out.println(String.format("Stateful Migration Id: %s", elastigroupStatefulImportStatus.getStatefulMigrationId()));
+            System.out.println(String.format("Stateful Instance Id: %s", elastigroupStatefulImportStatus.getInstanceId()));
+            System.out.println(String.format("Stateful Instance Group Id: %s", elastigroupStatefulImportStatus.getGroupId()));
+            System.out.println(String.format("Stateful Instance state description: %s", elastigroupStatefulImportStatus.getStateDescription()));
+            System.out.println(String.format("Stateful Instance state: %s", elastigroupStatefulImportStatus.getState()));
 
         return elastigroupStatefulImportStatus;
     }
