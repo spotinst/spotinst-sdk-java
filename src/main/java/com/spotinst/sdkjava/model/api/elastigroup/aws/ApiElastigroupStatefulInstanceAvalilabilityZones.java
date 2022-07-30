@@ -6,24 +6,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
+
 public class ApiElastigroupStatefulInstanceAvalilabilityZones implements IPartialUpdateEntity {
-    //region Members
+
+    @JsonIgnore
     private Set<String>  isSet;
     private String       name;
     private List<String> subnetIds;
-    // endregion
 
-    //region Constructor
-    private ApiElastigroupStatefulInstanceAvalilabilityZones() { }
-    // endregion
+    public ApiElastigroupStatefulInstanceAvalilabilityZones() {
+        isSet = new HashSet<>();
+    }
 
-    // region methods
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -31,21 +32,24 @@ public class ApiElastigroupStatefulInstanceAvalilabilityZones implements IPartia
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
     }
-    // region name
-    public String getName(){ return name; }
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
+        isSet.add("name");
         this.name = name;
     }
-    // endregion
 
-    // region subnetId
-    public List<String> getSubnetIds(){ return subnetIds; }
+    public List<String> getSubnetIds() {
+        return subnetIds;
+    }
 
     public void setSubnetIds(List<String> subnetIds) {
+        isSet.add("subnetIds");
         this.subnetIds = subnetIds;
     }
-    // endregion
 
     @JsonIgnore
     public boolean isNameSet() {
@@ -56,4 +60,5 @@ public class ApiElastigroupStatefulInstanceAvalilabilityZones implements IPartia
     public boolean isSubnetIdsSet() {
         return isSet.contains("subnetIds");
     }
+
 }
