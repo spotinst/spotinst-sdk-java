@@ -73,7 +73,7 @@ public class ElastigroupGetImportStatefulStatusResponse {
 
     public void setStateDescription(String stateDescription) {
         isSet.add("stateDescription");
-        this.state = stateDescription;
+        this.stateDescription = stateDescription;
     }
 
     public static class Builder {

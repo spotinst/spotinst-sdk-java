@@ -76,7 +76,7 @@ public class ApiElastigroupGetImportStatefulStatusResponse implements IPartialUp
 
     public void setStateDescription(String stateDescription) {
         isSet.add("stateDescription");
-        this.state = stateDescription;
+        this.stateDescription = stateDescription;
     }
 
     @JsonIgnore

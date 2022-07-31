@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StatefulElastigroupConverter {
+
     public static ElastigroupListStatefulInstancesResponse toBl(
             ApiElastigroupListStatefulInstancesResponse elastigroupListStatefulInstancesResponse) {
         ElastigroupListStatefulInstancesResponse retVal = null;
@@ -176,7 +177,7 @@ public class StatefulElastigroupConverter {
                 retVal.setState(elastigroupGetImportStatefulStatusResponse.getState());
             }
 
-            if (elastigroupGetImportStatefulStatusResponse.isStateDescriptionSet()) {
+            if (elastigroupGetImportStatefulStatusResponse.isStateDescriptionSet() && elastigroupGetImportStatefulStatusResponse.getStateDescription()!= null) {
                 retVal.setStateDescription(elastigroupGetImportStatefulStatusResponse.getStateDescription());
             }
 

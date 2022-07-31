@@ -14,7 +14,7 @@ public class ElastigroupTerminateStatefulInstanceImportRequest {
 
     //region Getters & Setters
 
-    public String geType() {
+    public String getType() {
         return this.type;
     }
 
