@@ -20,6 +20,7 @@ public class StatefulNodeLaunchSpecification {
     private List<LaunchSpecExtensionsSpecification> extensions;
     private LaunchSpecLoginSpecification            login;
     private List<LaunchSpecTagsSpecification>       tags;
+    private String                                  vmName;
 
     private StatefulNodeLaunchSpecification() {
         isSet = new HashSet<>();
@@ -96,6 +97,15 @@ public class StatefulNodeLaunchSpecification {
         this.tags = tags;
     }
 
+    public String getvmName() {
+        return vmName;
+    }
+
+    public void setvmName(String vmName) {
+        isSet.add("vmName");
+        this.vmName = vmName;
+    }
+
     public static class Builder {
 
         private StatefulNodeLaunchSpecification launchspec;
@@ -148,6 +158,10 @@ public class StatefulNodeLaunchSpecification {
             return this;
         }
 
+        public Builder setvmName(final String vmName) {
+            launchspec.setvmName(vmName);
+            return this;
+        }
 
         public StatefulNodeLaunchSpecification build() {
             return launchspec;
@@ -189,4 +203,7 @@ public class StatefulNodeLaunchSpecification {
         return isSet.contains("tags");
     }
 
-}
+    @JsonIgnore
+    public boolean isVmNameSet(){return  isSet.contains("vmName");}
+
+    }
