@@ -25,7 +25,7 @@ public class AzureStatefulNodeExample {
     private final static List<String> backendPoolName     = Arrays.asList();
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
     private final static String       originalVmName      = "myVm";
-    private final static String       vmName              = "String";
+    private final static String       vmName              = "TestVM";
     private final static String       resourceGroup       = "AutomationResourceGroup";
     private final static String       dataDiskName        = "Attach-Detach-DataDisk";
 
