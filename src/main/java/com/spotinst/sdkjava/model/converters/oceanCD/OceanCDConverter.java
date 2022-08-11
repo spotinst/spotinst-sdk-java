@@ -208,6 +208,12 @@ public class OceanCDConverter {
             if (src.isCanarySet()) {
                 strategyBuilder.setCanary(toBl(src.getCanary()));
             }
+            if (src.isCreatedAtSet()) {
+                strategyBuilder.setCreatedAt(src.getCreatedAt());
+            }
+            if (src.isUpdatedAtSet()) {
+                strategyBuilder.setUpdatedAt(src.getUpdatedAt());
+            }
             strategy = strategyBuilder.build();
         }
 
