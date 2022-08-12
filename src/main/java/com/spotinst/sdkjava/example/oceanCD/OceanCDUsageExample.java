@@ -62,17 +62,15 @@ public class OceanCDUsageExample {
     private static Strategy getStrategy (OceanCDClient client, String strategyName) {
 
         System.out.println(String.format("Get Ocean CD Strategy. Strategy Name: %s", strategyName));
-        Strategy getStrategyResponse = client.getStrategy(strategyName);
 
-        return getStrategyResponse;
+        return client.getStrategy(strategyName);
     }
 
     private static List<Strategy> getAllStrategies (OceanCDClient client) {
 
         System.out.println("Get All Ocean CD Strategies");
-        List<Strategy> getAllStrategyResponse = client.getAllStrategies();
 
-        return getAllStrategyResponse;
+        return client.getAllStrategies();
     }
 
     private static Boolean updateStrategy(OceanCDClient client, String strategyName) {
