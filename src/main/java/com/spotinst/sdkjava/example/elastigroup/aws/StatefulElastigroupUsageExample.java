@@ -160,9 +160,7 @@ public class StatefulElastigroupUsageExample {
         ElastigroupImportStatefulInstance.Builder importBuilder = ElastigroupImportStatefulInstance.Builder.get();
         ElastigroupImportStatefulInstance importStatus = importBuilder.setName("Test").setOriginalInstanceId(Instance_ID).setShouldKeepPrivateIp(false).build();
 
-        ElastigroupImportStatefulInstanceResponse importStatefulInstance = client.importStatefulInstance(importStatus);
-
-        return importStatefulInstance;
+        return client.importStatefulInstance(importStatus);
     }
 
     private static ElastigroupTerminateStatefulInstanceImportResponse terminateStatefulInstanceImport(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
@@ -170,16 +168,12 @@ public class StatefulElastigroupUsageExample {
         ElastigroupTerminateStatefulInstanceImportRequest.Builder importBuilder = ElastigroupTerminateStatefulInstanceImportRequest.Builder.get();
         ElastigroupTerminateStatefulInstanceImportRequest importStatus = importBuilder.setType("terminate").build();
 
-        ElastigroupTerminateStatefulInstanceImportResponse importStatefulInstanceRes = client.terminateStatefulInstanceImport(importStatus, statefulMigrationGroupID);
-
-        return importStatefulInstanceRes;
+        return client.terminateStatefulInstanceImport(importStatus, statefulMigrationGroupID);
     }
 
     private static ElastigroupTerminateStatefulInstanceImportResponse deleteStatefulInstanceImport(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
 
-        ElastigroupTerminateStatefulInstanceImportResponse importStatefulInstanceRes = client.deleteStatefulInstanceImport(statefulMigrationGroupID);
-
-        return importStatefulInstanceRes;
+        return client.deleteStatefulInstanceImport(statefulMigrationGroupID);
     }
 
     private static ElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(SpotinstElastigroupClient client, String statefulMigrationGroupID) {
