@@ -24,7 +24,8 @@ public class AzureStatefulNodeExample {
     private final static List<String> zones               = Arrays.asList("1", "2", "3");
     private final static List<String> backendPoolName     = Arrays.asList();
     private final static List<String> optimizationWindows = Arrays.asList("Tue:03:00-Wed:04:00","Wed:05:00-Wed:07:30");
-    private final static String       vmName              = "myVm";
+    private final static String       originalVmName      = "myVm";
+    private final static String       vmName              = "TestVM";
     private final static String       resourceGroup       = "AutomationResourceGroup";
     private final static String       dataDiskName        = "Attach-Detach-DataDisk";
 
@@ -99,7 +100,7 @@ public class AzureStatefulNodeExample {
 
         //Get Import VM configuration
         System.out.println("----------Get VM Configuration--------------");
-        getImportVmConfiguration(nodeClient, vmName, resourceGroup);
+        getImportVmConfiguration(nodeClient, originalVmName, resourceGroup);
 
 
         //Import VM to a Stateful Node
@@ -199,7 +200,7 @@ public class AzureStatefulNodeExample {
         StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
         StatefulNodeLaunchSpecification launchSpecification =
                 launchSpecificationBuilder.setImage(image).setNetwork(network).setDataDisks(dataDisks).setOsDisk(osDisk)
-                        .setExtensions(extensionsList).setLogin(login).setTags(tagsList).build();
+                        .setExtensions(extensionsList).setLogin(login).setTags(tagsList).setvmName(vmName).build();
 
         StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
                 .setType(AzureStatefulNodeLoadBalancerTypeEnum.LOADBALANCER)
@@ -656,7 +657,7 @@ public class AzureStatefulNodeExample {
         //Build Launch Specification
         StatefulNodeLaunchSpecification.Builder launchSpecificationBuilder = StatefulNodeLaunchSpecification.Builder.get();
         StatefulNodeLaunchSpecification launchSpecification =
-                launchSpecificationBuilder.setNetwork(network).setDataDisks(dataDisks).setTags(tagsList).build();
+                launchSpecificationBuilder.setNetwork(network).setDataDisks(dataDisks).setTags(tagsList).setvmName(vmName).build();
 
         // Build LoadBalancers Config
         StatefulNodeLoadBalancers loadBalancers = StatefulNodeLoadBalancers.Builder.get()
@@ -731,7 +732,7 @@ public class AzureStatefulNodeExample {
         ImportConfiguration.Builder importNodeBuilder = ImportConfiguration.Builder.get();
         ImportConfiguration importNode =
                 importNodeBuilder.setNode(statefulNode).setDrainingTimeout(120).setResourceGroupName(resourceGroup)
-                        .setResourcesRetentionTime(0).setOriginalVmName(vmName).build();
+                        .setResourcesRetentionTime(0).setOriginalVmName(originalVmName).build();
 
         // Build node creation request
         StatefulNodeImportRequest.Builder nodeImportRequestBuilder = StatefulNodeImportRequest.Builder.get();
@@ -758,10 +759,10 @@ public class AzureStatefulNodeExample {
         return getNodeImportStatusResponse;
     }
 
-    private static StatefulNode getImportVmConfiguration(SpotinstAzureStatefulNodeClient client, String vmName, String resourceGroup) {
+    private static StatefulNode getImportVmConfiguration(SpotinstAzureStatefulNodeClient client, String originalVmName, String resourceGroup) {
 
         // Get Import VM configuration
-        StatefulNode getNodeResponse = client.getImportVmConfiguration(vmName, resourceGroup);
+        StatefulNode getNodeResponse = client.getImportVmConfiguration(originalVmName, resourceGroup);
         System.out.println(String.format("Get Import VM configuration %s is Successful for the ResourceGroup %s",
                 getNodeResponse.getName(), getNodeResponse.getResourceGroupName()));
 

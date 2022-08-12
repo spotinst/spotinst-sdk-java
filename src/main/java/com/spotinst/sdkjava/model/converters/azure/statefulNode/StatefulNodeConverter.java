@@ -203,6 +203,10 @@ public class StatefulNodeConverter {
                                                        .collect(Collectors.toList());
                 apiStatefulNodeLaunchSpecification.setTags(launchSpecTagsList);
             }
+
+            if (statefulNodeLaunchSpecification.isVmNameSet()) {
+                apiStatefulNodeLaunchSpecification.setvmName((statefulNodeLaunchSpecification.getvmName()));
+            }
         }
 
         return apiStatefulNodeLaunchSpecification;
@@ -894,6 +898,11 @@ public class StatefulNodeConverter {
                 }
 
             }
+
+            if (apiStatefulNodeLaunchSpecification.isVmNameSet()) {
+                statefulNodeLaunchSpecificationBuilder.setvmName((apiStatefulNodeLaunchSpecification.getvmName()));
+            }
+
             statefulNodeLaunchSpecification = statefulNodeLaunchSpecificationBuilder.build();
         }
 

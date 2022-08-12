@@ -23,6 +23,7 @@ public class ApiStatefulNodeLaunchSpecification implements IPartialUpdateEntity 
     private List<ApiLaunchSpecExtensionsSpecification> extensions;
     private ApiLaunchSpecLoginSpecification            login;
     private List<ApiLaunchSpecTagsSpecification>       tags;
+    private String                                     vmName;
 
     public ApiStatefulNodeLaunchSpecification() {
         isSet = new HashSet<>();
@@ -98,7 +99,17 @@ public class ApiStatefulNodeLaunchSpecification implements IPartialUpdateEntity 
         isSet.add("tags");
         this.tags = tags;
     }
-    
+
+    public String getvmName() {
+        return vmName;
+    }
+
+    public void setvmName(String vmName) {
+        isSet.add("vmName");
+        this.vmName = vmName;
+    }
+
+
 
     @JsonIgnore
     public boolean isImageSet() {
@@ -135,4 +146,9 @@ public class ApiStatefulNodeLaunchSpecification implements IPartialUpdateEntity 
         return isSet.contains("tags");
     }
 
-}
+    @JsonIgnore
+    public boolean isVmNameSet(){
+        return  isSet.contains("vmName");
+    }
+
+    }
