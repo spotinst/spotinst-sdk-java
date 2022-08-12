@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.admin.messageCenter.MessageCenterRepo;
 import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
 import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
 import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
@@ -46,6 +47,7 @@ class SpotinstRepoManager {
     private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
     private ISpotAzureAksVngRepo    					          spotAksVngRepo;
     private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
+    private IMessageCenterRepo                          spotInstMessageCenterRepo;
 
     //endregion
 
@@ -76,6 +78,7 @@ class SpotinstRepoManager {
         this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
         this.spotAksVngRepo = new AzureAksVngRepo();
         this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
+        this.spotInstMessageCenterRepo = new MessageCenterRepo();
     }
     //endregion
 
@@ -255,6 +258,15 @@ class SpotinstRepoManager {
     public void setSpotAdminOrganizationRepo(ISpotAdminOrganizationRepo spotAdminOrganizationRepo) {
         this.spotAdminOrganizationRepo = spotAdminOrganizationRepo;
     }
+
+    public void setSpotMessageCenterRepo(IMessageCenterRepo spotMessageCenterRepo) {
+        this.spotInstMessageCenterRepo = spotMessageCenterRepo;
+    }
+
+    public IMessageCenterRepo getSpotMessageCenterRepo() {
+        return spotInstMessageCenterRepo;
+    }
+
     //endregion
 }
 

@@ -126,5 +126,9 @@ public class SpotinstClient {
         return new SpotinstAzureStatefulNodeClient(authToken, account);
     }
 
+    public static SpotInstMessageCenterClient getMessageCenterClient(String authToken){
+        return new SpotInstMessageCenterClient(authToken);
+    }
+
     //endregion
 }
