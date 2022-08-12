@@ -87,16 +87,6 @@ public class Strategy {
             return this;
         }
 
-        public Builder setCreatedAt(final Date createdAt) {
-            createStrategy.setCreatedAt(createdAt);
-            return this;
-        }
-
-        public Builder setUpdatedAt(final Date updatedAt) {
-            createStrategy.setUpdatedAt(updatedAt);
-            return this;
-        }
-
         public Strategy build() {
             return createStrategy;
         }

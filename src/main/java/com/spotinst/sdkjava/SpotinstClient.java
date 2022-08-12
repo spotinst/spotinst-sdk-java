@@ -126,8 +126,8 @@ public class SpotinstClient {
         return new SpotinstAzureStatefulNodeClient(authToken, account);
     }
 
-    public static oceanCDClient getOceanCDClient(String authToken){
-        return new oceanCDClient(authToken);
+    public static OceanCDClient getOceanCDClient(String authToken){
+        return new OceanCDClient(authToken);
     }
 
     //endregion

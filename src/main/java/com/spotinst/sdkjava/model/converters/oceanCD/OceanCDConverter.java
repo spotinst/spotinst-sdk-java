@@ -148,13 +148,13 @@ public class OceanCDConverter {
             if (src.isPauseSet()) {
                 apiCanarySteps.setPause(toDal(src.getPause()));
             }
-            if (src.isSetCanaryScaleSet()) {
+            if (src.isSetWeightSet()) {
                 apiCanarySteps.setSetWeight(src.getSetWeight());
             }
             if (src.isVerificationSet()) {
                 apiCanarySteps.setVerification(toDal(src.getVerification()));
             }
-            if (src.isVerificationSet()) {
+            if (src.isSetCanaryScaleSet()) {
                 apiCanarySteps.setSetCanaryScale(toDal(src.getSetCanaryScale()));
             }
         }
@@ -185,7 +185,7 @@ public class OceanCDConverter {
                 apiStepsSetCanaryScale.setMatchTrafficWeight(src.getMatchTrafficWeight());
             }
 
-            if (src.isMatchTrafficWeightSet()) {
+            if (src.isReplicasSet()) {
                 apiStepsSetCanaryScale.setReplicas(src.getReplicas());
             }
 
@@ -207,12 +207,6 @@ public class OceanCDConverter {
             }
             if (src.isCanarySet()) {
                 strategyBuilder.setCanary(toBl(src.getCanary()));
-            }
-            if (src.isCreatedAtSet()) {
-                strategyBuilder.setCreatedAt(src.getCreatedAt());
-            }
-            if (src.isUpdatedAtSet()) {
-                strategyBuilder.setUpdatedAt(src.getUpdatedAt());
             }
             strategy = strategyBuilder.build();
         }
@@ -345,13 +339,13 @@ public class OceanCDConverter {
             if (src.isPauseSet()) {
                 canaryStepsBuilder.setPause(toBl(src.getPause()));
             }
-            if (src.isSetCanaryScaleSet()) {
+            if (src.isSetWeightSet()) {
                 canaryStepsBuilder.setSetWeight(src.getSetWeight());
             }
             if (src.isVerificationSet()) {
                 canaryStepsBuilder.setVerification(toBl(src.getVerification()));
             }
-            if (src.isVerificationSet()) {
+            if (src.isSetCanaryScaleSet()) {
                 canaryStepsBuilder.setSetCanaryScale(toBl(src.getSetCanaryScale()));
             }
             canarySteps = canaryStepsBuilder.build();
@@ -384,7 +378,7 @@ public class OceanCDConverter {
                 stepsSetCanaryScaleBuilder.setMatchTrafficWeight(src.getMatchTrafficWeight());
             }
 
-            if (src.isMatchTrafficWeightSet()) {
+            if (src.isReplicasSet()) {
                 stepsSetCanaryScaleBuilder.setReplicas(src.getReplicas());
             }
 

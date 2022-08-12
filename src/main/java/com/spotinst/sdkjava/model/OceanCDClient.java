@@ -14,8 +14,8 @@ import java.util.List;
  * Created by Janetlin Kiruba on 11/08/2022.
  */
 
-public class oceanCDClient {
-    private static final Logger    LOGGER =       LoggerFactory.getLogger(oceanCDClient.class);
+public class OceanCDClient {
+    private static final Logger    LOGGER =       LoggerFactory.getLogger(OceanCDClient.class);
     //region Members
     private              String                                      authToken;
     private              String                                      account;
@@ -31,11 +31,11 @@ public class oceanCDClient {
     }
 
     //region Constructor
-    public oceanCDClient(String authToken) {
+    public OceanCDClient(String authToken) {
         this(authToken, null);
     }
 
-    public oceanCDClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
+    public OceanCDClient(String authToken, List<UserAgentConfig> userAgentConfigurations) {
         this.authToken = authToken;
 
         setOceanCDRepo();
