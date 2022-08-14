@@ -44,11 +44,11 @@ public class GetMessage {
         this.id = id;
     }
 
-    public Boolean getStarred() {
+    public Boolean getIsStarred() {
         return isStarred;
     }
 
-    public void setStarred(Boolean starred) {
+    public void setIsStarred(Boolean starred) {
         isSet.add("isStarred");
         isStarred = starred;
     }
@@ -254,8 +254,8 @@ public class GetMessage {
             return this;
         }
 
-        public Builder setStarred(Boolean starred) {
-            createMessage.setStarred(starred);
+        public Builder setIsStarred(Boolean isStarred) {
+            createMessage.setIsStarred(isStarred);
             return this;
         }
 
@@ -289,7 +289,7 @@ public class GetMessage {
 
     // Is starred Set boolean method
     @JsonIgnore
-    public boolean isStarredSet() {
+    public boolean isIsStarredSet() {
         return isSet.contains("isStarred");
     }
 

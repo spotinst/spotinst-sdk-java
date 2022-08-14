@@ -45,13 +45,13 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         this.id = id;
     }
 
-    public Boolean getStarred() {
+    public Boolean getIsStarred() {
         return isStarred;
     }
 
-    public void setStarred(Boolean starred) {
+    public void setIsStarred(Boolean isStarred) {
         isSet.add("isStarred");
-        this.isStarred = starred;
+        this.isStarred = isStarred;
     }
 
     public Date getMarkedReadAt() {
@@ -196,7 +196,7 @@ public class ApiGetMessage implements IPartialUpdateEntity {
 
     // Is starred Set boolean method
     @JsonIgnore
-    public boolean isStarredSet() {
+    public boolean isIsStarredSet() {
         return isSet.contains("isStarred");
     }
 

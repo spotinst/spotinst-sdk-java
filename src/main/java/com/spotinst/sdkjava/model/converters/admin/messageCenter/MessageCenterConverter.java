@@ -109,8 +109,8 @@ public class MessageCenterConverter {
             if (createMessage.isOrganizationAudienceSpecificationSet()) {
                 apiCreateMessage.setOrganizationAudienceSpecification(createMessage.getOrganizationAudienceSpecification());
             }
-            if (createMessage.isStarredSet()) {
-                apiCreateMessage.setStarred(createMessage.getStarred());
+            if (createMessage.isIsStarredSet()) {
+                apiCreateMessage.setIsStarred(createMessage.getStarred());
             }
             if (createMessage.isMarkedReadAtSet()) {
                 apiCreateMessage.setMarkedReadAt(createMessage.getMarkedReadAt());
@@ -155,15 +155,15 @@ public class MessageCenterConverter {
             if (apiGetMessage.isMarkedReadAtSet()) {
                 getMessage.setMarkedReadAt(apiGetMessage.getMarkedReadAt());
             }
-            if (apiGetMessage.isStarredSet()) {
-                getMessage.setStarred(apiGetMessage.getStarred());
+            if (apiGetMessage.isIsStarredSet()) {
+                getMessage.setIsStarred(apiGetMessage.getIsStarred());
             }
             if (apiGetMessage.isMetadataSet()) {
                 Metadata metadata = MessageCenterConverter.toBl(apiGetMessage.getMetadata());
                 getMessage.setMetadata(metadata);
             }
             if (apiGetMessage.isTitleSet()) {
-                apiGetMessage.setTitle(apiGetMessage.getTitle());
+                getMessage.setTitle(apiGetMessage.getTitle());
             }
             if (apiGetMessage.isContentSet()) {
                 getMessage.setContent(apiGetMessage.getContent());

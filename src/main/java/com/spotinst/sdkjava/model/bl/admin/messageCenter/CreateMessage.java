@@ -48,9 +48,9 @@ public class CreateMessage {
         return isStarred;
     }
 
-    public void setStarred(Boolean starred) {
+    public void setIsStarred(Boolean isStarred) {
         isSet.add("isStarred");
-        isStarred = starred;
+        isStarred = isStarred;
     }
 
     public Date getMarkedReadAt() {
@@ -254,8 +254,8 @@ public class CreateMessage {
             return this;
         }
 
-        public Builder setStarred(Boolean starred) {
-            createMessage.setStarred(starred);
+        public Builder setIsStarred(Boolean isStarred) {
+            createMessage.setIsStarred(isStarred);
             return this;
         }
 
@@ -287,9 +287,9 @@ public class CreateMessage {
         return isSet.contains("id");
     }
 
-    // Is starred Set boolean method
+    // Is isStarred Set boolean method
     @JsonIgnore
-    public boolean isStarredSet() {
+    public boolean isIsStarredSet() {
         return isSet.contains("isStarred");
     }
 
