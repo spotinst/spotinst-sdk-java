@@ -10,14 +10,14 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class IstioVirtualServices {
+public class IstioVirtualService {
     @JsonIgnore
     private Set<String>                               isSet;
     private String                                    name;
     private List<String>                              routes;
     private List<VirtualServicesTlsRoutes>            tlsRoutes;
 
-    private IstioVirtualServices() {
+    private IstioVirtualService() {
         isSet = new HashSet<>();
     }
 
@@ -57,10 +57,10 @@ public class IstioVirtualServices {
     }
 
     public static class Builder {
-        private IstioVirtualServices istioVirtualServices;
+        private IstioVirtualService istioVirtualServices;
 
         private Builder() {
-            this.istioVirtualServices = new IstioVirtualServices();
+            this.istioVirtualServices = new IstioVirtualService();
         }
 
         public static Builder get() {
@@ -82,7 +82,7 @@ public class IstioVirtualServices {
             return this;
         }
 
-        public IstioVirtualServices build() {
+        public IstioVirtualService build() {
             return istioVirtualServices;
         }
     }

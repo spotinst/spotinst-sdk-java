@@ -13,14 +13,14 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiIstioVirtualServices implements IPartialUpdateEntity {
+public class ApiIstioVirtualService implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                               isSet;
     private String                                    name;
     private List<String>                              routes;
     private List<ApiVirtualServicesTlsRoutes>         tlsRoutes;
 
-    public ApiIstioVirtualServices() {
+    public ApiIstioVirtualService() {
         isSet = new HashSet<>();
     }
 

@@ -230,11 +230,11 @@ public class OceanCDClient {
         return retVal;
     }
 
-    public Boolean updateRolloutSpec(RolloutSpec rolloutSpecReq, String strategyName) {
+    public Boolean updateRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName) {
 
         Boolean retVal;
 
-        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().updateRolloutSpec(rolloutSpecReq, strategyName, authToken);
+        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().updateRolloutSpec(rolloutSpecReq, rolloutSpecName, authToken);
 
         if (updateResponse.isRequestSucceed()) {
             retVal = updateResponse.getValue();
@@ -250,11 +250,11 @@ public class OceanCDClient {
         return retVal;
     }
 
-    public Boolean patchRolloutSpec(RolloutSpec rolloutSpecReq, String strategyName) {
+    public Boolean patchRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName) {
 
         Boolean retVal;
 
-        RepoGenericResponse<Boolean> patchResponse = getOceanCDRepo().patchRolloutSpec(rolloutSpecReq, strategyName, authToken);
+        RepoGenericResponse<Boolean> patchResponse = getOceanCDRepo().patchRolloutSpec(rolloutSpecReq, rolloutSpecName, authToken);
 
         if (patchResponse.isRequestSucceed()) {
             retVal = patchResponse.getValue();

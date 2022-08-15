@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,8 +16,8 @@ import java.util.Set;
 public class ApiTrafficIstio implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                               isSet;
-    private ApiIstioVirtualServices virtualServices;
-    private ApiIstioDestinationRule destinationRule;
+    private List<ApiIstioVirtualService>             virtualServices;
+    private ApiIstioDestinationRule                   destinationRule;
 
     public ApiTrafficIstio() {
         isSet = new HashSet<>();
@@ -30,11 +31,11 @@ public class ApiTrafficIstio implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiIstioVirtualServices getVirtualServices() {
+    public List<ApiIstioVirtualService> getVirtualServices() {
         return virtualServices;
     }
 
-    public void setVirtualServices(ApiIstioVirtualServices virtualServices) {
+    public void setVirtualServices(List<ApiIstioVirtualService> virtualServices) {
         isSet.add("virtualServices");
         this.virtualServices = virtualServices;
     }

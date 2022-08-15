@@ -7,7 +7,8 @@ import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
-import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDConverter;
+import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDRolloutSpecConverter;
+import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDStrategyConverter;
 import com.spotinst.sdkjava.model.service.oceanCD.OceanCDService;
 
 import java.util.List;
@@ -24,9 +25,9 @@ public class OceanCDRepo implements IOceanCDRepo {
         RepoGenericResponse<Strategy> retVal;
 
         try {
-            ApiStrategy apiCreateStrategyReq = OceanCDConverter.toDal(createStrategyReq);
+            ApiStrategy apiCreateStrategyReq = OceanCDStrategyConverter.toDal(createStrategyReq);
             ApiStrategy apiCreateStrategyRes = OceanCDService.createStrategy(apiCreateStrategyReq, authToken);
-            Strategy createStrategyRes = OceanCDConverter.toBl(apiCreateStrategyRes);
+            Strategy createStrategyRes = OceanCDStrategyConverter.toBl(apiCreateStrategyRes);
             retVal = new RepoGenericResponse<>(createStrategyRes);
         }
         catch (SpotinstHttpException ex) {
@@ -42,7 +43,7 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             ApiStrategy apiCreateStrategy = OceanCDService.getStrategy(strategyName, authToken);
-            Strategy strategy    = OceanCDConverter.toBl(apiCreateStrategy);
+            Strategy strategy    = OceanCDStrategyConverter.toBl(apiCreateStrategy);
             retVal = new RepoGenericResponse<>(strategy);
         }
         catch (SpotinstHttpException e) {
@@ -58,7 +59,7 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             List<ApiStrategy> apiCreateStrategy = OceanCDService.getAllStrategies(authToken);
-            List<Strategy> strategies = apiCreateStrategy.stream().map(OceanCDConverter::toBl).collect(Collectors.toList());
+            List<Strategy> strategies = apiCreateStrategy.stream().map(OceanCDStrategyConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(strategies);
         }
         catch (SpotinstHttpException e) {
@@ -72,7 +73,7 @@ public class OceanCDRepo implements IOceanCDRepo {
     public RepoGenericResponse<Boolean> updateStrategy(Strategy strategyUpdateReq, String strategyName, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiStrategy apiStrategy = OceanCDConverter.toDal(strategyUpdateReq);
+        ApiStrategy apiStrategy = OceanCDStrategyConverter.toDal(strategyUpdateReq);
 
         try {
             Boolean success = OceanCDService.updateStrategy(apiStrategy, strategyName, authToken);
@@ -89,7 +90,7 @@ public class OceanCDRepo implements IOceanCDRepo {
     public RepoGenericResponse<Boolean> patchStrategy(Strategy strategyUpdateReq, String strategyName, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiStrategy apiStrategy = OceanCDConverter.toDal(strategyUpdateReq);
+        ApiStrategy apiStrategy = OceanCDStrategyConverter.toDal(strategyUpdateReq);
 
         try {
             Boolean success = OceanCDService.patchStrategy(apiStrategy, strategyName, authToken);
@@ -122,9 +123,9 @@ public class OceanCDRepo implements IOceanCDRepo {
         RepoGenericResponse<RolloutSpec> retVal;
 
         try {
-            ApiRolloutSpec apiRolloutSpecReq = OceanCDConverter.toDal(rolloutSpecReq);
+            ApiRolloutSpec apiRolloutSpecReq = OceanCDRolloutSpecConverter.toDal(rolloutSpecReq);
             ApiRolloutSpec apiRolloutSpecRes = OceanCDService.createRolloutSpec(apiRolloutSpecReq, authToken);
-            RolloutSpec createStrategyRes = OceanCDConverter.toBl(apiRolloutSpecRes);
+            RolloutSpec createStrategyRes = OceanCDRolloutSpecConverter.toBl(apiRolloutSpecRes);
             retVal = new RepoGenericResponse<>(createStrategyRes);
         }
         catch (SpotinstHttpException ex) {
@@ -140,7 +141,7 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             ApiRolloutSpec apiCreateStrategy = OceanCDService.getRolloutSpec(rolloutSpecName, authToken);
-            RolloutSpec strategy    = OceanCDConverter.toBl(apiCreateStrategy);
+            RolloutSpec strategy    = OceanCDRolloutSpecConverter.toBl(apiCreateStrategy);
             retVal = new RepoGenericResponse<>(strategy);
         }
         catch (SpotinstHttpException e) {
@@ -156,7 +157,7 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             List<ApiRolloutSpec> apiCreateStrategy = OceanCDService.getAllRolloutSpecs(authToken);
-            List<RolloutSpec> strategies = apiCreateStrategy.stream().map(OceanCDConverter::toBl).collect(Collectors.toList());
+            List<RolloutSpec> strategies = apiCreateStrategy.stream().map(OceanCDRolloutSpecConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(strategies);
         }
         catch (SpotinstHttpException e) {
@@ -170,7 +171,7 @@ public class OceanCDRepo implements IOceanCDRepo {
     public RepoGenericResponse<Boolean> updateRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiRolloutSpec apiRolloutSpec = OceanCDConverter.toDal(rolloutSpecReq);
+        ApiRolloutSpec apiRolloutSpec = OceanCDRolloutSpecConverter.toDal(rolloutSpecReq);
 
         try {
             Boolean success = OceanCDService.updateRolloutSpec(apiRolloutSpec, rolloutSpecName, authToken);
@@ -187,7 +188,7 @@ public class OceanCDRepo implements IOceanCDRepo {
     public RepoGenericResponse<Boolean> patchRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken) {
         RepoGenericResponse<Boolean> retVal;
 
-        ApiRolloutSpec apiRolloutSpec = OceanCDConverter.toDal(rolloutSpecReq);
+        ApiRolloutSpec apiRolloutSpec = OceanCDRolloutSpecConverter.toDal(rolloutSpecReq);
 
         try {
             Boolean success = OceanCDService.patchRolloutSpec(apiRolloutSpec, rolloutSpecName, authToken);

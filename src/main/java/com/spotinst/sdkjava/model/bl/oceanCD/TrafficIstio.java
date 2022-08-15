@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,7 +13,7 @@ import java.util.Set;
 public class TrafficIstio {
     @JsonIgnore
     private Set<String>                               isSet;
-    private IstioVirtualServices                      virtualServices;
+    private List<IstioVirtualService>                virtualServices;
     private IstioDestinationRule                      destinationRule;
 
     private TrafficIstio() {
@@ -27,11 +28,11 @@ public class TrafficIstio {
         this.isSet = isSet;
     }
 
-    public IstioVirtualServices getVirtualServices() {
+    public List<IstioVirtualService> getVirtualServices() {
         return virtualServices;
     }
 
-    public void setVirtualServices(IstioVirtualServices virtualServices) {
+    public void setVirtualServices(List<IstioVirtualService> virtualServices) {
         isSet.add("virtualServices");
         this.virtualServices = virtualServices;
     }
@@ -56,7 +57,7 @@ public class TrafficIstio {
             return new Builder();
         }
 
-        public Builder setVirtualServices(final IstioVirtualServices virtualServices) {
+        public Builder setVirtualServices(final List<IstioVirtualService> virtualServices) {
             trafficIstio.setVirtualServices(virtualServices);
             return this;
         }
