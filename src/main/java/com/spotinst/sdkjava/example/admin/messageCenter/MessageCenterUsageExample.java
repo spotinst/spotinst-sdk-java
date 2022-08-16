@@ -16,8 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageCenterUsageExample {
-    private final static String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcG90aW5zdCIsInVpZCI6MTksIm9pZCI6IjExMTExMTExMTExIiwiZXhwIjoxNzUzOTg5NzQ1MTI3LCJpYXQiOjE0Mzg2Mjk3NDV9.K5SYp7shXRh79y_409eLrq_VFKShkyVG4JloWPdy4l4";
-    private final static String user_authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzcG90aW5zdCIsImV4cCI6MTk3NTQ2NjI2NSwiaWF0IjoxNjYwMTA2MjY1LCJ1aWQiOjM4NTIyLCJyb2xlIjoyLCJvaWQiOiI2MDYwNzk4NzQ1MDMifQ.HTTnsruBBADg8nkMYKJXwJtD9SDQ5OwRvKVppwpikIo";
+    private final static String authToken = "master_auth_token";
+    private final static String user_authToken = "user_auth_token";
 
     private final static Long userSpecificationOrganizationId = 606079874503L;
     private final static ArrayList<Long> userIds = new ArrayList<Long>(Arrays.asList(38522L,84402L));
