@@ -4,7 +4,9 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
+import com.spotinst.sdkjava.model.responses.oceanCD.CreateRolloutSpecApiResponse;
 import com.spotinst.sdkjava.model.responses.oceanCD.CreateStrategyApiResponse;
 import org.apache.http.HttpStatus;
 
@@ -183,6 +185,184 @@ public class OceanCDService extends BaseSpotinstService {
 
         // Build URI
         String uri = String.format("%s/ocean/cd/strategy/%s", apiEndpoint, strategyName);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, null);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static ApiRolloutSpec createRolloutSpec (ApiRolloutSpec rolloutSpecReq, String authToken) throws SpotinstHttpException {
+        // Init retVal
+        ApiRolloutSpec retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiRolloutSpec> strategyReq = new HashMap<>();
+        strategyReq.put("rolloutSpec", rolloutSpecReq);
+        String body = JsonMapper.toJson(strategyReq);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, null);
+
+        // Handle the response.
+        CreateRolloutSpecApiResponse rolloutSpecResponse =
+                getCastedResponse(response, CreateRolloutSpecApiResponse.class);
+
+        if (rolloutSpecResponse.getResponse().getCount() > 0) {
+            retVal = rolloutSpecResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static ApiRolloutSpec getRolloutSpec(String rolloutSpecName, String authToken) throws SpotinstHttpException {
+        // Init retVal
+        ApiRolloutSpec retVal = new ApiRolloutSpec();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec/%s", apiEndpoint, rolloutSpecName);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, null);
+
+        // Handle the response.
+        CreateRolloutSpecApiResponse getStrategyResponse = getCastedResponse(response, CreateRolloutSpecApiResponse.class);
+
+        if (getStrategyResponse.getResponse().getCount() > 0) {
+            retVal = getStrategyResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiRolloutSpec> getAllRolloutSpecs(String authToken) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiRolloutSpec> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, null);
+
+        // Handle the response.
+        CreateRolloutSpecApiResponse allStrategiesResponse = getCastedResponse(response, CreateRolloutSpecApiResponse.class);
+
+        if (allStrategiesResponse.getResponse().getCount() > 0) {
+            retVal = allStrategiesResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static Boolean updateRolloutSpec(ApiRolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken) throws SpotinstHttpException {
+
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec/%s", apiEndpoint, rolloutSpecName);
+
+        // Write to json
+        Map<String, ApiRolloutSpec> rolloutSpecRequest = new HashMap<>();
+        rolloutSpecRequest.put("rolloutSpec", rolloutSpecReq);
+        String body = JsonMapper.toJson(rolloutSpecRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean patchRolloutSpec(ApiRolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken) throws SpotinstHttpException {
+
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec/%s", apiEndpoint, rolloutSpecName);
+
+        // Write to json
+        Map<String, ApiRolloutSpec> rolloutSpecRequest = new HashMap<>();
+        rolloutSpecRequest.put("rolloutSpec", rolloutSpecReq);
+        String body = JsonMapper.toJson(rolloutSpecRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPatch(uri, body, headers, null);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean deleteRolloutSpec(String rolloutSpecName, String authToken) throws SpotinstHttpException {
+
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/rolloutSpec/%s", apiEndpoint, rolloutSpecName);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, null);

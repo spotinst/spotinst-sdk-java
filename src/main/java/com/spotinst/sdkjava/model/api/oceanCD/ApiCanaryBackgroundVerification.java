@@ -17,7 +17,7 @@ public class ApiCanaryBackgroundVerification implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                               isSet;
     private List<String>                              templateNames;
-    private List<ApiBackgroundVerificationArgs>          args;
+    private List<ApiArgs>          args;
 
     public ApiCanaryBackgroundVerification() {
         isSet = new HashSet<>();
@@ -40,11 +40,11 @@ public class ApiCanaryBackgroundVerification implements IPartialUpdateEntity {
         this.templateNames = templateNames;
     }
 
-    public List<ApiBackgroundVerificationArgs> getArgs() {
+    public List<ApiArgs> getArgs() {
         return args;
     }
 
-    public void setArgs(List<ApiBackgroundVerificationArgs> args) {
+    public void setArgs(List<ApiArgs> args) {
         isSet.add("args");
         this.args = args;
     }
@@ -65,7 +65,7 @@ public class ApiCanaryBackgroundVerification implements IPartialUpdateEntity {
             return this;
         }
 
-        public Builder setArgs(final List<ApiBackgroundVerificationArgs> args) {
+        public Builder setArgs(final List<ApiArgs> args) {
             canaryBackgroundVerification.setArgs(args);
             return this;
         }

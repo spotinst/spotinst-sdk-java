@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Created by Janetlin Kiruba on 11/08/2022.
  */
 
-public class OceanCDConverter {
+public class OceanCDStrategyConverter {
 
     public static ApiStrategy toDal(Strategy src) {
         ApiStrategy apiStrategy = null;
@@ -39,7 +39,7 @@ public class OceanCDConverter {
                 apiStrategy.setBackgroundVerification(toDal(src.getBackgroundVerification()));
             }
             if (src.isStepsSet()) {
-                List<ApiCanarySteps> canarySteps = src.getSteps().stream().map(OceanCDConverter::toDal)
+                List<ApiCanarySteps> canarySteps = src.getSteps().stream().map(OceanCDStrategyConverter::toDal)
                                 .collect(Collectors.toList());
                 apiStrategy.setSteps(canarySteps);
             }
@@ -58,7 +58,7 @@ public class OceanCDConverter {
                 apiCanaryBackgroundVerification.setTemplateNames(src.getTemplateNames());
             }
             if (src.isArgsSet()) {
-                List<ApiBackgroundVerificationArgs> args = src.getArgs().stream().map(OceanCDConverter::toDal)
+                List<ApiArgs> args = src.getArgs().stream().map(OceanCDStrategyConverter::toDal)
                         .collect(Collectors.toList());
                 apiCanaryBackgroundVerification.setArgs(args);
             }
@@ -67,11 +67,11 @@ public class OceanCDConverter {
         return apiCanaryBackgroundVerification;
     }
 
-    public static ApiBackgroundVerificationArgs toDal(BackgroundVerificationArgs src) {
-        ApiBackgroundVerificationArgs apiBackgroundVerificationArgs = null;
+    public static ApiArgs toDal(Args src) {
+        ApiArgs apiBackgroundVerificationArgs = null;
 
         if (src != null) {
-            apiBackgroundVerificationArgs = new ApiBackgroundVerificationArgs();
+            apiBackgroundVerificationArgs = new ApiArgs();
 
             if (src.isNameSet()) {
                 apiBackgroundVerificationArgs.setName(src.getName());
@@ -224,7 +224,7 @@ public class OceanCDConverter {
                 strategyCanaryBuilder.setBackgroundVerification(toBl(src.getBackgroundVerification()));
             }
             if (src.isStepsSet()) {
-                List<CanarySteps> canarySteps = src.getSteps().stream().map(OceanCDConverter::toBl)
+                List<CanarySteps> canarySteps = src.getSteps().stream().map(OceanCDStrategyConverter::toBl)
                         .collect(Collectors.toList());
                 strategyCanaryBuilder.setSteps(canarySteps);
             }
@@ -244,7 +244,7 @@ public class OceanCDConverter {
                 canaryBackgroundVerificationBuilder.setTemplateNames(src.getTemplateNames());
             }
             if (src.isArgsSet()) {
-                List<BackgroundVerificationArgs> args = src.getArgs().stream().map(OceanCDConverter::toBl)
+                List<Args> args = src.getArgs().stream().map(OceanCDStrategyConverter::toBl)
                         .collect(Collectors.toList());
                 canaryBackgroundVerificationBuilder.setArgs(args);
             }
@@ -254,11 +254,11 @@ public class OceanCDConverter {
         return canaryBackgroundVerification;
     }
 
-    public static BackgroundVerificationArgs toBl(ApiBackgroundVerificationArgs src) {
-        BackgroundVerificationArgs backgroundVerificationArgs = null;
+    public static Args toBl(ApiArgs src) {
+        Args backgroundVerificationArgs = null;
 
         if (src != null) {
-            BackgroundVerificationArgs.Builder backgroundVerificationArgsBuilder = BackgroundVerificationArgs.Builder.get();
+            Args.Builder backgroundVerificationArgsBuilder = Args.Builder.get();
 
             if (src.isNameSet()) {
                 backgroundVerificationArgsBuilder.setName(src.getName());
@@ -326,7 +326,6 @@ public class OceanCDConverter {
         return valueFromFiledRef;
     }
 
-
     public static CanarySteps toBl(ApiCanarySteps src) {
         CanarySteps canarySteps = null;
 
@@ -389,4 +388,5 @@ public class OceanCDConverter {
         }
         return stepsSetCanaryScale;
     }
+
 }

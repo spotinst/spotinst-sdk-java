@@ -10,13 +10,13 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CanaryBackgroundVerification {
+public class RolloutSpecStrategy {
     @JsonIgnore
     private Set<String>                               isSet;
-    private List<String>                              templateNames;
+    private String                                    name;
     private List<Args>          args;
 
-    private CanaryBackgroundVerification() {
+    private RolloutSpecStrategy() {
         isSet = new HashSet<>();
     }
 
@@ -28,13 +28,13 @@ public class CanaryBackgroundVerification {
         this.isSet = isSet;
     }
 
-    public List<String> getTemplateNames() {
-        return templateNames;
+    public String getName() {
+        return name;
     }
 
-    public void setTemplateNames(List<String> templateNames) {
-        isSet.add("templateNames");
-        this.templateNames = templateNames;
+    public void setName(String name) {
+        isSet.add("name");
+        this.name = name;
     }
 
     public List<Args> getArgs() {
@@ -47,34 +47,34 @@ public class CanaryBackgroundVerification {
     }
 
     public static class Builder {
-        private CanaryBackgroundVerification canaryBackgroundVerification;
+        private RolloutSpecStrategy rolloutSpecStrategy;
 
         private Builder() {
-            this.canaryBackgroundVerification = new CanaryBackgroundVerification();
+            this.rolloutSpecStrategy = new RolloutSpecStrategy();
         }
 
         public static Builder get() {
             return new Builder();
         }
 
-        public Builder setTemplateNames(final List<String> templateNames) {
-            canaryBackgroundVerification.setTemplateNames(templateNames);
+        public Builder setName(final String name) {
+            rolloutSpecStrategy.setName(name);
             return this;
         }
 
         public Builder setArgs(final List<Args> args) {
-            canaryBackgroundVerification.setArgs(args);
+            rolloutSpecStrategy.setArgs(args);
             return this;
         }
 
-        public CanaryBackgroundVerification build() {
-            return canaryBackgroundVerification;
+        public RolloutSpecStrategy build() {
+            return rolloutSpecStrategy;
         }
     }
 
     @JsonIgnore
-    public boolean isTemplateNamesSet() {
-        return isSet.contains("templateNames");
+    public boolean isNameSet() {
+        return isSet.contains("name");
     }
 
     @JsonIgnore

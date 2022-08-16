@@ -1,22 +1,25 @@
-package com.spotinst.sdkjava.model.bl.oceanCD;
+package com.spotinst.sdkjava.model.api.oceanCD;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BackgroundVerificationArgs {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiArgs implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                               isSet;
     private String                                    name;
     private String                                    value;
-    private ArgsValueFrom                             valueFrom;
+    private ApiArgsValueFrom                          valueFrom;
 
-    private BackgroundVerificationArgs() {
+    public ApiArgs() {
         isSet = new HashSet<>();
     }
 
@@ -46,20 +49,20 @@ public class BackgroundVerificationArgs {
         this.value = value;
     }
 
-    public ArgsValueFrom getValueFrom() {
+    public ApiArgsValueFrom getValueFrom() {
         return valueFrom;
     }
 
-    public void setValueFrom(ArgsValueFrom valueFrom) {
+    public void setValueFrom(ApiArgsValueFrom valueFrom) {
         isSet.add("valueFrom");
         this.valueFrom = valueFrom;
     }
 
     public static class Builder {
-        private BackgroundVerificationArgs backgroundVerificationArgs;
+        private ApiArgs backgroundVerificationArgs;
 
         private Builder() {
-            this.backgroundVerificationArgs = new BackgroundVerificationArgs();
+            this.backgroundVerificationArgs = new ApiArgs();
         }
 
         public static Builder get() {
@@ -76,12 +79,12 @@ public class BackgroundVerificationArgs {
             return this;
         }
 
-        public Builder setValueFrom(final ArgsValueFrom valueFrom) {
+        public Builder setValueFrom(final ApiArgsValueFrom valueFrom) {
             backgroundVerificationArgs.setValueFrom(valueFrom);
             return this;
         }
 
-        public BackgroundVerificationArgs build() {
+        public ApiArgs build() {
             return backgroundVerificationArgs;
         }
     }
