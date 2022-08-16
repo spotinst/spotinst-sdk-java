@@ -14,7 +14,7 @@ public class CanaryBackgroundVerification {
     @JsonIgnore
     private Set<String>                               isSet;
     private List<String>                              templateNames;
-    private List<BackgroundVerificationArgs>          args;
+    private List<Args>          args;
 
     private CanaryBackgroundVerification() {
         isSet = new HashSet<>();
@@ -37,11 +37,11 @@ public class CanaryBackgroundVerification {
         this.templateNames = templateNames;
     }
 
-    public List<BackgroundVerificationArgs> getArgs() {
+    public List<Args> getArgs() {
         return args;
     }
 
-    public void setArgs(List<BackgroundVerificationArgs> args) {
+    public void setArgs(List<Args> args) {
         isSet.add("args");
         this.args = args;
     }
@@ -62,7 +62,7 @@ public class CanaryBackgroundVerification {
             return this;
         }
 
-        public Builder setArgs(final List<BackgroundVerificationArgs> args) {
+        public Builder setArgs(final List<Args> args) {
             canaryBackgroundVerification.setArgs(args);
             return this;
         }

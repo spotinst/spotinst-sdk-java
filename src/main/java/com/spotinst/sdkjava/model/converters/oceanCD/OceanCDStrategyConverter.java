@@ -58,7 +58,7 @@ public class OceanCDStrategyConverter {
                 apiCanaryBackgroundVerification.setTemplateNames(src.getTemplateNames());
             }
             if (src.isArgsSet()) {
-                List<ApiBackgroundVerificationArgs> args = src.getArgs().stream().map(OceanCDStrategyConverter::toDal)
+                List<ApiArgs> args = src.getArgs().stream().map(OceanCDStrategyConverter::toDal)
                         .collect(Collectors.toList());
                 apiCanaryBackgroundVerification.setArgs(args);
             }
@@ -67,11 +67,11 @@ public class OceanCDStrategyConverter {
         return apiCanaryBackgroundVerification;
     }
 
-    public static ApiBackgroundVerificationArgs toDal(BackgroundVerificationArgs src) {
-        ApiBackgroundVerificationArgs apiBackgroundVerificationArgs = null;
+    public static ApiArgs toDal(Args src) {
+        ApiArgs apiBackgroundVerificationArgs = null;
 
         if (src != null) {
-            apiBackgroundVerificationArgs = new ApiBackgroundVerificationArgs();
+            apiBackgroundVerificationArgs = new ApiArgs();
 
             if (src.isNameSet()) {
                 apiBackgroundVerificationArgs.setName(src.getName());
@@ -244,7 +244,7 @@ public class OceanCDStrategyConverter {
                 canaryBackgroundVerificationBuilder.setTemplateNames(src.getTemplateNames());
             }
             if (src.isArgsSet()) {
-                List<BackgroundVerificationArgs> args = src.getArgs().stream().map(OceanCDStrategyConverter::toBl)
+                List<Args> args = src.getArgs().stream().map(OceanCDStrategyConverter::toBl)
                         .collect(Collectors.toList());
                 canaryBackgroundVerificationBuilder.setArgs(args);
             }
@@ -254,11 +254,11 @@ public class OceanCDStrategyConverter {
         return canaryBackgroundVerification;
     }
 
-    public static BackgroundVerificationArgs toBl(ApiBackgroundVerificationArgs src) {
-        BackgroundVerificationArgs backgroundVerificationArgs = null;
+    public static Args toBl(ApiArgs src) {
+        Args backgroundVerificationArgs = null;
 
         if (src != null) {
-            BackgroundVerificationArgs.Builder backgroundVerificationArgsBuilder = BackgroundVerificationArgs.Builder.get();
+            Args.Builder backgroundVerificationArgsBuilder = Args.Builder.get();
 
             if (src.isNameSet()) {
                 backgroundVerificationArgsBuilder.setName(src.getName());

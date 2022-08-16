@@ -14,7 +14,7 @@ public class RolloutSpecStrategy {
     @JsonIgnore
     private Set<String>                               isSet;
     private String                                    name;
-    private List<BackgroundVerificationArgs>          args;
+    private List<Args>          args;
 
     private RolloutSpecStrategy() {
         isSet = new HashSet<>();
@@ -37,11 +37,11 @@ public class RolloutSpecStrategy {
         this.name = name;
     }
 
-    public List<BackgroundVerificationArgs> getArgs() {
+    public List<Args> getArgs() {
         return args;
     }
 
-    public void setArgs(List<BackgroundVerificationArgs> args) {
+    public void setArgs(List<Args> args) {
         isSet.add("args");
         this.args = args;
     }
@@ -62,7 +62,7 @@ public class RolloutSpecStrategy {
             return this;
         }
 
-        public Builder setArgs(final List<BackgroundVerificationArgs> args) {
+        public Builder setArgs(final List<Args> args) {
             rolloutSpecStrategy.setArgs(args);
             return this;
         }
