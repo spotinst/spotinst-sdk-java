@@ -5,7 +5,7 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.admin.messageCenter.*;
-import com.spotinst.sdkjava.model.requests.admin.account.messageCenter.ListAllMessagesRequest;
+import com.spotinst.sdkjava.model.requests.admin.messageCenter.ListAllMessagesRequest;
 import com.spotinst.sdkjava.model.responses.admin.messageCenter.GetMessageApiResponse;
 import org.apache.http.HttpStatus;
 
@@ -47,9 +47,9 @@ public class MessageCenterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiGetMessage> getAllMessages(ListAllMessagesRequest listAllMessagesRequest, String authToken) {
+    public static List<ApiGetMessageResponse> getAllMessages(ListAllMessagesRequest listAllMessagesRequest, String authToken) {
 
-        List<ApiGetMessage> getMessages = new LinkedList<>();
+        List<ApiGetMessageResponse> getMessages = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();

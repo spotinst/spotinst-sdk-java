@@ -1,9 +1,11 @@
 package com.spotinst.sdkjava.example.admin.messageCenter;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.admin.messageCenter.AudienceSpecificationEnum;
+import com.spotinst.sdkjava.enums.admin.messageCenter.MessageTypeEnum;
 import com.spotinst.sdkjava.model.SpotInstMessageCenterClient;
 import com.spotinst.sdkjava.model.bl.admin.messageCenter.*;
-import com.spotinst.sdkjava.model.requests.admin.account.messageCenter.ListAllMessagesRequest;
+import com.spotinst.sdkjava.model.requests.admin.messageCenter.ListAllMessagesRequest;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -14,8 +16,8 @@ import java.util.Date;
 import java.util.List;
 
 public class MessageCenterUsageExample {
-    private final static String authToken = "master_auth_token";
-    private final static String user_authToken = "user_auth_token";
+    private final static String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcG90aW5zdCIsInVpZCI6MTksIm9pZCI6IjExMTExMTExMTExIiwiZXhwIjoxNzUzOTg5NzQ1MTI3LCJpYXQiOjE0Mzg2Mjk3NDV9.K5SYp7shXRh79y_409eLrq_VFKShkyVG4JloWPdy4l4";
+    private final static String user_authToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzcG90aW5zdCIsImV4cCI6MTk3NTQ2NjI2NSwiaWF0IjoxNjYwMTA2MjY1LCJ1aWQiOjM4NTIyLCJyb2xlIjoyLCJvaWQiOiI2MDYwNzk4NzQ1MDMifQ.HTTnsruBBADg8nkMYKJXwJtD9SDQ5OwRvKVppwpikIo";
 
     private final static Long userSpecificationOrganizationId = 606079874503L;
     private final static ArrayList<Long> userIds = new ArrayList<Long>(Arrays.asList(38522L,84402L));
@@ -33,7 +35,7 @@ public class MessageCenterUsageExample {
 
         //Get All Messages
         System.out.println("----------list all created messages--------------");
-        List<GetMessage> allMessages = getAllMessages(spotInstMessageCenterClient);
+        List<GetMessageResponse> allMessages = getAllMessages(spotInstMessageCenterClient);
 
         //Update a message
         System.out.println("----------update a message--------------");
@@ -75,23 +77,23 @@ public class MessageCenterUsageExample {
         CreateMessage messageRequest = createMessageBuilder.setTitle("Automation Sdk Test Message")
                                                             .setContent("Automation Test Content")
                                                             .setStickyUntil("null")
-                                                            .setType("NOTIFICATION_POLICY")
+                                                            .setType(MessageTypeEnum.NOTIFICATION_POLICY)
                                                             .setMainIcon("sad.png")
                                                             .setHyperlink("http://very-sad.com")
                                                             .setSecondaryIcon("superSad.svg")
                                                             .setTimestamp(date)
-                                                            .setAudienceSpecification("USER")
+                                                            .setAudienceSpecification(AudienceSpecificationEnum.USER)
                                                             .setUserAudienceSpecification(new ArrayList<UserAudienceSpecification>(Arrays.asList(userAudienceSpecification))).build();
 
         Boolean status = client.createMessage(messageRequest);
         return status;
     }
 
-    private static List<GetMessage> getAllMessages(SpotInstMessageCenterClient spotInstMessageCenterClient) {
+    private static List<GetMessageResponse> getAllMessages(SpotInstMessageCenterClient spotInstMessageCenterClient) {
         // Build request
         ListAllMessagesRequest.Builder listAllMessagesRequest = ListAllMessagesRequest.Builder.get();
         ListAllMessagesRequest request = listAllMessagesRequest.setLimit(100).build();
-        List<GetMessage> allMessages = spotInstMessageCenterClient.getAllMessages(request);
+        List<GetMessageResponse> allMessages = spotInstMessageCenterClient.getAllMessages(request);
         return allMessages;
     }
 

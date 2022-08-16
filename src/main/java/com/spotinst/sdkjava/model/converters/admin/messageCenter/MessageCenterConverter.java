@@ -109,12 +109,6 @@ public class MessageCenterConverter {
             if (createMessage.isOrganizationAudienceSpecificationSet()) {
                 apiCreateMessage.setOrganizationAudienceSpecification(createMessage.getOrganizationAudienceSpecification());
             }
-            if (createMessage.isIsStarredSet()) {
-                apiCreateMessage.setIsStarred(createMessage.getStarred());
-            }
-            if (createMessage.isMarkedReadAtSet()) {
-                apiCreateMessage.setMarkedReadAt(createMessage.getMarkedReadAt());
-            }
             if (createMessage.isUserAudienceSpecificationSet()) {
                 List<ApiUsersAudienceSpecification> apiUsersAudienceSpecification = createMessage.getUserAudienceSpecification()
                         .stream().map(MessageCenterConverter::toDal).collect(Collectors.toList());
@@ -143,53 +137,53 @@ public class MessageCenterConverter {
         return apiUsersAudienceSpecification;
     }
 
-    public static GetMessage toBl(ApiGetMessage apiGetMessage) {
-        GetMessage getMessage = null;
+    public static GetMessageResponse toBl(ApiGetMessageResponse apiGetMessageResponse) {
+        GetMessageResponse getMessageResponse = null;
 
-        if (apiGetMessage != null) {
-            getMessage = new GetMessage();
+        if (apiGetMessageResponse != null) {
+            getMessageResponse = new GetMessageResponse();
 
-            if (apiGetMessage.isIdSet()) {
-                getMessage.setId(apiGetMessage.getId());
+            if (apiGetMessageResponse.isIdSet()) {
+                getMessageResponse.setId(apiGetMessageResponse.getId());
             }
-            if (apiGetMessage.isMarkedReadAtSet()) {
-                getMessage.setMarkedReadAt(apiGetMessage.getMarkedReadAt());
+            if (apiGetMessageResponse.isMarkedReadAtSet()) {
+                getMessageResponse.setMarkedReadAt(apiGetMessageResponse.getMarkedReadAt());
             }
-            if (apiGetMessage.isIsStarredSet()) {
-                getMessage.setIsStarred(apiGetMessage.getIsStarred());
+            if (apiGetMessageResponse.isIsStarredSet()) {
+                getMessageResponse.setIsStarred(apiGetMessageResponse.getIsStarred());
             }
-            if (apiGetMessage.isMetadataSet()) {
-                Metadata metadata = MessageCenterConverter.toBl(apiGetMessage.getMetadata());
-                getMessage.setMetadata(metadata);
+            if (apiGetMessageResponse.isMetadataSet()) {
+                Metadata metadata = MessageCenterConverter.toBl(apiGetMessageResponse.getMetadata());
+                getMessageResponse.setMetadata(metadata);
             }
-            if (apiGetMessage.isTitleSet()) {
-                getMessage.setTitle(apiGetMessage.getTitle());
+            if (apiGetMessageResponse.isTitleSet()) {
+                getMessageResponse.setTitle(apiGetMessageResponse.getTitle());
             }
-            if (apiGetMessage.isContentSet()) {
-                getMessage.setContent(apiGetMessage.getContent());
+            if (apiGetMessageResponse.isContentSet()) {
+                getMessageResponse.setContent(apiGetMessageResponse.getContent());
             }
-            if (apiGetMessage.isStickyUntilSet()) {
-                getMessage.setStickyUntil(apiGetMessage.getStickyUntil());
+            if (apiGetMessageResponse.isStickyUntilSet()) {
+                getMessageResponse.setStickyUntil(apiGetMessageResponse.getStickyUntil());
             }
-            if (apiGetMessage.isTypeSet()) {
-                getMessage.setType(apiGetMessage.getType());
+            if (apiGetMessageResponse.isTypeSet()) {
+                getMessageResponse.setType(apiGetMessageResponse.getType());
             }
-            if (apiGetMessage.isMainIconSet()) {
-                getMessage.setMainIcon(apiGetMessage.getMainIcon());
+            if (apiGetMessageResponse.isMainIconSet()) {
+                getMessageResponse.setMainIcon(apiGetMessageResponse.getMainIcon());
             }
-            if (apiGetMessage.isHyperlinkSet()) {
-                getMessage.setHyperlink(apiGetMessage.getHyperlink());
+            if (apiGetMessageResponse.isHyperlinkSet()) {
+                getMessageResponse.setHyperlink(apiGetMessageResponse.getHyperlink());
             }
-            if (apiGetMessage.isSecondaryIconSet()) {
-                getMessage.setSecondaryIcon(apiGetMessage.getSecondaryIcon());
+            if (apiGetMessageResponse.isSecondaryIconSet()) {
+                getMessageResponse.setSecondaryIcon(apiGetMessageResponse.getSecondaryIcon());
             }
-            if (apiGetMessage.isTimestampSet()) {
-                getMessage.setTimestamp(apiGetMessage.getTimestamp());
+            if (apiGetMessageResponse.isTimestampSet()) {
+                getMessageResponse.setTimestamp(apiGetMessageResponse.getTimestamp());
             }
 
         }
 
-        return getMessage;
+        return getMessageResponse;
     }
 
     public static Metadata toBl(ApiMetadata apiMetadata) {

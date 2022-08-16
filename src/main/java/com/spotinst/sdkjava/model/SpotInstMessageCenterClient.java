@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.admin.messageCenter.*;
-import com.spotinst.sdkjava.model.requests.admin.account.messageCenter.ListAllMessagesRequest;
+import com.spotinst.sdkjava.model.requests.admin.messageCenter.ListAllMessagesRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,11 +50,11 @@ public class SpotInstMessageCenterClient {
         return retVal;
     }
 
-    public List<GetMessage> getAllMessages(ListAllMessagesRequest listAllMessagesRequest) {
+    public List<GetMessageResponse> getAllMessages(ListAllMessagesRequest listAllMessagesRequest) {
 
-        List<GetMessage> retVal = null;
+        List<GetMessageResponse> retVal = null;
 
-        RepoGenericResponse<List<GetMessage>> getResponse =
+        RepoGenericResponse<List<GetMessageResponse>> getResponse =
                 getMessageCenterRepo().getAll(listAllMessagesRequest,authToken);
 
         if (getResponse.isRequestSucceed()) {

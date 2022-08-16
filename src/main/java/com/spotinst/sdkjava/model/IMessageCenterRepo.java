@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.bl.admin.messageCenter.*;
-import com.spotinst.sdkjava.model.requests.admin.account.messageCenter.ListAllMessagesRequest;
+import com.spotinst.sdkjava.model.requests.admin.messageCenter.ListAllMessagesRequest;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface IMessageCenterRepo extends IRepository<CreateMessage, Void, Str
 
     RepoGenericResponse<Boolean> create(CreateMessage messageToCreate, String authToken);
 
-    RepoGenericResponse<List<GetMessage>> getAll(ListAllMessagesRequest listAllMessagesRequest, String authToken);
+    RepoGenericResponse<List<GetMessageResponse>> getAll(ListAllMessagesRequest listAllMessagesRequest, String authToken);
 
     RepoGenericResponse<Boolean> update(UpdateMessage messageToUpdate, String messageId, String authToken);
 

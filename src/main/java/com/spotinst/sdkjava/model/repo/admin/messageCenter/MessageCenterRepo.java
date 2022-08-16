@@ -7,7 +7,7 @@ import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.admin.messageCenter.*;
 import com.spotinst.sdkjava.model.bl.admin.messageCenter.*;
 import com.spotinst.sdkjava.model.converters.admin.messageCenter.MessageCenterConverter;
-import com.spotinst.sdkjava.model.requests.admin.account.messageCenter.ListAllMessagesRequest;
+import com.spotinst.sdkjava.model.requests.admin.messageCenter.ListAllMessagesRequest;
 import com.spotinst.sdkjava.model.service.admin.messageCenter.MessageCenterService;
 
 import java.util.List;
@@ -32,12 +32,12 @@ public class MessageCenterRepo implements IMessageCenterRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<GetMessage>> getAll(ListAllMessagesRequest listAllMessagesRequest, String authToken) {
+    public RepoGenericResponse<List<GetMessageResponse>> getAll(ListAllMessagesRequest listAllMessagesRequest, String authToken) {
 
-        RepoGenericResponse<List<GetMessage>> retVal;
+        RepoGenericResponse<List<GetMessageResponse>> retVal;
         try {
-            List<ApiGetMessage> getAllMessages = MessageCenterService.getAllMessages(listAllMessagesRequest,authToken);
-            List<GetMessage> allMessages = getAllMessages.stream().map(MessageCenterConverter::toBl).collect(Collectors.toList());
+            List<ApiGetMessageResponse> getAllMessages = MessageCenterService.getAllMessages(listAllMessagesRequest,authToken);
+            List<GetMessageResponse> allMessages = getAllMessages.stream().map(MessageCenterConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(allMessages);
 
         }
@@ -63,10 +63,10 @@ public class MessageCenterRepo implements IMessageCenterRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> bulkUpdate(BulkUpdateMessages messageToUpdate, String authToken) {
+    public RepoGenericResponse<Boolean> bulkUpdate(BulkUpdateMessages messagesToUpdate, String authToken) {
         RepoGenericResponse<Boolean> retVal;
         try {
-            ApiBulkUpdateMessages apiMessageToUpdate = MessageCenterConverter.toDal(messageToUpdate);
+            ApiBulkUpdateMessages apiMessageToUpdate = MessageCenterConverter.toDal(messagesToUpdate);
             Boolean updateMessageStatus = MessageCenterService.bulkUpdateMessages(apiMessageToUpdate,authToken);
             retVal = new RepoGenericResponse<>(updateMessageStatus);
 

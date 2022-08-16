@@ -1,8 +1,9 @@
-package com.spotinst.sdkjava.model.api.admin.messageCenter;
+package com.spotinst.sdkjava.model.bl.admin.messageCenter;
 
-import com.fasterxml.jackson.annotation.*;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.model.bl.admin.messageCenter.Metadata;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -11,13 +12,12 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiGetMessage implements IPartialUpdateEntity {
+public class GetMessageResponse {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
     private String title;
-    private String  content;
+    private String content;
     private String stickyUntil;
     private String type;
     private String mainIcon;
@@ -25,16 +25,12 @@ public class ApiGetMessage implements IPartialUpdateEntity {
     private String secondaryIcon;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date timestamp;
-    private String audienceSpecification;
-    private List<Long> organizationAudienceSpecification;
-    private List<ApiUsersAudienceSpecification> userAudienceSpecification;
     private String id;
     private Boolean isStarred;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date markedReadAt;
-    private ApiMetadata metadata;
-
+    private Metadata metadata;
     //endregion
+
 
     public String getId() {
         return id;
@@ -49,9 +45,9 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         return isStarred;
     }
 
-    public void setIsStarred(Boolean isStarred) {
+    public void setIsStarred(Boolean starred) {
         isSet.add("isStarred");
-        this.isStarred = isStarred;
+        isStarred = starred;
     }
 
     public Date getMarkedReadAt() {
@@ -63,11 +59,11 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         this.markedReadAt = markedReadAt;
     }
 
-    public ApiMetadata getMetadata() {
+    public Metadata getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(ApiMetadata metadata) {
+    public void setMetadata(Metadata metadata) {
         isSet.add("metadata");
         this.metadata = metadata;
     }
@@ -80,6 +76,7 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         isSet.add("title");
         this.title = title;
     }
+
     public String getContent() {
         return content;
     }
@@ -143,35 +140,8 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         this.timestamp = timestamp;
     }
 
-    public String getAudienceSpecification() {
-        return audienceSpecification;
-    }
-
-    public void setAudienceSpecification(String audienceSpecification) {
-        isSet.add("audienceSpecification");
-        this.audienceSpecification = audienceSpecification;
-    }
-
-    public List<Long> getOrganizationAudienceSpecification() {
-        return organizationAudienceSpecification;
-    }
-
-    public void setOrganizationAudienceSpecification(List<Long> organizationAudienceSpecification) {
-        isSet.add("organizationAudienceSpecification");
-        this.organizationAudienceSpecification = organizationAudienceSpecification;
-    }
-
-    public List<ApiUsersAudienceSpecification> getUserAudienceSpecification() {
-        return userAudienceSpecification;
-    }
-
-    public void setUserAudienceSpecification(List<ApiUsersAudienceSpecification> userAudienceSpecification) {
-        isSet.add("userAudienceSpecification");
-        this.userAudienceSpecification = userAudienceSpecification;
-    }
-
     //region Constructor
-    public ApiGetMessage() {
+    public GetMessageResponse() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -185,6 +155,84 @@ public class ApiGetMessage implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
+    //endregion
+
+    //region Builder class
+    public static class Builder {
+        private GetMessageResponse createMessage;
+
+        private Builder() {
+            this.createMessage = new GetMessageResponse();
+        }
+
+        public static Builder get() {
+            return new Builder();
+        }
+
+        public Builder setTitle(final String title) {
+            createMessage.setTitle(title);
+            return this;
+        }
+
+        public Builder setContent(final String content) {
+            createMessage.setContent(content);
+            return this;
+        }
+
+        public Builder setStickyUntil(String stickyUntil) {
+            createMessage.setStickyUntil(stickyUntil);
+            return this;
+        }
+
+        public Builder setType(String type) {
+            createMessage.setType(type);
+            return this;
+        }
+
+        public Builder setMainIcon(String mainIcon) {
+            createMessage.setMainIcon(mainIcon);
+            return this;
+        }
+
+        public Builder setHyperlink(String hyperlink) {
+            createMessage.setHyperlink(hyperlink);
+            return this;
+        }
+
+        public Builder setSecondaryIcon(String secondaryIcon) {
+            createMessage.setSecondaryIcon(secondaryIcon);
+            return this;
+        }
+
+        public Builder setTimestamp(Date timestamp) {
+            createMessage.setTimestamp(timestamp);
+            return this;
+        }
+
+        public Builder setId(String id) {
+            createMessage.setId(id);
+            return this;
+        }
+
+        public Builder setIsStarred(Boolean isStarred) {
+            createMessage.setIsStarred(isStarred);
+            return this;
+        }
+
+        public Builder setMarkedReadAt(Date markedReadAt) {
+            createMessage.setMarkedReadAt(markedReadAt);
+            return this;
+        }
+
+        public Builder setMetadata(Metadata metadata) {
+            createMessage.setMetadata(metadata);
+            return this;
+        }
+
+        public GetMessageResponse build() {
+            return createMessage;
+        }
+    }
     //endregion
 
     //region isSet methods
@@ -258,24 +306,6 @@ public class ApiGetMessage implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isTimestampSet() {
         return isSet.contains("timestamp");
-    }
-
-    // Is AudienceSpecification Set boolean method
-    @JsonIgnore
-    public boolean isAudienceSpecificationSet() {
-        return isSet.contains("audienceSpecification");
-    }
-
-    // Is OrganizationAudienceSpecification Set boolean method
-    @JsonIgnore
-    public boolean isOrganizationAudienceSpecificationSet() {
-        return isSet.contains("organizationAudienceSpecification");
-    }
-
-    // Is UserAudienceSpecification Set boolean method
-    @JsonIgnore
-    public boolean isUserAudienceSpecificationSet() {
-        return isSet.contains("userAudienceSpecification");
     }
 
     //endregion

@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model.requests.admin.account.messageCenter;
+package com.spotinst.sdkjava.model.requests.admin.messageCenter;
 
 import java.util.Date;
 

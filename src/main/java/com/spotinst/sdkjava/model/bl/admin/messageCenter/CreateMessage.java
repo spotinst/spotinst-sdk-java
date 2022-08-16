@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.admin.messageCenter.AudienceSpecificationEnum;
+import com.spotinst.sdkjava.enums.admin.messageCenter.MessageTypeEnum;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -19,57 +21,16 @@ public class CreateMessage {
     private String title;
     private String content;
     private String stickyUntil;
-    private String type;
+    private MessageTypeEnum type;
     private String mainIcon;
     private String hyperlink;
     private String secondaryIcon;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     private Date timestamp;
-    private String audienceSpecification;
+    private AudienceSpecificationEnum audienceSpecification;
     private List<Long>  organizationAudienceSpecification;
     private List<UserAudienceSpecification> userAudienceSpecification;
-    private String id;
-    private Boolean isStarred;
-    private Date markedReadAt;
-    private String metadata;
     //endregion
-
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        isSet.add("id");
-        this.id = id;
-    }
-
-    public Boolean getStarred() {
-        return isStarred;
-    }
-
-    public void setIsStarred(Boolean isStarred) {
-        isSet.add("isStarred");
-        isStarred = isStarred;
-    }
-
-    public Date getMarkedReadAt() {
-        return markedReadAt;
-    }
-
-    public void setMarkedReadAt(Date markedReadAt) {
-        isSet.add("markedReadAt");
-        this.markedReadAt = markedReadAt;
-    }
-
-    public String getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(String metadata) {
-        isSet.add("metadata");
-        this.metadata = metadata;
-    }
 
     public String getTitle() {
         return title;
@@ -98,11 +59,11 @@ public class CreateMessage {
         this.stickyUntil = stickyUntil;
     }
 
-    public String getType() {
+    public MessageTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(MessageTypeEnum type) {
         isSet.add("type");
         this.type = type;
     }
@@ -143,11 +104,11 @@ public class CreateMessage {
         this.timestamp = timestamp;
     }
 
-    public String getAudienceSpecification() {
+    public AudienceSpecificationEnum getAudienceSpecification() {
         return audienceSpecification;
     }
 
-    public void setAudienceSpecification(String audienceSpecification) {
+    public void setAudienceSpecification(AudienceSpecificationEnum audienceSpecification) {
         isSet.add("audienceSpecification");
         this.audienceSpecification = audienceSpecification;
     }
@@ -214,7 +175,7 @@ public class CreateMessage {
             return this;
         }
 
-        public Builder setType(String type) {
+        public Builder setType(MessageTypeEnum type) {
             createMessage.setType(type);
             return this;
         }
@@ -239,33 +200,13 @@ public class CreateMessage {
             return this;
         }
 
-        public Builder setAudienceSpecification(String audienceSpecification) {
+        public Builder setAudienceSpecification(AudienceSpecificationEnum audienceSpecification) {
             createMessage.setAudienceSpecification(audienceSpecification);
             return this;
         }
 
         public Builder setOrganizationAudienceSpecification(List<Long> organizationAudienceSpecification) {
             createMessage.setOrganizationAudienceSpecification(organizationAudienceSpecification);
-            return this;
-        }
-
-        public Builder setId(String id) {
-            createMessage.setId(id);
-            return this;
-        }
-
-        public Builder setIsStarred(Boolean isStarred) {
-            createMessage.setIsStarred(isStarred);
-            return this;
-        }
-
-        public Builder setMarkedReadAt(Date markedReadAt) {
-            createMessage.setMarkedReadAt(markedReadAt);
-            return this;
-        }
-
-        public Builder setMetadata(String metadata) {
-            createMessage.setMetadata(metadata);
             return this;
         }
 
@@ -281,30 +222,6 @@ public class CreateMessage {
     //endregion
 
     //region isSet methods
-    // Is id Set boolean method
-    @JsonIgnore
-    public boolean isIdSet() {
-        return isSet.contains("id");
-    }
-
-    // Is isStarred Set boolean method
-    @JsonIgnore
-    public boolean isIsStarredSet() {
-        return isSet.contains("isStarred");
-    }
-
-    // Is markedReadAt Set boolean method
-    @JsonIgnore
-    public boolean isMarkedReadAtSet() {
-        return isSet.contains("markedReadAt");
-    }
-
-    // Is metadata Set boolean method
-    @JsonIgnore
-    public boolean isMetadataSet() {
-        return isSet.contains("metadata");
-    }
-
     // Is title Set boolean method
     @JsonIgnore
     public boolean isTitleSet() {
