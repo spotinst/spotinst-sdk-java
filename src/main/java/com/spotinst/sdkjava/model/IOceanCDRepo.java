@@ -2,6 +2,9 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
+import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 
 import java.util.List;
 
@@ -29,9 +32,15 @@ public interface IOceanCDRepo extends IRepository<Strategy, GroupFilter, String>
 
     RepoGenericResponse<List<RolloutSpec>> getAllRolloutSpecs(String authToken);
 
+    RepoGenericResponse<RolloutStatus> getRolloutStatus(String rolloutId, String authToken);
+
+    RepoGenericResponse<List<RolloutsDetails>> getAllRollouts(String fromDate, String authToken);
+
     RepoGenericResponse<Boolean> updateRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken);
 
     RepoGenericResponse<Boolean> patchRolloutSpec(RolloutSpec rolloutSpecReq, String rolloutSpecName, String authToken);
 
     RepoGenericResponse<Boolean> deleteRolloutSpec(String rolloutSpecName, String authToken);
+
+    RepoGenericResponse<Boolean> rolloutAction(RolloutActions rolloutActionsReq, String rolloutId, String authToken);
 }
