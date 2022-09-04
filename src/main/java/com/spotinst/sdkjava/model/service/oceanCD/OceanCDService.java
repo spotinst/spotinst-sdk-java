@@ -429,7 +429,7 @@ public class OceanCDService extends BaseSpotinstService {
         String uri = String.format("%s/ocean/cd/rollout", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, null);
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
         RolloutDetailsApiResponse allRolloutsResponse = getCastedResponse(response, RolloutDetailsApiResponse.class);
