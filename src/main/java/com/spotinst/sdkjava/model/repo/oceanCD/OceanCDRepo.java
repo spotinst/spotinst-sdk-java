@@ -5,10 +5,16 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutStatus;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutsDetails;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
+import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDRolloutConverter;
 import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDRolloutSpecConverter;
 import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDStrategyConverter;
+import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 import com.spotinst.sdkjava.model.service.oceanCD.OceanCDService;
 
 import java.util.List;
@@ -207,6 +213,54 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             Boolean success = OceanCDService.deleteRolloutSpec(rolloutSpecName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<RolloutStatus> getRolloutStatus(String rolloutId, String authToken) {
+        RepoGenericResponse<RolloutStatus> retVal;
+
+        try {
+            ApiRolloutStatus apiRolloutStatus = OceanCDService.getRolloutStatus(rolloutId, authToken);
+            RolloutStatus rolloutStatus    = OceanCDRolloutConverter.toBl(apiRolloutStatus);
+            retVal = new RepoGenericResponse<>(rolloutStatus);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<RolloutsDetails>> getAllRollouts(String fromDate, String authToken) {
+        RepoGenericResponse<List<RolloutsDetails>> retVal;
+
+        try {
+            List<ApiRolloutsDetails> apiRolloutStatus = OceanCDService.getAllRollouts(fromDate, authToken);
+            List<RolloutsDetails> rolloutStatus = apiRolloutStatus.stream().map(OceanCDRolloutConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(rolloutStatus);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> rolloutAction(RolloutActions rolloutActionsReq, String rolloutId, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+            Boolean success = OceanCDService.rolloutAction(rolloutActionsReq, rolloutId, authToken);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {

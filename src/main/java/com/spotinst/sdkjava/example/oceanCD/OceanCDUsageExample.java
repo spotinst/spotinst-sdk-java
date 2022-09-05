@@ -3,6 +3,9 @@ package com.spotinst.sdkjava.example.oceanCD;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.OceanCDClient;
 import com.spotinst.sdkjava.model.bl.oceanCD.*;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
+import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,6 +65,18 @@ public class OceanCDUsageExample {
         //Delete RolloutSpec
             System.out.println("----------Delete RolloutSpec-------------");
         Boolean deleteRoloutSpecStatus = deleteRolloutSpec(oceanCDClient, rolloutSpecName);
+
+        //Get Rollout Status
+        System.out.println("----------Get Rollout Status--------------");
+        RolloutStatus rolloutStatusResponse = getRolloutStatus(oceanCDClient, strategyName);
+
+        //Get All Rollouts
+        System.out.println("----------List All Rollouts--------------");
+        List<RolloutsDetails> listRolloutStatusResponse = getAllRollouts(oceanCDClient);
+
+        //Rollout Actions
+        System.out.println("----------Rollout Actions-------------");
+        Boolean rolloutStatus = rolloutAction(oceanCDClient, strategyName);
 }
 
     private static String createStrategy(OceanCDClient client) {
@@ -121,7 +136,7 @@ public class OceanCDUsageExample {
             System.out.println("Strategy successfully updated");
         }
         else {
-            System.out.println("Strategy successfully updated");
+            System.out.println("Strategy is not updated");
         }
 
         return updateStatus;
@@ -148,7 +163,7 @@ public class OceanCDUsageExample {
             System.out.println("Strategy successfully updated");
         }
         else {
-            System.out.println("Strategy successfully updated");
+            System.out.println("Strategy is not updated");
         }
 
         return patchStatus;
@@ -164,7 +179,7 @@ public class OceanCDUsageExample {
             System.out.println("Strategy successfully deleted");
         }
         else {
-            System.out.println("Strategy successfully deleted");
+            System.out.println("Strategy is not deleted");
         }
 
         return deleteStatus;
@@ -235,7 +250,7 @@ public class OceanCDUsageExample {
             System.out.println("RolloutSpec successfully updated");
         }
         else {
-            System.out.println("RolloutSpec successfully updated");
+            System.out.println("RolloutSpec is not updated");
         }
 
         return updateStatus;
@@ -259,7 +274,7 @@ public class OceanCDUsageExample {
             System.out.println("RolloutSpec successfully updated");
         }
         else {
-            System.out.println("RolloutSpec successfully updated");
+            System.out.println("RolloutSpec is not updated");
         }
 
         return patchStatus;
@@ -275,10 +290,43 @@ public class OceanCDUsageExample {
             System.out.println("RolloutSpec successfully deleted");
         }
         else {
-            System.out.println("RolloutSpec successfully deleted");
+            System.out.println("RolloutSpec is not deleted");
         }
 
         return deleteStatus;
+    }
+
+    private static RolloutStatus getRolloutStatus (OceanCDClient client, String rolloutId) {
+
+        System.out.println(String.format("Get Ocean CD Rollout. Rollout ID: %s", rolloutId));
+
+        return client.getRolloutStatus(rolloutId);
+    }
+
+    private static List<RolloutsDetails> getAllRollouts (OceanCDClient client) {
+
+        System.out.println("Get All Ocean CD Rollouts");
+
+        return client.getAllRollouts("1662149664");
+    }
+
+    private static Boolean rolloutAction(OceanCDClient client, String rolloutId) {
+        System.out.println("-------------------------Rollout Action------------------------");
+
+        //Build Strategy
+        RolloutActions.Builder rolloutActionsBuilder = RolloutActions.Builder.get();
+        RolloutActions rolloutActions = rolloutActionsBuilder.setAction("promoteFull").build();
+
+        Boolean updateStatus = client.rolloutAction(rolloutActions, rolloutId);
+
+        if (updateStatus) {
+            System.out.println("Rollout action is executed");
+        }
+        else {
+            System.out.println("Rollout action is not executed");
+        }
+
+        return updateStatus;
     }
 
 }

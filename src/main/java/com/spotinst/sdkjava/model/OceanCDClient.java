@@ -6,6 +6,9 @@ import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
+import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -284,6 +287,66 @@ public class OceanCDClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to delete Ocean CD RolloutSpec. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<RolloutsDetails> getAllRollouts(String fromDate) {
+        List<RolloutsDetails> retVal;
+
+        RepoGenericResponse<List<RolloutsDetails>> getAllResponse = getOceanCDRepo().getAllRollouts(fromDate, authToken);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all Ocean CD Rollouts. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public RolloutStatus getRolloutStatus(String rolloutId) {
+
+        RolloutStatus retVal;
+
+        RepoGenericResponse<RolloutStatus> getResponse = getOceanCDRepo().getRolloutStatus(rolloutId, authToken);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get Ocean CD Rollout ID. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean rolloutAction(RolloutActions rolloutActionsReq, String rolloutId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().rolloutAction(rolloutActionsReq, rolloutId, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update Ocean CD Rollout ID. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
