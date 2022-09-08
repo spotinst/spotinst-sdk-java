@@ -1,8 +1,8 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
-import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsCreationRequest;
-import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsDeleteRequest;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerAws;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsCreationRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsDeleteRequest;
 import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsGetRequest;
 import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsUpdateRequest;
 import org.junit.Test;
@@ -30,10 +30,10 @@ public class SpotinstMrScalerAwsClientTest {
     public void createMrScaler() {
         System.out.println("SpotinstMrScalerClientTest.createMrScaler()");
 
-        ApiMrScalerAwsCreationRequest.Builder mrScalerBuilder = ApiMrScalerAwsCreationRequest.Builder.get();
-        ApiMrScalerAwsCreationRequest mrScaler = mrScalerBuilder.build();
+        MrScalerAwsCreationRequest.Builder mrScalerBuilder = MrScalerAwsCreationRequest.Builder.get();
+        MrScalerAwsCreationRequest mrScaler = mrScalerBuilder.build();
 
-        ApiMrScalerAws clusterToCreate = mrScaler.getMrScaler();
+        MrScalerAws clusterToCreate = mrScaler.getMrScaler();
 
         when(response.isRequestSucceed())
                 .thenReturn(Boolean.TRUE);
@@ -53,25 +53,25 @@ public class SpotinstMrScalerAwsClientTest {
         MrScalerAwsUpdateRequest.Builder mrScalerBuilder = MrScalerAwsUpdateRequest.Builder.get();
         MrScalerAwsUpdateRequest mrScaler        = mrScalerBuilder.build();
 
-        ApiMrScalerAws clusterToUpdate = mrScaler.getMrScaler();
+        MrScalerAws clusterToUpdate = mrScaler.getMrScaler();
 
         when(response.isRequestSucceed())
                 .thenReturn(Boolean.TRUE);
-        when(mockedRepo.update("sims-1234567",clusterToUpdate,auth_token,account))
+        when(mockedRepo.update("mrScaleId",clusterToUpdate,auth_token,account))
                 .thenReturn(response);
 
         when(spotinstClientSpy.getSpotinstMrScalerRepo())
                 .thenReturn(mockedRepo);
 
-        spotinstClientSpy.updateMrScaler(mrScaler, "sims-1234567");
+        spotinstClientSpy.updateMrScaler(mrScaler, "mrScaleId");
     }
 
     @Test
     public void deleteMrScaler() {
         System.out.println("SpotinstMrScalerClientTest.deleteMrScaler()");
 
-        ApiMrScalerAwsDeleteRequest.Builder mrScalerBuilder = ApiMrScalerAwsDeleteRequest.Builder.get();
-        ApiMrScalerAwsDeleteRequest         mrScaler        = mrScalerBuilder.build();
+        MrScalerAwsDeleteRequest.Builder mrScalerBuilder = MrScalerAwsDeleteRequest.Builder.get();
+        MrScalerAwsDeleteRequest         mrScaler        = mrScalerBuilder.build();
 
         String clusterToDelete = mrScaler.getMrScalerId();
 
