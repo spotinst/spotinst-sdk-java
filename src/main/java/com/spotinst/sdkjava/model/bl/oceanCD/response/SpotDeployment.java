@@ -15,8 +15,8 @@ public class SpotDeployment {
     private String                         name;
     private String                         oldVersion;
     private String                         newVersion;
-    private SpotDeploymentManifest         oldManifest;
-    private SpotDeploymentManifest         newManifest;
+    private String                         oldManifest;
+    private String                         newManifest;
 
     private SpotDeployment() {
         isSet = new HashSet<>();
@@ -57,20 +57,20 @@ public class SpotDeployment {
         this.newVersion = newVersion;
     }
 
-    public SpotDeploymentManifest getOldManifest() {
+    public String getOldManifest() {
         return oldManifest;
     }
 
-    public void setOldManifest(SpotDeploymentManifest oldManifest) {
+    public void setOldManifest(String oldManifest) {
         isSet.add("oldManifest");
         this.oldManifest = oldManifest;
     }
 
-    public SpotDeploymentManifest getNewManifest() {
+    public String getNewManifest() {
         return newManifest;
     }
 
-    public void setNewManifest(SpotDeploymentManifest newManifest) {
+    public void setNewManifest(String newManifest) {
         isSet.add("newManifest");
         this.newManifest = newManifest;
     }
@@ -101,12 +101,12 @@ public class SpotDeployment {
             return this;
         }
 
-        public Builder setOldManifest(final SpotDeploymentManifest oldManifest) {
+        public Builder setOldManifest(final String oldManifest) {
             spotDeployment.setOldManifest(oldManifest);
             return this;
         }
 
-        public Builder setNewManifest(final SpotDeploymentManifest newManifest) {
+        public Builder setNewManifest(final String newManifest) {
             spotDeployment.setNewManifest(newManifest);
             return this;
         }

@@ -18,8 +18,8 @@ public class ApiSpotDeployment implements IPartialUpdateEntity {
     private String                         name;
     private String                         oldVersion;
     private String                         newVersion;
-    private ApiSpotDeploymentManifest      oldManifest;
-    private ApiSpotDeploymentManifest      newManifest;
+    private String                         oldManifest;
+    private String                         newManifest;
 
     private ApiSpotDeployment() {
         isSet = new HashSet<>();
@@ -60,20 +60,20 @@ public class ApiSpotDeployment implements IPartialUpdateEntity {
         this.newVersion = newVersion;
     }
 
-    public ApiSpotDeploymentManifest getOldManifest() {
+    public String getOldManifest() {
         return oldManifest;
     }
 
-    public void setOldManifest(ApiSpotDeploymentManifest oldManifest) {
+    public void setOldManifest(String oldManifest) {
         isSet.add("oldManifest");
         this.oldManifest = oldManifest;
     }
 
-    public ApiSpotDeploymentManifest getNewManifest() {
+    public String getNewManifest() {
         return newManifest;
     }
 
-    public void setNewManifest(ApiSpotDeploymentManifest newManifest) {
+    public void setNewManifest(String newManifest) {
         isSet.add("newManifest");
         this.newManifest = newManifest;
     }
