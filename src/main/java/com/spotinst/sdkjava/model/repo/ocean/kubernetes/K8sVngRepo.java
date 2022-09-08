@@ -3,10 +3,12 @@ package com.spotinst.sdkjava.model.repo.ocean.kubernetes;
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotK8sVngRepo;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
 import com.spotinst.sdkjava.model.service.ocean.kubernetes.K8sVngSpecService;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.K8sVngSpec;
 import com.spotinst.sdkjava.model.converters.K8sVngConverter;
 
 import java.util.List;
@@ -34,11 +36,11 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> delete(String identifier, String authToken, String account) {
+    public RepoGenericResponse<Boolean> deleteK8sVngSpec(K8sVngDeleteRequest vngDeletionRequest, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean deleted = K8sVngSpecService.deleteK8sVng(identifier, authToken, account);
+            Boolean deleted = K8sVngSpecService.deleteK8sVng(vngDeletionRequest, authToken, account);
             retVal = new RepoGenericResponse<>(deleted);
         }
 		
@@ -101,4 +103,61 @@ public class K8sVngRepo implements ISpotK8sVngRepo {
 
         return retVal;
     }
+
+    @Override
+    public RepoGenericResponse<K8sVngSpec> importASGToVng(K8sVngSpec importASGRequest, String autoScalingGroupName, String oceanId, String authToken, String account) {
+        RepoGenericResponse<K8sVngSpec> retVal;
+
+        try {
+            ApiK8sVngSpec apiImportASGToVng = K8sVngConverter.toDal(importASGRequest);
+            ApiK8sVngSpec apiImportASG = K8sVngSpecService.importASGToVng(apiImportASGToVng, autoScalingGroupName, oceanId, authToken, account);
+            K8sVngSpec ImportedK8sVngSpec = K8sVngConverter.toBl(apiImportASG);
+            retVal = new RepoGenericResponse<>(ImportedK8sVngSpec);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<K8sVngSpec> importCluterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importClusterVngRequest, String authToken) {
+        RepoGenericResponse<K8sVngSpec> retVal;
+
+        try {
+            ApiK8sVngSpec apiImportClusterVngToVng = K8sVngSpecService.importClusterVngToOceanVng(importClusterVngRequest, authToken);
+            K8sVngSpec ImportedK8sVngSpec = K8sVngConverter.toBl(apiImportClusterVngToVng);
+            retVal = new RepoGenericResponse<>(ImportedK8sVngSpec);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<LaunchNodesInVNGResponse>> launchNodesInVNG(LaunchNodesInVNG lauchNodes, String vngId, String authToken, String account) {
+        RepoGenericResponse<List<LaunchNodesInVNGResponse>> retVal;
+
+        try {
+
+            List<ApiLaunchNodesInVNGResponse> apiLaunchNodesInVNG = K8sVngSpecService
+                    .launchNodesInVNG(lauchNodes, vngId, authToken, account);
+            List<LaunchNodesInVNGResponse> launchNodesInVNG = apiLaunchNodesInVNG.stream().map(K8sVngConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(launchNodesInVNG);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
 }

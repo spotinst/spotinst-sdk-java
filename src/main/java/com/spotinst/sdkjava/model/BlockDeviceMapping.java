@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -77,10 +78,10 @@ public class BlockDeviceMapping {
 
         BlockDeviceMapping that = (BlockDeviceMapping) o;
 
-        if (deviceName != null ? !deviceName.equals(that.deviceName) : that.deviceName != null) return false;
-        if (noDevice != null ? !noDevice.equals(that.noDevice) : that.noDevice != null) return false;
-        if (virtualName != null ? !virtualName.equals(that.virtualName) : that.virtualName != null) return false;
-        return !(ebsDevice != null ? !ebsDevice.equals(that.ebsDevice) : that.ebsDevice != null);
+        if (!Objects.equals(deviceName, that.deviceName)) return false;
+        if (!Objects.equals(noDevice, that.noDevice)) return false;
+        if (!Objects.equals(virtualName, that.virtualName)) return false;
+        return !(!Objects.equals(ebsDevice, that.ebsDevice));
 
     }
 
@@ -102,8 +103,7 @@ public class BlockDeviceMapping {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setDeviceName(final String deviceName) {

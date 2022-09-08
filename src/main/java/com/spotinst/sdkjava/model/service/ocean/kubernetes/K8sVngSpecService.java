@@ -4,8 +4,13 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.kubernetes.ApiK8sVngSpec;
+import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportEKSK8sVngSpec;
+import com.spotinst.sdkjava.model.bl.ocean.kubernetes.LaunchNodesInVNG;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sVngApiResponse;
+import com.spotinst.sdkjava.model.responses.ocean.kubernetes.LaunchNodesInVngApiResponse;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -53,8 +58,10 @@ public class K8sVngSpecService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteK8sVng(String oceanLaunchSpecId, String authToken,
+    public static Boolean deleteK8sVng(K8sVngDeleteRequest vngDeletionRequest, String authToken,
                                        String account) throws SpotinstHttpException {
+
+        String oceanLaunchSpecId = vngDeletionRequest.getOceanLaunchSpecId();
 
         // Init retVal
         Boolean retVal = false;
@@ -68,6 +75,16 @@ public class K8sVngSpecService extends BaseSpotinstService {
         // Add account Id Query param
         if (account != null) {
             queryParams.put("accountId", account);
+        }
+
+        // Add deleteNodes Query param
+        if (vngDeletionRequest.getDeleteNodes() != null) {
+            queryParams.put("deleteNodes", String.valueOf(vngDeletionRequest.getDeleteNodes()));
+        }
+
+        // Add forceDelete Query param
+        if (vngDeletionRequest.getForceDelete() != null) {
+            queryParams.put("forceDelete", String.valueOf(vngDeletionRequest.getForceDelete()));
         }
 
         // Get the headers for AWS.
@@ -203,4 +220,160 @@ public class K8sVngSpecService extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static ApiK8sVngSpec importASGToVng(ApiK8sVngSpec importASGRequest, String autoScalingGroupName, String oceanId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiK8sVngSpec retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add autoScalingGroupName Query param
+        if (autoScalingGroupName != null) {
+            queryParams.put("autoScalingGroupName", autoScalingGroupName);
+        }
+
+        // Add ocean Id Query param
+        if (oceanId != null) {
+            queryParams.put("oceanId", oceanId);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiK8sVngSpec> importRequest = new HashMap<>();
+        importRequest.put("launchSpec", importASGRequest);
+        String body = JsonMapper.toJson(importRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/launchSpec/autoScalingGroup/import", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        K8sVngApiResponse importASGToVngResponse =
+                getCastedResponse(response, K8sVngApiResponse.class);
+
+        if (importASGToVngResponse.getResponse().getCount() > 0) {
+            retVal = importASGToVngResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static ApiK8sVngSpec importClusterVngToOceanVng(K8sImportClusterVngToOceanVngRequest importClusterVngRequest, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiK8sVngSpec retVal = null;
+
+        ImportEKSK8sVngSpec importAsgToVng = importClusterVngRequest.getVngLaunchSpec();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (importClusterVngRequest.getAccountId() != null) {
+            queryParams.put("accountId", importClusterVngRequest.getAccountId());
+        }
+
+        // Add autoScalingGroupName Query param
+        if (importClusterVngRequest.getEksClusterName() != null) {
+            queryParams.put("eksClusterName", importClusterVngRequest.getEksClusterName());
+        }
+
+        // Add autoScalingGroupName Query param
+        if (importClusterVngRequest.getEksNodeGroupName() != null) {
+            queryParams.put("eksNodeGroupName", importClusterVngRequest.getEksNodeGroupName());
+        }
+
+        // Add ocean Id Query param
+        if (importClusterVngRequest.getOceanId() != null) {
+            queryParams.put("oceanId", importClusterVngRequest.getOceanId());
+        }
+
+        // Add ocean Id Query param
+        if (importClusterVngRequest.getRegion() != null) {
+            queryParams.put("region", importClusterVngRequest.getRegion());
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ImportEKSK8sVngSpec> importRequest = new HashMap<>();
+        importRequest.put("launchSpec", importAsgToVng);
+        String body = JsonMapper.toJson(importRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/launchSpec/eksNodeGroup/import", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        K8sVngApiResponse importClusterVngToOceanVngResponse =
+                getCastedResponse(response, K8sVngApiResponse.class);
+
+        if (importClusterVngToOceanVngResponse.getResponse().getCount() > 0) {
+            retVal = importClusterVngToOceanVngResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiLaunchNodesInVNGResponse> launchNodesInVNG(LaunchNodesInVNG launchNodes, String vngId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiLaunchNodesInVNGResponse> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, LaunchNodesInVNG> launchNodesRequest = new HashMap<>();
+        launchNodesRequest.put("launchRequest", launchNodes);
+        String body = JsonMapper.toJson(launchNodesRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/k8s/launchSpec/%s/launchNodes", apiEndpoint, vngId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        LaunchNodesInVngApiResponse launchNodesResponse =
+                getCastedResponse(response, LaunchNodesInVngApiResponse.class);
+
+        if (launchNodesResponse.getResponse().getCount() > 0) {
+            retVal = launchNodesResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
 }

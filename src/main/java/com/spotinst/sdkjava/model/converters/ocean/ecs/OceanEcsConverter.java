@@ -1,5 +1,9 @@
 package com.spotinst.sdkjava.model.converters.ocean.ecs;
 
+import com.spotinst.sdkjava.enums.AwsECSHttpEndpointEnum;
+import com.spotinst.sdkjava.enums.AwsECSHttpTokensEnum;
+import com.spotinst.sdkjava.enums.AwsECSLifecycleEnum;
+import com.spotinst.sdkjava.enums.AwsECSRegistrationStatusEnum;
 import com.spotinst.sdkjava.model.api.ocean.ecs.*;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
 import java.util.List;
@@ -494,6 +498,36 @@ public class OceanEcsConverter {
             }
         }
         return retVal;
+    }
+
+    public static ApiEcsInitiateRoll toDal(EcsInitiateRoll initiateRollRequest) {
+        ApiEcsInitiateRoll retval = null;
+
+        if (initiateRollRequest != null) {
+            retval = new ApiEcsInitiateRoll();
+
+            if (initiateRollRequest.isBatchSizePercentageSet()) {
+                retval.setBatchSizePercentage(initiateRollRequest.getBatchSizePercentage());
+            }
+
+            if (initiateRollRequest.isCommentSet()) {
+                retval.setComment(initiateRollRequest.getComment());
+            }
+
+            if (initiateRollRequest.isBatchMinHealthyPercentageSet()) {
+                retval.setBatchMinHealthyPercentage(initiateRollRequest.getBatchMinHealthyPercentage());
+            }
+
+            if (initiateRollRequest.isInstanceIdsSet() && initiateRollRequest.getInstanceIds() != null) {
+                retval.setInstanceIds(initiateRollRequest.getInstanceIds());
+            }
+
+            if (initiateRollRequest.isLaunchSpecIdsSet() && initiateRollRequest.getLaunchSpecIds() != null) {
+                retval.setLaunchSpecIds(initiateRollRequest.getLaunchSpecIds());
+            }
+        }
+
+        return retval;
     }
 
     //endregion
@@ -1020,6 +1054,335 @@ public class OceanEcsConverter {
                 tagBuilder.setTagValue(tag.getTagValue());
             }
             retVal = tagBuilder.build();
+        }
+        return retVal;
+    }
+
+    public static EcsInitiateRollResponseOldInstances toBl(ApiEcsInitiateRollResponseOldInstances oldInstances) {
+        EcsInitiateRollResponseOldInstances retVal = null;
+
+        if (oldInstances != null) {
+            EcsInitiateRollResponseOldInstances.Builder instancesBuilder = EcsInitiateRollResponseOldInstances.Builder.get();
+
+            if (oldInstances.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(oldInstances.getInstanceId());
+            }
+
+            if (oldInstances.isStatusSet()) {
+                instancesBuilder.setStatus(oldInstances.getStatus());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsInitiateRollDetailedStatus toBl(ApiEcsInitiateRollDetailedStatus detailedStatus) {
+        EcsInitiateRollDetailedStatus retVal = null;
+
+        if (detailedStatus != null) {
+            EcsInitiateRollDetailedStatus.Builder detailedStatusBuilder = EcsInitiateRollDetailedStatus.Builder.get();
+
+            if (detailedStatus.isOldInstancesSet()) {
+
+                List<EcsInitiateRollResponseOldInstances> instancesList =
+                        detailedStatus.getOldInstances().stream().map(OceanEcsConverter::toBl)
+                                .collect(Collectors.toList());
+                detailedStatusBuilder.setOldInstances(instancesList);
+            }
+
+            retVal = detailedStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsInitiateRollProgress toBl(ApiEcsInitiateRollProgress progress) {
+        EcsInitiateRollProgress retVal = null;
+
+        if (progress != null) {
+            EcsInitiateRollProgress.Builder progressBuilder = EcsInitiateRollProgress.Builder.get();
+
+            if (progress.isUnitSet()) {
+                progressBuilder.setUnit(progress.getUnit());
+            }
+
+            if (progress.isValueSet()) {
+                progressBuilder.setValue(progress.getValue());
+            }
+
+            if (progress.isDetailedStatusSet()) {
+                progressBuilder.setDetailedStatus(toBl(progress.getDetailedStatus()));
+            }
+
+            retVal = progressBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static EcsClusterRollResponse toBl(ApiEcsClusterRollResponse initiateRollResponse) {
+        EcsClusterRollResponse retVal = null;
+
+        if (initiateRollResponse != null) {
+            EcsClusterRollResponse.Builder responseBuilder = EcsClusterRollResponse.Builder.get();
+
+            if (initiateRollResponse.isIdSet()) {
+                responseBuilder.setId(initiateRollResponse.getId());
+            }
+
+            if (initiateRollResponse.isStatusSet()) {
+                responseBuilder.setStatus(initiateRollResponse.getStatus());
+            }
+
+            if (initiateRollResponse.isCurrentBatchSet()) {
+                responseBuilder.setCurrentBatch(initiateRollResponse.getCurrentBatch());
+            }
+
+            if (initiateRollResponse.isNumOfBatchesSet()) {
+                responseBuilder.setNumOfBatches(initiateRollResponse.getNumOfBatches());
+            }
+
+            if (initiateRollResponse.isCommentSet()) {
+                responseBuilder.setComment(initiateRollResponse.getComment());
+            }
+
+            if (initiateRollResponse.isProgressSet()) {
+                responseBuilder.setProgress(toBl(initiateRollResponse.getProgress()));
+            }
+
+            if (initiateRollResponse.isOceanIdSet()) {
+                responseBuilder.setOceanId(initiateRollResponse.getOceanId());
+            }
+
+            if (initiateRollResponse.isInstanceIdsSet()) {
+                responseBuilder.setInstanceIds(initiateRollResponse.getInstanceIds());
+            }
+
+            if (initiateRollResponse.isLaunchSpecIdsSet()) {
+                responseBuilder.setLaunchSpecIds(initiateRollResponse.getLaunchSpecIds());
+            }
+
+            if (initiateRollResponse.isBatchMinHealthyPercentageSet()) {
+                responseBuilder.setBatchMinHealthyPercentage(initiateRollResponse.getBatchMinHealthyPercentage());
+            }
+
+            if (initiateRollResponse.isCreatedAtSet()) {
+                responseBuilder.setCreatedAt(initiateRollResponse.getCreatedAt());
+            }
+
+            if (initiateRollResponse.isUpdatedAtSet()) {
+                responseBuilder.setUpdatedAt(initiateRollResponse.getUpdatedAt());
+            }
+            retVal = responseBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static GetEcsClusterNodesResponse toBl(ApiGetEcsClusterNodesResponse apiClusterNodes) {
+        GetEcsClusterNodesResponse retVal = null;
+
+        if (apiClusterNodes != null) {
+            GetEcsClusterNodesResponse.Builder instancesBuilder = GetEcsClusterNodesResponse.Builder.get();
+
+            if (apiClusterNodes.isLifeCycleSet()) {
+                instancesBuilder.setLifeCycle(AwsECSLifecycleEnum.fromName(apiClusterNodes.getLifeCycle()));
+            }
+
+            if (apiClusterNodes.isPublicIpSet()) {
+                instancesBuilder.setPublicIp(apiClusterNodes.getPublicIp());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedCpuUnitSet()) {
+                instancesBuilder.setWorkloadRequestedCpuUnit(apiClusterNodes.getWorkloadRequestedCpuUnit());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedMemoryInMiBSet()) {
+                instancesBuilder.setWorkloadRequestedMemoryInMiB(apiClusterNodes.getWorkloadRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isWorkloadRequestedGpuSet()) {
+                instancesBuilder.setWorkloadRequestedGpu(apiClusterNodes.getWorkloadRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedCpuUnitSet()) {
+                instancesBuilder.setHeadroomRequestedCpuUnit(apiClusterNodes.getHeadroomRequestedCpuUnit());
+            }
+
+            if (apiClusterNodes.isRegisteredCpuUnitSet()) {
+                instancesBuilder.setRegisteredCpuUnit(apiClusterNodes.getRegisteredCpuUnit());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedGpuSet()) {
+                instancesBuilder.setHeadroomRequestedGpu(apiClusterNodes.getHeadroomRequestedGpu());
+            }
+
+            if (apiClusterNodes.isHeadroomRequestedMemoryInMiBSet()) {
+                instancesBuilder.setHeadroomRequestedMemoryInMiB(apiClusterNodes.getHeadroomRequestedMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isRegisteredMemoryInMiBSet()) {
+                instancesBuilder.setRegisteredMemoryInMiB(apiClusterNodes.getRegisteredMemoryInMiB());
+            }
+
+            if (apiClusterNodes.isRegisteredGpuSet()) {
+                instancesBuilder.setRegisteredGpu(apiClusterNodes.getRegisteredGpu());
+            }
+
+            if (apiClusterNodes.isContainerInstanceIdSet()) {
+                instancesBuilder.setContainerInstanceId(apiClusterNodes.getContainerInstanceId());
+            }
+
+            if (apiClusterNodes.isRegistrationStatusSet()) {
+                instancesBuilder.setRegistrationStatus(AwsECSRegistrationStatusEnum.fromName(apiClusterNodes.getRegistrationStatus()));
+            }
+
+            if (apiClusterNodes.isCreatedAtSet()) {
+                instancesBuilder.setCreatedAt(apiClusterNodes.getCreatedAt());
+            }
+
+            if (apiClusterNodes.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(apiClusterNodes.getInstanceId());
+            }
+
+            if (apiClusterNodes.isInstanceTypeSet()) {
+                instancesBuilder.setInstanceType(apiClusterNodes.getInstanceType());
+            }
+
+            if (apiClusterNodes.isAvailabilityZoneSet()) {
+                instancesBuilder.setAvailabilityZone(apiClusterNodes.getAvailabilityZone());
+            }
+
+            if (apiClusterNodes.isLaunchSpecIdSet()) {
+                instancesBuilder.setLaunchSpecId(apiClusterNodes.getLaunchSpecId());
+            }
+
+            if (apiClusterNodes.isLaunchSpecNameSet()) {
+                instancesBuilder.setLaunchSpecName(apiClusterNodes.getLaunchSpecName());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ImportOceanEcsClusterResponse toBl(ApiImportOceanEcsClusterResponse src) {
+        ImportOceanEcsClusterResponse cluster = null;
+
+        if (src != null) {
+            ImportOceanEcsClusterResponse.Builder clusterBuilder = ImportOceanEcsClusterResponse.Builder.get();
+
+            if (src.isNameSet()) {
+                clusterBuilder.setName(src.getName());
+            }
+            if (src.isRegionSet()) {
+                clusterBuilder.setRegion(src.getRegion());
+            }
+            if (src.isClusterNameSet()) {
+                clusterBuilder.setClusterName(src.getClusterName());
+            }
+            if (src.isComputeSet()) {
+                clusterBuilder.setCompute(toBl(src.getCompute()));
+            }
+
+            cluster = clusterBuilder.build();
+        }
+        return cluster;
+    }
+
+    private static ImportClusterResponseComputeConfiguration toBl(ApiImportClusterResponseComputeConfiguration apicompute) {
+        ImportClusterResponseComputeConfiguration retVal = null;
+
+        if (apicompute != null) {
+            ImportClusterResponseComputeConfiguration.Builder computeBuilder = ImportClusterResponseComputeConfiguration.Builder.get();
+
+            if (apicompute.isSubnetIdsSet()) {
+                computeBuilder.setSubnetIds(apicompute.getSubnetIds());
+            }
+            if (apicompute.isLaunchSpecificationSet()) {
+                computeBuilder.setLaunchSpecification(toBl(apicompute.getLaunchSpecification()));
+            }
+            retVal = computeBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ImportClusterResponseLaunchSpecification toBl(ApiImportClusterResponseLaunchSpecification launchSpecification) {
+        ImportClusterResponseLaunchSpecification retVal = null;
+
+        if (launchSpecification != null) {
+            ImportClusterResponseLaunchSpecification.Builder clusterLaunchSpecBuilder = ImportClusterResponseLaunchSpecification.Builder.get();
+
+            if (launchSpecification.isImageIdSet()) {
+                clusterLaunchSpecBuilder.setImageId(launchSpecification.getImageId());
+            }
+            if (launchSpecification.isKeyPairSet()) {
+                clusterLaunchSpecBuilder.setKeyPair(launchSpecification.getKeyPair());
+            }
+
+            if (launchSpecification.isIamInstanceProfileSet()) {
+                ImportClusterLaunchSpecIamInstanceProfileSpecification
+                        instanceProfileSpecs = toBl(launchSpecification.getIamInstanceProfile());
+                clusterLaunchSpecBuilder.setIamInstanceProfile(instanceProfileSpecs);
+            }
+            if (launchSpecification.isInstanceMetadataOptionsSet()) {
+                clusterLaunchSpecBuilder
+                        .setInstanceMetadataOptions(toBl(launchSpecification.getInstanceMetadataOptions()));
+            }
+            if (launchSpecification.isTagsSet()) {
+                List<LaunchSpecTagsSpecification> tags =
+                        launchSpecification.getTags().stream().map(OceanEcsConverter::toBl)
+                                .collect(Collectors.toList());
+                clusterLaunchSpecBuilder.setTags(tags);
+            }
+            if (launchSpecification.isUserDataSet()) {
+                clusterLaunchSpecBuilder.setUserData(launchSpecification.getUserData());
+            }
+            if (launchSpecification.isSecurityGroupIdsSet()) {
+                clusterLaunchSpecBuilder.setSecurityGroupIds(launchSpecification.getSecurityGroupIds());
+            }
+            retVal = clusterLaunchSpecBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterLaunchSpecIamInstanceProfileSpecification toBl(ApiImportClusterLaunchSpecIamInstanceProfileSpecification instanceProfile) {
+        ImportClusterLaunchSpecIamInstanceProfileSpecification retVal = null;
+
+        if (instanceProfile != null) {
+            ImportClusterLaunchSpecIamInstanceProfileSpecification.Builder IamInstanceProfileSpecBuilder =
+                    ImportClusterLaunchSpecIamInstanceProfileSpecification.Builder.get();
+
+            if (instanceProfile.isArnSet()) {
+                IamInstanceProfileSpecBuilder.setArn(instanceProfile.getArn());
+            }
+            retVal = IamInstanceProfileSpecBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static ImportClusterLaunchSpecInstanceMetadataOptions toBl(ApiImportClusterLaunchSpecInstanceMetadataOptions instanceMetadataOptions) {
+        ImportClusterLaunchSpecInstanceMetadataOptions retVal = null;
+
+        if (instanceMetadataOptions != null) {
+            ImportClusterLaunchSpecInstanceMetadataOptions.Builder instanceMetadataOptionsBuilder =
+                    ImportClusterLaunchSpecInstanceMetadataOptions.Builder.get();
+
+            if (instanceMetadataOptions.isHttpPutResponseHopLimitSet()) {
+                instanceMetadataOptionsBuilder
+                        .setHttpPutResponseHopLimit(instanceMetadataOptions.getHttpPutResponseHopLimit());
+            }
+            if (instanceMetadataOptions.isHttpTokensSet()) {
+                instanceMetadataOptionsBuilder.setHttpTokens(AwsECSHttpTokensEnum.fromName(instanceMetadataOptions.getHttpTokens()));
+            }
+            if (instanceMetadataOptions.isHttpEndpointSet()) {
+                instanceMetadataOptionsBuilder.setHttpEndpoint(AwsECSHttpEndpointEnum.fromName(instanceMetadataOptions.getHttpEndpoint()));
+            }
+            retVal = instanceMetadataOptionsBuilder.build();
         }
         return retVal;
     }

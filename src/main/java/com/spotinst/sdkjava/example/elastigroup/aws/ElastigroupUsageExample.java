@@ -7,7 +7,6 @@ import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.SuspendedScalingPolicy;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,6 +20,7 @@ import static com.spotinst.sdkjava.utils.Constants.*;
 public class ElastigroupUsageExample {
     private final static String auth_token    = "your-token";
     private final static String act_id        = "your-account-id";
+    private final static String instanceId        = "instance-id";
     private final static String key_pair_name = "some-key-pair-name";
 
     private static final String SPOTINST_TEST_GROUP_NAME = "SpotinstTestJavaSDKGroup";
@@ -33,10 +33,10 @@ public class ElastigroupUsageExample {
         String elastigroupId = createGroup(elastigroupClient);
 
         // Enter Group Standby
-        enterGroupStandby(elastigroupClient, elastigroupId);
+        enterInstanceStandby(elastigroupClient, instanceId);
 
         // Exit Group Standby
-        exitGroupStandby(elastigroupClient, elastigroupId);
+        exitInstanceStandby(elastigroupClient, instanceId);
 
         // Clone group
         String clonedElastigroupId = cloneGroup(elastigroupClient, elastigroupId);
@@ -104,14 +104,14 @@ public class ElastigroupUsageExample {
         // Remove all active suspensions
         removeSuspendedProcesses(elastigroupClient, activeSuspensions.getGroupId(), activeSuspensionNames);
 
-        // Enter Group Standby
-        enterGroupStandby(elastigroupClient, elastigroupId);
+        // Enter Instance Standby
+        enterInstanceStandby(elastigroupClient, instanceId);
 
         // List suspended processes
         getSuspendedProcesses(elastigroupClient, elastigroupId);
 
         // Exit Group Standby
-        exitGroupStandby(elastigroupClient, elastigroupId);
+        exitInstanceStandby(elastigroupClient, instanceId);
 
         // Get Group Events Logs
         getEventsLogs(elastigroupClient, elastigroupId, LOGS_FROM_DATE_EXAMPLE, LOGS_TO_DATE_EXAMPLE, ALL, null,
@@ -171,6 +171,39 @@ public class ElastigroupUsageExample {
         //Get Elastilog
         System.out.println("----------Get Elastilog--------------");
         List<ElastigroupGetElastilogResponse> getLogs = getElastilog(elastigroupClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "elastigroupId");
+
+        //Get Instance types by region
+        System.out.println("----------Get Instance Types by region--------------");
+        List<GetInstanceTypesResponse> getInstanceTypesByRegion = getInstanceTypesByRegion(elastigroupClient, "region");
+
+        //Get suggested Instance types
+        System.out.println("----------Get Suggested Instance Types--------------");
+        List<GetInstanceTypesResponse> getSuggestedInstanceTypes = getSuggestedInstanceTypes(elastigroupClient);
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        ElastigroupEcsClusterRollResponse initiateRollResponse = initiateClusterRoll(elastigroupClient, "group-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        ElastigroupEcsClusterRollResponse getClusterRollStatus = getClusterRoll (elastigroupClient, "group-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<ElastigroupEcsClusterRollResponse> listClusterRolls = getAllClusterRolls(elastigroupClient, "group-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        ElastigroupEcsClusterRollResponse updateRollResponse = updateClusterRoll(elastigroupClient, "group-id", "STOPPED");
+
+        //Create Instance Signal
+        System.out.println("----------Create Instance Signal--------------");
+        String signal = "INSTANCE_READY";
+        Boolean createInstanceSignalStatus = createInstanceSignal(elastigroupClient, signal);
+
+        // Get instance status
+        System.out.println("----------Get Instance Status--------------");
+        ElastigroupGetInstanceStatusResponse response = getInstanceStatus(elastigroupClient, instanceId);
 
     }
 
@@ -715,33 +748,23 @@ public class ElastigroupUsageExample {
         }
     }
 
-    private static void enterGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
-
-        // Build standby elastigroup request
-        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest postRequest =
-                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+    private static void enterInstanceStandby(SpotinstElastigroupClient client, String instanceId) {
 
         // enter group standby
-        Boolean updateSuccess = client.enterGroupStandby(postRequest);
+        Boolean updateSuccess = client.enterInstanceStandby(instanceId);
 
         if (updateSuccess) {
-            System.out.println("Group successfully entered standby mode.");
+            System.out.println("Instance successfully entered standby mode.");
         }
     }
 
-    private static void exitGroupStandby(SpotinstElastigroupClient client, String elastigroupId) {
-
-        // Build standby elastigroup request
-        ElastigroupStandbyRequest.Builder elastigroupStandbyRequestBuilder = ElastigroupStandbyRequest.Builder.get();
-        ElastigroupStandbyRequest deleteRequest =
-                elastigroupStandbyRequestBuilder.setElastigroupId(elastigroupId).build();
+    private static void exitInstanceStandby(SpotinstElastigroupClient client, String instanceId) {
 
         // exit group standby
-        Boolean updateSuccess = client.exitGroupStandby(deleteRequest);
+        Boolean updateSuccess = client.exitInstanceStandby(instanceId);
 
         if (updateSuccess) {
-            System.out.println("Group successfully exited standby mode.");
+            System.out.println("Instance successfully exited standby mode.");
         }
     }
 
@@ -749,7 +772,7 @@ public class ElastigroupUsageExample {
 
         Boolean success = false;
 
-        if(Operation == "LOCK") {
+        if(Operation.equals("LOCK")) {
             // Build lock request
             ElastigroupInstanceLockRequest.Builder elastigroupLockRequestBuilder = ElastigroupInstanceLockRequest.Builder.get();
             ElastigroupInstanceLockRequest request =  elastigroupLockRequestBuilder.setAccountId(accountId)
@@ -757,7 +780,7 @@ public class ElastigroupUsageExample {
 
             success = client.lockInstance(request, instanceId);
         }
-        else if(Operation == "UNLOCK") {
+        else if(Operation.equals("UNLOCK")) {
             // Build unlock request
             ElastigroupInstanceUnLockRequest.Builder elastigroupUnLockRequestBuilder = ElastigroupInstanceUnLockRequest.Builder.get();
             ElastigroupInstanceUnLockRequest request = elastigroupUnLockRequestBuilder.setAccountId(accountId).build();
@@ -775,7 +798,7 @@ public class ElastigroupUsageExample {
 
     private static void interruptInstances(SpotinstElastigroupClient client, List<String> listOfInstances) {
 
-        Boolean success = false;
+        Boolean success;
 
         success = client.simulateInstanceInterruption(listOfInstances);
 
@@ -1016,8 +1039,8 @@ public class ElastigroupUsageExample {
 
         System.out.println("Group Deployment Status for  elastigroup: " + elastigroupId + " is as below : ");
 
-        for (int i = 0; i < GetGroupDeploymentStatusResponse.size(); i++) {
-            System.out.println(GetGroupDeploymentStatusResponse.get(i).getId() + " : " + GetGroupDeploymentStatusResponse.get(i).getStatus());
+        for (ElastigroupGroupDeploymentStatusResponse response : GetGroupDeploymentStatusResponse) {
+            System.out.println(response.getId() + " : " + response.getStatus());
         }
 
         return GetGroupDeploymentStatusResponse;
@@ -1077,10 +1100,7 @@ public class ElastigroupUsageExample {
 
         System.out.println("ITF migration retry for elastigroup:" + elastigroupId);
 
-        Boolean retryStatus =
-                elastigroupClient.retryItfMigration(retryItfMigration);
-
-        return retryStatus;
+        return elastigroupClient.retryItfMigration(retryItfMigration);
 
     }
 
@@ -1102,6 +1122,108 @@ public class ElastigroupUsageExample {
         }
 
         return elastigroupGetLogsResponse;
+    }
+
+    private static List<GetInstanceTypesResponse> getInstanceTypesByRegion(SpotinstElastigroupClient client, String region) {
+
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse =
+                client.getInstanceTypesByRegion(region);
+
+        for (GetInstanceTypesResponse instanceType : getInstanceTypesByRegionResponse) {
+            System.out.println(String.format("InstanceType: %s", instanceType.getInstanceType()));
+        }
+
+        return getInstanceTypesByRegionResponse;
+    }
+
+    private static List<GetInstanceTypesResponse> getSuggestedInstanceTypes(SpotinstElastigroupClient elastigroupClient) {
+
+        GetSuggestedInstanceType.Builder instanceTypeBuilder = GetSuggestedInstanceType.Builder.get();
+        GetSuggestedInstanceType         instanceType        = instanceTypeBuilder.setRegion("us-west-2").setBaselineInstanceType("m5.large").build();
+
+        GetSuggestedInstanceTypeRequest.Builder requestBuilder = GetSuggestedInstanceTypeRequest.Builder.get();
+        GetSuggestedInstanceTypeRequest instanceTypesReq = requestBuilder.setSuggestedInstanceType(instanceType).build();
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse =
+                elastigroupClient.getSuggestedInstanceTypes(instanceTypesReq);
+
+        for (GetInstanceTypesResponse instances : getInstanceTypesByRegionResponse) {
+            System.out.println(String.format("InstanceType: %s", instances.getInstanceType()));
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
+    private static ElastigroupEcsClusterRollResponse initiateClusterRoll(SpotinstElastigroupClient client, String groupId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        ElastigroupEcsInitiateRoll.Builder initiateRollBuilder = ElastigroupEcsInitiateRoll.Builder.get();
+        ElastigroupEcsInitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).setBatchMinHealthyPercentage(batchMinHealthyPercentage).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", groupId));
+        ElastigroupEcsClusterRollResponse rollResponse = client.initiateClusterRollInEGWithECS(initiateRoll, groupId);
+
+        String rollId = rollResponse.getId();
+
+        return rollResponse;
+    }
+
+    private static ElastigroupEcsClusterRollResponse getClusterRoll (SpotinstElastigroupClient client, String groupId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", groupId, rollId));
+        ElastigroupEcsClusterRollResponse getRollResponse = client.getECSClusterRollinEG(groupId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<ElastigroupEcsClusterRollResponse> getAllClusterRolls(SpotinstElastigroupClient client, String groupId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", groupId));
+        List<ElastigroupEcsClusterRollResponse> getAllRolls = client.listECSClusterRollsPerEG(groupId);
+
+        for (ElastigroupEcsClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static ElastigroupEcsClusterRollResponse updateClusterRoll(SpotinstElastigroupClient client, String groupId, String status) {
+
+        ElastigroupEcsUpdateRollRequest.Builder updateRollBuilder = ElastigroupEcsUpdateRollRequest.Builder.get();
+        ElastigroupEcsUpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s", groupId));
+        ElastigroupEcsClusterRollResponse response = client.updateECSClusterRollinEG(updateRoll, groupId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
+    private static Boolean createInstanceSignal(SpotinstElastigroupClient elastigroupClient, String signal) {
+
+        ElastigroupCreateInstanceSignal.Builder instanceSignalBuilder = ElastigroupCreateInstanceSignal.Builder.get();
+        ElastigroupCreateInstanceSignal         instanceSignal        = instanceSignalBuilder.setInstanceId(instanceId).setSignal(signal).build();
+
+        System.out.println("Create instance signal:" + instanceId);
+
+        return elastigroupClient.createInstanceSignal(instanceSignal);
+
+    }
+
+    private static ElastigroupGetInstanceStatusResponse getInstanceStatus(SpotinstElastigroupClient client, String instanceId) {
+
+        System.out.println(String.format("Get Instance Status. InstanceId: %s", instanceId));
+        ElastigroupGetInstanceStatusResponse response = client.getInstanceStatus(instanceId);
+
+        System.out.println(String.format("Instance ID: %s", response.getInstanceId()));
+        System.out.println(String.format("Lifecycle State: %s", response.getLifeCycleState()));
+
+        return response;
     }
 
 }

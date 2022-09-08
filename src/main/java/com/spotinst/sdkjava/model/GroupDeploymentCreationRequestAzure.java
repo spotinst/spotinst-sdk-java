@@ -104,8 +104,7 @@ public class GroupDeploymentCreationRequestAzure {
         }
 
         public static GroupDeploymentCreationRequestAzure.Builder get() {
-            GroupDeploymentCreationRequestAzure.Builder builder = new GroupDeploymentCreationRequestAzure.Builder();
-            return builder;
+            return new Builder();
         }
 
         public GroupDeploymentCreationRequestAzure.Builder setBatchSizePercentage(Integer batchSizePercentage) {

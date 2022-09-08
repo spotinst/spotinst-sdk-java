@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -56,8 +57,8 @@ public class IamRole {
 
         IamRole iamRole = (IamRole) o;
 
-        if (name != null ? !name.equals(iamRole.name) : iamRole.name != null) return false;
-        return !(arn != null ? !arn.equals(iamRole.arn) : iamRole.arn != null);
+        if (!Objects.equals(name, iamRole.name)) return false;
+        return !(!Objects.equals(arn, iamRole.arn));
 
     }
 
@@ -76,8 +77,7 @@ public class IamRole {
         }
 
         public static Builder get(){
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setArn(final String arn) {

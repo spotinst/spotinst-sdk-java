@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.requests.ocean.kubernetes.*;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class OceanKubernetesVngSpecUsageExample {
@@ -47,6 +48,18 @@ public class OceanKubernetesVngSpecUsageExample {
         listK8sVng(vngClient, accountId, oceanId);
         updateK8sVng(vngClient,launchSpecId);
         deleteK8sVng(vngClient,launchSpecId);
+
+        //Import ASG to VNG
+        System.out.println("----------Import ASG to VNG--------------");
+        K8sVngSpec importASGResponse = importASGToVng(vngClient, "ASGName", "oceanId");
+
+        //Import cluster VNG to ocean VNG
+        System.out.println("----------Import cluster VNG to ocean VNG--------------");
+        K8sVngSpec importClusterVNGToOceanVNGResponse = importClusterVngToOceanVng(vngClient);
+
+        //Launch Nodes in VNG
+        System.out.println("----------Launch Nodes in VNG--------------");
+        List<LaunchNodesInVNGResponse> nodesResponse = launchNodesInVNG(vngClient, 2, "launchSpecId");
     }
 
     private static String createK8sVng(K8sVngClient client) {
@@ -167,8 +180,8 @@ public class OceanKubernetesVngSpecUsageExample {
         List<K8sVngSpec> k8sVng = client.listK8sVngSpec(listRequest);
 
         if (k8sVng.size() > 0) {
-            for(int i = 0; i < k8sVng.size(); i++) {
-                System.out.println("List Virtual Node Group Successfully: " + k8sVng.get(i).getName());
+            for (K8sVngSpec spec : k8sVng) {
+                System.out.println("List Virtual Node Group Successfully: " + spec.getName());
             }
         }
 
@@ -286,5 +299,85 @@ public class OceanKubernetesVngSpecUsageExample {
         if (successfulDeletion) {
             System.out.println("Virtual Node Group Deleted Successfully: " + launchSpecId);
         }
+    }
+
+    private static K8sVngSpec importASGToVng(K8sVngClient client, String autoScalingGroupName, String oceanId) {
+        System.out.println("-------------------------Import ASG to virtual node group------------------------");
+
+        //Build labels
+        K8sVngLabel.Builder labelsBuilder = K8sVngLabel.Builder.get();
+
+        K8sVngLabel label     = labelsBuilder.setKey("app").setValue("frontend").build();
+        List<K8sVngLabel> labelsList = new LinkedList<>();
+        labelsList.add(label);
+
+        //Build taints
+        K8sVngTaints.Builder taintsBuilder = K8sVngTaints.Builder.get();
+
+        K8sVngTaints       taints     = taintsBuilder.setKey("app").setValue("frontend").setEffect("NoSchedule").build();
+        List<K8sVngTaints> taintsList = new LinkedList<>();
+        taintsList.add(taints);
+
+        // Build launch spec
+        K8sVngSpec.Builder asgImportRequestBuilder = K8sVngSpec.Builder.get();
+        K8sVngSpec asgImportRequest               =
+                asgImportRequestBuilder.setName("specialty.nodes.spotk8s.com").setLabels(labelsList).setTaints(taintsList).build();
+
+        // Import ASG to VNG
+        K8sVngSpec      importASGResponse = client.importASGToVng(asgImportRequest, autoScalingGroupName, oceanId);
+
+        System.out.println(String.format("Response: %s", importASGResponse.toString()));
+
+        return importASGResponse;
+    }
+
+    private static K8sVngSpec importClusterVngToOceanVng(K8sVngClient client) {
+        System.out.println("-------------------------Import EKS VNG to Ocean VNG------------------------");
+
+        //Build labels
+        K8sVngLabel.Builder labelsBuilder = K8sVngLabel.Builder.get();
+
+        List<K8sVngLabel> labelsList = new LinkedList<>();
+        K8sVngLabel label1     = labelsBuilder.setKey("Group ").setValue("Platform").build();
+        labelsList.add(label1);
+        K8sVngLabel label2     = labelsBuilder.setKey("Service ").setValue("Frontend").build();
+        labelsList.add(label2);
+
+        // Build launch spec
+        ImportEKSK8sVngSpec.Builder vngRequestBuilder = ImportEKSK8sVngSpec.Builder.get();
+        ImportEKSK8sVngSpec vngImportRequest               =
+                vngRequestBuilder.setName("specialty.nodes.spotk8s.com").setLabels(labelsList).build();
+
+        //Build launch spec creation request
+        K8sImportClusterVngToOceanVngRequest.Builder vngImportRequestBuilder = K8sImportClusterVngToOceanVngRequest.Builder.get();
+        K8sImportClusterVngToOceanVngRequest        importRequest           = vngImportRequestBuilder.setVngLaunchSpec(vngImportRequest).setAccountId(accountId).setEksClusterName("test").setEksNodeGroupName("test_vng").setOceanId(oceanId).build();
+
+        //Convert launch spec to API object json
+        System.out.println(importRequest.toJson());
+
+        // Import EKS VNG to Ocean VNG
+        K8sVngSpec      importASGToVngConfigResponse = client.importClusterVngToOceanVng(importRequest);
+
+        System.out.println(String.format("Response: %s", importASGToVngConfigResponse.toString()));
+
+        return importASGToVngConfigResponse;
+    }
+
+    private static List<LaunchNodesInVNGResponse> launchNodesInVNG(K8sVngClient client, Integer count, String launchSpecId) {
+        System.out.println("-------------------------Launch Cluster Nodes------------------------");
+
+        LaunchNodesInVNG.Builder getNodesBuilder = LaunchNodesInVNG.Builder.get();
+        LaunchNodesInVNG launchNodes = getNodesBuilder.setAmount(count).build();
+        List<LaunchNodesInVNGResponse> nodesResponse = client.launchNodesInVNG(launchNodes, launchSpecId);
+
+        for (LaunchNodesInVNGResponse node : nodesResponse) {
+            for (NewInstances instances : node.getNewInstances()) {
+                System.out.println(String.format("InstanceId: %s", instances.getAvailabilityZone()));
+                System.out.println(String.format("InstanceType: %s", instances.getInstanceType()));
+                System.out.println(String.format("AvailabilityZone: %s", instances.getAvailabilityZone()));
+                System.out.println(String.format("LifeCycle: %s", instances.getLifeCycle()));
+            }
+        }
+        return nodesResponse;
     }
 }

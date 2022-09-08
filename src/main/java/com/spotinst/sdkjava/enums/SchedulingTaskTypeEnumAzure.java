@@ -14,7 +14,7 @@ public enum SchedulingTaskTypeEnumAzure {
     STATEFUL_UPDATE_CAPACITY("statefulUpdateCapacity"),
     STATEFUL_RECYCLE("statefulRecycle");
 
-    private SchedulingTaskTypeEnumAzure(String name) {
+    SchedulingTaskTypeEnumAzure(String name) {
         this.name = name;
     }
 
@@ -23,7 +23,7 @@ public enum SchedulingTaskTypeEnumAzure {
     }
 
     private final String name;
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SchedulingTaskTypeEnumAzure.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SchedulingTaskTypeEnumAzure.class);
 
     public static SchedulingTaskTypeEnumAzure fromName(String name) {
         SchedulingTaskTypeEnumAzure retVal = null;

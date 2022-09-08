@@ -13,7 +13,7 @@ public enum InstanceHealthStatusEnum {
     INSUFFICIENT_DATA("INSUFFICIENT_DATA"),
     UNKNOWN("UNKNOWN");
 
-    private InstanceHealthStatusEnum(String name) {
+    InstanceHealthStatusEnum(String name) {
         this.name = name;
     }
 

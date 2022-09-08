@@ -1,15 +1,18 @@
 package com.spotinst.sdkjava.model;
 
-
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.api.gcp.ApiGroupActiveInstanceStatusGcp;
+import com.spotinst.sdkjava.model.api.gcp.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScaleDownApiResponse;
+import com.spotinst.sdkjava.model.responses.elastigroup.gcp.ElastigroupScaleUpApiResponse;
 import org.apache.http.HttpStatus;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
@@ -23,7 +26,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -67,7 +70,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -132,6 +135,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         return retVal;
     }
 
+
     public static Boolean updateGroup(String elastigroupId, ApiElastigroupGcp apiElastigroup, String authToken,
                                       String account) throws SpotinstHttpException {
 
@@ -143,7 +147,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -183,7 +187,7 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -242,4 +246,149 @@ class SpotinstElastigroupServiceGcp extends BaseSpotinstService {
 
         return retVal;
     }
+
+    public static Boolean lockInstance(String authToken, String accountId, String ttlInMinutes, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+        queryParams.put("ttlInMinutes", ttlInMinutes);
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/instance/%s/lock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean unlockInstance(String authToken, String accountId, String instanceId) throws SpotinstHttpException {
+        //Init retVal
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        queryParams.put("accountId", accountId);
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/instance/%s/unlock", apiEndpoint, instanceId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiElastigroupScaleUpResponseGcp> scaleUpGroup(String elastigroupId, String adjustment, String authToken,
+                                                                String account) throws SpotinstHttpException {
+
+        //Init retVal
+        List<ApiElastigroupScaleUpResponseGcp> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("adjustment",adjustment);
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/group/%s/scale/up", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupScaleUpApiResponse scalingResponseGcp =
+                getCastedResponse(response, ElastigroupScaleUpApiResponse.class);
+        if (scalingResponseGcp.getResponse().getCount() > 0) {
+            retVal = scalingResponseGcp.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiElastigroupScaleDownResponseGcp> scaleDownGroup(String elastigroupId, String adjustment, String authToken,
+                                                                      String account) throws SpotinstHttpException {
+
+        //Init retVal
+        List<ApiElastigroupScaleDownResponseGcp> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("adjustment",adjustment);
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/gcp/gce/group/%s/scale/down", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, null, headers, queryParams);
+
+        // Handle the response.
+        ElastigroupScaleDownApiResponse scalingResponseGcp =
+                getCastedResponse(response, ElastigroupScaleDownApiResponse.class);
+        if (scalingResponseGcp.getResponse().getCount() > 0) {
+            retVal = scalingResponseGcp.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+
 }

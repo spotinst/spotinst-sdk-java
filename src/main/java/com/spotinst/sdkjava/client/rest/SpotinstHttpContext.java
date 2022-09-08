@@ -35,9 +35,8 @@ public class SpotinstHttpContext {
 
         HttpClientBuilder builder = HttpClientBuilder.create();
         builder.setDefaultRequestConfig(requestBuilder.build());
-        CloseableHttpClient httpClient = builder.build();
 
-        return httpClient;
+        return builder.build();
     }
     //endregion
 

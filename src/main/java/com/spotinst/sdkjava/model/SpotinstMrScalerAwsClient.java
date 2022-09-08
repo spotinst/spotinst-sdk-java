@@ -99,7 +99,7 @@ public class SpotinstMrScalerAwsClient {
     /**
      * This method is used to create an AWS MrScaler Cluster
      *
-     * @param mrScalerCreationRequest ApiMrScalerAwsCreationRequest Object that contains the requested create params
+     * @param mrScalerCreationRequest MrScalerAwsCreationRequest Object that contains the requested create params
      * @return ApiMrScalerAws
      */
     public MrScalerAws createMrScaler(MrScalerAwsCreationRequest mrScalerCreationRequest) {

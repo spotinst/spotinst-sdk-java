@@ -17,7 +17,7 @@ public class ApiDetachVmsAzure implements IPartialUpdateEntity {
 
     @JsonIgnore
     private Set<String>     isSet;
-    private String          drainingTimeout;
+    private Integer         drainingTimeout;
     private Boolean         shouldDecrementTargetCapacity;
     private Boolean         shouldTerminateVms;
     private List<String>    vmsToDetach;
@@ -34,11 +34,11 @@ public class ApiDetachVmsAzure implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getDrainingTimeout() {
+    public Integer getDrainingTimeout() {
         return drainingTimeout;
     }
 
-    public void setDrainingTimeout(String drainingTimeout) {
+    public void setDrainingTimeout(Integer drainingTimeout) {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }

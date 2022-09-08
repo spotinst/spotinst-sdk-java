@@ -1,9 +1,13 @@
 package com.spotinst.sdkjava.example.ocean.kubernetes;
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanK8sClusterClient;
 import com.spotinst.sdkjava.model.Tag;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.*;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.GetClusterNodesRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sClusterFetchElastilogRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.UpdateRollRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -30,6 +34,46 @@ public class OceanKubernetesClusterUsageExample {
         getCluster(clusterClient,clusterId);
         updateCluster(clusterClient, clusterId);
         deleteCluster(clusterClient, clusterId);
+
+        //Get all clusters
+        System.out.println("----------Get all clusters--------------");
+        List<OceanK8sCluster> getClusters = getAllK8sClusters(clusterClient);
+
+        //Get cluster heartbeat status
+        System.out.println("----------Get cluster heartbeat status-------------");
+        GetK8sClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
+
+        //Import ASG to ocean cluster
+        System.out.println("----------Import ASG to ocean cluster--------------");
+        OceanK8sCluster importASGResponse = importASGToOceanCluster(clusterClient, "ASGName", "region");
+
+        //Get Elastilog
+        System.out.println("----------Get Elastilog--------------");
+        List<K8sClusterFetchElastilogResponse> getLogs = fetchElastilog(clusterClient, act_id, "fromDate", "limit", "resourceId", "severity", "toDate", "clusterId");
+
+        //Detach instances
+        System.out.println("----------Detach Instances--------------");
+        Boolean detachStatus = detachClusterInstances(clusterClient, "cluster-id", Collections.singletonList("instances"), true, true);
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        ClusterRollResponse initiateRollResponse = initiateClusterRoll(clusterClient, "cluster-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        ClusterRollResponse getClusterRollStatus = getClusterRollStatus (clusterClient, "cluster-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<ClusterRollResponse> listClusterRolls = getAllClusterRolls(clusterClient, "cluster-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        ClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
+
+        //Get cluster nodes
+        System.out.println("----------Get cluster Nodes--------------");
+        List<GetClusterNodesResponse> nodes = getClusterNodes(clusterClient, "cluster-id");
     }
 
     private static String createCluster(SpotOceanK8sClusterClient client) {
@@ -183,6 +227,135 @@ public class OceanKubernetesClusterUsageExample {
         return oceanK8sCluster;
     }
 
+    private static List<OceanK8sCluster> getAllK8sClusters(SpotOceanK8sClusterClient client) {
+
+        System.out.println("Getting all Kubernetes Clusters");
+
+        return client.getAllK8sClusters();
+    }
+
+    private static GetK8sClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanK8sClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Getting the Heartbeat status for the Kubernetes Cluster: %s", clusterId));
+        GetK8sClusterHeartBeatStatusResponse clusterHeartBeatStatus = client.getK8sClusterHeartBeatStatus(clusterId);
+
+        System.out.println(String.format("Status: %s", clusterHeartBeatStatus.getStatus()));
+        System.out.println(String.format("LastHeartBeat: %s", clusterHeartBeatStatus.getLastHeartbeat()));
+
+        return clusterHeartBeatStatus;
+    }
+
+    private static OceanK8sCluster importASGToOceanCluster(SpotOceanK8sClusterClient client, String autoscalingGroupName, String region) {
+
+        System.out.println(String.format("Import ASG to ocean cluster. ASG name: %s", autoscalingGroupName));
+        ImportAsgToClusterConfiguration.Builder instanceTypesBuilder = ImportAsgToClusterConfiguration.Builder.get();
+        List<String> instancetypes = Arrays.asList("t2.medium", "t3.medium", "c4.xlarge");
+        ImportAsgToClusterConfiguration instanceTypes = instanceTypesBuilder.setInstanceTypes(instancetypes).build();
+
+        OceanK8sCluster asgConfigToImport = client.importASGToOceanCluster(instanceTypes, autoscalingGroupName, region);
+
+        System.out.println(String.format("Response: %s", asgConfigToImport.toString()));
+
+        return asgConfigToImport;
+    }
+
+    private static List<K8sClusterFetchElastilogResponse> fetchElastilog(SpotOceanK8sClusterClient client, String accountId, String fromDate, String limit, String resourceId, String severity, String toDate, String clusterId) {
+
+        // Build get request
+        K8sClusterFetchElastilogRequest.Builder getElastilogRequestBuilder = K8sClusterFetchElastilogRequest.Builder.get();
+        K8sClusterFetchElastilogRequest request = getElastilogRequestBuilder.setAccountId(accountId)
+                .setFromDate(fromDate).setLimit(limit).setResourceId(resourceId)
+                .setSeverity(severity).setToDate(toDate).build();
+
+        List<K8sClusterFetchElastilogResponse> k8sGetLogsResponse =
+                client.fetchElastilog(request, clusterId);
+
+        for (K8sClusterFetchElastilogResponse logs : k8sGetLogsResponse) {
+            System.out.println(String.format("Message: %s", logs.getMessage()));
+            System.out.println(String.format("Severity: %s", logs.getSeverity()));
+            System.out.println(String.format("Created At: %s", logs.getCreatedAt()));
+        }
+
+        return k8sGetLogsResponse;
+    }
+
+    private static Boolean detachClusterInstances(SpotOceanK8sClusterClient client, String clusterId, List instances, Boolean shouldDecrementTargetCapacity, Boolean shouldTerminateInstances) {
+
+        DetachInstances.Builder detachInstancesBuilder = DetachInstances.Builder.get();
+        DetachInstances detachInstances                = detachInstancesBuilder.setInstancesToDetach(instances).setShouldDecrementTargetCapacity(shouldDecrementTargetCapacity).setShouldTerminateInstances(shouldTerminateInstances).build();
+
+        System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
+
+        return client.detachInstances(detachInstances, clusterId);
+    }
+
+    private static ClusterRollResponse initiateClusterRoll(SpotOceanK8sClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        InitiateRoll.Builder initiateRollBuilder = InitiateRoll.Builder.get();
+        InitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).setRespectPdb(respectPdb).setBatchMinHealthyPercentage(batchMinHealthyPercentage).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", clusterId));
+        ClusterRollResponse detachStatus = client.initiateRoll(initiateRoll, clusterId);
+
+        String rollId = detachStatus.getId();
+
+        return detachStatus;
+    }
+
+    private static ClusterRollResponse getClusterRollStatus (SpotOceanK8sClusterClient client, String clusterId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        ClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<ClusterRollResponse> getAllClusterRolls(SpotOceanK8sClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", clusterId));
+        List<ClusterRollResponse> getAllRolls = client.listRolls(clusterId);
+
+        for (ClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static ClusterRollResponse updateClusterRoll(SpotOceanK8sClusterClient client, String clusterId, String rollId, String status) {
+
+        UpdateRollRequest.Builder updateRollBuilder = UpdateRollRequest.Builder.get();
+        UpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        ClusterRollResponse response = client.updateRoll(updateRoll, clusterId, rollId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
 
 
+
+    private static List<GetClusterNodesResponse> getClusterNodes(SpotOceanK8sClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetClusterNodesRequest.Builder getNodesBuilder = GetClusterNodesRequest.Builder.get();
+        GetClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetClusterNodesResponse>  nodes = client.getClusterNodes(getNodesRequest, clusterId);
+
+        for (GetClusterNodesResponse node : nodes){
+            System.out.println(String.format("InstanceId: %s", node.getInstanceId()));
+            System.out.println(String.format("InstanceType: %s", node.getInstanceType()));
+            System.out.println(String.format("LaunchSpecId: %s", node.getLaunchSpecId()));
+            System.out.println(String.format("LaunchSpecName: %s", node.getLaunchSpecName()));
+            System.out.println(String.format("NodeName: %s", node.getNodeName()));
+        }
+
+        return nodes;
+    }
 }

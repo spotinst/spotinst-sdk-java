@@ -9,7 +9,7 @@ public enum K8sVngHttpTokensEnum {
     OPTIONAL("optional"),
     REQUIRED("required");
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(K8sVngHttpTokensEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(K8sVngHttpTokensEnum.class);
     private String name;
 
     K8sVngHttpTokensEnum(String name) {

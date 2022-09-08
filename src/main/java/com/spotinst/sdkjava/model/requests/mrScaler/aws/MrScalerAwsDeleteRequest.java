@@ -1,17 +1,12 @@
 package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 public class MrScalerAwsDeleteRequest {
-    //region Members
+    
     private String mrScalerId;
-    //endregion
-
-    //region Private constructor
+    
     private MrScalerAwsDeleteRequest() {
     }
-    //endregion
-
-    //region Getter and Setter methods
-
+    
     public String getMrScalerId() {
         return mrScalerId;
     }
@@ -20,9 +15,7 @@ public class MrScalerAwsDeleteRequest {
         this.mrScalerId = mrScalerId;
     }
 
-    //endregion
-
-    //region Builder class
+    
     public static class Builder {
         private MrScalerAwsDeleteRequest  mrScalerDeletionRequest;
 
@@ -45,5 +38,4 @@ public class MrScalerAwsDeleteRequest {
         }
 
     }
-    //endregion
 }

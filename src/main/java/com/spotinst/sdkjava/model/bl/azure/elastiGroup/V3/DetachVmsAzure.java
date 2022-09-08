@@ -15,7 +15,7 @@ public class DetachVmsAzure {
 
     @JsonIgnore
     private Set<String>     isSet;
-    private String          drainingTimeout;
+    private Integer         drainingTimeout;
     private Boolean         shouldDecrementTargetCapacity;
     private Boolean         shouldTerminateVms;
     private List<String>    vmsToDetach;
@@ -31,11 +31,11 @@ public class DetachVmsAzure {
     public void setIsSet(Set<String> isSet) { this.isSet = isSet;
     }
 
-    public String getDrainingTimeout() {
+    public Integer getDrainingTimeout() {
         return drainingTimeout;
     }
 
-    public void setDrainingTimeout(String drainingTimeout) {
+    public void setDrainingTimeout(Integer drainingTimeout) {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }
@@ -75,11 +75,10 @@ public class DetachVmsAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
-        public Builder setDrainingTimeout(final String drainingTimeout) {
+        public Builder setDrainingTimeout(final Integer drainingTimeout) {
             detachVms.setDrainingTimeout(drainingTimeout);
             return this;
         }

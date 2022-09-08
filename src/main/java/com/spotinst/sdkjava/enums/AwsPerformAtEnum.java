@@ -12,7 +12,7 @@ public enum AwsPerformAtEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsPerformAtEnum.class);
     private String name;
 
-    private AwsPerformAtEnum(String name) {
+    AwsPerformAtEnum(String name) {
         this.name = name;
     }
 

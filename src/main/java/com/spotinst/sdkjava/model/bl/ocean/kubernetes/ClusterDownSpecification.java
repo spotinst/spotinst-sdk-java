@@ -44,8 +44,7 @@ public class ClusterDownSpecification {
         }
 
         public static ClusterDownSpecification.Builder get() {
-            ClusterDownSpecification.Builder builder = new ClusterDownSpecification.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ClusterDownSpecification.Builder setMaxScaleDownPercentage(final Integer maxScaleDownPercentage) {

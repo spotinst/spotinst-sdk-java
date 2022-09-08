@@ -2,10 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -85,8 +82,8 @@ public class Placement {
 
         Placement that = (Placement) o;
 
-        if (azName != null ? !azName.equals(that.azName) : that.azName != null) return false;
-        return subnetIds != null ? subnetIds.equals(that.subnetIds) : that.subnetIds == null;
+        if (!Objects.equals(azName, that.azName)) return false;
+        return Objects.equals(subnetIds, that.subnetIds);
 
     }
 
@@ -123,8 +120,7 @@ public class Placement {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setSubnetIds(final List<String> subnetIds) {

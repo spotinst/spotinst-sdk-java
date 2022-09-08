@@ -26,7 +26,7 @@ public class SpotOceanGkeClusterService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -146,7 +146,7 @@ public class SpotOceanGkeClusterService extends BaseSpotinstService {
         String             apiEndpoint = config.getEndpoint();
 
         // Build query params
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {
@@ -186,7 +186,7 @@ public class SpotOceanGkeClusterService extends BaseSpotinstService {
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
         String             apiEndpoint = config.getEndpoint();
 
-        Map<String, String> queryParams = new HashMap<String, String>();
+        Map<String, String> queryParams = new HashMap<>();
 
         // Add account Id Query param
         if (account != null) {

@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.client.rest;
 
+import com.spotinst.sdkjava.client.http.GetRequestWithBody;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.client.http.DeleteRequestWithBody;
 import org.apache.http.HttpResponse;
@@ -42,10 +43,45 @@ public class RestClient {
         addHeaders(getRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(getRequest);
 
-        return retVal;
+        return sendRequest(getRequest);
     }
+
+    public static RestResponse sendGetWithBody(
+            String url,
+            String body,
+            Map<String, String> headers,
+            Map<String, String> queryParams) throws SpotinstHttpException {
+
+        String encodedUrl = UrlEncoder.encode(url);
+
+        // Build the get request
+        GetRequestWithBody getRequest = new GetRequestWithBody(encodedUrl);
+
+        // Build the request body
+        if (body != null) {
+            StringEntity entity = null;
+            try {
+                entity = new StringEntity(body);
+            } catch (UnsupportedEncodingException e) {
+
+                // TODO - Handle.
+                LOGGER.error("Exception when building get body", e);
+            }
+            getRequest.setEntity(entity);
+        }
+
+        // Adding query params.
+        addQueryParams(getRequest, queryParams);
+
+        // Adding headers.
+        addHeaders(getRequest, headers);
+
+        // Sending the request.
+
+        return sendRequest(getRequest);
+    }
+
 
     public static RestResponse sendPut(
             String url,
@@ -78,9 +114,43 @@ public class RestClient {
         addHeaders(putRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(putRequest);
 
-        return retVal;
+        return sendRequest(putRequest);
+    }
+
+    public static RestResponse sendPatch(
+            String url,
+            String body,
+            Map<String, String> headers,
+            Map<String, String> queryParams) throws SpotinstHttpException {
+
+        String encodedUrl = UrlEncoder.encode(url);
+
+        // Build the patch request
+        HttpPatch patchRequest = new HttpPatch(encodedUrl);
+
+        // Build the request body
+        if (body != null) {
+            StringEntity entity = null;
+            try {
+                entity = new StringEntity(body);
+            } catch (UnsupportedEncodingException e) {
+
+                // TODO - Handle.
+                LOGGER.error("Exception when building patch body", e);
+            }
+            patchRequest.setEntity(entity);
+        }
+
+        // Adding query params.
+        addQueryParams(patchRequest, queryParams);
+
+        // Adding headers.
+        addHeaders(patchRequest, headers);
+
+        // Sending the request.
+
+        return sendRequest(patchRequest);
     }
 
     public static RestResponse sendPost(
@@ -114,9 +184,8 @@ public class RestClient {
         addHeaders(postRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(postRequest);
 
-        return retVal;
+        return sendRequest(postRequest);
     }
 
     public static RestResponse sendDelete(
@@ -150,13 +219,12 @@ public class RestClient {
         addHeaders(deleteRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(deleteRequest);
 
-        return retVal;
+        return sendRequest(deleteRequest);
     }
 
     private static RestResponse sendRequest(HttpUriRequest urlRequest) throws SpotinstHttpException {
-        RestResponse retVal = null;
+        RestResponse retVal;
 
         // Get the client.
         HttpClient httpclient;
@@ -227,15 +295,15 @@ public class RestClient {
     }
 
     private static RestResponse buildRestResponse(HttpResponse response) throws SpotinstHttpException {
-        RestResponse retVal = null;
+        RestResponse retVal;
 
-        BufferedReader rd = null;
+        BufferedReader rd;
         try {
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             if (response.getEntity() != null) {
                 rd = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));
-                String line = "";
+                String line;
                 while ((line = rd.readLine()) != null) {
                     result.append(line);
                 }

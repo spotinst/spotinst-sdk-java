@@ -9,6 +9,7 @@ public class K8sVngResourceLimits {
     @JsonIgnore
     private Set<String> isSet;
     private Integer     maxInstanceCount;
+    private Integer     minInstanceCount;
 
 
     private K8sVngResourceLimits() {
@@ -32,6 +33,15 @@ public class K8sVngResourceLimits {
         this.maxInstanceCount = maxInstanceCount;
     }
 
+    public Integer getMinInstanceCount() {
+        return minInstanceCount;
+    }
+
+    public void setMinInstanceCount(Integer minInstanceCount) {
+        isSet.add("minInstanceCount");
+        this.minInstanceCount = minInstanceCount;
+    }
+
     public static class Builder {
         private K8sVngResourceLimits strategy;
 
@@ -40,12 +50,16 @@ public class K8sVngResourceLimits {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setMaxInstanceCount(final Integer maxInstanceCount) {
             strategy.setMaxInstanceCount(maxInstanceCount);
+            return this;
+        }
+
+        public Builder setMinInstanceCount(final Integer minInstanceCount) {
+            strategy.setMinInstanceCount(minInstanceCount);
             return this;
         }
 
@@ -58,5 +72,10 @@ public class K8sVngResourceLimits {
     @JsonIgnore
     public boolean isMaxInstanceCountSet() {
         return isSet.contains("maxInstanceCount");
+    }
+
+    @JsonIgnore
+    public boolean isMinInstanceCountSet() {
+        return isSet.contains("minInstanceCount");
     }
 }

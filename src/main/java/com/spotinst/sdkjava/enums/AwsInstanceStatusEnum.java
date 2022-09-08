@@ -18,10 +18,10 @@ public enum AwsInstanceStatusEnum {
     STOPPING("stopping", 5),
     STOPPED("stopped", 6);
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsInstanceStatusEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceStatusEnum.class);
     private String awsName;
     private Integer code;
-    private AwsInstanceStatusEnum(String awsName, Integer code) {
+    AwsInstanceStatusEnum(String awsName, Integer code) {
         this.awsName = awsName;
         this.code = code;
     }

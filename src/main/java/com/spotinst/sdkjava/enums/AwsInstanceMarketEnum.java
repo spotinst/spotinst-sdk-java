@@ -14,7 +14,7 @@ public enum AwsInstanceMarketEnum {
     //endregion
 
     //region Members
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
     //endregion
 

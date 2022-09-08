@@ -10,10 +10,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.ScalingPoliciesSusp
 import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroupConverter;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ApiRetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -222,11 +219,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> enterInstanceStandby(String instanceId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.enterGroupStandby(groupId, authToken, account);
+            Boolean success = SpotinstElastigroupService.enterInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -237,11 +234,11 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> exitInstanceStandby(String instanceId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
-            Boolean success = SpotinstElastigroupService.exitGroupStandby(groupId, authToken, account);
+            Boolean success = SpotinstElastigroupService.exitInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
@@ -250,6 +247,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
 
     @Override
     public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
@@ -428,7 +426,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
     public RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeployment(String elastigroupId, ElastigroupStartDeployment elastiGroupDeployment,
                                                                                    String authToken, String account) {
-       RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal = null;
+       RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal;
 
         try {
 
@@ -475,7 +473,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
     public RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> getDeploymentStatus(String elastigroupId, String deploymentId,
                                                                                            String authToken, String account) {
-        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal = null;
+        RepoGenericResponse<ElastigroupGetDeploymentStatusResponse> retVal;
 
         try {
 
@@ -778,4 +776,264 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     }
 
+    @Override
+    public RepoGenericResponse<Elastigroup> importASG(ImportASGRequest importASGRequest, String authToken) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+
+            ApiElastigroup importASG = SpotinstElastigroupService
+                    .importASG(importASGRequest, authToken);
+            Elastigroup importedASG = ElastigroupConverter.toBl(importASG);
+
+            retVal = new RepoGenericResponse<>(importedASG);
+          } 
+          catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+   @Override  
+   public RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesResponse>> retVal;
+
+        try {
+
+            List<ApiGetInstanceTypesResponse> getInstanceTypes = SpotinstElastigroupService
+                    .getInstanceTypesByRegion(region, authToken, account);
+            List<GetInstanceTypesResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllInstanceTypes);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<GetInstanceTypesResponse>> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceType, String authToken, String account) {
+        RepoGenericResponse<List<GetInstanceTypesResponse>> retVal;
+
+        try {
+
+            List<ApiGetInstanceTypesResponse> getInstanceTypes = SpotinstElastigroupService
+                    .getSuggestedInstanceTypes(suggestedInstanceType, authToken, account);
+            List<GetInstanceTypesResponse> getAllInstanceTypes = getInstanceTypes.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(getAllInstanceTypes);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupEcsClusterRollResponse> initiateClusterRollInEGWithECS(ElastigroupEcsInitiateRoll rollRequest, String groupId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> retVal;
+
+        try {
+
+            ApiElastigroupEcsInitiateRoll apiRollRequest = ElastigroupConverter.toDal(rollRequest);
+
+            ApiElastigroupEcsClusterRollResponse rollResponse = SpotinstElastigroupService.initiateClusterRollInEGWithECS(apiRollRequest, groupId, authToken, account);
+            ElastigroupEcsClusterRollResponse getRollResponse = ElastigroupConverter.toBl(rollResponse);
+
+            retVal = new RepoGenericResponse<>(getRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<ElastigroupEcsClusterRollResponse>> listECSClusterRollsPerEG(String groupId, String authToken, String account) {
+        RepoGenericResponse<List<ElastigroupEcsClusterRollResponse>> retVal;
+
+        try {
+
+            List<ApiElastigroupEcsClusterRollResponse> apiListRolls = SpotinstElastigroupService.listECSClusterRollsPerEG(groupId, authToken, account);
+            List<ElastigroupEcsClusterRollResponse> listRollsResponse = apiListRolls.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(listRollsResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupEcsClusterRollResponse> getECSClusterRollinEG(String groupId, String rollId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> retVal;
+
+        try {
+
+            ApiElastigroupEcsClusterRollResponse apiGetRoll = SpotinstElastigroupService.getECSClusterRollinEG(groupId, rollId, authToken, account);
+            ElastigroupEcsClusterRollResponse getRollResponse = ElastigroupConverter.toBl(apiGetRoll);
+
+            retVal = new RepoGenericResponse<>(getRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupEcsClusterRollResponse> updateECSClusterRollinEG(ElastigroupEcsUpdateRollRequest updateRollRequest, String groupId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> retVal;
+
+        try {
+
+            ApiElastigroupEcsClusterRollResponse apiGetRoll = SpotinstElastigroupService.updateECSClusterRollinEG(updateRollRequest, groupId, authToken, account);
+            ElastigroupEcsClusterRollResponse updateRollResponse = ElastigroupConverter.toBl(apiGetRoll);
+
+            retVal = new RepoGenericResponse<>(updateRollResponse);
+        }
+
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupImportStatefulInstanceResponse> importStatefulInstance(ElastigroupImportStatefulInstance elastigroupImportInstance, String authToken, String account) {
+        RepoGenericResponse<ElastigroupImportStatefulInstanceResponse> retVal;
+
+        try {
+
+            ApiElastigroupImportStatefulInstanceResponse importInstance = SpotinstElastigroupService
+                    .importStatefulInstance(elastigroupImportInstance, authToken, account);
+            ElastigroupImportStatefulInstanceResponse importStatefulInstance = StatefulElastigroupConverter.toBl(importInstance);
+
+            retVal = new RepoGenericResponse<>(importStatefulInstance);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> retVal;
+
+        try {
+
+            ApiElastigroupGetImportStatefulStatusResponse statefulInstanceStatus = SpotinstElastigroupService
+                    .getStatefulImportStatus(statefulMigrationGroupID, authToken, account);
+            ElastigroupGetImportStatefulStatusResponse importStatus = StatefulElastigroupConverter.toBl(statefulInstanceStatus);
+
+            retVal = new RepoGenericResponse<>(importStatus);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> terminateStatefulInstanceImport(ElastigroupTerminateStatefulInstanceImportRequest elastigroupTerminateReq, String statefulMigrationGroupID, String authToken, String account) {
+        RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> retVal;
+
+        try {
+
+            ApiElastigroupTerminateStatefulInstanceImportResponse terminateStatus = SpotinstElastigroupService
+                    .terminateStatefulInstanceImport(elastigroupTerminateReq, statefulMigrationGroupID, authToken, account);
+            ElastigroupTerminateStatefulInstanceImportResponse importStatus = StatefulElastigroupConverter.toBl(terminateStatus);
+
+            retVal = new RepoGenericResponse<>(importStatus);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> deleteStatefulInstanceImport(String statefulMigrationGroupID, String authToken, String account) {
+        RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> retVal;
+
+        try {
+
+            ApiElastigroupTerminateStatefulInstanceImportResponse terminateStatus = SpotinstElastigroupService
+                    .deleteStatefulInstanceImport(statefulMigrationGroupID, authToken, account);
+            ElastigroupTerminateStatefulInstanceImportResponse importStatus = StatefulElastigroupConverter.toBl(terminateStatus);
+
+            retVal = new RepoGenericResponse<>(importStatus);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+
+
+            Boolean elastigroupCreateInstanceSignalResponse = SpotinstElastigroupService
+                    .createInstanceSignal(elastigroupCreateInstanceSignalReq, authToken, account);
+
+            retVal = new RepoGenericResponse<>(elastigroupCreateInstanceSignalResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetInstanceStatusResponse> getInstanceStatus(String instanceId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetInstanceStatusResponse> retVal;
+
+        try {
+            ApiElastigroupGetInstanceStatusResponse apiInstanceStatus = SpotinstElastigroupService.getInstanceStatus(instanceId, authToken, account);
+            ElastigroupGetInstanceStatusResponse    instanceStatus    = ElastigroupConverter.toBl(apiInstanceStatus);
+            retVal = new RepoGenericResponse<>(instanceStatus);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
 }

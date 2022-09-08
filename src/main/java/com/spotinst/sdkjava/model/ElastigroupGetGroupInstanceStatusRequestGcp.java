@@ -32,9 +32,7 @@ public class ElastigroupGetGroupInstanceStatusRequestGcp {
         }
 
         public static ElastigroupGetGroupInstanceStatusRequestGcp.Builder get() {
-            ElastigroupGetGroupInstanceStatusRequestGcp.Builder builder =
-                    new ElastigroupGetGroupInstanceStatusRequestGcp.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetGroupInstanceStatusRequestGcp.Builder setElastigroupId(final String elastigroupId) {

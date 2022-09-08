@@ -10,7 +10,7 @@ public enum RecurrenceFrequencyEnumAzure {
     WEEKLY("weekly"),
     CONTINUOUS("continuous");
 
-    private RecurrenceFrequencyEnumAzure(String name) {
+    RecurrenceFrequencyEnumAzure(String name) {
         this.name = name;
     }
 
@@ -19,7 +19,7 @@ public enum RecurrenceFrequencyEnumAzure {
     }
 
     private final        String name;
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(RecurrenceFrequencyEnumAzure.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecurrenceFrequencyEnumAzure.class);
 
     public static RecurrenceFrequencyEnumAzure fromName(String name)
     {

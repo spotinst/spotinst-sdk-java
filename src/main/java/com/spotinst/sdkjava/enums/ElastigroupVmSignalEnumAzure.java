@@ -11,7 +11,7 @@ public enum ElastigroupVmSignalEnumAzure {
         private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupVmSignalEnumAzure.class);
         private String name;
 
-        private ElastigroupVmSignalEnumAzure(String name) {
+        ElastigroupVmSignalEnumAzure(String name) {
             this.name = name;
         }
 

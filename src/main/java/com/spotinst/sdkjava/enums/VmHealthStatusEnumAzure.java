@@ -12,7 +12,7 @@ public enum VmHealthStatusEnumAzure {
     private static final Logger LOGGER = LoggerFactory.getLogger(VmHealthStatusEnumAzure.class);
     private String name;
 
-    private VmHealthStatusEnumAzure(String name) {
+    VmHealthStatusEnumAzure(String name) {
         this.name = name;
     }
 

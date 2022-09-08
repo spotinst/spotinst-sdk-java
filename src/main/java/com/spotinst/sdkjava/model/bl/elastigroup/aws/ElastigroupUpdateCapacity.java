@@ -64,8 +64,7 @@ public class ElastigroupUpdateCapacity implements IPartialUpdateEntity {
         }
 
         public static Builder get() {
-            ElastigroupUpdateCapacity.Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setCapacity(final ElastigroupCapacityConfiguration capacity) {

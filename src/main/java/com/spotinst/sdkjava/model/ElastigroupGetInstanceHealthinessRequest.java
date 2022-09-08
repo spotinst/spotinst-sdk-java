@@ -36,9 +36,7 @@ public class ElastigroupGetInstanceHealthinessRequest {
         }
 
         public static ElastigroupGetInstanceHealthinessRequest.Builder get() {
-            ElastigroupGetInstanceHealthinessRequest.Builder builder =
-                    new ElastigroupGetInstanceHealthinessRequest.Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupGetInstanceHealthinessRequest.Builder setElastigroupId(final String elastigroupId) {

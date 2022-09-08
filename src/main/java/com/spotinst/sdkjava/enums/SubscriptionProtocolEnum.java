@@ -14,10 +14,10 @@ public enum SubscriptionProtocolEnum {
     EMAIL("email"),
     AWS_SNS("aws-sns");
 
-    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SubscriptionProtocolEnum.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionProtocolEnum.class);
     private final String name;
 
-    private SubscriptionProtocolEnum(String name) {
+    SubscriptionProtocolEnum(String name) {
         this.name = name;
     }
 

@@ -2,12 +2,15 @@ package com.spotinst.sdkjava.example.ocean.aks;
 
 
 import com.spotinst.sdkjava.SpotinstClient;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanAzureAksClusterClient;
-
 import com.spotinst.sdkjava.model.bl.ocean.aks.*;
+import com.spotinst.sdkjava.model.requests.ocean.aks.AksUpdateRollRequest;
+import com.spotinst.sdkjava.model.requests.ocean.aks.GetAksClusterNodesRequest;
 
 import java.util.Arrays;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
@@ -29,6 +32,33 @@ public class OceanAzureAksClusterUsageExample {
         listClusters(clusterClient);
         deleteCluster(clusterClient, clusterId);
 
+        //Get cluster heartbeat status
+        System.out.println("----------Get cluster heartbeat status-------------");
+        GetAzureAksClusterHeartBeatStatusResponse getClusterHeartBeatStatus = getK8sClusterHeartBeatStatus(clusterClient,"cluster-id");
+
+        //Detach instances
+        System.out.println("----------Detach Instances--------------");
+        List<AksDetachInstancesResponse> detachStatus = detachClusterInstances(clusterClient, "cluster-id", Collections.singletonList("instances"), true, true);
+
+        //Get cluster nodes
+        System.out.println("----------Get cluster Nodes--------------");
+        List<GetAksClusterNodesResponse> nodes = getClusterNodes(clusterClient, "cluster-id");
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        AksClusterRollResponse initiateRollResponse = initiateClusterRoll(clusterClient, "cluster-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        AksClusterRollResponse getClusterRollStatus = getClusterRollStatus (clusterClient, "cluster-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<AksClusterRollResponse> listClusterRolls = getAllClusterRolls(clusterClient, "cluster-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        AksClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
     }
 
     private static String createCluster(SpotOceanAzureAksClusterClient client) {
@@ -182,5 +212,97 @@ public class OceanAzureAksClusterUsageExample {
         System.out.println("-------------------------start listing ocean clusters------------------------");
         return client.ListOceanAksCluster();
     }
+
+    private static GetAzureAksClusterHeartBeatStatusResponse getK8sClusterHeartBeatStatus(SpotOceanAzureAksClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Getting the Heartbeat status for the Kubernetes Cluster: %s", clusterId));
+        GetAzureAksClusterHeartBeatStatusResponse clusterHeartBeatStatus = client.getAzureAksClusterHeartBeatStatus(clusterId);
+
+        System.out.println(String.format("Status: %s", clusterHeartBeatStatus.getStatus()));
+        System.out.println(String.format("LastHeartBeat: %s", clusterHeartBeatStatus.getLastHeartbeat()));
+
+        return clusterHeartBeatStatus;
+    }
+
+    private static List<AksDetachInstancesResponse> detachClusterInstances(SpotOceanAzureAksClusterClient client, String clusterId, List instances, Boolean shouldDecrementTargetCapacity, Boolean shouldTerminateInstances) {
+
+        AksDetachInstances.Builder detachInstancesBuilder = AksDetachInstances.Builder.get();
+        AksDetachInstances detachInstances                = detachInstancesBuilder.setVmsToDetach(instances).build();
+
+        System.out.println(String.format("Detach the instances for cluster: %s", clusterId));
+
+        return client.detachVms(detachInstances, clusterId);
+    }
+
+    private static List<GetAksClusterNodesResponse> getClusterNodes(SpotOceanAzureAksClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetAksClusterNodesRequest.Builder getNodesBuilder = GetAksClusterNodesRequest.Builder.get();
+        GetAksClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetAksClusterNodesResponse>  nodes = client.getClusterNodes(getNodesRequest, clusterId);
+
+        for (GetAksClusterNodesResponse node : nodes){
+            System.out.println(String.format("VM Name: %s", node.getVmName()));
+            System.out.println(String.format("VM Size: %s", node.getVmSize()));
+            System.out.println(String.format("Node name: %s", node.getNodeName()));
+            System.out.println(String.format("VNG ID: %s", node.getVirtualNodeGroupId()));
+            System.out.println(String.format("VNG name: %s", node.getVirtualNodeGroupName()));
+            System.out.println(String.format("Public IP: %s", node.getPublicIp()));
+
+        }
+
+        return nodes;
+    }
+
+    private static AksClusterRollResponse initiateClusterRoll(SpotOceanAzureAksClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        AksInitiateRoll.Builder initiateRollBuilder = AksInitiateRoll.Builder.get();
+        AksInitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", clusterId));
+        AksClusterRollResponse rollResponse = client.initiateRoll(initiateRoll, clusterId);
+
+        String rollId = rollResponse.getId();
+
+        return rollResponse;
+    }
+
+    private static AksClusterRollResponse getClusterRollStatus (SpotOceanAzureAksClusterClient client, String clusterId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        AksClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<AksClusterRollResponse> getAllClusterRolls(SpotOceanAzureAksClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", clusterId));
+        List<AksClusterRollResponse> getAllRolls = client.listRolls(clusterId);
+
+        for (AksClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static AksClusterRollResponse updateClusterRoll(SpotOceanAzureAksClusterClient client, String clusterId, String rollId, String status) {
+
+        AksUpdateRollRequest.Builder updateRollBuilder = AksUpdateRollRequest.Builder.get();
+        AksUpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        AksClusterRollResponse response = client.updateRoll(updateRoll, clusterId, rollId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
 }
 

@@ -19,6 +19,7 @@ public class ElastigroupLaunchSpecification {
     private Boolean                  detailedMonitoring;
     private Boolean                  ebsOptimized;
     private String                   imageId;
+    private List<Images>             images;
     private String                   keyPair;
     private String                   userData;
     private Integer                  healthCheckUnhealthyDurationBeforeReplacement;
@@ -129,6 +130,15 @@ public class ElastigroupLaunchSpecification {
         this.imageId = imageId;
     }
 
+    public List<Images> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Images> images) {
+        isSet.add("images");
+        this.images = images;
+    }
+
     public String getKeyPair() {
         return keyPair;
     }
@@ -200,8 +210,7 @@ public class ElastigroupLaunchSpecification {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setKeyPair(final String keyPair) {
@@ -211,6 +220,11 @@ public class ElastigroupLaunchSpecification {
 
         public Builder setImageId(final String imageId) {
             launchSpecification.setImageId(imageId);
+            return this;
+        }
+
+        public Builder setImages(final List<Images> images) {
+            launchSpecification.setImages(images);
             return this;
         }
 
@@ -337,6 +351,11 @@ public class ElastigroupLaunchSpecification {
         return isSet.contains("imageId");
     }
 
+    // Is images Set boolean method
+    @JsonIgnore
+    public boolean isImagesSet() {
+        return isSet.contains("images");
+    }
 
     // Is keyPair Set boolean method
     @JsonIgnore

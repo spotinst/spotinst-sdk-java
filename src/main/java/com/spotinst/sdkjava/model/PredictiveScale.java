@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.enums.ScalingPredictiveModeEnum;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -51,13 +52,12 @@ public class PredictiveScale {
 
         PredictiveScale that = (PredictiveScale) o;
 
-        return !(mode != null ? !mode.equals(that.mode) : that.mode != null);
+        return !(!Objects.equals(mode, that.mode));
     }
 
     @Override
     public int hashCode() {
-        int result = mode.hashCode();
-        return result;
+        return mode.hashCode();
     }
     //endregion
 
@@ -70,8 +70,7 @@ public class PredictiveScale {
         }
 
         public static PredictiveScale.Builder get() {
-            PredictiveScale.Builder builder = new PredictiveScale.Builder();
-            return builder;
+            return new Builder();
         }
 
         public PredictiveScale.Builder setMode(final ScalingPredictiveModeEnum mode) {

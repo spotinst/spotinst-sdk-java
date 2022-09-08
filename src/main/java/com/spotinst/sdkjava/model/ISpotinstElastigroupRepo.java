@@ -4,9 +4,7 @@ import com.spotinst.sdkjava.enums.ProcessNameEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupGetElastilogRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.RetryItfMigrationRequest;
-import com.spotinst.sdkjava.model.requests.elastigroup.aws.ElastigroupStopDeploymentRequest;
+import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 
 import java.util.List;
 
@@ -26,9 +24,9 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications, String authToken,
                                            String account);
 
-    RepoGenericResponse<Boolean> enterStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> enterInstanceStandby(String instanceId, String authToken, String account);
 
-    RepoGenericResponse<Boolean> exitStandby(String groupId, String authToken, String account);
+    RepoGenericResponse<Boolean> exitInstanceStandby(String instanceId, String authToken, String account);
 
     RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
                                                              String authToken, String account);
@@ -101,4 +99,29 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<List<ElastigroupGetElastilogResponse>> getElastilog(ElastigroupGetElastilogRequest elastigroupGetElastilogRequest, String elastigroupId, String authToken);
 
+    RepoGenericResponse<Elastigroup> importASG(ImportASGRequest importASGRequest, String authToken);
+
+    RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account);
+
+    RepoGenericResponse<List<GetInstanceTypesResponse>> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceType, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupEcsClusterRollResponse> initiateClusterRollInEGWithECS(ElastigroupEcsInitiateRoll rollRequest, String groupId, String authToken, String account);
+
+    RepoGenericResponse<List<ElastigroupEcsClusterRollResponse>> listECSClusterRollsPerEG(String clusterId, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupEcsClusterRollResponse> getECSClusterRollinEG(String clusterId, String rollId, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupEcsClusterRollResponse> updateECSClusterRollinEG(ElastigroupEcsUpdateRollRequest updateRollRequest, String clusterId, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupImportStatefulInstanceResponse> importStatefulInstance(ElastigroupImportStatefulInstance elastigroupImportInstance, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatus(String statefulMigrationGroupID, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> terminateStatefulInstanceImport(ElastigroupTerminateStatefulInstanceImportRequest elastigroupTerminateReq, String statefulMigrationGroupID, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> deleteStatefulInstanceImport(String statefulMigrationGroupID, String authToken, String account);
+
+    RepoGenericResponse<Boolean> createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetInstanceStatusResponse> getInstanceStatus(String instanceId, String authToken, String account);
 }

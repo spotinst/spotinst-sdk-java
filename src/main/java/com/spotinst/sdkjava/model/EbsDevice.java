@@ -2,9 +2,9 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
-import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ClusterDynamicVolumeSize;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -113,9 +113,9 @@ public class EbsDevice {
 
         if (deleteOnTermination != ebsDevice.deleteOnTermination) return false;
         if (encrypted != ebsDevice.encrypted) return false;
-        if (iops != null ? !iops.equals(ebsDevice.iops) : ebsDevice.iops != null) return false;
-        if (snapshotId != null ? !snapshotId.equals(ebsDevice.snapshotId) : ebsDevice.snapshotId != null) return false;
-        if (volumeSize != null ? !volumeSize.equals(ebsDevice.volumeSize) : ebsDevice.volumeSize != null) return false;
+        if (!Objects.equals(iops, ebsDevice.iops)) return false;
+        if (!Objects.equals(snapshotId, ebsDevice.snapshotId)) return false;
+        if (!Objects.equals(volumeSize, ebsDevice.volumeSize)) return false;
         return volumeType == ebsDevice.volumeType;
 
     }
@@ -140,8 +140,7 @@ public class EbsDevice {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setVolumeType(final AwsVolumeTypeEnum volumeType) {

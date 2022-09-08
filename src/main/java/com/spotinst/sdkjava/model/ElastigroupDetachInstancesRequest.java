@@ -66,8 +66,7 @@ public class ElastigroupDetachInstancesRequest {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public ElastigroupDetachInstancesRequest.Builder setInstancesToDetach(final List<String> instancesToDetach) {
@@ -100,8 +99,7 @@ public class ElastigroupDetachInstancesRequest {
     //region Json Methods
     public String toJson() {
         ApiDetachInstancesRequest apiDetachInstancesRequest = ApiDetachInstancesRequestConverter.toDal(this);
-        String elastigroupJson = JsonMapper.toJson(apiDetachInstancesRequest);
-        return elastigroupJson;
+        return JsonMapper.toJson(apiDetachInstancesRequest);
     }
     //endregion
 }

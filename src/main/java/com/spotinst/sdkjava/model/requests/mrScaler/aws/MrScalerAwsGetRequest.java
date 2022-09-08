@@ -1,16 +1,11 @@
 package com.spotinst.sdkjava.model.requests.mrScaler.aws;
 
 public class MrScalerAwsGetRequest {
-    //region Members
+    
     private String mrScalerId;
-    //endregion
-
-    //region Private constructor
+    
     private MrScalerAwsGetRequest() {
     }
-    //endregion
-
-    //region Getter and Setter methods
 
     public String getMrScalerId() {
         return mrScalerId;
@@ -20,9 +15,6 @@ public class MrScalerAwsGetRequest {
         this.mrScalerId = mrScalerId;
     }
 
-    //endregion
-
-    //region Builder class
     public static class Builder {
         private MrScalerAwsGetRequest mrScalerGetRequest;
 
@@ -45,5 +37,4 @@ public class MrScalerAwsGetRequest {
         }
 
     }
-    //endregion
 }

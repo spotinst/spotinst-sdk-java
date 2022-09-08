@@ -21,7 +21,7 @@ public enum StatefulInstanceHealthStatusEnum {
     DEALLOCATED("DEALLOCATED"),
     ERROR("ERROR");
 
-    private StatefulInstanceHealthStatusEnum(String name) {
+    StatefulInstanceHealthStatusEnum(String name) {
         this.name = name;
     }
 

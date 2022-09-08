@@ -20,7 +20,7 @@ public class K8sVngSpec {
     private String                          imageId;
     private K8sVngInstanceMetadataOptions	instanceMetadataOptions;
     private List<String>                    instanceTypes;
-	private List<K8sVngLabels>			 	labels;
+	private List<K8sVngLabel>			 	labels;
     private String                          oceanId;
     private List<String>                    preferredSpotTypes;
 	private K8sVngResourceLimits			resourceLimits;
@@ -147,11 +147,11 @@ public class K8sVngSpec {
         this.instanceTypes = instanceTypes;
     }
 
-    public List<K8sVngLabels> getLabels() {
+    public List<K8sVngLabel> getLabels() {
         return labels;
     }
     
-    public void setLabels(List<K8sVngLabels> labels) {
+    public void setLabels(List<K8sVngLabel> labels) {
         isSet.add("labels");
         this.labels = labels;
     }
@@ -271,8 +271,7 @@ public class K8sVngSpec {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setId(final String oceanLaunchSpecId) {
@@ -330,7 +329,7 @@ public class K8sVngSpec {
             return this;
         }
 
-        public Builder setLabels(final List<K8sVngLabels> labels) {
+        public Builder setLabels(final List<K8sVngLabel> labels) {
             launchSpecification.setLabels(labels);
             return this;
         }

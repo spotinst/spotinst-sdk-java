@@ -92,7 +92,7 @@ public class SpotinstElastigroupClient {
     //region Methods
     public Elastigroup createElastigroup(ElastigroupCreationRequest elastigroupCreationRequest) {
 
-        Elastigroup retVal = null;
+        Elastigroup retVal;
 
         Elastigroup elastigroupToCreate = elastigroupCreationRequest.getElastigroup();
 
@@ -115,7 +115,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean updateElastigroup(ElastigroupUpdateRequest elastigroupUpdateRequest, String elastigroupId) {
 
-        Boolean retVal = null;
+        Boolean retVal;
 
         Elastigroup elastigroupToUpdate = elastigroupUpdateRequest.getElastigroup();
         RepoGenericResponse<Boolean> updateResponse =
@@ -153,12 +153,11 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean enterGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+    public Boolean enterInstanceStandby(String instanceId) {
         Boolean retVal;
-        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().enterStandby(groupId, authToken, account);
+                getSpotinstElastigroupRepo().enterInstanceStandby(instanceId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -166,7 +165,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to enter elastigroup standby. Code: %s. Message: %s.",
+                    "Error encountered while attempting to enter instance standby mode. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -174,13 +173,11 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
-    public Boolean exitGroupStandby(ElastigroupStandbyRequest elastigroupStandbyRequest) {
+    public Boolean exitInstanceStandby(String instanceId) {
         Boolean retVal;
-        String  groupId = elastigroupStandbyRequest.getElastigroupId();
 
         RepoGenericResponse<Boolean> elastigroupStandbyResponse =
-                getSpotinstElastigroupRepo().exitStandby(groupId, authToken, account);
-
+                getSpotinstElastigroupRepo().exitInstanceStandby(instanceId, authToken, account);
         if (elastigroupStandbyResponse.isRequestSucceed()) {
             retVal = elastigroupStandbyResponse.getValue();
         }
@@ -188,7 +185,7 @@ public class SpotinstElastigroupClient {
             List<HttpError> httpExceptions = elastigroupStandbyResponse.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(String.format(
-                    "Error encountered while attempting to exit elastigroup standby. Code: %s. Message: %s.",
+                    "Error encountered while attempting to exit instance standby mode. Code: %s. Message: %s.",
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
@@ -198,7 +195,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean deleteElastigroup(ElastigroupDeletionRequest elastigroupDeletionRequest) {
 
-        Boolean               retVal                = null;
+        Boolean               retVal;
         String                elastigroupToDeleteId = elastigroupDeletionRequest.getElastigroupId();
         ApiDeleteGroupRequest deleteRequest         = elastigroupDeletionRequest.getDeleteRequest();
         RepoGenericResponse<Boolean> elastigroupDeletionResponse =
@@ -247,7 +244,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean lockInstance(ElastigroupInstanceLockRequest lockRequest, String instanceId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> lockResponse = getSpotinstElastigroupRepo().lockInstance(lockRequest, authToken, instanceId);
 
@@ -268,7 +265,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean unlockInstance(ElastigroupInstanceUnLockRequest unlockRequest, String instanceId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> unlockResponse = getSpotinstElastigroupRepo().unlockInstance(unlockRequest, authToken, instanceId);
 
@@ -289,7 +286,7 @@ public class SpotinstElastigroupClient {
 
     public Boolean simulateInstanceInterruption(List<String> instanceIds) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> interruptionResponse = getSpotinstElastigroupRepo().simulateInstanceInterruption(authToken, account, instanceIds);
 
@@ -311,7 +308,7 @@ public class SpotinstElastigroupClient {
     public List<ElastigroupActiveInstance> getActiveInstances(
             ElastigroupGetActiveInstancesRequest elastigroupGetActiveInstancesRequest) {
 
-        List<ElastigroupActiveInstance> retVal = null;
+        List<ElastigroupActiveInstance> retVal;
 
         String elastigroupId = elastigroupGetActiveInstancesRequest.getElastigroupId();
 
@@ -397,7 +394,7 @@ public class SpotinstElastigroupClient {
 
     public Elastigroup getElastigroup(ElastigroupGetRequest elastigroupGetRequest) {
 
-        Elastigroup retVal = null;
+        Elastigroup retVal;
 
         String elastigroupId = elastigroupGetRequest.getElastigroupId();
 
@@ -427,7 +424,7 @@ public class SpotinstElastigroupClient {
      */
     public ElastigroupScalingResponse scaleGroupUp(ElastigroupScalingRequest elastigroupScalingRequest) {
 
-        ElastigroupScalingResponse retVal = null;
+        ElastigroupScalingResponse retVal;
 
         String elastigroupId = elastigroupScalingRequest.getElastigroupId();
 
@@ -458,7 +455,7 @@ public class SpotinstElastigroupClient {
      * @return ElastigroupScalingResponse Object that is returned from the scale down request from ISpotinstElastigroupRepo.scaleDown()
      */
     public ElastigroupScalingResponse scaleGroupDown(ElastigroupScalingRequest elastigroupScalingRequest) {
-        ElastigroupScalingResponse retVal = null;
+        ElastigroupScalingResponse retVal;
 
         String elastigroupId = elastigroupScalingRequest.getElastigroupId();
 
@@ -1044,4 +1041,277 @@ public class SpotinstElastigroupClient {
         return getLogs;
 
     }
+
+
+    public Elastigroup importASG(ImportASGRequest importASGRequest) {
+
+        Elastigroup elastigroup;
+
+        RepoGenericResponse<Elastigroup> importASGResponse =
+                getSpotinstElastigroupRepo().importASG(importASGRequest, authToken);
+
+        if(importASGResponse.isRequestSucceed()){
+            elastigroup = importASGResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importASGResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import ASG. Code: %s. Message: %s.",
+                     httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        
+        return elastigroup;
+    }
+  
+    public List<GetInstanceTypesResponse> getInstanceTypesByRegion(String region) {
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getInstanceTypesByRegion(region, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the instance types by region. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            
+          throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
+    public List<GetInstanceTypesResponse> getSuggestedInstanceTypes(GetSuggestedInstanceTypeRequest suggestedInstanceTypeRequest) {
+
+        List<GetInstanceTypesResponse> getInstanceTypesByRegionResponse;
+
+        RepoGenericResponse <List<GetInstanceTypesResponse>> getInstanceTypesResponse =
+                getSpotinstElastigroupRepo().getSuggestedInstanceTypes(suggestedInstanceTypeRequest, authToken, account);
+
+        if(getInstanceTypesResponse.isRequestSucceed()){
+            getInstanceTypesByRegionResponse = getInstanceTypesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getInstanceTypesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the suggested instance types. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return getInstanceTypesByRegionResponse;
+
+    }
+
+    public ElastigroupEcsClusterRollResponse initiateClusterRollInEGWithECS(ElastigroupEcsInitiateRoll initiateRollRequest, String groupId) {
+        ElastigroupEcsClusterRollResponse retVal;
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> initiateRollResponse = getSpotinstElastigroupRepo().initiateClusterRollInEGWithECS(initiateRollRequest, groupId, authToken, account);
+
+        if (initiateRollResponse.isRequestSucceed()) {
+            retVal = initiateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = initiateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to Initiate Roll for Elastigroup with ECS. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<ElastigroupEcsClusterRollResponse> listECSClusterRollsPerEG(String groupId) {
+        List<ElastigroupEcsClusterRollResponse> retVal;
+        RepoGenericResponse<List<ElastigroupEcsClusterRollResponse>> listRollsResponse = getSpotinstElastigroupRepo().listECSClusterRollsPerEG(groupId, authToken, account);
+
+        if (listRollsResponse.isRequestSucceed()) {
+            retVal = listRollsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listRollsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to list all the Rolls in the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupEcsClusterRollResponse getECSClusterRollinEG(String groupId, String rollId) {
+        ElastigroupEcsClusterRollResponse retVal;
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> getRollResponse = getSpotinstElastigroupRepo().getECSClusterRollinEG(groupId, rollId,  authToken, account);
+
+        if (getRollResponse.isRequestSucceed()) {
+            retVal = getRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the requested Roll details for the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupEcsClusterRollResponse updateECSClusterRollinEG(ElastigroupEcsUpdateRollRequest updateRollRequest, String groupId) {
+        ElastigroupEcsClusterRollResponse retVal;
+        RepoGenericResponse<ElastigroupEcsClusterRollResponse> updateRollResponse = getSpotinstElastigroupRepo().updateECSClusterRollinEG(updateRollRequest, groupId, authToken, account);
+
+        if (updateRollResponse.isRequestSucceed()) {
+            retVal = updateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update the roll status to Stopped. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupImportStatefulInstanceResponse importStatefulInstance(ElastigroupImportStatefulInstance importRequest) {
+
+        ElastigroupImportStatefulInstanceResponse retVal;
+
+        RepoGenericResponse<ElastigroupImportStatefulInstanceResponse> importResponse =
+                getSpotinstElastigroupRepo().importStatefulInstance(importRequest, authToken, account);
+
+        if(importResponse.isRequestSucceed()){
+            retVal = importResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import Stateful Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupGetImportStatefulStatusResponse getStatefulImportStatus(String statefulMigrationGroupID) {
+
+        ElastigroupGetImportStatefulStatusResponse listStatefulInstances;
+
+        RepoGenericResponse <ElastigroupGetImportStatefulStatusResponse> getStatefulImportStatusResponse =
+                getSpotinstElastigroupRepo().getStatefulImportStatus(statefulMigrationGroupID, authToken, account);
+
+        if(getStatefulImportStatusResponse.isRequestSucceed()){
+            listStatefulInstances =getStatefulImportStatusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getStatefulImportStatusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the stateful import status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return listStatefulInstances;
+
+    }
+
+    public ElastigroupTerminateStatefulInstanceImportResponse terminateStatefulInstanceImport(ElastigroupTerminateStatefulInstanceImportRequest updateRequest, String statefulMigrationGroupID) {
+        ElastigroupTerminateStatefulInstanceImportResponse retVal;
+        RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> updateResponse = getSpotinstElastigroupRepo().terminateStatefulInstanceImport(updateRequest, statefulMigrationGroupID, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to terminate the stateful instance during import process. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupTerminateStatefulInstanceImportResponse deleteStatefulInstanceImport(String statefulMigrationGroupID) {
+        ElastigroupTerminateStatefulInstanceImportResponse retVal;
+        RepoGenericResponse<ElastigroupTerminateStatefulInstanceImportResponse> updateResponse = getSpotinstElastigroupRepo().deleteStatefulInstanceImport(statefulMigrationGroupID, authToken, account);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete the stateful instance import. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean createInstanceSignal(ElastigroupCreateInstanceSignal elastigroupCreateInstanceSignalReq) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> elastigroupCreateInstanceSignalResponse = getSpotinstElastigroupRepo().createInstanceSignal(elastigroupCreateInstanceSignalReq, authToken, account);
+
+        if (elastigroupCreateInstanceSignalResponse.isRequestSucceed()) {
+            retVal = elastigroupCreateInstanceSignalResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupCreateInstanceSignalResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create instance signal. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupGetInstanceStatusResponse getInstanceStatus(String instanceId) {
+
+        ElastigroupGetInstanceStatusResponse retVal;
+
+        RepoGenericResponse<ElastigroupGetInstanceStatusResponse> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().getInstanceStatus(instanceId, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get instance status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
 }

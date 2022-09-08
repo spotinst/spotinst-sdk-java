@@ -3,8 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
 import com.spotinst.sdkjava.model.api.gcp.ApiElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupGcp;
-import com.spotinst.sdkjava.model.bl.gcp.ElastigroupConverterGcp;
+import com.spotinst.sdkjava.model.bl.elastigroup.gcp.ElastigroupGcp;
+import com.spotinst.sdkjava.model.converters.elastigroup.gcp.ElastigroupConverterGcp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +40,7 @@ public class ElastigroupUpdateRequestGcp {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setElastigroup(final ElastigroupGcp elastigroup) {
@@ -60,9 +59,8 @@ public class ElastigroupUpdateRequestGcp {
 
         Map<String, ApiElastigroupGcp> groupRequest = new HashMap<>();
         groupRequest.put("group", apiElastigroupToCreate);
-        String elastigroupJson = JsonMapper.toJson(groupRequest);
 
-        return elastigroupJson;
+        return JsonMapper.toJson(groupRequest);
     }
     //endregion
 

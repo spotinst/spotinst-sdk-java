@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.enums.RecurrenceFrequencyEnum;
 import com.spotinst.sdkjava.model.SpotAwsManagedInstanceClient;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 
 import java.text.ParseException;
@@ -23,6 +24,7 @@ public class AwsManagedInstanceUsageExample {
     private final static List<String> securityGroups = Arrays.asList("sg-0b44a6d6f3e286608");
     private final static List<String> types          = Arrays.asList("t3.nano", "t3a.nano");
     private final static List<String> timeWindows    = Arrays.asList("Mon:12:00-Tue:12:00", "Fri:12:00-Sat:12:00");
+    private final static String       region         = "us-west-2";
 
     public static void main(String[] args) {
         SpotAwsManagedInstanceClient managedInstanceClient = SpotinstClient.getManagedInstanceClient(auth_token, act_id);
@@ -58,6 +60,13 @@ public class AwsManagedInstanceUsageExample {
 
         System.out.println("----------Recycling ManagedInstance--------------");
         recycleManagedInstance(managedInstanceClient, managedInstanceId);
+
+        System.out.println("----------Importing ManagedInstance--------------");
+        String migrationId = importManagedInstance(managedInstanceClient, "i-0d23b3e420e1421f0");
+
+        System.out.println("----------Get Status of Imported ManagedInstance--------------");
+        getInstanceMigrationStatus(managedInstanceClient, migrationId);
+
     }
 
     private static String createManagedInstance(SpotAwsManagedInstanceClient client) {
@@ -442,4 +451,47 @@ public class AwsManagedInstanceUsageExample {
         }
         return isManagedInstanceDeleted;
     }
+
+    private static String importManagedInstance(SpotAwsManagedInstanceClient client, String instanceId) {
+
+        //Build AvailabilityZones with Subnets
+        List<String> subnetIds = Arrays.asList("subnet-4333093a","subnet-42f1e418");
+
+        ImportAvailabilityZones availabilityZones = ImportAvailabilityZones.Builder.get().setName("us-west-2a").setSubnetIds(subnetIds).build();
+        List<ImportAvailabilityZones> availabilityZonesList = Collections.singletonList(availabilityZones);
+
+        //Build spotInstanceTypes
+        List<String> spotInstanceTypes = Arrays.asList("t2.medium","t3.medium","t3a.medium","t2.small","t2.micro","t3.small","t3.micro");
+
+        Import importManagedInstance = Import.Builder.get().setManagedInstanceName("Automation_SDK_Imported_ManagedInstance").setOriginalInstanceId(instanceId).setRegion(region)
+                                                     .setProduct("Linux/UNIX").setShouldKeepPrivateIp(false).setSpotInstanceTypes(spotInstanceTypes)
+                                                     .setAvailabilityZones(availabilityZonesList).build();
+
+        AwsManagedInstanceImportRequest.Builder importRequestBuilder = AwsManagedInstanceImportRequest.Builder.get();
+
+        AwsManagedInstanceImportRequest importRequest = importRequestBuilder.setImportInstance(importManagedInstance).build();
+
+        // Convert managed instance import request to API object json
+        System.out.println(importRequest.toJson());
+
+        // Create managed instance
+        ImportResponse importedManagedInstance = client.importManagedInstance(importRequest);
+        String                     migrationId      = importedManagedInstance.getMigrationId();
+
+        System.out.println(String.format("ManagedInstance successfully imported: %s", migrationId));
+
+        return migrationId;
+    }
+
+    private static String getInstanceMigrationStatus(SpotAwsManagedInstanceClient client, String migrationInstanceId) {
+
+        GetMigrationStatus migrationStatusResponse = client.getManagedInstanceMigrationStatus(migrationInstanceId);
+        String             managedInstanceId       = migrationStatusResponse.getManagedInstanceId();
+        String             migrationState          = migrationStatusResponse.getState();
+
+        System.out.println(String.format("ManagedInstance %s is imported successfully and migration State is : %s", managedInstanceId, migrationState));
+
+        return migrationState;
+    }
+
 }

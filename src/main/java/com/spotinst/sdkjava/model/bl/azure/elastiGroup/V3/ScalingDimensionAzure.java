@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -54,7 +55,7 @@ public class ScalingDimensionAzure {
         if (!name.equals(that.name)) {
             return false;
         }
-        return !(value != null ? !value.equals(that.value) : that.value != null);
+        return !(!Objects.equals(value, that.value));
     }
 
     @Override
@@ -73,8 +74,7 @@ public class ScalingDimensionAzure {
         }
 
         public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
+            return new Builder();
         }
 
         public Builder setName(final String name) {
