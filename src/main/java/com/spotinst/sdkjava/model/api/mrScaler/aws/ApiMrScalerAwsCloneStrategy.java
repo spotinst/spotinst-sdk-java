@@ -1,25 +1,35 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsCloneStrategy {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsCloneStrategy implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String originClusterId;
-    private Boolean includeSteps;
-    private Integer numberOfRetries;
-    // endregion
+    private String      originClusterId;
+    private Boolean     includeSteps;
+    private Integer     numberOfRetries;
 
-    //region Constructor
     public ApiMrScalerAwsCloneStrategy() { isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region originClusterId
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getOriginClusterId(){ return originClusterId;}
 
     public void setOriginClusterId(String originClusterId){
@@ -27,10 +37,6 @@ public class ApiMrScalerAwsCloneStrategy {
         this.originClusterId = originClusterId;
     }
 
-    public Boolean isOriginClusterIdSet(){ return isSet.contains("originClusterId"); }
-    // endregion
-
-    // region includeSteps
     public Boolean getIncludeSteps(){ return includeSteps;}
 
     public void setIncludeSteps(Boolean includeSteps){
@@ -38,10 +44,6 @@ public class ApiMrScalerAwsCloneStrategy {
         this.includeSteps = includeSteps;
     }
 
-    public Boolean isIncludeStepsSet(){ return isSet.contains("includeSteps"); }
-    // endregion
-
-    // region numberOfRetries
     public Integer getNumberOfRetries(){ return numberOfRetries;}
 
     public void setNumberOfRetries(Integer numberOfRetries){
@@ -49,38 +51,12 @@ public class ApiMrScalerAwsCloneStrategy {
         this.numberOfRetries = numberOfRetries;
     }
 
+    @JsonIgnore
+    public Boolean isOriginClusterIdSet(){ return isSet.contains("originClusterId"); }
+
+    @JsonIgnore
+    public Boolean isIncludeStepsSet(){ return isSet.contains("includeSteps"); }
+
+    @JsonIgnore
     public Boolean isNumberOfRetriesSet(){ return isSet.contains("numberOfRetries"); }
-    // endregion
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsCloneStrategy mrScalerAwsCloneStrategy;
-
-        private Builder(){ this.mrScalerAwsCloneStrategy = new ApiMrScalerAwsCloneStrategy(); }
-
-        public static Builder get(){
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        // builders
-        public Builder setOriginClusterId(final String clusterId){
-            mrScalerAwsCloneStrategy.setOriginClusterId(clusterId);
-            return this;
-        }
-        public Builder setIncludeSteps(final Boolean includeSteps){
-            mrScalerAwsCloneStrategy.setIncludeSteps(includeSteps);
-            return this;
-        }
-        public Builder setNumberOfRetries(final Integer numberOfRetries){
-            mrScalerAwsCloneStrategy.setNumberOfRetries(numberOfRetries);
-            return this;
-        }
-
-        public ApiMrScalerAwsCloneStrategy build(){
-            return mrScalerAwsCloneStrategy;
-        }
-
-        // endregion
-    }
 }

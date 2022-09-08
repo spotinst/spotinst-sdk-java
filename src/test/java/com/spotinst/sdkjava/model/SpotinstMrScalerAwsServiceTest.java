@@ -2,9 +2,9 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.client.response.*;
 import com.spotinst.sdkjava.client.rest.*;
-import com.spotinst.sdkjava.model.*;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
-import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerAws;
+import com.spotinst.sdkjava.model.responses.mrScaler.aws.MrScalerApiResponse;
+import com.spotinst.sdkjava.model.service.mrScaler.aws.SpotinstMrScalerAwsService;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ public class SpotinstMrScalerAwsServiceTest {
     RestResponse RestResponse;
     Map<String, String> queryParams;
     Map<String, String> headers;
-    Map<String, BlMrScalerAws> mrScalerRequest;
+    Map<String, MrScalerAws> mrScalerRequest;
     SpotinstHttpContext SpotinstHttpContext;
     SpotinstHttpConfig SpotinstHttpConfig;
 
@@ -59,7 +58,7 @@ public class SpotinstMrScalerAwsServiceTest {
     public void createMrScaler() {
         System.out.println("SpotinstMrScalerServiceTest.createMrScaler()");
 
-        BlMrScalerAws mrScalerAws = mock(BlMrScalerAws.class);
+        MrScalerAws mrScalerAws = mock(MrScalerAws.class);
 
         mrScalerRequest.put("mrScaler", mrScalerAws);
         String body = JsonMapper.toJson(mrScalerRequest);

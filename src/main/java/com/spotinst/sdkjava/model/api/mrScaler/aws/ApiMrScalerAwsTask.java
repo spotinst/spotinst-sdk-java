@@ -1,31 +1,39 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import javax.swing.plaf.ButtonUI;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsTask {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsTask implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private Boolean isEnabled;
-    private String cronExpression;
-    private String taskType;
-    private String instanceGroupType;
-    private Integer targetCapacity;
-    private Integer minCapacity;
-    private Integer maxCapacity;
-    // endregion
+    private Boolean     isEnabled;
+    private String      cronExpression;
+    private String      taskType;
+    private String      instanceGroupType;
+    private Integer     targetCapacity;
+    private Integer     minCapacity;
+    private Integer     maxCapacity;
 
-
-    //region Constructor
     public ApiMrScalerAwsTask() { isSet = new HashSet<>(); }
-    // endregion
 
-    //region getters and setters
-    // region isEnabled
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Boolean getIsEnabled(){
         return isEnabled;
     }
@@ -35,12 +43,6 @@ public class ApiMrScalerAwsTask {
         this.isEnabled = isEnabled;
     }
 
-    public Boolean isIsEnabledSet(){
-        return isSet.contains("isEnabled");
-    }
-    // endregion
-
-    // region cronExpression
     public String getCronExpression(){
         return cronExpression;
     }
@@ -50,12 +52,6 @@ public class ApiMrScalerAwsTask {
         this.cronExpression = cronExpression;
     }
 
-    public Boolean isCronExpressionSet(){
-        return isSet.contains("cronExpression");
-    }
-    // endregion
-
-    // region taskType
     public String getTaskType(){
         return taskType;
     }
@@ -65,12 +61,6 @@ public class ApiMrScalerAwsTask {
         this.taskType = taskType;
     }
 
-    public Boolean isTaskTypeSet(){
-        return isSet.contains("taskType");
-    }
-    // endregion
-
-    // region instanceGroupType
     public String getInstanceGroupType(){
         return instanceGroupType;
     }
@@ -80,12 +70,6 @@ public class ApiMrScalerAwsTask {
         this.instanceGroupType = instanceGroupType;
     }
 
-    public Boolean isInstanceGroupTypeSet(){
-        return isSet.contains("instanceGroupType");
-    }
-    // endregion
-
-    // region targetCapacity
     public Integer getTargetCapacity(){
         return targetCapacity;
     }
@@ -95,12 +79,6 @@ public class ApiMrScalerAwsTask {
         this.targetCapacity = targetCapacity;
     }
 
-    public Boolean isTargetCapacitySet(){
-        return isSet.contains("targetCapacity");
-    }
-    // endregion
-
-    // region minCapacity
     public Integer getMinCapacity(){
         return minCapacity;
     }
@@ -110,12 +88,6 @@ public class ApiMrScalerAwsTask {
         this.minCapacity = minCapacity;
     }
 
-    public Boolean isMinCapacitySet(){
-        return isSet.contains("minCapacity");
-    }
-    // endregion
-
-    // region maxCapacity
     public Integer getMaxCapacity(){
         return maxCapacity;
     }
@@ -125,55 +97,38 @@ public class ApiMrScalerAwsTask {
         this.maxCapacity = maxCapacity;
     }
 
+    @JsonIgnore
+    public Boolean isIsEnabledSet(){
+        return isSet.contains("isEnabled");
+    }
+
+    @JsonIgnore
+    public Boolean isCronExpressionSet(){
+        return isSet.contains("cronExpression");
+    }
+
+    @JsonIgnore
+    public Boolean isTaskTypeSet(){
+        return isSet.contains("taskType");
+    }
+
+    @JsonIgnore
+    public Boolean isInstanceGroupTypeSet(){
+        return isSet.contains("instanceGroupType");
+    }
+
+    @JsonIgnore
+    public Boolean isTargetCapacitySet(){
+        return isSet.contains("targetCapacity");
+    }
+
+    @JsonIgnore
+    public Boolean isMinCapacitySet(){
+        return isSet.contains("minCapacity");
+    }
+
+    @JsonIgnore
     public Boolean isMaxCapacitySet(){
         return isSet.contains("maxCapacity");
-    }
-    // endregion
-
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsTask task;
-
-        private Builder(){ this.task = new ApiMrScalerAwsTask(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setIsEnabled(final Boolean isEnabled){
-            task.setIsEnabled(isEnabled);
-            return this;
-        }
-        public Builder setCronExpression(final String cronExpression){
-            task.setCronExpression(cronExpression);
-            return this;
-        }
-        public Builder setTaskType(final String taskType){
-            task.setTaskType(taskType);
-            return this;
-        }
-        public Builder setInstanceGroupType(final String instanceGroupType){
-            task.setInstanceGroupType(instanceGroupType);
-            return this;
-        }
-        public Builder setTargetCapacity(final Integer targetCapacity){
-            task.setTargetCapacity(targetCapacity);
-            return this;
-        }
-        public Builder setMinCapacity(final Integer minCapacity){
-            task.setMinCapacity(minCapacity);
-            return this;
-        }
-        public Builder setMaxCapacity(final Integer maxCapacity){
-            task.setMaxCapacity(maxCapacity);
-            return this;
-        }
-
-        public ApiMrScalerAwsTask build(){
-            return task;
-        }
-        // endregion
     }
 }

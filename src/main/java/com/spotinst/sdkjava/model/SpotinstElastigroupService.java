@@ -20,7 +20,7 @@ import java.util.*;
 /**
  * Created by aharontwizer on 7/27/15.
  */
-class SpotinstElastigroupService extends BaseSpotinstService {
+public class SpotinstElastigroupService extends BaseSpotinstService {
 
     public static ApiElastigroup createElastigroup(ApiElastigroup groupToCreate, String authToken,
                                                    String account) throws SpotinstHttpException {

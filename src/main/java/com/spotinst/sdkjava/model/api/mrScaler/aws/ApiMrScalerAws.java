@@ -1,50 +1,67 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAws {
-    //region Members
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAws implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private String id;
-    private String name;
-    private String description;
-    private String region;
-    private ApiMrScalerAwsStrategyConfiguration strategy;
-    private ApiMrScalerAwsComputeConfiguration compute;
-    private ApiMrScalerAwsScalingConfiguration scaling;
-    private ApiMrScalerAwsScalingConfiguration coreScaling;
-    private ApiMrScalerAwsClusterConfiguration cluster;
+    private Set<String>                           isSet;
+    private String                                id;
+    private String                                clusterId;
+    private String                                name;
+    private String                                description;
+    private String                                region;
+    private ApiMrScalerAwsStrategyConfiguration   strategy;
+    private ApiMrScalerAwsComputeConfiguration    compute;
+    private ApiMrScalerAwsScalingConfiguration    scaling;
+    private ApiMrScalerAwsScalingConfiguration    coreScaling;
+    private ApiMrScalerAwsClusterConfiguration    cluster;
     private ApiMrScalerAwsSchedulingConfiguration scheduling;
-    private Date createdAt;
-    private Date updatedAt;
-    // endregion
+    private Date                                  createdAt;
+    private Date                                  updatedAt;
 
-    //region Constructor
-    public ApiMrScalerAws() { isSet = new HashSet<>(); }
-    // endregion
 
-    //region getters and setters
-    // region ID
-    public String getId(){
+    public ApiMrScalerAws() {
+        isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(String id){
+    public void setId(String id) {
         isSet.add("id");
         this.id = id;
     }
 
-    public Boolean isIdSet(){
-        return isSet.contains("id");
+    public String getClusterId() {
+        return clusterId;
     }
-    // endregion
 
-    // region Name
+    public void setClusterId(String clusterId) {
+        isSet.add("clusterId");
+        this.clusterId = clusterId;
+    }
+
     public String getName() {
         return name;
     }
@@ -54,12 +71,6 @@ public class ApiMrScalerAws {
         this.name = name;
     }
 
-    public Boolean isNameSet(){
-        return isSet.contains("name");
-    }
-    // endregion
-
-    // region Description
     public String getDescription() {
         return description;
     }
@@ -69,12 +80,6 @@ public class ApiMrScalerAws {
         this.description = description;
     }
 
-    public Boolean isDescriptionSet(){
-        return isSet.contains("description");
-    }
-    // endregion
-
-    // region Region
     public String getRegion() {
         return region;
     }
@@ -84,12 +89,6 @@ public class ApiMrScalerAws {
         this.region = region;
     }
 
-    public Boolean isRegionSet(){
-        return isSet.contains("region");
-    }
-    // endregion
-
-    // region Strategy
     public ApiMrScalerAwsStrategyConfiguration getStrategy() {
         return strategy;
     }
@@ -99,12 +98,6 @@ public class ApiMrScalerAws {
         this.strategy = strategy;
     }
 
-    public Boolean isStrategySet(){
-        return isSet.contains("strategy");
-    }
-    // endregion
-
-    // region Compute
     public ApiMrScalerAwsComputeConfiguration getCompute() {
         return compute;
     }
@@ -114,12 +107,6 @@ public class ApiMrScalerAws {
         this.compute = compute;
     }
 
-    public Boolean isComputeSet(){
-        return isSet.contains("compute");
-    }
-    // endregion
-
-    // region Cluster
     public ApiMrScalerAwsClusterConfiguration getCluster() {
         return cluster;
     }
@@ -129,12 +116,6 @@ public class ApiMrScalerAws {
         this.cluster = cluster;
     }
 
-    public Boolean isClusterSet(){
-        return isSet.contains("cluster");
-    }
-    // endregion
-
-    // region Core Scaling
     public ApiMrScalerAwsScalingConfiguration getCoreScaling() {
         return coreScaling;
     }
@@ -144,12 +125,6 @@ public class ApiMrScalerAws {
         this.coreScaling = coreScaling;
     }
 
-    public Boolean isCoreScalingSet(){
-        return isSet.contains("coreScaling");
-    }
-    // endregion
-
-    // region Scaling
     public ApiMrScalerAwsScalingConfiguration getScaling() {
         return scaling;
     }
@@ -159,12 +134,6 @@ public class ApiMrScalerAws {
         this.scaling = scaling;
     }
 
-    public Boolean isScalingSet(){
-        return isSet.contains("scaling");
-    }
-    // endregion
-
-    // region Scheduling
     public ApiMrScalerAwsSchedulingConfiguration getScheduling() {
         return scheduling;
     }
@@ -174,77 +143,85 @@ public class ApiMrScalerAws {
         this.scheduling = scheduling;
     }
 
-    public Boolean isSchedulingSet(){
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        isSet.add("createdAt");
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        isSet.add("updatedAt");
+        this.updatedAt = updatedAt;
+    }
+
+    @JsonIgnore
+    public boolean isIdSet() {
+        return isSet.contains("id");
+    }
+
+    @JsonIgnore
+    public boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public boolean isClusterIdSet() { return isSet.contains("clusterId");}
+
+    @JsonIgnore
+    public boolean isDescriptionSet() {
+        return isSet.contains("description");
+    }
+
+    @JsonIgnore
+    public boolean isRegionSet() {
+        return isSet.contains("region");
+    }
+
+    @JsonIgnore
+    public boolean isStrategySet() {
+        return isSet.contains("strategy");
+    }
+
+    @JsonIgnore
+    public boolean isComputeSet() {
+        return isSet.contains("compute");
+    }
+
+    @JsonIgnore
+    public boolean isCoreScalingSet() {
+        return isSet.contains("coreScaling");
+    }
+
+    @JsonIgnore
+    public boolean isScalingSet() {
+        return isSet.contains("scaling");
+    }
+
+    @JsonIgnore
+    public boolean isClusterSet() {
+        return isSet.contains("cluster");
+    }
+
+    @JsonIgnore
+    public boolean isSchedulingSet() {
         return isSet.contains("scheduling");
     }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAws apiMrScalerAws;
-
-        private Builder() { this.apiMrScalerAws = new ApiMrScalerAws(); }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-
-        }
-
-        //region Build methods
-        public Builder setName(final String name) {
-            apiMrScalerAws.setName(name);
-            return this;
-        }
-
-        protected Builder setId(final String id) {
-            apiMrScalerAws.setId(id);
-            return this;
-        }
-
-        public Builder setDescription(final String description) {
-            apiMrScalerAws.setDescription(description);
-            return this;
-        }
-
-        public Builder setRegion(final String mrScalerRegion) {
-            apiMrScalerAws.setRegion(mrScalerRegion);
-            return this;
-        }
-
-        public Builder setStrategy(final ApiMrScalerAwsStrategyConfiguration strategy){
-            apiMrScalerAws.setStrategy(strategy);
-            return this;
-        }
-
-        public Builder setCompute(final ApiMrScalerAwsComputeConfiguration compute){
-            apiMrScalerAws.setCompute(compute);
-            return this;
-        }
-
-        public Builder setCluster(final ApiMrScalerAwsClusterConfiguration cluster){
-            apiMrScalerAws.setCluster(cluster);
-            return this;
-        }
-
-        public Builder setScaling(final ApiMrScalerAwsScalingConfiguration scaling){
-            apiMrScalerAws.setScaling(scaling);
-            return this;
-        }
-
-        public Builder seCoretScaling(final ApiMrScalerAwsScalingConfiguration coreScaling){
-            apiMrScalerAws.setCoreScaling(coreScaling);
-            return this;
-        }
-
-        public Builder setScheduling(final ApiMrScalerAwsSchedulingConfiguration scheduling){
-            apiMrScalerAws.setScheduling(scheduling);
-            return this;
-        }
-
-        public ApiMrScalerAws build(){
-            return apiMrScalerAws;
-        }
-        // endregion
+    @JsonIgnore
+    public boolean isCreatedAtSet() {
+        return isSet.contains("createdAt");
     }
+
+    @JsonIgnore
+    public boolean isUpdatedAtSet() {
+        return isSet.contains("updatedAt");
+    }
+
 }

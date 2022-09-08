@@ -1,22 +1,18 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
+import com.spotinst.sdkjava.model.converters.mrScaler.aws.MrScalerAwsConverter;
+import com.spotinst.sdkjava.model.repo.mrScaler.aws.SpotinstMrScalerAwsRepo;
+import com.spotinst.sdkjava.model.service.mrScaler.aws.SpotinstMrScalerAwsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runner.Runner;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-
-import java.sql.DriverManager;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({SpotinstMrScalerAwsService.class, MrScalerAwsConverter.class})

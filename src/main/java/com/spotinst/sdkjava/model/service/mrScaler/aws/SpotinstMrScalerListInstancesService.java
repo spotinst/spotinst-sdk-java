@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.client.rest.RestResponse;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.mrScaler.aws.BlMrScalerListInstancesAws;
+import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
 import com.spotinst.sdkjava.model.responses.mrScaler.aws.ApiMrScalerListInstancesResponse;
 
 import java.util.HashMap;
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 public class SpotinstMrScalerListInstancesService extends BaseSpotinstService {
-    public static List<BlMrScalerListInstancesAws> listMrScalerInstances(String clusterId, String authToken, String account)
+    public static List<ApiMrScalerListInstancesAws> listMrScalerInstances(String clusterId, String authToken, String account)
             throws SpotinstHttpException {
-        List<BlMrScalerListInstancesAws> retVal = null;
+        List<ApiMrScalerListInstancesAws> retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();

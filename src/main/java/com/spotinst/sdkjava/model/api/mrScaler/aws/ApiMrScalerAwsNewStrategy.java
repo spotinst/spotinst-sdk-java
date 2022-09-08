@@ -1,24 +1,36 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsNewStrategy {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsNewStrategy implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String releaseLabel;
-    private Integer numberOfRetries;
+    private String      releaseLabel;
+    private Integer     numberOfRetries;
     // endregion
 
     //region Constructor
     public ApiMrScalerAwsNewStrategy() { isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region releaseLabel
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getReleaseLabel(){ return releaseLabel; }
 
     public void setReleaseLabel(String releaseLabel){
@@ -26,10 +38,6 @@ public class ApiMrScalerAwsNewStrategy {
         this.releaseLabel = releaseLabel;
     }
 
-    public Boolean isReleaseLabelSet(){ return isSet.contains("releaseLabel"); }
-    // endregion
-
-    // region numberOfRetries
     public Integer getNumberOfRetries(){ return numberOfRetries;}
 
     public void setNumberOfRetries(Integer numberOfRetries){
@@ -37,33 +45,9 @@ public class ApiMrScalerAwsNewStrategy {
         this.numberOfRetries = numberOfRetries;
     }
 
+    @JsonIgnore
     public Boolean isNumberOfRetriesSet(){ return isSet.contains("numberOfRetries"); }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAwsNewStrategy newStrategy;
-
-        private Builder(){ this.newStrategy = new ApiMrScalerAwsNewStrategy(); }
-
-        public static Builder get(){
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        // build methods
-        public Builder setReleaseLabel(final String releaseLabel){
-            newStrategy.setReleaseLabel(releaseLabel);
-            return this;
-        }
-        public Builder setNumberOfRetries(final Integer numberOfRetries){
-            newStrategy.setNumberOfRetries(numberOfRetries);
-            return this;
-        }
-
-        public ApiMrScalerAwsNewStrategy build(){
-            return newStrategy;
-        }
-        // endregion
-    }
+    @JsonIgnore
+    public Boolean isReleaseLabelSet(){ return isSet.contains("releaseLabel"); }
 }

@@ -2,7 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.*;
 import com.spotinst.sdkjava.model.requests.mrScaler.aws.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,15 +102,15 @@ public class SpotinstMrScalerAwsClient {
      * @param mrScalerCreationRequest ApiMrScalerAwsCreationRequest Object that contains the requested create params
      * @return ApiMrScalerAws
      */
-    public ApiMrScalerAws createMrScaler(ApiMrScalerAwsCreationRequest mrScalerCreationRequest) {
-        ApiMrScalerAws retVal = null;
+    public MrScalerAws createMrScaler(MrScalerAwsCreationRequest mrScalerCreationRequest) {
+        MrScalerAws isCreated;
 
-        ApiMrScalerAws mrScalerToCreate = mrScalerCreationRequest.getMrScaler();
+        MrScalerAws mrScalerToCreate = mrScalerCreationRequest.getMrScaler();
 
-        RepoGenericResponse<ApiMrScalerAws> creationResponse =
+        RepoGenericResponse<MrScalerAws> creationResponse =
                 getSpotinstMrScalerRepo().create(mrScalerToCreate, authToken, account);
         if (creationResponse.isRequestSucceed()) {
-            retVal = creationResponse.getValue();
+            isCreated = creationResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
@@ -119,25 +119,25 @@ public class SpotinstMrScalerAwsClient {
                                        httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-        return retVal;
+        return isCreated;
     }
 
     /**
      * This method is used to update an exiting AWS MrScaler Cluster
      *
-     * @param mrScalerUpdateRequest ApiMrScalerAwsUpdateRequest Object that contains the requested update params
+     * @param mrScalerUpdateRequest MrScalerAwsUpdateRequest Object that contains the requested update params
      * @param clusterId             String for the cluster Id to update
      * @return Boolean
      */
-    public Boolean updateMrScaler(ApiMrScalerAwsUpdateRequest mrScalerUpdateRequest, String clusterId) {
-        Boolean retVal;
+    public Boolean updateMrScaler(MrScalerAwsUpdateRequest mrScalerUpdateRequest, String clusterId) {
+        Boolean isUpdated;
 
-        ApiMrScalerAws mrScalerToUpdate = mrScalerUpdateRequest.getMrScaler();
+        MrScalerAws mrScalerToUpdate = mrScalerUpdateRequest.getMrScaler();
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstMrScalerRepo().update(clusterId, mrScalerToUpdate, authToken, account);
         if (updateResponse.isRequestSucceed()) {
-            retVal = updateResponse.getValue();
+            isUpdated = updateResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
@@ -146,7 +146,7 @@ public class SpotinstMrScalerAwsClient {
                                        httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-        return retVal;
+        return isUpdated;
     }
 
     /**
@@ -155,13 +155,13 @@ public class SpotinstMrScalerAwsClient {
      * @param mrScalerDeletionRequest ApiMrScalerAwsDeleteRequest Object that contains the requested delete mrScaler ID
      * @return Boolean
      */
-    public Boolean deleteMrScaler(ApiMrScalerAwsDeleteRequest mrScalerDeletionRequest) {
-        Boolean retVal;
+    public Boolean deleteMrScaler(MrScalerAwsDeleteRequest mrScalerDeletionRequest) {
+        Boolean isDeleted;
         String  mrScalerToDeleteId = mrScalerDeletionRequest.getMrScalerId();
         RepoGenericResponse<Boolean> mrScalerDeletionResponse =
                 getSpotinstMrScalerRepo().delete(mrScalerToDeleteId, authToken, account);
         if (mrScalerDeletionResponse.isRequestSucceed()) {
-            retVal = mrScalerDeletionResponse.getValue();
+            isDeleted = mrScalerDeletionResponse.getValue();
         }
         else {
             List<HttpError> httpExceptions = mrScalerDeletionResponse.getHttpExceptions();
@@ -171,19 +171,19 @@ public class SpotinstMrScalerAwsClient {
             throw new SpotinstHttpException(httpException.getMessage());
         }
 
-        return retVal;
+        return isDeleted;
     }
 
     /**
      * This method is used to get an exiting AWS MrScaler Cluster
      *
-     * @param mrScalerAwsGetRequest ApiMrScalerAwsGetRequest Object that contains the requested get mrScaler ID
+     * @param mrScalerAwsGetRequest MrScalerAwsGetRequest Object that contains the requested get mrScaler ID
      * @return ApiMrScalerAws
      */
-    public ApiMrScalerAws getMrScaler(ApiMrScalerAwsGetRequest mrScalerAwsGetRequest) {
-        ApiMrScalerAws retVal;
+    public MrScalerAws getMrScaler(MrScalerAwsGetRequest mrScalerAwsGetRequest) {
+        MrScalerAws retVal;
         String         clusterToGet = mrScalerAwsGetRequest.getMrScalerId();
-        RepoGenericResponse<ApiMrScalerAws> mrScalerGetRes =
+        RepoGenericResponse<MrScalerAws> mrScalerGetRes =
                 getSpotinstMrScalerRepo().get(clusterToGet, authToken, account);
         if (mrScalerGetRes.isRequestSucceed()) {
             retVal = mrScalerGetRes.getValue();
@@ -205,11 +205,11 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return a list of instances
      */
-    public List<ApiMrScalerListInstancesAws> listMrScalerInstances(
-            ApiMrScalerListInstancesRequest mrScalerListInstancesRequest) {
-        List<ApiMrScalerListInstancesAws> retVal;
+    public List<MrScalerListInstancesAws> listMrScalerInstances(
+            MrScalerListInstancesRequest mrScalerListInstancesRequest) {
+        List<MrScalerListInstancesAws> retVal;
         String         clusterToGet = mrScalerListInstancesRequest.getMrScalerId();
-        RepoGenericResponse<List<ApiMrScalerListInstancesAws>> mrScalerListInstances = getSpotinstMrScalerListInstancesRepo().listMrScalerInstances(clusterToGet, authToken, account);
+        RepoGenericResponse<List<MrScalerListInstancesAws>> mrScalerListInstances = getSpotinstMrScalerListInstancesRepo().listMrScalerInstances(clusterToGet, authToken, account);
 
         if(mrScalerListInstances.isRequestSucceed()){
             retVal = mrScalerListInstances.getValue();
@@ -231,10 +231,11 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return a list of Scaler cluster
      */
-    public List<ApiMrScalerListScalersAws> listMrScalers(ApiMrScalerListMrScalersRequest mrScalerListScalersRequest) {
-        List<ApiMrScalerListScalersAws> retVal;
+    public List<MrScalerListScalersAws> listMrScalers(MrScalerListMrScalersRequest mrScalerListScalersRequest) {
+        List<MrScalerListScalersAws> retVal;
         String         clusterToGet = mrScalerListScalersRequest.getMrScalerId();
-        RepoGenericResponse<List<ApiMrScalerListScalersAws>> mrScalerListScalers = getSpotinstMrScalerListScalersRepo().listMrScalers(clusterToGet, authToken, account);
+        RepoGenericResponse<List<MrScalerListScalersAws>> mrScalerListScalers =
+                getSpotinstMrScalerListScalersRepo().listMrScalers(clusterToGet, authToken, account);
 
         if(mrScalerListScalers.isRequestSucceed()){
             retVal = mrScalerListScalers.getValue();
@@ -256,11 +257,12 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return a list of instances
      */
-    public List<ApiMrScalerScaleUpAws> scaleUpMrScaler(ApiMrScalerScaleUpRequest mrScalerScaleUpRequest) {
-        List<ApiMrScalerScaleUpAws> retVal;
+    public List<MrScalerScaleUpAws> scaleUpMrScaler(MrScalerScaleUpRequest mrScalerScaleUpRequest) {
+        List<MrScalerScaleUpAws> retVal;
         String         clusterToGet = mrScalerScaleUpRequest.getMrScalerId();
         Integer        adjustment   = mrScalerScaleUpRequest.getAdjustment();
-        RepoGenericResponse<List<ApiMrScalerScaleUpAws>> mrScalerScaleUp = getSpotinstMrScalerScaleUpRepo().scaleUpMrScaler(clusterToGet, adjustment, authToken, account);
+        RepoGenericResponse<List<MrScalerScaleUpAws>> mrScalerScaleUp = getSpotinstMrScalerScaleUpRepo()
+                .scaleUpMrScaler(clusterToGet, adjustment, authToken, account);
 
         if(mrScalerScaleUp.isRequestSucceed()){
             retVal = mrScalerScaleUp.getValue();
@@ -282,11 +284,12 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return a list of instances
      */
-    public List<ApiMrScalerScaleDownAws> scaleDownMrScaler(ApiMrScalerScaleDownRequest mrScalerScaleDownRequest) {
-        List<ApiMrScalerScaleDownAws> retVal;
+    public List<MrScalerScaleDownAws> scaleDownMrScaler(MrScalerScaleDownRequest mrScalerScaleDownRequest) {
+        List<MrScalerScaleDownAws> retVal;
         String clusterToGet = mrScalerScaleDownRequest.getMrScalerId();
         Integer adjustment  = mrScalerScaleDownRequest.getAdjustment();
-        RepoGenericResponse<List<ApiMrScalerScaleDownAws>> mrScalerScaleDown = getSpotinstMrScalerScaleDownRepo().scaleDownMrScaler(clusterToGet, adjustment, authToken, account);
+        RepoGenericResponse<List<MrScalerScaleDownAws>> mrScalerScaleDown = getSpotinstMrScalerScaleDownRepo()
+                .scaleDownMrScaler(clusterToGet, adjustment, authToken, account);
 
         if(mrScalerScaleDown.isRequestSucceed()){
             retVal = mrScalerScaleDown.getValue();
@@ -307,9 +310,9 @@ public class SpotinstMrScalerAwsClient {
      *
      * @return List
      */
-    public List<ApiMrScalerAws> getAllMrScalers() {
-        List<ApiMrScalerAws> retVal;
-        RepoGenericResponse<List<ApiMrScalerAws>> getAllRes =
+    public List<MrScalerAws> getAllMrScalers() {
+        List<MrScalerAws> retVal;
+        RepoGenericResponse<List<MrScalerAws>> getAllRes =
                 getSpotinstMrScalerRepo().getAll(null, authToken, account);
 
         if (getAllRes.isRequestSucceed()) {
@@ -335,13 +338,12 @@ public class SpotinstMrScalerAwsClient {
      * @param mrScalerOperatorRequest ApiMrScalerOpeartorAwsRequest Object that contains the requested operator params
      * @return ApiMrScalerOperatorAwsResponse
      */
-    public ApiMrScalerOperatorAwsResponse createMrScalerOperator(
-            ApiMrScalerOperatorAwsRequest mrScalerOperatorRequest) {
-        ApiMrScalerOperatorAwsResponse retVal;
-        ApiMrScalerOperatorAws apiMrScalerOperatorAws = mrScalerOperatorRequest.getMrScalerOperator();
+    public MrScalerOperatorResponse createMrScalerOperator(
+            MrScalerOperatorAws mrScalerOperatorRequest) {
+        MrScalerOperatorResponse retVal;
 
-        RepoGenericResponse<ApiMrScalerOperatorAwsResponse> operatorResponse =
-                getSpotinstMrScalerOperatorAwsRepo().create(apiMrScalerOperatorAws, authToken, account);
+        RepoGenericResponse<MrScalerOperatorResponse> operatorResponse =
+                getSpotinstMrScalerOperatorAwsRepo().createOperator(mrScalerOperatorRequest, authToken, account);
         if (operatorResponse.isRequestSucceed()) {
             retVal = operatorResponse.getValue();
         }

@@ -1,12 +1,19 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ApiMrScalerScaleDownAws {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerScaleDownAws implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> modifiedInstanceGroups;
@@ -14,6 +21,14 @@ public class ApiMrScalerScaleDownAws {
 
     public ApiMrScalerScaleDownAws() {
         isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public List<String> getModifiedInstanceGroups() {
@@ -25,10 +40,6 @@ public class ApiMrScalerScaleDownAws {
         this.modifiedInstanceGroups = modifiedInstanceGroups;
     }
 
-    public Boolean isModifiedInstanceGroupsSet(){
-        return isSet.contains("modifiedInstanceGroups");
-    }
-
     public List<String> getVictimInstances() {
         return victimInstances;
     }
@@ -38,32 +49,13 @@ public class ApiMrScalerScaleDownAws {
         this.victimInstances = victimInstances;
     }
 
-    public Boolean isVictimInstancesSet(){
-        return isSet.contains("victimInstances");
+    @JsonIgnore
+    public Boolean isModifiedInstanceGroupsSet(){
+        return isSet.contains("modifiedInstanceGroups");
     }
 
-    public static class Builder {
-        private ApiMrScalerScaleDownAws apiMrScalerScaleDownAws;
-
-        private Builder() {
-            this.apiMrScalerScaleDownAws = new ApiMrScalerScaleDownAws();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        //region Build methods
-        public Builder setModifiedInstanceGroups(final List<String> modifiedInstanceGroups) {
-            apiMrScalerScaleDownAws.setModifiedInstanceGroups(modifiedInstanceGroups);
-            return this;
-        }
-
-        public Builder setVictimInstances(final List<String> victimInstances) {
-            apiMrScalerScaleDownAws.setVictimInstances(victimInstances);
-            return this;
-        }
-        // endregion
+    @JsonIgnore
+    public Boolean isVictimInstancesSet(){
+        return isSet.contains("victimInstances");
     }
 }

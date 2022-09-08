@@ -1,12 +1,19 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ApiMrScalerScaleUpAws {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerScaleUpAws implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private List<String> modifiedInstanceGroups;
@@ -14,6 +21,14 @@ public class ApiMrScalerScaleUpAws {
 
     public ApiMrScalerScaleUpAws() {
         isSet = new HashSet<>();
+    }
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
     }
 
     public List<String> getModifiedInstanceGroups() {
@@ -25,10 +40,6 @@ public class ApiMrScalerScaleUpAws {
         this.modifiedInstanceGroups = modifiedInstanceGroups;
     }
 
-    public Boolean isModifiedInstanceGroupsSet(){
-        return isSet.contains("modifiedInstanceGroups");
-    }
-
     public List<String> getNewInstanceGroups() {
         return newInstanceGroups;
     }
@@ -38,32 +49,13 @@ public class ApiMrScalerScaleUpAws {
         this.newInstanceGroups = newInstanceGroups;
     }
 
-    public Boolean isNewInstanceGroupsSet(){
-        return isSet.contains("newInstanceGroups");
+    @JsonIgnore
+    public Boolean isModifiedInstanceGroupsSet(){
+        return isSet.contains("modifiedInstanceGroups");
     }
 
-    public static class Builder {
-        private ApiMrScalerScaleUpAws apiMrScalerScaleUpAws;
-
-        private Builder() {
-            this.apiMrScalerScaleUpAws = new ApiMrScalerScaleUpAws();
-        }
-
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
-
-        //region Build methods
-        public Builder setModifiedInstanceGroups(final List<String> modifiedInstanceGroups) {
-            apiMrScalerScaleUpAws.setModifiedInstanceGroups(modifiedInstanceGroups);
-            return this;
-        }
-
-        public Builder setNewInstanceGroups(final List<String> newInstanceGroups) {
-            apiMrScalerScaleUpAws.setNewInstanceGroups(newInstanceGroups);
-            return this;
-        }
-        // endregion
+    @JsonIgnore
+    public Boolean isNewInstanceGroupsSet(){
+        return isSet.contains("newInstanceGroups");
     }
 }

@@ -3,8 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
 import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsCreationRequest;
 import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsDeleteRequest;
-import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsGetRequest;
-import com.spotinst.sdkjava.model.requests.mrScaler.aws.ApiMrScalerAwsUpdateRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsGetRequest;
+import com.spotinst.sdkjava.model.requests.mrScaler.aws.MrScalerAwsUpdateRequest;
 import org.junit.Test;
 import org.junit.Before;
 import static org.mockito.Mockito.*;
@@ -50,8 +50,8 @@ public class SpotinstMrScalerAwsClientTest {
     public void updateMrScaler() {
         System.out.println("SpotinstMrScalerClientTest.updateMrScaler()");
 
-        ApiMrScalerAwsUpdateRequest.Builder mrScalerBuilder = ApiMrScalerAwsUpdateRequest.Builder.get();
-        ApiMrScalerAwsUpdateRequest         mrScaler        = mrScalerBuilder.build();
+        MrScalerAwsUpdateRequest.Builder mrScalerBuilder = MrScalerAwsUpdateRequest.Builder.get();
+        MrScalerAwsUpdateRequest mrScaler        = mrScalerBuilder.build();
 
         ApiMrScalerAws clusterToUpdate = mrScaler.getMrScaler();
 
@@ -90,8 +90,8 @@ public class SpotinstMrScalerAwsClientTest {
     public void getMrScaler() {
         System.out.println("SpotinstMrScalerClientTest.getMrScaler()");
 
-        ApiMrScalerAwsGetRequest.Builder mrScalerBuilder = ApiMrScalerAwsGetRequest.Builder.get();
-        ApiMrScalerAwsGetRequest         mrScaler        = mrScalerBuilder.build();
+        MrScalerAwsGetRequest.Builder mrScalerBuilder = MrScalerAwsGetRequest.Builder.get();
+        MrScalerAwsGetRequest mrScaler        = mrScalerBuilder.build();
 
         String clusterToGet = mrScaler.getMrScalerId();
 

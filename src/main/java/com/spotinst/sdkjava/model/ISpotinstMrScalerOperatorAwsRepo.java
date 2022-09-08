@@ -1,9 +1,10 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAws;
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerOperatorAwsResponse;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerOperatorAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerOperatorResponse;
 
-public interface ISpotinstMrScalerOperatorAwsRepo extends IRepository<ApiMrScalerOperatorAwsResponse, Void, String> {
-    RepoGenericResponse<ApiMrScalerOperatorAwsResponse> create(ApiMrScalerOperatorAws mrScalerOperator,
-                                                                               String authToken, String account);
+public interface ISpotinstMrScalerOperatorAwsRepo extends IRepository<MrScalerOperatorAws, Void, String> {
+
+    RepoGenericResponse<MrScalerOperatorResponse> createOperator(MrScalerOperatorAws mrScalerOperator,
+                                                                 String authToken, String account);
 }

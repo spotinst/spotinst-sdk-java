@@ -1,12 +1,19 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerListInstancesAws {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerListInstancesAws implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
     private String      instanceId;
@@ -22,6 +29,14 @@ public class ApiMrScalerListInstancesAws {
         isSet = new HashSet<>();
     }
 
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getInstanceId() {
         return instanceId;
     }
@@ -29,10 +44,6 @@ public class ApiMrScalerListInstancesAws {
     public void setInstanceId(String instanceId) {
         isSet.add("instanceId");
         this.instanceId = instanceId;
-    }
-
-    public Boolean isInstanceIdSet(){
-        return isSet.contains("instanceId");
     }
 
     public String getInstanceGroupId() {
@@ -44,10 +55,6 @@ public class ApiMrScalerListInstancesAws {
         this.instanceGroupId = instanceGroupId;
     }
 
-    public Boolean isInstanceGroupIdSet(){
-        return isSet.contains("instanceGroupId");
-    }
-
     public String getInstanceGroupRole() {
         return instanceGroupRole;
     }
@@ -55,10 +62,6 @@ public class ApiMrScalerListInstancesAws {
     public void setInstanceGroupRole(String instanceGroupRole) {
         isSet.add("instanceGroupRole");
         this.instanceGroupRole = instanceGroupRole;
-    }
-
-    public Boolean isInstanceGroupRoleSet(){
-        return isSet.contains("instanceGroupRole");
     }
 
     public String getInstanceType() {
@@ -70,10 +73,6 @@ public class ApiMrScalerListInstancesAws {
         this.instanceType = instanceType;
     }
 
-    public Boolean isInstanceTypeSet(){
-        return isSet.contains("instanceType");
-    }
-
     public String getAvailabilityZone() {
         return availabilityZone;
     }
@@ -81,10 +80,6 @@ public class ApiMrScalerListInstancesAws {
     public void setAvailabilityZone(String availabilityZone) {
         isSet.add("availabilityZone");
         this.availabilityZone = availabilityZone;
-    }
-
-    public Boolean isAvailabilityZoneSet(){
-        return isSet.contains("availabilityZone");
     }
 
     public String getStatus() {
@@ -96,10 +91,6 @@ public class ApiMrScalerListInstancesAws {
         this.status = status;
     }
 
-    public Boolean isStatusSet(){
-        return isSet.contains("status");
-    }
-
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -107,10 +98,6 @@ public class ApiMrScalerListInstancesAws {
     public void setCreatedAt(Date createdAt) {
         isSet.add("createdAt");
         this.createdAt = createdAt;
-    }
-
-    public Boolean isCreatedAtSet(){
-        return isSet.contains("createdAt");
     }
 
     public Date getUpdatedAt() {
@@ -122,66 +109,43 @@ public class ApiMrScalerListInstancesAws {
         this.updatedAt = updatedAt;
     }
 
-    public Boolean isUpdatedAtSet(){
-        return isSet.contains("updatedAt");
+    @JsonIgnore
+    public Boolean isInstanceIdSet(){
+        return isSet.contains("instanceId");
     }
 
-    public static class Builder {
-        private ApiMrScalerListInstancesAws apiMrScalerListInstancesAws;
+    @JsonIgnore
+    public Boolean isInstanceGroupIdSet(){
+        return isSet.contains("instanceGroupId");
+    }
 
-        private Builder() {
-            this.apiMrScalerListInstancesAws = new ApiMrScalerListInstancesAws();
-        }
+    @JsonIgnore
+    public Boolean isInstanceGroupRoleSet(){
+        return isSet.contains("instanceGroupRole");
+    }
 
-        public static Builder get() {
-            Builder builder = new Builder();
-            return builder;
-        }
+    @JsonIgnore
+    public Boolean isInstanceTypeSet(){
+        return isSet.contains("instanceType");
+    }
 
-        //region Build methods
-        public Builder setInstanceId(final String instanceId) {
-            apiMrScalerListInstancesAws.setInstanceId(instanceId);
-            return this;
-        }
+    @JsonIgnore
+    public Boolean isAvailabilityZoneSet(){
+        return isSet.contains("availabilityZone");
+    }
 
-        public Builder setInstanceGroupId(final String instanceGroupId) {
-            apiMrScalerListInstancesAws.setInstanceGroupId(instanceGroupId);
-            return this;
-        }
+    @JsonIgnore
+    public Boolean isStatusSet(){
+        return isSet.contains("status");
+    }
 
-        public Builder setInstanceGroupRole(final String instanceGroupRole) {
-            apiMrScalerListInstancesAws.setInstanceGroupRole(instanceGroupRole);
-            return this;
-        }
+    @JsonIgnore
+    public Boolean isCreatedAtSet(){
+        return isSet.contains("createdAt");
+    }
 
-        public Builder setInstanceType(final String instanceType) {
-            apiMrScalerListInstancesAws.setInstanceType(instanceType);
-            return this;
-        }
-
-        public Builder setAvailabilityZone(final String availabilityZone) {
-            apiMrScalerListInstancesAws.setAvailabilityZone(availabilityZone);
-            return this;
-        }
-
-        public Builder setStatus(final String status) {
-            apiMrScalerListInstancesAws.setStatus(status);
-            return this;
-        }
-
-        public Builder setCreatedAt(final Date createdAt) {
-            apiMrScalerListInstancesAws.setCreatedAt(createdAt);
-            return this;
-        }
-
-        public Builder setUpdatedAt(final Date updatedAt) {
-            apiMrScalerListInstancesAws.setUpdatedAt(updatedAt);
-            return this;
-        }
-
-        public ApiMrScalerListInstancesAws build() {
-            return apiMrScalerListInstancesAws;
-        }
-        // endregion
+    @JsonIgnore
+    public Boolean isUpdatedAtSet(){
+        return isSet.contains("updatedAt");
     }
 }
