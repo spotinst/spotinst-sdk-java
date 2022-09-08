@@ -619,15 +619,13 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         Map<String, String> headers = buildHeaders(authToken);
 
         // Write to json
-        Map<String, ImportEcsCluster> importEcsClusterRequest = new HashMap<>();
-        importEcsClusterRequest.put("roll", importEcsCluster);
-        String body = JsonMapper.toJson(importEcsClusterRequest);
+        String body = JsonMapper.toJson(importEcsCluster);
 
         // Build URI
         String uri = String.format("%s/ocean/aws/ecs/cluster/%s/import", apiEndpoint, ecsClusterName);
 
         // Send the request
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
         ImportOceanEcsClusterApiResponse importOceanEcsClusterApiResponse = getCastedResponse(response, ImportOceanEcsClusterApiResponse.class);
