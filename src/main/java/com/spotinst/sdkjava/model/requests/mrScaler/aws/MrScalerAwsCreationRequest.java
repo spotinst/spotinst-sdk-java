@@ -10,18 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MrScalerAwsCreationRequest {
-    //region Members
     @JsonProperty("mrscaler")
     private MrScalerAws mrScaler;
-    //endregion
 
-    //region Private constructor
     private MrScalerAwsCreationRequest() {
     }
-    //endregion
-
-
-    //region Getters & Setters
 
     public MrScalerAws getMrScaler() {
         return mrScaler;
@@ -31,9 +24,6 @@ public class MrScalerAwsCreationRequest {
         this.mrScaler = mrScaler;
     }
 
-    //endregion
-
-    //region Builder class
     public static class Builder {
         private MrScalerAwsCreationRequest mrScalerCreationRequest;
 
@@ -56,9 +46,7 @@ public class MrScalerAwsCreationRequest {
         }
 
     }
-    //endregion
 
-    //region Json methods
     public String toJson() {
         ApiMrScalerAws apiMrScalerToCreate = MrScalerAwsConverter.toDal(mrScaler);
 
@@ -68,6 +56,5 @@ public class MrScalerAwsCreationRequest {
 
         return mrScalerJson;
     }
-    //endregion
 
 }
