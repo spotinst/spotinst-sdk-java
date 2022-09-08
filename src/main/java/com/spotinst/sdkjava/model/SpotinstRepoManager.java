@@ -49,7 +49,6 @@ class SpotinstRepoManager {
     private ISpotinstMrScalerListScalersRepo            spotinstMrScalerListScalersRepo;
     private ISpotinstMrScalerScaleUpRepo                spotinstMrScalerScaleUpRepo;
     private ISpotinstMrScalerScaleDownRepo              spotinstMrScalerScaleDownRepo;
-    private ISpotK8sVngRepo       						          spotK8sVngRepo;
     private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
     private ISpotAzureAksVngRepo    					          spotAksVngRepo;
     private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;

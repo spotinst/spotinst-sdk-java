@@ -7,7 +7,7 @@ import com.spotinst.sdkjava.client.rest.SpotinstHttpConfig;
 import com.spotinst.sdkjava.client.rest.SpotinstHttpContext;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.mrScaler.aws.*;
-import com.spotinst.sdkjava.model.responses.mrScaler.aws.ApiMrScalerListInstancesResponse;
+import com.spotinst.sdkjava.model.responses.mrScaler.aws.MrScalerListInstancesApiResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,10 +38,10 @@ public class SpotinstMrScalerListInstancesService extends BaseSpotinstService {
         // Send the request
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
-        ApiMrScalerListInstancesResponse apiMrScalerListInstancesResponse = getCastedResponse(response, ApiMrScalerListInstancesResponse.class);
+        MrScalerListInstancesApiResponse mrScalerListInstancesApiResponse = getCastedResponse(response, MrScalerListInstancesApiResponse.class);
 
-        if (apiMrScalerListInstancesResponse.getResponse().getCount() > 0) {
-            retVal = apiMrScalerListInstancesResponse.getResponse().getItems();
+        if (mrScalerListInstancesApiResponse.getResponse().getCount() > 0) {
+            retVal = mrScalerListInstancesApiResponse.getResponse().getItems();
         }
         return retVal;
     }
