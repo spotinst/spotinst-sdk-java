@@ -18,5 +18,5 @@ public interface ISpotOceanEcsClusterRepo extends IRepository<OceanEcsCluster, V
 
     RepoGenericResponse<List<GetEcsClusterNodesResponse>> getClusterContainerInstances(GetEcsClusterNodesRequest getClusterNodes, String clusterId, String authToken);
 
-    RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account);
+    RepoGenericResponse<ImportOceanEcsClusterObjectResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account);
 }

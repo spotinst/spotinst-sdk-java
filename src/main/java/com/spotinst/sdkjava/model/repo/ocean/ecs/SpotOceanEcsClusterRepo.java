@@ -205,13 +205,13 @@ public class SpotOceanEcsClusterRepo implements ISpotOceanEcsClusterRepo {
     }
 
     @Override
-    public RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) {
-        RepoGenericResponse<ImportOceanEcsClusterResponse> retVal;
+    public RepoGenericResponse<ImportOceanEcsClusterObjectResponse> importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) {
+        RepoGenericResponse<ImportOceanEcsClusterObjectResponse> retVal;
 
         try {
 
-            ApiImportOceanEcsClusterResponse apiImportEcsCluster = SpotOceanEcsClusterService.importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
-            ImportOceanEcsClusterResponse importEcsClusterResponse = OceanEcsConverter.toBl(apiImportEcsCluster);
+            ApiImportOceanEcsClusterObjectResponse apiImportEcsCluster = SpotOceanEcsClusterService.importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
+            ImportOceanEcsClusterObjectResponse importEcsClusterResponse = OceanEcsConverter.toBl(apiImportEcsCluster);
 
             retVal = new RepoGenericResponse<>(importEcsClusterResponse);
         }
