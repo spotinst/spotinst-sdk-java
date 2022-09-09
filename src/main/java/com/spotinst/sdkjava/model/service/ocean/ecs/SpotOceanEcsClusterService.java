@@ -599,10 +599,10 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static ApiImportOceanEcsClusterResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) throws SpotinstHttpException {
+    public static ApiImportOceanEcsClusterObjectResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) throws SpotinstHttpException {
 
         // Init retVal
-        ApiImportOceanEcsClusterResponse retVal = null;
+        ApiImportOceanEcsClusterObjectResponse retVal = null;
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -628,10 +628,10 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-        ImportOceanEcsClusterApiResponse importOceanEcsClusterApiResponse = getCastedResponse(response, ImportOceanEcsClusterApiResponse.class);
+        ImportOceanEcsClusterApiResponse clusterApiResponse = getCastedResponse(response, ImportOceanEcsClusterApiResponse.class);
 
-        if (importOceanEcsClusterApiResponse.getResponse().getCount() > 0) {
-            retVal = importOceanEcsClusterApiResponse.getResponse().getItems().get(0);
+        if (clusterApiResponse.getResponse().getCount() > 0) {
+            retVal = clusterApiResponse.getResponse().getItems().get(0);
         }
 
         return retVal;
