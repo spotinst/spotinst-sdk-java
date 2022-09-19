@@ -208,7 +208,7 @@ public class MrScalerAws {
             return this;
         }
 
-        public Builder seCoreScaling(final MrScalerAwsScalingConfiguration coreScaling){
+        public Builder setCoreScaling(final MrScalerAwsScalingConfiguration coreScaling){
             mrScalerAws.setCoreScaling(coreScaling);
             return this;
         }

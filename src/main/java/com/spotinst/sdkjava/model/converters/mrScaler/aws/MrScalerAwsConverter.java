@@ -28,6 +28,9 @@ public class MrScalerAwsConverter {
             if (apiMrScalerAws.isComputeSet()) {
                 mrScalerBuilder.setCompute(toBl(apiMrScalerAws.getCompute()));
             }
+            if (apiMrScalerAws.isCoreScalingSet()) {
+                mrScalerBuilder.setCoreScaling(toBl(apiMrScalerAws.getCoreScaling()));
+            }
             if (apiMrScalerAws.isClusterSet()) {
                 mrScalerBuilder.setCluster(toBl(apiMrScalerAws.getCluster()));
             }
@@ -804,6 +807,10 @@ public class MrScalerAwsConverter {
             if (mrScalerAws.isScalingSet()) {
                 ApiMrScalerAwsScalingConfiguration apiScaling = toDal(mrScalerAws.getScaling());
                 apiMrScalerAws.setScaling(apiScaling);
+            }
+            if (mrScalerAws.isCoreScalingSet()) {
+                ApiMrScalerAwsScalingConfiguration apiCoreScaling = toDal(mrScalerAws.getCoreScaling());
+                apiMrScalerAws.setCoreScaling(apiCoreScaling);
             }
             if (mrScalerAws.isSchedulingSet()) {
                 ApiMrScalerAwsSchedulingConfiguration apiScheduling = toDal(mrScalerAws.getScheduling());
