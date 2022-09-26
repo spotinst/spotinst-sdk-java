@@ -178,35 +178,16 @@ public class OceanCDRolloutConverter {
                 builder.setNewVersion(src.getNewVersion());
             }
             if (src.isOldManifestSet()) {
-                builder.setOldManifest(toBl(src.getOldManifest()));
+                builder.setOldManifest(src.getOldManifest());
             }
             if (src.isNewManifestSet()) {
-                builder.setNewManifest(toBl(src.getNewManifest()));
+                builder.setNewManifest(src.getNewManifest());
             }
             spotDeployment = builder.build();
 
         }
 
         return spotDeployment;
-    }
-
-    public static SpotDeploymentManifest toBl(ApiSpotDeploymentManifest src) {
-        SpotDeploymentManifest spotDeploymentManifest = null;
-
-        if (src != null) {
-            SpotDeploymentManifest.Builder builder = SpotDeploymentManifest.Builder.get();
-
-            if (src.isKindSet()) {
-                builder.setKind(src.getKind());
-            }
-            if (src.isApiVersionSet()) {
-                builder.setApiVersion(src.getApiVersion());
-            }
-            spotDeploymentManifest = builder.build();
-
-        }
-
-        return spotDeploymentManifest;
     }
 
 }

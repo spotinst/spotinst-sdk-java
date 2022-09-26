@@ -1269,6 +1269,21 @@ public class OceanEcsConverter {
         return retVal;
     }
 
+    public static ImportOceanEcsClusterObjectResponse toBl(ApiImportOceanEcsClusterObjectResponse src) {
+        ImportOceanEcsClusterObjectResponse cluster = null;
+
+        if (src != null) {
+            ImportOceanEcsClusterObjectResponse.Builder clusterBuilder = ImportOceanEcsClusterObjectResponse.Builder.get();
+
+            if (src.isClusterSet()) {
+                clusterBuilder.setCluster(toBl(src.getCluster()));
+            }
+
+            cluster = clusterBuilder.build();
+        }
+        return cluster;
+    }
+
     public static ImportOceanEcsClusterResponse toBl(ApiImportOceanEcsClusterResponse src) {
         ImportOceanEcsClusterResponse cluster = null;
 

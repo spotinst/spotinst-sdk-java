@@ -74,7 +74,7 @@ public class OceanEcsClusterUsageExample {
         List<GetEcsClusterNodesResponse> nodes = getClusterContainerInstances(clusterClient, "cluster-id");
 
         System.out.println("----------Import ocean ecs cluster--------------");
-        ImportOceanEcsClusterResponse importOceanEcsClusterResponse = importEcsCluster(clusterClient, "cluster-name");
+        ImportOceanEcsClusterObjectResponse importOceanEcsClusterResponse = importEcsCluster(clusterClient, "cluster-name");
 
    }
 
@@ -453,7 +453,7 @@ public class OceanEcsClusterUsageExample {
         return nodes;
     }
 
-    private static ImportOceanEcsClusterResponse importEcsCluster(SpotOceanEcsClusterClient client, String ecsClusterName) {
+    private static ImportOceanEcsClusterObjectResponse importEcsCluster(SpotOceanEcsClusterClient client, String ecsClusterName) {
 
         ImportEcsCluster.Builder importEcsClusterBuilder = ImportEcsCluster.Builder.get();
         ImportEcsCluster importEcsCluster = importEcsClusterBuilder.setName("ECS_Import").setRegion("us-west2").build();

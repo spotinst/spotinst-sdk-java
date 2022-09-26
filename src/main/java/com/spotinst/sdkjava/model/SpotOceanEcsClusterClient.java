@@ -345,9 +345,9 @@ public class SpotOceanEcsClusterClient {
         return retVal;
     }
 
-    public ImportOceanEcsClusterResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName) {
-        ImportOceanEcsClusterResponse retVal;
-        RepoGenericResponse<ImportOceanEcsClusterResponse> importEcsClusterResponse = getSpotOceanEcsClusterRepo().importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
+    public ImportOceanEcsClusterObjectResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName) {
+        ImportOceanEcsClusterObjectResponse retVal;
+        RepoGenericResponse<ImportOceanEcsClusterObjectResponse> importEcsClusterResponse = getSpotOceanEcsClusterRepo().importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
 
         if (importEcsClusterResponse.isRequestSucceed()) {
             retVal = importEcsClusterResponse.getValue();
