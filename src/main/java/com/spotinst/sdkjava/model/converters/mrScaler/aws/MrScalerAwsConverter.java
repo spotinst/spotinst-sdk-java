@@ -37,7 +37,7 @@ public class MrScalerAwsConverter {
             if (apiMrScalerAws.isStrategySet()) {
                 mrScalerBuilder.setStrategy(toBl(apiMrScalerAws.getStrategy()));
             }
-            if (apiMrScalerAws.isScalingSet()) {
+            if (apiMrScalerAws.isScalingSet() && apiMrScalerAws.getScaling() != null) {
                 mrScalerBuilder.setScaling(toBl(apiMrScalerAws.getScaling()));
             }
             if (apiMrScalerAws.isSchedulingSet()) {
@@ -465,16 +465,16 @@ public class MrScalerAwsConverter {
         if (apiScaling != null) {
             MrScalerAwsScalingConfiguration.Builder blScalingbuilder = MrScalerAwsScalingConfiguration.Builder.get();
 
-            if (apiScaling.isUpSet()) {
+            if (apiScaling.isUpSet() && apiScaling.getUp() != null) {
                 List<MrScalerAwsScalingPolicy> blUpConfig =
                         apiScaling.getUp().stream().map(MrScalerAwsConverter::toBl)
                                 .collect(Collectors.toList());
                 blScalingbuilder.setUp(blUpConfig);
             }
-            if (apiScaling.isDownSet()) {
-                List<MrScalerAwsScalingPolicy> blDownConfig = apiScaling.getUp().stream().map(MrScalerAwsConverter::toBl)
+            if (apiScaling.isDownSet() && apiScaling.getDown() != null) {
+                List<MrScalerAwsScalingPolicy> blDownConfig = apiScaling.getDown().stream().map(MrScalerAwsConverter::toBl)
                         .collect(Collectors.toList());
-                blScalingbuilder.setUp(blDownConfig);
+                blScalingbuilder.setDown(blDownConfig);
             }
             blScaling = blScalingbuilder.build();
         }
@@ -497,8 +497,8 @@ public class MrScalerAwsConverter {
                 if (apiScalingPolicies.isStatisticSet()) {
                     policyBuilder.setStatistic(apiScalingPolicies.getStatistic());
                 }
-                if (apiScalingPolicies.isPolicyNameSet()) {
-                    policyBuilder.setPolicyName(apiScalingPolicies.getPolicyName());
+                if (apiScalingPolicies.isUnitSet()) {
+                    policyBuilder.setUnit(apiScalingPolicies.getUnit());
                 }
                 if (apiScalingPolicies.isPeriodSet()) {
                     policyBuilder.setPeriod(apiScalingPolicies.getPeriod());
