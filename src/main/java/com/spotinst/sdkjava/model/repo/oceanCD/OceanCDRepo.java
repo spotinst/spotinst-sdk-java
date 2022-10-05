@@ -5,15 +5,17 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
+import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationProvider;
+import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationTemplate;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutStatus;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutsDetails;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
+import com.spotinst.sdkjava.model.bl.oceanCD.VerificationProvider;
+import com.spotinst.sdkjava.model.bl.oceanCD.VerificationTemplate;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
-import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDRolloutConverter;
-import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDRolloutSpecConverter;
-import com.spotinst.sdkjava.model.converters.oceanCD.OceanCDStrategyConverter;
+import com.spotinst.sdkjava.model.converters.oceanCD.*;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 import com.spotinst.sdkjava.model.service.oceanCD.OceanCDService;
 
@@ -261,6 +263,202 @@ public class OceanCDRepo implements IOceanCDRepo {
         try {
 
             Boolean success = OceanCDService.rolloutAction(rolloutActionsReq, rolloutId, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<VerificationProvider> createVerificationProvider(VerificationProvider verificationProviderReq, String authToken) {
+        RepoGenericResponse<VerificationProvider> retVal;
+
+        try {
+            ApiVerificationProvider apiverificationProviderReq = OceanCDVerificationProviderConverter.toDal(verificationProviderReq);
+            ApiVerificationProvider apiverificationProviderRes = OceanCDService.createVerificationProvider(apiverificationProviderReq, authToken);
+            VerificationProvider verificationProviderRes = OceanCDVerificationProviderConverter.toBl(apiverificationProviderRes);
+            retVal = new RepoGenericResponse<>(verificationProviderRes);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<VerificationProvider> getVerificationProvider(String verificationProviderName, String authToken) {
+        RepoGenericResponse<VerificationProvider> retVal;
+
+        try {
+            ApiVerificationProvider apiVerificationProvider = OceanCDService.getVerificationProvider(verificationProviderName, authToken);
+            VerificationProvider verificationProvider    = OceanCDVerificationProviderConverter.toBl(apiVerificationProvider);
+            retVal = new RepoGenericResponse<>(verificationProvider);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<VerificationProvider>> getAllVerificationProviders(String authToken) {
+        RepoGenericResponse<List<VerificationProvider>> retVal;
+
+        try {
+            List<ApiVerificationProvider> apiVerificationProvider = OceanCDService.getAllVerificationProviders(authToken);
+            List<VerificationProvider> strategies = apiVerificationProvider.stream().map(OceanCDVerificationProviderConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(strategies);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateVerificationProvider(VerificationProvider verificationProviderReq, String verificationProviderName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        ApiVerificationProvider apiVerificationProvider = OceanCDVerificationProviderConverter.toDal(verificationProviderReq);
+
+        try {
+            Boolean success = OceanCDService.updateVerificationProvider(apiVerificationProvider, verificationProviderName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> patchVerificationProvider(VerificationProvider verificationProviderReq, String verificationProviderName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        ApiVerificationProvider apiVerificationProvider = OceanCDVerificationProviderConverter.toDal(verificationProviderReq);
+
+        try {
+            Boolean success = OceanCDService.patchVerificationProvider(apiVerificationProvider, verificationProviderName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteVerificationProvider(String verificationProviderName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = OceanCDService.deleteVerificationProvider(verificationProviderName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<VerificationTemplate> createVerificationTemplate(VerificationTemplate verificationTemplateReq, String authToken) {
+        RepoGenericResponse<VerificationTemplate> retVal;
+
+        try {
+            ApiVerificationTemplate apiverificationTemplateReq = OceanCDVerificationTemplateConverter.toDal(verificationTemplateReq);
+            ApiVerificationTemplate apiverificationTemplateRes = OceanCDService.createVerificationTemplate(apiverificationTemplateReq, authToken);
+            VerificationTemplate verificationTemplateRes = OceanCDVerificationTemplateConverter.toBl(apiverificationTemplateRes);
+            retVal = new RepoGenericResponse<>(verificationTemplateRes);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<VerificationTemplate> getVerificationTemplate(String verificationTemplateName, String authToken) {
+        RepoGenericResponse<VerificationTemplate> retVal;
+
+        try {
+            ApiVerificationTemplate apiVerificationTemplate = OceanCDService.getVerificationTemplate(verificationTemplateName, authToken);
+            VerificationTemplate verificationTemplate    = OceanCDVerificationTemplateConverter.toBl(apiVerificationTemplate);
+            retVal = new RepoGenericResponse<>(verificationTemplate);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<VerificationTemplate>> getAllVerificationTemplates(String authToken) {
+        RepoGenericResponse<List<VerificationTemplate>> retVal;
+
+        try {
+            List<ApiVerificationTemplate> apiVerificationTemplate = OceanCDService.getAllVerificationTemplates(authToken);
+            List<VerificationTemplate> strategies = apiVerificationTemplate.stream().map(OceanCDVerificationTemplateConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(strategies);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateVerificationTemplate(VerificationTemplate verificationTemplateReq, String verificationTemplateName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        ApiVerificationTemplate apiVerificationTemplate = OceanCDVerificationTemplateConverter.toDal(verificationTemplateReq);
+
+        try {
+            Boolean success = OceanCDService.updateVerificationTemplate(apiVerificationTemplate, verificationTemplateName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> patchVerificationTemplate(VerificationTemplate verificationTemplateReq, String verificationTemplateName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        ApiVerificationTemplate apiVerificationTemplate = OceanCDVerificationTemplateConverter.toDal(verificationTemplateReq);
+
+        try {
+            Boolean success = OceanCDService.patchVerificationTemplate(apiVerificationTemplate, verificationTemplateName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteVerificationTemplate(String verificationTemplateName, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = OceanCDService.deleteVerificationTemplate(verificationTemplateName, authToken);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {

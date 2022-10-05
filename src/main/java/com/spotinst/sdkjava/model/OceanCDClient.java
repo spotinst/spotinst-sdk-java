@@ -6,6 +6,8 @@ import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
+import com.spotinst.sdkjava.model.bl.oceanCD.VerificationProvider;
+import com.spotinst.sdkjava.model.bl.oceanCD.VerificationTemplate;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
@@ -347,6 +349,246 @@ public class OceanCDClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to update Ocean CD Rollout ID. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public VerificationProvider createVerificationProvider(VerificationProvider verificationProviderRequest) {
+
+        VerificationProvider retVal;
+
+        RepoGenericResponse<VerificationProvider> creationResponse = getOceanCDRepo().createVerificationProvider(verificationProviderRequest, authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create VerificationProvider for Ocean CD. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<VerificationProvider> getAllVerificationProviders() {
+        List<VerificationProvider> retVal;
+
+        RepoGenericResponse<List<VerificationProvider>> getAllResponse = getOceanCDRepo().getAllVerificationProviders(authToken);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all Ocean CD VerificationProviders. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public VerificationProvider getVerificationProvider(String verificationProviderName) {
+
+        VerificationProvider retVal;
+
+        RepoGenericResponse<VerificationProvider> getResponse = getOceanCDRepo().getVerificationProvider(verificationProviderName, authToken);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get Ocean CD VerificationProvider. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean updateVerificationProvider(VerificationProvider verificationProviderReq, String verificationProviderName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().updateVerificationProvider(verificationProviderReq, verificationProviderName, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update Ocean CD VerificationProvider. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean patchVerificationProvider(VerificationProvider verificationProviderReq, String verificationProviderName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> patchResponse = getOceanCDRepo().patchVerificationProvider(verificationProviderReq, verificationProviderName, authToken);
+
+        if (patchResponse.isRequestSucceed()) {
+            retVal = patchResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = patchResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to patch Ocean CD VerificationProvider. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteVerificationProvider(String verificationProviderName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteResponse = getOceanCDRepo().deleteVerificationProvider(verificationProviderName, authToken);
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete Ocean CD VerificationProvider. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public VerificationTemplate createVerificationTemplate(VerificationTemplate verificationTemplateRequest) {
+
+        VerificationTemplate retVal;
+
+        RepoGenericResponse<VerificationTemplate> creationResponse = getOceanCDRepo().createVerificationTemplate(verificationTemplateRequest, authToken);
+
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to create VerificationTemplate for Ocean CD. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<VerificationTemplate> getAllVerificationTemplates() {
+        List<VerificationTemplate> retVal;
+
+        RepoGenericResponse<List<VerificationTemplate>> getAllResponse = getOceanCDRepo().getAllVerificationTemplates(authToken);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all Ocean CD VerificationTemplates. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public VerificationTemplate getVerificationTemplate(String verificationTemplateName) {
+
+        VerificationTemplate retVal;
+
+        RepoGenericResponse<VerificationTemplate> getResponse = getOceanCDRepo().getVerificationTemplate(verificationTemplateName, authToken);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get Ocean CD VerificationTemplate. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean updateVerificationTemplate(VerificationTemplate verificationTemplateReq, String verificationTemplateName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().updateVerificationTemplate(verificationTemplateReq, verificationTemplateName, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update Ocean CD VerificationTemplate. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean patchVerificationTemplate(VerificationTemplate verificationTemplateReq, String verificationTemplateName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> patchResponse = getOceanCDRepo().patchVerificationTemplate(verificationTemplateReq, verificationTemplateName, authToken);
+
+        if (patchResponse.isRequestSucceed()) {
+            retVal = patchResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = patchResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to patch Ocean CD VerificationTemplate. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteVerificationTemplate(String verificationTemplateName) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteResponse = getOceanCDRepo().deleteVerificationTemplate(verificationTemplateName, authToken);
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete Ocean CD VerificationTemplate. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
