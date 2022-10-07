@@ -57,7 +57,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -65,7 +64,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/organization/user", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse response = RestClient.sendGet(uri, headers, null);
 
         // Handle the response.
         OrganizationUsersApiResponse orgUserApiResponse = getCastedResponse(response, OrganizationUsersApiResponse.class);
@@ -85,7 +84,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -94,7 +92,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/user/%s", apiEndpoint,userId);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse response = RestClient.sendGet(uri, headers, null);
 
         // Handle the response.
         UserDetailsApiResponse userApiResponse = getCastedResponse(response, UserDetailsApiResponse.class);
@@ -114,7 +112,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -127,7 +124,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/user/%s/userGroupMapping", apiEndpoint,userId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -144,7 +141,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -153,7 +149,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/user/%s", apiEndpoint,userId);
 
         // Send the request.
-        RestResponse response = RestClient.sendDelete(uri,  null, headers, queryParams);
+        RestResponse response = RestClient.sendDelete(uri,  null, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -170,7 +166,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -181,7 +176,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/user/%s/PolicyMapping", apiEndpoint,userId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -198,7 +193,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -209,7 +203,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, null);
 
         // Handle the response.
         UserGroupApiResponse apiResponse = getCastedResponse(response, UserGroupApiResponse.class);
@@ -228,7 +222,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -237,7 +230,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse response = RestClient.sendGet(uri, headers, null);
 
         // Handle the response.
         OrganizationUserGroupsApiResponse apiResponse = getCastedResponse(response, OrganizationUserGroupsApiResponse.class);
@@ -257,7 +250,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -266,7 +258,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse response = RestClient.sendGet(uri, headers, null);
 
         // Handle the response.
         UserGroupDetailsApiResponse apiResponse = getCastedResponse(response, UserGroupDetailsApiResponse.class);
@@ -286,7 +278,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -300,7 +291,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -317,7 +308,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -326,7 +316,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup/%s", apiEndpoint,groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendDelete(uri,  null, headers, queryParams);
+        RestResponse response = RestClient.sendDelete(uri,  null, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -343,7 +333,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -356,7 +345,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup/%s/userMapping", apiEndpoint,groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -373,7 +362,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -384,7 +372,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/userGroup/%s/PolicyMapping", apiEndpoint,groupId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -435,7 +423,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -446,7 +433,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/user/programmatic", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, null);
 
         // Handle the response.
         ProgrammaticUserApiResponse ApiResponse = getCastedResponse(response, ProgrammaticUserApiResponse.class);
@@ -467,7 +454,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -478,7 +464,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/organization", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, null);
 
         // Handle the response.
         OrganizationApiResponse organizationApiResponse = getCastedResponse(response, OrganizationApiResponse.class);
@@ -499,7 +485,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -508,7 +493,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/organization/%s", apiEndpoint,organizationId);
 
         // Send the request.
-        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+        RestResponse response = RestClient.sendDelete(uri, null, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -525,7 +510,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -538,7 +522,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/policy", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPost(uri, body, headers, null);
 
         // Handle the response.
         PolicyApiResponse apiResponse = getCastedResponse(response, PolicyApiResponse.class);
@@ -557,7 +541,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -570,7 +553,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/policy/%s", apiEndpoint, policyId);
 
         // Send the request.
-        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
@@ -586,7 +569,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -595,7 +577,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/organization/policy", apiEndpoint);
 
         // Send the request.
-        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+        RestResponse response = RestClient.sendGet(uri, headers, null);
 
         // Handle the response.
         PolicyApiResponse apiResponse = getCastedResponse(response, PolicyApiResponse.class);
@@ -614,7 +596,6 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
         String apiEndpoint = config.getEndpoint();
-        Map<String, String> queryParams = new HashMap<>();
 
         // Get the headers for AWS.
         Map<String, String> headers = buildHeaders(authToken);
@@ -623,7 +604,7 @@ public class SpotAdminOrganizationService extends BaseSpotinstService {
         String uri = String.format("%s/setup/access/policy/%s", apiEndpoint,policyId);
 
         // Send the request.
-        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+        RestResponse response = RestClient.sendDelete(uri, null, headers, null);
 
         if (response.getStatusCode() == HttpStatus.SC_OK) {
             retVal = true;
