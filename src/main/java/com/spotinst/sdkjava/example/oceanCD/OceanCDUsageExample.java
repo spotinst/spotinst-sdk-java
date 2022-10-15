@@ -14,6 +14,8 @@ import java.util.List;
 public class OceanCDUsageExample {
 
     private final static String auth_token = "your-token";
+    private final static String account_Id = "account_Id";
+    private final static String api_key = "api_key";
 
     public static void main(String[] args) throws InterruptedException {
         OceanCDClient oceanCDClient = SpotinstClient.getOceanCDClient(auth_token);
@@ -421,7 +423,7 @@ public class OceanCDUsageExample {
 
         //Build VerificationProviderNewRelic
         VerificationProviderNewRelic.Builder verificationProviderNewRelicBuilder = VerificationProviderNewRelic.Builder.get();
-        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId("act-b114530s").setPersonalApiKey("b634e07cca045cec80f16eb7").build();
+        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId(account_Id).setPersonalApiKey(api_key).build();
 
         //Build VerificationProvider
         VerificationProvider.Builder VerificationProviderBuilder = VerificationProvider.Builder.get();
@@ -445,7 +447,7 @@ public class OceanCDUsageExample {
 
         //Build VerificationProviderNewRelic
         VerificationProviderNewRelic.Builder verificationProviderNewRelicBuilder = VerificationProviderNewRelic.Builder.get();
-        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId("act-c444650d").setPersonalApiKey("f5673df78934jh32424").build();
+        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId(account_Id).setPersonalApiKey(api_key).build();
 
         //Build VerificationProvider
         VerificationProvider.Builder VerificationProviderBuilder = VerificationProvider.Builder.get();
