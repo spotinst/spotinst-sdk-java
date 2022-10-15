@@ -1,12 +1,8 @@
 package com.spotinst.sdkjava.model.converters.oceanCD;
 
-import com.spotinst.sdkjava.model.api.oceanCD.*;
 import com.spotinst.sdkjava.model.api.oceanCD.response.*;
-import com.spotinst.sdkjava.model.bl.oceanCD.*;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Janetlin Kiruba on 2/09/2022.

@@ -8,11 +8,14 @@ import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class OceanCDUsageExample {
 
     private final static String auth_token = "your-token";
+    private final static String account_Id = "account_Id";
+    private final static String api_key = "api_key";
 
     public static void main(String[] args) throws InterruptedException {
         OceanCDClient oceanCDClient = SpotinstClient.getOceanCDClient(auth_token);
@@ -77,6 +80,56 @@ public class OceanCDUsageExample {
         //Rollout Actions
         System.out.println("----------Rollout Actions-------------");
         Boolean rolloutStatus = rolloutAction(oceanCDClient, strategyName);
+
+        //Create VerificationProvider
+        System.out.println("----------Create VerificationProvider-------------");
+        String VerificationProviderName = createVerificationProvider(oceanCDClient);
+
+        //Get VerificationProvider
+        System.out.println("----------Get VerificationProvider--------------");
+        VerificationProvider getVerificationProviderResponse = getVerificationProvider(oceanCDClient, VerificationProviderName);
+
+        //Get All VerificationProvider
+        System.out.println("----------List All VerificationProviders--------------");
+        List<VerificationProvider> listVerificationProviderResponse = getAllVerificationProviders(oceanCDClient);
+
+
+        //Update VerificationProvider
+        System.out.println("----------Update VerificationProvider-------------");
+        Boolean updateVerificationProviderStatus = updateVerificationProvider(oceanCDClient, VerificationProviderName);
+
+        //Patch VerificationProvider
+        System.out.println("----------Patch VerificationProvider-------------");
+        Boolean patchVerificationProviderStatus = patchVerificationProvider(oceanCDClient, VerificationProviderName);
+
+        //Delete VerificationProvider
+        System.out.println("----------Delete VerificationProvider-------------");
+        Boolean deleteVerificationProviderStatus = deleteVerificationProvider(oceanCDClient, VerificationProviderName);
+
+        //Create VerificationTemplate
+        System.out.println("----------Create VerificationTemplate-------------");
+        String VerificationTemplateName = createVerificationTemplate(oceanCDClient);
+
+        //Get VerificationTemplate
+        System.out.println("----------Get VerificationTemplate--------------");
+        VerificationTemplate getVerificationTemplateResponse = getVerificationTemplate(oceanCDClient, VerificationTemplateName);
+
+        //Get All VerificationTemplate
+        System.out.println("----------List All VerificationTemplates--------------");
+        List<VerificationTemplate> listVerificationTemplateResponse = getAllVerificationTemplates(oceanCDClient);
+
+
+        //Update VerificationTemplate
+        System.out.println("----------Update VerificationTemplate-------------");
+        Boolean updateVerificationTemplateStatus = updateVerificationTemplate(oceanCDClient, VerificationTemplateName);
+
+        //Patch VerificationTemplate
+        System.out.println("----------Patch VerificationTemplate-------------");
+        Boolean patchVerificationTemplateStatus = patchVerificationTemplate(oceanCDClient, VerificationTemplateName);
+
+        //Delete VerificationTemplate
+        System.out.println("----------Delete VerificationTemplate-------------");
+        Boolean deleteVerificationTemplateStatus = deleteVerificationTemplate(oceanCDClient, VerificationTemplateName);
 }
 
     private static String createStrategy(OceanCDClient client) {
@@ -327,6 +380,233 @@ public class OceanCDUsageExample {
         }
 
         return updateStatus;
+    }
+
+    private static String createVerificationProvider(OceanCDClient client) {
+        System.out.println("-------------------------start creating Ocean CD VerificationProvider------------------------");
+
+        List<String> clusterIds = Arrays.asList("Cluster1","Cluster2");
+
+        //Build VerificationProviderCloudWatch
+        VerificationProviderCloudWatch.Builder verificationProviderCloudWatchBuilder = VerificationProviderCloudWatch.Builder.get();
+        VerificationProviderCloudWatch verificationProviderCloudWatch = verificationProviderCloudWatchBuilder.setIamArn("arn:aws:iam::253244684816:role/Automation-Test").build();
+
+        //Build VerificationProvider
+        VerificationProvider.Builder VerificationProviderBuilder = VerificationProvider.Builder.get();
+        VerificationProvider VerificationProvider = VerificationProviderBuilder.setName("Test-VerificationProvider").setCloudWatch(verificationProviderCloudWatch).setClusterIds(clusterIds).build();
+
+
+        VerificationProvider createdVerificationProvider = client.createVerificationProvider(VerificationProvider);
+        System.out.println("VerificationProvider successfully created: " + createdVerificationProvider.getName());
+
+        return createdVerificationProvider.getName();
+
+    }
+
+    private static VerificationProvider getVerificationProvider (OceanCDClient client, String VerificationProviderName) {
+
+        System.out.println(String.format("Get Ocean CD VerificationProvider. VerificationProvider Name: %s", VerificationProviderName));
+
+        return client.getVerificationProvider(VerificationProviderName);
+    }
+
+    private static List<VerificationProvider> getAllVerificationProviders (OceanCDClient client) {
+
+        System.out.println("Get All Ocean CD VerificationProviders");
+        return client.getAllVerificationProviders();
+    }
+
+    private static Boolean updateVerificationProvider(OceanCDClient client, String VerificationProviderName) {
+        System.out.println("-------------------------start updating Ocean CD VerificationProvider------------------------");
+
+        List<String> clusterIds = Arrays.asList("Cluster1","Cluster2");
+
+        //Build VerificationProviderNewRelic
+        VerificationProviderNewRelic.Builder verificationProviderNewRelicBuilder = VerificationProviderNewRelic.Builder.get();
+        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId(account_Id).setPersonalApiKey(api_key).build();
+
+        //Build VerificationProvider
+        VerificationProvider.Builder VerificationProviderBuilder = VerificationProvider.Builder.get();
+        VerificationProvider VerificationProvider = VerificationProviderBuilder.setName("Test-VerificationProvider").setNewRelic(verificationProviderNewRelic).setClusterIds(clusterIds).build();
+
+        Boolean updateStatus = client.updateVerificationProvider(VerificationProvider, VerificationProviderName);
+        if (updateStatus) {
+            System.out.println("VerificationProvider successfully updated");
+        }
+        else {
+            System.out.println("VerificationProvider is not updated");
+        }
+
+        return updateStatus;
+    }
+
+    private static Boolean patchVerificationProvider(OceanCDClient client, String VerificationProviderName) {
+        System.out.println("-------------------------start patching Ocean CD VerificationProvider------------------------");
+
+        List<String> clusterIds = Arrays.asList("Cluster1","Cluster2");
+
+        //Build VerificationProviderNewRelic
+        VerificationProviderNewRelic.Builder verificationProviderNewRelicBuilder = VerificationProviderNewRelic.Builder.get();
+        VerificationProviderNewRelic verificationProviderNewRelic = verificationProviderNewRelicBuilder.setAccountId(account_Id).setPersonalApiKey(api_key).build();
+
+        //Build VerificationProvider
+        VerificationProvider.Builder VerificationProviderBuilder = VerificationProvider.Builder.get();
+        VerificationProvider VerificationProvider = VerificationProviderBuilder.setName("Test-VerificationProvider").setNewRelic(verificationProviderNewRelic).setClusterIds(clusterIds).build();
+
+        Boolean patchStatus = client.patchVerificationProvider(VerificationProvider, VerificationProviderName);
+
+        if (patchStatus) {
+            System.out.println("VerificationProvider successfully updated");
+        }
+        else {
+            System.out.println("VerificationProvider is not updated");
+        }
+
+        return patchStatus;
+    }
+
+    private static Boolean deleteVerificationProvider(OceanCDClient client, String VerificationProviderName) {
+        System.out.println("------------------------Delete Ocean CD VerificationProvider------------------------");
+
+
+        Boolean deleteStatus = client.deleteVerificationProvider(VerificationProviderName);
+
+        if (deleteStatus) {
+            System.out.println("VerificationProvider successfully deleted");
+        }
+        else {
+            System.out.println("VerificationProvider is not deleted");
+        }
+
+        return deleteStatus;
+    }
+
+    private static String createVerificationTemplate(OceanCDClient client) {
+        System.out.println("-------------------------start creating Ocean CD VerificationTemplate------------------------");
+
+        //Build VerificationTemplateArgs
+        VerificationTemplateArgs.Builder verificationTemplateArgsBuilder = VerificationTemplateArgs.Builder.get();
+        VerificationTemplateArgs verificationTemplateArgs = verificationTemplateArgsBuilder.setName("Demo-Test").build();
+
+        List<VerificationTemplateArgs> verificationTemplateArgsCache = Collections.singletonList(verificationTemplateArgs);
+
+        //Build ProviderDatadog
+        ProviderDatadog.Builder providerDatadogBuilder = ProviderDatadog.Builder.get();
+        ProviderDatadog providerDatadog = providerDatadogBuilder.setQuery("sum:requests.error.count{service:test} / sum:requests.request.count{service:test1}").build();
+
+        //Build MetricsProvider
+        MetricsProvider.Builder metricsProviderBuilder = MetricsProvider.Builder.get();
+        MetricsProvider metricsProvider          = metricsProviderBuilder.setDatadog(providerDatadog).build();
+
+        //Build VerificationTemplateMetrics
+        VerificationTemplateMetrics.Builder verificationTemplateMetricsBuilder = VerificationTemplateMetrics.Builder.get();
+        VerificationTemplateMetrics verificationTemplateMetrics          = verificationTemplateMetricsBuilder.setName("5xx=errors").setInterval("2m").setInitialDelay("1m").setSuccessCondition("result[0] < 20").setProvider(metricsProvider).build();
+
+        List<VerificationTemplateMetrics> verificationTemplateMetricsCache = Collections.singletonList(verificationTemplateMetrics);
+
+        //Build VerificationTemplate
+        VerificationTemplate.Builder verificationTemplateBuilder = VerificationTemplate.Builder.get();
+        VerificationTemplate verificationTemplate          = verificationTemplateBuilder.setName("Test_Template").setArgs(verificationTemplateArgsCache).setMetrics(verificationTemplateMetricsCache).build();
+
+        VerificationTemplate createdVerificationTemplate = client.createVerificationTemplate(verificationTemplate);
+        System.out.println("VerificationTemplate successfully created: " + createdVerificationTemplate.getName());
+
+        return createdVerificationTemplate.getName();
+
+    }
+
+    private static VerificationTemplate getVerificationTemplate (OceanCDClient client, String VerificationTemplateName) {
+
+        System.out.println(String.format("Get Ocean CD VerificationTemplate. VerificationTemplate Name: %s", VerificationTemplateName));
+
+        return client.getVerificationTemplate(VerificationTemplateName);
+    }
+
+    private static List<VerificationTemplate> getAllVerificationTemplates (OceanCDClient client) {
+
+        System.out.println("Get All Ocean CD VerificationTemplates");
+        return client.getAllVerificationTemplates();
+    }
+
+    private static Boolean updateVerificationTemplate(OceanCDClient client, String VerificationTemplateName) {
+        System.out.println("-------------------------start updating Ocean CD VerificationTemplate------------------------");
+
+        //Build ProviderNewRelic
+        ProviderNewRelic.Builder ProviderNewRelicBuilder = ProviderNewRelic.Builder.get();
+        ProviderNewRelic providerNewRelic = ProviderNewRelicBuilder.setQuery("sum:requests.error.count{service:test} / sum:requests.request.count{service:test1}").setProfile("Testing").build();
+
+        //Build MetricsProvider
+        MetricsProvider.Builder metricsProviderBuilder = MetricsProvider.Builder.get();
+        MetricsProvider metricsProvider          = metricsProviderBuilder.setNewRelic(providerNewRelic).build();
+
+        //Build VerificationTemplateMetrics
+        VerificationTemplateMetrics.Builder verificationTemplateMetricsBuilder = VerificationTemplateMetrics.Builder.get();
+        VerificationTemplateMetrics verificationTemplateMetrics          = verificationTemplateMetricsBuilder.setName("2xx=errors").setInterval("1m").setInitialDelay("2m").setSuccessCondition("result[0] > 20").setProvider(metricsProvider).build();
+
+        List<VerificationTemplateMetrics> verificationTemplateMetricsCache = Collections.singletonList(verificationTemplateMetrics);
+
+        //Build VerificationTemplate
+        VerificationTemplate.Builder verificationTemplateBuilder = VerificationTemplate.Builder.get();
+        VerificationTemplate verificationTemplate          = verificationTemplateBuilder.setMetrics(verificationTemplateMetricsCache).build();
+
+        Boolean updateStatus = client.updateVerificationTemplate(verificationTemplate, VerificationTemplateName);
+        if (updateStatus) {
+            System.out.println("VerificationTemplate successfully updated");
+        }
+        else {
+            System.out.println("VerificationTemplate is not updated");
+        }
+
+        return updateStatus;
+    }
+
+    private static Boolean patchVerificationTemplate(OceanCDClient client, String VerificationTemplateName) {
+        System.out.println("-------------------------start patching Ocean CD VerificationTemplate------------------------");
+
+        //Build ProviderNewRelic
+        ProviderNewRelic.Builder ProviderNewRelicBuilder = ProviderNewRelic.Builder.get();
+        ProviderNewRelic providerNewRelic = ProviderNewRelicBuilder.setProfile("Testing1").build();
+
+        //Build MetricsProvider
+        MetricsProvider.Builder metricsProviderBuilder = MetricsProvider.Builder.get();
+        MetricsProvider metricsProvider          = metricsProviderBuilder.setNewRelic(providerNewRelic).build();
+
+        //Build VerificationTemplateMetrics
+        VerificationTemplateMetrics.Builder verificationTemplateMetricsBuilder = VerificationTemplateMetrics.Builder.get();
+        VerificationTemplateMetrics verificationTemplateMetrics          = verificationTemplateMetricsBuilder.setProvider(metricsProvider).build();
+
+        List<VerificationTemplateMetrics> verificationTemplateMetricsCache = Collections.singletonList(verificationTemplateMetrics);
+
+        //Build VerificationTemplate
+        VerificationTemplate.Builder verificationTemplateBuilder = VerificationTemplate.Builder.get();
+        VerificationTemplate verificationTemplate          = verificationTemplateBuilder.setMetrics(verificationTemplateMetricsCache).build();
+
+        Boolean patchStatus = client.patchVerificationTemplate(verificationTemplate, VerificationTemplateName);
+
+        if (patchStatus) {
+            System.out.println("VerificationTemplate successfully updated");
+        }
+        else {
+            System.out.println("VerificationTemplate is not updated");
+        }
+
+        return patchStatus;
+    }
+
+    private static Boolean deleteVerificationTemplate(OceanCDClient client, String VerificationTemplateName) {
+        System.out.println("------------------------Delete Ocean CD VerificationTemplate------------------------");
+
+
+        Boolean deleteStatus = client.deleteVerificationTemplate(VerificationTemplateName);
+
+        if (deleteStatus) {
+            System.out.println("VerificationTemplate successfully deleted");
+        }
+        else {
+            System.out.println("VerificationTemplate is not deleted");
+        }
+
+        return deleteStatus;
     }
 
 }
