@@ -8,6 +8,8 @@ import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationProvider;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationTemplate;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.Cluster;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterNotification;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
@@ -589,6 +591,86 @@ public class OceanCDClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to delete Ocean CD VerificationTemplate. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public List<Cluster> getAllClusters() {
+        List<Cluster> retVal;
+
+        RepoGenericResponse<List<Cluster>> getAllResponse = getOceanCDRepo().getAllClusters(authToken);
+
+        if (getAllResponse.isRequestSucceed()) {
+            retVal = getAllResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getAllResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get all Ocean CD clusters. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Cluster getCluster(String clusterId) {
+
+        Cluster retVal;
+
+        RepoGenericResponse<Cluster> getResponse = getOceanCDRepo().getCluster(clusterId, authToken);
+
+        if (getResponse.isRequestSucceed()) {
+            retVal = getResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get Ocean CD Cluster. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean updateCluster(ClusterNotification notificationReq, String clusterId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> updateResponse = getOceanCDRepo().updateCluster(notificationReq, clusterId, authToken);
+
+        if (updateResponse.isRequestSucceed()) {
+            retVal = updateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update Ocean CD Cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean deleteCluster(String clusterId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> deleteResponse = getOceanCDRepo().deleteCluster(clusterId, authToken);
+
+        if (deleteResponse.isRequestSucceed()) {
+            retVal = deleteResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to delete Ocean CD cluster. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }

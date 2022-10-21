@@ -1,26 +1,29 @@
-package com.spotinst.sdkjava.model.bl.oceanCD.response;
+package com.spotinst.sdkjava.model.api.oceanCD.response;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Cluster {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiCluster implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>            isSet;
     private String                 lastHeartbeatTime;
-    private ClusterControllerInfo  controllerInfo;
-    private ClusterClusterInfo     clusterInfo;
-    private ClusterNotification    notification;
+    private ApiClusterControllerInfo controllerInfo;
+    private ApiClusterClusterInfo clusterInfo;
+    private ApiClusterNotification notification;
     private String                 id;
     private String                 createdAt;
     private String                 updatedAt;
 
-    private Cluster() {
+    public ApiCluster() {
         isSet = new HashSet<>();
     }
 
@@ -50,29 +53,29 @@ public class Cluster {
         this.lastHeartbeatTime = lastHeartbeatTime;
     }
 
-    public ClusterControllerInfo getControllerInfo() {
+    public ApiClusterControllerInfo getControllerInfo() {
         return controllerInfo;
     }
 
-    public void setControllerInfo(ClusterControllerInfo controllerInfo) {
+    public void setControllerInfo(ApiClusterControllerInfo controllerInfo) {
         isSet.add("controllerInfo");
         this.controllerInfo = controllerInfo;
     }
 
-    public ClusterClusterInfo getClusterInfo() {
+    public ApiClusterClusterInfo getClusterInfo() {
         return clusterInfo;
     }
 
-    public void setClusterInfo(ClusterClusterInfo clusterInfo) {
+    public void setClusterInfo(ApiClusterClusterInfo clusterInfo) {
         isSet.add("clusterInfo");
         this.clusterInfo = clusterInfo;
     }
 
-    public ClusterNotification getNotification() {
+    public ApiClusterNotification getNotification() {
         return notification;
     }
 
-    public void setNotification(ClusterNotification notification) {
+    public void setNotification(ApiClusterNotification notification) {
         isSet.add("notification");
         this.notification = notification;
     }
@@ -93,57 +96,6 @@ public class Cluster {
     public void setUpdatedAt(String updatedAt) {
         isSet.add("updatedAt");
         this.updatedAt = updatedAt;
-    }
-
-    public static class Builder {
-        private Cluster cluster;
-
-        private Builder() {
-            this.cluster = new Cluster();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setId(final String id) {
-            cluster.setId(id);
-            return this;
-        }
-
-        public Builder setLastHeartbeatTime(final String lastHeartbeatTime) {
-            cluster.setLastHeartbeatTime(lastHeartbeatTime);
-            return this;
-        }
-
-        public Builder setControllerInfo(final ClusterControllerInfo controllerInfo) {
-            cluster.setControllerInfo(controllerInfo);
-            return this;
-        }
-
-        public Builder setClusterInfo(final ClusterClusterInfo clusterInfo) {
-            cluster.setClusterInfo(clusterInfo);
-            return this;
-        }
-
-        public Builder setNotification(final ClusterNotification notification) {
-            cluster.setNotification(notification);
-            return this;
-        }
-
-        public Builder setCreatedAt(final String createdAt) {
-            cluster.setCreatedAt(createdAt);
-            return this;
-        }
-
-        public Builder setUpdatedAt(final String updatedAt) {
-            cluster.setUpdatedAt(updatedAt);
-            return this;
-        }
-
-        public Cluster build() {
-            return cluster;
-        }
     }
 
     @JsonIgnore
