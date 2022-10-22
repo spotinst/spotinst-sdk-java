@@ -4,6 +4,8 @@ import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationProvider;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationTemplate;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.Cluster;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterNotification;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
@@ -21,6 +23,10 @@ public interface IOceanCDRepo extends IRepository<Strategy, GroupFilter, String>
     RepoGenericResponse<Strategy> getStrategy(String strategyName, String authToken);
 
     RepoGenericResponse<List<Strategy>> getAllStrategies(String authToken);
+
+    RepoGenericResponse<Cluster> getCluster(String clusterId, String authToken);
+
+    RepoGenericResponse<List<Cluster>> getAllClusters(String authToken);
 
     RepoGenericResponse<Boolean> updateStrategy(Strategy strategyUpdateReq, String strategyName, String authToken);
 
@@ -69,4 +75,8 @@ public interface IOceanCDRepo extends IRepository<Strategy, GroupFilter, String>
     RepoGenericResponse<Boolean> patchVerificationTemplate(VerificationTemplate verificationTemplateReq, String verificationTemplateName, String authToken);
 
     RepoGenericResponse<Boolean> deleteVerificationTemplate(String verificationTemplateName, String authToken);
+
+    RepoGenericResponse<Boolean> updateCluster(ClusterNotification clusterNotificationReq, String clusterId, String authToken);
+
+    RepoGenericResponse<Boolean> deleteCluster(String clusterId, String authToken);
 }

@@ -7,12 +7,16 @@ import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationProvider;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationTemplate;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiCluster;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiClusterNotification;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutStatus;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutsDetails;
 import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpec;
 import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationProvider;
 import com.spotinst.sdkjava.model.bl.oceanCD.VerificationTemplate;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.Cluster;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterNotification;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.converters.oceanCD.*;
@@ -459,6 +463,70 @@ public class OceanCDRepo implements IOceanCDRepo {
 
         try {
             Boolean success = OceanCDService.deleteVerificationTemplate(verificationTemplateName, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Cluster> getCluster(String clusterId, String authToken) {
+        RepoGenericResponse<Cluster> retVal;
+
+        try {
+            ApiCluster apiCluster = OceanCDService.getCluster(clusterId, authToken);
+            Cluster cluster    = OceanCDClusterConverter.toBl(apiCluster);
+            retVal = new RepoGenericResponse<>(cluster);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<Cluster>> getAllClusters(String authToken) {
+        RepoGenericResponse<List<Cluster>> retVal;
+
+        try {
+            List<ApiCluster> apiCluster = OceanCDService.getAllClusters(authToken);
+            List<Cluster> clusters = apiCluster.stream().map(OceanCDClusterConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(clusters);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateCluster(ClusterNotification clusterNotificationReq, String clusterId, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        ApiClusterNotification apiClusterNotification = OceanCDClusterConverter.toDal(clusterNotificationReq);
+
+        try {
+            Boolean success = OceanCDService.updateCluster(apiClusterNotification, clusterId, authToken);
+            retVal = new RepoGenericResponse<>(success);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteCluster(String clusterId, String authToken) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean success = OceanCDService.deleteCluster(clusterId, authToken);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {

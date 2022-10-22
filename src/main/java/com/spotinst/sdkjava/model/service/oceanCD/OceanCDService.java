@@ -8,6 +8,8 @@ import com.spotinst.sdkjava.model.api.oceanCD.ApiRolloutSpec;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiStrategy;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationProvider;
 import com.spotinst.sdkjava.model.api.oceanCD.ApiVerificationTemplate;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiCluster;
+import com.spotinst.sdkjava.model.api.oceanCD.response.ApiClusterNotification;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutStatus;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
@@ -813,6 +815,119 @@ public class OceanCDService extends BaseSpotinstService {
 
         // Build URI
         String uri = String.format("%s/ocean/cd/verificationTemplate/%s", apiEndpoint, verificationTemplateName);
+
+        // Send the request.
+        RestResponse response = RestClient.sendDelete(uri, null, headers, null);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static ApiCluster getCluster(String clusterId, String authToken) throws SpotinstHttpException {
+        // Init retVal
+        ApiCluster retVal = new ApiCluster();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/cluster/%s", apiEndpoint, clusterId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, null);
+
+        // Handle the response.
+        ClusterApiResponse getClusterResponse = getCastedResponse(response, ClusterApiResponse.class);
+
+        if (getClusterResponse.getResponse().getCount() > 0) {
+            retVal = getClusterResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiCluster> getAllClusters(String authToken) throws SpotinstHttpException {
+        // Init retVal
+        List<ApiCluster> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/cluster", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, null);
+
+        // Handle the response.
+        ClusterApiResponse allStrategiesResponse = getCastedResponse(response, ClusterApiResponse.class);
+
+        if (allStrategiesResponse.getResponse().getCount() > 0) {
+            retVal = allStrategiesResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static Boolean updateCluster(ApiClusterNotification clusterUpdateReq, String clusterId, String authToken) throws SpotinstHttpException {
+
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/cluster/%s", apiEndpoint, clusterId);
+
+        // Write to json
+        Map<String, ApiClusterNotification> clusterRequest = new HashMap<>();
+        clusterRequest.put("notification", clusterUpdateReq);
+        String body = JsonMapper.toJson(clusterRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPut(uri, body, headers, null);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static Boolean deleteCluster(String clusterId, String authToken) throws SpotinstHttpException {
+
+        //Init retVal
+        Boolean retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/cd/cluster/%s", apiEndpoint, clusterId);
 
         // Send the request.
         RestResponse response = RestClient.sendDelete(uri, null, headers, null);

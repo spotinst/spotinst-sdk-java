@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.example.oceanCD;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.model.OceanCDClient;
 import com.spotinst.sdkjava.model.bl.oceanCD.*;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.Cluster;
+import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterNotification;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutsDetails;
 import com.spotinst.sdkjava.model.requests.oceanCD.RolloutActions;
@@ -130,6 +132,22 @@ public class OceanCDUsageExample {
         //Delete VerificationTemplate
         System.out.println("----------Delete VerificationTemplate-------------");
         Boolean deleteVerificationTemplateStatus = deleteVerificationTemplate(oceanCDClient, VerificationTemplateName);
+
+        //Get Cluster
+        System.out.println("----------Get Cluster--------------");
+        Cluster getClusterResponse = getCluster(oceanCDClient, "clusterId");
+
+        //Get All Clusters
+        System.out.println("----------List All Clusters--------------");
+        List<Cluster> listClusterResponse = getAllClusters(oceanCDClient);
+
+        //Update Cluster
+        System.out.println("----------Update Cluster-------------");
+        Boolean updateClusterStatus = updateCluster(oceanCDClient, "clusterId");
+
+        //Delete Cluster
+        System.out.println("----------Delete Cluster-------------");
+        Boolean deleteClusterStatus = deleteCluster(oceanCDClient, "clusterId");
 }
 
     private static String createStrategy(OceanCDClient client) {
@@ -604,6 +622,55 @@ public class OceanCDUsageExample {
         }
         else {
             System.out.println("VerificationTemplate is not deleted");
+        }
+
+        return deleteStatus;
+    }
+
+    private static Cluster getCluster (OceanCDClient client, String clusterId) {
+
+        System.out.println(String.format("Get Ocean CD Cluster. Cluster ID: %s", clusterId));
+
+        return client.getCluster(clusterId);
+    }
+
+    private static List<Cluster> getAllClusters (OceanCDClient client) {
+
+        System.out.println("Get All Ocean CD Clusters");
+
+        return client.getAllClusters();
+    }
+
+    private static Boolean updateCluster(OceanCDClient client, String clusterId) {
+        System.out.println("-------------------------start updating Ocean CD Cluster------------------------");
+
+        List<String> providers = Arrays.asList("Provider1","Provider2");
+        //Build Cluster
+        ClusterNotification.Builder ClusterBuilder = ClusterNotification.Builder.get();
+        ClusterNotification clusterNotification = ClusterBuilder.setMinutesWithoutHeartbeat(2).setProviders(providers).build();
+
+        Boolean updateStatus = client.updateCluster(clusterNotification, clusterId);
+
+        if (updateStatus) {
+            System.out.println("Cluster successfully updated");
+        }
+        else {
+            System.out.println("Cluster is not updated");
+        }
+
+        return updateStatus;
+    }
+
+    private static Boolean deleteCluster(OceanCDClient client, String clusterId) {
+        System.out.println("------------------------Delete Ocean CD Cluster------------------------");
+
+        Boolean deleteStatus = client.deleteCluster(clusterId);
+
+        if (deleteStatus) {
+            System.out.println("Cluster successfully deleted");
+        }
+        else {
+            System.out.println("Cluster is not deleted");
         }
 
         return deleteStatus;
