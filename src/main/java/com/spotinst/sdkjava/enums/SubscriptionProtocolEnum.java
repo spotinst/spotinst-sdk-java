@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum SubscriptionProtocolEnum {
 
-    HTTP("http"),
-    HTTPS("https"),
+    WEB("web"),
     EMAIL_JSON("email-json"),
     EMAIL("email"),
     AWS_SNS("aws-sns");
