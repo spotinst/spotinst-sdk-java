@@ -22,6 +22,10 @@ public enum SubscriptionEventTypeEnum {
         this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public static SubscriptionEventTypeEnum fromName(String name) {
         SubscriptionEventTypeEnum retVal = null;
         for (SubscriptionEventTypeEnum availabilityTypeEnum : SubscriptionEventTypeEnum.values()) {
@@ -35,9 +39,5 @@ public enum SubscriptionEventTypeEnum {
             LOGGER.error("Tried to create group subscription event type enum for: " + name + ", but we don't support such type ");
         }
         return retVal;
-    }
-
-    public String getName() {
-        return name;
     }
 }

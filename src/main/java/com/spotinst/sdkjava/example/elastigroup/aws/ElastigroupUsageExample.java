@@ -4,6 +4,8 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
+import com.spotinst.sdkjava.model.bl.admin.account.Subscription;
+import com.spotinst.sdkjava.model.bl.admin.account.response.SubscriptionResponse;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
@@ -65,6 +67,9 @@ public class ElastigroupUsageExample {
         // Get subscription (Terminate)
         getSubscription(subscriptionClient, createdTerminateSubscriptionId);
 
+        // Get All subscriptions
+        getAllSubscriptionEvents(subscriptionClient);
+
         // Update group
         updateGroup(elastigroupClient, elastigroupId);
 
@@ -89,6 +94,9 @@ public class ElastigroupUsageExample {
 
         // Delete subscription (Launch)
         deleteSubscription(subscriptionClient, createdLaunchSubscriptionId);
+
+        // Update subscription
+        updatSubscription(subscriptionClient, createdTerminateSubscriptionId);
 
         // Delete subscription (Terminate)
         deleteSubscription(subscriptionClient, createdTerminateSubscriptionId);
@@ -268,15 +276,8 @@ public class ElastigroupUsageExample {
                 subscriptionBuilder.setEndpoint("demo@spotinst.com").setProtocol(SubscriptionProtocolEnum.EMAIL)
                                    .setResourceId(elastigroupId).setEventType(eventType).build();
 
-        SubscriptionCreationRequest.Builder subCreationRequestBuilder = SubscriptionCreationRequest.Builder.get();
-        SubscriptionCreationRequest subCreationRequest =
-                subCreationRequestBuilder.setSubscription(terminationSub).build();
-
-        // Print Subscription creation request
-        System.out.println(subCreationRequest.toJson());
-
         // Create Subscription
-        Subscription createdSubscription = subscriptionClient.subscribeToEvent(subCreationRequest);
+        SubscriptionResponse createdSubscription = subscriptionClient.subscribeToEvent(terminationSub);
 
         // Subscription Id
         String createdSubscriptionId = createdSubscription.getId();
@@ -288,11 +289,8 @@ public class ElastigroupUsageExample {
 
     private static void deleteSubscription(SpotinstSubscriptionClient subscriptionClient,
                                            String createdSubscriptionId) {
-        // Delete Retrieved event
-        SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
-        Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
+        Boolean deletionSuccess = subscriptionClient.deleteSubscription(createdSubscriptionId);
         if (deletionSuccess) {
             System.out.println("Successfully deleted subscription" + createdSubscriptionId + " in database.");
         }
@@ -302,18 +300,35 @@ public class ElastigroupUsageExample {
     }
 
     private static void getSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
-        // Get Subscription
-        SubscriptionGetRequest.Builder subscriptionGetRequestBuilder = SubscriptionGetRequest.Builder.get();
-        SubscriptionGetRequest subGetRequest =
-                subscriptionGetRequestBuilder.setSubscriptionId(createdSubscriptionId).build();
 
-        Subscription subscriptionEvent = subscriptionClient.getSubscriptionEvent(subGetRequest);
+        SubscriptionResponse subscriptionEvent = subscriptionClient.getSubscriptionEvent(createdSubscriptionId);
 
         // Print Retrieved event
         System.out.println(
                 "Retrieving event resulted in : " + subscriptionEvent.getId() + " " + subscriptionEvent.getProtocol() +
                 " " + subscriptionEvent.getEndpoint() + " " + subscriptionEvent.getResourceId() + " " +
                 subscriptionEvent.getEventType());
+    }
+
+    private static List<SubscriptionResponse> getAllSubscriptionEvents(SpotinstSubscriptionClient subscriptionClient) {
+
+        return subscriptionClient.getAllSubscriptionEvents();
+    }
+
+    private static void updatSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
+
+        Subscription.Builder subscriptionBuilder = Subscription.Builder.get();
+        Subscription subscription = subscriptionBuilder.setEndpoint("test@spotinst.com").build();
+
+        // Update Subscription
+        Boolean updatedSubscription = subscriptionClient.updatSubscription(subscription, createdSubscriptionId);
+
+        if (updatedSubscription) {
+            System.out.println("Successfully updated subscription" + createdSubscriptionId + " in database.");
+        }
+        else {
+            System.out.println("Failed in update subscription" + createdSubscriptionId + " in database.");
+        }
     }
 
     private static void deleteElastigroup(SpotinstElastigroupClient client, String elastigroupId) {

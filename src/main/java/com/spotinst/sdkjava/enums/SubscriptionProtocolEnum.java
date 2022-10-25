@@ -21,6 +21,10 @@ public enum SubscriptionProtocolEnum {
         this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public static SubscriptionProtocolEnum fromName(String name) {
         SubscriptionProtocolEnum retVal = null;
         for (SubscriptionProtocolEnum availabilityTypeEnum : SubscriptionProtocolEnum.values()) {
@@ -34,9 +38,5 @@ public enum SubscriptionProtocolEnum {
             LOGGER.error("Tried to create group subscription event protocol enum for: " + name + ", but we don't support such type ");
         }
         return retVal;
-    }
-
-    public String getName() {
-        return name;
     }
 }

@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.bl.admin.account.Subscription;
+import com.spotinst.sdkjava.model.bl.admin.account.response.SubscriptionResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,12 +25,11 @@ public class SpotinstSubscriptionClient {
         this.spotinstSubscriptionRepo = SpotinstRepoManager.getInstance().getSpotinstSubscriptionRepo();
     }
 
-    public Subscription subscribeToEvent(SubscriptionCreationRequest subscriptionCreationRequest) {
+    public SubscriptionResponse subscribeToEvent(Subscription subscriptionCreationRequest) {
 
-        Subscription retVal;
+        SubscriptionResponse retVal;
 
-        Subscription subscriptionToCreate = subscriptionCreationRequest.getSubscription();
-        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.create(subscriptionToCreate, authToken, account);
+        RepoGenericResponse<SubscriptionResponse> creationResponse = spotinstSubscriptionRepo.create(subscriptionCreationRequest, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {
@@ -40,11 +41,11 @@ public class SpotinstSubscriptionClient {
         return retVal;
     }
 
-    public Subscription getSubscriptionEvent(SubscriptionGetRequest subscriptionGetRequest) {
+    public SubscriptionResponse getSubscriptionEvent(String subscriptionId) {
 
-        Subscription retVal;
-        String subscriptionId = subscriptionGetRequest.getSubscriptionId();
-        RepoGenericResponse<Subscription> creationResponse = spotinstSubscriptionRepo.get(subscriptionId, authToken,account);
+        SubscriptionResponse retVal;
+
+        RepoGenericResponse<SubscriptionResponse> creationResponse = spotinstSubscriptionRepo.get(subscriptionId, authToken,account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {
@@ -56,11 +57,9 @@ public class SpotinstSubscriptionClient {
         return retVal;
     }
 
-    public Boolean deleteSubscription(SubscriptionDeletionRequest subscriptionDeletionRequest) {
+    public Boolean deleteSubscription(String subscriptionId) {
 
         Boolean retVal;
-
-        String subscriptionId = subscriptionDeletionRequest.getSubscriptionId();
 
         RepoGenericResponse<Boolean> subscriptionDeletionResponse = spotinstSubscriptionRepo.delete(subscriptionId, authToken, account);
         if (subscriptionDeletionResponse.isRequestSucceed()) {
@@ -74,4 +73,37 @@ public class SpotinstSubscriptionClient {
 
         return retVal;
     }
+
+    public List<SubscriptionResponse> getAllSubscriptionEvents() {
+
+        List<SubscriptionResponse> retVal;
+
+        RepoGenericResponse<List<SubscriptionResponse>> creationResponse = spotinstSubscriptionRepo.getAllSubscriptionEvents(authToken,account);
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        } else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError httpException = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get all subscriptions. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean updatSubscription(Subscription subscriptionUpdationRequest, String subscriptionId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> creationResponse = spotinstSubscriptionRepo.updatSubscription(subscriptionUpdationRequest, subscriptionId, authToken, account);
+        if (creationResponse.isRequestSucceed()) {
+            retVal = creationResponse.getValue();
+        } else {
+            List<HttpError> httpExceptions = creationResponse.getHttpExceptions();
+            HttpError httpException = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to update the subscription. Code: %s. Message: %s.", httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
 }
