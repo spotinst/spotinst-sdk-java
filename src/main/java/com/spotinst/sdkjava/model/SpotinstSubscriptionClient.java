@@ -90,11 +90,11 @@ public class SpotinstSubscriptionClient {
         return retVal;
     }
 
-    public Boolean updatSubscription(Subscription subscriptionUpdationRequest, String subscriptionId) {
+    public Boolean updateSubscription(Subscription subscriptionUpdationRequest, String subscriptionId) {
 
         Boolean retVal;
 
-        RepoGenericResponse<Boolean> creationResponse = spotinstSubscriptionRepo.updatSubscription(subscriptionUpdationRequest, subscriptionId, authToken, account);
+        RepoGenericResponse<Boolean> creationResponse = spotinstSubscriptionRepo.updateSubscription(subscriptionUpdationRequest, subscriptionId, authToken, account);
         if (creationResponse.isRequestSucceed()) {
             retVal = creationResponse.getValue();
         } else {

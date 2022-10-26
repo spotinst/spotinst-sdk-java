@@ -14,5 +14,5 @@ interface ISpotinstSubscriptionRepo extends IRepository<SubscriptionResponse, Vo
 
     RepoGenericResponse<List<SubscriptionResponse>> getAllSubscriptionEvents(String authToken, String account);
 
-    RepoGenericResponse<Boolean> updatSubscription(Subscription subscriptionUpdateReq, String subscriptionId, String authToken, String account);
+    RepoGenericResponse<Boolean> updateSubscription(Subscription subscriptionUpdateReq, String subscriptionId, String authToken, String account);
 }

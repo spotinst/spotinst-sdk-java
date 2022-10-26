@@ -172,7 +172,7 @@ class SpotinstSubscriptionService extends BaseSpotinstService {
         return retVal;
     }
 
-    static Boolean updatSubscription(ApiSubscription subscriptionToUpdate, String subscriptionId, String authToken, String account) throws SpotinstHttpException {
+    static Boolean updateSubscription(ApiSubscription subscriptionToUpdate, String subscriptionId, String authToken, String account) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = null;

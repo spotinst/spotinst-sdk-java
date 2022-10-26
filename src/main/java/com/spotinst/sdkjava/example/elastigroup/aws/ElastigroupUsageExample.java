@@ -57,15 +57,8 @@ public class ElastigroupUsageExample {
         String createdLaunchSubscriptionId = createSubscription(elastigroupId, subscriptionClient,
                                                                 SubscriptionEventTypeEnum.AWS_EC2_INSTANCE_LAUNCH);
 
-        // Create subscription (Terminate)
-        String createdTerminateSubscriptionId = createSubscription(elastigroupId, subscriptionClient,
-                                                                   SubscriptionEventTypeEnum.AWS_EC2_INSTANCE_TERMINATE);
-
         // Get subscription (Launch)
         getSubscription(subscriptionClient, createdLaunchSubscriptionId);
-
-        // Get subscription (Terminate)
-        getSubscription(subscriptionClient, createdTerminateSubscriptionId);
 
         // Get All subscriptions
         getAllSubscriptionEvents(subscriptionClient);
@@ -96,10 +89,7 @@ public class ElastigroupUsageExample {
         deleteSubscription(subscriptionClient, createdLaunchSubscriptionId);
 
         // Update subscription
-        updatSubscription(subscriptionClient, createdTerminateSubscriptionId);
-
-        // Delete subscription (Terminate)
-        deleteSubscription(subscriptionClient, createdTerminateSubscriptionId);
+        updateSubscription(subscriptionClient, createdLaunchSubscriptionId);
 
         // Suspend AUTO_HEALING process
         SuspendedProcesses activeSuspensions =
@@ -315,13 +305,13 @@ public class ElastigroupUsageExample {
         return subscriptionClient.getAllSubscriptionEvents();
     }
 
-    private static void updatSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
+    private static void updateSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
 
         Subscription.Builder subscriptionBuilder = Subscription.Builder.get();
         Subscription subscription = subscriptionBuilder.setEndpoint("test@spotinst.com").build();
 
         // Update Subscription
-        Boolean updatedSubscription = subscriptionClient.updatSubscription(subscription, createdSubscriptionId);
+        Boolean updatedSubscription = subscriptionClient.updateSubscription(subscription, createdSubscriptionId);
 
         if (updatedSubscription) {
             System.out.println("Successfully updated subscription" + createdSubscriptionId + " in database.");

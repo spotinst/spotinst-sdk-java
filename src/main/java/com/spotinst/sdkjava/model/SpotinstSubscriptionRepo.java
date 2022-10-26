@@ -79,13 +79,13 @@ class SpotinstSubscriptionRepo implements ISpotinstSubscriptionRepo {
     }
 
     @Override
-    public RepoGenericResponse<Boolean> updatSubscription(Subscription subscriptionUpdateReq, String subscriptionId, String authToken, String account) {
+    public RepoGenericResponse<Boolean> updateSubscription(Subscription subscriptionUpdateReq, String subscriptionId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         ApiSubscription apiSubscription = SubscriptionConverter.toDal(subscriptionUpdateReq);
 
         try {
-            Boolean success = SpotinstSubscriptionService.updatSubscription(apiSubscription, subscriptionId, authToken, account);
+            Boolean success = SpotinstSubscriptionService.updateSubscription(apiSubscription, subscriptionId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
         }
         catch (SpotinstHttpException e) {
