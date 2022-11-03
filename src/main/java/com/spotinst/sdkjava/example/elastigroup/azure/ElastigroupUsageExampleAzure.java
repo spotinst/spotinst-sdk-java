@@ -153,7 +153,7 @@ public class ElastigroupUsageExampleAzure {
         NetworkInterfaceAzure.Builder networkInterfaceBuilder = NetworkInterfaceAzure.Builder.get();
 
         NetworkInterfaceAzure networkInterfaceAzure =
-                networkInterfaceBuilder.setIsPrimary(true).setAssignPublicIp(false).setSubnetName("Automation-PrivateSubnet")
+                networkInterfaceBuilder.setIsPrimary(true).setAssignPublicIp(false).setSubnetName("automationVN")
                                        .setEnableIPForwarding(true)
                                        .setAdditionalIpConfigurations(additionalIpConfigurationsAzureList).build();
 
@@ -164,7 +164,7 @@ public class ElastigroupUsageExampleAzure {
         NetworkAzure.Builder networkBuilder = NetworkAzure.Builder.get();
 
         NetworkAzure network =
-                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("Automation-VirtualNetwork").
+                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("automationVN").
                               setNetworkInterfaces(networkInterfaceAzuresList).build();
 
 
