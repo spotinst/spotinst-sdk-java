@@ -364,7 +364,6 @@ public class ElastigroupConverterAzure {
             if (strategy.isOrientationSet()) {
                     retVal.setOrientation(strategy.getOrientation().getName());
             }
-
         }
         return retVal;
     }

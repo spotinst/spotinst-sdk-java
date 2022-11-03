@@ -191,7 +191,6 @@ public class ElastigroupStrategyConfigurationAzure {
     public boolean isOptimizationWindowsSet() {
         return isSet.contains("optimizationWindows");
     }
-
     // Is azureOrientation Set boolean method
     @JsonIgnore
     public boolean isOrientationSet() {

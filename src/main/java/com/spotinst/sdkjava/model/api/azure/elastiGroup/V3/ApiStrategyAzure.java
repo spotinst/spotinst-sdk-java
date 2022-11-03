@@ -24,7 +24,6 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     private List<String>             optimizationWindows;
     private String                   orientation;
 
-
     //todo add  signals in future
 
     //region Constructor
