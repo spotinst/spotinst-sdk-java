@@ -22,6 +22,7 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     private Boolean                  fallbackToOd;
     private ApiRevertToSpotSpecAzure revertToSpot;
     private List<String>             optimizationWindows;
+    private String                   orientation;
 
     //todo add  signals in future
 
@@ -97,6 +98,15 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
         this.drainingTimeout = drainingTimeout;
     }
 
+    public String getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(String orientation) {
+        isSet.add("orientation");
+        this.orientation = orientation;
+    }
+
     //endregion
 
     //region isSet methods
@@ -135,6 +145,12 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isDrainingTimeoutSet() {
         return isSet.contains("drainingTimeout");
+    }
+
+    //Is azureOrientation Set boolean method
+    @JsonIgnore
+    public boolean isOrientationSet() {
+        return isSet.contains("orientation");
     }
     //endregion
 }

@@ -224,7 +224,7 @@ public class ElastigroupUsageExampleAzure {
 
         ElastigroupStrategyConfigurationAzure strategy =
                 strategyBuilder.setSpotPercentage(100).setDrainingTimeout(30).setFallbackToOd(true)
-                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).build();
+                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).setOrientation(AzureOrientationEnum.CHEAPEST).build();
 
         //Build group capacity
         ElastigroupCapacityConfigurationAzure.Builder capacityBuilder =
