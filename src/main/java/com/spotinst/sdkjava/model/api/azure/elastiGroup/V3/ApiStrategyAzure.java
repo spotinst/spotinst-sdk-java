@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.AzureOrientationEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +23,8 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     private Boolean                  fallbackToOd;
     private ApiRevertToSpotSpecAzure revertToSpot;
     private List<String>             optimizationWindows;
+    private AzureOrientationEnum     orientation;
+
 
     //todo add  signals in future
 
@@ -97,6 +100,15 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
         this.drainingTimeout = drainingTimeout;
     }
 
+    public AzureOrientationEnum getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(AzureOrientationEnum orientation) {
+        isSet.add("azureOrientation");
+        this.orientation = orientation;
+    }
+
     //endregion
 
     //region isSet methods
@@ -135,6 +147,12 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isDrainingTimeoutSet() {
         return isSet.contains("drainingTimeout");
+    }
+
+    //Is azureOrientation Set boolean method
+    @JsonIgnore
+    public boolean isOrientationSet() {
+        return isSet.contains("orientation");
     }
     //endregion
 }
