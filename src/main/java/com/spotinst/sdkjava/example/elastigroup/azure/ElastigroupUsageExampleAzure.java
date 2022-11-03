@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token          = "token";
-    private final static String act_id              = "account";
-    private final static String SSA                 = "ssh";
+    private final static String auth_token          = "auth-token";
+    private final static String act_id              = "act-id";
+    private final static String SSA                 = "ssh user login";
     private final static String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
     private final static List<String> vmList        = Arrays.asList("vm-b92e1161bfe5");
     private final static String vmName              = "vm-17793a03a276";
@@ -30,7 +30,7 @@ public class ElastigroupUsageExampleAzure {
         String elastigroupId = createElastigroup(elastigroupClient);
 
         // Sleep for provisioning
-        /*System.out.println("Sleeping... waiting for provisioning 60 seconds.");
+        System.out.println("Sleeping... waiting for provisioning 60 seconds.");
         sleep(60);
         // Update group
         updateElastigroup(elastigroupClient, elastigroupId);
@@ -120,7 +120,7 @@ public class ElastigroupUsageExampleAzure {
 
 
         // Delete elastigroup
-        deleteElastigroup(elastigroupClient, elastigroupId); */
+        deleteElastigroup(elastigroupClient, elastigroupId);
     }
 
     private static String createElastigroup(SpotinstElastigroupClientAzure client) {
