@@ -362,7 +362,7 @@ public class ElastigroupConverterAzure {
                 }
             }
             if (strategy.isOrientationSet()) {
-                    retVal.setOrientation(strategy.getOrientation());
+                    retVal.setOrientation(strategy.getOrientation().getName());
             }
 
         }
@@ -1206,7 +1206,7 @@ public class ElastigroupConverterAzure {
                 retValBuilder.setDrainingTimeout(strategy.getDrainingTimeout());
             }
             if (strategy.isOrientationSet()) {
-                retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation().getName()));
+                retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation()));
             }
             retVal = retValBuilder.build();
         }
