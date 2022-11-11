@@ -280,6 +280,7 @@ public class SpotinstAzureStatefulNodeClient {
 
         RepoGenericResponse <StatefulNodeResourceResponse> getResourceResponse =
                 getSpotAzureStatefulNodeRepo().getNodeResources(nodeId, authToken, account);
+        System.out.println(getResourceResponse.toString());
 
         if(getResourceResponse.isRequestSucceed()){
             getResources =getResourceResponse.getValue();
