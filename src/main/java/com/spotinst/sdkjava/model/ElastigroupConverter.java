@@ -3451,4 +3451,19 @@ public class ElastigroupConverter {
         return retVal;
 
     }
+
+    public static ElastigroupGetBeanstalkMaintenanceStatusResponse toBl(
+            ApiElastigroupGetBeanstalkMaintenanceStatusResponse elastigroupGetBeanstalkStatusResponse) {
+        ElastigroupGetBeanstalkMaintenanceStatusResponse retVal = null;
+
+        if (elastigroupGetBeanstalkStatusResponse != null) {
+            retVal = new ElastigroupGetBeanstalkMaintenanceStatusResponse();
+
+            if (elastigroupGetBeanstalkStatusResponse.isStatusSet()) {
+                retVal.setStatus(elastigroupGetBeanstalkStatusResponse.getStatus());
+            }
+        }
+        return retVal;
+
+    }
 }

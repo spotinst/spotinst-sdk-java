@@ -9,6 +9,7 @@ import com.spotinst.sdkjava.model.bl.admin.account.response.SubscriptionResponse
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -203,6 +204,25 @@ public class ElastigroupUsageExample {
         System.out.println("----------Get Instance Status--------------");
         ElastigroupGetInstanceStatusResponse response = getInstanceStatus(elastigroupClient, instanceId);
 
+        // Get Beanstalk Configuration
+        System.out.println("----------Get Beanstalk Configuration--------------");
+        String getBeanstalkId = getBeanstalkConfig(elastigroupClient, "environmentId", "region");
+
+        // Start Beanstalk Maintenance
+        System.out.println("----------Start Beanstalk Maintenance--------------");
+        Boolean startBeanstalkMaintenance = startBeanstalkMaintenance(elastigroupClient, getBeanstalkId);
+
+        // Get Beanstalk Maintenance Status
+        System.out.println("----------Get Beanstalk Maintenance Status--------------");
+        String getBeanstalkMaintenanceStatus = getBeanstalkMaintenanceStatus(elastigroupClient, getBeanstalkId);
+
+        // Finish Beanstalk Maintenance
+        System.out.println("----------Finish Beanstalk Maintenance--------------");
+        Boolean finishBeanstalkMaintenance = finishBeanstalkMaintenance(elastigroupClient, getBeanstalkId, getBeanstalkMaintenanceStatus);
+
+        // Beanstalk Reimport
+        System.out.println("----------Beanstalk Reimport--------------");
+        beanstalkReimport(elastigroupClient, getBeanstalkId);
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
@@ -1231,4 +1251,66 @@ public class ElastigroupUsageExample {
         return response;
     }
 
+    private static String getBeanstalkConfig(SpotinstElastigroupClient client, String environmentId, String region) {
+
+        System.out.println(String.format("Get Beanstalk Configuration. environmentId: %s region: %s", environmentId, region));
+        Elastigroup elastigroup = client.getBeanstalkConfig(environmentId, region);
+        // Build elastigroup creation request
+        ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
+        ElastigroupCreationRequest creationRequest =
+                elastigroupCreationRequestBuilder.setElastigroup(elastigroup).build();
+
+        // Convert elastigroup to API object json
+        System.out.println(creationRequest.toJson());
+
+        // Create elastigroup
+        Elastigroup createdElastigroup = client.createElastigroup(creationRequest);
+        System.out.println("Elastigroup succesfully created: " + createdElastigroup.getId());
+
+        // Get elastigroup Id
+        return createdElastigroup.getId();
+    }
+
+    private static Boolean startBeanstalkMaintenance(SpotinstElastigroupClient client, String groupId) {
+
+        System.out.println(String.format("Start beanstalk maintenance. groupId: %s", groupId));
+        Boolean response = client.startBeanstalkMaintenance(groupId);
+
+        System.out.println(String.format("Start beanstalk maintenance response: %s", response));
+
+        return response;
+    }
+
+    private static String getBeanstalkMaintenanceStatus(SpotinstElastigroupClient client, String groupId) {
+
+        System.out.println(String.format("Start beanstalk maintenance. groupId: %s", groupId));
+        ElastigroupGetBeanstalkMaintenanceStatusResponse response = client.getBeanstalkMaintenanceStatus(groupId);
+
+        System.out.println(String.format("Beanstalk maintenance status: %s", response.getStatus()));
+
+        return response.getStatus();
+    }
+
+    private static Boolean finishBeanstalkMaintenance(SpotinstElastigroupClient client, String groupId, String currentStatus) {
+
+        System.out.println(String.format("Finish beanstalk maintenance. groupId: %s", groupId));
+        System.out.println(String.format("Finish beanstalk maintenance. currentStatus: %s", currentStatus));
+        Boolean response = false;
+        if(currentStatus.equals("AWAIT_USER_UPDATE"))
+            response = client.finishBeanstalkMaintenance(groupId);
+
+        System.out.println(String.format("Finish beanstalk maintenance response: %s", response));
+
+        return response;
+    }
+
+    private static Elastigroup beanstalkReimport(SpotinstElastigroupClient client, String groupId) {
+
+        System.out.println(String.format("Beanstalk reimport. groupId: %s", groupId));
+        Elastigroup response = client.beanstalkReimport(groupId);
+
+        System.out.println(String.format("Instance ID: %s", response.getId()));
+
+        return response;
+    }
 }

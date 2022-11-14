@@ -1314,4 +1314,108 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Elastigroup getBeanstalkConfig(String environmentId, String region) {
+
+        Elastigroup retVal;
+
+        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().getBeanstalkConfig(environmentId, region, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get beanstalk configuration. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ElastigroupGetBeanstalkMaintenanceStatusResponse getBeanstalkMaintenanceStatus(String groupId) {
+
+        ElastigroupGetBeanstalkMaintenanceStatusResponse retVal;
+
+        RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().getBeanstalkMaintenanceStatus(groupId, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get beanstalk maintenance status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Elastigroup beanstalkReimport(String groupId) {
+
+        Elastigroup retVal;
+
+        RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
+                getSpotinstElastigroupRepo().beanstalkReimport(groupId, authToken, account);
+
+        if (elastigroupRepoGenericResponse.isRequestSucceed()) {
+            retVal = elastigroupRepoGenericResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = elastigroupRepoGenericResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to reimport beanstalk. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean startBeanstalkMaintenance(String groupId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> startBeanstalkMaintenanceResponse = getSpotinstElastigroupRepo().startBeanstalkMaintenance(groupId, authToken, account);
+
+        if (startBeanstalkMaintenanceResponse.isRequestSucceed()) {
+            retVal = startBeanstalkMaintenanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = startBeanstalkMaintenanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to start beanstalk maintenance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean finishBeanstalkMaintenance(String groupId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> finishBeanstalkMaintenanceResponse = getSpotinstElastigroupRepo().finishBeanstalkMaintenance(groupId, authToken, account);
+
+        if (finishBeanstalkMaintenanceResponse.isRequestSucceed()) {
+            retVal = finishBeanstalkMaintenanceResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = finishBeanstalkMaintenanceResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to start beanstalk maintenance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 }
