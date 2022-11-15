@@ -97,8 +97,6 @@ public class SignalsAzure {
     //endregion
 
     //region isSet methods
-    // Is performAt Set boolean method
-
     @JsonIgnore
     public boolean isTimeoutSet() {
         return isSet.contains("timeout");
