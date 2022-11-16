@@ -1,12 +1,15 @@
 package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.ElastigroupVmSignalEnumAzure;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SignalsAzure {
 
     //regionMembers
@@ -47,24 +50,6 @@ public class SignalsAzure {
     public void setType(ElastigroupVmSignalEnumAzure type) {
         isSet.add("type");
         this.type = type;
-    }
-
-    //region Object overrides
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SignalsAzure signalsAzure = (SignalsAzure) o;
-        return Objects.equals(timeout, signalsAzure.timeout) && Objects.equals(type, signalsAzure.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(timeout, type);
     }
 
     //region Builder class

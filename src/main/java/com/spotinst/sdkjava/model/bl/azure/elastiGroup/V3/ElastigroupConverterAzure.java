@@ -365,7 +365,6 @@ public class ElastigroupConverterAzure {
                     retVal.setOrientation(strategy.getOrientation().getName());
             }
             if(strategy.isSignalsSet()) {
-
                 List<ApiSignalsAzure> signals =
                         strategy.getSignals().stream().map(ElastigroupConverterAzure::toDal)
                                 .collect(Collectors.toList());
