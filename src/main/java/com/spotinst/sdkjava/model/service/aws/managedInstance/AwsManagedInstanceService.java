@@ -6,10 +6,7 @@ import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
-import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiGetStatusResponse;
-import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceApiResponse;
-import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceGetMigrationStatusApiRespponse;
-import com.spotinst.sdkjava.model.responses.aws.managedInstance.AwsManagedInstanceImportApiResponse;
+import com.spotinst.sdkjava.model.responses.aws.managedInstance.*;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -147,10 +144,10 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiManagedInstance> getAllManagedInstances(String authToken,
+    public static List<APIGetAllManagedInstancesResponse> getAllManagedInstances(String authToken,
                                                                   String account) throws SpotinstHttpException {
         // Init retVal
-        List<ApiManagedInstance> retVal = new LinkedList<>();
+        List<APIGetAllManagedInstancesResponse> retVal = new LinkedList<>();
 
         // Get endpoint
         SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
@@ -173,8 +170,8 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        AwsManagedInstanceApiResponse managedInstanceListResponse =
-                getCastedResponse(response, AwsManagedInstanceApiResponse.class);
+        AwsManagedInstanceGetAllApiResponse managedInstanceListResponse =
+                getCastedResponse(response, AwsManagedInstanceGetAllApiResponse.class);
 
         if (managedInstanceListResponse.getResponse().getCount() > 0) {
             retVal = managedInstanceListResponse.getResponse().getItems();

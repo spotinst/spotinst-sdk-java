@@ -126,11 +126,11 @@ public class SpotAwsManagedInstanceClient {
         return retVal;
     }
 
-    public List<ManagedInstance> getAllManagedInstances() {
-        List<ManagedInstance> retVal;
+    public List<GetAllManagedInstancesResponse> getAllManagedInstances() {
+        List<GetAllManagedInstancesResponse> retVal;
 
-        RepoGenericResponse<List<ManagedInstance>> getAllResponse =
-                getSpotManagedInstanceRepo().getAll(null, authToken, account);
+        RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllResponse =
+                getSpotManagedInstanceRepo().getAllManagedInstances(authToken, account);
 
         if (getAllResponse.isRequestSucceed()) {
             retVal = getAllResponse.getValue();
