@@ -1719,4 +1719,31 @@ public class AwsManagedInstanceConverter {
         return retVal;
     }
 
+    public static GetAllManagedInstancesResponse toBl(APIGetAllManagedInstancesResponse allManagedInstances) {
+        GetAllManagedInstancesResponse retVal = null;
+
+        if (allManagedInstances != null) {
+            GetAllManagedInstancesResponse.Builder managedInstanceBuilder = GetAllManagedInstancesResponse.Builder.get();
+
+            if (allManagedInstances.isConfigSet()) {
+                managedInstanceBuilder.setConfig(toBl(allManagedInstances.getConfig()));
+            }
+
+            if (allManagedInstances.isCreatedAtSet()) {
+                managedInstanceBuilder.setCreatedAt(allManagedInstances.getCreatedAt());
+            }
+
+            if (allManagedInstances.isUpdatedAtSet()) {
+                managedInstanceBuilder.setUpdatedAt(allManagedInstances.getUpdatedAt());
+            }
+
+            if (allManagedInstances.isIdSet()) {
+                managedInstanceBuilder.setId(allManagedInstances.getId());
+            }
+
+            retVal = managedInstanceBuilder.build();
+        }
+        return retVal;
+    }
+
 }
