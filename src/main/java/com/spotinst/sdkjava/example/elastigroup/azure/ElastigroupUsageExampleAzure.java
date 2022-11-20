@@ -167,6 +167,7 @@ public class ElastigroupUsageExampleAzure {
                 networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("automationVN")
                               .setNetworkInterfaces(networkInterfaceAzuresList).build();
 
+
         //build tags
         TagAzure.Builder tagsBuilder1 = TagAzure.Builder.get();
         TagAzure.Builder tagsBuilder2 = TagAzure.Builder.get();
@@ -186,7 +187,8 @@ public class ElastigroupUsageExampleAzure {
 
 
         ElastigroupLaunchSpecificationAzure launchSpec =
-                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList).build();
+                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList)
+                                 .build();
 
 
         //buildVmSizes
