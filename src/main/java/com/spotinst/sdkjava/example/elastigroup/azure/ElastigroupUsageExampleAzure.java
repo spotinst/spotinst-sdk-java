@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.*;
 
 public class ElastigroupUsageExampleAzure {
-    private final static String auth_token          = "3526b1fbfb2d375d095c3d4c2b552c2db86f1b4020a99f425d96b70604293f65";
-    private final static String act_id              = "act-e97117d5";
-    private final static String SSA                 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDfWrinLRVHx+KB57pb1mEYBueGfPzyVa2qPpCPZYbpcuL45nDKU2B14twX91+/cJ2m7DmUa8LLk2EVwBW8FBTfg5Fuwj8+kTnk4PMo4G+T0UgFt7NuD47I5fxg3sD9WQFUbXlO44Flp+k5MHlv+hF8iHz/QRz2QDDKxPGLWM1mh10LtLz4T+im/73RviTgbJhCZQr0+Yx7Uz1ZlWkrPThLUa9/4Br5mKLk3zEYa8mbg4LblJXIgknFsZ3cXlqtN5WofxJEDLy9QiKMxDJ2PZfR73IscpWtPnAMZjcTf6aI02FKAg+iEs0mdh3bGVGLxNi5w32lWOiiqKKJGKa1ctWb automation";
+    private final static String auth_token          = "auth-token";
+    private final static String act_id              = "act-id";
+    private final static String SSA                 = "ssh user login";
     private final static String SPOTINST_GROUP_NAME = "SpotinstJavaSDKGroup";
     private final static List<String> vmList        = Arrays.asList("vm-b92e1161bfe5");
     private final static String vmName              = "vm-17793a03a276";
@@ -29,7 +29,7 @@ public class ElastigroupUsageExampleAzure {
         // Create group
         String elastigroupId = createElastigroup(elastigroupClient);
 
-      /*  // Sleep for provisioning
+        // Sleep for provisioning
         System.out.println("Sleeping... waiting for provisioning 60 seconds.");
         sleep(60);
         // Update group
@@ -120,7 +120,7 @@ public class ElastigroupUsageExampleAzure {
 
 
         // Delete elastigroup
-        deleteElastigroup(elastigroupClient, elastigroupId); */
+        deleteElastigroup(elastigroupClient, elastigroupId);
     }
 
     private static String createElastigroup(SpotinstElastigroupClientAzure client) {
@@ -153,7 +153,7 @@ public class ElastigroupUsageExampleAzure {
         NetworkInterfaceAzure.Builder networkInterfaceBuilder = NetworkInterfaceAzure.Builder.get();
 
         NetworkInterfaceAzure networkInterfaceAzure =
-                networkInterfaceBuilder.setIsPrimary(true).setAssignPublicIp(false).setSubnetName("Automation-PrivateSubnet")
+                networkInterfaceBuilder.setIsPrimary(true).setAssignPublicIp(false).setSubnetName("default")
                                        .setEnableIPForwarding(true)
                                        .setAdditionalIpConfigurations(additionalIpConfigurationsAzureList).build();
 
@@ -164,21 +164,9 @@ public class ElastigroupUsageExampleAzure {
         NetworkAzure.Builder networkBuilder = NetworkAzure.Builder.get();
 
         NetworkAzure network =
-                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("Automation-VirtualNetwork")
+                networkBuilder.setResourceGroupName("AutomationResourceGroup").setVirtualNetworkName("automationVN")
                               .setNetworkInterfaces(networkInterfaceAzuresList).build();
 
-        //build Load Balancer
-        LoadBalancerAzure.Builder loadBalancerBuilder = LoadBalancerAzure.Builder.get();
-        String[] string1 = new String[1];
-        string1[0] = "Automation-Lb-BackendPool";
-
-        LoadBalancerAzure loadBalancerAzure = loadBalancerBuilder.setType("loadBalancer").setName("Automation-Lb").setResourceGroupName("AutomationResourceGroup").setSku("Standard").setBackendPoolNames(string1).build();
-
-        List<LoadBalancerAzure> loadBalancerList = new ArrayList<>();
-        loadBalancerList.add(loadBalancerAzure);
-
-        LoadBalancersConfigAzure.Builder loadBalancerConfigBuilder = LoadBalancersConfigAzure.Builder.get();
-        LoadBalancersConfigAzure loadBalancersConfig = loadBalancerConfigBuilder.setLoadBalancers(loadBalancerList).build();
         //build tags
         TagAzure.Builder tagsBuilder1 = TagAzure.Builder.get();
         TagAzure.Builder tagsBuilder2 = TagAzure.Builder.get();
@@ -198,8 +186,7 @@ public class ElastigroupUsageExampleAzure {
 
 
         ElastigroupLaunchSpecificationAzure launchSpec =
-                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList).setLoadBalancersConfig(loadBalancersConfig)
-                                 .build();
+                launchSpecBuilder.setImage(imageSpecAzure).setNetwork(network).setLogin(login).setTags(tagsList).build();
 
 
         //buildVmSizes
