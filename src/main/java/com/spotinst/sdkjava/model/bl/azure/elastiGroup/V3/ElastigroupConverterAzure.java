@@ -362,13 +362,17 @@ public class ElastigroupConverterAzure {
                 }
             }
             if (strategy.isOrientationSet()) {
+                if(strategy.getOrientation()!=null) {
                     retVal.setOrientation(strategy.getOrientation().getName());
+                }
             }
             if(strategy.isSignalsSet()) {
-                List<ApiSignalsAzure> signals =
-                        strategy.getSignals().stream().map(ElastigroupConverterAzure::toDal)
-                                .collect(Collectors.toList());
-                retVal.setSignals(signals);
+                if(strategy.getSignals()!=null) {
+                    List<ApiSignalsAzure> signals =
+                            strategy.getSignals().stream().map(ElastigroupConverterAzure::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setSignals(signals);
+                }
             }
         }
         return retVal;
@@ -1240,12 +1244,16 @@ public class ElastigroupConverterAzure {
                 retValBuilder.setDrainingTimeout(strategy.getDrainingTimeout());
             }
             if (strategy.isOrientationSet()) {
-                retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation()));
+                if(strategy.getOrientation()!=null) {
+                    retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation()));
+                }
             }
             if(strategy.isSignalsSet()) {
-                List<SignalsAzure> signals = strategy.getSignals().stream().map(ElastigroupConverterAzure::toBl)
-                        .collect(Collectors.toList());
-                retValBuilder.setSignals(signals);
+                if(strategy.getSignals()!=null) {
+                    List<SignalsAzure> signals = strategy.getSignals().stream().map(ElastigroupConverterAzure::toBl)
+                            .collect(Collectors.toList());
+                    retValBuilder.setSignals(signals);
+                }
             }
             retVal = retValBuilder.build();
         }
