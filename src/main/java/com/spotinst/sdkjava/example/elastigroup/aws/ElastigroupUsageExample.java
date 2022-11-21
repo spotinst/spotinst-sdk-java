@@ -206,23 +206,23 @@ public class ElastigroupUsageExample {
 
         // Get Beanstalk Configuration
         System.out.println("----------Get Beanstalk Configuration--------------");
-        String getBeanstalkId = getBeanstalkConfig(elastigroupClient, "environmentId", "region");
+        String groupId = getBeanstalkConfig(elastigroupClient, "environmentId", "region");
 
         // Start Beanstalk Maintenance
         System.out.println("----------Start Beanstalk Maintenance--------------");
-        Boolean startBeanstalkMaintenance = startBeanstalkMaintenance(elastigroupClient, getBeanstalkId);
+        Boolean startBeanstalkMaintenance = startBeanstalkMaintenance(elastigroupClient, groupId);
 
         // Get Beanstalk Maintenance Status
         System.out.println("----------Get Beanstalk Maintenance Status--------------");
-        String getBeanstalkMaintenanceStatus = getBeanstalkMaintenanceStatus(elastigroupClient, getBeanstalkId);
+        String getBeanstalkMaintenanceStatus = getBeanstalkMaintenanceStatus(elastigroupClient, groupId);
 
         // Finish Beanstalk Maintenance
         System.out.println("----------Finish Beanstalk Maintenance--------------");
-        Boolean finishBeanstalkMaintenance = finishBeanstalkMaintenance(elastigroupClient, getBeanstalkId, getBeanstalkMaintenanceStatus);
+        Boolean finishBeanstalkMaintenance = finishBeanstalkMaintenance(elastigroupClient, groupId, getBeanstalkMaintenanceStatus);
 
         // Beanstalk Reimport
         System.out.println("----------Beanstalk Reimport--------------");
-        beanstalkReimport(elastigroupClient, getBeanstalkId);
+        beanstalkReimport(elastigroupClient, groupId);
     }
 
     private static void getInstanceHealthiness(SpotinstElastigroupClient elastigroupClient, String elastigroupId) {
