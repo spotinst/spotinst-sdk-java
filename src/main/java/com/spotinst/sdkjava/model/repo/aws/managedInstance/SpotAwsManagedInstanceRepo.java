@@ -71,13 +71,13 @@ public class SpotAwsManagedInstanceRepo implements ISpotAwsManagedInstanceRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<ManagedInstance>> getAll(Void filter, String authToken, String account) {
-        RepoGenericResponse<List<ManagedInstance>> retVal;
+    public RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllManagedInstances(String authToken, String account) {
+        RepoGenericResponse<List<GetAllManagedInstancesResponse>> retVal;
 
         try {
-            List<ApiManagedInstance> apigetAllManagedInstance =
+            List<APIGetAllManagedInstancesResponse> apigetAllManagedInstance =
                     AwsManagedInstanceService.getAllManagedInstances(authToken, account);
-            List<ManagedInstance> allManagedInstance =
+            List<GetAllManagedInstancesResponse> allManagedInstance =
                     apigetAllManagedInstance.stream().map(AwsManagedInstanceConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(allManagedInstance);
         }

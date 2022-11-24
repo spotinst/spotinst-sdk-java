@@ -362,7 +362,17 @@ public class ElastigroupConverterAzure {
                 }
             }
             if (strategy.isOrientationSet()) {
+                if(strategy.getOrientation()!=null) {
                     retVal.setOrientation(strategy.getOrientation().getName());
+                }
+            }
+            if(strategy.isSignalsSet()) {
+                if(strategy.getSignals()!=null) {
+                    List<ApiSignalsAzure> signals =
+                            strategy.getSignals().stream().map(ElastigroupConverterAzure::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setSignals(signals);
+                }
             }
         }
         return retVal;
@@ -374,6 +384,20 @@ public class ElastigroupConverterAzure {
             retVal = new ApiRevertToSpotSpecAzure();
             if (revertToSpot.isPerformAtSet()) {
                 retVal.setPerformAt(revertToSpot.getPerformAt());
+            }
+        }
+        return retVal;
+    }
+
+    public static ApiSignalsAzure toDal(SignalsAzure signal) {
+        ApiSignalsAzure retVal = null;
+        if (signal != null) {
+            retVal = new ApiSignalsAzure();
+            if (signal.isTimeoutSet()) {
+                retVal.setTimeout(signal.getTimeout());
+            }
+            if (signal.isTypeSet()) {
+                retVal.setType(signal.getType());
             }
         }
         return retVal;
@@ -1051,6 +1075,21 @@ public class ElastigroupConverterAzure {
         return retVal;
     }
 
+    public static SignalsAzure toBl(ApiSignalsAzure elastigroupVmSignal) {
+        SignalsAzure retVal = null;
+        if (elastigroupVmSignal != null) {
+            SignalsAzure.Builder elastiBuilder = SignalsAzure.Builder.get();
+            if (elastigroupVmSignal.isTimeoutSet()) {
+                elastiBuilder.setTimeout(elastigroupVmSignal.getTimeout());
+            }
+            if (elastigroupVmSignal.isTypeSet()) {
+                elastiBuilder.setType(elastigroupVmSignal.getType());
+            }
+            retVal = elastiBuilder.build();
+        }
+        return retVal;
+    }
+
     private static TagAzure toBl(ApiTagAzure tag) {
         TagAzure retVal = null;
         if (tag != null) {
@@ -1205,7 +1244,16 @@ public class ElastigroupConverterAzure {
                 retValBuilder.setDrainingTimeout(strategy.getDrainingTimeout());
             }
             if (strategy.isOrientationSet()) {
-                retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation()));
+                if(strategy.getOrientation()!=null) {
+                    retValBuilder.setOrientation(AzureOrientationEnum.fromName(strategy.getOrientation()));
+                }
+            }
+            if(strategy.isSignalsSet()) {
+                if(strategy.getSignals()!=null) {
+                    List<SignalsAzure> signals = strategy.getSignals().stream().map(ElastigroupConverterAzure::toBl)
+                            .collect(Collectors.toList());
+                    retValBuilder.setSignals(signals);
+                }
             }
             retVal = retValBuilder.build();
         }

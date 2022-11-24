@@ -42,11 +42,10 @@ public class AwsManagedInstanceUsageExample {
         System.out.println(JsonMapper.toJson(managedInstance));
 
         System.out.println("----------List of ManagedInstance--------------");
-        List<ManagedInstance> allManagedInstances = listManagedInstance(managedInstanceClient);
-
-            for (ManagedInstance myManagedInstance : allManagedInstances) {
+        List<GetAllManagedInstancesResponse> allManagedInstances = listManagedInstance(managedInstanceClient);
+            for (GetAllManagedInstancesResponse myManagedInstance : allManagedInstances) {
                 System.out.println(String.format("ManagedInstance Id: %s, ManagedInstance Name: %s",
-                        myManagedInstance.getId(), myManagedInstance.getName()));
+                        myManagedInstance.getId(), myManagedInstance.getConfig().getName()));
         }
 
         System.out.println("----------Deletion of ManagedInstance--------------");
@@ -383,7 +382,7 @@ public class AwsManagedInstanceUsageExample {
         return managedInstance;
     }
 
-    private static List<ManagedInstance> listManagedInstance(SpotAwsManagedInstanceClient client) {
+    private static List<GetAllManagedInstancesResponse> listManagedInstance(SpotAwsManagedInstanceClient client) {
         return client.getAllManagedInstances();
     }
 

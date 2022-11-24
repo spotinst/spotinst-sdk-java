@@ -23,6 +23,7 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     private ApiRevertToSpotSpecAzure revertToSpot;
     private List<String>             optimizationWindows;
     private String                   orientation;
+    private List<ApiSignalsAzure>    signals;
 
     //todo add  signals in future
 
@@ -107,6 +108,15 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
         this.orientation = orientation;
     }
 
+    public List<ApiSignalsAzure> getSignals() {
+        return signals;
+    }
+
+    public void setSignals(List<ApiSignalsAzure> signals) {
+        isSet.add("signals");
+        this.signals = signals;
+    }
+
     //endregion
 
     //region isSet methods
@@ -151,6 +161,12 @@ public class ApiStrategyAzure implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isOrientationSet() {
         return isSet.contains("orientation");
+    }
+    //endregion
+
+    @JsonIgnore
+    public boolean isSignalsSet() {
+        return isSet.contains("signals");
     }
     //endregion
 }

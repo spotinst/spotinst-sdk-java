@@ -4,6 +4,8 @@ import com.spotinst.sdkjava.exception.SpotinstNotSupportedException;
 import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 
+import java.util.List;
+
 public interface ISpotAwsManagedInstanceRepo extends IRepository<ManagedInstance, Void, String> {
 
     default RepoGenericResponse<Boolean> delete(AwsManagedInstanceDeletionRequest deletionRequest, String authToken, String account) {
@@ -31,6 +33,10 @@ public interface ISpotAwsManagedInstanceRepo extends IRepository<ManagedInstance
     }
 
     default RepoGenericResponse<GetMigrationStatus> getMigrationStatus(String managedInstanceMigrationId, String authToken, String account) {
+        throw new SpotinstNotSupportedException();
+    }
+
+    default RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllManagedInstances(String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
 }

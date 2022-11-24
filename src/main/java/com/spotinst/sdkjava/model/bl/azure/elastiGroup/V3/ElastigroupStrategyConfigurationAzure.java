@@ -18,6 +18,7 @@ public class ElastigroupStrategyConfigurationAzure {
     private RevertToSpotSpecAzure revertToSpot;
     private List<String>          optimizationWindows;
     private AzureOrientationEnum  orientation;
+    private List<SignalsAzure>    signals;
     //todo add  signals in future
     //endregion
 
@@ -98,6 +99,16 @@ public class ElastigroupStrategyConfigurationAzure {
         isSet.add("orientation");
         this.orientation = orientation;
     }
+
+    public List<SignalsAzure> getSignals() {
+        return signals;
+    }
+
+    public void setSignals(List<SignalsAzure> signals) {
+        isSet.add("signals");
+        this.signals = signals;
+    }
+
     //endregion
 
     //region Builder class
@@ -144,6 +155,11 @@ public class ElastigroupStrategyConfigurationAzure {
 
         public Builder setOrientation(final AzureOrientationEnum orientation){
             strategy.setOrientation(orientation);
+            return  this;
+        }
+
+        public Builder setSignals(final List<SignalsAzure> signals){
+            strategy.setSignals(signals);
             return  this;
         }
 
@@ -195,6 +211,11 @@ public class ElastigroupStrategyConfigurationAzure {
     @JsonIgnore
     public boolean isOrientationSet() {
         return isSet.contains("orientation");
+    }
+    // Is signals Set boolean method
+    @JsonIgnore
+    public boolean isSignalsSet() {
+        return isSet.contains("signals");
     }
     //endregion
 }
