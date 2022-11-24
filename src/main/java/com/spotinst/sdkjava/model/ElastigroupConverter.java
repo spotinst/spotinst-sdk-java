@@ -134,7 +134,7 @@ public class ElastigroupConverter {
                 retVal.setCodeDeploy(toDal(thirdPartiesIntegration.getCodeDeploy()));
             }
 
-            if (thirdPartiesIntegration.isElasticBeanstalk()) {
+            if (thirdPartiesIntegration.isElasticBeanstalkSet()) {
                 retVal.setElasticBeanstalk(toDal(thirdPartiesIntegration.getElasticBeanstalk()));
             }
         }
@@ -1847,7 +1847,7 @@ public class ElastigroupConverter {
                 blThirdPartiesIntegrationBuilder.setCodeDeploy(toBl(apiThirdPartiesIntegration.getCodeDeploy()));
             }
 
-            if (apiThirdPartiesIntegration.isElasticBeanstalk()) {
+            if (apiThirdPartiesIntegration.isElasticBeanstalkSet()) {
                 blThirdPartiesIntegrationBuilder.setElasticBeanstalk(toBl(apiThirdPartiesIntegration.getElasticBeanstalk()));
             }
             blThirdPartiesIntegration = blThirdPartiesIntegrationBuilder.build();

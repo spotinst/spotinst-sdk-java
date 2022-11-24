@@ -83,7 +83,7 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
 
     // Is elasticBeanstalk Set boolean method
     @JsonIgnore
-    public boolean isElasticBeanstalk() {
+    public boolean isElasticBeanstalkSet() {
         return isSet.contains("elasticBeanstalk");
     }
     //endregion
