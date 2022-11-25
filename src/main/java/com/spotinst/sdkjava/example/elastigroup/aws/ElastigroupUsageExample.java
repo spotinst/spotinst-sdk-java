@@ -1292,25 +1292,23 @@ public class ElastigroupUsageExample {
     }
 
     private static Boolean finishBeanstalkMaintenance(SpotinstElastigroupClient client, String groupId, String currentStatus) {
-
-        System.out.println(String.format("Finish beanstalk maintenance. groupId: %s", groupId));
-        System.out.println(String.format("Finish beanstalk maintenance. currentStatus: %s", currentStatus));
+        System.out.println(String.format("Finish beanstalk maintenance of the group: %s with current status: %s", groupId, currentStatus));
         Boolean response = false;
         if(currentStatus.equals("AWAIT_USER_UPDATE"))
             response = client.finishBeanstalkMaintenance(groupId);
-
         System.out.println(String.format("Finish beanstalk maintenance response: %s", response));
-
         return response;
     }
 
     private static Elastigroup beanstalkReimport(SpotinstElastigroupClient client, String groupId) {
-
         System.out.println(String.format("Beanstalk reimport. groupId: %s", groupId));
         Elastigroup response = client.beanstalkReimport(groupId);
-
+        ElastigroupCreationRequest.Builder elastigroupCreationRequestBuilder = ElastigroupCreationRequest.Builder.get();
+        ElastigroupCreationRequest creationRequest =
+                elastigroupCreationRequestBuilder.setElastigroup(response).build();
+        // Convert elastigroup to API object json
+        System.out.println(creationRequest.toJson());
         System.out.println(String.format("Instance ID: %s", response.getId()));
-
         return response;
     }
 }

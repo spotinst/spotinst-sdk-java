@@ -1315,7 +1315,6 @@ public class SpotinstElastigroupClient {
     }
 
     public Boolean startBeanstalkMaintenance(String groupId) {
-
         Boolean retVal;
 
         RepoGenericResponse<Boolean> startBeanstalkMaintenanceResponse = getSpotinstElastigroupRepo().startBeanstalkMaintenance(groupId, authToken, account);
@@ -1331,12 +1330,10 @@ public class SpotinstElastigroupClient {
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
     public Boolean finishBeanstalkMaintenance(String groupId) {
-
         Boolean retVal;
 
         RepoGenericResponse<Boolean> finishBeanstalkMaintenanceResponse = getSpotinstElastigroupRepo().finishBeanstalkMaintenance(groupId, authToken, account);
@@ -1352,12 +1349,10 @@ public class SpotinstElastigroupClient {
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
     public ElastigroupGetBeanstalkMaintenanceStatusResponse getBeanstalkMaintenanceStatus(String groupId) {
-
         ElastigroupGetBeanstalkMaintenanceStatusResponse retVal;
 
         RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> elastigroupRepoGenericResponse =
@@ -1373,12 +1368,10 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
     public Elastigroup getBeanstalkConfig(String environmentId, String region) {
-
         Elastigroup retVal;
 
         RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
@@ -1394,12 +1387,10 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 
     public Elastigroup beanstalkReimport(String groupId) {
-
         Elastigroup retVal;
 
         RepoGenericResponse<Elastigroup> elastigroupRepoGenericResponse =
@@ -1415,7 +1406,6 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
-
         return retVal;
     }
 }

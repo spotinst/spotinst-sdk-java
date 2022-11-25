@@ -174,26 +174,21 @@ public class ElastigroupConverter {
 
         if (beanstalk != null) {
             retVal = new ApiElasticBeanstalk();
-
             if (beanstalk.isEnvironmentIdSet()) {
                 retVal.setEnvironmentId(beanstalk.getEnvironmentId());
             }
-
             if (beanstalk.isDeploymentPreferencesSet()) {
                 if (beanstalk.getDeploymentPreferences() != null) {
                     retVal.setDeploymentPreferences(toDal(beanstalk.getDeploymentPreferences()));
                 }
             }
-
             if (beanstalk.isManagedActionsSet()) {
                 if (beanstalk.getManagedActions() != null) {
                     retVal.setManagedActions(toDal(beanstalk.getManagedActions()));
                 }
             }
         }
-
         return retVal;
-
     }
 
     private static ApiElastigroupDeploymentPreferences toDal(ElastigroupDeploymentPreferences deploymentPreferences) {
@@ -201,28 +196,22 @@ public class ElastigroupConverter {
 
         if (deploymentPreferences != null) {
             retVal = new ApiElastigroupDeploymentPreferences();
-
             if (deploymentPreferences.isAutomaticRollSet()) {
                 retVal.setAutomaticRoll(deploymentPreferences.getAutomaticRoll());
             }
-
             if (deploymentPreferences.isBatchSizePercentageSet()) {
                 retVal.setBatchSizePercentage(deploymentPreferences.getBatchSizePercentage());
             }
-
             if (deploymentPreferences.isGracePeriodSet()) {
                 retVal.setGracePeriod(deploymentPreferences.getGracePeriod());
             }
-
             if (deploymentPreferences.isStrategySet()) {
                 if (deploymentPreferences.getStrategy() != null) {
                     retVal.setStrategy(toDal(deploymentPreferences.getStrategy()));
                 }
             }
         }
-
         return retVal;
-
     }
 
     private static ApiBeanstalkStrategy toDal(BeanstalkStrategy strategy) {
@@ -230,18 +219,14 @@ public class ElastigroupConverter {
 
         if (strategy != null) {
             retVal = new ApiBeanstalkStrategy();
-
             if (strategy.isActionSet()) {
                 retVal.setAction(strategy.getAction());
             }
-
             if (strategy.isShouldDrainInstancesSet()) {
                 retVal.setShouldDrainInstances(strategy.getShouldDrainInstances());
             }
         }
-
         return retVal;
-
     }
 
     private static ApiManagedActions toDal(ManagedActions managedActions) {
@@ -249,43 +234,34 @@ public class ElastigroupConverter {
 
         if (managedActions != null) {
             retVal = new ApiManagedActions();
-
             if (managedActions.isPlatformUpdateSet()) {
                 if (managedActions.getPlatformUpdate() != null) {
                     retVal.setPlatformUpdate(toDal(managedActions.getPlatformUpdate()));
                 }
             }
         }
-
         return retVal;
-
     }
 
-    private static ApiBeanstalkPlatformUpdate toDal(BeanstalkPlatformUpdate strategy) {
+    private static ApiBeanstalkPlatformUpdate toDal(BeanstalkPlatformUpdate platformUpdate) {
         ApiBeanstalkPlatformUpdate retVal = null;
 
-        if (strategy != null) {
+        if (platformUpdate != null) {
             retVal = new ApiBeanstalkPlatformUpdate();
-
-            if (strategy.isInstanceRefreshEnabledSet()) {
-                retVal.setInstanceRefreshEnabled(strategy.getInstanceRefreshEnabled());
+            if (platformUpdate.isInstanceRefreshEnabledSet()) {
+                retVal.setInstanceRefreshEnabled(platformUpdate.getInstanceRefreshEnabled());
             }
-
-            if (strategy.isPerformAtSet()) {
-                retVal.setPerformAt(strategy.getPerformAt());
+            if (platformUpdate.isPerformAtSet()) {
+                retVal.setPerformAt(platformUpdate.getPerformAt());
             }
-
-            if (strategy.isTimeWindowSet()) {
-                retVal.setTimeWindow(strategy.getTimeWindow());
+            if (platformUpdate.isTimeWindowSet()) {
+                retVal.setTimeWindow(platformUpdate.getTimeWindow());
             }
-
-            if (strategy.isUpdateLevelSet()) {
-                retVal.setUpdateLevel(strategy.getUpdateLevel());
+            if (platformUpdate.isUpdateLevelSet()) {
+                retVal.setUpdateLevel(platformUpdate.getUpdateLevel());
             }
         }
-
         return retVal;
-
     }
 
     private static ApiDeploymentGroup toDal(ElastigroupDeploymentGroup deploymentGroups) {
@@ -1886,17 +1862,14 @@ public class ElastigroupConverter {
 
         if (apiBeanstalk != null) {
             ElasticBeanstalk.Builder blBeanstalkBuilder = ElasticBeanstalk.Builder.get();
-
             if (apiBeanstalk.isEnvironmentIdSet()) {
                 blBeanstalkBuilder.setEnvironmentId(apiBeanstalk.getEnvironmentId());
             }
-
             if (apiBeanstalk.isDeploymentPreferencesSet()) {
                 if (apiBeanstalk.getDeploymentPreferences() != null) {
                     blBeanstalkBuilder.setDeploymentPreferences(toBl(apiBeanstalk.getDeploymentPreferences()));
                 }
             }
-
             if (apiBeanstalk.isManagedActionsSet()) {
                 if (apiBeanstalk.getManagedActions() != null) {
                     blBeanstalkBuilder.setManagedActions(toBl(apiBeanstalk.getManagedActions()));
@@ -1904,9 +1877,7 @@ public class ElastigroupConverter {
             }
             blBeanstalk = blBeanstalkBuilder.build();
         }
-
         return blBeanstalk;
-
     }
 
     private static ElastigroupDeploymentPreferences toBl(ApiElastigroupDeploymentPreferences apiDeploymentPreferences) {
@@ -1914,19 +1885,15 @@ public class ElastigroupConverter {
 
         if (apiDeploymentPreferences != null) {
             ElastigroupDeploymentPreferences.Builder blDeploymentPreferenceBuilder = ElastigroupDeploymentPreferences.Builder.get();
-
             if (apiDeploymentPreferences.isAutomaticRollSet()) {
                 blDeploymentPreferenceBuilder.setAutomaticRoll(apiDeploymentPreferences.getAutomaticRoll());
             }
-
             if (apiDeploymentPreferences.isBatchSizePercentageSet()) {
                 blDeploymentPreferenceBuilder.setBatchSizePercentage(apiDeploymentPreferences.getBatchSizePercentage());
             }
-
             if (apiDeploymentPreferences.isGracePeriodSet()) {
                 blDeploymentPreferenceBuilder.setGracePeriod(apiDeploymentPreferences.getGracePeriod());
             }
-
             if (apiDeploymentPreferences.isStrategySet()) {
                 if (apiDeploymentPreferences.getStrategy() != null) {
                     blDeploymentPreferenceBuilder.setStrategy(toBl(apiDeploymentPreferences.getStrategy()));
@@ -1934,9 +1901,7 @@ public class ElastigroupConverter {
             }
             blDeploymentPreference = blDeploymentPreferenceBuilder.build();
         }
-
         return blDeploymentPreference;
-
     }
 
     private static BeanstalkStrategy toBl(ApiBeanstalkStrategy apiStrategy) {
@@ -1944,19 +1909,15 @@ public class ElastigroupConverter {
 
         if (apiStrategy != null) {
             BeanstalkStrategy.Builder blStrategyBuilder = BeanstalkStrategy.Builder.get();
-
             if (apiStrategy.isActionSet()) {
                 blStrategyBuilder.setAction(apiStrategy.getAction());
             }
-
             if (apiStrategy.isShouldDrainInstancesSet()) {
                 blStrategyBuilder.setShouldDrainInstances(apiStrategy.getShouldDrainInstances());
             }
             blStrategy = blStrategyBuilder.build();
         }
-
         return blStrategy;
-
     }
 
     private static ManagedActions toBl(ApiManagedActions apiManagedActions) {
@@ -1964,7 +1925,6 @@ public class ElastigroupConverter {
 
         if (apiManagedActions != null) {
             ManagedActions.Builder blManagedActionsBuilder = ManagedActions.Builder.get();
-
             if (apiManagedActions.isPlatformUpdateSet()) {
                 if (apiManagedActions.getPlatformUpdate() != null) {
                     blManagedActionsBuilder.setPlatformUpdate(toBl(apiManagedActions.getPlatformUpdate()));
@@ -1972,39 +1932,30 @@ public class ElastigroupConverter {
             }
             blManagedActions = blManagedActionsBuilder.build();
         }
-
         return blManagedActions;
-
     }
 
-    private static BeanstalkPlatformUpdate toBl(ApiBeanstalkPlatformUpdate apiStrategy) {
+    private static BeanstalkPlatformUpdate toBl(ApiBeanstalkPlatformUpdate apiPlatformUpdate) {
         BeanstalkPlatformUpdate blBeanstalkPlatformUpdate = null;
 
-        if (apiStrategy != null) {
+        if (apiPlatformUpdate != null) {
             BeanstalkPlatformUpdate.Builder blBeanstalkPlatformUpdateBuilder = BeanstalkPlatformUpdate.Builder.get();
-
-            if (apiStrategy.isInstanceRefreshEnabledSet()) {
-                blBeanstalkPlatformUpdateBuilder.setInstanceRefreshEnabled(apiStrategy.getInstanceRefreshEnabled());
+            if (apiPlatformUpdate.isInstanceRefreshEnabledSet()) {
+                blBeanstalkPlatformUpdateBuilder.setInstanceRefreshEnabled(apiPlatformUpdate.getInstanceRefreshEnabled());
             }
-
-            if (apiStrategy.isPerformAtSet()) {
-                blBeanstalkPlatformUpdateBuilder.setPerformAt(apiStrategy.getPerformAt());
+            if (apiPlatformUpdate.isPerformAtSet()) {
+                blBeanstalkPlatformUpdateBuilder.setPerformAt(apiPlatformUpdate.getPerformAt());
             }
-
-            if (apiStrategy.isTimeWindowSet()) {
-                blBeanstalkPlatformUpdateBuilder.setTimeWindow(apiStrategy.getTimeWindow());
+            if (apiPlatformUpdate.isTimeWindowSet()) {
+                blBeanstalkPlatformUpdateBuilder.setTimeWindow(apiPlatformUpdate.getTimeWindow());
             }
-
-            if (apiStrategy.isUpdateLevelSet()) {
-                blBeanstalkPlatformUpdateBuilder.setUpdateLevel(apiStrategy.getUpdateLevel());
+            if (apiPlatformUpdate.isUpdateLevelSet()) {
+                blBeanstalkPlatformUpdateBuilder.setUpdateLevel(apiPlatformUpdate.getUpdateLevel());
             }
             blBeanstalkPlatformUpdate = blBeanstalkPlatformUpdateBuilder.build();
         }
-
         return blBeanstalkPlatformUpdate;
-
     }
-
 
     private static ElastigroupDeploymentGroup toBl(ApiDeploymentGroup apiDeploymentGroup) {
         ElastigroupDeploymentGroup blDeploymentGroups = null;
@@ -3704,18 +3655,19 @@ public class ElastigroupConverter {
 
     }
 
-    public static ElastigroupGetBeanstalkMaintenanceStatusResponse toBl(
-            ApiElastigroupGetBeanstalkMaintenanceStatusResponse elastigroupGetBeanstalkStatusResponse) {
-        ElastigroupGetBeanstalkMaintenanceStatusResponse retVal = null;
+    public static ElastigroupGetBeanstalkMaintenanceStatusResponse toBl(ApiElastigroupGetBeanstalkMaintenanceStatusResponse apiGetBeanstalkStatus) {
+        ElastigroupGetBeanstalkMaintenanceStatusResponse blGetBeanstalkStatus = null;
 
-        if (elastigroupGetBeanstalkStatusResponse != null) {
-            retVal = new ElastigroupGetBeanstalkMaintenanceStatusResponse();
-
-            if (elastigroupGetBeanstalkStatusResponse.isStatusSet()) {
-                retVal.setStatus(elastigroupGetBeanstalkStatusResponse.getStatus());
+        if (apiGetBeanstalkStatus != null) {
+            ElastigroupGetBeanstalkMaintenanceStatusResponse.Builder blGetBeanstalkStatusBuilder = ElastigroupGetBeanstalkMaintenanceStatusResponse.Builder.get();
+            if (apiGetBeanstalkStatus.isStatusSet()) {
+                if (apiGetBeanstalkStatus.getStatus() != null) {
+                    blGetBeanstalkStatusBuilder.setStatus(apiGetBeanstalkStatus.getStatus());
+                }
             }
+            blGetBeanstalkStatus = blGetBeanstalkStatusBuilder.build();
         }
-        return retVal;
+        return blGetBeanstalkStatus;
 
     }
 }
