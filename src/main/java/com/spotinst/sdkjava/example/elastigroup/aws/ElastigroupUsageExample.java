@@ -4,6 +4,8 @@ import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.RecurrenceFrequencyEnum;
+import com.spotinst.sdkjava.model.bl.admin.account.Subscription;
+import com.spotinst.sdkjava.model.bl.admin.account.response.SubscriptionResponse;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
@@ -56,15 +58,11 @@ public class ElastigroupUsageExample {
         String createdLaunchSubscriptionId = createSubscription(elastigroupId, subscriptionClient,
                                                                 SubscriptionEventTypeEnum.AWS_EC2_INSTANCE_LAUNCH);
 
-        // Create subscription (Terminate)
-        String createdTerminateSubscriptionId = createSubscription(elastigroupId, subscriptionClient,
-                                                                   SubscriptionEventTypeEnum.AWS_EC2_INSTANCE_TERMINATE);
-
         // Get subscription (Launch)
         getSubscription(subscriptionClient, createdLaunchSubscriptionId);
 
-        // Get subscription (Terminate)
-        getSubscription(subscriptionClient, createdTerminateSubscriptionId);
+        // Get All subscriptions
+        getAllSubscriptionEvents(subscriptionClient);
 
         // Update group
         updateGroup(elastigroupClient, elastigroupId);
@@ -91,8 +89,8 @@ public class ElastigroupUsageExample {
         // Delete subscription (Launch)
         deleteSubscription(subscriptionClient, createdLaunchSubscriptionId);
 
-        // Delete subscription (Terminate)
-        deleteSubscription(subscriptionClient, createdTerminateSubscriptionId);
+        // Update subscription
+        updateSubscription(subscriptionClient, createdLaunchSubscriptionId);
 
         // Suspend AUTO_HEALING process
         SuspendedProcesses activeSuspensions =
@@ -181,6 +179,31 @@ public class ElastigroupUsageExample {
         System.out.println("----------Get Suggested Instance Types--------------");
         List<GetInstanceTypesResponse> getSuggestedInstanceTypes = getSuggestedInstanceTypes(elastigroupClient);
 
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        ElastigroupEcsClusterRollResponse initiateRollResponse = initiateClusterRoll(elastigroupClient, "group-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        ElastigroupEcsClusterRollResponse getClusterRollStatus = getClusterRoll (elastigroupClient, "group-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<ElastigroupEcsClusterRollResponse> listClusterRolls = getAllClusterRolls(elastigroupClient, "group-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        ElastigroupEcsClusterRollResponse updateRollResponse = updateClusterRoll(elastigroupClient, "group-id", "STOPPED");
+
+        //Create Instance Signal
+        System.out.println("----------Create Instance Signal--------------");
+        String signal = "INSTANCE_READY";
+        Boolean createInstanceSignalStatus = createInstanceSignal(elastigroupClient, signal);
+
+        // Get instance status
+        System.out.println("----------Get Instance Status--------------");
+        ElastigroupGetInstanceStatusResponse response = getInstanceStatus(elastigroupClient, instanceId);
+
         //Create codeDeploy B/G deployment
         System.out.println("----------Create CodeDeploy B/G Deployment--------------");
         deploymentId = createCodeDeployBGDeployment(elastigroupClient, "elastigroup-id").get(0).getId();
@@ -252,15 +275,8 @@ public class ElastigroupUsageExample {
                 subscriptionBuilder.setEndpoint("demo@spotinst.com").setProtocol(SubscriptionProtocolEnum.EMAIL)
                                    .setResourceId(elastigroupId).setEventType(eventType).build();
 
-        SubscriptionCreationRequest.Builder subCreationRequestBuilder = SubscriptionCreationRequest.Builder.get();
-        SubscriptionCreationRequest subCreationRequest =
-                subCreationRequestBuilder.setSubscription(terminationSub).build();
-
-        // Print Subscription creation request
-        System.out.println(subCreationRequest.toJson());
-
         // Create Subscription
-        Subscription createdSubscription = subscriptionClient.subscribeToEvent(subCreationRequest);
+        SubscriptionResponse createdSubscription = subscriptionClient.subscribeToEvent(terminationSub);
 
         // Subscription Id
         String createdSubscriptionId = createdSubscription.getId();
@@ -272,11 +288,8 @@ public class ElastigroupUsageExample {
 
     private static void deleteSubscription(SpotinstSubscriptionClient subscriptionClient,
                                            String createdSubscriptionId) {
-        // Delete Retrieved event
-        SubscriptionDeletionRequest.Builder subDelBuilder = SubscriptionDeletionRequest.Builder.get();
-        SubscriptionDeletionRequest subDelRequest = subDelBuilder.setSubscriptionId(createdSubscriptionId).build();
 
-        Boolean deletionSuccess = subscriptionClient.deleteSubscription(subDelRequest);
+        Boolean deletionSuccess = subscriptionClient.deleteSubscription(createdSubscriptionId);
         if (deletionSuccess) {
             System.out.println("Successfully deleted subscription" + createdSubscriptionId + " in database.");
         }
@@ -286,18 +299,35 @@ public class ElastigroupUsageExample {
     }
 
     private static void getSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
-        // Get Subscription
-        SubscriptionGetRequest.Builder subscriptionGetRequestBuilder = SubscriptionGetRequest.Builder.get();
-        SubscriptionGetRequest subGetRequest =
-                subscriptionGetRequestBuilder.setSubscriptionId(createdSubscriptionId).build();
 
-        Subscription subscriptionEvent = subscriptionClient.getSubscriptionEvent(subGetRequest);
+        SubscriptionResponse subscriptionEvent = subscriptionClient.getSubscriptionEvent(createdSubscriptionId);
 
         // Print Retrieved event
         System.out.println(
                 "Retrieving event resulted in : " + subscriptionEvent.getId() + " " + subscriptionEvent.getProtocol() +
                 " " + subscriptionEvent.getEndpoint() + " " + subscriptionEvent.getResourceId() + " " +
                 subscriptionEvent.getEventType());
+    }
+
+    private static List<SubscriptionResponse> getAllSubscriptionEvents(SpotinstSubscriptionClient subscriptionClient) {
+
+        return subscriptionClient.getAllSubscriptionEvents();
+    }
+
+    private static void updateSubscription(SpotinstSubscriptionClient subscriptionClient, String createdSubscriptionId) {
+
+        Subscription.Builder subscriptionBuilder = Subscription.Builder.get();
+        Subscription subscription = subscriptionBuilder.setEndpoint("test@spotinst.com").build();
+
+        // Update Subscription
+        Boolean updatedSubscription = subscriptionClient.updateSubscription(subscription, createdSubscriptionId);
+
+        if (updatedSubscription) {
+            System.out.println("Successfully updated subscription" + createdSubscriptionId + " in database.");
+        }
+        else {
+            System.out.println("Failed in update subscription" + createdSubscriptionId + " in database.");
+        }
     }
 
     private static void deleteElastigroup(SpotinstElastigroupClient client, String elastigroupId) {
@@ -1140,8 +1170,78 @@ public class ElastigroupUsageExample {
 
     }
 
+    private static ElastigroupEcsClusterRollResponse initiateClusterRoll(SpotinstElastigroupClient client, String groupId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        ElastigroupEcsInitiateRoll.Builder initiateRollBuilder = ElastigroupEcsInitiateRoll.Builder.get();
+        ElastigroupEcsInitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).setBatchMinHealthyPercentage(batchMinHealthyPercentage).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", groupId));
+        ElastigroupEcsClusterRollResponse rollResponse = client.initiateClusterRollInEGWithECS(initiateRoll, groupId);
+
+        String rollId = rollResponse.getId();
+
+        return rollResponse;
+    }
+
+    private static ElastigroupEcsClusterRollResponse getClusterRoll (SpotinstElastigroupClient client, String groupId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", groupId, rollId));
+        ElastigroupEcsClusterRollResponse getRollResponse = client.getECSClusterRollinEG(groupId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<ElastigroupEcsClusterRollResponse> getAllClusterRolls(SpotinstElastigroupClient client, String groupId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", groupId));
+        List<ElastigroupEcsClusterRollResponse> getAllRolls = client.listECSClusterRollsPerEG(groupId);
+
+        for (ElastigroupEcsClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static ElastigroupEcsClusterRollResponse updateClusterRoll(SpotinstElastigroupClient client, String groupId, String status) {
+
+        ElastigroupEcsUpdateRollRequest.Builder updateRollBuilder = ElastigroupEcsUpdateRollRequest.Builder.get();
+        ElastigroupEcsUpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s", groupId));
+        ElastigroupEcsClusterRollResponse response = client.updateECSClusterRollinEG(updateRoll, groupId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
+    private static Boolean createInstanceSignal(SpotinstElastigroupClient elastigroupClient, String signal) {
+
+        ElastigroupCreateInstanceSignal.Builder instanceSignalBuilder = ElastigroupCreateInstanceSignal.Builder.get();
+        ElastigroupCreateInstanceSignal         instanceSignal        = instanceSignalBuilder.setInstanceId(instanceId).setSignal(signal).build();
+
+        System.out.println("Create instance signal:" + instanceId);
+
+        return elastigroupClient.createInstanceSignal(instanceSignal);
+
+    }
+
+    private static ElastigroupGetInstanceStatusResponse getInstanceStatus(SpotinstElastigroupClient client, String instanceId) {
+
+        System.out.println(String.format("Get Instance Status. InstanceId: %s", instanceId));
+        ElastigroupGetInstanceStatusResponse response = client.getInstanceStatus(instanceId);
+
+        System.out.println(String.format("Instance ID: %s", response.getInstanceId()));
+        System.out.println(String.format("Lifecycle State: %s", response.getLifeCycleState()));
+
+        return response;
+    }
+
     private static List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
-                                                                               String elastigroupId) {
+                                                                                     String elastigroupId) {
 
         //Build Tags
         Tag.Builder tagsBuilder = Tag.Builder.get();
@@ -1160,7 +1260,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout(120).setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Create CodeDeploy Deployment Request
         ElastigroupCreateCodeDeployRequest.Builder createCodeDeployRequestBuilder = ElastigroupCreateCodeDeployRequest.Builder.get();
@@ -1182,7 +1282,7 @@ public class ElastigroupUsageExample {
     }
 
     private static List<CodeDeployBGDeploymentResponse> getCodeDeployBGDeployment(SpotinstElastigroupClient elastigroupClient,
-                                                                              String elastigroupId) {
+                                                                                  String elastigroupId) {
 
         //Build Tag
         Tag.Builder tagsBuilder = Tag.Builder.get();
@@ -1201,7 +1301,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout(120).setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Get CodeDeploy Deployment Request
         ElastigroupGetCodeDeployRequest.Builder getCodeDeployRequestBuilder = ElastigroupGetCodeDeployRequest.Builder.get();
@@ -1219,7 +1319,6 @@ public class ElastigroupUsageExample {
                 " and state " + codeDeployBGDeploymentResponse.get(0).getState());
 
         return codeDeployBGDeploymentResponse;
-
     }
 
 }

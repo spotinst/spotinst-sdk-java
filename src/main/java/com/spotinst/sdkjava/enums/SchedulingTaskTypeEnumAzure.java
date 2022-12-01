@@ -14,7 +14,7 @@ public enum SchedulingTaskTypeEnumAzure {
     STATEFUL_UPDATE_CAPACITY("statefulUpdateCapacity"),
     STATEFUL_RECYCLE("statefulRecycle");
 
-    private SchedulingTaskTypeEnumAzure(String name) {
+    SchedulingTaskTypeEnumAzure(String name) {
         this.name = name;
     }
 

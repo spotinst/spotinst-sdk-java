@@ -114,5 +114,21 @@ public class SpotinstClient {
         return new K8sVngClient(authToken, account);
     }
 
+    public static AzureAksVngClient getAksVngClient(String authToken, String account) {
+        return new AzureAksVngClient(authToken, account);
+    }
+
+    public static SpotinstAdminOrganizationClient getAdminOrganizationClient(String authToken) {
+        return new SpotinstAdminOrganizationClient(authToken);
+    }
+
+    public static SpotinstAzureStatefulNodeClient getAzureStatefulNodeClient(String authToken, String account){
+        return new SpotinstAzureStatefulNodeClient(authToken, account);
+    }
+
+    public static OceanCDClient getOceanCDClient(String authToken){
+        return new OceanCDClient(authToken);
+    }
+
     //endregion
 }

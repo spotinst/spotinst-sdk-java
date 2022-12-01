@@ -78,9 +78,8 @@ public class RestClient {
         addHeaders(getRequest, headers);
 
         // Sending the request.
-        RestResponse retVal = sendRequest(getRequest);
 
-        return retVal;
+        return sendRequest(getRequest);
     }
 
 
@@ -117,6 +116,41 @@ public class RestClient {
         // Sending the request.
 
         return sendRequest(putRequest);
+    }
+
+    public static RestResponse sendPatch(
+            String url,
+            String body,
+            Map<String, String> headers,
+            Map<String, String> queryParams) throws SpotinstHttpException {
+
+        String encodedUrl = UrlEncoder.encode(url);
+
+        // Build the patch request
+        HttpPatch patchRequest = new HttpPatch(encodedUrl);
+
+        // Build the request body
+        if (body != null) {
+            StringEntity entity = null;
+            try {
+                entity = new StringEntity(body);
+            } catch (UnsupportedEncodingException e) {
+
+                // TODO - Handle.
+                LOGGER.error("Exception when building patch body", e);
+            }
+            patchRequest.setEntity(entity);
+        }
+
+        // Adding query params.
+        addQueryParams(patchRequest, queryParams);
+
+        // Adding headers.
+        addHeaders(patchRequest, headers);
+
+        // Sending the request.
+
+        return sendRequest(patchRequest);
     }
 
     public static RestResponse sendPost(
@@ -265,7 +299,7 @@ public class RestClient {
 
         BufferedReader rd;
         try {
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             if (response.getEntity() != null) {
                 rd = new BufferedReader(
                         new InputStreamReader(response.getEntity().getContent()));

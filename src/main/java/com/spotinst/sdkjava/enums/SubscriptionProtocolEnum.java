@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum SubscriptionProtocolEnum {
 
-    HTTP("http"),
-    HTTPS("https"),
+    WEB("web"),
     EMAIL_JSON("email-json"),
     EMAIL("email"),
     AWS_SNS("aws-sns");
@@ -17,8 +16,12 @@ public enum SubscriptionProtocolEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(SubscriptionProtocolEnum.class);
     private final String name;
 
-    private SubscriptionProtocolEnum(String name) {
+    SubscriptionProtocolEnum(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public static SubscriptionProtocolEnum fromName(String name) {
@@ -34,9 +37,5 @@ public enum SubscriptionProtocolEnum {
             LOGGER.error("Tried to create group subscription event protocol enum for: " + name + ", but we don't support such type ");
         }
         return retVal;
-    }
-
-    public String getName() {
-        return name;
     }
 }

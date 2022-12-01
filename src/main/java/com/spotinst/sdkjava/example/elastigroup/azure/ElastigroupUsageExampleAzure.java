@@ -110,7 +110,7 @@ public class ElastigroupUsageExampleAzure {
         String message = logs.getCreatedAt();
         System.out.println("Logs : "+ message);
 
-        //Detach Vms
+        //Detach VmsDetails
         DetachVmsResponseAzure detachResponse = detachVms(elastigroupClient, "sig-94b203f9");
         String oldVmName = detachResponse.getDetachedVms().get(0).getVmName();
         String newvmName = detachResponse.getNewVmsAzure().get(0).getVmName();
@@ -219,12 +219,22 @@ public class ElastigroupUsageExampleAzure {
 
         RevertToSpotSpecAzure reveertToSpot = reveertToSpotBuilder.setPerformAt("timeWindow").build();
 
+
+        //build signals
+        SignalsAzure.Builder signalsBuilder = SignalsAzure.Builder.get();
+
+        SignalsAzure signals =
+                signalsBuilder.setTimeout(50).setType(ElastigroupVmSignalEnumAzure.vmReady).build();
+
+        List<SignalsAzure> signalsAzuresList = new ArrayList<>();
+        signalsAzuresList.add(signals);
+
         ElastigroupStrategyConfigurationAzure.Builder strategyBuilder =
                 ElastigroupStrategyConfigurationAzure.Builder.get();
 
         ElastigroupStrategyConfigurationAzure strategy =
                 strategyBuilder.setSpotPercentage(100).setDrainingTimeout(30).setFallbackToOd(true)
-                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).build();
+                               .setOptimizationWindows(optimizationTimeList).setRevertToSpot(reveertToSpot).setOrientation(AzureOrientationEnum.CHEAPEST).setSignals(signalsAzuresList).build();
 
         //Build group capacity
         ElastigroupCapacityConfigurationAzure.Builder capacityBuilder =
@@ -536,7 +546,7 @@ public class ElastigroupUsageExampleAzure {
 
     public static DetachVmsResponseAzure detachVms(SpotinstElastigroupClientAzure elastigroupClient, String groupId) {
         DetachVmsAzure.Builder detachVmBuilder = DetachVmsAzure.Builder.get();
-        DetachVmsAzure detachVmAzure = detachVmBuilder.setDrainingTimeout("300")
+        DetachVmsAzure detachVmAzure = detachVmBuilder.setDrainingTimeout(300)
                 .setShouldDecrementTargetCapacity(false)
                 .setShouldTerminateVms(true)
                 .setVmsToDetach(vmList)

@@ -13,7 +13,7 @@ public enum k8sClusterRollStatusEnum {
         private static final Logger LOGGER = LoggerFactory.getLogger(k8sClusterRollStatusEnum.class);
         private String name;
 
-        private k8sClusterRollStatusEnum(String name) {
+        k8sClusterRollStatusEnum(String name) {
             this.name = name;
         }
 

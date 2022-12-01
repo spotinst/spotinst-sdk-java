@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.bl.azure.elastiGroup.V3;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.AzureOrientationEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,8 @@ public class ElastigroupStrategyConfigurationAzure {
     private Boolean               fallbackToOd;
     private RevertToSpotSpecAzure revertToSpot;
     private List<String>          optimizationWindows;
+    private AzureOrientationEnum  orientation;
+    private List<SignalsAzure>    signals;
     //todo add  signals in future
     //endregion
 
@@ -87,6 +90,25 @@ public class ElastigroupStrategyConfigurationAzure {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }
+
+    public AzureOrientationEnum getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(AzureOrientationEnum orientation) {
+        isSet.add("orientation");
+        this.orientation = orientation;
+    }
+
+    public List<SignalsAzure> getSignals() {
+        return signals;
+    }
+
+    public void setSignals(List<SignalsAzure> signals) {
+        isSet.add("signals");
+        this.signals = signals;
+    }
+
     //endregion
 
     //region Builder class
@@ -129,6 +151,16 @@ public class ElastigroupStrategyConfigurationAzure {
         public Builder setOptimizationWindows(final List<String> optimizationWindows) {
             strategy.setOptimizationWindows(optimizationWindows);
             return this;
+        }
+
+        public Builder setOrientation(final AzureOrientationEnum orientation){
+            strategy.setOrientation(orientation);
+            return  this;
+        }
+
+        public Builder setSignals(final List<SignalsAzure> signals){
+            strategy.setSignals(signals);
+            return  this;
         }
 
         public ElastigroupStrategyConfigurationAzure build() {
@@ -174,6 +206,16 @@ public class ElastigroupStrategyConfigurationAzure {
     @JsonIgnore
     public boolean isOptimizationWindowsSet() {
         return isSet.contains("optimizationWindows");
+    }
+    // Is azureOrientation Set boolean method
+    @JsonIgnore
+    public boolean isOrientationSet() {
+        return isSet.contains("orientation");
+    }
+    // Is signals Set boolean method
+    @JsonIgnore
+    public boolean isSignalsSet() {
+        return isSet.contains("signals");
     }
     //endregion
 }

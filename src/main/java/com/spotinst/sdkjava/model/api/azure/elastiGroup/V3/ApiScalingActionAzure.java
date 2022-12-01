@@ -1,15 +1,18 @@
 package com.spotinst.sdkjava.model.api.azure.elastiGroup.V3;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiScalingActionAzure {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiScalingActionAzure implements IPartialUpdateEntity {
 
     private Set<String> isSet = new HashSet<>();
     private String      type;

@@ -11,7 +11,7 @@ public enum VmLifeCycleEnumAzure {
     private static final Logger LOGGER = LoggerFactory.getLogger(VmLifeCycleEnumAzure.class);
     private String name;
 
-    private VmLifeCycleEnumAzure(String name) {
+    VmLifeCycleEnumAzure(String name) {
         this.name = name;
     }
 

@@ -22,7 +22,7 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
     @JsonIgnore
     private Set<String>                                   isSet;
     private ApiElastigroupDeploymentProgress              progress;
-    private Integer                                       numOfBatches;
+    private Integer                                       numberOfBatches;
     private Integer                                       currentBatch;
     private Integer                                       gracePeriod;
     private AwsElastigroupActionEnum                      strategyAction;
@@ -74,13 +74,13 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
         this.gracePeriod = gracePeriod;
     }
 
-    public Integer getNumOfBatches() {
-        return numOfBatches;
+    public Integer getNumberOfBatches() {
+        return numberOfBatches;
     }
 
-    public void setNumOfBatches(Integer numOfBatches) {
-        isSet.add("numOfBatches");
-        this.numOfBatches = numOfBatches;
+    public void setNumberOfBatches(Integer numberOfBatches) {
+        isSet.add("numberOfBatches");
+        this.numberOfBatches = numberOfBatches;
     }
 
     public ApiElastigroupDeploymentProgress getProgress() {
@@ -122,7 +122,7 @@ public class ApiElastigroupGetDeploymentStatusResponse implements IPartialUpdate
     }
 
     @JsonIgnore
-    public boolean isNumOfBatchesSet() { return isSet.contains("numOfBatches");  }
+    public boolean isNumberOfBatchesSet() { return isSet.contains("numberOfBatches");  }
 
     @JsonIgnore
     public boolean isProgressSet() {

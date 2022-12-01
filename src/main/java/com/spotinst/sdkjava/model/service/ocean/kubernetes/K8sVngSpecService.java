@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.model.api.ocean.kubernetes.*;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.ImportEKSK8sVngSpec;
 import com.spotinst.sdkjava.model.bl.ocean.kubernetes.LaunchNodesInVNG;
 import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sImportClusterVngToOceanVngRequest;
+import com.spotinst.sdkjava.model.requests.ocean.kubernetes.K8sVngDeleteRequest;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.K8sVngApiResponse;
 import com.spotinst.sdkjava.model.responses.ocean.kubernetes.LaunchNodesInVngApiResponse;
 import org.apache.http.HttpStatus;
@@ -57,8 +58,10 @@ public class K8sVngSpecService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean deleteK8sVng(String oceanLaunchSpecId, String authToken,
+    public static Boolean deleteK8sVng(K8sVngDeleteRequest vngDeletionRequest, String authToken,
                                        String account) throws SpotinstHttpException {
+
+        String oceanLaunchSpecId = vngDeletionRequest.getOceanLaunchSpecId();
 
         // Init retVal
         Boolean retVal = false;
@@ -72,6 +75,16 @@ public class K8sVngSpecService extends BaseSpotinstService {
         // Add account Id Query param
         if (account != null) {
             queryParams.put("accountId", account);
+        }
+
+        // Add deleteNodes Query param
+        if (vngDeletionRequest.getDeleteNodes() != null) {
+            queryParams.put("deleteNodes", String.valueOf(vngDeletionRequest.getDeleteNodes()));
+        }
+
+        // Add forceDelete Query param
+        if (vngDeletionRequest.getForceDelete() != null) {
+            queryParams.put("forceDelete", String.valueOf(vngDeletionRequest.getForceDelete()));
         }
 
         // Get the headers for AWS.

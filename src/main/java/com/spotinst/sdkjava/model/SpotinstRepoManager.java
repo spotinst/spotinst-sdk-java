@@ -1,12 +1,18 @@
 package com.spotinst.sdkjava.model;
 
+import com.spotinst.sdkjava.model.repo.azure.statefulNode.SpotinstAzureStatefulNodeRepo;
+import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationRepo;
+import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
+import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
+import com.spotinst.sdkjava.model.repo.ocean.aks.AzureAksVngRepo;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.ocean.ecs.SpotOceanEcsClusterRepo;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeClusterRepo;
 import com.spotinst.sdkjava.model.repo.ocean.kubernetes.K8sVngRepo;
+import com.spotinst.sdkjava.model.repo.oceanCD.OceanCDRepo;
 
 /**
  * Created by talzur on 12/01/2017.
@@ -37,7 +43,11 @@ class SpotinstRepoManager {
     private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
-    private ISpotK8sVngRepo       						spotK8sVngRepo;
+    private ISpotK8sVngRepo       						          spotK8sVngRepo;
+    private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
+    private ISpotAzureAksVngRepo    					          spotAksVngRepo;
+    private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
+    private IOceanCDRepo                                oceanCDRepo;
 
     //endregion
 
@@ -65,6 +75,10 @@ class SpotinstRepoManager {
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
+        this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
+        this.spotAksVngRepo = new AzureAksVngRepo();
+        this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
+        this.oceanCDRepo = new OceanCDRepo();
     }
     //endregion
 
@@ -221,6 +235,36 @@ class SpotinstRepoManager {
 
     public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
         this.spotK8sVngRepo = k8sVngRepo;
+    }
+
+    public ISpotAzureStatefulNodeRepo getSpotAzureStatefulNodeRepo() { return spotAzureStatefulNodeRepo; }
+
+    public void setSpotinstOceanEcsClusterRepo (ISpotAzureStatefulNodeRepo spotAzureStatefulNodeRepo) {
+        this.spotAzureStatefulNodeRepo = spotAzureStatefulNodeRepo;
+    }
+
+    public ISpotAzureAksVngRepo getAksVngRepo() {
+        return spotAksVngRepo;
+    }
+
+    public void setAksVngRepo(ISpotAzureAksVngRepo aksVngRepo) {
+        this.spotAksVngRepo = aksVngRepo;
+    }
+
+    public ISpotAdminOrganizationRepo getSpotAdminOrganizationRepo() {
+        return spotAdminOrganizationRepo;
+    }
+
+    public void setSpotAdminOrganizationRepo(ISpotAdminOrganizationRepo spotAdminOrganizationRepo) {
+        this.spotAdminOrganizationRepo = spotAdminOrganizationRepo;
+    }
+
+    public IOceanCDRepo getOceanCDRepo() {
+        return oceanCDRepo;
+    }
+
+    public void setOceanCDRepo(IOceanCDRepo oceanCDRepo) {
+        this.oceanCDRepo = oceanCDRepo;
     }
     //endregion
 }

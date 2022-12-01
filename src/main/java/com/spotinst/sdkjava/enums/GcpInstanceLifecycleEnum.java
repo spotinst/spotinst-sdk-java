@@ -11,7 +11,7 @@ public enum GcpInstanceLifecycleEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsInstanceTypeEnum.class);
     private String name;
 
-    private GcpInstanceLifecycleEnum(String name) {
+    GcpInstanceLifecycleEnum(String name) {
         this.name = name;
     }
 

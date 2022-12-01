@@ -4,11 +4,12 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsLaunchSpecApiResponse;
-import com.spotinst.sdkjava.model.responses.ocean.ecs.OceanEcsClusterApiResponse;
+import com.spotinst.sdkjava.model.api.ocean.ecs.*;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.ImportEcsCluster;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
+import com.spotinst.sdkjava.model.responses.ocean.ecs.*;
 
-import com.spotinst.sdkjava.model.api.ocean.ecs.ApiOceanEcsCluster;
 import org.apache.http.HttpStatus;
 
 import java.util.HashMap;
@@ -393,6 +394,244 @@ public class SpotOceanEcsClusterService extends BaseSpotinstService {
 
         if (oceanEcsGetResponse.getResponse().getCount() > 0) {
             retVal = oceanEcsGetResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static ApiEcsClusterRollResponse initiateRoll(ApiEcsInitiateRoll initiateRollRequest, String clusterId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiEcsClusterRollResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiEcsInitiateRoll> rollRequest = new HashMap<>();
+        rollRequest.put("roll", initiateRollRequest);
+        String body = JsonMapper.toJson(rollRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/roll", apiEndpoint, clusterId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        EcsInitiateRollApiResponse initiateRollApiResponse =
+                getCastedResponse(response, EcsInitiateRollApiResponse.class);
+
+        if (initiateRollApiResponse.getResponse().getCount() > 0) {
+            retVal = initiateRollApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiEcsClusterRollResponse> listRolls(String clusterId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiEcsClusterRollResponse> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/roll", apiEndpoint, clusterId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        EcsInitiateRollApiResponse listRollsResponse =
+                getCastedResponse(response, EcsInitiateRollApiResponse.class);
+
+        if (listRollsResponse.getResponse().getCount() > 0) {
+            retVal = listRollsResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static ApiEcsClusterRollResponse getRoll(String clusterId, String rollId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiEcsClusterRollResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/roll/%s", apiEndpoint, clusterId, rollId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        EcsInitiateRollApiResponse getRollApiResponse =
+                getCastedResponse(response, EcsInitiateRollApiResponse.class);
+
+        if (getRollApiResponse.getResponse().getCount() > 0) {
+            retVal = getRollApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static ApiEcsClusterRollResponse updateRoll(OceanEcsUpdateRollRequest updateRollRequest, String clusterId, String rollId, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiEcsClusterRollResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, OceanEcsUpdateRollRequest> rollRequest = new HashMap<>();
+        rollRequest.put("roll", updateRollRequest);
+        String body = JsonMapper.toJson(rollRequest);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/roll/%s", apiEndpoint, clusterId, rollId);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        EcsInitiateRollApiResponse updateRollApiResponse =
+                getCastedResponse(response, EcsInitiateRollApiResponse.class);
+
+        if (updateRollApiResponse.getResponse().getCount() > 0) {
+            retVal = updateRollApiResponse.getResponse().getItems().get(0);
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiGetEcsClusterNodesResponse> getClusterContainerInstances(GetEcsClusterNodesRequest getClusterNodes, String clusterId, String authToken) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiGetEcsClusterNodesResponse> retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (getClusterNodes.getAccountId() != null) {
+            queryParams.put("accountId", getClusterNodes.getAccountId());
+        }
+
+        // Add instanceId Query param
+        if (getClusterNodes.getInstanceId() != null) {
+            queryParams.put("instanceId", getClusterNodes.getInstanceId());
+        }
+
+        // Add launchSpecId Query param
+        if (getClusterNodes.getLaunchSpecId() != null) {
+            queryParams.put("launchSpecId", getClusterNodes.getLaunchSpecId());
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/containerInstances", apiEndpoint, clusterId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        GetEcsClusterContainerInstancesApiResponse getNodesResponse =
+                getCastedResponse(response, GetEcsClusterContainerInstancesApiResponse.class);
+
+        if (getNodesResponse.getResponse().getCount() > 0) {
+            retVal = getNodesResponse.getResponse().getItems();
+        }
+
+        return retVal;
+    }
+
+    public static ApiImportOceanEcsClusterObjectResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName, String authToken, String account) throws SpotinstHttpException {
+
+        // Init retVal
+        ApiImportOceanEcsClusterObjectResponse retVal = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        String body = JsonMapper.toJson(importEcsCluster);
+
+        // Build URI
+        String uri = String.format("%s/ocean/aws/ecs/cluster/%s/import", apiEndpoint, ecsClusterName);
+
+        // Send the request
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        ImportOceanEcsClusterApiResponse clusterApiResponse = getCastedResponse(response, ImportOceanEcsClusterApiResponse.class);
+
+        if (clusterApiResponse.getResponse().getCount() > 0) {
+            retVal = clusterApiResponse.getResponse().getItems().get(0);
         }
 
         return retVal;

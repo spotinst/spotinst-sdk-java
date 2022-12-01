@@ -28,4 +28,5 @@ interface IRepository<S, F, I> {
     default RepoGenericResponse<Boolean> delete(I identifier, String authToken, String account) {
         throw new SpotinstNotSupportedException();
     }
+
 }

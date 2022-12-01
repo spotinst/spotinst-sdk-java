@@ -440,8 +440,16 @@ public class ElastigroupConverter {
                 retVal.setEbsOptimized(launchSpecification.getEbsOptimized());
             }
 
-            if (launchSpecification.isImageIdSet()) {
+            if (launchSpecification.isImageIdSet() && launchSpecification.getImageId() != null) {
                 retVal.setImageId(launchSpecification.getImageId());
+            }
+
+            if (launchSpecification.isImagesSet()) {
+                if (launchSpecification.getImages() != null) {
+                    List<ApiImages> images = launchSpecification.getImages().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setImages(images);
+                }
             }
 
             if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
@@ -599,6 +607,19 @@ public class ElastigroupConverter {
             }
             if (resourceTagSpecification.isAmiSet()) {
                 retVal.setAmis(toDal(resourceTagSpecification.getAmis()));
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiImages toDal(Images images) {
+        ApiImages retVal = null;
+
+        if (images != null) {
+            retVal = new ApiImages();
+
+            if (images.isIdSet()) {
+                retVal.setId(images.getId());
             }
         }
         return retVal;
@@ -1536,6 +1557,28 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ApiElastigroupEcsInitiateRoll toDal(ElastigroupEcsInitiateRoll initiateRollRequest) {
+        ApiElastigroupEcsInitiateRoll retval = null;
+
+        if (initiateRollRequest != null) {
+            retval = new ApiElastigroupEcsInitiateRoll();
+
+            if (initiateRollRequest.isBatchSizePercentageSet()) {
+                retval.setBatchSizePercentage(initiateRollRequest.getBatchSizePercentage());
+            }
+
+            if (initiateRollRequest.isCommentSet()) {
+                retval.setComment(initiateRollRequest.getComment());
+            }
+
+            if (initiateRollRequest.isBatchMinHealthyPercentageSet()) {
+                retval.setBatchMinHealthyPercentage(initiateRollRequest.getBatchMinHealthyPercentage());
+            }
+        }
+
+        return retval;
+    }
+
     //endregion
 
     //region DAL -> BL
@@ -2050,8 +2093,16 @@ public class ElastigroupConverter {
                 retValBuilder.setEbsOptimized(launchSpecification.getEbsOptimized());
             }
 
-            if (launchSpecification.isImageIdSet()) {
+            if (launchSpecification.isImageIdSet() && launchSpecification.getImageId() != null) {
                 retValBuilder.setImageId(launchSpecification.getImageId());
+            }
+
+            if (launchSpecification.isImagesSet()) {
+                if (launchSpecification.getImages() != null) {
+                    List<Images> images = launchSpecification.getImages().stream().map(ElastigroupConverter::toBl)
+                            .collect(Collectors.toList());
+                    retValBuilder.setImages(images);
+                }
             }
 
             if (launchSpecification.isHealthCheckUnhealthyDurationBeforeReplacementSet()) {
@@ -2380,6 +2431,23 @@ public class ElastigroupConverter {
             if (blockDevice.isEbsSet()) {
                 retValBuilder.setEbsDevice(toBl(blockDevice.getEbs()));
             }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static Images toBl(ApiImages apiImages) {
+        Images retVal = null;
+
+        if (apiImages != null) {
+
+            Images.Builder retValBuilder = Images.Builder.get();
+
+            if (apiImages.isIdSet()) {
+                retValBuilder.setId(apiImages.getId());
+            }
+
             retVal = retValBuilder.build();
         }
 
@@ -3049,8 +3117,8 @@ public class ElastigroupConverter {
                 retVal.setCurrentBatch(elastigroupGetDeploymentStatusResponse.getCurrentBatch());
             }
 
-            if (elastigroupGetDeploymentStatusResponse.isNumOfBatchesSet()) {
-                retVal.setNumOfBatches(elastigroupGetDeploymentStatusResponse.getNumOfBatches());
+            if (elastigroupGetDeploymentStatusResponse.isNumberOfBatchesSet()) {
+                retVal.setNumberOfBatches(elastigroupGetDeploymentStatusResponse.getNumberOfBatches());
             }
 
             if (elastigroupGetDeploymentStatusResponse.isGracePeriodSet()) {
@@ -3246,6 +3314,144 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    public static ElastigroupEcsInitiateRollResponseOldInstances toBl(ApiElastigroupEcsInitiateRollResponseOldInstances oldInstances) {
+        ElastigroupEcsInitiateRollResponseOldInstances retVal = null;
+
+        if (oldInstances != null) {
+            ElastigroupEcsInitiateRollResponseOldInstances.Builder instancesBuilder = ElastigroupEcsInitiateRollResponseOldInstances.Builder.get();
+
+            if (oldInstances.isInstanceIdSet()) {
+                instancesBuilder.setInstanceId(oldInstances.getInstanceId());
+            }
+
+            if (oldInstances.isStatusSet()) {
+                instancesBuilder.setStatus(oldInstances.getStatus());
+            }
+
+            retVal = instancesBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupEcsInitiateRollDetailedStatus toBl(ApiElastigroupEcsInitiateRollDetailedStatus detailedStatus) {
+        ElastigroupEcsInitiateRollDetailedStatus retVal = null;
+
+        if (detailedStatus != null) {
+            ElastigroupEcsInitiateRollDetailedStatus.Builder detailedStatusBuilder = ElastigroupEcsInitiateRollDetailedStatus.Builder.get();
+
+            if (detailedStatus.isOldInstancesSet()) {
+
+                List<ElastigroupEcsInitiateRollResponseOldInstances> instancesList =
+                        detailedStatus.getOldInstances().stream().map(ElastigroupConverter::toBl)
+                                .collect(Collectors.toList());
+                detailedStatusBuilder.setOldInstances(instancesList);
+            }
+
+            retVal = detailedStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupEcsInitiateRollProgress toBl(ApiElastigroupEcsInitiateRollProgress progress) {
+        ElastigroupEcsInitiateRollProgress retVal = null;
+
+        if (progress != null) {
+            ElastigroupEcsInitiateRollProgress.Builder progressBuilder = ElastigroupEcsInitiateRollProgress.Builder.get();
+
+            if (progress.isUnitSet()) {
+                progressBuilder.setUnit(progress.getUnit());
+            }
+
+            if (progress.isValueSet()) {
+                progressBuilder.setValue(progress.getValue());
+            }
+
+            if (progress.isDetailedStatusSet()) {
+                progressBuilder.setDetailedStatus(toBl(progress.getDetailedStatus()));
+            }
+
+            retVal = progressBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupEcsClusterRollResponse toBl(ApiElastigroupEcsClusterRollResponse initiateRollResponse) {
+        ElastigroupEcsClusterRollResponse retVal = null;
+
+        if (initiateRollResponse != null) {
+            ElastigroupEcsClusterRollResponse.Builder responseBuilder = ElastigroupEcsClusterRollResponse.Builder.get();
+
+            if (initiateRollResponse.isIdSet()) {
+                responseBuilder.setId(initiateRollResponse.getId());
+            }
+
+            if (initiateRollResponse.isStatusSet()) {
+                responseBuilder.setStatus(initiateRollResponse.getStatus());
+            }
+
+            if (initiateRollResponse.isCurrentBatchSet()) {
+                responseBuilder.setCurrentBatch(initiateRollResponse.getCurrentBatch());
+            }
+
+            if (initiateRollResponse.isNumOfBatchesSet()) {
+                responseBuilder.setNumOfBatches(initiateRollResponse.getNumOfBatches());
+            }
+
+            if (initiateRollResponse.isCommentSet()) {
+                responseBuilder.setComment(initiateRollResponse.getComment());
+            }
+
+            if (initiateRollResponse.isProgressSet()) {
+                responseBuilder.setProgress(toBl(initiateRollResponse.getProgress()));
+            }
+
+            if (initiateRollResponse.isGroupIdSet()) {
+                responseBuilder.setGroupId(initiateRollResponse.getGroupId());
+            }
+
+            if (initiateRollResponse.isScopeSet()) {
+                responseBuilder.setScope(initiateRollResponse.getScope());
+            }
+
+            if (initiateRollResponse.isBatchMinHealthyPercentageSet()) {
+                responseBuilder.setBatchMinHealthyPercentage(initiateRollResponse.getBatchMinHealthyPercentage());
+            }
+
+            if (initiateRollResponse.isCreatedAtSet()) {
+                responseBuilder.setCreatedAt(initiateRollResponse.getCreatedAt());
+            }
+
+            if (initiateRollResponse.isUpdatedAtSet()) {
+                responseBuilder.setUpdatedAt(initiateRollResponse.getUpdatedAt());
+            }
+            retVal = responseBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static ElastigroupGetInstanceStatusResponse toBl(
+            ApiElastigroupGetInstanceStatusResponse elastigroupGetInstanceStatusResponse) {
+        ElastigroupGetInstanceStatusResponse retVal = null;
+
+        if (elastigroupGetInstanceStatusResponse != null) {
+            retVal = new ElastigroupGetInstanceStatusResponse();
+
+            if (elastigroupGetInstanceStatusResponse.isInstanceIdSet()) {
+                retVal.setInstanceId(elastigroupGetInstanceStatusResponse.getInstanceId());
+            }
+
+            if (elastigroupGetInstanceStatusResponse.isLifeCycleStateSet()) {
+                retVal.setLifeCycleState(elastigroupGetInstanceStatusResponse.getLifeCycleState());
+            }
+
+        }
+        return retVal;
+    }
+
     public static ApiElastigroupCodeDeployBGDeployment toDal(ElastigroupCodeDeployBGDeployment codeDeployBGDeployment) {
         ApiElastigroupCodeDeployBGDeployment retVal = null;
 
@@ -3332,5 +3538,4 @@ public class ElastigroupConverter {
         }
         return retVal;
     }
-
 }

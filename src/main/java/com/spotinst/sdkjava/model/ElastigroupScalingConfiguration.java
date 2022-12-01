@@ -83,9 +83,9 @@ public class ElastigroupScalingConfiguration {
 
         ElastigroupScalingConfiguration elastigroupScalingConfiguration = (ElastigroupScalingConfiguration) o;
 
-        if (up != null ? !up.equals(elastigroupScalingConfiguration.up) : elastigroupScalingConfiguration.up != null) return false;
-        if (down != null ? !down.equals(elastigroupScalingConfiguration.down) : elastigroupScalingConfiguration.down != null) return false;
-        return !(target != null ? !target.equals(elastigroupScalingConfiguration.target) : elastigroupScalingConfiguration.target != null);
+        if (!Objects.equals(up, elastigroupScalingConfiguration.up)) return false;
+        if (!Objects.equals(down, elastigroupScalingConfiguration.down)) return false;
+        return !(!Objects.equals(target, elastigroupScalingConfiguration.target));
 
     }
 

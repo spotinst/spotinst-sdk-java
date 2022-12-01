@@ -11,7 +11,7 @@ public enum ScalingPredictiveModeEnum {
     private static final Logger LOGGER = LoggerFactory.getLogger(ScalingPredictiveModeEnum.class);
     private final String name;
 
-    private ScalingPredictiveModeEnum(String name) {
+    ScalingPredictiveModeEnum(String name) {
         this.name = name;
     }
 

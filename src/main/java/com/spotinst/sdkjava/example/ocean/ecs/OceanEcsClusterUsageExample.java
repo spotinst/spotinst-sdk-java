@@ -2,9 +2,12 @@ package com.spotinst.sdkjava.example.ocean.ecs;
 
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.client.rest.JsonMapper;
+import com.spotinst.sdkjava.enums.k8sClusterRollStatusEnum;
 import com.spotinst.sdkjava.model.SpotOceanEcsClusterClient;
 import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterRequest;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,6 +52,29 @@ public class OceanEcsClusterUsageExample {
 
         System.out.println("----------Delete ocean ecs cluster--------------");
         deleteCluster(clusterClient, clusterId);
+
+        //Initiate Roll
+        System.out.println("----------Initiate Roll--------------");
+        EcsClusterRollResponse initiateRollResponse = initiateClusterRoll(clusterClient, "cluster-id", 25, "comment", true, 100);
+
+        //Get cluster Roll
+        System.out.println("----------Get cluster Roll--------------");
+        EcsClusterRollResponse getClusterRollStatus = getClusterRollStatus (clusterClient, "cluster-id", "rollId");
+
+        //List cluster Rolls
+        System.out.println("----------List cluster Rolls--------------");
+        List<EcsClusterRollResponse> listClusterRolls = getAllClusterRolls(clusterClient, "cluster-id");
+
+        //Update cluster Roll
+        System.out.println("----------Update cluster Roll--------------");
+        EcsClusterRollResponse updateRollResponse = updateClusterRoll(clusterClient, "cluster-id", "roll-id", "STOPPED");
+
+        //Get cluster container instances
+        System.out.println("----------Get cluster container instances--------------");
+        List<GetEcsClusterNodesResponse> nodes = getClusterContainerInstances(clusterClient, "cluster-id");
+
+        System.out.println("----------Import ocean ecs cluster--------------");
+        ImportOceanEcsClusterObjectResponse importOceanEcsClusterResponse = importEcsCluster(clusterClient, "cluster-name");
 
    }
 
@@ -358,5 +384,84 @@ public class OceanEcsClusterUsageExample {
             System.out.println("Cluster successfully deleted: " + clusterId);
         }
     }
+
+    private static EcsClusterRollResponse initiateClusterRoll(SpotOceanEcsClusterClient client, String clusterId, Integer batchSizePercentage, String comment, Boolean respectPdb, Integer batchMinHealthyPercentage) {
+
+        EcsInitiateRoll.Builder initiateRollBuilder = EcsInitiateRoll.Builder.get();
+        EcsInitiateRoll initiateRoll = initiateRollBuilder.setBatchSizePercentage(batchSizePercentage).setComment(comment).setBatchMinHealthyPercentage(batchMinHealthyPercentage).build();
+
+        System.out.println(String.format("Initiate cluster Roll: %s", clusterId));
+        EcsClusterRollResponse rollResponse = client.initiateRoll(initiateRoll, clusterId);
+
+        String rollId = rollResponse.getId();
+
+        return rollResponse;
+    }
+
+    private static EcsClusterRollResponse getClusterRollStatus (SpotOceanEcsClusterClient client, String clusterId, String rollId) {
+
+        System.out.println(String.format("Get cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        EcsClusterRollResponse getRollResponse = client.getRoll(clusterId, rollId);
+
+        k8sClusterRollStatusEnum rollStatus = getRollResponse.getStatus();
+
+        return getRollResponse;
+    }
+
+    private static List<EcsClusterRollResponse> getAllClusterRolls(SpotOceanEcsClusterClient client, String clusterId) {
+
+        System.out.println(String.format("Get all cluster Rolls. ClusterId: %s", clusterId));
+        List<EcsClusterRollResponse> getAllRolls = client.listRolls(clusterId);
+
+        for (EcsClusterRollResponse roll : getAllRolls){
+            System.out.println(String.format("RollId: %s", roll.getId()));
+            System.out.println(String.format("RollId: %s", roll.getStatus()));
+        }
+        return getAllRolls;
+    }
+
+    private static EcsClusterRollResponse updateClusterRoll(SpotOceanEcsClusterClient client, String clusterId, String rollId, String status) {
+
+        OceanEcsUpdateRollRequest.Builder updateRollBuilder = OceanEcsUpdateRollRequest.Builder.get();
+        OceanEcsUpdateRollRequest updateRoll = updateRollBuilder.setStatus(status).build();
+
+        System.out.println(String.format("Update Cluster Roll. ClusterId: %s, RollId: %s", clusterId, rollId));
+        EcsClusterRollResponse response = client.updateRoll(updateRoll, clusterId, rollId);
+
+        System.out.println(String.format("RollStatus: %s", response.getStatus()));
+
+        return response;
+    }
+
+    private static List<GetEcsClusterNodesResponse> getClusterContainerInstances(SpotOceanEcsClusterClient client, String clusterId) {
+        System.out.println("-------------------------Get cluster Nodes------------------------");
+
+        GetEcsClusterNodesRequest.Builder getNodesBuilder = GetEcsClusterNodesRequest.Builder.get();
+        GetEcsClusterNodesRequest getNodesRequest = getNodesBuilder.setAccountId(act_id).build();
+
+        // Fetch the nodes
+        List<GetEcsClusterNodesResponse>  nodes = client.getClusterContainerInstances(getNodesRequest, clusterId);
+
+        for (GetEcsClusterNodesResponse node : nodes){
+            System.out.println(String.format("InstanceId: %s", node.getInstanceId()));
+            System.out.println(String.format("InstanceType: %s", node.getInstanceType()));
+            System.out.println(String.format("LaunchSpecId: %s", node.getLaunchSpecId()));
+            System.out.println(String.format("LaunchSpecName: %s", node.getLaunchSpecName()));
+            System.out.println(String.format("NodeName: %s", node.getContainerInstanceId()));
+        }
+
+        return nodes;
+    }
+
+    private static ImportOceanEcsClusterObjectResponse importEcsCluster(SpotOceanEcsClusterClient client, String ecsClusterName) {
+
+        ImportEcsCluster.Builder importEcsClusterBuilder = ImportEcsCluster.Builder.get();
+        ImportEcsCluster importEcsCluster = importEcsClusterBuilder.setName("ECS_Import").setRegion("us-west2").build();
+
+        System.out.println(String.format("Import ECS Cluster. ClusterName: %s", ecsClusterName));
+
+        return client.importEcsCluster(importEcsCluster, ecsClusterName);
+    }
+
 
 }

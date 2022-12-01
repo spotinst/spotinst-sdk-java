@@ -2,11 +2,12 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.ClusterLaunchSpecification;
-import com.spotinst.sdkjava.model.bl.ocean.ecs.OceanEcsCluster;
+import com.spotinst.sdkjava.model.bl.ocean.ecs.*;
+import com.spotinst.sdkjava.model.requests.ocean.ecs.GetEcsClusterNodesRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterLaunchSpecRequest;
 import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsClusterRequest;
 
+import com.spotinst.sdkjava.model.requests.ocean.ecs.OceanEcsUpdateRollRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -243,6 +244,119 @@ public class SpotOceanEcsClusterClient {
             LOGGER.error(
                     String.format("Error encountered while attempting to get ocean cluster. Code: %s. Message: %s.",
                                   httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public EcsClusterRollResponse initiateRoll(EcsInitiateRoll initiateRollRequest, String clusterId) {
+        EcsClusterRollResponse retVal;
+        RepoGenericResponse<EcsClusterRollResponse> initiateRollResponse = getSpotOceanEcsClusterRepo().initiateRoll(initiateRollRequest, clusterId, authToken, account);
+
+        if (initiateRollResponse.isRequestSucceed()) {
+            retVal = initiateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = initiateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to Initiate Roll. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<EcsClusterRollResponse> listRolls(String clusterId) {
+        List<EcsClusterRollResponse> retVal;
+        RepoGenericResponse<List<EcsClusterRollResponse>> listRollsResponse = getSpotOceanEcsClusterRepo().listRolls(clusterId, authToken, account);
+
+        if (listRollsResponse.isRequestSucceed()) {
+            retVal = listRollsResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listRollsResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to list all the Rolls in the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public EcsClusterRollResponse getRoll(String clusterId, String rollId) {
+        EcsClusterRollResponse retVal;
+        RepoGenericResponse<EcsClusterRollResponse> getRollResponse = getSpotOceanEcsClusterRepo().getRoll(clusterId, rollId,  authToken, account);
+
+        if (getRollResponse.isRequestSucceed()) {
+            retVal = getRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the requested Roll details for the cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public EcsClusterRollResponse updateRoll(OceanEcsUpdateRollRequest updateRollRequest, String clusterId, String rollId) {
+        EcsClusterRollResponse retVal;
+        RepoGenericResponse<EcsClusterRollResponse> updateRollResponse = getSpotOceanEcsClusterRepo().updateRoll(updateRollRequest, clusterId, rollId, authToken, account);
+
+        if (updateRollResponse.isRequestSucceed()) {
+            retVal = updateRollResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateRollResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update the roll status to Stopped. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<GetEcsClusterNodesResponse> getClusterContainerInstances(GetEcsClusterNodesRequest getNodesRequest, String clusterId) {
+        List<GetEcsClusterNodesResponse> retVal;
+        RepoGenericResponse<List<GetEcsClusterNodesResponse>> getNodesResponse = getSpotOceanEcsClusterRepo().getClusterContainerInstances(getNodesRequest, clusterId, authToken);
+
+        if (getNodesResponse.isRequestSucceed()) {
+            retVal = getNodesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = getNodesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the cluster container instances. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public ImportOceanEcsClusterObjectResponse importEcsCluster(ImportEcsCluster importEcsCluster, String ecsClusterName) {
+        ImportOceanEcsClusterObjectResponse retVal;
+        RepoGenericResponse<ImportOceanEcsClusterObjectResponse> importEcsClusterResponse = getSpotOceanEcsClusterRepo().importEcsCluster(importEcsCluster, ecsClusterName, authToken, account);
+
+        if (importEcsClusterResponse.isRequestSucceed()) {
+            retVal = importEcsClusterResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importEcsClusterResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to import ECS cluster. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
 

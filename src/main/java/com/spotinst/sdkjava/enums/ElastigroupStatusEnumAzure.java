@@ -13,7 +13,7 @@ public enum ElastigroupStatusEnumAzure {
         private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupStatusEnumAzure.class);
         private String name;
 
-        private ElastigroupStatusEnumAzure(String name) {
+        ElastigroupStatusEnumAzure(String name) {
             this.name = name;
         }
 

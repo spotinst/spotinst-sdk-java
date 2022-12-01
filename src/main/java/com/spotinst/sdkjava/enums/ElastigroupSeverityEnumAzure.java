@@ -14,7 +14,7 @@ public enum ElastigroupSeverityEnumAzure {
     private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupSeverityEnumAzure.class);
     private String name;
 
-    private ElastigroupSeverityEnumAzure(String name) {
+    ElastigroupSeverityEnumAzure(String name) {
         this.name = name;
     }
 

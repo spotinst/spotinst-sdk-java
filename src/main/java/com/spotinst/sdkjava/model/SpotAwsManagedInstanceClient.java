@@ -2,9 +2,9 @@ package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,11 +126,11 @@ public class SpotAwsManagedInstanceClient {
         return retVal;
     }
 
-    public List<ManagedInstance> getAllManagedInstances() {
-        List<ManagedInstance> retVal;
+    public List<GetAllManagedInstancesResponse> getAllManagedInstances() {
+        List<GetAllManagedInstancesResponse> retVal;
 
-        RepoGenericResponse<List<ManagedInstance>> getAllResponse =
-                getSpotManagedInstanceRepo().getAll(null, authToken, account);
+        RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllResponse =
+                getSpotManagedInstanceRepo().getAllManagedInstances(authToken, account);
 
         if (getAllResponse.isRequestSucceed()) {
             retVal = getAllResponse.getValue();
@@ -230,4 +230,49 @@ public class SpotAwsManagedInstanceClient {
 
         return status;
     }
+
+    public ImportResponse importManagedInstance(AwsManagedInstanceImportRequest managedInstanceImportRequest) {
+        ImportResponse isImported;
+
+        Import managedInstanceToImport = managedInstanceImportRequest.getImportInstance();
+
+        RepoGenericResponse<ImportResponse>importResponse =
+                getSpotManagedInstanceRepo().importInstance(managedInstanceToImport, authToken, account);
+
+        if (importResponse.isRequestSucceed()) {
+            isImported = importResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = importResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to import AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isImported;
+    }
+
+    public GetMigrationStatus getManagedInstanceMigrationStatus(String managedInstanceId) {
+        GetMigrationStatus migrationStatus;
+
+        RepoGenericResponse<GetMigrationStatus> statusResponse =
+                getSpotManagedInstanceRepo().getMigrationStatus(managedInstanceId, authToken, account);
+
+        if (statusResponse.isRequestSucceed()) {
+            migrationStatus = statusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the migration status of AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return migrationStatus;
+    }
+
 }

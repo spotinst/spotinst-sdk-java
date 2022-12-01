@@ -4,10 +4,8 @@ import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.ISpotAwsManagedInstanceRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiGetStatus;
-import com.spotinst.sdkjava.model.api.aws.managedInstance.ApiManagedInstance;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.GetStatus;
-import com.spotinst.sdkjava.model.bl.aws.managedInstance.ManagedInstance;
+import com.spotinst.sdkjava.model.api.aws.managedInstance.*;
+import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.converters.aws.managedInstance.AwsManagedInstanceConverter;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.service.aws.managedInstance.AwsManagedInstanceService;
@@ -73,13 +71,13 @@ public class SpotAwsManagedInstanceRepo implements ISpotAwsManagedInstanceRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<ManagedInstance>> getAll(Void filter, String authToken, String account) {
-        RepoGenericResponse<List<ManagedInstance>> retVal;
+    public RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllManagedInstances(String authToken, String account) {
+        RepoGenericResponse<List<GetAllManagedInstancesResponse>> retVal;
 
         try {
-            List<ApiManagedInstance> apigetAllManagedInstance =
+            List<APIGetAllManagedInstancesResponse> apigetAllManagedInstance =
                     AwsManagedInstanceService.getAllManagedInstances(authToken, account);
-            List<ManagedInstance> allManagedInstance =
+            List<GetAllManagedInstancesResponse> allManagedInstance =
                     apigetAllManagedInstance.stream().map(AwsManagedInstanceConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(allManagedInstance);
         }
@@ -171,4 +169,44 @@ public class SpotAwsManagedInstanceRepo implements ISpotAwsManagedInstanceRepo {
 
         return status;
     }
+
+    @Override
+    public RepoGenericResponse<ImportResponse> importInstance(Import managedInstanceToImport,
+                                                              String authToken, String account) {
+
+        RepoGenericResponse<ImportResponse> importResponse;
+
+        try {
+            ApiImport apiManagedInstaneToImport = AwsManagedInstanceConverter.toDal(managedInstanceToImport);
+            ApiImportResponse apiImportedManagedInstance =
+                    AwsManagedInstanceService.importManagedInstance(apiManagedInstaneToImport, authToken, account);
+            ImportResponse importedManagedInstance = AwsManagedInstanceConverter.toBl(apiImportedManagedInstance);
+            importResponse = new RepoGenericResponse<>(importedManagedInstance);
+        }
+        catch (SpotinstHttpException ex) {
+            importResponse = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return importResponse;
+    }
+
+    @Override
+    public RepoGenericResponse<GetMigrationStatus> getMigrationStatus(String migrationId, String authToken, String account) {
+        RepoGenericResponse<GetMigrationStatus> migrationStatus;
+
+        try {
+            ApiGetMigrationStatus apiGetManagedInstanceMigrationStatus = AwsManagedInstanceService
+                    .getManagedInstanceMigrationStatus(migrationId, authToken, account);
+            GetMigrationStatus getManagedInstanceMigrationStatus = AwsManagedInstanceConverter.toBl(apiGetManagedInstanceMigrationStatus);
+            migrationStatus = new RepoGenericResponse<>(getManagedInstanceMigrationStatus);
+        }
+
+        catch (SpotinstHttpException ex) {
+            migrationStatus = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return migrationStatus;
+    }
+
+
 }
