@@ -324,36 +324,4 @@ public class RestClient {
         return retVal;
     }
 
-    public static RestResponse sendGetWithBody(
-            String url,
-            String body,
-            Map<String, String> headers,
-            Map<String, String> queryParams) throws SpotinstHttpException {
-
-        String encodedUrl = UrlEncoder.encode(url);
-        // Build the get request
-        GetRequestWithBody getRequest = new GetRequestWithBody(encodedUrl);
-        // Build the request body
-        if (body != null) {
-            StringEntity entity = null;
-            try {
-                entity = new StringEntity(body);
-            } catch (UnsupportedEncodingException e) {
-
-                // TODO - Handle.
-                LOGGER.error("Exception when building put body", e);
-            }
-            getRequest.setEntity(entity);
-        }
-
-        // Adding query params.
-        addQueryParams(getRequest, queryParams);
-        // Adding headers.
-        addHeaders(getRequest, headers);
-        // Sending the request.
-        RestResponse retVal = sendRequest(getRequest);
-        return retVal;
-    }
-
-
 }
