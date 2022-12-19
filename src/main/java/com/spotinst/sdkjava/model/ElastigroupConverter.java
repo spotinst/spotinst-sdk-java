@@ -3319,8 +3319,8 @@ public class ElastigroupConverter {
                 retVal.setCurrentBatch(elastigroupGetDeploymentStatusResponse.getCurrentBatch());
             }
 
-            if (elastigroupGetDeploymentStatusResponse.isNumOfBatchesSet()) {
-                retVal.setNumOfBatches(elastigroupGetDeploymentStatusResponse.getNumOfBatches());
+            if (elastigroupGetDeploymentStatusResponse.isNumberOfBatchesSet()) {
+                retVal.setNumberOfBatches(elastigroupGetDeploymentStatusResponse.getNumberOfBatches());
             }
 
             if (elastigroupGetDeploymentStatusResponse.isGracePeriodSet()) {
