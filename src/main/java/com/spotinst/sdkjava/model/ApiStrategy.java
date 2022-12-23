@@ -26,6 +26,7 @@ class ApiStrategy implements IPartialUpdateEntity {
     private Boolean             fallbackToOd;
     private ApiGroupPersistence persistence;
     private ApiRevertToSpot     revertToSpot;
+    private Boolean             considerODPricing;
 
     //region Constructor
 
@@ -115,6 +116,16 @@ class ApiStrategy implements IPartialUpdateEntity {
         isSet.add("revertToSpot");
         this.revertToSpot = revertToSpot;
     }
+
+    public Boolean getConsiderODPricing() {
+        return considerODPricing;
+    }
+
+    public void setConsiderODPricing(Boolean considerODPricing) {
+        isSet.add("considerODPricing");
+        this.considerODPricing = considerODPricing;
+    }
+
     //endregion
 
     //region isSet methods
@@ -169,6 +180,12 @@ class ApiStrategy implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isRevertToSpotSet() {
         return isSet.contains("revertToSpot");
+    }
+
+    // Is considerODPricing Set boolean method
+    @JsonIgnore
+    public boolean isConsiderODPricingSet() {
+        return isSet.contains("considerODPricing");
     }
     //endregion
 }

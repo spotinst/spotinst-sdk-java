@@ -998,6 +998,10 @@ public class ElastigroupConverter {
             if (strategy.isRevertToSpotSet()) {
                 retVal.setRevertToSpot(toDal(strategy.getRevertToSpot()));
             }
+
+            if (strategy.isConsiderODPricingSet()) {
+                retVal.setConsiderODPricing(strategy.getConsiderODPricing());
+            }
         }
 
         return retVal;
@@ -2628,6 +2632,10 @@ public class ElastigroupConverter {
 
             if (strategy.isRevertToSpotSet()) {
                 retValBuilder.setRevertToSpot(toBl(strategy.getRevertToSpot()));
+            }
+
+            if (strategy.isConsiderODPricingSet()) {
+                retValBuilder.setConsiderODPricing(strategy.getConsiderODPricing());
             }
 
             retVal = retValBuilder.build();

@@ -21,6 +21,8 @@ public class ElastigroupStrategyConfiguration {
     private ElastigroupOrientationEnum          elastigroupOrientation;
     private ElastigroupPersistenceConfiguration persistence;
     private ElastigroupRevertToSpot             revertToSpot;
+    private Boolean                             considerODPricing;
+
     //endregion
 
     //region Constructor
@@ -110,6 +112,16 @@ public class ElastigroupStrategyConfiguration {
         isSet.add("revertToSpot");
         this.revertToSpot = revertToSpot;
     }
+
+    public Boolean getConsiderODPricing() {
+        return considerODPricing;
+    }
+
+    public void setConsiderODPricing(Boolean considerODPricing) {
+        isSet.add("considerODPricing");
+        this.considerODPricing = considerODPricing;
+    }
+
     //endregion
 
     //region Builder class
@@ -161,6 +173,11 @@ public class ElastigroupStrategyConfiguration {
 
         public Builder setRevertToSpot(final ElastigroupRevertToSpot revertToSpot) {
             strategy.setRevertToSpot(revertToSpot);
+            return this;
+        }
+
+        public Builder setConsiderODPricing(final Boolean considerODPricing) {
+            strategy.setConsiderODPricing(considerODPricing);
             return this;
         }
 
@@ -224,6 +241,12 @@ public class ElastigroupStrategyConfiguration {
     @JsonIgnore
     public boolean isRevertToSpotSet() {
         return isSet.contains("revertToSpot");
+    }
+
+    // Is considerODPricing Set boolean method
+    @JsonIgnore
+    public boolean isConsiderODPricingSet() {
+        return isSet.contains("considerODPricing");
     }
 
     //endregion
