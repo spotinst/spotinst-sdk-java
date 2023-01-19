@@ -454,4 +454,125 @@ public class AwsManagedInstanceService extends BaseSpotinstService {
 
         return getMigrationStatus;
     }
+
+    public static ApiGetInstanceCost getManagedInstanceCosts(String managedInstanceId, String fromDate, String toDate, String authToken,
+                                                                          String account) throws SpotinstHttpException {
+        // Init status
+        ApiGetInstanceCost getInstanceCosts = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Add fromDate Query param
+        if (fromDate != null) {
+            queryParams.put("fromDate", fromDate);
+        }
+
+        // Add toDate Query param
+        if (toDate != null) {
+            queryParams.put("toDate", toDate);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/%s/costs", apiEndpoint, managedInstanceId);
+
+        // Send the request
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        AwsManagedInstanceGetInstanceCostsApiRespponse managedInstanceStatusResponse =
+                getCastedResponse(response, AwsManagedInstanceGetInstanceCostsApiRespponse.class);
+
+        if (managedInstanceStatusResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            getInstanceCosts = managedInstanceStatusResponse.getResponse().getItems().get(0);
+        }
+
+        return getInstanceCosts;
+    }
+
+    public static Boolean deleteManagedInstanceVolume(String managedInstanceId, String volumeId, String authToken,
+                                                              String account) throws SpotinstHttpException {
+        // Init status
+        Boolean isDeleteVolume = null;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/%s/volume/%s", apiEndpoint, managedInstanceId, volumeId);
+
+        // Send the request
+        RestResponse response = RestClient.sendDelete(uri, null, headers, queryParams);
+
+        // Handle the response.
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            isDeleteVolume = true;
+        }
+
+        return isDeleteVolume;
+    }
+
+    public static Boolean updateManagedInstanceStates(String managedInstanceId, ApiManagedInstanceUpdate managedInstanceToUpdate,
+                                                String authToken, String account) throws SpotinstHttpException {
+        // Init isUpdated
+        Boolean isStateUpdated = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Write to json
+        Map<String, ApiManagedInstanceUpdate> managedInstanceUpdateRequest = new HashMap<>();
+        managedInstanceUpdateRequest.put("managedInstanceUpdate", managedInstanceToUpdate);
+        String body = JsonMapper.toJson(managedInstanceUpdateRequest);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/managedInstance/state", apiEndpoint);
+
+        // Send the request
+        RestResponse response = RestClient.sendPut(uri, body, headers, queryParams);
+
+        // Handle the response.
+        AwsManagedInstanceApiResponse managedInstanceUpdateResponse =
+                getCastedResponse(response, AwsManagedInstanceApiResponse.class);
+
+        if (managedInstanceUpdateResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            isStateUpdated = true;
+        }
+
+        return isStateUpdated;
+    }
 }

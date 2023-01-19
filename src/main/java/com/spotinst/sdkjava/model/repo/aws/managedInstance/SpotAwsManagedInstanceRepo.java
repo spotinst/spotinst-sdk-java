@@ -208,5 +208,57 @@ public class SpotAwsManagedInstanceRepo implements ISpotAwsManagedInstanceRepo {
         return migrationStatus;
     }
 
+    @Override
+    public RepoGenericResponse<GetInstanceCost> getInstanceCosts(String migrationId, String fromDate, String toDate, String authToken, String account) {
+        RepoGenericResponse<GetInstanceCost> instanceCosts;
+
+        try {
+            ApiGetInstanceCost apiGetInstanceCosts = AwsManagedInstanceService
+                    .getManagedInstanceCosts(migrationId, fromDate, toDate, authToken, account);
+            GetInstanceCost getManagedInstanceCosts = AwsManagedInstanceConverter.toBl(apiGetInstanceCosts);
+            instanceCosts = new RepoGenericResponse<>(getManagedInstanceCosts);
+        }
+
+        catch (SpotinstHttpException ex) {
+            instanceCosts = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return instanceCosts;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> deleteManagedInstanceVolume(String managedInstanceId, String volumeId,
+                                                                    String authToken, String account) {
+        RepoGenericResponse<Boolean> deleteVolume;
+
+        try {
+            Boolean isDeleteMIVolume = AwsManagedInstanceService
+                    .deleteManagedInstanceVolume(managedInstanceId, volumeId, authToken, account);
+            deleteVolume = new RepoGenericResponse<>(isDeleteMIVolume);
+        }
+        catch (SpotinstHttpException ex) {
+            deleteVolume = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return deleteVolume;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateState(String identifier, ManagedInstanceUpdate managedInstanceToUpdate,
+                                               String authToken, String account) {
+        RepoGenericResponse<Boolean> update;
+
+        try {
+            ApiManagedInstanceUpdate apiManagedInstanceToUpdate = AwsManagedInstanceConverter.toDal(managedInstanceToUpdate);
+            Boolean isManagedInstanceUpdated = AwsManagedInstanceService
+                    .updateManagedInstanceStates(identifier, apiManagedInstanceToUpdate, authToken, account);
+            update = new RepoGenericResponse<>(isManagedInstanceUpdated);
+        }
+        catch (SpotinstHttpException ex) {
+            update = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return update;
+    }
 
 }

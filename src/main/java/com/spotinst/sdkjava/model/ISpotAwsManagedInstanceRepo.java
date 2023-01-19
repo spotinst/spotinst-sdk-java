@@ -39,4 +39,12 @@ public interface ISpotAwsManagedInstanceRepo extends IRepository<ManagedInstance
     default RepoGenericResponse<List<GetAllManagedInstancesResponse>> getAllManagedInstances(String authToken, String account){
         throw new SpotinstNotSupportedException();
     }
+
+    RepoGenericResponse<GetInstanceCost> getInstanceCosts(String migrationId, String fromDate, String toDate, String authToken, String account);
+
+    RepoGenericResponse<Boolean> deleteManagedInstanceVolume(String managedInstanceId, String volumeId,
+                                                             String authToken, String account);
+
+    RepoGenericResponse<Boolean> updateState(String identifier, ManagedInstanceUpdate managedInstanceToUpdate,
+                                             String authToken, String account);
 }

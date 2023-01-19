@@ -67,6 +67,22 @@ public class AwsManagedInstanceConverter {
         return retVal;
     }
 
+    public static ApiManagedInstanceUpdate toDal(ManagedInstanceUpdate managedInstanceUpdate) {
+        ApiManagedInstanceUpdate retVal = null;
+
+        if (managedInstanceUpdate != null) {
+            retVal = new ApiManagedInstanceUpdate();
+
+            if (managedInstanceUpdate.isManagedInstanceIdSet()) {
+                retVal.setManagedInstanceId(managedInstanceUpdate.getManagedInstanceId());
+            }
+
+            if (managedInstanceUpdate.isStateSet()) {
+                retVal.setState(managedInstanceUpdate.getState());
+            }
+        }
+        return retVal;
+    }
 
     public static ApiImport toDal(Import importManagedInstance) {
         ApiImport retVal = null;
@@ -1690,6 +1706,30 @@ public class AwsManagedInstanceConverter {
 
             if (getMigrationStatus.isStateDescriptionSet()) {
                 getStatusBuilder.setStateDescription(getMigrationStatus.getStateDescription());
+            }
+
+            retVal = getStatusBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    public static GetInstanceCost toBl(ApiGetInstanceCost getInstanceCosts) {
+        GetInstanceCost retVal = null;
+
+        if (getInstanceCosts != null) {
+            GetInstanceCost.Builder getStatusBuilder = GetInstanceCost.Builder.get();
+
+            if (getInstanceCosts.isCostsSet()) {
+                getStatusBuilder.setCosts(getInstanceCosts.getCosts());
+            }
+
+            if (getInstanceCosts.isRunningSet()) {
+                getStatusBuilder.setRunning(getInstanceCosts.getRunning());
+            }
+
+            if (getInstanceCosts.isSavingsSet()) {
+                getStatusBuilder.setSavings(getInstanceCosts.getSavings());
             }
 
             retVal = getStatusBuilder.build();

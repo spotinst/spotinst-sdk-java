@@ -6,6 +6,7 @@ import com.spotinst.sdkjava.model.bl.aws.managedInstance.*;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceDeletionRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceImportRequest;
 import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceRequest;
+import com.spotinst.sdkjava.model.requests.aws.managedInstance.AwsManagedInstanceUpdateRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -273,6 +274,70 @@ public class SpotAwsManagedInstanceClient {
         }
 
         return migrationStatus;
+    }
+
+    public GetInstanceCost getManagedInstanceCosts(String managedInstanceId, String fromDate, String toDate) {
+        GetInstanceCost instanceCost;
+
+        RepoGenericResponse<GetInstanceCost> statusResponse =
+                getSpotManagedInstanceRepo().getInstanceCosts(managedInstanceId, fromDate, toDate, authToken, account);
+
+        if (statusResponse.isRequestSucceed()) {
+            instanceCost = statusResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = statusResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to get the instance costs of AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return instanceCost;
+    }
+
+    public Boolean deleteManagedInstanceVolume(String managedInstanceId, String volumeId) {
+        Boolean deleteVolume;
+        RepoGenericResponse<Boolean> deleteVolumeResponse =
+                getSpotManagedInstanceRepo().deleteManagedInstanceVolume(managedInstanceId, volumeId, authToken, account);
+
+        if (deleteVolumeResponse.isRequestSucceed()) {
+            deleteVolume = deleteVolumeResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = deleteVolumeResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to delete AWS Managed Instance Volume. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return deleteVolume;
+    }
+
+    public Boolean updateManagedInstanceStates(AwsManagedInstanceUpdateRequest managedInstanceUpdateRequest, String managedInstanceId) {
+        Boolean isUpdated;
+
+        ManagedInstanceUpdate managedInstanceToUpdate = managedInstanceUpdateRequest.getManagedInstanceUpdate();
+
+        RepoGenericResponse<Boolean> updateStateResponse =
+                getSpotManagedInstanceRepo().updateState(managedInstanceId, managedInstanceToUpdate, authToken, account);
+
+        if (updateStateResponse.isRequestSucceed()) {
+            isUpdated = updateStateResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = updateStateResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format(
+                    "Error encountered while attempting to update AWS Managed Instance. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return isUpdated;
     }
 
 }
