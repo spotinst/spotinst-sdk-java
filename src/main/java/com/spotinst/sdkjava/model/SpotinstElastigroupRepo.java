@@ -1018,7 +1018,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -1032,6 +1031,24 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean amiBackupResponse = SpotinstElastigroupService
+                    .amiBackup(elastigroupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(amiBackupResponse);
+        }
+
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
         }
 
         return retVal;
