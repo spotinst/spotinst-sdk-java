@@ -6,12 +6,18 @@ import com.spotinst.sdkjava.model.ISpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccount;
+import com.spotinst.sdkjava.model.api.admin.account.ApiUsers;
+import com.spotinst.sdkjava.model.api.admin.account.ApiUsersPermissions;
+import com.spotinst.sdkjava.model.bl.admin.account.Users;
+import com.spotinst.sdkjava.model.bl.admin.account.UsersPermissions;
 import com.spotinst.sdkjava.model.converters.admin.account.AccountConverter;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.UpdateUsersPermissionsRequest;
 import com.spotinst.sdkjava.model.service.admin.account.SpotAccountAdminService;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,4 +96,50 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
         return retVal;
     }
 
+    @Override
+    public RepoGenericResponse<List<Users>> getUsers(String authToken, String accountId) {
+        RepoGenericResponse<List<Users>> retVal;
+
+        try {
+            List<ApiUsers> apiUsersList = SpotAccountAdminService.listUsers(accountId, authToken);
+            List<Users> usersList = apiUsersList.stream().map(AccountConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(usersList);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> updateUsersPermission(String authToken, UpdateUsersPermissionsRequest request, String accountId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean updatePermissions = SpotAccountAdminService.updatePermissions(authToken, request, accountId);
+            retVal = new RepoGenericResponse<>(updatePermissions);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<UsersPermissions>> getUserPermissions(String authToken, String accountId) {
+        RepoGenericResponse<List<UsersPermissions>> retVal;
+
+        try {
+            List<ApiUsersPermissions> apiUsersPermissions = SpotAccountAdminService.apiUsersPermissions(accountId, authToken);
+            List<UsersPermissions> userPermissions = apiUsersPermissions.stream().map(AccountConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(userPermissions);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
 }

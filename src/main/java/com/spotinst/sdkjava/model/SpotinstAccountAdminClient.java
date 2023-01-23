@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.model.bl.admin.account.*;
 import com.spotinst.sdkjava.model.requests.admin.account.AccountDeleteRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.ListAllAccountsRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.UpdateUsersPermissionsRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,5 +157,71 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    //endregion
+    public List<Users> getUsers(String accountId) {
+
+        List<Users> retVal;
+
+        RepoGenericResponse<List<Users>> listAccountResponse =
+                getSpotAccountAdminRepo().getUsers(authToken, accountId);
+
+        if (listAccountResponse.isRequestSucceed()) {
+            retVal = listAccountResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listAccountResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the list of users. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean updateUserPermission(UpdateUsersPermissionsRequest request, String accountId) {
+
+        Boolean               retVal;
+
+        RepoGenericResponse<Boolean> isUserPermissionUpdated =
+                getSpotAccountAdminRepo().updateUsersPermission(authToken, request, accountId);
+
+        if (isUserPermissionUpdated.isRequestSucceed()) {
+            retVal = isUserPermissionUpdated.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = isUserPermissionUpdated.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+
+            LOGGER.error(
+                    String.format("Error encountered while attempting to update user permissions: %s. Code: %s. Message: %s.",
+                            accountId, httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<UsersPermissions> getUserPermissions(String accountId) {
+
+        List<UsersPermissions> retVal;
+
+        RepoGenericResponse<List<UsersPermissions>> listAccountResponse =
+                getSpotAccountAdminRepo().getUserPermissions(authToken, accountId);
+
+        if (listAccountResponse.isRequestSucceed()) {
+            retVal = listAccountResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listAccountResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the list of users. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
 }

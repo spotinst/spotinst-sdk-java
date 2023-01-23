@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model.converters.admin.account;
 import com.spotinst.sdkjava.model.api.admin.account.*;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
+import com.spotinst.sdkjava.model.bl.admin.account.Users;
+import com.spotinst.sdkjava.model.bl.admin.account.UsersPermissions;
 
 
 public class AccountConverter {
@@ -74,6 +76,66 @@ public class AccountConverter {
         return retVal;
     }
     //endregion
+
+    //region DAL -> BL
+    public static Users toBl(ApiUsers src) {
+        Users retVal = null;
+
+        if (src != null) {
+            Users.Builder accountUserBuilder = Users.Builder.get();
+
+            if (src.isDisplayNameSet()) {
+                accountUserBuilder.setDisplayName(src.getDisplayName());
+            }
+
+            if (src.isEmailSet()) {
+                accountUserBuilder.setEmail(src.getEmail());
+            }
+
+            if (src.isMappedAccountIdsSet()) {
+                accountUserBuilder.setMappedAccountIds(src.getMappedAccountIds());
+            }
+
+            if (src.isUserIdSet()) {
+                accountUserBuilder.setUserId(src.getUserId());
+            }
+
+            retVal = accountUserBuilder.build();
+
+        }
+
+        return retVal;
+    }
+    //endregion
+
+    public static UsersPermissions toBl(ApiUsersPermissions src) {
+        UsersPermissions retVal = null;
+
+        if (src != null) {
+            UsersPermissions.Builder accountUserBuilder = UsersPermissions.Builder.get();
+
+            if (src.isPermissionStrategySet()) {
+                accountUserBuilder.setPermissionStrategy(src.getPermissionStrategy());
+            }
+
+            if (src.isPolicyIdsSet()) {
+                accountUserBuilder.setPolicyIds(src.getPolicyIds());
+            }
+
+            if (src.isRoleSet()) {
+                accountUserBuilder.setRole(src.getRole());
+            }
+
+            if (src.isUserIdSet()) {
+                accountUserBuilder.setUserId(src.getUserId());
+            }
+
+            retVal = accountUserBuilder.build();
+
+        }
+
+        return retVal;
+    }
 
     //region DAL -> BL
     public static Account toBl(ApiAccount src) {
