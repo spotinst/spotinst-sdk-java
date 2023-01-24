@@ -8,13 +8,17 @@ import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccount;
 import com.spotinst.sdkjava.model.api.admin.account.ApiUsers;
 import com.spotinst.sdkjava.model.api.admin.account.ApiUsersPermissions;
+import com.spotinst.sdkjava.model.api.admin.organization.ApiPolicy;
 import com.spotinst.sdkjava.model.bl.admin.account.Users;
 import com.spotinst.sdkjava.model.bl.admin.account.UsersPermissions;
+import com.spotinst.sdkjava.model.bl.admin.organization.Policy;
 import com.spotinst.sdkjava.model.converters.admin.account.AccountConverter;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
+import com.spotinst.sdkjava.model.requests.admin.account.AssignUsersToAccountsRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateUsersPermissionsRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.UserDetachRequest;
 import com.spotinst.sdkjava.model.service.admin.account.SpotAccountAdminService;
 
 import java.nio.file.attribute.UserPrincipal;
@@ -135,6 +139,53 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             List<ApiUsersPermissions> apiUsersPermissions = SpotAccountAdminService.apiUsersPermissions(accountId, authToken);
             List<UsersPermissions> userPermissions = apiUsersPermissions.stream().map(AccountConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(userPermissions);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> assignUsersToAccounts(String authToken, AssignUsersToAccountsRequest request, String accountId) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean assignUsers = SpotAccountAdminService.assignUsersToAccounts(request, accountId, authToken);
+            retVal = new RepoGenericResponse<>(assignUsers);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> detachUser(String accountId, String authToken, UserDetachRequest request) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean updated = SpotAccountAdminService.detachUser(accountId, authToken, request);
+            retVal = new RepoGenericResponse<>(updated);
+
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<Policy>> listAccessPolicies(String authToken, String accountId) {
+        RepoGenericResponse<List<Policy>> retVal;
+
+        try {
+            List<ApiPolicy> apiPolicyList = SpotAccountAdminService.apiPolicyList(accountId, authToken);
+            List<Policy> usersList = apiPolicyList.stream().map(AccountConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(usersList);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);

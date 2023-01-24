@@ -5,10 +5,8 @@ import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.exception.HttpError;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.bl.admin.account.*;
-import com.spotinst.sdkjava.model.requests.admin.account.AccountDeleteRequest;
-import com.spotinst.sdkjava.model.requests.admin.account.ListAllAccountsRequest;
-import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
-import com.spotinst.sdkjava.model.requests.admin.account.UpdateUsersPermissionsRequest;
+import com.spotinst.sdkjava.model.bl.admin.organization.Policy;
+import com.spotinst.sdkjava.model.requests.admin.account.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -218,6 +216,76 @@ public class SpotinstAccountAdminClient {
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to get the list of users. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean assignUsersToAccount(AssignUsersToAccountsRequest request, String accountId) {
+
+        Boolean               retVal;
+
+        RepoGenericResponse<Boolean> isUserPermissionUpdated =
+                getSpotAccountAdminRepo().assignUsersToAccounts(authToken, request, accountId);
+
+        if (isUserPermissionUpdated.isRequestSucceed()) {
+            retVal = isUserPermissionUpdated.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = isUserPermissionUpdated.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+
+            LOGGER.error(
+                    String.format("Error encountered while attempting to add users to account: %s. Code: %s. Message: %s.",
+                            accountId, httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public Boolean detachUser(UserDetachRequest userDetachRequest, String accountId) {
+
+        Boolean               retVal;
+
+        RepoGenericResponse<Boolean> userDetachResponse =
+                getSpotAccountAdminRepo().detachUser(accountId, authToken, userDetachRequest);
+
+        if (userDetachResponse.isRequestSucceed()) {
+            retVal = userDetachResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = userDetachResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+
+            LOGGER.error(
+                    String.format("Error encountered while attempting to detach user from account: %s. Code: %s. Message: %s.",
+                            accountId, httpException.getCode(), httpException.getMessage()));
+
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
+    public List<Policy> listAccessPolicies(String accountId) {
+
+        List<Policy> retVal;
+
+        RepoGenericResponse<List<Policy>> listPoliciesResponse =
+                getSpotAccountAdminRepo().listAccessPolicies(authToken, accountId);
+
+        if (listPoliciesResponse.isRequestSucceed()) {
+            retVal = listPoliciesResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listPoliciesResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the list of acess policies. Code: %s. Message: %s.",
                             httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
