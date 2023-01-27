@@ -133,6 +133,10 @@ public class ElastigroupConverter {
             if (thirdPartiesIntegration.isCodeDeploySet()) {
                 retVal.setCodeDeploy(toDal(thirdPartiesIntegration.getCodeDeploy()));
             }
+
+            if (thirdPartiesIntegration.isElasticBeanstalkSet()) {
+                retVal.setElasticBeanstalk(toDal(thirdPartiesIntegration.getElasticBeanstalk()));
+            }
         }
 
         return retVal;
@@ -163,6 +167,101 @@ public class ElastigroupConverter {
 
         return retVal;
 
+    }
+
+    private static ApiElasticBeanstalk toDal(ElasticBeanstalk beanstalk) {
+        ApiElasticBeanstalk retVal = null;
+
+        if (beanstalk != null) {
+            retVal = new ApiElasticBeanstalk();
+            if (beanstalk.isEnvironmentIdSet()) {
+                retVal.setEnvironmentId(beanstalk.getEnvironmentId());
+            }
+            if (beanstalk.isDeploymentPreferencesSet()) {
+                if (beanstalk.getDeploymentPreferences() != null) {
+                    retVal.setDeploymentPreferences(toDal(beanstalk.getDeploymentPreferences()));
+                }
+            }
+            if (beanstalk.isManagedActionsSet()) {
+                if (beanstalk.getManagedActions() != null) {
+                    retVal.setManagedActions(toDal(beanstalk.getManagedActions()));
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiElastigroupDeploymentPreferences toDal(ElastigroupDeploymentPreferences deploymentPreferences) {
+        ApiElastigroupDeploymentPreferences retVal = null;
+
+        if (deploymentPreferences != null) {
+            retVal = new ApiElastigroupDeploymentPreferences();
+            if (deploymentPreferences.isAutomaticRollSet()) {
+                retVal.setAutomaticRoll(deploymentPreferences.getAutomaticRoll());
+            }
+            if (deploymentPreferences.isBatchSizePercentageSet()) {
+                retVal.setBatchSizePercentage(deploymentPreferences.getBatchSizePercentage());
+            }
+            if (deploymentPreferences.isGracePeriodSet()) {
+                retVal.setGracePeriod(deploymentPreferences.getGracePeriod());
+            }
+            if (deploymentPreferences.isStrategySet()) {
+                if (deploymentPreferences.getStrategy() != null) {
+                    retVal.setStrategy(toDal(deploymentPreferences.getStrategy()));
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiBeanstalkStrategy toDal(BeanstalkStrategy strategy) {
+        ApiBeanstalkStrategy retVal = null;
+
+        if (strategy != null) {
+            retVal = new ApiBeanstalkStrategy();
+            if (strategy.isActionSet()) {
+                retVal.setAction(strategy.getAction());
+            }
+            if (strategy.isShouldDrainInstancesSet()) {
+                retVal.setShouldDrainInstances(strategy.getShouldDrainInstances());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiManagedActions toDal(ManagedActions managedActions) {
+        ApiManagedActions retVal = null;
+
+        if (managedActions != null) {
+            retVal = new ApiManagedActions();
+            if (managedActions.isPlatformUpdateSet()) {
+                if (managedActions.getPlatformUpdate() != null) {
+                    retVal.setPlatformUpdate(toDal(managedActions.getPlatformUpdate()));
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiBeanstalkPlatformUpdate toDal(BeanstalkPlatformUpdate platformUpdate) {
+        ApiBeanstalkPlatformUpdate retVal = null;
+
+        if (platformUpdate != null) {
+            retVal = new ApiBeanstalkPlatformUpdate();
+            if (platformUpdate.isInstanceRefreshEnabledSet()) {
+                retVal.setInstanceRefreshEnabled(platformUpdate.getInstanceRefreshEnabled());
+            }
+            if (platformUpdate.isPerformAtSet()) {
+                retVal.setPerformAt(platformUpdate.getPerformAt());
+            }
+            if (platformUpdate.isTimeWindowSet()) {
+                retVal.setTimeWindow(platformUpdate.getTimeWindow());
+            }
+            if (platformUpdate.isUpdateLevelSet()) {
+                retVal.setUpdateLevel(platformUpdate.getUpdateLevel());
+            }
+        }
+        return retVal;
     }
 
     private static ApiDeploymentGroup toDal(ElastigroupDeploymentGroup deploymentGroups) {
@@ -1727,6 +1826,10 @@ public class ElastigroupConverter {
             if (apiThirdPartiesIntegration.isCodeDeploySet()) {
                 blThirdPartiesIntegrationBuilder.setCodeDeploy(toBl(apiThirdPartiesIntegration.getCodeDeploy()));
             }
+
+            if (apiThirdPartiesIntegration.isElasticBeanstalkSet()) {
+                blThirdPartiesIntegrationBuilder.setElasticBeanstalk(toBl(apiThirdPartiesIntegration.getElasticBeanstalk()));
+            }
             blThirdPartiesIntegration = blThirdPartiesIntegrationBuilder.build();
         }
         return blThirdPartiesIntegration;
@@ -1756,6 +1859,106 @@ public class ElastigroupConverter {
         }
 
         return blCodeDeploy;
+    }
+
+    private static ElasticBeanstalk toBl(ApiElasticBeanstalk apiBeanstalk) {
+        ElasticBeanstalk blBeanstalk = null;
+
+        if (apiBeanstalk != null) {
+            ElasticBeanstalk.Builder blBeanstalkBuilder = ElasticBeanstalk.Builder.get();
+            if (apiBeanstalk.isEnvironmentIdSet()) {
+                blBeanstalkBuilder.setEnvironmentId(apiBeanstalk.getEnvironmentId());
+            }
+            if (apiBeanstalk.isDeploymentPreferencesSet()) {
+                if (apiBeanstalk.getDeploymentPreferences() != null) {
+                    blBeanstalkBuilder.setDeploymentPreferences(toBl(apiBeanstalk.getDeploymentPreferences()));
+                }
+            }
+            if (apiBeanstalk.isManagedActionsSet()) {
+                if (apiBeanstalk.getManagedActions() != null) {
+                    blBeanstalkBuilder.setManagedActions(toBl(apiBeanstalk.getManagedActions()));
+                }
+            }
+            blBeanstalk = blBeanstalkBuilder.build();
+        }
+        return blBeanstalk;
+    }
+
+    private static ElastigroupDeploymentPreferences toBl(ApiElastigroupDeploymentPreferences apiDeploymentPreferences) {
+        ElastigroupDeploymentPreferences blDeploymentPreference = null;
+
+        if (apiDeploymentPreferences != null) {
+            ElastigroupDeploymentPreferences.Builder blDeploymentPreferenceBuilder = ElastigroupDeploymentPreferences.Builder.get();
+            if (apiDeploymentPreferences.isAutomaticRollSet()) {
+                blDeploymentPreferenceBuilder.setAutomaticRoll(apiDeploymentPreferences.getAutomaticRoll());
+            }
+            if (apiDeploymentPreferences.isBatchSizePercentageSet()) {
+                blDeploymentPreferenceBuilder.setBatchSizePercentage(apiDeploymentPreferences.getBatchSizePercentage());
+            }
+            if (apiDeploymentPreferences.isGracePeriodSet()) {
+                blDeploymentPreferenceBuilder.setGracePeriod(apiDeploymentPreferences.getGracePeriod());
+            }
+            if (apiDeploymentPreferences.isStrategySet()) {
+                if (apiDeploymentPreferences.getStrategy() != null) {
+                    blDeploymentPreferenceBuilder.setStrategy(toBl(apiDeploymentPreferences.getStrategy()));
+                }
+            }
+            blDeploymentPreference = blDeploymentPreferenceBuilder.build();
+        }
+        return blDeploymentPreference;
+    }
+
+    private static BeanstalkStrategy toBl(ApiBeanstalkStrategy apiStrategy) {
+        BeanstalkStrategy blStrategy = null;
+
+        if (apiStrategy != null) {
+            BeanstalkStrategy.Builder blStrategyBuilder = BeanstalkStrategy.Builder.get();
+            if (apiStrategy.isActionSet()) {
+                blStrategyBuilder.setAction(apiStrategy.getAction());
+            }
+            if (apiStrategy.isShouldDrainInstancesSet()) {
+                blStrategyBuilder.setShouldDrainInstances(apiStrategy.getShouldDrainInstances());
+            }
+            blStrategy = blStrategyBuilder.build();
+        }
+        return blStrategy;
+    }
+
+    private static ManagedActions toBl(ApiManagedActions apiManagedActions) {
+        ManagedActions blManagedActions = null;
+
+        if (apiManagedActions != null) {
+            ManagedActions.Builder blManagedActionsBuilder = ManagedActions.Builder.get();
+            if (apiManagedActions.isPlatformUpdateSet()) {
+                if (apiManagedActions.getPlatformUpdate() != null) {
+                    blManagedActionsBuilder.setPlatformUpdate(toBl(apiManagedActions.getPlatformUpdate()));
+                }
+            }
+            blManagedActions = blManagedActionsBuilder.build();
+        }
+        return blManagedActions;
+    }
+
+    private static BeanstalkPlatformUpdate toBl(ApiBeanstalkPlatformUpdate apiPlatformUpdate) {
+        BeanstalkPlatformUpdate blBeanstalkPlatformUpdate = null;
+
+        if (apiPlatformUpdate != null) {
+            BeanstalkPlatformUpdate.Builder blBeanstalkPlatformUpdateBuilder = BeanstalkPlatformUpdate.Builder.get();
+            if (apiPlatformUpdate.isInstanceRefreshEnabledSet()) {
+                blBeanstalkPlatformUpdateBuilder.setInstanceRefreshEnabled(apiPlatformUpdate.getInstanceRefreshEnabled());
+            }
+            if (apiPlatformUpdate.isPerformAtSet()) {
+                blBeanstalkPlatformUpdateBuilder.setPerformAt(apiPlatformUpdate.getPerformAt());
+            }
+            if (apiPlatformUpdate.isTimeWindowSet()) {
+                blBeanstalkPlatformUpdateBuilder.setTimeWindow(apiPlatformUpdate.getTimeWindow());
+            }
+            if (apiPlatformUpdate.isUpdateLevelSet()) {
+                blBeanstalkPlatformUpdateBuilder.setUpdateLevel(apiPlatformUpdate.getUpdateLevel());
+            }
+            blBeanstalkPlatformUpdate = blBeanstalkPlatformUpdateBuilder.build();
+        }
+        return blBeanstalkPlatformUpdate;
     }
 
     private static ElastigroupDeploymentGroup toBl(ApiDeploymentGroup apiDeploymentGroup) {
@@ -3457,6 +3660,22 @@ public class ElastigroupConverter {
 
         }
         return retVal;
+
+    }
+
+    public static ElastigroupGetBeanstalkMaintenanceStatusResponse toBl(ApiElastigroupGetBeanstalkMaintenanceStatusResponse apiGetBeanstalkStatus) {
+        ElastigroupGetBeanstalkMaintenanceStatusResponse blGetBeanstalkStatus = null;
+
+        if (apiGetBeanstalkStatus != null) {
+            ElastigroupGetBeanstalkMaintenanceStatusResponse.Builder blGetBeanstalkStatusBuilder = ElastigroupGetBeanstalkMaintenanceStatusResponse.Builder.get();
+            if (apiGetBeanstalkStatus.isStatusSet()) {
+                if (apiGetBeanstalkStatus.getStatus() != null) {
+                    blGetBeanstalkStatusBuilder.setStatus(apiGetBeanstalkStatus.getStatus());
+                }
+            }
+            blGetBeanstalkStatus = blGetBeanstalkStatusBuilder.build();
+        }
+        return blGetBeanstalkStatus;
 
     }
 }

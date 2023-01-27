@@ -976,7 +976,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -1018,7 +1017,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -1029,6 +1027,107 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             ApiElastigroupGetInstanceStatusResponse apiInstanceStatus = SpotinstElastigroupService.getInstanceStatus(instanceId, authToken, account);
             ElastigroupGetInstanceStatusResponse    instanceStatus    = ElastigroupConverter.toBl(apiInstanceStatus);
             retVal = new RepoGenericResponse<>(instanceStatus);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    public RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean amiBackupResponse = SpotinstElastigroupService
+                    .amiBackup(elastigroupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(amiBackupResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Boolean> startBeanstalkMaintenance(String groupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean apiResponse = SpotinstElastigroupService
+                    .startBeanstalkMaintenance(groupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(apiResponse);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+    
+    @Override
+    public RepoGenericResponse<Boolean> finishBeanstalkMaintenance(String groupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean finishBeanstalkMaintenanceResponse = SpotinstElastigroupService
+                    .finishBeanstalkMaintenance(groupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(finishBeanstalkMaintenanceResponse);
+        }
+        catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> getBeanstalkMaintenanceStatus(String groupId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> retVal;
+
+        try {
+            ApiElastigroupGetBeanstalkMaintenanceStatusResponse apiStatus =
+                    SpotinstElastigroupService.getBeanstalkMaintenanceStatus(groupId, authToken, account);
+
+            ElastigroupGetBeanstalkMaintenanceStatusResponse status = ElastigroupConverter.toBl(apiStatus);
+
+            retVal = new RepoGenericResponse<>(status);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Elastigroup> getBeanstalkConfig(String environmentId, String region, String authToken, String account) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+            ApiElastigroup apiConfig = SpotinstElastigroupService.getBeanstalkConfig(environmentId, region, authToken, account);
+            Elastigroup    config = ElastigroupConverter.toBl(apiConfig);
+            retVal = new RepoGenericResponse<>(config);
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<Elastigroup> beanstalkReimport(String groupId, String authToken, String account) {
+        RepoGenericResponse<Elastigroup> retVal;
+
+        try {
+            ApiElastigroup apiResponse = SpotinstElastigroupService.beanstalkReimport(groupId, authToken, account);
+            Elastigroup    response = ElastigroupConverter.toBl(apiResponse);
+            retVal = new RepoGenericResponse<>(response);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
