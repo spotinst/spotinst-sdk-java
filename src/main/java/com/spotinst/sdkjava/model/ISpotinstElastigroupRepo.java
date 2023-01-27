@@ -125,5 +125,15 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
 
     RepoGenericResponse<ElastigroupGetInstanceStatusResponse> getInstanceStatus(String instanceId, String authToken, String account);
 
+    RepoGenericResponse<Boolean> startBeanstalkMaintenance(String groupId, String authToken, String account);
+
+    RepoGenericResponse<Boolean> finishBeanstalkMaintenance(String groupId, String authToken, String account);
+
+    RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> getBeanstalkMaintenanceStatus(String groupId, String authToken, String account);
+
+    RepoGenericResponse<Elastigroup> getBeanstalkConfig(String environmentId, String region, String authToken, String account);
+
+    RepoGenericResponse<Elastigroup> beanstalkReimport(String groupId, String authToken, String account);
+    
     RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account);
 }
