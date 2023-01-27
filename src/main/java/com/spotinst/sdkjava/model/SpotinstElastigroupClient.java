@@ -1406,6 +1406,26 @@ public class SpotinstElastigroupClient {
                     httpException.getCode(), httpException.getMessage()));
             throw new SpotinstHttpException(httpException.getMessage());
         }
+    }
+    
+    public Boolean amiBackup(String groupId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> amiBackupResponse = getSpotinstElastigroupRepo().amiBackup(groupId, authToken, account);
+
+        if (amiBackupResponse.isRequestSucceed()) {
+            retVal = amiBackupResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = amiBackupResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while taking AMI Backup. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
         return retVal;
     }
 }

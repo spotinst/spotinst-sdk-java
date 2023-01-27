@@ -2107,6 +2107,41 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         return retVal;
     }
 
+    public static Boolean amiBackup(String elastigroupId, String authToken, String account) {
+
+        Boolean retVal = false;
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/amiBackup", apiEndpoint, elastigroupId);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, null, headers, queryParams);
+
+        BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
+
+        // Handle the response.
+        if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
     public static Boolean startBeanstalkMaintenance(String groupId, String authToken, String account) {
 
         Boolean retVal = false;
@@ -2140,7 +2175,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
 
         return retVal;
-
     }
 
     public static Boolean finishBeanstalkMaintenance(String groupId,
@@ -2177,7 +2211,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
 
         return retVal;
-
     }
 
     public static ApiElastigroupGetBeanstalkMaintenanceStatusResponse getBeanstalkMaintenanceStatus(String groupId, String authToken,

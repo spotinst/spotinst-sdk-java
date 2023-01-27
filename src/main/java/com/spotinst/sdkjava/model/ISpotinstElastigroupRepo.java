@@ -134,4 +134,6 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Elastigroup> getBeanstalkConfig(String environmentId, String region, String authToken, String account);
 
     RepoGenericResponse<Elastigroup> beanstalkReimport(String groupId, String authToken, String account);
+    
+    RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account);
 }

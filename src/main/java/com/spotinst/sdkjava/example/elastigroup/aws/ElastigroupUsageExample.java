@@ -543,7 +543,7 @@ public class ElastigroupUsageExample {
         ElastigroupStrategyConfiguration strategy =
                 strategyBuilder.setElastigroupOrientation(ElastigroupOrientationEnum.COST_ORIENTED)
                                .setFallbackToOnDemand(true).setUtilizeReservedInstances(false).setSpotPercentage(100)
-                               .setPersistence(persistence).build();
+                               .setPersistence(persistence).setConsiderODPricing(true).build();
 
         //Build group capacity
         ElastigroupCapacityConfiguration.Builder capacityBuilder = ElastigroupCapacityConfiguration.Builder.get();

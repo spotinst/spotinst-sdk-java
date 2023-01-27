@@ -1018,7 +1018,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -1047,6 +1046,23 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
             retVal = new RepoGenericResponse<>(startBeanstalkMaintenanceResponse);
         }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+    
+    public RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<Boolean> retVal;
+
+        try {
+            Boolean amiBackupResponse = SpotinstElastigroupService
+                    .amiBackup(elastigroupId, authToken, account);
+
+            retVal = new RepoGenericResponse<>(amiBackupResponse);
+        }
+
         catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
