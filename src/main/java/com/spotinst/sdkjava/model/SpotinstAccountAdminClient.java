@@ -177,12 +177,12 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public Boolean updateUserPermission(UpdateUsersPermissionsRequest request, String accountId) {
+    public Boolean updateUserPermissions(UpdateUserPermissionsRequest request, String accountId) {
 
-        Boolean               retVal;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> isUserPermissionUpdated =
-                getSpotAccountAdminRepo().updateUsersPermission(authToken, request, accountId);
+                getSpotAccountAdminRepo().updateUserPermissions(authToken, request, accountId);
 
         if (isUserPermissionUpdated.isRequestSucceed()) {
             retVal = isUserPermissionUpdated.getValue();
@@ -201,18 +201,18 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public List<UsersPermissions> getUserPermissions(String accountId) {
+    public List<UserPermissions> getUsersPermissions(String accountId) {
 
-        List<UsersPermissions> retVal;
+        List<UserPermissions> retVal;
 
-        RepoGenericResponse<List<UsersPermissions>> listAccountResponse =
-                getSpotAccountAdminRepo().getUserPermissions(authToken, accountId);
+        RepoGenericResponse<List<UserPermissions>> response =
+                getSpotAccountAdminRepo().getUsersPermissions(authToken, accountId);
 
-        if (listAccountResponse.isRequestSucceed()) {
-            retVal = listAccountResponse.getValue();
+        if (response.isRequestSucceed()) {
+            retVal = response.getValue();
         }
         else {
-            List<HttpError> httpExceptions = listAccountResponse.getHttpExceptions();
+            List<HttpError> httpExceptions = response.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
             LOGGER.error(
                     String.format("Error encountered while attempting to get the list of users. Code: %s. Message: %s.",
@@ -223,18 +223,18 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public Boolean assignUsersToAccount(AssignUsersToAccountsRequest request, String accountId) {
+    public Boolean assignUsersToAccounts(AssignUsersToAccountsRequest request, String accountId) {
 
         Boolean               retVal;
 
-        RepoGenericResponse<Boolean> isUserPermissionUpdated =
+        RepoGenericResponse<Boolean> response =
                 getSpotAccountAdminRepo().assignUsersToAccounts(authToken, request, accountId);
 
-        if (isUserPermissionUpdated.isRequestSucceed()) {
-            retVal = isUserPermissionUpdated.getValue();
+        if (response.isRequestSucceed()) {
+            retVal = response.getValue();
         }
         else {
-            List<HttpError> httpExceptions = isUserPermissionUpdated.getHttpExceptions();
+            List<HttpError> httpExceptions = response.getHttpExceptions();
             HttpError       httpException  = httpExceptions.get(0);
 
             LOGGER.error(

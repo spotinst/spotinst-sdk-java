@@ -9,7 +9,7 @@ import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiUsersPermissions {
+public class ApiUserPermissions {
     //region Members
     @JsonIgnore
     private Set<String>                    isSet;
@@ -20,7 +20,7 @@ public class ApiUsersPermissions {
     //endregion
 
     //region Constructor
-    private ApiUsersPermissions() {
+    private ApiUserPermissions() {
         isSet = new HashSet<>();
     }
     //endregion

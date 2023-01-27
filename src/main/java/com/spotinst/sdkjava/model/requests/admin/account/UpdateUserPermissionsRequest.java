@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class UpdateUsersPermissionsRequest {
+public class UpdateUserPermissionsRequest {
     //region Members
     @JsonIgnore
     private String                         permissionStrategy;
@@ -17,7 +14,7 @@ public class UpdateUsersPermissionsRequest {
     //endregion
 
     //region Constructor
-    private UpdateUsersPermissionsRequest() {
+    private UpdateUserPermissionsRequest() {
     }
     //endregion
 
@@ -57,37 +54,37 @@ public class UpdateUsersPermissionsRequest {
 
     //region Builder class
     public static class Builder {
-        private UpdateUsersPermissionsRequest request;
+        private UpdateUserPermissionsRequest request;
 
         private Builder() {
-            this.request = new UpdateUsersPermissionsRequest();
+            this.request = new UpdateUserPermissionsRequest();
         }
 
-        public static UpdateUsersPermissionsRequest.Builder get() {
+        public static UpdateUserPermissionsRequest.Builder get() {
             return new Builder();
         }
 
-        public UpdateUsersPermissionsRequest.Builder setPermissionStrategy(final String permissionStrategy) {
+        public UpdateUserPermissionsRequest.Builder setPermissionStrategy(final String permissionStrategy) {
             request.setPermissionStrategy(permissionStrategy);
             return this;
         }
 
-        public UpdateUsersPermissionsRequest.Builder setRole(final String role) {
+        public UpdateUserPermissionsRequest.Builder setRole(final String role) {
             request.setRole(role);
             return this;
         }
 
-        public UpdateUsersPermissionsRequest.Builder setPolicyIds(final String policyIds) {
+        public UpdateUserPermissionsRequest.Builder setPolicyIds(final String policyIds) {
             request.setPolicyIds(policyIds);
             return this;
         }
 
-        public UpdateUsersPermissionsRequest.Builder setUserId(final String userId) {
+        public UpdateUserPermissionsRequest.Builder setUserId(final String userId) {
             request.setUserId(userId);
             return this;
         }
 
-        public UpdateUsersPermissionsRequest build() {
+        public UpdateUserPermissionsRequest build() {
             return request;
         }
     }

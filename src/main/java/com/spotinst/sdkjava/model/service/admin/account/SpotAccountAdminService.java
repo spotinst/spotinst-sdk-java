@@ -7,11 +7,11 @@ import com.spotinst.sdkjava.exception.SpotinstHttpException;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccount;
 import com.spotinst.sdkjava.model.api.admin.account.ApiUsers;
-import com.spotinst.sdkjava.model.api.admin.account.ApiUsersPermissions;
+import com.spotinst.sdkjava.model.api.admin.account.ApiUserPermissions;
 import com.spotinst.sdkjava.model.api.admin.organization.ApiPolicy;
 import com.spotinst.sdkjava.model.requests.admin.account.AssignUsersToAccountsRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
-import com.spotinst.sdkjava.model.requests.admin.account.UpdateUsersPermissionsRequest;
+import com.spotinst.sdkjava.model.requests.admin.account.UpdateUserPermissionsRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UserDetachRequest;
 import com.spotinst.sdkjava.model.responses.admin.account.*;
 
@@ -192,7 +192,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static Boolean updatePermissions(String authToken, UpdateUsersPermissionsRequest request, String accountId) throws SpotinstHttpException {
+    public static Boolean updatePermissions(String authToken, UpdateUserPermissionsRequest request, String accountId) throws SpotinstHttpException {
 
         // Init retVal
         Boolean retVal = false;
@@ -215,7 +215,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         String uri = String.format("%s/setup/account/%s/user", apiEndpoint, accountId);
 
         // Write to json
-        Map<String, UpdateUsersPermissionsRequest> updateRequest = new HashMap<>();
+        Map<String, UpdateUserPermissionsRequest> updateRequest = new HashMap<>();
         updateRequest.put("account", request);
         String body = JsonMapper.toJson(updateRequest);
 
@@ -231,10 +231,10 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiUsersPermissions> apiUsersPermissions(String cloudAccountId, String authToken) throws SpotinstHttpException {
+    public static List<ApiUserPermissions> getUsersPermissions(String cloudAccountId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
-        List<ApiUsersPermissions> retVal = new ArrayList<>();
+        List<ApiUserPermissions> retVal = new ArrayList<>();
 
         // Get endpoint
         SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
@@ -339,7 +339,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiPolicy> apiPolicyList(String cloudAccountId, String authToken) throws SpotinstHttpException {
+    public static List<ApiPolicy> listAccessPolicies(String cloudAccountId, String authToken) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiPolicy> retVal = new ArrayList<>();

@@ -6,7 +6,7 @@ import com.spotinst.sdkjava.model.api.admin.organization.ApiPolicyContent;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
 import com.spotinst.sdkjava.model.bl.admin.account.Users;
-import com.spotinst.sdkjava.model.bl.admin.account.UsersPermissions;
+import com.spotinst.sdkjava.model.bl.admin.account.UserPermissions;
 import com.spotinst.sdkjava.model.bl.admin.organization.Policy;
 import com.spotinst.sdkjava.model.bl.admin.organization.PolicyContent;
 import com.spotinst.sdkjava.model.bl.admin.organization.PolicyStatement;
@@ -117,11 +117,11 @@ public class AccountConverter {
     }
     //endregion
 
-    public static UsersPermissions toBl(ApiUsersPermissions src) {
-        UsersPermissions retVal = null;
+    public static UserPermissions toBl(ApiUserPermissions src) {
+        UserPermissions retVal = null;
 
         if (src != null) {
-            UsersPermissions.Builder accountUserBuilder = UsersPermissions.Builder.get();
+            UserPermissions.Builder accountUserBuilder = UserPermissions.Builder.get();
 
             if (src.isPermissionStrategySet()) {
                 accountUserBuilder.setPermissionStrategy(src.getPermissionStrategy());
