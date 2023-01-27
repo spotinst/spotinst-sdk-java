@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,7 +16,7 @@ public class Users {
     private Set<String>                    isSet;
     private String                         displayName;
     private String                         email;
-    private String                         mappedAccountIds;
+    private List<String>                   mappedAccountIds;
     private String                         userId;
     //endregion
 
@@ -52,11 +53,11 @@ public class Users {
         this.email = email;
     }
 
-    public String getMappedAccountIds() {
+    public List<String> getMappedAccountIds() {
         return mappedAccountIds;
     }
 
-    public void setMappedAccountIds(String mappedAccountIds) {
+    public void setMappedAccountIds(List<String> mappedAccountIds) {
         isSet.add("mappedAccountIds");
         this.mappedAccountIds = mappedAccountIds;
     }
@@ -94,7 +95,7 @@ public class Users {
             return this;
         }
 
-        public Builder setMappedAccountIds(final String mappedAccountIds) {
+        public Builder setMappedAccountIds(final List<String> mappedAccountIds) {
             account.setMappedAccountIds(mappedAccountIds);
             return this;
         }

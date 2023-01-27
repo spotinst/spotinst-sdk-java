@@ -12,32 +12,30 @@ public class UserDetachRequest {
         return userEmail;
     }
 
-    public void setUserEmail(String account) {
-        this.userEmail = account;
+    public void setUserEmail(String email) {
+        this.userEmail = email;
     }
-
-
 
     //Builder class
     public static class Builder {
 
-        private UserDetachRequest accountDeletionRequest;
+        private UserDetachRequest request;
 
         private Builder() {
-            this.accountDeletionRequest = new UserDetachRequest();
+            this.request = new UserDetachRequest();
         }
 
         public static UserDetachRequest.Builder get() {
             return new Builder();
         }
 
-        public UserDetachRequest.Builder setAccountId(final String account) {
-            accountDeletionRequest.setUserEmail(account);
+        public UserDetachRequest.Builder setUserEmail(final String email) {
+            request.setUserEmail(email);
             return this;
         }
 
         public UserDetachRequest build() {
-            return accountDeletionRequest;
+            return request;
         }
 
     }

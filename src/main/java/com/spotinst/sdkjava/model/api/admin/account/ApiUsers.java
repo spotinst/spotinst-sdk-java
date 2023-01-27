@@ -8,6 +8,7 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -18,7 +19,7 @@ public class ApiUsers implements IPartialUpdateEntity {
     private Set<String>                    isSet;
     private String                         displayName;
     private String                         email;
-    private String                         mappedAccountIds;
+    private List<String>                   mappedAccountIds;
     private String                         userId;
     //endregion
 
@@ -55,11 +56,11 @@ public class ApiUsers implements IPartialUpdateEntity {
         this.email = email;
     }
 
-    public String getMappedAccountIds() {
+    public List<String> getMappedAccountIds() {
         return mappedAccountIds;
     }
 
-    public void setMappedAccountIds(String mappedAccountIds) {
+    public void setMappedAccountIds(List<String> mappedAccountIds) {
         isSet.add("mappedAccountIds");
         this.mappedAccountIds = mappedAccountIds;
     }

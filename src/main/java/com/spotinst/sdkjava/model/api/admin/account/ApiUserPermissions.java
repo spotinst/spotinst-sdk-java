@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -15,7 +16,7 @@ public class ApiUserPermissions {
     private Set<String>                    isSet;
     private String                         permissionStrategy;
     private String                         role;
-    private String                         policyIds;
+    private List<String>                   policyIds;
     private String                         userId;
     //endregion
 
@@ -52,11 +53,11 @@ public class ApiUserPermissions {
         this.role = role;
     }
 
-    public String getPolicyIds() {
+    public List<String> getPolicyIds() {
         return policyIds;
     }
 
-    public void setPolicyIds(String policyIds) {
+    public void setPolicyIds(List<String> policyIds) {
         isSet.add("policyIds");
         this.policyIds = policyIds;
     }
