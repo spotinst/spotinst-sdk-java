@@ -4,6 +4,7 @@ import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ApiAuditEventLogs;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccount;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
@@ -148,6 +149,53 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         BaseServiceEmptyResponse emptyResponse = getCastedResponse(response, BaseServiceEmptyResponse.class);
         if (emptyResponse.getResponse().getStatus().getCode() == HttpStatus.SC_OK) {
             retVal = true;
+        }
+
+        return retVal;
+    }
+
+    public static List<ApiAuditEventLogs> listAuditEventLogs(String authToken, String accountId, String fromDate, String responseStatus, String toDate) throws SpotinstHttpException {
+
+        // Init retVal
+        List<ApiAuditEventLogs> retVal = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config = SpotinstHttpContext.getInstance().getConfiguration();
+        String apiEndpoint = config.getEndpoint();
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        //Adding query params
+        if (accountId != null) {
+            queryParams.put("accountId", accountId);
+        }
+
+        if (fromDate != null) {
+            queryParams.put("fromDate", fromDate);
+        }
+
+        if (responseStatus != null) {
+            queryParams.put("responseStatus", responseStatus);
+        }
+
+        if (toDate != null) {
+            queryParams.put("toDate", toDate);
+        }
+
+        // Get the headers for AWS.
+        Map<String, String> headers = buildHeaders(authToken);
+
+        //Build URI
+        String uri = String.format("%s/audit/events", apiEndpoint);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGet(uri, headers, queryParams);
+
+        // Handle the response.
+        AuditEventsApiResponse allAccountsResponse = getCastedResponse(response, AuditEventsApiResponse.class);
+
+        if (allAccountsResponse.getResponse().getCount() > 0) {
+            retVal = allAccountsResponse.getResponse().getItems();
         }
 
         return retVal;

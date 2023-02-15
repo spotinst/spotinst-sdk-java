@@ -156,5 +156,26 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
+    public List<AuditEventLogs> auditEventsLog(String accountId, String fromDate, String responseStatus, String toDate) {
+
+        List<AuditEventLogs> retVal;
+
+        RepoGenericResponse<List<AuditEventLogs>> listAuditEventLogs =
+                getSpotAccountAdminRepo().getAuditEventLogs(authToken, accountId, fromDate, responseStatus, toDate);
+
+        if (listAuditEventLogs.isRequestSucceed()) {
+            retVal = listAuditEventLogs.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = listAuditEventLogs.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to get the list of accounts. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
     //endregion
 }

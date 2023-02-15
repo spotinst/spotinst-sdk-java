@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model.repo.admin.account;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.ApiAuditEventLogs;
+import com.spotinst.sdkjava.model.AuditEventLogs;
 import com.spotinst.sdkjava.model.ISpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
@@ -82,6 +84,24 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             Boolean updated = SpotAccountAdminService.deleteAccount(identifier, authToken);
             retVal = new RepoGenericResponse<>(updated);
 
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    // The base 'IRepository' class getAll() method requires 3 parameters but this implementation needs only
+    // 'authToken' and 'cloudAccountId', therefore, 'filter' parameter is unused.
+    public RepoGenericResponse<List<AuditEventLogs>> getAuditEventLogs(String authToken, String accountId, String fromDate, String responseStatus, String toDate) {
+        RepoGenericResponse<List<AuditEventLogs>> retVal;
+
+        try {
+            List<ApiAuditEventLogs> apiAuditEventLogsList = SpotAccountAdminService.listAuditEventLogs(authToken, accountId, fromDate, responseStatus, toDate);
+            List<AuditEventLogs> auditEventLogsList = apiAuditEventLogsList.stream().map(AccountConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(auditEventLogsList);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
