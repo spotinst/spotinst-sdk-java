@@ -7,6 +7,9 @@ import com.spotinst.sdkjava.model.requests.admin.account.AccountDeleteRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.ListAllAccountsRequest;
 import com.spotinst.sdkjava.model.requests.admin.account.UpdateAccountRequest;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.io.IOException;
 
@@ -45,6 +48,30 @@ public class AccountUsageExampleAdmin {
         // For loop for iterating over the List
         for (BlAccountAdmin account : accountList) {
             System.out.println("Account Id - " + account.getAccountId());
+            LocalDateTime fromDate = LocalDateTime.now().minusDays(7);
+            LocalDateTime toDate = LocalDateTime.now();
+            Instant fromInstant = fromDate.atZone(ZoneId.systemDefault()).toInstant();
+            long fromTimeInMillis = fromInstant.toEpochMilli();
+            Instant toInstant = toDate.atZone(ZoneId.systemDefault()).toInstant();
+            long toTimeInMillis = toInstant.toEpochMilli();
+            List<AuditEventLogs> eventList = listAuditLogs(spotinstAccountAdminClient, account.getAccountId(), String.valueOf(fromTimeInMillis), "all", String.valueOf(toTimeInMillis));
+            if(eventList.size()!=0) {
+                System.out.println("Audit tab events list for account - " + account.getAccountId());
+                System.out.print(fromTimeInMillis);
+                System.out.println("=========================================================");
+                System.out.print(toTimeInMillis);
+                System.out.println("    Action Type - " + eventList.get(0).getActionType());
+                System.out.println("    Agent - " + eventList.get(0).getAgent());
+                System.out.println("    Context - " + eventList.get(0).getContext());
+                System.out.println("    Created At - " + eventList.get(0).getCreatedAt());
+                System.out.println("    Name space - " + eventList.get(0).getNamespace());
+                System.out.println("    Resource Id - " + eventList.get(0).getResourceId());
+                System.out.println("    Resource Type - " + eventList.get(0).getResourceType());
+                System.out.println("    Source - " + eventList.get(0).getSource());
+                System.out.println("    User - " + eventList.get(0).getUser());
+                System.out.println("    Response Status - " + eventList.get(0).getResponseStatus());
+                System.out.println("=========================================================");
+            }
             System.out.println("Organization Id - " + account.getOrganizationId());
             System.out.println("Name - " + account.getName());
             System.out.println("Cloud Provider - " + account.getCloudProvider());
@@ -87,6 +114,11 @@ public class AccountUsageExampleAdmin {
         if (successfulDeletion) {
             System.out.println("Account successfully deleted: " + accountIdToDelete);
         }
+    }
+
+    private static List<AuditEventLogs> listAuditLogs(SpotinstAccountAdminClient client, String accountId, String fromDate, String responseStatus, String toDate) {
+
+        return client.auditEventsLog(accountId, fromDate, responseStatus, toDate);
     }
 
 }
