@@ -154,7 +154,7 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         return retVal;
     }
 
-    public static List<ApiAuditLogEvents> listAuditEventLogs(String authToken, String accountId, String fromDate, String toDate, String responseStatus) throws SpotinstHttpException {
+    public static List<ApiAuditLogEvents> listAuditLogEvents(String authToken, String accountId, String fromDate, String toDate, String responseStatus) throws SpotinstHttpException {
 
         // Init retVal
         List<ApiAuditLogEvents> retVal = new LinkedList<>();
@@ -192,10 +192,10 @@ public class SpotAccountAdminService extends BaseSpotinstService {
         RestResponse response = RestClient.sendGet(uri, headers, queryParams);
 
         // Handle the response.
-        AuditEventsApiResponse allAccountsResponse = getCastedResponse(response, AuditEventsApiResponse.class);
+        AuditEventsApiResponse auditLogResponse = getCastedResponse(response, AuditEventsApiResponse.class);
 
-        if (allAccountsResponse.getResponse().getCount() > 0) {
-            retVal = allAccountsResponse.getResponse().getItems();
+        if (auditLogResponse.getResponse().getCount() > 0) {
+            retVal = auditLogResponse.getResponse().getItems();
         }
 
         return retVal;

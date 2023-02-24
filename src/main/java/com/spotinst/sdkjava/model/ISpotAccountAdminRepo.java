@@ -10,5 +10,5 @@ public interface ISpotAccountAdminRepo extends IRepository<BlAccountAdmin, Void,
 
     RepoGenericResponse<Boolean> update(UpdateAccountRequest request, String authToken, String account);
 
-    RepoGenericResponse<List<AuditLogEvents>> getAuditEventLogs(String authToken, String accountId, String fromDate, String toDate, String responseStatus);
+    RepoGenericResponse<List<AuditLogEvents>> getAuditLogEvents(String authToken, String accountId, String fromDate, String toDate, String responseStatus);
 }

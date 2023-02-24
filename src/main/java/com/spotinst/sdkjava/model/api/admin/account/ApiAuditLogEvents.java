@@ -1,8 +1,10 @@
 package com.spotinst.sdkjava.model.api.admin.account;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +14,8 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiAuditLogEvents {
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiAuditLogEvents implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -51,6 +54,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setActionType(String actionType) {
+        isSet.add("actionType");
         this.actionType = actionType;
     }
 
@@ -59,6 +63,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setAgent(String agent) {
+        isSet.add("agent");
         this.agent = agent;
     }
 
@@ -67,6 +72,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setContext(String context) {
+        isSet.add("context");
         this.context = context;
     }
 
@@ -75,6 +81,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setCreatedAt(String createdAt) {
+        isSet.add("createdAt");
         this.createdAt = createdAt;
     }
 
@@ -83,6 +90,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setNamespace(String namespace) {
+        isSet.add("namespace");
         this.namespace = namespace;
     }
 
@@ -91,6 +99,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setResourceId(String resourceId) {
+        isSet.add("resourceId");
         this.resourceId = resourceId;
     }
 
@@ -99,6 +108,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setResourceType(String resourceType) {
+        isSet.add("resourceType");
         this.resourceType = resourceType;
     }
 
@@ -107,6 +117,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setResponseStatus(Integer responseStatus) {
+        isSet.add("responseStatus");
         this.responseStatus = responseStatus;
     }
 
@@ -115,6 +126,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setSource(String source) {
+        isSet.add("source");
         this.source = source;
     }
 
@@ -123,6 +135,7 @@ public class ApiAuditLogEvents {
     }
 
     public void setUser(String user) {
+        isSet.add("user");
         this.user = user;
     }
 

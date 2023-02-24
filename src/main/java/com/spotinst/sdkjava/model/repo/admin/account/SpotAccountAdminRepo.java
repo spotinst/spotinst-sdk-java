@@ -93,11 +93,11 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
     }
 
     @Override
-    public RepoGenericResponse<List<AuditLogEvents>> getAuditEventLogs(String authToken, String accountId, String fromDate, String toDate, String responseStatus) {
+    public RepoGenericResponse<List<AuditLogEvents>> getAuditLogEvents(String authToken, String accountId, String fromDate, String toDate, String responseStatus) {
         RepoGenericResponse<List<AuditLogEvents>> retVal;
 
         try {
-            List<ApiAuditLogEvents> apiAuditLogEventsList = SpotAccountAdminService.listAuditEventLogs(authToken, accountId, fromDate, toDate, responseStatus);
+            List<ApiAuditLogEvents> apiAuditLogEventsList = SpotAccountAdminService.listAuditLogEvents(authToken, accountId, fromDate, toDate, responseStatus);
             List<AuditLogEvents> auditLogEventsList = apiAuditLogEventsList.stream().map(AccountConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(auditLogEventsList);
         }

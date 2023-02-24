@@ -40,7 +40,7 @@ public class AccountUsageExampleAdmin {
 
 
         // -------------------- List all accounts Example ---------------------------
-        String yourCloudAccountId = "you-cloud-account-id"; // This parameter can be Null, if all the accounts in the organization to be listed.
+        String yourCloudAccountId = null; // This parameter can be Null, if all the accounts in the organization to be listed.
         List<BlAccountAdmin> accountList = listAllAccounts(spotinstAccountAdminClient, yourCloudAccountId);
 
         System.out.println("Total Accounts Found - " + accountList.size());
@@ -48,7 +48,7 @@ public class AccountUsageExampleAdmin {
         // For loop for iterating over the List
         for (BlAccountAdmin account : accountList) {
             System.out.println("Account Id - " + account.getAccountId());
-            LocalDateTime fromDate = LocalDateTime.now().minusDays(7);
+            LocalDateTime fromDate = LocalDateTime.now().minusDays(1);
             LocalDateTime toDate = LocalDateTime.now();
             Instant fromInstant = fromDate.atZone(ZoneId.systemDefault()).toInstant();
             long fromTimeInMillis = fromInstant.toEpochMilli();
@@ -118,7 +118,7 @@ public class AccountUsageExampleAdmin {
 
     private static List<AuditLogEvents> listAuditLogs(SpotinstAccountAdminClient client, String accountId, String fromDate, String toDate, String responseStatus) {
 
-        return client.auditEventsLog(accountId, fromDate, toDate, responseStatus);
+        return client.auditLogEvents(accountId, fromDate, toDate, responseStatus);
     }
 
 }
