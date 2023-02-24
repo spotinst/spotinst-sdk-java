@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.admin.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Created by ramrutha on 13/02/2023.
  */
-public class AuditEventLogs {
+public class AuditLogEvents {
 
     //region Members
     @JsonIgnore
@@ -26,7 +26,7 @@ public class AuditEventLogs {
     //endregion
 
     //region Constructor
-    private AuditEventLogs() {
+    private AuditLogEvents() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -132,10 +132,10 @@ public class AuditEventLogs {
 
     //region Builder class
     public static class Builder {
-        private AuditEventLogs eventLogs;
+        private AuditLogEvents eventLogs;
 
         private Builder() {
-            this.eventLogs = new AuditEventLogs();
+            this.eventLogs = new AuditLogEvents();
         }
 
         public static Builder get() {
@@ -192,7 +192,7 @@ public class AuditEventLogs {
             return this;
         }
 
-        public AuditEventLogs build() {
+        public AuditLogEvents build() {
             return eventLogs;
         }
     }

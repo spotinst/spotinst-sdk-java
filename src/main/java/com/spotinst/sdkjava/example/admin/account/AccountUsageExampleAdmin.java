@@ -54,7 +54,7 @@ public class AccountUsageExampleAdmin {
             long fromTimeInMillis = fromInstant.toEpochMilli();
             Instant toInstant = toDate.atZone(ZoneId.systemDefault()).toInstant();
             long toTimeInMillis = toInstant.toEpochMilli();
-            List<AuditEventLogs> eventList = listAuditLogs(spotinstAccountAdminClient, account.getAccountId(), String.valueOf(fromTimeInMillis), "all", String.valueOf(toTimeInMillis));
+            List<AuditLogEvents> eventList = listAuditLogs(spotinstAccountAdminClient, account.getAccountId(), String.valueOf(fromTimeInMillis), String.valueOf(toTimeInMillis), "all");
             if(eventList.size()!=0) {
                 System.out.println("Audit tab events list for account - " + account.getAccountId());
                 System.out.print(fromTimeInMillis);
@@ -116,9 +116,9 @@ public class AccountUsageExampleAdmin {
         }
     }
 
-    private static List<AuditEventLogs> listAuditLogs(SpotinstAccountAdminClient client, String accountId, String fromDate, String responseStatus, String toDate) {
+    private static List<AuditLogEvents> listAuditLogs(SpotinstAccountAdminClient client, String accountId, String fromDate, String toDate, String responseStatus) {
 
-        return client.auditEventsLog(accountId, fromDate, responseStatus, toDate);
+        return client.auditEventsLog(accountId, fromDate, toDate, responseStatus);
     }
 
 }

@@ -156,12 +156,12 @@ public class SpotinstAccountAdminClient {
         return retVal;
     }
 
-    public List<AuditEventLogs> auditEventsLog(String accountId, String fromDate, String responseStatus, String toDate) {
+    public List<AuditLogEvents> auditEventsLog(String accountId, String fromDate, String toDate, String responseStatus) {
 
-        List<AuditEventLogs> retVal;
+        List<AuditLogEvents> retVal;
 
-        RepoGenericResponse<List<AuditEventLogs>> listAuditEventLogs =
-                getSpotAccountAdminRepo().getAuditEventLogs(authToken, accountId, fromDate, responseStatus, toDate);
+        RepoGenericResponse<List<AuditLogEvents>> listAuditEventLogs =
+                getSpotAccountAdminRepo().getAuditEventLogs(authToken, accountId, fromDate, toDate, responseStatus);
 
         if (listAuditEventLogs.isRequestSucceed()) {
             retVal = listAuditEventLogs.getValue();

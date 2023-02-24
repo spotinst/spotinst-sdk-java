@@ -1,7 +1,7 @@
 package com.spotinst.sdkjava.model.converters.admin.account;
 
-import com.spotinst.sdkjava.model.ApiAuditEventLogs;
-import com.spotinst.sdkjava.model.AuditEventLogs;
+import com.spotinst.sdkjava.model.api.admin.account.ApiAuditLogEvents;
+import com.spotinst.sdkjava.model.bl.admin.account.AuditLogEvents;
 import com.spotinst.sdkjava.model.api.admin.account.*;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
@@ -78,11 +78,11 @@ public class AccountConverter {
     //endregion
 
     //region DAL -> BL
-    public static AuditEventLogs toBl(ApiAuditEventLogs src) {
-        AuditEventLogs retVal = null;
+    public static AuditLogEvents toBl(ApiAuditLogEvents src) {
+        AuditLogEvents retVal = null;
 
         if (src != null) {
-            AuditEventLogs.Builder eventsBuilder = AuditEventLogs.Builder.get();
+            AuditLogEvents.Builder eventsBuilder = AuditLogEvents.Builder.get();
 
             if (src.isActionTypeSet()) {
                 eventsBuilder.setActionType(src.getActionType());

@@ -10,7 +10,5 @@ public interface ISpotAccountAdminRepo extends IRepository<BlAccountAdmin, Void,
 
     RepoGenericResponse<Boolean> update(UpdateAccountRequest request, String authToken, String account);
 
-    // The base 'IRepository' class getAll() method requires 3 parameters but this implementation needs only
-    // 'authToken' and 'cloudAccountId', therefore, 'filter' parameter is unused.
-    RepoGenericResponse<List<AuditEventLogs>> getAuditEventLogs(String authToken, String accountId, String fromDate, String responseStatus, String toDate);
+    RepoGenericResponse<List<AuditLogEvents>> getAuditEventLogs(String authToken, String accountId, String fromDate, String toDate, String responseStatus);
 }

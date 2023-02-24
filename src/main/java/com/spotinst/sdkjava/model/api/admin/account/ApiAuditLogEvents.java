@@ -1,4 +1,4 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.admin.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +12,7 @@ import java.util.Set;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ApiAuditEventLogs {
+public class ApiAuditLogEvents {
 
     //region Members
     @JsonIgnore
@@ -30,7 +30,7 @@ public class ApiAuditEventLogs {
     //endregion
 
     //region Constructor
-    private ApiAuditEventLogs() {
+    private ApiAuditLogEvents() {
         isSet = new HashSet<>();
     }
     //endregion
