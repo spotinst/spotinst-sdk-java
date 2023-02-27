@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model.repo.admin.account;
 
 import com.spotinst.sdkjava.exception.ExceptionHelper;
 import com.spotinst.sdkjava.exception.SpotinstHttpException;
+import com.spotinst.sdkjava.model.api.admin.account.ApiAuditLogEvents;
+import com.spotinst.sdkjava.model.bl.admin.account.AuditLogEvents;
 import com.spotinst.sdkjava.model.ISpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.RepoGenericResponse;
 import com.spotinst.sdkjava.model.api.admin.account.ApiAccountAdmin;
@@ -82,6 +84,22 @@ public class SpotAccountAdminRepo implements ISpotAccountAdminRepo {
             Boolean updated = SpotAccountAdminService.deleteAccount(identifier, authToken);
             retVal = new RepoGenericResponse<>(updated);
 
+        }
+        catch (SpotinstHttpException e) {
+            retVal = ExceptionHelper.handleHttpException(e);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<AuditLogEvents>> getAuditLogEvents(String authToken, String accountId, String fromDate, String toDate, String responseStatus) {
+        RepoGenericResponse<List<AuditLogEvents>> retVal;
+
+        try {
+            List<ApiAuditLogEvents> apiAuditLogEventsList = SpotAccountAdminService.listAuditLogEvents(authToken, accountId, fromDate, toDate, responseStatus);
+            List<AuditLogEvents> auditLogEventsList = apiAuditLogEventsList.stream().map(AccountConverter::toBl).collect(Collectors.toList());
+            retVal = new RepoGenericResponse<>(auditLogEventsList);
         }
         catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
