@@ -1,17 +1,24 @@
 package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ElastigroupInstanceTypesGcp {
     //region Members
     @JsonIgnore
-    private Set<String>  isSet;
-    private List<String> preemptible;
-    private String       ondemand;
+    private Set<String>                         isSet;
+    private List<String>                        preemptible;
+    private String                              ondemand;
+    private ElastigroupCustomInstanceTypesGcp   custom;
+    private ElastigroupPreferredInstanceTypesGcp preferred;
+
     //endregion
 
     //region Constructor
@@ -46,6 +53,26 @@ public class ElastigroupInstanceTypesGcp {
         isSet.add("ondemand");
         this.ondemand = ondemand;
     }
+
+    public ElastigroupCustomInstanceTypesGcp getCustom() {
+        return custom;
+    }
+
+    public void setCustom(ElastigroupCustomInstanceTypesGcp custom) {
+        isSet.add("custom");
+        this.custom = custom;
+    }
+
+    public ElastigroupPreferredInstanceTypesGcp getPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(ElastigroupPreferredInstanceTypesGcp preferred) {
+        isSet.add("preferred");
+        this.preferred = preferred;
+    }
+
+
     //endregion
 
     //region Builder class
@@ -70,6 +97,16 @@ public class ElastigroupInstanceTypesGcp {
             return this;
         }
 
+        public Builder setCustom(final ElastigroupCustomInstanceTypesGcp custom) {
+            instanceTypes.setCustom(custom);
+            return this;
+        }
+
+        public Builder setPreferred(final ElastigroupPreferredInstanceTypesGcp preferred) {
+            instanceTypes.setPreferred(preferred);
+            return this;
+        }
+
         public ElastigroupInstanceTypesGcp build() {
             return instanceTypes;
         }
@@ -86,5 +123,11 @@ public class ElastigroupInstanceTypesGcp {
     // Is ondemand Set boolean method
     @JsonIgnore
     public boolean isOndemandSet() { return isSet.contains("ondemand"); }
+
+    @JsonIgnore
+    public boolean isCustomSet() { return isSet.contains("custom"); }
+
+    @JsonIgnore
+    public boolean isPreferredSet() { return isSet.contains("preferred"); }
     //endregion
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.gcp.GcpElastigroupProvisioningModelEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,13 +17,14 @@ import java.util.Set;
 public class ApiStrategyGcp implements IPartialUpdateEntity {
     //region members
     @JsonIgnore
-    private Set<String>               isSet;
-    private Integer                   preemptiblePercentage;
-    private Integer                   onDemandCount;
-    private Integer                   drainingTimeout;
-    private Boolean                   fallbackToOd;
-    private ApiRevertToPreemptibleGcp revertToPreemptible;
-    private List<String>              optimizationWindows;
+    private Set<String>                             isSet;
+    private Integer                                 preemptiblePercentage;
+    private Integer                                 onDemandCount;
+    private Integer                                 drainingTimeout;
+    private Boolean                                 fallbackToOd;
+    private ApiRevertToPreemptibleGcp               revertToPreemptible;
+    private List<String>                            optimizationWindows;
+    private GcpElastigroupProvisioningModelEnum     provisioningModel;
     //endregion
 
     //region Constructor
@@ -94,6 +96,15 @@ public class ApiStrategyGcp implements IPartialUpdateEntity {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }
+
+    public GcpElastigroupProvisioningModelEnum getProvisioningModel() {
+        return provisioningModel;
+    }
+
+    public void setProvisioningModel(GcpElastigroupProvisioningModelEnum provisioningModel) {
+        isSet.add("provisioningModel");
+        this.provisioningModel = provisioningModel;
+    }
     //endregion
 
     //region isSet methods
@@ -131,6 +142,11 @@ public class ApiStrategyGcp implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isDrainingTimeoutSet() {
         return isSet.contains("drainingTimeout");
+    }
+
+    @JsonIgnore
+    public boolean isProvisioningModelSet() {
+        return isSet.contains("provisioningModel");
     }
     //endregion
 }
