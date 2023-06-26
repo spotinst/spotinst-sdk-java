@@ -14,7 +14,7 @@ The official Spotinst SDK for the Java programming language.
 
 For a comprehensive documentation, check out the [API documentation](https://help.spot.io/).
 
-## Examples
+## Examplesadfad
 
 For a list of examples, check out the [example](src/main/java/com/spotinst/sdkjava/example) directory.
 
