@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model.converters.admin.account;
 
-import com.spotinst.sdkjava.model.api.admin.account.ApiAuditLogEvents;
 import com.spotinst.sdkjava.model.bl.admin.account.AuditLogEvents;
 import com.spotinst.sdkjava.model.api.admin.account.*;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;

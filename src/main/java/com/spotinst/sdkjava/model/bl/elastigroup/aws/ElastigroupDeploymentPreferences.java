@@ -3,8 +3,6 @@ package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.model.BeanstalkDeleteConfig;
-import com.spotinst.sdkjava.model.bl.oceanCD.Strategy;
 
 import java.util.HashSet;
 import java.util.Set;

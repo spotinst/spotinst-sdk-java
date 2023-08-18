@@ -1,6 +1,9 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.CpuOptions;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.CreditSpecification;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.MetadataOptions;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +16,7 @@ public class ElastigroupLaunchSpecification {
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
+    private Boolean                  autoHealing;
     private String                   healthCheckType;
     private Integer                  healthCheckGracePeriod;
     private List<String>             securityGroupIds;
@@ -22,6 +26,7 @@ public class ElastigroupLaunchSpecification {
     private List<Images>             images;
     private String                   keyPair;
     private String                   userData;
+    private String                   shutdownScript;
     private Integer                  healthCheckUnhealthyDurationBeforeReplacement;
     private IamRole                  iamRole;
     private List<NetworkInterface>   networkInterfaces;
@@ -30,6 +35,9 @@ public class ElastigroupLaunchSpecification {
     private List<BlockDeviceMapping> blockDeviceMappings;
     private LoadBalancersConfig      loadBalancersConfig;
     private ElastigroupItf           itf;
+    private CpuOptions               cpuOptions;
+    private MetadataOptions          metadataOptions;
+    private CreditSpecification      creditSpec;
     //endregion
 
     //region Constructor
@@ -56,6 +64,15 @@ public class ElastigroupLaunchSpecification {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public Boolean getAutoHealing() {
+        return autoHealing;
+    }
+
+    public void setAutoHealing(Boolean autohealing) {
+        isSet.add("autoHealing");
+        this.autoHealing = autohealing;
     }
 
     public String getHealthCheckType() {
@@ -157,6 +174,15 @@ public class ElastigroupLaunchSpecification {
         this.userData = userData;
     }
 
+    public String getShutdownScript() {
+        return shutdownScript;
+    }
+
+    public void setShutdownScript(String script) {
+        isSet.add("shutdownScript");
+        this.shutdownScript = script;
+    }
+
     public Integer getHealthCheckUnhealthyDurationBeforeReplacement() { return healthCheckUnhealthyDurationBeforeReplacement; }
 
     public void setHealthCheckUnhealthyDurationBeforeReplacement(Integer healthCheckUnhealthyDurationBeforeReplacement) {
@@ -199,6 +225,35 @@ public class ElastigroupLaunchSpecification {
         isSet.add("itf");
         this.itf = itf;
     }
+
+    public CpuOptions getCpuOptions() {
+        return cpuOptions;
+    }
+
+    public void setCpuOptions(CpuOptions options) {
+        isSet.add("cpuOptions");
+        this.cpuOptions = options;
+    }
+
+    public MetadataOptions getMetadataOptions() {
+        return metadataOptions;
+    }
+
+    public void setMetadataOptions(MetadataOptions options) {
+        isSet.add("metadataOptions");
+        this.metadataOptions = options;
+    }
+
+    public CreditSpecification getCreditSpecification() {
+        return creditSpec;
+    }
+
+    public void setCreditSpecification(CreditSpecification spec) {
+        isSet.add("creditSpecification");
+        this.creditSpec = spec;
+    }
+
+
     //endregion
 
     //region Builder class
@@ -248,8 +303,18 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
+        public Builder setAutoHealing(final Boolean autohealing) {
+            launchSpecification.setAutoHealing(autohealing);
+            return this;
+        }
+
         public Builder setUserData(final String userData) {
             launchSpecification.setUserData(userData);
+            return this;
+        }
+
+        public Builder setShutdownScript(final String script) {
+            launchSpecification.setShutdownScript(script);
             return this;
         }
 
@@ -298,6 +363,21 @@ public class ElastigroupLaunchSpecification {
             return this;
         }
 
+        public Builder setCpuOptions(final CpuOptions options) {
+            launchSpecification.setCpuOptions(options);
+            return this;
+        }
+
+        public Builder setMetadataOptions(final MetadataOptions options) {
+            launchSpecification.setMetadataOptions(options);
+            return this;
+        }
+
+        public Builder setCreditSpecification(final CreditSpecification spec) {
+            launchSpecification.setCreditSpecification(spec);
+            return this;
+        }
+
         public ElastigroupLaunchSpecification build() {
             return launchSpecification;
         }
@@ -309,6 +389,11 @@ public class ElastigroupLaunchSpecification {
     @JsonIgnore
     public boolean isHealthCheckTypeSet() {
         return isSet.contains("healthCheckType");
+    }
+
+    @JsonIgnore
+    public boolean isAutoHealingSet() {
+        return isSet.contains("autoHealing");
     }
 
     // Is ResourceTagSpecification Set boolean method
@@ -370,6 +455,10 @@ public class ElastigroupLaunchSpecification {
         return isSet.contains("userData");
     }
 
+    @JsonIgnore
+    public boolean isShutdownScriptSet() {
+        return isSet.contains("shutdownScript");
+    }
 
     // Is iamRole Set boolean method
     @JsonIgnore
@@ -415,5 +504,21 @@ public class ElastigroupLaunchSpecification {
     public boolean isItfSet() {
         return isSet.contains("itf");
     }
+
+    @JsonIgnore
+    public boolean isCpuOptionsSet() {
+        return isSet.contains("cpuOptions");
+    }
+
+    @JsonIgnore
+    public boolean isMetadataOptionsSet() {
+        return isSet.contains("metadataOptions");
+    }
+
+    @JsonIgnore
+    public boolean isCreditSpecificationSet() {
+        return isSet.contains("creditSpecification");
+    }
+
     //endregion
 }

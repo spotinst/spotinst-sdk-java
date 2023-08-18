@@ -3,9 +3,6 @@ package com.spotinst.sdkjava.model.converters.oceanCD;
 import com.spotinst.sdkjava.model.api.oceanCD.*;
 import com.spotinst.sdkjava.model.bl.oceanCD.*;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Created by Janetlin Kiruba on 01/10/2022.
  */

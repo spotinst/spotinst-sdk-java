@@ -1,7 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.enums.SubscriptionEventTypeEnum;
-import com.spotinst.sdkjava.enums.SubscriptionProtocolEnum;
 import com.spotinst.sdkjava.model.api.admin.account.ApiSubscription;
 import com.spotinst.sdkjava.model.api.admin.account.common.ApiSubscriptionEventFormat;
 import com.spotinst.sdkjava.model.api.admin.account.response.ApiSubscriptionResponse;

@@ -1,6 +1,9 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.*;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsCpuCreditsEnum;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsInstanceMetadataTagsEnum;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsTerminationPolicyEnum;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 
@@ -520,6 +523,10 @@ public class ElastigroupConverter {
                 retVal.setHealthCheckType(launchSpecification.getHealthCheckType());
             }
 
+            if (launchSpecification.isAutoHealingSet()) {
+                retVal.setAutoHealing(launchSpecification.getAutoHealing());
+            }
+
             if (launchSpecification.isHealthCheckGracePeriodSet()) {
                 retVal.setHealthCheckGracePeriod(launchSpecification.getHealthCheckGracePeriod());
             }
@@ -566,6 +573,10 @@ public class ElastigroupConverter {
                 retVal.setUserData(launchSpecification.getUserData());
             }
 
+            if (launchSpecification.isShutdownScriptSet()) {
+                retVal.setShutdownScript(launchSpecification.getShutdownScript());
+            }
+
             if (launchSpecification.isResourceTagSpecificationSet()) {
                 retVal.setResourceTagSpecification(toDal(launchSpecification.getResourceTagSpecification()));
             }
@@ -605,6 +616,19 @@ public class ElastigroupConverter {
             if (launchSpecification.isItfSet()) {
                 retVal.setItf(toDal(launchSpecification.getItf()));
             }
+
+            if (launchSpecification.isCpuOptionsSet()) {
+                retVal.setCpuOptions(toDal(launchSpecification.getCpuOptions()));
+            }
+
+            if (launchSpecification.isMetadataOptionsSet()) {
+                retVal.setMetadataOptions(toDal(launchSpecification.getMetadataOptions()));
+            }
+
+            if (launchSpecification.isCreditSpecificationSet()) {
+                retVal.setCreditSpecification(toDal(launchSpecification.getCreditSpecification()));
+            }
+
         }
 
         return retVal;
@@ -1009,6 +1033,56 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    private static ApiCpuOptions toDal(CpuOptions options) {
+        ApiCpuOptions retVal = null;
+
+        if (options != null) {
+            retVal = new ApiCpuOptions();
+
+            if (options.isThreadsPerCoreSet()) {
+                retVal.setThreadsPerCore(options.getThreadsPerCore());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiMetadataOptions toDal(MetadataOptions options) {
+        ApiMetadataOptions retVal = null;
+
+        if (options != null) {
+            retVal = new ApiMetadataOptions();
+
+            if (options.isHttpPutResponseHopLimitSet()) {
+                retVal.setHttpPutResponseHopLimit(options.getHttpPutResponseHopLimit());
+            }
+
+            if (options.isHttpTokensSet()) {
+                retVal.setHttpTokens(options.getHttpTokens());
+            }
+
+            if (options.isInstanceMetadataTagsSet()) {
+                retVal.setInstanceMetadataTags(options.getInstanceMetadataTags().getName());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiCreditSpecification toDal(CreditSpecification spec) {
+        ApiCreditSpecification retVal = null;
+
+        if (spec != null) {
+            retVal = new ApiCreditSpecification();
+
+            if (spec.isCpuCreditsSet()) {
+                retVal.setCpuCredits(spec.getCpuCredits().getName());
+            }
+        }
+
+        return retVal;
+    }
+
     private static ApiInstanceTypes toDal(ElastigroupInstanceTypes instanceTypes) {
         ApiInstanceTypes retVal = null;
 
@@ -1017,6 +1091,13 @@ public class ElastigroupConverter {
             if (instanceTypes.isOnDemandSet()) {
                 retVal.setOndemand(instanceTypes.getOnDemand());
             }
+
+            if (instanceTypes.isOnDemandTypesSet()) {
+                if (instanceTypes.getOnDemandTypes() != null) {
+                    retVal.setOnDemandTypes(new LinkedList<>(instanceTypes.getOnDemandTypes()));
+                }
+            }
+
             if (instanceTypes.isSpotSet()) {
                 if (instanceTypes.getSpot() != null) {
                     retVal.setSpot(new LinkedList<>(instanceTypes.getSpot()));
@@ -1034,6 +1115,10 @@ public class ElastigroupConverter {
                     List<ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                     retVal.setWeights(optWeights);
                 }
+            }
+
+            if (instanceTypes.isResourceRequirementsSet()) {
+                retVal.setResourceRequirements(toDal(instanceTypes.getResourceRequirements()));
             }
         }
 
@@ -1057,6 +1142,65 @@ public class ElastigroupConverter {
 
         return retVal;
     }
+
+    private static ApiResourceRequirements toDal(ResourceRequirements requirements) {
+        ApiResourceRequirements retVal = null;
+
+        if (requirements != null) {
+            retVal = new ApiResourceRequirements();
+
+            if (requirements.isExcludedInstanceFamiliesSet()) {
+                retVal.setExcludedInstanceFamilies(new LinkedList<>(requirements.getExcludedInstanceFamilies()));
+            }
+
+            if (requirements.isExcludedInstanceGenerationsSet()) {
+                retVal.setExcludedInstanceGenerations(new LinkedList<>(requirements.getExcludedInstanceGenerations()));
+            }
+
+            if (requirements.isExcludedInstanceTypesSet()) {
+                retVal.setExcludedInstanceTypes(new LinkedList<>(requirements.getExcludedInstanceTypes()));
+            }
+
+            if (requirements.isRequiredGpuSet()) {
+                retVal.setRequiredGpu(toDal(requirements.getRequiredGpu()));
+            }
+
+            if (requirements.isRequiredMemorySet()) {
+                retVal.setRequiredMemory(toDal(requirements.getRequiredMemory()));
+            }
+
+            if (requirements.isRequiredMemorySet()) {
+                retVal.setRequiredMemory(toDal(requirements.getRequiredMemory()));
+            }
+
+            if (requirements.isRequiredVCpuSet()) {
+                retVal.setRequiredVCpu(toDal(requirements.getRequiredVCpu()));
+            }
+        }
+
+        return retVal;
+    }
+
+
+    private static ApiRequiredVCpuMemoryGpu toDal(RequiredVCpuMemoryGpu requiredVCpuMemory) {
+        ApiRequiredVCpuMemoryGpu retVal = null;
+
+        if (requiredVCpuMemory != null) {
+
+            retVal = new ApiRequiredVCpuMemoryGpu();
+
+            if (requiredVCpuMemory.isMinimumSet()) {
+                retVal.setMinimum(requiredVCpuMemory.getMinimum());
+            }
+
+            if (requiredVCpuMemory.isMaximumSet()) {
+                retVal.setMaximum(requiredVCpuMemory.getMaximum());
+            }
+        }
+
+        return retVal;
+    }
+
 
     private static ApiStrategy toDal(ElastigroupStrategyConfiguration strategy) {
         ApiStrategy retVal = null;
@@ -1086,6 +1230,10 @@ public class ElastigroupConverter {
                 retVal.setUtilizeReservedInstances(strategy.getUtilizeReservedInstances());
             }
 
+            if (strategy.isUtilizeCommitmentsSet()) {
+                retVal.setUtilizeCommitments(strategy.getUtilizeCommitments());
+            }
+
             if (strategy.isFallbackToOdSet()) {
                 retVal.setFallbackToOd(strategy.getFallbackToOd());
             }
@@ -1101,6 +1249,23 @@ public class ElastigroupConverter {
             if (strategy.isConsiderODPricingSet()) {
                 retVal.setConsiderODPricing(strategy.getConsiderODPricing());
             }
+
+            if (strategy.isRestrictSingleAzSet()) {
+                retVal.setRestrictSingleAz(strategy.getRestrictSingleAz());
+            }
+
+            if(strategy.isSignalsSet()) {
+                if(strategy.getSignals()!=null) {
+                    List<ApiStrategySignal> signals =
+                            strategy.getSignals().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setSignals(signals);
+                }
+            }
+
+            if (strategy.isScalingStrategySet()) {
+                retVal.setScalingStrategy(toDal(strategy.getScalingStrategy()));
+            }
         }
 
         return retVal;
@@ -1111,6 +1276,7 @@ public class ElastigroupConverter {
 
         if (revertToSpot != null) {
             retVal = new ApiRevertToSpot();
+
             if (revertToSpot.isPerformAtSet()) {
                 retVal.setPerformAt(revertToSpot.getPerformAt());
             }
@@ -1150,6 +1316,39 @@ public class ElastigroupConverter {
 
         return retVal;
     }
+
+    private static ApiStrategySignal toDal(StrategySignal signal) {
+        ApiStrategySignal retVal = null;
+
+        if (signal != null) {
+            retVal = new ApiStrategySignal();
+
+            if (signal.isNameSet()) {
+                retVal.setName(signal.getName());
+            }
+
+            if (signal.isTimeoutSet()) {
+                retVal.setTimeout(signal.getTimeout());
+            }
+        }
+
+        return retVal;
+    }
+
+    private static ApiScalingStrategy toDal(ScalingStrategy scalingStrategy) {
+        ApiScalingStrategy retVal = null;
+
+        if (scalingStrategy != null) {
+            retVal = new ApiScalingStrategy();
+
+            if (scalingStrategy.isTerminationPolicySet()) {
+                retVal.setTerminationPolicy(scalingStrategy.getTerminationPolicy().getName());
+            }
+        }
+
+        return retVal;
+    }
+
 
     private static ApiCapacity toDal(ElastigroupCapacityConfiguration capacity) {
         ApiCapacity retVal = null;
@@ -2281,6 +2480,10 @@ public class ElastigroupConverter {
                 retValBuilder.setHealthCheckType(launchSpecification.getHealthCheckType());
             }
 
+            if (launchSpecification.isAutoHealingSet()) {
+                retValBuilder.setAutoHealing(launchSpecification.getAutoHealing());
+            }
+
             if (launchSpecification.isHealthCheckGracePeriodSet()) {
                 retValBuilder.setHealthCheckGracePeriod(launchSpecification.getHealthCheckGracePeriod());
             }
@@ -2327,6 +2530,10 @@ public class ElastigroupConverter {
                 retValBuilder.setUserData(launchSpecification.getUserData());
             }
 
+            if (launchSpecification.isShutdownScriptSet()) {
+                retValBuilder.setShutdownScript(launchSpecification.getShutdownScript());
+            }
+
             if (launchSpecification.isBlockDeviceMappingsSet()) {
                 if (launchSpecification.getBlockDeviceMappings() != null) {
                     List<BlockDeviceMapping> blBDM =
@@ -2358,8 +2565,21 @@ public class ElastigroupConverter {
                     retValBuilder.setTags(tags);
                 }
             }
+
             if (launchSpecification.isItfSet()) {
                 retValBuilder.setItf(toBl(launchSpecification.getItf()));
+            }
+
+            if (launchSpecification.isCpuOptionsSet()) {
+                retValBuilder.setCpuOptions(toBl(launchSpecification.getCpuOptions()));
+            }
+
+            if (launchSpecification.isMetadataOptionsSet()) {
+                retValBuilder.setMetadataOptions(toBl(launchSpecification.getMetadataOptions()));
+            }
+
+            if (launchSpecification.isCreditSpecificationSet()) {
+                retValBuilder.setCreditSpecification(toBl(launchSpecification.getCreditSpecification()));
             }
 
             retVal = retValBuilder.build();
@@ -2762,6 +2982,66 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+
+    private static CpuOptions toBl(ApiCpuOptions options) {
+        CpuOptions retVal = null;
+
+        if (options != null) {
+            CpuOptions.Builder retValBuilder = CpuOptions.Builder.get();
+
+            if (options.isThreadsPerCoreSet()) {
+                retValBuilder.setThreadsPerCore(options.getThreadsPerCore());
+            }
+
+            retVal = retValBuilder.build();
+
+        }
+
+        return retVal;
+    }
+
+    private static MetadataOptions toBl(ApiMetadataOptions options) {
+        MetadataOptions retVal = null;
+
+        if (options != null) {
+            MetadataOptions.Builder retValBuilder = MetadataOptions.Builder.get();
+
+            if (options.isHttpPutResponseHopLimitSet()) {
+                retValBuilder.setHttpPutResponseHopLimit(options.getHttpPutResponseHopLimit());
+            }
+
+            if (options.isHttpTokensSet()) {
+                retValBuilder.setHttpTokens(options.getHttpTokens());
+            }
+
+            if (options.isInstanceMetadataTagsSet()) {
+                retValBuilder.setInstanceMetadataTags(AwsInstanceMetadataTagsEnum.fromName(options.getInstanceMetadataTags()));
+            }
+
+            retVal = retValBuilder.build();
+
+        }
+
+        return retVal;
+    }
+
+    private static CreditSpecification toBl(ApiCreditSpecification spec) {
+        CreditSpecification retVal = null;
+
+        if (spec != null) {
+            CreditSpecification.Builder retValBuilder = CreditSpecification.Builder.get();
+
+            if (spec.isCpuCreditsSet()) {
+                retValBuilder.setCpuCredits(AwsCpuCreditsEnum.fromName(spec.getCpuCredits()));
+            }
+
+            retVal = retValBuilder.build();
+
+        }
+
+        return retVal;
+    }
+
     private static ElastigroupInstanceTypes toBl(ApiInstanceTypes instanceTypes) {
         ElastigroupInstanceTypes retVal = null;
 
@@ -2770,6 +3050,12 @@ public class ElastigroupConverter {
 
             if (instanceTypes.isOndemandSet()) {
                 retValBuilder.setOnDemandType(instanceTypes.getOndemand());
+            }
+
+            if (instanceTypes.isOnDemandTypesSet()) {
+                if (instanceTypes.getOnDemandTypes() != null) {
+                    retValBuilder.setOnDemandTypes(new LinkedList<>(instanceTypes.getOnDemandTypes()));
+                }
             }
 
             if (instanceTypes.isSpotSet()) {
@@ -2793,11 +3079,73 @@ public class ElastigroupConverter {
                 }
             }
 
+            if (instanceTypes.isResourceRequirementsSet()) {
+                retValBuilder.setResourceRequirements(toBl(instanceTypes.getResourceRequirements()));
+            }
+
             retVal = retValBuilder.build();
         }
 
         return retVal;
     }
+
+    private static ResourceRequirements toBl(ApiResourceRequirements requirements) {
+        ResourceRequirements retVal = null;
+
+        if (requirements != null) {
+            ResourceRequirements.Builder retValBuilder = ResourceRequirements.Builder.get();
+
+            if (requirements.isExcludedInstanceFamiliesSet()) {
+                retValBuilder.setExcludedInstanceFamilies(new LinkedList<>(requirements.getExcludedInstanceFamilies()));
+            }
+
+            if (requirements.isExcludedInstanceGenerationsSet()) {
+                retValBuilder.setExcludedInstanceGenerations(new LinkedList<>(requirements.getExcludedInstanceGenerations()));
+            }
+
+            if (requirements.isExcludedInstanceTypesSet()) {
+                retValBuilder.setExcludedInstanceTypes(new LinkedList<>(requirements.getExcludedInstanceTypes()));
+            }
+
+            if (requirements.isRequiredGpuSet()) {
+                retValBuilder.setRequiredGpu(toBl(requirements.getRequiredGpu()));
+            }
+
+            if (requirements.isRequiredMemorySet()) {
+                retValBuilder.setRequiredMemory(toBl(requirements.getRequiredMemory()));
+            }
+
+            if (requirements.isRequiredVCpuSet()) {
+                retValBuilder.setRequiredVCpu(toBl(requirements.getRequiredVCpu()));
+            }
+
+            retVal = retValBuilder.build();
+
+        }
+
+        return retVal;
+    }
+
+    private static RequiredVCpuMemoryGpu toBl(ApiRequiredVCpuMemoryGpu requiredVCpuMemory) {
+        RequiredVCpuMemoryGpu retVal = null;
+
+        if (requiredVCpuMemory != null) {
+            RequiredVCpuMemoryGpu.Builder retValBuilder = RequiredVCpuMemoryGpu.Builder.get();
+
+            if (requiredVCpuMemory.isMinimumSet()) {
+                retValBuilder.setMinimum(requiredVCpuMemory.getMinimum());
+            }
+
+            if (requiredVCpuMemory.isMaximumSet()) {
+                retValBuilder.setMaximum(requiredVCpuMemory.getMaximum());
+            }
+
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
 
     private static ElastigroupStrategyConfiguration toBl(ApiStrategy strategy) {
         ElastigroupStrategyConfiguration retVal = null;
@@ -2825,6 +3173,10 @@ public class ElastigroupConverter {
                 retValBuilder.setUtilizeReservedInstances(strategy.getUtilizeReservedInstances());
             }
 
+            if (strategy.isUtilizeCommitmentsSet()) {
+                retValBuilder.setUtilizeCommitments(strategy.getUtilizeCommitments());
+            }
+
             if (strategy.isFallbackToOdSet()) {
                 retValBuilder.setFallbackToOnDemand(strategy.getFallbackToOd());
             }
@@ -2839,6 +3191,22 @@ public class ElastigroupConverter {
 
             if (strategy.isConsiderODPricingSet()) {
                 retValBuilder.setConsiderODPricing(strategy.getConsiderODPricing());
+            }
+
+            if (strategy.isRestrictSingleAzSet()) {
+                retValBuilder.setRestrictSingleAz(strategy.getRestrictSingleAz());
+            }
+
+            if(strategy.isSignalsSet()) {
+                if(strategy.getSignals() != null) {
+                    List<StrategySignal> signals = strategy.getSignals().stream().map(ElastigroupConverter::toBl)
+                            .collect(Collectors.toList());
+                    retValBuilder.setSignals(signals);
+                }
+            }
+
+            if (strategy.isScalingStrategySet()) {
+                retValBuilder.setScalingStrategy(toBl(strategy.getScalingStrategy()));
             }
 
             retVal = retValBuilder.build();
@@ -2891,6 +3259,42 @@ public class ElastigroupConverter {
             }
         }
 
+        return retVal;
+    }
+
+    private static StrategySignal toBl(ApiStrategySignal signal) {
+        StrategySignal retVal = null;
+
+        if (signal != null) {
+            StrategySignal.Builder builder = StrategySignal.Builder.get();
+
+
+            if (signal.isNameSet()) {
+                builder.setName(signal.getName());
+            }
+
+            if (signal.isTimeoutSet()) {
+                builder.setTimeout(signal.getTimeout());
+            }
+
+            retVal = builder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ScalingStrategy toBl(ApiScalingStrategy scalingStrategy) {
+        ScalingStrategy retVal = null;
+
+        if (scalingStrategy != null) {
+            ScalingStrategy.Builder retValBuilder = ScalingStrategy.Builder.get();
+
+            if (scalingStrategy.isTerminationPolicySet()) {
+                retValBuilder.setTerminationPolicy(AwsTerminationPolicyEnum.fromName(scalingStrategy.getTerminationPolicy()));
+            }
+
+            retVal = retValBuilder.build();
+        }
         return retVal;
     }
 
