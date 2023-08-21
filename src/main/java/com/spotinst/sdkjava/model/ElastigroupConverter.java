@@ -1169,10 +1169,6 @@ public class ElastigroupConverter {
                 retVal.setRequiredMemory(toDal(requirements.getRequiredMemory()));
             }
 
-            if (requirements.isRequiredMemorySet()) {
-                retVal.setRequiredMemory(toDal(requirements.getRequiredMemory()));
-            }
-
             if (requirements.isRequiredVCpuSet()) {
                 retVal.setRequiredVCpu(toDal(requirements.getRequiredVCpu()));
             }
