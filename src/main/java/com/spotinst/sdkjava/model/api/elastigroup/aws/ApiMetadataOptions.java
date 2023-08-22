@@ -74,40 +74,6 @@ public class ApiMetadataOptions implements IPartialUpdateEntity {
 
     //endregion
 
-    //region Builder class
-    public static class Builder {
-        private ApiMetadataOptions options;
-
-        private Builder() {
-            this.options = new ApiMetadataOptions();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setHttpPutResponseHopLimit(final Integer limit) {
-            options.setHttpPutResponseHopLimit(limit);
-            return this;
-        }
-
-        public Builder setHttpTokens(final String token) {
-            options.setHttpTokens(token);
-            return this;
-        }
-
-        public Builder setInstanceMetadataTags(final String tag) {
-            options.setInstanceMetadataTags(tag);
-            return this;
-        }
-
-        public ApiMetadataOptions build() {
-            // TODO : Validations
-            return options;
-        }
-    }
-    //endregion
-
     //region isSet methods
     @JsonIgnore
     public boolean isHttpPutResponseHopLimitSet() {

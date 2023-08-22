@@ -64,35 +64,6 @@ public class ApiStrategySignal implements IPartialUpdateEntity {
 
     //endregion
 
-    //region Builder class
-    public static class Builder {
-        private ApiStrategySignal signal;
-
-        private Builder() {
-            this.signal = new ApiStrategySignal();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setName(final AwsSignalNameEnum name) {
-            signal.setName(name);
-            return this;
-        }
-
-        public Builder setTimeout(final Integer timeout) {
-            signal.setTimeout(timeout);
-            return this;
-        }
-
-        public ApiStrategySignal build() {
-            // TODO : Validations
-            return signal;
-        }
-    }
-    //endregion
-
     //region isSet methods
     // Is minimum Set boolean method
     @JsonIgnore

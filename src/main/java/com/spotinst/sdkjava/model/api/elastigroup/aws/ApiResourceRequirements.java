@@ -104,55 +104,6 @@ public class ApiResourceRequirements implements IPartialUpdateEntity {
 
     //endregion
 
-    //region Builder class
-    public static class Builder {
-        private ApiResourceRequirements requirements;
-
-        private Builder() {
-            this.requirements = new ApiResourceRequirements();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setExcludedInstanceFamilies(final List<String> excluded) {
-            requirements.setExcludedInstanceFamilies(excluded);
-            return this;
-        }
-
-        public Builder setExcludedInstanceGenerations(final List<String> excluded) {
-            requirements.setExcludedInstanceGenerations(excluded);
-            return this;
-        }
-
-        public Builder setExcludedInstanceTypes(final List<String> excluded) {
-            requirements.setExcludedInstanceTypes(excluded);
-            return this;
-        }
-
-        public Builder setRequiredGpu(final ApiRequiredVCpuMemoryGpu required) {
-            requirements.setRequiredGpu(required);
-            return this;
-        }
-
-        public Builder setRequiredMemory(final ApiRequiredVCpuMemoryGpu required) {
-            requirements.setRequiredMemory(required);
-            return this;
-        }
-
-        public Builder setRequiredVCpu(final ApiRequiredVCpuMemoryGpu required) {
-            requirements.setRequiredVCpu(required);
-            return this;
-        }
-
-        public ApiResourceRequirements build() {
-            // TODO : Validations
-            return requirements;
-        }
-    }
-    //endregion
-
     //region isSet methods
     @JsonIgnore
     public boolean isExcludedInstanceFamiliesSet() {

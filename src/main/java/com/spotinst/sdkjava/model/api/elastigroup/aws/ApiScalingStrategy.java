@@ -53,30 +53,6 @@ public class ApiScalingStrategy implements IPartialUpdateEntity {
 
     //endregion
 
-    //region Builder class
-    public static class Builder {
-        private ApiScalingStrategy terminationPolicy;
-
-        private Builder() {
-            this.terminationPolicy = new ApiScalingStrategy();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setTerminationPolicy(final String policy) {
-            terminationPolicy.setTerminationPolicy(policy);
-            return this;
-        }
-
-        public ApiScalingStrategy build() {
-            // TODO : Validations
-            return terminationPolicy;
-        }
-    }
-    //endregion
-
     //region isSet methods
     // Is terminationPolicy Set boolean method
     @JsonIgnore
