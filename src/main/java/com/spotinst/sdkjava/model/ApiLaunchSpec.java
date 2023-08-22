@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiCpuOptions;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiCreditSpecification;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiMetadataOptions;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +24,7 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>                      isSet;
     private String                           healthCheckType;
+    private Boolean                          autoHealing;
     private Integer                          healthCheckGracePeriod;
     private List<String>                     securityGroupIds;
     private Boolean                          monitoring;
@@ -31,12 +35,16 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     private String                           keyPair;
     private Integer                          healthCheckUnhealthyDurationBeforeReplacement;
     private String                           userData;
+    private String                           shutdownScript;
     private List<ApiBlockDevice>             blockDeviceMappings;
     private List<ApiNetworkInterface>        networkInterfaces;
     private List<ApiTag>                     tags;
     private ApiGroupResourceTagSpecification resourceTagSpecification;
     private ApiLoadBalancersConfig           loadBalancersConfig;
     private ApiItf                           itf;
+    private ApiCpuOptions                    cpuOptions;
+    private ApiMetadataOptions               metadataOptions;
+    private ApiCreditSpecification           creditSpec;
     //endregion
 
     //region Constructor
@@ -71,6 +79,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     public void setHealthCheckType(String healthCheckType) {
         isSet.add("healthCheckType");
         this.healthCheckType = healthCheckType;
+    }
+
+    public Boolean getAutoHealing() {
+        return autoHealing;
+    }
+
+    public void setAutoHealing(Boolean autoHealing) {
+        isSet.add("autoHealing");
+        this.autoHealing = autoHealing;
     }
 
     public Integer getHealthCheckGracePeriod() {
@@ -154,6 +171,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         this.userData = userData;
     }
 
+    public String getShutdownScript() {
+        return shutdownScript;
+    }
+
+    public void setShutdownScript(String script) {
+        isSet.add("shutdownScript");
+        this.shutdownScript = script;
+    }
+
     public Integer getHealthCheckUnhealthyDurationBeforeReplacement() {
         return healthCheckUnhealthyDurationBeforeReplacement;
     }
@@ -207,6 +233,34 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         isSet.add("itf");
         this.itf = itf;
     }
+
+    public ApiCpuOptions getCpuOptions() {
+        return cpuOptions;
+    }
+
+    public void setCpuOptions(ApiCpuOptions options) {
+        isSet.add("cpuOptions");
+        this.cpuOptions = options;
+    }
+
+    public ApiMetadataOptions getMetadataOptions() {
+        return metadataOptions;
+    }
+
+    public void setMetadataOptions(ApiMetadataOptions options) {
+        isSet.add("metadataOptions");
+        this.metadataOptions = options;
+    }
+
+    public ApiCreditSpecification getCreditSpecification() {
+        return creditSpec;
+    }
+
+    public void setCreditSpecification(ApiCreditSpecification spec) {
+        isSet.add("creditSpecification");
+        this.creditSpec = spec;
+    }
+
     //endregion
 
     //region isSet methods
@@ -215,6 +269,11 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isHealthCheckTypeSet() {
         return isSet.contains("healthCheckType");
+    }
+
+    @JsonIgnore
+    public boolean isAutoHealingSet() {
+        return isSet.contains("autoHealing");
     }
 
     // Is resourceTagSpecification Set boolean method
@@ -283,6 +342,10 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
         return isSet.contains("userData");
     }
 
+    @JsonIgnore
+    public boolean isShutdownScriptSet() {
+        return isSet.contains("shutdownScript");
+    }
 
     // Is blockDeviceMappings Set boolean method
     @JsonIgnore
@@ -318,5 +381,15 @@ class ApiLaunchSpec implements IPartialUpdateEntity {
     // Is itf Set boolean method
     @JsonIgnore
     public boolean isItfSet() { return isSet.contains("itf"); }
+
+    @JsonIgnore
+    public boolean isCpuOptionsSet() { return isSet.contains("cpuOptions"); }
+
+    @JsonIgnore
+    public boolean isMetadataOptionsSet() { return isSet.contains("metadataOptions"); }
+
+    @JsonIgnore
+    public boolean isCreditSpecificationSet() { return isSet.contains("creditSpecification"); }
+
     //endregion
 }

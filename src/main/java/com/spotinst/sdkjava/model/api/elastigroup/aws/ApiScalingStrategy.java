@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,21 +10,27 @@ import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Created by Anurag Sharma on 14/8/2023.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiManagedActions implements IPartialUpdateEntity {
+public class ApiScalingStrategy implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String> isSet;
-    private ApiBeanstalkPlatformUpdate      platformUpdate;
+    private Set<String>              isSet;
+    private String terminationPolicy;
     //endregion
 
-    //region Constructors
-    public ApiManagedActions() {
+    //region Constructor
+
+    public ApiScalingStrategy() {
         isSet = new HashSet<>();
     }
-    //region Getters & Setters
+    //endregion
+
+    //region Getter and Setter methods
 
     public Set<String> getIsSet() {
         return isSet;
@@ -33,22 +40,25 @@ public class ApiManagedActions implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public ApiBeanstalkPlatformUpdate getPlatformUpdate() {
-        return platformUpdate;
+    public String getTerminationPolicy() {
+        return terminationPolicy;
     }
 
-    public void setPlatformUpdate(ApiBeanstalkPlatformUpdate platformUpdate) {
-        isSet.add("platformUpdate");
-        this.platformUpdate = platformUpdate;
+    public void setTerminationPolicy(String terminationPolicy) {
+        isSet.add("terminationPolicy");
+        this.terminationPolicy = terminationPolicy;
     }
 
     //endregion
 
+    //endregion
+
     //region isSet methods
-    // Is platformUpdate Set boolean method
+    // Is terminationPolicy Set boolean method
     @JsonIgnore
-    public boolean isPlatformUpdateSet() {
-        return isSet.contains("platformUpdate");
+    public boolean isTerminationPolicySet() {
+        return isSet.contains("terminationPolicy");
     }
+
     //endregion
 }

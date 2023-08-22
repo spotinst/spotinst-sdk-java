@@ -1,13 +1,7 @@
 package com.spotinst.sdkjava.model.converters.oceanCD;
 
 import com.spotinst.sdkjava.model.api.oceanCD.*;
-import com.spotinst.sdkjava.model.api.oceanCD.response.ApiRolloutStatus;
-import com.spotinst.sdkjava.model.api.oceanCD.response.ApiVersionStatus;
-import com.spotinst.sdkjava.model.api.oceanCD.response.ApiVersionStatusReplicas;
 import com.spotinst.sdkjava.model.bl.oceanCD.*;
-import com.spotinst.sdkjava.model.bl.oceanCD.response.RolloutStatus;
-import com.spotinst.sdkjava.model.bl.oceanCD.response.VersionStatus;
-import com.spotinst.sdkjava.model.bl.oceanCD.response.VersionStatusReplicas;
 
 import java.util.List;
 import java.util.stream.Collectors;

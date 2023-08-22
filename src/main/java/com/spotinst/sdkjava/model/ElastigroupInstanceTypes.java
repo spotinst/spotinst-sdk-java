@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.ResourceRequirements;
 
 import java.util.HashSet;
 import java.util.List;
@@ -14,9 +15,11 @@ public class ElastigroupInstanceTypes {
     @JsonIgnore
     private Set<String> isSet;
     private String onDemand;
+    private List<String> onDemandTypes;
     private List<String> spot;
     private List<String> preferredspot;
     private List<ElastigroupInstanceTypesWeights> weights;
+    private ResourceRequirements resourcerequirements;
     //endregion
 
     //region Constructors
@@ -70,6 +73,15 @@ public class ElastigroupInstanceTypes {
         this.onDemand = onDemand;
     }
 
+    public List<String> getOnDemandTypes() {
+        return onDemandTypes;
+    }
+
+    public void setOnDemandTypes(List<String> onDemandTypes) {
+        isSet.add("onDemandTypes");
+        this.onDemandTypes = onDemandTypes;
+    }
+
     public List<ElastigroupInstanceTypesWeights> getWeights() {
         return weights;
     }
@@ -78,6 +90,16 @@ public class ElastigroupInstanceTypes {
         isSet.add("weights");
         this.weights = weights;
     }
+
+    public ResourceRequirements getResourceRequirements() {
+        return resourcerequirements;
+    }
+
+    public void setResourceRequirements(ResourceRequirements requirements) {
+        isSet.add("resourceRequirements");
+        this.resourcerequirements = requirements;
+    }
+
     //endregion
 
     //endregion
@@ -96,6 +118,11 @@ public class ElastigroupInstanceTypes {
 
         public Builder setOnDemandType(final String onDemandType) {
             instanceTypes.setOnDemand(onDemandType);
+            return this;
+        }
+
+        public Builder setOnDemandTypes(final List<String> onDemandTypes) {
+            instanceTypes.setOnDemandTypes(onDemandTypes);
             return this;
         }
 
@@ -118,6 +145,11 @@ public class ElastigroupInstanceTypes {
             instanceTypes.setWeights(weights);
             return this;
         }
+
+        public Builder setResourceRequirements(final ResourceRequirements requirements) {
+            instanceTypes.setResourceRequirements(requirements);
+            return this;
+        }
     }
     //endregion
     //region isSet methods
@@ -125,6 +157,11 @@ public class ElastigroupInstanceTypes {
     @JsonIgnore
     public boolean isOnDemandSet() {
         return isSet.contains("onDemand");
+    }
+
+    @JsonIgnore
+    public boolean isOnDemandTypesSet() {
+        return isSet.contains("onDemandTypes");
     }
 
     // Is spot Set boolean method
@@ -145,5 +182,9 @@ public class ElastigroupInstanceTypes {
         return isSet.contains("weights");
     }
 
+    @JsonIgnore
+    public boolean isResourceRequirementsSet() {
+        return isSet.contains("resourceRequirements");
+    }
     //endregion
 }

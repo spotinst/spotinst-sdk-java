@@ -10,7 +10,9 @@ public enum ElastigroupOrientationEnum {
 
     COST_ORIENTED("costOriented"),
     AVAILABILITY_ORIENTED("availabilityOriented"),
-    BALANCED("balanced");
+    BALANCED("balanced"),
+    CHEAPEST("cheapest"),
+    EQUAL_AZ_DISTRIBUTION("equalAzDistribution");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ElastigroupOrientationEnum.class);
     private final String name;

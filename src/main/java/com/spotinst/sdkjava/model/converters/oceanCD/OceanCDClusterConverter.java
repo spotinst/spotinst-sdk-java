@@ -1,18 +1,13 @@
 package com.spotinst.sdkjava.model.converters.oceanCD;
 
-import com.spotinst.sdkjava.model.api.oceanCD.*;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiCluster;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiClusterClusterInfo;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiClusterControllerInfo;
 import com.spotinst.sdkjava.model.api.oceanCD.response.ApiClusterNotification;
-import com.spotinst.sdkjava.model.bl.oceanCD.*;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.Cluster;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterClusterInfo;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterControllerInfo;
 import com.spotinst.sdkjava.model.bl.oceanCD.response.ClusterNotification;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Janetlin Kiruba on 22/10/2022.

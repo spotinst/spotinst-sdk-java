@@ -3,10 +3,6 @@ package com.spotinst.sdkjava.model.bl.oceanCD.response;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpecFailurePolicy;
-import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpecSpotDeployment;
-import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpecStrategy;
-import com.spotinst.sdkjava.model.bl.oceanCD.RolloutSpecTraffic;
 
 import java.util.Date;
 import java.util.HashSet;
