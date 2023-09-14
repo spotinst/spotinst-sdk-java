@@ -173,6 +173,7 @@ public class ElastigroupComputeConfiguration {
         }
 
         public Builder setPrivateIps(final List<String> privateIps) {
+            compute.setPrivateIps(privateIps);
             return this;
         }
 
