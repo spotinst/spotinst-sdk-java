@@ -46,7 +46,7 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String body = JsonMapper.toJson(groupRequest);
 
         // Build URI
-        String uri = String.format("%s/aws/ec2/group", "http://api-private.dev.spotinst.com:80");
+        String uri = String.format("%s/aws/ec2/group", apiEndpoint);
 
         // Send the request
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
