@@ -23,6 +23,7 @@ public class NetworkInterface {
     private String networkInterfaceId;
     private String privateIpAddress;
     private List<IpAddress> privateIpAddresses;
+    private Boolean associateIpv6Address;
 
     //region Constructor
 
@@ -111,6 +112,15 @@ public class NetworkInterface {
         this.privateIpAddresses = privateIpAddresses;
     }
 
+    public Boolean getAssociateIpv6Address() {
+        return associateIpv6Address;
+    }
+
+    public void setAssociateIpv6Address(Boolean associateIpv6Address) {
+        isSet.add("associateIpv6Address");
+        this.associateIpv6Address = associateIpv6Address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -197,6 +207,11 @@ public class NetworkInterface {
             return this;
         }
 
+        public Builder setAssociateIpv6Address(final Boolean associateIpv6Address)  {
+            networkInterface.setAssociateIpv6Address(associateIpv6Address);
+            return this;
+        }
+
 
         public NetworkInterface build() {
             // TODO : Validations
@@ -257,6 +272,12 @@ public class NetworkInterface {
     @JsonIgnore
     public boolean isPrivateIpAddressesSet() {
         return isSet.contains("privateIpAddresses");
+    }
+
+    // Is associateIpv6Address Set boolean method
+    @JsonIgnore
+    public boolean isAssociateIpv6AddressSet() {
+        return isSet.contains("associateIpv6Address");
     }
 
     //endregion

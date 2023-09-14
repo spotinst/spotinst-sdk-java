@@ -21,6 +21,8 @@ public class ElastigroupComputeConfiguration {
     private List<String> elasticIps;
     private List<ElastigroupEbsVolumePool> ebsVolumePool;
     private List<String> preferredAvailabilityZones;
+    private List<String> privateIps;
+    private List<String> subnetIds;
     //endregion
 
     //region Constructor
@@ -31,6 +33,7 @@ public class ElastigroupComputeConfiguration {
     //endregion
 
     //region Getters & Setters
+
 
     public Set<String> getIsSet() {
         return isSet;
@@ -103,6 +106,24 @@ public class ElastigroupComputeConfiguration {
         this.preferredAvailabilityZones = preferredAvailabilityZones;
     }
 
+    public List<String> getPrivateIps() {
+        return privateIps;
+    }
+
+    public void setPrivateIps(List<String> privateIps) {
+        isSet.add("privateIps");
+        this.privateIps = privateIps;
+    }
+
+    public List<String> getSubnetIds() {
+        return subnetIds;
+    }
+
+    public void setSubnetIds(List<String> subnetIds) {
+        isSet.add("subnetIds");
+        this.subnetIds = subnetIds;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
@@ -148,6 +169,15 @@ public class ElastigroupComputeConfiguration {
 
         public Builder setPreferredAvailabilityZones(final List<String> preferredAvailabilityZones) {
             compute.setPreferredAvailabilityZones(preferredAvailabilityZones);
+            return this;
+        }
+
+        public Builder setPrivateIps(final List<String> privateIps) {
+            return this;
+        }
+
+        public Builder setSubnetIds(final List<String> subnetIds) {
+            compute.setSubnetIds(subnetIds);
             return this;
         }
 
@@ -202,6 +232,18 @@ public class ElastigroupComputeConfiguration {
     @JsonIgnore
     public boolean isPreferredAvailabilityZonesSet() {
         return isSet.contains("preferredAvailabilityZones");
+    }
+
+    // Is privateIps Set boolean method
+    @JsonIgnore
+    public boolean isPrivateIpsSet() {
+        return isSet.contains("privateIps");
+    }
+
+    // Is subnetIds Set boolean method
+    @JsonIgnore
+    public boolean isSubnetIdsSet() {
+        return isSet.contains("subnetIds");
     }
 
 

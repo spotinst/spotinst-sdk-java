@@ -25,6 +25,9 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     private Integer                     volumeSize;
     private String                      volumeType;
     private Integer                     throughput;
+    private ApiDynamiclops              dynamicIops;
+    private ApiDynamicVolumeSize        dynamicVolumeSize;
+    private String                      kmsKeyId;
 
     //region Constructor
     public ApiEbsDevice() {
@@ -103,6 +106,34 @@ class ApiEbsDevice implements IPartialUpdateEntity {
         isSet.add("throughput");
         this.throughput = throughput;
     }
+
+    public ApiDynamiclops getDynamicIops() {
+        return dynamicIops;
+    }
+
+    public void setDynamicIops(ApiDynamiclops dynamicIops) {
+        isSet.add("dynamicIops");
+        this.dynamicIops = dynamicIops;
+    }
+
+    public ApiDynamicVolumeSize getDynamicVolumeSize() {
+        return dynamicVolumeSize;
+    }
+
+    public void setDynamicVolumeSize(ApiDynamicVolumeSize dynamicVolumeSize) {
+        isSet.add("dynamicVolumeSize");
+        this.dynamicVolumeSize = dynamicVolumeSize;
+    }
+
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+
+    public void setKmsKeyId(String kmsKeyId) {
+        isSet.add("kmsKeyId");
+        this.kmsKeyId = kmsKeyId;
+    }
+
     //endregion
 
     //region isSet methods
@@ -158,6 +189,18 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isThroughputSet() {
         return isSet.contains("throughput");
+    }
+
+    // Is dynamicIops Set boolean method
+    @JsonIgnore
+    public boolean isDynamicIopsSet() {
+        return isSet.contains("dynamicIops");
+    }
+
+    // Is kmsKeyId Set boolean method
+    @JsonIgnore
+    public boolean isKmsKeyIdSet() {
+        return isSet.contains("kmsKeyId");
     }
     //endregion
 }

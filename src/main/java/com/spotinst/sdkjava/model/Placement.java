@@ -15,6 +15,7 @@ public class Placement {
     private Set<String> isSet;
     private String azName;
     private List<String> subnetIds;
+    private String placementGroupName;
     //endregion
 
     //region Constructors
@@ -71,6 +72,15 @@ public class Placement {
         isSet.add("subnetIds");
         this.subnetIds = subnetIds;
     }
+
+    public String getPlacementGroupName() {
+        return placementGroupName;
+    }
+
+    public void setPlacementGroupName(String placementGroupName) {
+        isSet.add("placementGroupName");
+        this.placementGroupName = placementGroupName;
+    }
     //endregion
 
     //region Object overrides
@@ -109,6 +119,12 @@ public class Placement {
         return isSet.contains("subnetIds");
     }
 
+    // Is subnetIds Set boolean method
+    @JsonIgnore
+    public boolean isPlacementGroupNamesSet() {
+        return isSet.contains("placementGroupName");
+    }
+
     //endregion
 
     //region Builder class
@@ -130,6 +146,11 @@ public class Placement {
 
         public Builder setAvailabilityZoneName(final String azName) {
             placement.setAzName(azName);
+            return this;
+        }
+
+        public Builder setPlacementGroupName(final String placementGroupName) {
+            placement.setPlacementGroupName(placementGroupName);
             return this;
         }
 

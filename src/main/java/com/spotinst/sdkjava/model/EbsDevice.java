@@ -22,6 +22,9 @@ public class EbsDevice {
     private Integer                  volumeSize;
     private AwsVolumeTypeEnum        volumeType;
     private Integer                  throughput;
+    private Dynamiclops              dynamicIops;
+    private DynamicVolumeSize        dynamicVolumeSize;
+    private String                   kmsKeyId;
     //endregion
 
     //region Constructor
@@ -102,6 +105,33 @@ public class EbsDevice {
         this.throughput = throughput;
     }
 
+    public Dynamiclops getDynamicIops() {
+        return dynamicIops;
+    }
+
+    public void setDynamicIops(Dynamiclops dynamicIops) {
+        isSet.add("dynamicIops");
+        this.dynamicIops = dynamicIops;
+    }
+
+    public DynamicVolumeSize getDynamicVolumeSize() {
+        return dynamicVolumeSize;
+    }
+
+    public void setDynamicVolumeSize(DynamicVolumeSize dynamicVolumeSize) {
+        isSet.add("dynamicVolumeSize");
+        this.dynamicVolumeSize = dynamicVolumeSize;
+    }
+
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+
+    public void setKmsKeyId(String kmsKeyId) {
+        isSet.add("kmsKeyId");
+        this.kmsKeyId = kmsKeyId;
+    }
+
     //endregion
 
     @Override
@@ -177,6 +207,20 @@ public class EbsDevice {
             ebsDevice.setVolumeSize(volumeSize);
             return this;
         }
+        public Builder setDynamicIops(final Dynamiclops dynamicIops){
+            ebsDevice.setDynamicIops(dynamicIops);
+            return this;
+        }
+
+        public Builder setDynamicVolumeSize(final DynamicVolumeSize dynamicVolumeSize){
+            ebsDevice.setDynamicVolumeSize(dynamicVolumeSize);
+            return this;
+        }
+
+        public Builder setKmsKeyId(final String kmsKeyId) {
+            ebsDevice.setKmsKeyId(kmsKeyId);
+            return this;
+        }
 
         public EbsDevice build() {
             // TODO : Validations
@@ -240,5 +284,20 @@ public class EbsDevice {
     public boolean isThroughputSet() {
         return isSet.contains("throughput");
     }
+
+    // Is dynamicIops Set boolean method
+    @JsonIgnore
+    public boolean isDynamicIopsSet() {
+        return isSet.contains("dynamicIops");
+    }
+
+    // Is kmsKeyId Set boolean method
+    @JsonIgnore
+    public boolean isKmsKeyIdSet() {
+        return isSet.contains("kmsKeyId");
+    }
+
+
     //endregion
+
 }

@@ -19,6 +19,7 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
     private Set<String>           isSet;
     private String                loadBalancerArn;
     private List<ApiListenerRule> listenerRules;
+    private ApiDefaultStaticTargetGroups     defaultStaticTargetGroups;
     //endregion
 
     //region Constructor
@@ -55,6 +56,15 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
         this.listenerRules = listenerRules;
     }
 
+    public ApiDefaultStaticTargetGroups getDefaultStaticTargetGroups() {
+        return defaultStaticTargetGroups;
+    }
+
+    public void setDefaultStaticTargetGroups(ApiDefaultStaticTargetGroups defaultStaticTargetGroups) {
+        isSet.add("defaultStaticTargetGroups");
+        this.defaultStaticTargetGroups = defaultStaticTargetGroups;
+    }
+
     //endregion
 
     //region isSet methods
@@ -67,6 +77,12 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isListenerRulesSet() {
         return isSet.contains("listenerRules");
+    }
+
+    // Is defaultStaticTargetGroups Set boolean method
+    @JsonIgnore
+    public boolean isDefaultStaticTargetGroupsSet() {
+        return isSet.contains("defaultStaticTargetGroups");
     }
 
     //endregion
