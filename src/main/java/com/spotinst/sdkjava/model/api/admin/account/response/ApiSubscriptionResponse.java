@@ -1,10 +1,7 @@
 package com.spotinst.sdkjava.model.api.admin.account.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.SubscriptionEventTypeEnum;
-import com.spotinst.sdkjava.enums.SubscriptionProtocolEnum;
 import com.spotinst.sdkjava.model.api.admin.account.common.ApiSubscriptionEventFormat;
-import com.spotinst.sdkjava.model.bl.admin.account.common.SubscriptionEventFormat;
 
 import java.util.HashSet;
 import java.util.Set;

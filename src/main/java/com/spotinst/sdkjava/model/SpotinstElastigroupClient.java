@@ -1315,6 +1315,123 @@ public class SpotinstElastigroupClient {
         return retVal;
     }
 
+    public Boolean startBeanstalkMaintenance(String groupId) {
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> response = getSpotinstElastigroupRepo().startBeanstalkMaintenance(groupId, authToken, account);
+
+        if (response.isRequestSucceed()) {
+            retVal = response.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = response.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to start beanstalk maintenance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Boolean finishBeanstalkMaintenance(String groupId) {
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> response = getSpotinstElastigroupRepo().finishBeanstalkMaintenance(groupId, authToken, account);
+
+        if (response.isRequestSucceed()) {
+            retVal = response.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = response.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while attempting to start beanstalk maintenance. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public ElastigroupGetBeanstalkMaintenanceStatusResponse getBeanstalkMaintenanceStatus(String groupId) {
+        ElastigroupGetBeanstalkMaintenanceStatusResponse retVal;
+
+        RepoGenericResponse<ElastigroupGetBeanstalkMaintenanceStatusResponse> status =
+                getSpotinstElastigroupRepo().getBeanstalkMaintenanceStatus(groupId, authToken, account);
+
+        if (status.isRequestSucceed()) {
+            retVal = status.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = status.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get beanstalk maintenance status. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Elastigroup getBeanstalkConfig(String environmentId, String region) {
+        Elastigroup retVal;
+
+        RepoGenericResponse<Elastigroup> config =
+                getSpotinstElastigroupRepo().getBeanstalkConfig(environmentId, region, authToken, account);
+
+        if (config.isRequestSucceed()) {
+            retVal = config.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = config.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to get beanstalk configuration. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+        return retVal;
+    }
+
+    public Elastigroup beanstalkReimport(String groupId) {
+        Elastigroup retVal;
+
+        RepoGenericResponse<Elastigroup> response =
+                getSpotinstElastigroupRepo().beanstalkReimport(groupId, authToken, account);
+
+        if (response.isRequestSucceed()) {
+            retVal = response.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = response.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(String.format("Error encountered while attempting to reimport beanstalk. Code: %s. Message: %s.",
+                    httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+    
+    public Boolean amiBackup(String groupId) {
+
+        Boolean retVal;
+
+        RepoGenericResponse<Boolean> amiBackupResponse = getSpotinstElastigroupRepo().amiBackup(groupId, authToken, account);
+
+        if (amiBackupResponse.isRequestSucceed()) {
+            retVal = amiBackupResponse.getValue();
+        }
+        else {
+            List<HttpError> httpExceptions = amiBackupResponse.getHttpExceptions();
+            HttpError       httpException  = httpExceptions.get(0);
+            LOGGER.error(
+                    String.format("Error encountered while taking AMI Backup. Code: %s. Message: %s.",
+                            httpException.getCode(), httpException.getMessage()));
+            throw new SpotinstHttpException(httpException.getMessage());
+        }
+
+        return retVal;
+    }
+
     public List<CodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId) {
 
         List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponses;
@@ -1344,15 +1461,14 @@ public class SpotinstElastigroupClient {
 
         List<CodeDeployBGDeploymentResponse> codeDeployBGDeploymentResponses;
 
-        RepoGenericResponse <List<CodeDeployBGDeploymentResponse>> getCodeDeployResponse =
+        RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> getCodeDeployResponse =
                 getSpotinstElastigroupRepo().getCodeDeployBGDeployment(request, elastigroupId, authToken, account);
 
-        if(getCodeDeployResponse.isRequestSucceed()){
+        if (getCodeDeployResponse.isRequestSucceed()) {
             codeDeployBGDeploymentResponses = getCodeDeployResponse.getValue();
-        }
-        else {
+        } else {
             List<HttpError> httpExceptions = getCodeDeployResponse.getHttpExceptions();
-            HttpError       httpException  = httpExceptions.get(0);
+            HttpError httpException = httpExceptions.get(0);
             LOGGER.error(String.format(
                     "Error encountered while attempting to get the instance types by region. Code: %s. Message: %s.",
 
@@ -1362,6 +1478,5 @@ public class SpotinstElastigroupClient {
         }
 
         return codeDeployBGDeploymentResponses;
-
     }
 }

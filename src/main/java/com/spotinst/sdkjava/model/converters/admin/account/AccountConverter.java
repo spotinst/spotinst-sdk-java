@@ -1,5 +1,6 @@
 package com.spotinst.sdkjava.model.converters.admin.account;
 
+import com.spotinst.sdkjava.model.bl.admin.account.AuditLogEvents;
 import com.spotinst.sdkjava.model.api.admin.account.*;
 import com.spotinst.sdkjava.model.bl.admin.account.Account;
 import com.spotinst.sdkjava.model.bl.admin.account.BlAccountAdmin;
@@ -68,6 +69,61 @@ public class AccountConverter {
             }
 
             retVal = accountBuilder.build();
+
+        }
+
+        return retVal;
+    }
+    //endregion
+
+    //region DAL -> BL
+    public static AuditLogEvents toBl(ApiAuditLogEvents src) {
+        AuditLogEvents retVal = null;
+
+        if (src != null) {
+            AuditLogEvents.Builder eventsBuilder = AuditLogEvents.Builder.get();
+
+            if (src.isActionTypeSet()) {
+                eventsBuilder.setActionType(src.getActionType());
+            }
+
+            if (src.isAgentSet()) {
+                eventsBuilder.setAgent(src.getAgent());
+            }
+
+            if (src.isContextSet()) {
+                eventsBuilder.setContext(src.getContext());
+            }
+
+            if (src.isCreatedAtSet()) {
+                eventsBuilder.setCreatedAt(src.getCreatedAt());
+            }
+
+            if (src.isNameSpaceSet()) {
+                eventsBuilder.setNamespace(src.getNamespace());
+            }
+
+            if (src.isRecourceIdSet()) {
+                eventsBuilder.setResourceId(src.getResourceId());
+            }
+
+            if (src.isResourceTypeSet()) {
+                eventsBuilder.setResourceType(src.getResourceType());
+            }
+
+            if (src.isResponseStatusSet()) {
+                eventsBuilder.setResponseStatus(src.getResponseStatus());
+            }
+
+            if (src.isSourceSet()) {
+                eventsBuilder.setSource(src.getSource());
+            }
+
+            if (src.isUserSet()) {
+                eventsBuilder.setUser(src.getUser());
+            }
+
+            retVal = eventsBuilder.build();
 
         }
 
