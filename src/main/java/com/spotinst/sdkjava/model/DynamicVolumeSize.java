@@ -64,10 +64,10 @@ public class DynamicVolumeSize {
 
     //region Builder class
     public static class Builder {
-        private DynamicVolumeSize dynamiclops;
+        private DynamicVolumeSize dynamicVolumeSize;
 
         private Builder() {
-            this.dynamiclops = new DynamicVolumeSize();
+            this.dynamicVolumeSize = new DynamicVolumeSize();
         }
 
         public static Builder get() {
@@ -75,29 +75,29 @@ public class DynamicVolumeSize {
         }
 
         public Builder setBaseSize(final Integer baseSize) {
-            dynamiclops.setBaseSize(baseSize);
+            dynamicVolumeSize.setBaseSize(baseSize);
             return this;
         }
 
         public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
-            dynamiclops.setSizePerResourceUnit(sizePerResourceUnit);
+            dynamicVolumeSize.setSizePerResourceUnit(sizePerResourceUnit);
             return this;
         }
 
         public Builder setResource(final String resource) {
-            dynamiclops.setResource(resource);
+            dynamicVolumeSize.setResource(resource);
             return this;
         }
 
         public DynamicVolumeSize build() {
-            return dynamiclops;
+            return dynamicVolumeSize;
         }
     }
 
     //endregion
 
     //region isSet methods
-    // Is deleteOnTermination Set boolean method
+    // Is baseSize Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
         return isSet.contains("baseSize");
@@ -108,7 +108,7 @@ public class DynamicVolumeSize {
         return isSet.contains("sizePerResourceUnit");
     }
 
-    // Is encrypted Set boolean method
+    // Is resource Set boolean method
     @JsonIgnore
     public boolean isResourceSet() {
         return isSet.contains("resource");

@@ -26,7 +26,7 @@ public class ApiPrivateIpAddresses implements IPartialUpdateEntity {
     //endregion
 
     //region Constructor
-    private ApiPrivateIpAddresses() {
+    public ApiPrivateIpAddresses() {
         isSet = new HashSet<>();
     }
     //endregion

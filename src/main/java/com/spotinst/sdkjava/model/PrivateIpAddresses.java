@@ -18,7 +18,7 @@ public class PrivateIpAddresses {
     //endregion
 
     //region Constructor
-    private PrivateIpAddresses() {
+    public PrivateIpAddresses() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -46,7 +46,7 @@ public class PrivateIpAddresses {
     }
 
     public void setPrivateIpAddress(String privateIpAddress) {
-        isSet.add("primary");
+        isSet.add("privateIpAddress");
         this.privateIpAddress = privateIpAddress;
     }
 

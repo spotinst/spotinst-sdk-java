@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class ApiDynamiclops implements IPartialUpdateEntity {
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private String                   resource;
+    private AwsResourceTypeEnum resource;
     //endregion
 
     //region Constructor
@@ -59,11 +60,11 @@ public class ApiDynamiclops implements IPartialUpdateEntity {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public String getResource() {
+    public AwsResourceTypeEnum getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(AwsResourceTypeEnum resource) {
         isSet.add("resource");
         this.resource = resource;
     }

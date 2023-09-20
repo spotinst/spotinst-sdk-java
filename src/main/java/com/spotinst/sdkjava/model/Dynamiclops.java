@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,7 +18,7 @@ public class Dynamiclops {
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private String                   resource;
+    private AwsResourceTypeEnum resource;
     //endregion
 
     //region Constructor
@@ -53,11 +54,11 @@ public class Dynamiclops {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public String getResource() {
+    public AwsResourceTypeEnum getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(AwsResourceTypeEnum resource) {
         isSet.add("resource");
         this.resource = resource;
     }
@@ -86,7 +87,7 @@ public class Dynamiclops {
             return this;
         }
 
-        public Builder setResource(final String resource) {
+        public Builder setResource(final AwsResourceTypeEnum resource) {
             dynamiclops.setResource(resource);
             return this;
         }
@@ -99,7 +100,7 @@ public class Dynamiclops {
     //endregion
 
     //region isSet methods
-    // Is deleteOnTermination Set boolean method
+    // Is baseSize Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
         return isSet.contains("baseSize");

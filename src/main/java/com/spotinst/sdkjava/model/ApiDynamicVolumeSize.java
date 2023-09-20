@@ -70,11 +70,12 @@ public class ApiDynamicVolumeSize implements IPartialUpdateEntity {
 
     //endregion
     //region isSet methods
-    // Is deleteOnTermination Set boolean method
+
+    // Is baseSize Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
-        return isSet.contains("baseSize");
-    }
+            return isSet.contains("baseSize");
+        }
 
     @JsonIgnore
     public boolean isSizePerResourceUnitSet() {

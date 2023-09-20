@@ -29,6 +29,9 @@ public class ElastigroupConverter {
             if (src.isDescriptionSet()) {
                 apiGroup.setDescription(src.getDescription());
             }
+            if (src.isRegionSet()){
+                apiGroup.setRegion(src.getRegion());
+            }
             if (src.isScalingSet()) {
                 apiGroup.setScaling(toDal(src.getScaling()));
             }
@@ -471,6 +474,14 @@ public class ElastigroupConverter {
                 }
             }
 
+            if(compute.isPrivateIpsSet()){
+                optCompute.setPrivateIps(compute.getPrivateIps());
+            }
+
+            if(compute.isSubnetIdsSet()){
+                optCompute.setSubnetIds(compute.getSubnetIds());
+            }
+
         }
 
         return optCompute;
@@ -685,9 +696,38 @@ public class ElastigroupConverter {
             if(networkInterface.isAssociateIpv6AddressSet()){
                 retVal.setAssociateIpv6Address(networkInterface.getAssociateIpv6Address());
             }
+
+            if(networkInterface.isSubnetIdSet()){
+                retVal.setSubnetId(networkInterface.getSubnetId());
+            }
+
+            if(networkInterface.isPrivateIpAddressesSet()){
+                List<ApiPrivateIpAddresses> ipAddress =
+                        networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toDal)
+                                .collect(Collectors.toList());
+
+                retVal.setPrivateIpAddresses(ipAddress);
+            }
         }
 
         return retVal;
+    }
+
+    private static ApiPrivateIpAddresses toDal(PrivateIpAddresses ipAddress){
+        ApiPrivateIpAddresses retVal = null;
+
+        if(ipAddress != null){
+            retVal = new ApiPrivateIpAddresses();
+
+            if(ipAddress.isPrimarySet()){
+                retVal.setPrimary(ipAddress.getPrimary());
+            }
+
+            if(ipAddress.isPrivateIpAddressSet()){
+                retVal.setPrivateIpAddress(ipAddress.getPrivateIpAddress());
+            }
+        }
+        return  retVal;
     }
 
     private static ApiBlockDevice toDal(BlockDeviceMapping blockDeviceMapping) {
@@ -829,7 +869,11 @@ public class ElastigroupConverter {
             }
 
             if(loadBalancer.isDefaultStaticTargetGroupsSet()){
-                retVal.setDefaultStaticTargetGroups(toDal(loadBalancer.getDefaultStaticTargetGroups()));
+
+                List<ApiDefaultStaticTargetGroups> apiDefaultStaticTargetGroups =
+                        loadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+
+                retVal.setDefaultStaticTargetGroups(apiDefaultStaticTargetGroups);
             }
         }
 
@@ -2489,6 +2533,14 @@ public class ElastigroupConverter {
                 }
             }
 
+            if(compute.isPrivateIpsSet()){
+                blComputeBuilder.setPrivateIps(compute.getPrivateIps());
+            }
+
+            if(compute.isSubnetIdsSet()){
+                blComputeBuilder.setSubnetIds(compute.getSubnetIds());
+            }
+
             blCompute = blComputeBuilder.build();
         }
 
@@ -2759,7 +2811,11 @@ public class ElastigroupConverter {
             }
 
             if(itfLoadBalancer.isDefaultStaticTargetGroupsSet()){
-                retValBuilder.setDefaultStaticTargetGroups(toBl(itfLoadBalancer.getDefaultStaticTargetGroups()));
+
+                List<DefaultStaticTargetGroups> defaultStaticTargetGroups =
+                        itfLoadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+
+                retValBuilder.setDefaultStaticTargetGroups(defaultStaticTargetGroups);
             }
             retVal = retValBuilder.build();
         }
@@ -2988,13 +3044,44 @@ public class ElastigroupConverter {
                 retValBuilder.setNetworkInterfaceId(networkInterface.getNetworkInterfaceId());
             }
 
+            if(networkInterface.isPrivateIpAddressesSet()){
+
+                List<PrivateIpAddresses> ipAddress =
+                        networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toBl)
+                                .collect(Collectors.toList());
+
+                retValBuilder.setPrivateIpAddresses(ipAddress);
+            }
+
             if(networkInterface.isAssociateIpv6AddressSet()){
                 retValBuilder.setAssociateIpv6Address(networkInterface.getAssociateIpv6Address());
+            }
+
+            if(networkInterface.isSubnetIdSet()){
+                retValBuilder.setSubnetId(networkInterface.getSubnetId());
             }
 
             retVal = retValBuilder.build();
         }
 
+        return retVal;
+    }
+
+    private static PrivateIpAddresses toBl(ApiPrivateIpAddresses apiPrivateIpAddresses){
+        PrivateIpAddresses retVal = null;
+
+        if(apiPrivateIpAddresses != null){
+            PrivateIpAddresses.Builder privateIpAddresses = PrivateIpAddresses.Builder.get();
+
+            if(apiPrivateIpAddresses.isPrimarySet()){
+                privateIpAddresses.setPrimary(apiPrivateIpAddresses.getPrimary());
+            }
+
+            if(apiPrivateIpAddresses.isPrivateIpAddressSet()){
+                privateIpAddresses.setPrivateIpAddress(apiPrivateIpAddresses.getPrivateIpAddress());
+            }
+            retVal = privateIpAddresses.build();
+        }
         return retVal;
     }
 

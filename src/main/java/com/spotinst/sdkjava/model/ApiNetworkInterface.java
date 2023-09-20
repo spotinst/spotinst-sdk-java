@@ -26,8 +26,9 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
     private Boolean     associatePublicIpAddress;
     private Boolean     deleteOnTermination;
     private String      networkInterfaceId;
-    private List<PrivateIpAddresses> privateIpAddresses;
+    private List<ApiPrivateIpAddresses> privateIpAddresses;
     private Boolean associateIpv6Address;
+    private String subnetId;
     //endregion
 
     //region Constructor
@@ -47,12 +48,21 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
+    public String getSubnetId() {
+        return subnetId;
+    }
+
+    public void setSubnetId(String subnetId) {
+        isSet.add("description");
+        this.subnetId = subnetId;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        isSet.add("description");
+        isSet.add("subnetId");
         this.description = description;
     }
 
@@ -101,11 +111,11 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
         this.networkInterfaceId = networkInterfaceId;
     }
 
-    public List<PrivateIpAddresses> getPrivateIpAddresses() {
+    public List<ApiPrivateIpAddresses> getPrivateIpAddresses() {
         return privateIpAddresses;
     }
 
-    public void setPrivateIpAddresses(List<PrivateIpAddresses> privateIpAddresses) {
+    public void setPrivateIpAddresses(List<ApiPrivateIpAddresses> privateIpAddresses) {
         isSet.add("privateIpAddresses");
         this.privateIpAddresses = privateIpAddresses;
     }
@@ -167,6 +177,12 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isNetworkInterfaceIdSet() {
         return isSet.contains("networkInterfaceId");
+    }
+
+    // Is subnetId Set boolean method
+    @JsonIgnore
+    public boolean isSubnetIdSet() {
+        return isSet.contains("subnetId");
     }
 
     // Is networkInterfaceId Set boolean method

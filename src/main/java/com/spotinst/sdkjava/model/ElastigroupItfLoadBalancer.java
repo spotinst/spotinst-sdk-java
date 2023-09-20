@@ -12,7 +12,7 @@ public class ElastigroupItfLoadBalancer {
     private Set<String>                   isSet;
     private String                        loadBalancerArn;
     private List<ElastigroupListenerRule> listenerRules;
-    private DefaultStaticTargetGroups     defaultStaticTargetGroups;
+    private List<DefaultStaticTargetGroups>     defaultStaticTargetGroups;
     //endregion
 
     //region Constructor
@@ -50,11 +50,11 @@ public class ElastigroupItfLoadBalancer {
         this.listenerRules = listenerRules;
     }
 
-    public DefaultStaticTargetGroups getDefaultStaticTargetGroups() {
+    public List<DefaultStaticTargetGroups> getDefaultStaticTargetGroups() {
         return defaultStaticTargetGroups;
     }
 
-    public void setDefaultStaticTargetGroups(DefaultStaticTargetGroups defaultStaticTargetGroups) {
+    public void setDefaultStaticTargetGroups(List<DefaultStaticTargetGroups> defaultStaticTargetGroups) {
         isSet.add("defaultStaticTargetGroups");
         this.defaultStaticTargetGroups = defaultStaticTargetGroups;
     }
@@ -83,7 +83,7 @@ public class ElastigroupItfLoadBalancer {
             return this;
         }
 
-        public Builder setDefaultStaticTargetGroups(final DefaultStaticTargetGroups defaultStaticTargetGroups) {
+        public Builder setDefaultStaticTargetGroups(final List<DefaultStaticTargetGroups> defaultStaticTargetGroups) {
             itf.setDefaultStaticTargetGroups(defaultStaticTargetGroups);
             return this;
         }

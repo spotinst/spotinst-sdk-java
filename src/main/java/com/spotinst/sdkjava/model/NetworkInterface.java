@@ -21,9 +21,9 @@ public class NetworkInterface {
     private Boolean associatePublicIpAddress;
     private Boolean deleteOnTermination;
     private String networkInterfaceId;
-    private String privateIpAddress;
-    private List<IpAddress> privateIpAddresses;
+    private List<PrivateIpAddresses> privateIpAddresses;
     private Boolean associateIpv6Address;
+    private String subnetId;
 
     //region Constructor
 
@@ -38,6 +38,15 @@ public class NetworkInterface {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public String getSubnetId() {
+        return subnetId;
+    }
+
+    public void setSubnetId(String subnetId) {
+        isSet.add("subnetId");
+        this.subnetId = subnetId;
     }
 
     public String getDescription() {
@@ -94,20 +103,11 @@ public class NetworkInterface {
         this.networkInterfaceId = networkInterfaceId;
     }
 
-    public String getPrivateIpAddress() {
-        return privateIpAddress;
-    }
-
-    public void setPrivateIpAddress(String privateIpAddress) {
-        isSet.add("privateIpAddress");
-        this.privateIpAddress = privateIpAddress;
-    }
-
-    public List<IpAddress> getPrivateIpAddresses() {
+    public List<PrivateIpAddresses> getPrivateIpAddresses() {
         return privateIpAddresses;
     }
 
-    public void setPrivateIpAddresses(List<IpAddress> privateIpAddresses) {
+    public void setPrivateIpAddresses(List<PrivateIpAddresses> privateIpAddresses) {
         isSet.add("privateIpAddresses");
         this.privateIpAddresses = privateIpAddresses;
     }
@@ -136,7 +136,7 @@ public class NetworkInterface {
             return false;
         if (!Objects.equals(networkInterfaceId, that.networkInterfaceId))
             return false;
-        if (!Objects.equals(privateIpAddress, that.privateIpAddress))
+        if (!Objects.equals(privateIpAddresses, that.privateIpAddresses))
             return false;
         return !(!Objects.equals(privateIpAddresses, that.privateIpAddresses));
 
@@ -150,7 +150,7 @@ public class NetworkInterface {
         result = 31 * result + (associatePublicIpAddress ? 1 : 0);
         result = 31 * result + (deleteOnTermination ? 1 : 0);
         result = 31 * result + (networkInterfaceId != null ? networkInterfaceId.hashCode() : 0);
-        result = 31 * result + (privateIpAddress != null ? privateIpAddress.hashCode() : 0);
+        result = 31 * result + (privateIpAddresses != null ? privateIpAddresses.hashCode() : 0);
         result = 31 * result + (privateIpAddresses != null ? privateIpAddresses.hashCode() : 0);
         return result;
     }
@@ -192,12 +192,7 @@ public class NetworkInterface {
             return this;
         }
 
-        public Builder setPrivateIpAddress(final String privateIpAddress) {
-            networkInterface.setPrivateIpAddress(privateIpAddress);
-            return this;
-        }
-
-        public Builder setPrivateIpAddresses(final List<IpAddress> ipAddresses) {
+        public Builder setPrivateIpAddresses(final List<PrivateIpAddresses> ipAddresses) {
             networkInterface.setPrivateIpAddresses(ipAddresses);
             return this;
         }
@@ -212,6 +207,11 @@ public class NetworkInterface {
             return this;
         }
 
+
+        public Builder setSubnetId(final String subnetId)  {
+            networkInterface.setSubnetId(subnetId);
+            return this;
+        }
 
         public NetworkInterface build() {
             // TODO : Validations
@@ -261,13 +261,6 @@ public class NetworkInterface {
         return isSet.contains("networkInterfaceId");
     }
 
-
-    // Is privateIpAddress Set boolean method
-    @JsonIgnore
-    public boolean isPrivateIpAddressSet() {
-        return isSet.contains("privateIpAddress");
-    }
-
     // Is privateIpAddresses Set boolean method
     @JsonIgnore
     public boolean isPrivateIpAddressesSet() {
@@ -278,6 +271,12 @@ public class NetworkInterface {
     @JsonIgnore
     public boolean isAssociateIpv6AddressSet() {
         return isSet.contains("associateIpv6Address");
+    }
+
+    // Is subnetId Set boolean method
+    @JsonIgnore
+    public boolean isSubnetIdSet() {
+        return isSet.contains("subnetId");
     }
 
     //endregion
