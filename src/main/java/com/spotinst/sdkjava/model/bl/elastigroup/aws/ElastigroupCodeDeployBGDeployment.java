@@ -23,7 +23,7 @@ public class ElastigroupCodeDeployBGDeployment implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                      isSet;
-    private String                           timeout;
+    private int                              timeout;
     private List<Tag>                        tags;
     private List<ElastigroupDeploymentGroup> deploymentGroups;
     //endregion
@@ -45,11 +45,12 @@ public class ElastigroupCodeDeployBGDeployment implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public String getTimeout() {
+    public int getTimeout() {
         return timeout;
     }
 
-    public void setTimeout(String timeout) {
+    public void setTimeout(int timeout) {
+        isSet.add("timeout");
         this.timeout = timeout;
     }
 
@@ -90,7 +91,7 @@ public class ElastigroupCodeDeployBGDeployment implements IPartialUpdateEntity {
         }
 
         //region Build methods
-        public Builder setTimeout(String timeout) {
+        public Builder setTimeout(int timeout) {
             codeDeployBGDeployment.setTimeout(timeout);
             return this;
         }

@@ -1342,7 +1342,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout(20).setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Create CodeDeploy Deployment Request
         ElastigroupCreateCodeDeployRequest.Builder createCodeDeployRequestBuilder = ElastigroupCreateCodeDeployRequest.Builder.get();
@@ -1383,7 +1383,7 @@ public class ElastigroupUsageExample {
         //Build CodeDeploy
         ElastigroupCodeDeployBGDeployment.Builder codeDeployBuilder = ElastigroupCodeDeployBGDeployment.Builder.get();
         ElastigroupCodeDeployBGDeployment codeDeploy =
-                codeDeployBuilder.setTimeout("120").setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
+                codeDeployBuilder.setTimeout(120).setTags(tagsArrayList).setDeploymentGroups(deploymentGroupArrayList).build();
 
         //Build Get CodeDeploy Deployment Request
         ElastigroupGetCodeDeployRequest.Builder getCodeDeployRequestBuilder = ElastigroupGetCodeDeployRequest.Builder.get();

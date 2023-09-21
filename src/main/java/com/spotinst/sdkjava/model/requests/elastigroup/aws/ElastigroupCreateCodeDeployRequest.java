@@ -11,17 +11,17 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupCodeDeployBGDepl
  */
 public class ElastigroupCreateCodeDeployRequest {
 
-    private ElastigroupCodeDeployBGDeployment codeDeployBGDeployment;
+    private ElastigroupCodeDeployBGDeployment deployment;
 
     private ElastigroupCreateCodeDeployRequest() {
     }
 
     public ElastigroupCodeDeployBGDeployment getCodeDeployBGDeployment() {
-        return codeDeployBGDeployment;
+        return deployment;
     }
 
-    public void setCodeDeployBGDeployment(ElastigroupCodeDeployBGDeployment codeDeployBGDeployment) {
-        this.codeDeployBGDeployment = codeDeployBGDeployment;
+    public void setCodeDeployBGDeployment(ElastigroupCodeDeployBGDeployment deployment) {
+        this.deployment = deployment;
     }
 
     public static class Builder {
@@ -36,8 +36,8 @@ public class ElastigroupCreateCodeDeployRequest {
             return builder;
         }
 
-        public Builder setCodeDeployBGDeployment(ElastigroupCodeDeployBGDeployment codeDeployBGDeployment) {
-            createCodeDeployRequest.setCodeDeployBGDeployment(codeDeployBGDeployment);
+        public Builder setCodeDeployBGDeployment(ElastigroupCodeDeployBGDeployment deployment) {
+            createCodeDeployRequest.setCodeDeployBGDeployment(deployment);
             return this;
         }
 
@@ -48,7 +48,7 @@ public class ElastigroupCreateCodeDeployRequest {
 
     //region Json methods
     public String toJson() {
-        ApiElastigroupCodeDeployBGDeployment createCodeDeployRequest = ElastigroupConverter.toDal(codeDeployBGDeployment);
+        ApiElastigroupCodeDeployBGDeployment createCodeDeployRequest = ElastigroupConverter.toDal(deployment);
         String                        codeDeploy              = JsonMapper.toJson(createCodeDeployRequest);
         return codeDeploy;
     }

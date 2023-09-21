@@ -23,7 +23,7 @@ public class ApiElastigroupCodeDeployBGDeployment implements IPartialUpdateEntit
     //region Members
     @JsonIgnore
     private Set<String>                                  isSet;
-    private String                                       timeout;
+    private int                                          timeout;
     private List<ApiTag>                                 tags;
     private List<ApiDeploymentGroup>                     deploymentGroups;
     //endregion
@@ -45,11 +45,12 @@ public class ApiElastigroupCodeDeployBGDeployment implements IPartialUpdateEntit
         this.isSet = isSet;
     }
 
-    public String getTimeout() {
+    public int getTimeout() {
         return timeout;
     }
 
-    public void setTimeout(String timeout) {
+    public void setTimeout(int timeout) {
+        isSet.add("timeout");
         this.timeout = timeout;
     }
 

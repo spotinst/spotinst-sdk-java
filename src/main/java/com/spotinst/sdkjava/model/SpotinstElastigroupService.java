@@ -2349,8 +2349,8 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         String uri = String.format("%s/aws/ec2/group/%s/codeDeploy/blueGreenDeployment", apiEndpoint,elastigroupId);
 
         // Write to json
-        Map<String, ElastigroupCreateCodeDeployRequest> deploymentRequest = new HashMap<>();
-        deploymentRequest.put("deployment", request);
+        Map<String, ElastigroupCodeDeployBGDeployment> deploymentRequest = new HashMap<>();
+        deploymentRequest.put("deployment", request.getCodeDeployBGDeployment());
         String body = JsonMapper.toJson(deploymentRequest);
 
         // Send the request.
