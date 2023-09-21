@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricSource;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.StepAdjustments;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +35,8 @@ public class ScalingPolicy {
     private Boolean                isEnabled;
     private Integer                target;
     private PredictiveScale        predictive;
+    private List<StepAdjustments>  stepAdjustments;
+    private AwsMetricSource        source;
     //endregion
 
     //region Getters & Setters
@@ -42,6 +46,24 @@ public class ScalingPolicy {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public AwsMetricSource getSource() {
+        return source;
+    }
+
+    public void setSource(AwsMetricSource source) {
+        isSet.add("source");
+        this.source = source;
+    }
+
+    public List<StepAdjustments> getStepAdjustments() {
+        return stepAdjustments;
+    }
+
+    public void setStepAdjustments(List<StepAdjustments> stepAdjustments) {
+        isSet.add("stepAdjustments");
+        this.stepAdjustments = stepAdjustments;
     }
 
     //region Metric name
@@ -318,6 +340,11 @@ public class ScalingPolicy {
             return new Builder();
         }
 
+        public Builder setStepAdjustments(final List<StepAdjustments> stepAdjustments) {
+            scalingPolicy.setStepAdjustments(stepAdjustments);
+            return this;
+        }
+
         public Builder setUnit(final String unit) {
             scalingPolicy.setUnit(unit);
             return this;
@@ -398,6 +425,11 @@ public class ScalingPolicy {
             return this;
         }
 
+        public Builder setSource(final AwsMetricSource source) {
+            scalingPolicy.setSource(source);
+            return this;
+        }
+
         public ScalingPolicy build() {
             // TODO : Validations
             return scalingPolicy;
@@ -406,6 +438,19 @@ public class ScalingPolicy {
     //endregion
 
     //region isSet methods
+
+    // Is source Set boolean method
+    @JsonIgnore
+    public boolean isSourceSet() {
+        return isSet.contains("source");
+    }
+
+    // Is stepAdjustments Set boolean method
+    @JsonIgnore
+    public boolean isStepAdjustmentsSet() {
+        return isSet.contains("stepAdjustments");
+    }
+
     // Is policyName Set boolean method
     @JsonIgnore
     public boolean isPolicyNameSet() {
