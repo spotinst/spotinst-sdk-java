@@ -1415,10 +1415,7 @@ public class ElastigroupConverter {
 
             if(scaling.isMultipleMetricsSet()){
                 if(scaling.getMultipleMetrics() != null){
-                    List<MultipleMetrics> multipleMetrics = scaling.getMultipleMetrics();
-                    List<ApiMultipleMetrics> apiMultipleMetrics =
-                            multipleMetrics.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-                    retVal.setMultipleMetrics(apiMultipleMetrics);
+                    retVal.setMultipleMetrics(toDal(scaling.getMultipleMetrics()));
                 }
             }
         }
@@ -3465,10 +3462,7 @@ public class ElastigroupConverter {
 
             if(scaling.isMultipleMetricsSet()){
                 if(scaling.getMultipleMetrics() != null){
-                    List<ApiMultipleMetrics> apiMultipleMetrics = scaling.getMultipleMetrics();
-                    List<MultipleMetrics> multipleMetrics =
-                            apiMultipleMetrics.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                    retValBuilder.setMultipleMetrics(multipleMetrics);
+                    retValBuilder.setMultipleMetrics(toBl(scaling.getMultipleMetrics()));
                 }
             }
 

@@ -22,7 +22,7 @@ public class ApiScaling implements IPartialUpdateEntity {
     private List<ApiScalingPolicy> up;
     private List<ApiScalingPolicy> down;
     private List<ApiScalingPolicy> target;
-    private List<ApiMultipleMetrics> multipleMetrics;
+    private ApiMultipleMetrics multipleMetrics;
     //endregion
 
     //region Getters & Setters
@@ -67,11 +67,11 @@ public class ApiScaling implements IPartialUpdateEntity {
         isSet.add("target");
         this.target = target;
     }
-    public List<ApiMultipleMetrics> getMultipleMetrics() {
+    public ApiMultipleMetrics getMultipleMetrics() {
         return multipleMetrics;
     }
 
-    public void setMultipleMetrics(List<ApiMultipleMetrics> multipleMetrics) {
+    public void setMultipleMetrics(ApiMultipleMetrics multipleMetrics) {
         isSet.add("multipleMetrics");
         this.multipleMetrics = multipleMetrics;
     }

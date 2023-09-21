@@ -18,7 +18,7 @@ public class ElastigroupScalingConfiguration {
     private List<ScalingPolicy> up;
     private List<ScalingPolicy> down;
     private List<ScalingPolicy> target;
-    private List<MultipleMetrics> multipleMetrics;
+    private MultipleMetrics multipleMetrics;
     //endregion
 
     //region Constructor
@@ -73,11 +73,11 @@ public class ElastigroupScalingConfiguration {
         this.target = target;
     }
 
-    public List<MultipleMetrics> getMultipleMetrics() {
+    public MultipleMetrics getMultipleMetrics() {
         return multipleMetrics;
     }
 
-    public void setMultipleMetrics(List<MultipleMetrics> multipleMetrics) {
+    public void setMultipleMetrics(MultipleMetrics multipleMetrics) {
         isSet.add("multipleMetrics");
         this.multipleMetrics = multipleMetrics;
     }
@@ -136,7 +136,7 @@ public class ElastigroupScalingConfiguration {
             return this;
         }
 
-        public Builder setMultipleMetrics(final List<MultipleMetrics> multipleMetrics) {
+        public Builder setMultipleMetrics(final MultipleMetrics multipleMetrics) {
             elastigroupScalingConfiguration.setMultipleMetrics(multipleMetrics);
             return this;
         }
