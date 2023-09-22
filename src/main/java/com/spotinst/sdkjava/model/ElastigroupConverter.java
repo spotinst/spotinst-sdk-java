@@ -140,9 +140,125 @@ public class ElastigroupConverter {
             if (thirdPartiesIntegration.isElasticBeanstalkSet()) {
                 retVal.setElasticBeanstalk(toDal(thirdPartiesIntegration.getElasticBeanstalk()));
             }
+
+            if(thirdPartiesIntegration.isRoute53Set()){
+                retVal.setRoute53(toDal(thirdPartiesIntegration.getRoute53()));
+            }
+            if(thirdPartiesIntegration.isNomadSet()){
+                retVal.setNomad(toDal(thirdPartiesIntegration.getNomad()));
+            }
         }
 
         return retVal;
+    }
+
+    private static ApiNomad toDal(Nomad nomad){
+        ApiNomad apiNomad = null;
+
+        if(nomad != null){
+            apiNomad = new ApiNomad();
+
+            if(nomad.isAclTokenSet()){
+                apiNomad.setAclToken(nomad.getAclToken());
+            }
+            if(nomad.isAutoScaleSet()){
+                List<ApiAutoScale>  apiAutoScale=
+                        nomad.getAutoScale().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                apiNomad.setAutoScale(apiAutoScale);
+            }
+            if(nomad.isMasterHostSet()){
+                apiNomad.setMasterHost(nomad.getMasterHost());
+            }
+            if(nomad.isMasterPortSet()){
+                apiNomad.setMasterPort(nomad.getMasterPort());
+            }
+            if(nomad.isTlsConfigSet()){
+                apiNomad.setTlsConfig(toDal(nomad.getTlsConfig()));
+            }
+        }
+        return apiNomad;
+    }
+
+    private static ApiTlsConfig toDal(TlsConfig tlsConfig){
+        ApiTlsConfig apiTlsConfig = null;
+
+        if(tlsConfig != null){
+            apiTlsConfig = new ApiTlsConfig();
+
+            if(tlsConfig.isCertificateSet()){
+                apiTlsConfig.setCertificate(tlsConfig.getCertificate());
+            }
+            if(tlsConfig.isPrivateKeySet()){
+                apiTlsConfig.setPrivateKey(tlsConfig.getPrivateKey());
+            }
+            if(tlsConfig.isTlsEnabledSet()){
+                apiTlsConfig.setTlsEnabled(tlsConfig.getTlsEnabled());
+            }
+        }
+        return  apiTlsConfig;
+    }
+
+    private static ApiRoute53 toDal(Route53 route53){
+        ApiRoute53 apiRoute53 = null;
+
+        if(route53 != null){
+            apiRoute53 = new ApiRoute53();
+
+            if(route53.isDomainsSet()){
+                List<ApiRoute53Domains>  apiRoute53Domains=
+                        route53.getDomains().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                apiRoute53.setDomains(apiRoute53Domains);
+            }
+        }
+        return apiRoute53;
+    }
+
+    private static ApiRoute53Domains toDal(Route53Domains route53Domains){
+        ApiRoute53Domains apiRoute53Domains = null;
+
+        if(route53Domains != null){
+            apiRoute53Domains = new ApiRoute53Domains();
+
+            if(route53Domains.isHostedZoneIdSet()){
+                apiRoute53Domains.setHostedZoneId(route53Domains.getHostedZoneId());
+            }
+
+            if(route53Domains.isRecordSetsSet()){
+                List<ApiRecordSets>  recordSets=
+                        route53Domains.getRecordSets().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                apiRoute53Domains.setRecordSets(recordSets);
+            }
+
+            if(route53Domains.isRecordSetTypeSet()){
+                apiRoute53Domains.setRecordSetType(apiRoute53Domains.getRecordSetType());
+            }
+
+            if(route53Domains.isSpotinstAccountIdSet()){
+                apiRoute53Domains.setSpotinstAccountId(apiRoute53Domains.getSpotinstAccountId());
+            }
+        }
+        return apiRoute53Domains;
+    }
+
+    private static ApiRecordSets toDal(RecordSets recordSets){
+        ApiRecordSets apiRecordSets = null;
+
+        if(recordSets != null){
+            apiRecordSets = new ApiRecordSets();
+
+            if(recordSets.isNameSet()){
+                apiRecordSets.setName(recordSets.getName());
+            }
+
+            if(recordSets.isUsePublicDnsSet()){
+                apiRecordSets.setUsePublicDns(recordSets.isUsePublicDns());
+            }
+
+            if(recordSets.isUsePublicIpSet()){
+                apiRecordSets.setUsePublicIp(recordSets.isUsePublicIp());
+            }
+        }
+        return apiRecordSets;
     }
 
     private static ApiCodeDeploy toDal(ElastigroupCodeDeploy codeDeploy) {
@@ -388,6 +504,30 @@ public class ElastigroupConverter {
                                     .collect(Collectors.toList());
                     retVal.setAttributes(attributesList);
                 }
+            }
+            if(autoScale.isConstraintsSet()){
+                if(autoScale.getConstraints() != null){
+                    List<ApiConstraints> apiConstraints =
+                            autoScale.getConstraints().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
+                    retVal.setConstraints(apiConstraints);
+                }
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiConstraints toDal(Constraints constraints){
+        ApiConstraints retVal = null;
+
+        if(constraints != null){
+            retVal = new ApiConstraints();
+
+            if(constraints.isKeySet()){
+                retVal.setKey(constraints.getKey());
+            }
+            if(constraints.isValueSet()){
+                retVal.setValue(constraints.getValue());
             }
         }
         return retVal;
@@ -2025,9 +2165,134 @@ public class ElastigroupConverter {
             if (apiThirdPartiesIntegration.isElasticBeanstalkSet()) {
                 blThirdPartiesIntegrationBuilder.setElasticBeanstalk(toBl(apiThirdPartiesIntegration.getElasticBeanstalk()));
             }
+
+            if(apiThirdPartiesIntegration.isRoute53Set()){
+                blThirdPartiesIntegrationBuilder.setRoute53(toBl(apiThirdPartiesIntegration.getRoute53()));
+            }
+
+            if(apiThirdPartiesIntegration.isNomadSet()){
+                blThirdPartiesIntegrationBuilder.setNomad(toBl(apiThirdPartiesIntegration.getNomad()));
+            }
             blThirdPartiesIntegration = blThirdPartiesIntegrationBuilder.build();
         }
         return blThirdPartiesIntegration;
+    }
+
+    private static Nomad toBl(ApiNomad apiNomad){
+        Nomad nomad = null;
+
+        if(apiNomad != null){
+            Nomad.Builder nomadBuilder = Nomad.Builder.get();
+
+            if(apiNomad.isAclTokenSet()){
+                nomadBuilder.setAclToken(apiNomad.getAclToken());
+            }
+            if(apiNomad.isAutoScaleSet()){
+                List<ElastigroupAutoScaleSpecification>  autoScale=
+                        apiNomad.getAutoScale().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                nomadBuilder.setAutoScale(autoScale);
+            }
+            if(apiNomad.isMasterHostSet()){
+                nomadBuilder.setMasterHost(apiNomad.getMasterHost());
+            }
+            if(apiNomad.isMasterPortSet()){
+                nomadBuilder.setMasterPort(apiNomad.getMasterPort());
+            }
+            if(apiNomad.isTlsConfigSet()){
+                nomadBuilder.setTlsConfig(toBl(apiNomad.getTlsConfig()));
+            }
+            nomad = nomadBuilder.build();
+        }
+        return nomad;
+    }
+
+    private static TlsConfig toBl(ApiTlsConfig apiTlsConfig){
+        TlsConfig tlsConfig = null;
+
+        if(apiTlsConfig != null){
+            TlsConfig.Builder tlsConfigBuilder = TlsConfig.Builder.get();
+
+            if(apiTlsConfig.isCertificateSet()){
+                tlsConfigBuilder.setCertificate(apiTlsConfig.getCertificate());
+            }
+            if(apiTlsConfig.isPrivateKeySet()){
+                tlsConfigBuilder.setPrivateKey(apiTlsConfig.getPrivateKey());
+            }
+            if(apiTlsConfig.isTlsEnabledSet()){
+                tlsConfigBuilder.setTlsEnabled(apiTlsConfig.getTlsEnabled());
+            }
+
+            tlsConfig = tlsConfigBuilder.build();
+        }
+        return tlsConfig;
+    }
+
+    private static Route53 toBl(ApiRoute53 apiRoute53){
+        Route53 route53 = null;
+
+        if(apiRoute53 != null){
+            Route53.Builder route53Builder = Route53.Builder.get();
+
+            if(apiRoute53.isDomainsSet()){
+                List<Route53Domains>  route53Domains=
+                        apiRoute53.getDomains().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                route53Builder.setDomains(route53Domains);
+            }
+            route53 = route53Builder.build();
+        }
+        return route53;
+    }
+
+    private static Route53Domains toBl(ApiRoute53Domains apiRoute53Domains){
+        Route53Domains route53Domains = null;
+
+        if(apiRoute53Domains != null){
+            Route53Domains.Builder route53DomainsBuilder = Route53Domains.Builder.get();
+
+            if(apiRoute53Domains.isHostedZoneIdSet()){
+                route53DomainsBuilder.setHostedZoneId(apiRoute53Domains.getHostedZoneId());
+            }
+
+            if(apiRoute53Domains.isRecordSetsSet()){
+                List<RecordSets>  recordSets=
+                        apiRoute53Domains.getRecordSets().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                route53DomainsBuilder.setRecordSets(recordSets);
+            }
+
+            if(apiRoute53Domains.isRecordSetTypeSet()){
+                route53DomainsBuilder.setRecordSetType(apiRoute53Domains.getRecordSetType());
+            }
+
+            if(apiRoute53Domains.isSpotinstAccountIdSet()){
+                route53DomainsBuilder.setSpotinstAccountId(apiRoute53Domains.getSpotinstAccountId());
+            }
+
+            route53Domains = route53DomainsBuilder.build();
+        }
+        return route53Domains;
+    }
+
+    private static RecordSets toBl(ApiRecordSets apiRecordSets){
+        RecordSets recordSets = null;
+
+        if(apiRecordSets != null){
+            RecordSets.Builder recordSetsBuilder = RecordSets.Builder.get();
+
+            if(apiRecordSets.isNameSet()){
+                recordSetsBuilder.setName(apiRecordSets.getName());
+            }
+
+            if(apiRecordSets.isUsePublicDnsSet()){
+                recordSetsBuilder.setUsePublicDns(apiRecordSets.isUsePublicDns());
+            }
+
+            if(apiRecordSets.isUsePublicIpSet()){
+                recordSetsBuilder.setUsePublicIp(apiRecordSets.isUsePublicIp());
+            }
+
+            recordSets = recordSetsBuilder.build();
+        }
+        return recordSets;
     }
 
     private static ElastigroupCodeDeploy toBl(ApiCodeDeploy apiCodeDeploy) {
@@ -2287,9 +2552,34 @@ public class ElastigroupConverter {
                     blAutoScaleBuilder.setAttributes(attributesSpecificationList);
                 }
             }
+            if(apiAutoScale.isConstraintsSet()){
+                if(apiAutoScale.getConstraints() != null){
+                    List<Constraints> constraintsList = apiAutoScale.getConstraints().stream().map(ElastigroupConverter::toBl)
+                            .collect(Collectors.toList());
+                    blAutoScaleBuilder.setConstraints(constraintsList);
+                }
+            }
+
             blAutoScale = blAutoScaleBuilder.build();
         }
         return blAutoScale;
+    }
+
+    private static Constraints toBl(ApiConstraints constraints){
+        Constraints retVal = null;
+
+        if(constraints != null){
+            Constraints.Builder constraintsBuilder = Constraints.Builder.get();
+
+            if(constraints.isKeySet()){
+                constraintsBuilder.setKey(constraints.getKey());
+            }
+            if(constraints.isValueSet()){
+                constraintsBuilder.setValue(constraints.getValue());
+            }
+            retVal = constraintsBuilder.build();
+        }
+        return retVal;
     }
 
     private static ElastigroupHeadroomSpecification toBl(ApiHeadroom apiHeadroom) {
