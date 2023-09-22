@@ -1469,7 +1469,9 @@ public class ElastigroupConverter {
             retVal = new ApiMetrics();
 
             if(metrics.isDimensionSet()){
-                retVal.setDimensions(toDal(metrics.getDimensions()));
+                List<ApiScalingDimension> apiStepAdjustments =
+                        metrics.getDimensions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setDimensions(apiStepAdjustments);
             }
 
             if(metrics.isExtendedStatisticSet()){
@@ -3520,7 +3522,9 @@ public class ElastigroupConverter {
             Metrics.Builder retValBuilder = Metrics.Builder.get();
 
             if(apiMetrics.isDimensionSet()){
-                retValBuilder.setDimensions(toBl(apiMetrics.getDimensions()));
+                List<ScalingDimension> apiStepAdjustments =
+                        apiMetrics.getDimensions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setDimensions(apiStepAdjustments);
             }
 
             if(apiMetrics.isExtendedStatisticSet()){

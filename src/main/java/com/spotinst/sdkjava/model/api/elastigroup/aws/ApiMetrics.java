@@ -11,6 +11,7 @@ import com.spotinst.sdkjava.model.ApiScalingDimension;
 import com.spotinst.sdkjava.model.ScalingDimension;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,13 +25,13 @@ public class ApiMetrics implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String>                                    isSet;
-    private ApiScalingDimension                  dimensions;
+    private List<ApiScalingDimension>            dimensions;
     private String                               extendedStatistic;
     private String                               metricName;
     private String                               name;
     private String                               namespace;
-    private AwsMetricStatistics                  statistic;
-    private AwsMetricAlarmUnit                   unit;
+    private String                               statistic;
+    private String                               unit;
 
     //endregion
 
@@ -51,20 +52,20 @@ public class ApiMetrics implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public AwsMetricAlarmUnit getUnit() {
+    public String getUnit() {
         return unit;
     }
 
-    public void setUnit(AwsMetricAlarmUnit unit) {
+    public void setUnit(String unit) {
         isSet.add("unit");
         this.unit = unit;
     }
 
-    public ApiScalingDimension getDimensions() {
+    public List<ApiScalingDimension> getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(ApiScalingDimension dimensions) {
+    public void setDimensions(List<ApiScalingDimension> dimensions) {
         isSet.add("dimensions");
         this.dimensions = dimensions;
     }
@@ -105,11 +106,11 @@ public class ApiMetrics implements IPartialUpdateEntity {
         this.namespace = namespace;
     }
 
-    public AwsMetricStatistics getStatistic() {
+    public String getStatistic() {
         return statistic;
     }
 
-    public void setStatistic(AwsMetricStatistics statistic) {
+    public void setStatistic(String statistic) {
         isSet.add("statistic");
         this.statistic = statistic;
     }

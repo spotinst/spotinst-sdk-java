@@ -3,11 +3,10 @@ package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricAlarmUnit;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricStatistics;
 import com.spotinst.sdkjava.model.ScalingDimension;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,13 +19,13 @@ public class Metrics {
     //region Members
     @JsonIgnore
     private Set<String>                                    isSet;
-    private ScalingDimension                     dimensions;
+    private List<ScalingDimension>               dimensions;
     private String                               extendedStatistic;
     private String                               metricName;
     private String                               name;
     private String                               namespace;
-    private AwsMetricStatistics                  statistic;
-    private AwsMetricAlarmUnit                   unit;
+    private String                  statistic;
+    private String                   unit;
 
     //endregion
 
@@ -47,20 +46,20 @@ public class Metrics {
         this.isSet = isSet;
     }
 
-    public AwsMetricAlarmUnit getUnit() {
+    public String getUnit() {
         return unit;
     }
 
-    public void setUnit(AwsMetricAlarmUnit unit) {
+    public void setUnit(String unit) {
         isSet.add("unit");
         this.unit = unit;
     }
 
-    public ScalingDimension getDimensions() {
+    public List<ScalingDimension> getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(ScalingDimension dimensions) {
+    public void setDimensions(List<ScalingDimension> dimensions) {
         isSet.add("dimensions");
         this.dimensions = dimensions;
     }
@@ -101,11 +100,11 @@ public class Metrics {
         this.namespace = namespace;
     }
 
-    public AwsMetricStatistics getStatistic() {
+    public String getStatistic() {
         return statistic;
     }
 
-    public void setStatistic(AwsMetricStatistics statistic) {
+    public void setStatistic(String statistic) {
         isSet.add("statistic");
         this.statistic = statistic;
     }
@@ -126,12 +125,12 @@ public class Metrics {
             return new Builder();
         }
 
-        public Builder setUnit(final AwsMetricAlarmUnit unit) {
+        public Builder setUnit(final String unit) {
             metrics.setUnit(unit);
             return this;
         }
 
-        public Builder setDimensions(final ScalingDimension dimensions) {
+        public Builder setDimensions(final List<ScalingDimension> dimensions) {
             metrics.setDimensions(dimensions);
             return  this;
         }
@@ -156,7 +155,7 @@ public class Metrics {
             return this;
         }
 
-        public Builder setStatistic(AwsMetricStatistics statistic) {
+        public Builder setStatistic(String statistic) {
            metrics.setStatistic(statistic);
            return this;
         }
