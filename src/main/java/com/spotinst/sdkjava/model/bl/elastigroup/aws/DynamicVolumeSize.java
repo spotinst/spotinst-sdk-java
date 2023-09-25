@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,7 @@ public class DynamicVolumeSize {
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private String                   resource;
+    private AwsResourceTypeEnum      resource;
     //endregion
 
     //region Constructor
@@ -55,11 +56,11 @@ public class DynamicVolumeSize {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public String getResource() {
+    public AwsResourceTypeEnum getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(AwsResourceTypeEnum resource) {
         isSet.add("resource");
         this.resource = resource;
     }
@@ -88,7 +89,7 @@ public class DynamicVolumeSize {
             return this;
         }
 
-        public Builder setResource(final String resource) {
+        public Builder setResource(final AwsResourceTypeEnum resource) {
             dynamicVolumeSize.setResource(resource);
             return this;
         }
