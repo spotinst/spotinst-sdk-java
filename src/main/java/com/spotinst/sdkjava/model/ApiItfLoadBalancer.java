@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiDefaultStaticTargetGroups;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,7 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
     private Set<String>           isSet;
     private String                loadBalancerArn;
     private List<ApiListenerRule> listenerRules;
+    private List<ApiDefaultStaticTargetGroups>     defaultStaticTargetGroups;
     //endregion
 
     //region Constructor
@@ -55,6 +57,15 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
         this.listenerRules = listenerRules;
     }
 
+    public List<ApiDefaultStaticTargetGroups> getDefaultStaticTargetGroups() {
+        return defaultStaticTargetGroups;
+    }
+
+    public void setDefaultStaticTargetGroups(List<ApiDefaultStaticTargetGroups> defaultStaticTargetGroups) {
+        isSet.add("defaultStaticTargetGroups");
+        this.defaultStaticTargetGroups = defaultStaticTargetGroups;
+    }
+
     //endregion
 
     //region isSet methods
@@ -67,6 +78,12 @@ class ApiItfLoadBalancer implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isListenerRulesSet() {
         return isSet.contains("listenerRules");
+    }
+
+    // Is defaultStaticTargetGroups Set boolean method
+    @JsonIgnore
+    public boolean isDefaultStaticTargetGroupsSet() {
+        return isSet.contains("defaultStaticTargetGroups");
     }
 
     //endregion

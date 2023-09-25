@@ -38,6 +38,7 @@ public class ElastigroupLaunchSpecification {
     private CpuOptions               cpuOptions;
     private MetadataOptions          metadataOptions;
     private CreditSpecification      creditSpec;
+    private Boolean                  monitoring;
     //endregion
 
     //region Constructor
@@ -253,6 +254,14 @@ public class ElastigroupLaunchSpecification {
         this.creditSpec = spec;
     }
 
+    public Boolean getMonitoring() {
+        return monitoring;
+    }
+
+    public void setMonitoring(Boolean monitoring) {
+        isSet.add("monitoring");
+        this.monitoring = monitoring;
+    }
 
     //endregion
 
@@ -375,6 +384,11 @@ public class ElastigroupLaunchSpecification {
 
         public Builder setCreditSpecification(final CreditSpecification spec) {
             launchSpecification.setCreditSpecification(spec);
+            return this;
+        }
+
+        public Builder setMonitoring(final Boolean monitoring) {
+            launchSpecification.setMonitoring(monitoring);
             return this;
         }
 
@@ -518,6 +532,11 @@ public class ElastigroupLaunchSpecification {
     @JsonIgnore
     public boolean isCreditSpecificationSet() {
         return isSet.contains("creditSpecification");
+    }
+
+    @JsonIgnore
+    public boolean isMonitoringSet() {
+        return isSet.contains("monitoring");
     }
 
     //endregion

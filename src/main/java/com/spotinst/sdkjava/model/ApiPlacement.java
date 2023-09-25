@@ -22,6 +22,7 @@ class ApiPlacement implements IPartialUpdateEntity {
     private Set<String>  isSet;
     private String       name;
     private List<String> subnetIds;
+    private String placementGroupName;
     //endregion
 
     //region Constructor
@@ -59,6 +60,15 @@ class ApiPlacement implements IPartialUpdateEntity {
         this.subnetIds = subnetIds;
     }
 
+    public String getPlacementGroupName() {
+        return placementGroupName;
+    }
+
+    public void setPlacementGroupName(String placementGroupName) {
+        isSet.add("placementGroupName");
+        this.placementGroupName = placementGroupName;
+    }
+
     //endregion
 
     //region isSet methods
@@ -72,6 +82,12 @@ class ApiPlacement implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isSubnetIdsSet() {
         return isSet.contains("subnetIds");
+    }
+
+    // Is placementGroupName Set boolean method
+    @JsonIgnore
+    public boolean isPlacementGroupNameSet() {
+        return isSet.contains("placementGroupName");
     }
 
     //endregion

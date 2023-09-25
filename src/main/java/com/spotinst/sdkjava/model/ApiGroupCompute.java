@@ -27,6 +27,8 @@ class ApiGroupCompute implements IPartialUpdateEntity {
     private List<String>        elasticIps;
     private List<ApiVolumePool> ebsVolumePool;
     private List<String>        preferredAvailabilityZones;
+    private List<String> privateIps;
+    private List<String> subnetIds;
     //endregion
 
     //region Constructor
@@ -107,7 +109,38 @@ class ApiGroupCompute implements IPartialUpdateEntity {
         isSet.add("preferredAvailabilityZones");
         this.preferredAvailabilityZones = preferredAvailabilityZones;
     }
+
+    public List<String> getPrivateIps() {
+        return privateIps;
+    }
+
+    public void setPrivateIps(List<String> privateIps) {
+        isSet.add("privateIps");
+        this.privateIps = privateIps;
+    }
+
+    public List<String> getSubnetIds() {
+        return subnetIds;
+    }
+
+    public void setSubnetIds(List<String> subnetIds) {
+        isSet.add("subnetIds");
+        this.subnetIds = subnetIds;
+    }
+
     //region isset methods
+
+    // Is privateIps Set boolean method
+    @JsonIgnore
+    public boolean isPrivateIpsSet() {
+        return isSet.contains("privateIps");
+    }
+
+    // Is subnetIds Set boolean method
+    @JsonIgnore
+    public boolean isSubnetIdsSet() {
+        return isSet.contains("subnetIds");
+    }
 
     // Is instanceTypes Set boolean method
     @JsonIgnore
