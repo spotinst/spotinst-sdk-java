@@ -2,6 +2,7 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.MultipleMetrics;
 
 import java.util.*;
 
@@ -17,6 +18,7 @@ public class ElastigroupScalingConfiguration {
     private List<ScalingPolicy> up;
     private List<ScalingPolicy> down;
     private List<ScalingPolicy> target;
+    private MultipleMetrics multipleMetrics;
     //endregion
 
     //region Constructor
@@ -69,6 +71,15 @@ public class ElastigroupScalingConfiguration {
     public void setTarget(List<ScalingPolicy> target) {
         isSet.add("target");
         this.target = target;
+    }
+
+    public MultipleMetrics getMultipleMetrics() {
+        return multipleMetrics;
+    }
+
+    public void setMultipleMetrics(MultipleMetrics multipleMetrics) {
+        isSet.add("multipleMetrics");
+        this.multipleMetrics = multipleMetrics;
     }
 
     //endregion
@@ -125,6 +136,11 @@ public class ElastigroupScalingConfiguration {
             return this;
         }
 
+        public Builder setMultipleMetrics(final MultipleMetrics multipleMetrics) {
+            elastigroupScalingConfiguration.setMultipleMetrics(multipleMetrics);
+            return this;
+        }
+
         public ElastigroupScalingConfiguration build() {
             // TODO : Validations
             return elastigroupScalingConfiguration;
@@ -148,6 +164,12 @@ public class ElastigroupScalingConfiguration {
     @JsonIgnore
     public boolean isTargetSet() {
         return isSet.contains("target");
+    }
+
+    // Is multipleMetrics Set boolean method
+    @JsonIgnore
+    public boolean isMultipleMetricsSet() {
+        return isSet.contains("multipleMetrics");
     }
 
     //endregion

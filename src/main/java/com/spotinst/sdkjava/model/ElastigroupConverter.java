@@ -1570,8 +1570,109 @@ public class ElastigroupConverter {
 
                 retVal.setTarget(apiTargetScalingPolicies);
             }
+
+            if(scaling.isMultipleMetricsSet()){
+                if(scaling.getMultipleMetrics() != null){
+                    retVal.setMultipleMetrics(toDal(scaling.getMultipleMetrics()));
+                }
+            }
         }
 
+        return retVal;
+    }
+
+    private static ApiMultipleMetrics toDal(MultipleMetrics multipleMetrics){
+        ApiMultipleMetrics retVal = null;
+
+        if(multipleMetrics != null){
+            retVal = new ApiMultipleMetrics();
+
+            if(multipleMetrics.isExpressionsSet()){
+                List<Expressions> expressions = multipleMetrics.getExpressions();
+                List<ApiExpressions> apiExpressions =
+                        expressions.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setExpressions(apiExpressions);
+            }
+
+            if(multipleMetrics.isMetricssSet()){
+                List<Metrics> Metrics = multipleMetrics.getMetrics();
+                List<ApiMetrics> apimetrics = Metrics.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setMetrics(apimetrics);
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiExpressions toDal(Expressions expressions){
+        ApiExpressions retVal = null;
+
+        if(expressions != null){
+            retVal = new ApiExpressions();
+
+            if(expressions.isExpressionSet()){
+                retVal.setExpression(expressions.getExpression());
+            }
+
+            if(expressions.isNameSet()){
+                retVal.setName(expressions.getName());
+            }
+        }
+        return  retVal;
+    }
+
+    private static ApiMetrics toDal(Metrics metrics){
+        ApiMetrics retVal = null;
+
+        if(metrics != null){
+            retVal = new ApiMetrics();
+
+            if(metrics.isDimensionSet()){
+                List<ApiScalingDimension> apiStepAdjustments =
+                        metrics.getDimensions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setDimensions(apiStepAdjustments);
+            }
+
+            if(metrics.isExtendedStatisticSet()){
+                retVal.setExtendedStatistic(metrics.getExtendedStatistic());
+            }
+
+            if(metrics.isMetricNameSet()){
+                retVal.setMetricName(metrics.getMetricName());
+            }
+
+            if(metrics.isNameSet()){
+                retVal.setName(metrics.getName());
+            }
+
+            if(metrics.isNamespaceSet()){
+                retVal.setNamespace(metrics.getNamespace());
+            }
+
+            if(metrics.isStatisticSet()){
+                retVal.setStatistic(metrics.getStatistic());
+            }
+
+            if(metrics.isUnitSet()){
+                retVal.setUnit(metrics.getUnit());
+            }
+        }
+        return  retVal;
+    }
+
+
+    private static ApiStepAdjustments toDal(StepAdjustments stepAdjustments){
+        ApiStepAdjustments retVal = null;
+
+        if(stepAdjustments != null){
+            retVal = new ApiStepAdjustments();
+
+            if(stepAdjustments.isActionSet()){
+                retVal.setAction(toDal(stepAdjustments.getAction()));
+            }
+            if(stepAdjustments.isThresholdSet()){
+                retVal.setThreshold(stepAdjustments.getThreshold());
+            }
+        }
         return retVal;
     }
 
@@ -1581,6 +1682,11 @@ public class ElastigroupConverter {
         if (scalingPolicy != null) {
             retVal = new ApiScalingPolicy();
 
+            if(scalingPolicy.isStepAdjustmentsSet()){
+                List<ApiStepAdjustments> apiStepAdjustments =
+                        scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setStepAdjustments(apiStepAdjustments);
+            }
             if (scalingPolicy.isPolicyNameSet()) {
                 retVal.setPolicyName(scalingPolicy.getPolicyName());
             }
@@ -3669,10 +3775,98 @@ public class ElastigroupConverter {
                 }
             }
 
+            if(scaling.isMultipleMetricsSet()){
+                if(scaling.getMultipleMetrics() != null){
+                    retValBuilder.setMultipleMetrics(toBl(scaling.getMultipleMetrics()));
+                }
+            }
+
             retVal = retValBuilder.build();
         }
 
         return retVal;
+    }
+
+    private static MultipleMetrics toBl(ApiMultipleMetrics apiMultipleMetrics){
+        MultipleMetrics retVal = null;
+
+        if(apiMultipleMetrics != null){
+            MultipleMetrics.Builder retValBuilder = MultipleMetrics.Builder.get();
+
+            if(apiMultipleMetrics.isExpressionsSet()){
+                List<ApiExpressions> apiExpressions = apiMultipleMetrics.getExpressions();
+                List<Expressions> expressions =
+                        apiExpressions.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setExpressions(expressions);
+            }
+
+            if(apiMultipleMetrics.isMetricssSet()){
+                List<ApiMetrics> apiMetrics = apiMultipleMetrics.getMetrics();
+                List<Metrics> metrics = apiMetrics.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setMetrics(metrics);
+            }
+            retVal = retValBuilder.build();
+        }
+        return retVal;
+    }
+
+    private static Expressions toBl(ApiExpressions apiExpressions){
+        Expressions retVal = null;
+
+        if(apiExpressions != null){
+            Expressions.Builder expressions = Expressions.Builder.get();
+
+            if(apiExpressions.isExpressionSet()){
+                expressions.setExpression(apiExpressions.getExpression());
+            }
+
+            if(apiExpressions.isNameSet()){
+                expressions.setName(apiExpressions.getName());
+            }
+            retVal = expressions.build();
+        }
+        return  retVal;
+    }
+
+    private static Metrics toBl(ApiMetrics apiMetrics){
+        Metrics retVal = null;
+
+        if(apiMetrics != null){
+            Metrics.Builder retValBuilder = Metrics.Builder.get();
+
+            if(apiMetrics.isDimensionSet()){
+                List<ScalingDimension> apiStepAdjustments =
+                        apiMetrics.getDimensions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setDimensions(apiStepAdjustments);
+            }
+
+            if(apiMetrics.isExtendedStatisticSet()){
+                retValBuilder.setExtendedStatistic(apiMetrics.getExtendedStatistic());
+            }
+
+            if(apiMetrics.isMetricNameSet()){
+                retValBuilder.setMetricName(apiMetrics.getMetricName());
+            }
+
+            if(apiMetrics.isNameSet()){
+                retValBuilder.setName(apiMetrics.getName());
+            }
+
+            if(apiMetrics.isNamespaceSet()){
+                retValBuilder.setNamespace(apiMetrics.getNamespace());
+            }
+
+            if(apiMetrics.isStatisticSet()){
+                retValBuilder.setStatistic(apiMetrics.getStatistic());
+            }
+
+            if(apiMetrics.isUnitSet()){
+                retValBuilder.setUnit(apiMetrics.getUnit());
+            }
+
+            retVal = retValBuilder.build();
+        }
+        return  retVal;
     }
 
     private static LoadBalancersConfig toBl(ApiLoadBalancersConfig loadBalancersConfig) {
@@ -3694,12 +3888,38 @@ public class ElastigroupConverter {
         return retVal;
     }
 
+    private static StepAdjustments toBl(ApiStepAdjustments apiStepAdjustments){
+        StepAdjustments retVal = null;
+
+        if(apiStepAdjustments != null){
+            StepAdjustments.Builder retValBuilder = StepAdjustments.Builder.get();
+
+            if(apiStepAdjustments.isActionSet()){
+                retValBuilder.setAction(toBl(apiStepAdjustments.getAction()));
+            }
+            if(apiStepAdjustments.isThresholdSet()){
+                retValBuilder.setThreshold(apiStepAdjustments.getThreshold());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
     private static ScalingPolicy toBl(ApiScalingPolicy scalingPolicy) {
         ScalingPolicy retVal = null;
 
         if (scalingPolicy != null) {
             ScalingPolicy.Builder retValBuilder = ScalingPolicy.Builder.get();
 
+            if(scalingPolicy.isSourceSet()){
+                retValBuilder.setSource(scalingPolicy.getSource());
+            }
+            if(scalingPolicy.isStepAdjustmentsSet()){
+                List<StepAdjustments> stepAdjustments =
+                        scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                retValBuilder.setStepAdjustments(stepAdjustments);
+            }
             if (scalingPolicy.isPolicyNameSet()) {
                 retValBuilder.setPolicyName(scalingPolicy.getPolicyName());
             }
@@ -3768,7 +3988,6 @@ public class ElastigroupConverter {
             if (scalingPolicy.isPredictiveSet()) {
                 retValBuilder.setPredictive(toBl(scalingPolicy.getPredictive()));
             }
-
             retVal = retValBuilder.build();
 
         }

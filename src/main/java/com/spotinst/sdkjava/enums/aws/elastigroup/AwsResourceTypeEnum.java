@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public enum AwsResourceTypeEnum {
 
     CPU("CPU"),
-    MEMORY("MEMORY");
+    MEMORY("memory");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsResourceTypeEnum.class);
     private String name;
@@ -26,7 +26,7 @@ public enum AwsResourceTypeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create signal name enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create awsResourceTypeEnum name enum for: " + name + ", but we don't support such type ");
         }
 
         return retVal;
