@@ -1,0 +1,122 @@
+package com.spotinst.sdkjava.model.bl.elastigroup.aws;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by aharontwizer on 8/24/15.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Dynamiclops {
+
+    //region Members
+    @JsonIgnore
+    private Set<String>              isSet;
+    private Integer                  baseSize;
+    private Integer                  sizePerResourceUnit;
+    private AwsResourceTypeEnum resource;
+    //endregion
+
+    //region Constructor
+    private Dynamiclops() {
+        isSet = new HashSet<>();
+    }
+    //endregion
+
+    //region Getters & Setters
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public Integer getBaseSize() {
+        return baseSize;
+    }
+
+    public void setBaseSize(Integer baseSize) {
+        isSet.add("baseSize");
+        this.baseSize = baseSize;
+    }
+
+    public Integer getSizePerResourceUnit() {
+        return sizePerResourceUnit;
+    }
+
+    public void setSizePerResourceUnit(Integer sizePerResourceUnit) {
+        isSet.add("sizePerResourceUnit");
+        this.sizePerResourceUnit = sizePerResourceUnit;
+    }
+
+    public AwsResourceTypeEnum getResource() {
+        return resource;
+    }
+
+    public void setResource(AwsResourceTypeEnum resource) {
+        isSet.add("resource");
+        this.resource = resource;
+    }
+
+    //endregion
+
+    //region Builder class
+    public static class Builder {
+        private Dynamiclops dynamiclops;
+
+        private Builder() {
+            this.dynamiclops = new Dynamiclops();
+        }
+
+        public static Builder get() {
+            return new Builder();
+        }
+
+        public Builder setBaseSize(final Integer baseSize) {
+            dynamiclops.setBaseSize(baseSize);
+            return this;
+        }
+
+        public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
+            dynamiclops.setSizePerResourceUnit(sizePerResourceUnit);
+            return this;
+        }
+
+        public Builder setResource(final AwsResourceTypeEnum resource) {
+            dynamiclops.setResource(resource);
+            return this;
+        }
+
+        public Dynamiclops build() {
+            return dynamiclops;
+        }
+    }
+
+    //endregion
+
+    //region isSet methods
+    // Is baseSize Set boolean method
+    @JsonIgnore
+    public boolean isBaseSizeSet() {
+        return isSet.contains("baseSize");
+    }
+
+    @JsonIgnore
+    public boolean isSizePerResourceUnitSet() {
+        return isSet.contains("sizePerResourceUnit");
+    }
+
+    // Is encrypted Set boolean method
+    @JsonIgnore
+    public boolean isResourceSet() {
+        return isSet.contains("resource");
+    }
+    //endregion
+}

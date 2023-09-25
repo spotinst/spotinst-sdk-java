@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiPrivateIpAddresses;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,6 +27,9 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
     private Boolean     associatePublicIpAddress;
     private Boolean     deleteOnTermination;
     private String      networkInterfaceId;
+    private List<ApiPrivateIpAddresses> privateIpAddresses;
+    private Boolean associateIpv6Address;
+    private String subnetId;
     //endregion
 
     //region Constructor
@@ -44,12 +49,21 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
+    public String getSubnetId() {
+        return subnetId;
+    }
+
+    public void setSubnetId(String subnetId) {
+        isSet.add("description");
+        this.subnetId = subnetId;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        isSet.add("description");
+        isSet.add("subnetId");
         this.description = description;
     }
 
@@ -97,6 +111,25 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
         isSet.add("networkInterfaceId");
         this.networkInterfaceId = networkInterfaceId;
     }
+
+    public List<ApiPrivateIpAddresses> getPrivateIpAddresses() {
+        return privateIpAddresses;
+    }
+
+    public void setPrivateIpAddresses(List<ApiPrivateIpAddresses> privateIpAddresses) {
+        isSet.add("privateIpAddresses");
+        this.privateIpAddresses = privateIpAddresses;
+    }
+
+    public Boolean getAssociateIpv6Address() {
+        return associateIpv6Address;
+    }
+
+    public void setAssociateIpv6Address(Boolean associateIpv6Address) {
+        isSet.add("associateIpv6Address");
+        this.associateIpv6Address = associateIpv6Address;
+    }
+
     //endregion
 
     //region isSet methods
@@ -135,10 +168,28 @@ class ApiNetworkInterface implements IPartialUpdateEntity {
         return isSet.contains("deleteOnTermination");
     }
 
+    // Is privateIpAddresses Set boolean method
+    @JsonIgnore
+    public boolean isPrivateIpAddressesSet() {
+        return isSet.contains("privateIpAddresses");
+    }
+
     // Is networkInterfaceId Set boolean method
     @JsonIgnore
     public boolean isNetworkInterfaceIdSet() {
         return isSet.contains("networkInterfaceId");
+    }
+
+    // Is subnetId Set boolean method
+    @JsonIgnore
+    public boolean isSubnetIdSet() {
+        return isSet.contains("subnetId");
+    }
+
+    // Is networkInterfaceId Set boolean method
+    @JsonIgnore
+    public boolean isAssociateIpv6AddressSet() {
+        return isSet.contains("associateIpv6Address");
     }
 
 

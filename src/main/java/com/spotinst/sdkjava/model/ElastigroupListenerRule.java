@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ElastigroupListenerRule {
@@ -10,6 +11,7 @@ public class ElastigroupListenerRule {
     @JsonIgnore
     private Set<String> isSet;
     private String ruleArn;
+    private List<StaticTargetGroups> staticTargetGroups;
     //endregion
 
     //region Constructors
@@ -40,6 +42,15 @@ public class ElastigroupListenerRule {
         this.ruleArn = ruleArn;
     }
 
+    public List<StaticTargetGroups> getStaticTargetGroups() {
+        return staticTargetGroups;
+    }
+
+    public void setStaticTargetGroups(List<StaticTargetGroups> staticTargetGroups) {
+        isSet.add("staticTargetGroups");
+        this.staticTargetGroups = staticTargetGroups;
+    }
+
     //endregion
 
     //region Builder class
@@ -59,6 +70,10 @@ public class ElastigroupListenerRule {
             return this;
         }
 
+        public Builder setStaticTargetGroups(final List<StaticTargetGroups> staticTargetGroups) {
+            listenerRules.setStaticTargetGroups(staticTargetGroups);
+            return this;
+        }
 
         public ElastigroupListenerRule build() {
             return listenerRules;
@@ -70,6 +85,12 @@ public class ElastigroupListenerRule {
     @JsonIgnore
     public boolean isRuleArnSet() {
         return isSet.contains("ruleArn");
+    }
+
+    // Is staticTargetGroups Set boolean method
+    @JsonIgnore
+    public boolean isStaticTargetGroupsSet() {
+        return isSet.contains("staticTargetGroups");
     }
 
     //endregion

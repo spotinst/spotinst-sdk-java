@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -18,6 +19,7 @@ class ApiListenerRule implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>  isSet;
     private String       ruleArn;
+    private List<ApiStaticTargetGroups> staticTargetGroups;
 
     //endregion
 
@@ -48,6 +50,15 @@ class ApiListenerRule implements IPartialUpdateEntity {
         this.ruleArn = ruleArn;
     }
 
+    public List<ApiStaticTargetGroups> getStaticTargetGroups() {
+        return staticTargetGroups;
+    }
+
+    public void setStaticTargetGroups(List<ApiStaticTargetGroups> staticTargetGroups) {
+        isSet.add("staticTargetGroups");
+        this.staticTargetGroups = staticTargetGroups;
+    }
+
     //endregion
     
     //region isSet methods
@@ -56,6 +67,13 @@ class ApiListenerRule implements IPartialUpdateEntity {
     public boolean isRuleArnSet() {
         return isSet.contains("ruleArn");
     }
+
+    // Is staticTargetGroups Set boolean method
+    @JsonIgnore
+    public boolean isStaticTargetGroupsSet() {
+        return isSet.contains("staticTargetGroups");
+    }
+
 
     //endregion
 }
