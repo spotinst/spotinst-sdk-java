@@ -1,16 +1,18 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
  * Created by aharontwizer on 8/24/15.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Dynamiclops {
 
     //region Members

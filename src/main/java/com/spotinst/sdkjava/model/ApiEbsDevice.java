@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiDynamicVolumeSize;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiDynamiclops;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +27,8 @@ class ApiEbsDevice implements IPartialUpdateEntity {
     private Integer                     volumeSize;
     private String                      volumeType;
     private Integer                     throughput;
-    private ApiDynamiclops              dynamicIops;
-    private ApiDynamicVolumeSize        dynamicVolumeSize;
+    private ApiDynamiclops dynamicIops;
+    private ApiDynamicVolumeSize dynamicVolumeSize;
     private String                      kmsKeyId;
 
     //region Constructor

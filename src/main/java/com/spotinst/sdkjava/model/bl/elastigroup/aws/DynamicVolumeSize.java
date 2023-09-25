@@ -1,34 +1,29 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by sobhana p on 9/12/2023.
+ * Created by sobhana p on 8/13/15.
  */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonFilter("PartialUpdateEntityFilter")
-public class ApiDynamiclops implements IPartialUpdateEntity {
+public class DynamicVolumeSize {
 
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private AwsResourceTypeEnum resource;
+    private String                   resource;
     //endregion
 
     //region Constructor
-    public ApiDynamiclops() {
+    private DynamicVolumeSize() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -60,18 +55,53 @@ public class ApiDynamiclops implements IPartialUpdateEntity {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public AwsResourceTypeEnum getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(AwsResourceTypeEnum resource) {
+    public void setResource(String resource) {
         isSet.add("resource");
         this.resource = resource;
     }
 
     //endregion
+
+    //region Builder class
+    public static class Builder {
+        private DynamicVolumeSize dynamicVolumeSize;
+
+        private Builder() {
+            this.dynamicVolumeSize = new DynamicVolumeSize();
+        }
+
+        public static Builder get() {
+            return new Builder();
+        }
+
+        public Builder setBaseSize(final Integer baseSize) {
+            dynamicVolumeSize.setBaseSize(baseSize);
+            return this;
+        }
+
+        public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
+            dynamicVolumeSize.setSizePerResourceUnit(sizePerResourceUnit);
+            return this;
+        }
+
+        public Builder setResource(final String resource) {
+            dynamicVolumeSize.setResource(resource);
+            return this;
+        }
+
+        public DynamicVolumeSize build() {
+            return dynamicVolumeSize;
+        }
+    }
+
+    //endregion
+
     //region isSet methods
-    // Is deleteOnTermination Set boolean method
+    // Is baseSize Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
         return isSet.contains("baseSize");
@@ -82,7 +112,7 @@ public class ApiDynamiclops implements IPartialUpdateEntity {
         return isSet.contains("sizePerResourceUnit");
     }
 
-    // Is encrypted Set boolean method
+    // Is resource Set boolean method
     @JsonIgnore
     public boolean isResourceSet() {
         return isSet.contains("resource");

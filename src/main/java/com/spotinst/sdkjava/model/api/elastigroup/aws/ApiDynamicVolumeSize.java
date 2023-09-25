@@ -1,14 +1,22 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by sobhana p on 8/13/15.
+ * Created by sobhana p on 9/12/2023.
  */
-public class DynamicVolumeSize {
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiDynamicVolumeSize implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -19,7 +27,7 @@ public class DynamicVolumeSize {
     //endregion
 
     //region Constructor
-    private DynamicVolumeSize() {
+    public ApiDynamicVolumeSize() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -61,54 +69,20 @@ public class DynamicVolumeSize {
     }
 
     //endregion
-
-    //region Builder class
-    public static class Builder {
-        private DynamicVolumeSize dynamicVolumeSize;
-
-        private Builder() {
-            this.dynamicVolumeSize = new DynamicVolumeSize();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setBaseSize(final Integer baseSize) {
-            dynamicVolumeSize.setBaseSize(baseSize);
-            return this;
-        }
-
-        public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
-            dynamicVolumeSize.setSizePerResourceUnit(sizePerResourceUnit);
-            return this;
-        }
-
-        public Builder setResource(final String resource) {
-            dynamicVolumeSize.setResource(resource);
-            return this;
-        }
-
-        public DynamicVolumeSize build() {
-            return dynamicVolumeSize;
-        }
-    }
-
-    //endregion
-
     //region isSet methods
+
     // Is baseSize Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
-        return isSet.contains("baseSize");
-    }
+            return isSet.contains("baseSize");
+        }
 
     @JsonIgnore
     public boolean isSizePerResourceUnitSet() {
         return isSet.contains("sizePerResourceUnit");
     }
 
-    // Is resource Set boolean method
+    // Is encrypted Set boolean method
     @JsonIgnore
     public boolean isResourceSet() {
         return isSet.contains("resource");

@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.PrivateIpAddresses;
 
 import java.util.HashSet;
 import java.util.List;

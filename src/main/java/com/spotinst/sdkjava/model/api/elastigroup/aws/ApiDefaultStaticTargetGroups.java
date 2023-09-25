@@ -1,11 +1,21 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class DefaultStaticTargetGroups {
+/**
+ * Created by sobhana p on 9/12/2023.
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiDefaultStaticTargetGroups implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -15,7 +25,7 @@ public class DefaultStaticTargetGroups {
     //endregion
 
     //region Constructor
-    public DefaultStaticTargetGroups() {
+    public ApiDefaultStaticTargetGroups() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -45,35 +55,6 @@ public class DefaultStaticTargetGroups {
     public void setPercentage(Float percentage) {
         isSet.add("percentage");
         this.percentage = percentage;
-    }
-
-    //endregion
-
-    //region Builder class
-    public static class Builder {
-        private DefaultStaticTargetGroups defaultStaticTargetGroups;
-
-        private Builder() {
-            this.defaultStaticTargetGroups = new DefaultStaticTargetGroups();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setArn(final String arn) {
-            defaultStaticTargetGroups.setArn(arn);
-            return this;
-        }
-
-        public Builder setPercentage(final Float percentage) {
-            defaultStaticTargetGroups.setPercentage(percentage);
-            return this;
-        }
-
-        public DefaultStaticTargetGroups build() {
-            return defaultStaticTargetGroups;
-        }
     }
 
     //endregion

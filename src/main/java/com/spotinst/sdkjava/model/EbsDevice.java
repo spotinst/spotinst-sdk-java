@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.DynamicVolumeSize;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.Dynamiclops;
 
 import java.util.HashSet;
 import java.util.Objects;

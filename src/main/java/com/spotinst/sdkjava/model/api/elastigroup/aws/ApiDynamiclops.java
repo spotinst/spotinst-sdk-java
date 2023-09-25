@@ -1,10 +1,11 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,18 +17,18 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiDynamicVolumeSize implements IPartialUpdateEntity {
+public class ApiDynamiclops implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private String                   resource;
+    private AwsResourceTypeEnum resource;
     //endregion
 
     //region Constructor
-    public ApiDynamicVolumeSize() {
+    public ApiDynamiclops() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -59,23 +60,22 @@ public class ApiDynamicVolumeSize implements IPartialUpdateEntity {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public String getResource() {
+    public AwsResourceTypeEnum getResource() {
         return resource;
     }
 
-    public void setResource(String resource) {
+    public void setResource(AwsResourceTypeEnum resource) {
         isSet.add("resource");
         this.resource = resource;
     }
 
     //endregion
     //region isSet methods
-
-    // Is baseSize Set boolean method
+    // Is deleteOnTermination Set boolean method
     @JsonIgnore
     public boolean isBaseSizeSet() {
-            return isSet.contains("baseSize");
-        }
+        return isSet.contains("baseSize");
+    }
 
     @JsonIgnore
     public boolean isSizePerResourceUnitSet() {

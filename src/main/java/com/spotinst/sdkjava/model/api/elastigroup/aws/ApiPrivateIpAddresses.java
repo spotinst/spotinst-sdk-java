@@ -1,6 +1,10 @@
-package com.spotinst.sdkjava.model;
+package com.spotinst.sdkjava.model.api.elastigroup.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,7 +12,11 @@ import java.util.Set;
 /**
  * Created by sobhana p on 9/12/2023.
  */
-public class PrivateIpAddresses {
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiPrivateIpAddresses implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
@@ -18,7 +26,7 @@ public class PrivateIpAddresses {
     //endregion
 
     //region Constructor
-    public PrivateIpAddresses() {
+    public ApiPrivateIpAddresses() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -46,37 +54,8 @@ public class PrivateIpAddresses {
     }
 
     public void setPrivateIpAddress(String privateIpAddress) {
-        isSet.add("privateIpAddress");
+        isSet.add("primary");
         this.privateIpAddress = privateIpAddress;
-    }
-
-    //endregion
-
-    //region Builder class
-    public static class Builder {
-        private PrivateIpAddresses privateIpAddresses;
-
-        private Builder() {
-            this.privateIpAddresses = new PrivateIpAddresses();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        public Builder setPrimary(final Boolean primary) {
-            privateIpAddresses.setPrimary(primary);
-            return this;
-        }
-
-        public Builder setPrivateIpAddress(final String privateIpAddress) {
-            privateIpAddresses.setPrivateIpAddress(privateIpAddress);
-            return this;
-        }
-
-        public PrivateIpAddresses build() {
-            return privateIpAddresses;
-        }
     }
 
     //endregion
