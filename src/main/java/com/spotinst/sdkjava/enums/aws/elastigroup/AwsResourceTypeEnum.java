@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 public enum AwsResourceTypeEnum {
 
     CPU("CPU"),
-    MEMORY("MEMORY");
+    MEMORY("memory");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsResourceTypeEnum.class);
     private String name;
