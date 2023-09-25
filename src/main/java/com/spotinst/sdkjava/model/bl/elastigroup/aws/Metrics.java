@@ -18,14 +18,14 @@ import java.util.Set;
 public class Metrics {
     //region Members
     @JsonIgnore
-    private Set<String>                                    isSet;
+    private Set<String>                          isSet;
     private List<ScalingDimension>               dimensions;
     private String                               extendedStatistic;
     private String                               metricName;
     private String                               name;
     private String                               namespace;
-    private String                  statistic;
-    private String                   unit;
+    private String                               statistic;
+    private String                               unit;
 
     //endregion
 

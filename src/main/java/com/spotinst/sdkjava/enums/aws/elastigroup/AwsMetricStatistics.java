@@ -31,7 +31,7 @@ public enum AwsMetricStatistics {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create cpuCredits enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create awsMetricStatistics enum for: " + name + ", but we don't support such type ");
         }
 
         return retVal;
