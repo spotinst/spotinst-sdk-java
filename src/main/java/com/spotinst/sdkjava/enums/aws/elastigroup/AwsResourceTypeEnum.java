@@ -26,7 +26,7 @@ public enum AwsResourceTypeEnum {
         }
 
         if (retVal == null) {
-            LOGGER.error("Tried to create signal name enum for: " + name + ", but we don't support such type ");
+            LOGGER.error("Tried to create awsResourceTypeEnum name enum for: " + name + ", but we don't support such type ");
         }
 
         return retVal;
