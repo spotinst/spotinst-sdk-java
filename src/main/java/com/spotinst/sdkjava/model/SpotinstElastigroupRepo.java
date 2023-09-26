@@ -11,6 +11,7 @@ import com.spotinst.sdkjava.model.converters.elastigroup.aws.StatefulElastigroup
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,8 +31,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     SpotinstElastigroupService.createElastigroup(apiElastigroupToCreate, authToken, account);
             Elastigroup createdElastigroup = ElastigroupConverter.toBl(apiCreatedElastigroup);
             retVal = new RepoGenericResponse<>(createdElastigroup);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -46,8 +46,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             Boolean updated = SpotinstElastigroupService.deleteElastigroup(identifier, authToken, account);
             retVal = new RepoGenericResponse<>(updated);
 
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -64,8 +63,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     SpotinstElastigroupService.deleteElastigroup(elastigroupId, authToken, account, deleteRequest);
             retVal = new RepoGenericResponse<>(updated);
 
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -82,8 +80,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             ApiDetachInstancesRequest apiDetachRequest = ApiDetachInstancesRequestConverter.toDal(detachRequest);
             SpotinstElastigroupService.detachInstances(elastigroupId, apiDetachRequest, authToken, account);
             retVal = new RepoGenericResponse<>(new Boolean(true));
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -100,8 +97,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.updateGroup(elastigroupId, apiElastigroup, authToken, account);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -114,10 +110,9 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         try {
             ApiElastigroup apiElastigroup = SpotinstElastigroupService.getGroup(elastigroupId, authToken, account);
-            Elastigroup    elastigroup    = ElastigroupConverter.toBl(apiElastigroup);
+            Elastigroup elastigroup = ElastigroupConverter.toBl(apiElastigroup);
             retVal = new RepoGenericResponse<>(elastigroup);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -133,8 +128,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             List<Elastigroup> elastigroups =
                     apiElastigroups.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
             retVal = new RepoGenericResponse<>(elastigroups);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -162,8 +156,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             ElastigroupScalingResponse elastigroupScalingResponse =
                     ApiElastigroupScalingResponseConverter.dalToBl(apiElastigroupScalingResponse);
             retVal = new RepoGenericResponse<>(elastigroupScalingResponse);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -191,8 +184,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             ElastigroupScalingResponse elastigroupScalingResponse =
                     ApiElastigroupScalingResponseConverter.dalToBl(apiElastigroupScalingResponse);
             retVal = new RepoGenericResponse<>(elastigroupScalingResponse);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -203,15 +195,14 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     public RepoGenericResponse<Elastigroup> clone(String sourceElastigroupId, Elastigroup groupModifications,
                                                   String authToken, String account) {
         RepoGenericResponse<Elastigroup> retVal;
-        ApiElastigroup                   apiGroupModifications = ElastigroupConverter.toDal(groupModifications);
+        ApiElastigroup apiGroupModifications = ElastigroupConverter.toDal(groupModifications);
 
         try {
             ApiElastigroup apiClonedElastigroup = SpotinstElastigroupService
                     .cloneGroup(sourceElastigroupId, apiGroupModifications, authToken, account);
             Elastigroup clonedElastigroup = ElastigroupConverter.toBl(apiClonedElastigroup);
             retVal = new RepoGenericResponse<>(clonedElastigroup);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -225,8 +216,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.enterInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -240,8 +230,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.exitInstanceStandby(instanceId, authToken, account);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException e) {
+        } catch (SpotinstHttpException e) {
             retVal = ExceptionHelper.handleHttpException(e);
         }
 
@@ -253,7 +242,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     public RepoGenericResponse<SuspendedProcesses> suspendProcesses(String groupId, List<ProcessSuspension> suspensions,
                                                                     String authToken, String account) {
         RepoGenericResponse<SuspendedProcesses> retVal;
-        ApiSuspendProcessesRequest              request = new ApiSuspendProcessesRequest();
+        ApiSuspendProcessesRequest request = new ApiSuspendProcessesRequest();
 
         List<ApiProcessSuspension> apiSuspensions =
                 suspensions.stream().map(ApiProcessSuspensionConverter::toDal).collect(Collectors.toList());
@@ -265,8 +254,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(suspendedProcesses);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -278,7 +266,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                                                                      List<ProcessNameEnum> processes, String authToken,
                                                                      String account) {
         RepoGenericResponse<SuspendedProcesses> retVal;
-        ApiRemoveSuspensionsRequest             request = new ApiRemoveSuspensionsRequest();
+        ApiRemoveSuspensionsRequest request = new ApiRemoveSuspensionsRequest();
 
         List<String> processNames = processes.stream().map(ProcessNameEnum::getName).collect(Collectors.toList());
         request.setProcesses(processNames);
@@ -289,8 +277,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(suspendedProcesses);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -308,8 +295,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             SuspendedProcesses suspendedProcesses = ApiProcessSuspensionConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(suspendedProcesses);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -324,8 +310,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.lockInstance(lockRequest, authToken, instanceId);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -340,8 +325,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.unlockInstance(unlockRequest, authToken, instanceId);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -356,8 +340,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         try {
             Boolean success = SpotinstElastigroupService.simulateInstanceInterruption(authToken, account, instanceIds);
             retVal = new RepoGenericResponse<>(success);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -379,8 +362,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             SuspendedScalingPolicy suspendedProcesses = ScalingPoliciesSuspensionConverter.toBl(apiResponse);
 
             retVal = new RepoGenericResponse<>(suspendedProcesses);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
@@ -400,8 +382,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     ScalingPoliciesSuspensionConverter.toBl(suspendedApiResponse);
 
             retVal = new RepoGenericResponse<>(allSuspendedScalingPolicies);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
@@ -416,8 +397,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             Boolean removeStatus =
                     SpotinstElastigroupService.removeSuspendScalingPolicies(elastiGroupId, policyName, authToken, account);
             retVal = new RepoGenericResponse<>(removeStatus);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
@@ -426,7 +406,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
     @Override
     public RepoGenericResponse<ElastigroupStartDeploymentResponse> startDeployment(String elastigroupId, ElastigroupStartDeployment elastiGroupDeployment,
                                                                                    String authToken, String account) {
-       RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal;
+        RepoGenericResponse<ElastigroupStartDeploymentResponse> retVal;
 
         try {
 
@@ -434,12 +414,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .startDeployment(elastigroupId, elastiGroupDeployment, authToken, account);
 
             ElastigroupStartDeploymentResponse
-                    startDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupDeployment);
+                    startDeploymentResponse = ElastigroupConverter.toBl(apiElastigroupDeployment);
 
             retVal = new RepoGenericResponse<>(startDeploymentResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -460,9 +438,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
             ElastigroupStopDeploymentResponse stopDeploymentResponse = ElastigroupConverter.toBl(apiStopDeployment);
             retVal = new RepoGenericResponse<>(stopDeploymentResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -481,12 +457,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .getDeploymentStatus(elastigroupId, deploymentId, authToken, account);
 
             ElastigroupGetDeploymentStatusResponse
-                    getDeploymentResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentStatusResponse);
+                    getDeploymentResponse = ElastigroupConverter.toBl(apiElastigroupGetDeploymentStatusResponse);
 
             retVal = new RepoGenericResponse<>(getDeploymentResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -496,7 +470,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> getGroupDeploymentStatus(String elastigroupId, String authToken, String account) {
-        RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> retVal ;
+        RepoGenericResponse<List<ElastigroupGroupDeploymentStatusResponse>> retVal;
 
         try {
 
@@ -507,9 +481,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     apiElastigroupGetGroupDeploymentStatusResponse.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getGroupDeploymentResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -520,8 +492,8 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<ElastigroupGetDeploymentActionResponse> applyDeploymentAction(
-            ElastigroupDeploymentStrategyOnFailure elastigroupGetDeploymentActionRequest, String elastigroupId, String deploymentId , String authToken, String account) {
-        RepoGenericResponse<ElastigroupGetDeploymentActionResponse> retVal ;
+            ElastigroupDeploymentStrategyOnFailure elastigroupGetDeploymentActionRequest, String elastigroupId, String deploymentId, String authToken, String account) {
+        RepoGenericResponse<ElastigroupGetDeploymentActionResponse> retVal;
 
         try {
 
@@ -529,12 +501,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .applyDeploymentAction(elastigroupGetDeploymentActionRequest, elastigroupId, deploymentId, authToken, account);
 
             ElastigroupGetDeploymentActionResponse
-                    getDeploymentActionResponse =  ElastigroupConverter.toBl(apiElastigroupGetDeploymentActionResponse);
+                    getDeploymentActionResponse = ElastigroupConverter.toBl(apiElastigroupGetDeploymentActionResponse);
 
             retVal = new RepoGenericResponse<>(getDeploymentActionResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -554,11 +524,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
             List<ItfMigrationRulesStatus> list =
                     getMigrationApiResponse.stream().map(ItfMigrationConverter::toBl)
-                                            .collect(Collectors.toList());
+                            .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(list);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
@@ -566,17 +535,16 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<Boolean> retryItfMigration(String elastiGroupId, RetryItfMigrationRequest request,
-                                                                       String authToken, String account) {
+                                                          String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
             ApiRetryItfMigrationRequest apiRequest = ItfMigrationConverter.toDal(request);
             Boolean retryItfMigrationResponse =
-                    SpotinstElastigroupService.retryItfMigration(elastiGroupId,apiRequest, authToken, account);
+                    SpotinstElastigroupService.retryItfMigration(elastiGroupId, apiRequest, authToken, account);
 
             retVal = new RepoGenericResponse<>(retryItfMigrationResponse);
-        }
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
         return retVal;
@@ -594,9 +562,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .updateCapacity(elastigroupId, elastiGroupUpdateCapacity, authToken, account);
 
             retVal = new RepoGenericResponse<>(updateCapacityResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -609,15 +575,13 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         RepoGenericResponse<Elastigroup> retVal;
 
         try {
-            
+
             ApiElastigroup importEC2Instance = SpotinstElastigroupService
                     .importEC2Instance(elastigroupImportInstance, instanceId, region, authToken, account);
             Elastigroup importedEC2Instance = ElastigroupConverter.toBl(importEC2Instance);
 
             retVal = new RepoGenericResponse<>(importedEC2Instance);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -635,9 +599,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .pauseStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
 
             retVal = new RepoGenericResponse<>(pauseStatefulInstanceResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -647,7 +609,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<Boolean> resumeStatefulInstance(String elastigroupId, String statefulInstanceId,
-                                                       String authToken, String account) {
+                                                               String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -657,9 +619,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .resumeStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
 
             retVal = new RepoGenericResponse<>(resumeStatefulInstanceResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -669,7 +629,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<Boolean> recycleStatefulInstance(String elastigroupId, String statefulInstanceId,
-                                                               String authToken, String account) {
+                                                                String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -679,9 +639,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .recycleStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
 
             retVal = new RepoGenericResponse<>(recycleStatefulInstanceResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -691,7 +649,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
     @Override
     public RepoGenericResponse<Boolean> deallocateStatefulInstance(String elastigroupId, String statefulInstanceId,
-                                                                String authToken, String account) {
+                                                                   String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
         try {
@@ -701,9 +659,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .deallocateStatefulInstance(elastigroupId, statefulInstanceId, authToken, account);
 
             retVal = new RepoGenericResponse<>(deallocateStatefulInstanceResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -720,12 +676,10 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             List<ApiElastigroupListStatefulInstancesResponse> listStatefulInstances = SpotinstElastigroupService
                     .listStatefulInstances(elastigroupId, authToken, account);
             List<ElastigroupListStatefulInstancesResponse> statefulInstances = listStatefulInstances.stream().map(StatefulElastigroupConverter::toBl)
-                                                                                .collect(Collectors.toList());
+                    .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(statefulInstances);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -744,9 +698,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .deleteVolumeInStatefulInstance(elastigroupId, statefulInstanceId, volumeId, authToken, account);
 
             retVal = new RepoGenericResponse<>(deleteVolumeInStatefulInstanceResponse);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -766,9 +718,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllLogs);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -787,16 +737,15 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             Elastigroup importedASG = ElastigroupConverter.toBl(importASG);
 
             retVal = new RepoGenericResponse<>(importedASG);
-          } 
-          catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
         return retVal;
     }
 
-   @Override  
-   public RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
+    @Override
+    public RepoGenericResponse<List<GetInstanceTypesResponse>> getInstanceTypesByRegion(String region, String authToken, String account) {
         RepoGenericResponse<List<GetInstanceTypesResponse>> retVal;
 
         try {
@@ -807,9 +756,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllInstanceTypes);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -828,9 +775,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
                     .collect(Collectors.toList());
 
             retVal = new RepoGenericResponse<>(getAllInstanceTypes);
-        }
-
-        catch (SpotinstHttpException ex) {
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -934,7 +879,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -955,7 +899,6 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         }
 
         return retVal;
-
     }
 
     @Override
@@ -1035,6 +978,7 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
         return retVal;
     }
 
+
     public RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account) {
         RepoGenericResponse<Boolean> retVal;
 
@@ -1045,6 +989,25 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             retVal = new RepoGenericResponse<>(amiBackupResponse);
         }
         catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    @Override
+    public RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> retVal;
+
+        try {
+
+            List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = SpotinstElastigroupService
+                    .createCodeDeployBGDeployment(request, elastigroupId, authToken, account);
+            List<CodeDeployBGDeploymentResponse> codeDeployResponse = apiCodeDeployResponse.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(codeDeployResponse);
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -1079,6 +1042,24 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
             retVal = new RepoGenericResponse<>(finishBeanstalkMaintenanceResponse);
         }
         catch (SpotinstHttpException ex) {
+            retVal = ExceptionHelper.handleHttpException(ex);
+        }
+
+        return retVal;
+    }
+
+    public RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> getCodeDeployBGDeployment(ElastigroupGetCodeDeployRequest request, String elastigroupId, String authToken, String account) {
+        RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> retVal;
+
+        try {
+
+            List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = SpotinstElastigroupService
+                    .getCodeDeployBGDeployment(request, elastigroupId, authToken, account);
+            List<CodeDeployBGDeploymentResponse> codeDeployResponse = apiCodeDeployResponse.stream().map(ElastigroupConverter::toBl)
+                    .collect(Collectors.toList());
+
+            retVal = new RepoGenericResponse<>(codeDeployResponse);
+        } catch (SpotinstHttpException ex) {
             retVal = ExceptionHelper.handleHttpException(ex);
         }
 
@@ -1135,4 +1116,5 @@ class SpotinstElastigroupRepo implements ISpotinstElastigroupRepo {
 
         return retVal;
     }
+
 }

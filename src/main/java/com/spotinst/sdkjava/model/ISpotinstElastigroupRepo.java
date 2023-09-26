@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.ElastigroupInstanceUnLockRequest;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
+import com.spotinst.sdkjava.model.responses.elastigroup.aws.CodeDeployBGDeploymentResponse;
 
 import java.util.List;
 
@@ -136,4 +137,8 @@ interface ISpotinstElastigroupRepo extends IRepository<Elastigroup, GroupFilter,
     RepoGenericResponse<Elastigroup> beanstalkReimport(String groupId, String authToken, String account);
     
     RepoGenericResponse<Boolean> amiBackup(String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account);
+
+    RepoGenericResponse<List<CodeDeployBGDeploymentResponse>> getCodeDeployBGDeployment(ElastigroupGetCodeDeployRequest request, String elastigroupId, String authToken, String account);
 }

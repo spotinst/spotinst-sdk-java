@@ -1,6 +1,5 @@
 package com.spotinst.sdkjava.model;
 
-
 import com.spotinst.sdkjava.client.response.BaseServiceEmptyResponse;
 import com.spotinst.sdkjava.client.response.BaseSpotinstService;
 import com.spotinst.sdkjava.client.rest.*;
@@ -13,7 +12,10 @@ import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.responses.elastigroup.aws.*;
 import org.apache.http.HttpStatus;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by aharontwizer on 7/27/15.
@@ -1905,7 +1907,6 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
 
         // Handle the response.
-
         ElastigroupImportStatefulInstanceApiResponse
                 castedApiResponse = getCastedResponse(response, ElastigroupImportStatefulInstanceApiResponse.class);
 
@@ -2324,5 +2325,86 @@ class SpotinstElastigroupService extends BaseSpotinstService {
         }
 
         return retVal;
+    }
+
+    public static List<ApiCodeDeployBGDeploymentResponse> createCodeDeployBGDeployment(ElastigroupCreateCodeDeployRequest request, String elastigroupId, String authToken, String account) {
+
+        List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = new LinkedList<>();
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/codeDeploy/blueGreenDeployment", apiEndpoint,elastigroupId);
+
+        // Write to json
+        Map<String, ElastigroupCodeDeployBGDeployment> deploymentRequest = new HashMap<>();
+        deploymentRequest.put("deployment", request.getCodeDeployBGDeployment());
+        String body = JsonMapper.toJson(deploymentRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendPost(uri, body, headers, queryParams);
+
+        // Handle the response.
+        CodeDeployBGDeploymentApiResponse
+                codeDeployResponse = getCastedResponse(response, CodeDeployBGDeploymentApiResponse.class);
+
+        if (codeDeployResponse.getResponse().getCount() > 0) {
+            apiCodeDeployResponse = codeDeployResponse.getResponse().getItems();
+        }
+
+        return apiCodeDeployResponse;
+    }
+
+    public static List<ApiCodeDeployBGDeploymentResponse> getCodeDeployBGDeployment(ElastigroupGetCodeDeployRequest request, String elastigroupId, String authToken, String account) {
+
+        List<ApiCodeDeployBGDeploymentResponse> apiCodeDeployResponse = new LinkedList<>();
+
+        // Get endpoint
+        SpotinstHttpConfig config      = SpotinstHttpContext.getInstance().getConfiguration();
+        String             apiEndpoint = config.getEndpoint();
+
+        // Build query params
+        Map<String, String> queryParams = new HashMap<>();
+
+        // Add account Id Query param
+        if (account != null) {
+            queryParams.put("accountId", account);
+        }
+
+        // Get the headers
+        Map<String, String> headers = buildHeaders(authToken);
+
+        // Build URI
+        String uri = String.format("%s/aws/ec2/group/%s/codeDeploy/blueGreenDeployment", apiEndpoint,elastigroupId);
+
+        // Write to json
+        Map<String, ElastigroupGetCodeDeployRequest> getDeploymentRequest = new HashMap<>();
+        getDeploymentRequest.put("deployment", request);
+        String body = JsonMapper.toJson(getDeploymentRequest);
+
+        // Send the request.
+        RestResponse response = RestClient.sendGetWithBody(uri, body, headers, queryParams);
+
+        // Handle the response.
+        CodeDeployBGDeploymentApiResponse
+                codeDeployResponse = getCastedResponse(response, CodeDeployBGDeploymentApiResponse.class);
+
+        if (codeDeployResponse.getResponse().getCount() > 0) {
+            apiCodeDeployResponse = codeDeployResponse.getResponse().getItems();
+        }
+
+        return apiCodeDeployResponse;
     }
 }
