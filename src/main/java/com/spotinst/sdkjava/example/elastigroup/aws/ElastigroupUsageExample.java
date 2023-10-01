@@ -9,7 +9,6 @@ import com.spotinst.sdkjava.model.bl.admin.account.response.SubscriptionResponse
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.aws.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.IOException;
 import java.text.ParseException;

@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.spotinst.sdkjava.enums.*;
 import com.spotinst.sdkjava.enums.aws.elastigroup.AwsCpuCreditsEnum;
 import com.spotinst.sdkjava.enums.aws.elastigroup.AwsInstanceMetadataTagsEnum;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 import com.spotinst.sdkjava.enums.aws.elastigroup.AwsTerminationPolicyEnum;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
@@ -1120,8 +1121,8 @@ public class ElastigroupConverter {
             }
 
             if(ebsDevice.isDynamicIopsSet()){
-                ApiDynamiclops apiDynamiclops = toDal(ebsDevice.getDynamicIops());
-                retVal.setDynamicIops(apiDynamiclops);
+                ApiDynamicIops apiDynamicIops = toDal(ebsDevice.getDynamicIops());
+                retVal.setDynamicIops(apiDynamicIops);
             }
 
         }
@@ -1129,29 +1130,29 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiDynamiclops toDal(Dynamiclops  dynamiclops) {
-        ApiDynamiclops retVal = null;
+    private static ApiDynamicIops toDal(DynamicIops dynamicIops) {
+        ApiDynamicIops retVal = null;
 
-        if (dynamiclops != null) {
-            retVal = new ApiDynamiclops();
+        if (dynamicIops != null) {
+            retVal = new ApiDynamicIops();
 
-            if(dynamiclops.isBaseSizeSet()){
-                retVal.setBaseSize(dynamiclops.getBaseSize());
+            if(dynamicIops.isBaseSizeSet()){
+                retVal.setBaseSize(dynamicIops.getBaseSize());
             }
 
-            if(dynamiclops.isResourceSet()){
-                retVal.setResource(dynamiclops.getResource());
+            if(dynamicIops.isResourceSet()){
+                retVal.setResource(dynamicIops.getResource().getName());
             }
 
-            if(dynamiclops.isSizePerResourceUnitSet()){
-                retVal.setSizePerResourceUnit(dynamiclops.getSizePerResourceUnit());
+            if(dynamicIops.isSizePerResourceUnitSet()){
+                retVal.setSizePerResourceUnit(dynamicIops.getSizePerResourceUnit());
             }
         }
 
         return retVal;
     }
 
-    private static ApiDynamicVolumeSize toDal(DynamicVolumeSize  dynamicVolumeSize) {
+    private static ApiDynamicVolumeSize toDal(DynamicVolumeSize dynamicVolumeSize) {
         ApiDynamicVolumeSize retVal = null;
 
         if (dynamicVolumeSize != null) {
@@ -1162,7 +1163,7 @@ public class ElastigroupConverter {
             }
 
             if(dynamicVolumeSize.isResourceSet()){
-                retVal.setResource(dynamicVolumeSize.getResource());
+                retVal.setResource(dynamicVolumeSize.getResource().getName());
             }
 
             if(dynamicVolumeSize.isSizePerResourceUnitSet()){
@@ -3330,22 +3331,22 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static Dynamiclops toBl(ApiDynamiclops apiDynamiclops){
-        Dynamiclops retVal = null;
+    private static DynamicIops toBl(ApiDynamicIops apiDynamicIops){
+        DynamicIops retVal = null;
 
-        if(apiDynamiclops != null){
-            Dynamiclops.Builder retValBuilder = Dynamiclops.Builder.get();
+        if(apiDynamicIops != null){
+            DynamicIops.Builder retValBuilder = DynamicIops.Builder.get();
 
-            if(apiDynamiclops.isBaseSizeSet()){
-                retValBuilder.setBaseSize(apiDynamiclops.getBaseSize());
+            if(apiDynamicIops.isBaseSizeSet()){
+                retValBuilder.setBaseSize(apiDynamicIops.getBaseSize());
             }
 
-            if(apiDynamiclops.isResourceSet()){
-                retValBuilder.setResource(apiDynamiclops.getResource());
+            if(apiDynamicIops.isResourceSet()){
+                retValBuilder.setResource(AwsResourceTypeEnum.fromName(apiDynamicIops.getResource()));
             }
 
-            if(apiDynamiclops.isSizePerResourceUnitSet()){
-                retValBuilder.setSizePerResourceUnit(apiDynamiclops.getSizePerResourceUnit());
+            if(apiDynamicIops.isSizePerResourceUnitSet()){
+                retValBuilder.setSizePerResourceUnit(apiDynamicIops.getSizePerResourceUnit());
             }
             retVal = retValBuilder.build();
 
@@ -3364,7 +3365,7 @@ public class ElastigroupConverter {
             }
 
             if(apiDynamicVolumeSize.isResourceSet()){
-                retValBuilder.setResource(apiDynamicVolumeSize.getResource());
+                retValBuilder.setResource(AwsResourceTypeEnum.fromName(apiDynamicVolumeSize.getResource()));
             }
 
             if(apiDynamicVolumeSize.isSizePerResourceUnitSet()){
