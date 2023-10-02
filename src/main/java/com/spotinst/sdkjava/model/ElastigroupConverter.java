@@ -1,10 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.enums.*;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsCpuCreditsEnum;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsInstanceMetadataTagsEnum;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsTerminationPolicyEnum;
+import com.spotinst.sdkjava.enums.aws.elastigroup.*;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.*;
 
@@ -1650,11 +1647,11 @@ public class ElastigroupConverter {
             }
 
             if(metrics.isStatisticSet()){
-                retVal.setStatistic(metrics.getStatistic());
+                retVal.setStatistic(metrics.getStatistic().getName());
             }
 
             if(metrics.isUnitSet()){
-                retVal.setUnit(metrics.getUnit());
+                retVal.setUnit(metrics.getUnit().getName());
             }
         }
         return  retVal;
@@ -1683,11 +1680,16 @@ public class ElastigroupConverter {
         if (scalingPolicy != null) {
             retVal = new ApiScalingPolicy();
 
+            if (scalingPolicy.isSourceSet()) {
+                retVal.setSource(scalingPolicy.getSource().getName());
+            }
+
             if(scalingPolicy.isStepAdjustmentsSet()){
                 List<ApiStepAdjustments> apiStepAdjustments =
                         scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                 retVal.setStepAdjustments(apiStepAdjustments);
             }
+
             if (scalingPolicy.isPolicyNameSet()) {
                 retVal.setPolicyName(scalingPolicy.getPolicyName());
             }
@@ -3858,11 +3860,11 @@ public class ElastigroupConverter {
             }
 
             if(apiMetrics.isStatisticSet()){
-                retValBuilder.setStatistic(apiMetrics.getStatistic());
+                retValBuilder.setStatistic(AwsMetricStatistics.fromName(apiMetrics.getStatistic()));
             }
 
             if(apiMetrics.isUnitSet()){
-                retValBuilder.setUnit(apiMetrics.getUnit());
+                retValBuilder.setUnit(AwsMetricAlarmUnit.fromName(apiMetrics.getUnit()));
             }
 
             retVal = retValBuilder.build();
@@ -3914,7 +3916,7 @@ public class ElastigroupConverter {
             ScalingPolicy.Builder retValBuilder = ScalingPolicy.Builder.get();
 
             if(scalingPolicy.isSourceSet()){
-                retValBuilder.setSource(scalingPolicy.getSource());
+                retValBuilder.setSource(AwsMetricSource.fromName(scalingPolicy.getSource()));
             }
             if(scalingPolicy.isStepAdjustmentsSet()){
                 List<StepAdjustments> stepAdjustments =

@@ -16,7 +16,7 @@ import java.util.Set;
 public class Expressions {
     //region Members
     @JsonIgnore
-    private Set<String>                                    isSet;
+    private Set<String>                          isSet;
     private String                               expression;
     private String                               name;
     //endregion

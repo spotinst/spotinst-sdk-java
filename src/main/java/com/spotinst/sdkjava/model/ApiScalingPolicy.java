@@ -3,7 +3,6 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricSource;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiStepAdjustments;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +36,7 @@ public class ApiScalingPolicy {
     private Integer                   target;
     private ApiPredictiveScale        predictive;
     private List<ApiStepAdjustments>  stepAdjustments;
-    private AwsMetricSource source;
+    private String                    source;
 
     //region Getters & Setters
 
@@ -49,11 +48,11 @@ public class ApiScalingPolicy {
         this.isSet = isSet;
     }
 
-    public AwsMetricSource getSource() {
+    public String getSource() {
         return source;
     }
 
-    public void setSource(AwsMetricSource source) {
+    public void setSource(String source) {
         isSet.add("source");
         this.source = source;
     }

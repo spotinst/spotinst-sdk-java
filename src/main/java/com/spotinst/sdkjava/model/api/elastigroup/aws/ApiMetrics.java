@@ -21,7 +21,7 @@ import java.util.Set;
 public class ApiMetrics implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                                    isSet;
+    private Set<String>                          isSet;
     private List<ApiScalingDimension>            dimensions;
     private String                               extendedStatistic;
     private String                               metricName;

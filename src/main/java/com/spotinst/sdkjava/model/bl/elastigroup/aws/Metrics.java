@@ -3,6 +3,8 @@ package com.spotinst.sdkjava.model.bl.elastigroup.aws;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricAlarmUnit;
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricStatistics;
 import com.spotinst.sdkjava.model.ScalingDimension;
 
 import java.util.HashSet;
@@ -24,8 +26,8 @@ public class Metrics {
     private String                               metricName;
     private String                               name;
     private String                               namespace;
-    private String                               statistic;
-    private String                               unit;
+    private AwsMetricStatistics                  statistic;
+    private AwsMetricAlarmUnit                   unit;
 
     //endregion
 
@@ -46,11 +48,11 @@ public class Metrics {
         this.isSet = isSet;
     }
 
-    public String getUnit() {
+    public AwsMetricAlarmUnit getUnit() {
         return unit;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(AwsMetricAlarmUnit unit) {
         isSet.add("unit");
         this.unit = unit;
     }
@@ -100,11 +102,11 @@ public class Metrics {
         this.namespace = namespace;
     }
 
-    public String getStatistic() {
+    public AwsMetricStatistics getStatistic() {
         return statistic;
     }
 
-    public void setStatistic(String statistic) {
+    public void setStatistic(AwsMetricStatistics statistic) {
         isSet.add("statistic");
         this.statistic = statistic;
     }
@@ -125,7 +127,7 @@ public class Metrics {
             return new Builder();
         }
 
-        public Builder setUnit(final String unit) {
+        public Builder setUnit(final AwsMetricAlarmUnit unit) {
             metrics.setUnit(unit);
             return this;
         }
@@ -155,7 +157,7 @@ public class Metrics {
             return this;
         }
 
-        public Builder setStatistic(String statistic) {
+        public Builder setStatistic(AwsMetricStatistics statistic) {
            metrics.setStatistic(statistic);
            return this;
         }
