@@ -3,7 +3,8 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
+import com.spotinst.sdkjava.enums.aws.elastigroup.AwsMetricSource;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiStepAdjustments;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,8 +36,27 @@ public class ApiScalingPolicy {
     private Boolean                   isEnabled;
     private Integer                   target;
     private ApiPredictiveScale        predictive;
+    private List<ApiStepAdjustments>  stepAdjustments;
+    private AwsMetricSource source;
 
     //region Getters & Setters
+
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
+    public AwsMetricSource getSource() {
+        return source;
+    }
+
+    public void setSource(AwsMetricSource source) {
+        isSet.add("source");
+        this.source = source;
+    }
 
     //region Metric name
     public String getMetricName() {
@@ -141,6 +161,14 @@ public class ApiScalingPolicy {
     public void setNamespace(String namespace) {
         isSet.add("namespace");
         this.namespace = namespace;
+    }
+    public List<ApiStepAdjustments> getStepAdjustments() {
+        return stepAdjustments;
+    }
+
+    public void setStepAdjustments(List<ApiStepAdjustments> stepAdjustments) {
+        isSet.add("stepAdjustments");
+        this.stepAdjustments = stepAdjustments;
     }
 
     @JsonIgnore
@@ -306,6 +334,12 @@ public class ApiScalingPolicy {
 
     @JsonIgnore
     public boolean isPredictiveSet() { return isSet.contains("predictive"); }
+
+    @JsonIgnore
+    public boolean isStepAdjustmentsSet() { return isSet.contains("stepAdjustments"); }
+
+    @JsonIgnore
+    public boolean isSourceSet() { return isSet.contains("source"); }
     // endregion
 
     //endregion

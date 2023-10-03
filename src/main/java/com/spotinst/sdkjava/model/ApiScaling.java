@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiMultipleMetrics;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +22,7 @@ public class ApiScaling implements IPartialUpdateEntity {
     private List<ApiScalingPolicy> up;
     private List<ApiScalingPolicy> down;
     private List<ApiScalingPolicy> target;
+    private ApiMultipleMetrics multipleMetrics;
     //endregion
 
     //region Getters & Setters
@@ -65,10 +67,24 @@ public class ApiScaling implements IPartialUpdateEntity {
         isSet.add("target");
         this.target = target;
     }
+    public ApiMultipleMetrics getMultipleMetrics() {
+        return multipleMetrics;
+    }
+
+    public void setMultipleMetrics(ApiMultipleMetrics multipleMetrics) {
+        isSet.add("multipleMetrics");
+        this.multipleMetrics = multipleMetrics;
+    }
 
     @JsonIgnore
     public boolean isTargetSet() {
         return isSet.contains("target");
+    }
+    //endregion
+
+    @JsonIgnore
+    public boolean isMultipleMetricsSet() {
+        return isSet.contains("multipleMetrics");
     }
     //endregion
 
