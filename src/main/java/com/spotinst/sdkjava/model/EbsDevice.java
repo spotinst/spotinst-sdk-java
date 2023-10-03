@@ -3,7 +3,7 @@ package com.spotinst.sdkjava.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.enums.AwsVolumeTypeEnum;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.DynamicVolumeSize;
-import com.spotinst.sdkjava.model.bl.elastigroup.aws.Dynamiclops;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.DynamicIops;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class EbsDevice {
     private Integer                  volumeSize;
     private AwsVolumeTypeEnum        volumeType;
     private Integer                  throughput;
-    private Dynamiclops              dynamicIops;
+    private DynamicIops dynamicIops;
     private DynamicVolumeSize        dynamicVolumeSize;
     private String                   kmsKeyId;
     //endregion
@@ -104,11 +104,11 @@ public class EbsDevice {
         this.throughput = throughput;
     }
 
-    public Dynamiclops getDynamicIops() {
+    public DynamicIops getDynamicIops() {
         return dynamicIops;
     }
 
-    public void setDynamicIops(Dynamiclops dynamicIops) {
+    public void setDynamicIops(DynamicIops dynamicIops) {
         isSet.add("dynamicIops");
         this.dynamicIops = dynamicIops;
     }
@@ -206,7 +206,7 @@ public class EbsDevice {
             ebsDevice.setVolumeSize(volumeSize);
             return this;
         }
-        public Builder setDynamicIops(final Dynamiclops dynamicIops){
+        public Builder setDynamicIops(final DynamicIops dynamicIops){
             ebsDevice.setDynamicIops(dynamicIops);
             return this;
         }

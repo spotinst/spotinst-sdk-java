@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
-import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,18 +16,18 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiDynamiclops implements IPartialUpdateEntity {
+public class ApiDynamicIops implements IPartialUpdateEntity {
 
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private AwsResourceTypeEnum resource;
+    private String                   resource;
     //endregion
 
     //region Constructor
-    public ApiDynamiclops() {
+    public ApiDynamicIops() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -60,11 +59,11 @@ public class ApiDynamiclops implements IPartialUpdateEntity {
         this.sizePerResourceUnit = sizePerResourceUnit;
     }
 
-    public AwsResourceTypeEnum getResource() {
+    public String getResource() {
         return resource;
     }
 
-    public void setResource(AwsResourceTypeEnum resource) {
+    public void setResource(String resource) {
         isSet.add("resource");
         this.resource = resource;
     }

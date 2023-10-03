@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.model.ApiScalingAction;
-import com.spotinst.sdkjava.model.ApiScalingPolicy;
-import com.spotinst.sdkjava.model.ScalingAction;
 
 import java.util.HashSet;
 import java.util.Set;

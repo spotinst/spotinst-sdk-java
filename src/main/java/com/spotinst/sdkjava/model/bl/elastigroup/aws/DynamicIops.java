@@ -8,23 +8,20 @@ import com.spotinst.sdkjava.enums.aws.elastigroup.AwsResourceTypeEnum;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by aharontwizer on 8/24/15.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Dynamiclops {
+public class DynamicIops {
 
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
     private Integer                  baseSize;
     private Integer                  sizePerResourceUnit;
-    private AwsResourceTypeEnum resource;
+    private AwsResourceTypeEnum      resource;
     //endregion
 
     //region Constructor
-    private Dynamiclops() {
+    private DynamicIops() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -69,10 +66,10 @@ public class Dynamiclops {
 
     //region Builder class
     public static class Builder {
-        private Dynamiclops dynamiclops;
+        private DynamicIops dynamicIops;
 
         private Builder() {
-            this.dynamiclops = new Dynamiclops();
+            this.dynamicIops = new DynamicIops();
         }
 
         public static Builder get() {
@@ -80,22 +77,22 @@ public class Dynamiclops {
         }
 
         public Builder setBaseSize(final Integer baseSize) {
-            dynamiclops.setBaseSize(baseSize);
+            dynamicIops.setBaseSize(baseSize);
             return this;
         }
 
         public Builder setSizePerResourceUnit(final Integer sizePerResourceUnit) {
-            dynamiclops.setSizePerResourceUnit(sizePerResourceUnit);
+            dynamicIops.setSizePerResourceUnit(sizePerResourceUnit);
             return this;
         }
 
         public Builder setResource(final AwsResourceTypeEnum resource) {
-            dynamiclops.setResource(resource);
+            dynamicIops.setResource(resource);
             return this;
         }
 
-        public Dynamiclops build() {
-            return dynamiclops;
+        public DynamicIops build() {
+            return dynamicIops;
         }
     }
 

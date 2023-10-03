@@ -13,7 +13,8 @@ public enum AwsVolumeTypeEnum {
     STANDARD("standard"),
     IO1("io1"),
     GP2("gp2"),
-    GP3("gp3");
+    GP3("gp3"),
+    IO2("io2");
     //endregion
 
     //region Members
