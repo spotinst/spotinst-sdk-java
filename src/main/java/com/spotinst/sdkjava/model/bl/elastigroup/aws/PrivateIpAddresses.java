@@ -17,8 +17,8 @@ public class PrivateIpAddresses {
     //region Members
     @JsonIgnore
     private Set<String>              isSet;
-    private Boolean                   primary;
-    private String                    privateIpAddress;
+    private Boolean                  primary;
+    private String                   privateIpAddress;
     //endregion
 
     //region Constructor

@@ -56,7 +56,7 @@ public class SpotinstAdminOrganizationClient {
 
     public User createUser(User userRequest, Boolean generateToken) {
 
-        User retVal = null;
+        User retVal;
 
         RepoGenericResponse<User> creationResponse =
                 getSpotinstAccountAdminRepo().createUser(userRequest, generateToken, authToken);
@@ -77,7 +77,7 @@ public class SpotinstAdminOrganizationClient {
 
     public List<Users> getUsers() {
 
-        List<Users> retVal = null;
+        List<Users> retVal;
 
         RepoGenericResponse<List<Users>> getResponse =
                 getSpotinstAccountAdminRepo().getUsers(authToken);
@@ -98,7 +98,7 @@ public class SpotinstAdminOrganizationClient {
 
     public UserDetails getUserDetails(String userId) {
 
-        UserDetails retVal = null;
+        UserDetails retVal;
 
         RepoGenericResponse<UserDetails> getResponse =
                 getSpotinstAccountAdminRepo().getUserDetails(userId, authToken);
@@ -119,7 +119,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updateUserGroupMappingOfUser(String userId, List<String> userGroupIds) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().updateUserGroupMappingOfUser(userId, userGroupIds, authToken);
@@ -140,7 +140,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean deleteUser(String userId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().deleteUser(userId, authToken);
@@ -161,7 +161,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updatePolicyMappingOfUser(String userId, UpdatePoliciesRequest updateRequest) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> getResponse =
                 getSpotinstAccountAdminRepo().updatePolicyMappingOfUser(userId, updateRequest, authToken);
@@ -182,7 +182,7 @@ public class SpotinstAdminOrganizationClient {
 
     public UserGroup createUserGroup(UserGroup createRequest) {
 
-        UserGroup retVal = null;
+        UserGroup retVal;
 
         RepoGenericResponse<UserGroup> creationResponse =
                 getSpotinstAccountAdminRepo().createUserGroup(createRequest, authToken);
@@ -203,7 +203,7 @@ public class SpotinstAdminOrganizationClient {
 
     public List<UserGroups> getUserGroups() {
 
-        List<UserGroups> retVal = null;
+        List<UserGroups> retVal;
 
         RepoGenericResponse<List<UserGroups>> getResponse =
                 getSpotinstAccountAdminRepo().getUserGroups(authToken);
@@ -224,7 +224,7 @@ public class SpotinstAdminOrganizationClient {
 
     public UserGroupDetails getUserGroupDetails(String groupId) {
 
-        UserGroupDetails retVal = null;
+        UserGroupDetails retVal;
 
         RepoGenericResponse<UserGroupDetails> getResponse =
                 getSpotinstAccountAdminRepo().getUserGroupDetails(groupId, authToken);
@@ -245,7 +245,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updateUserGroupDetails(String groupId, String name, String description) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().updateUserGroupDetails(groupId, name, description, authToken);
@@ -266,7 +266,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean deleteUserGroup(String groupId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().deleteUserGroup(groupId, authToken);
@@ -287,7 +287,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updateUserMappingOfUserGroup(String groupId, List<String> userIds) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().updateUserMappingOfUserGroup(groupId, userIds, authToken);
@@ -308,7 +308,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updatePolicyMappingOfUserGroup(String groupId, UpdatePoliciesRequest updateRequest) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().updatePolicyMappingOfUserGroup(groupId, updateRequest, authToken);
@@ -329,7 +329,7 @@ public class SpotinstAdminOrganizationClient {
 
     public List<GetAccountUserMapping> getAccountUserMapping(String userEmail) {
 
-        List<GetAccountUserMapping> retVal = null;
+        List<GetAccountUserMapping> retVal;
 
         RepoGenericResponse<List<GetAccountUserMapping>> getResponse = getSpotinstAccountAdminRepo().getAccountUserMapping(userEmail, authToken);
 
@@ -349,7 +349,7 @@ public class SpotinstAdminOrganizationClient {
 
     public ProgrammaticUserResponse createProgrammaticUser(ProgrammaticUser userRequest) {
 
-        ProgrammaticUserResponse retVal = null;
+        ProgrammaticUserResponse retVal;
 
         RepoGenericResponse<ProgrammaticUserResponse> creationResponse =
                 getSpotinstAccountAdminRepo().createProgrammaticUser(userRequest, authToken);
@@ -370,7 +370,7 @@ public class SpotinstAdminOrganizationClient {
 
     public CreateOrganizationResponse createOrganization(CreateOrganization organizationRequest) {
 
-        CreateOrganizationResponse retVal = null;
+        CreateOrganizationResponse retVal;
 
         RepoGenericResponse<CreateOrganizationResponse> creationResponse =
                 getSpotinstAccountAdminRepo().createOrganization(organizationRequest, authToken);
@@ -391,7 +391,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean deleteOrganization(String organizationId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> deleteStatus =
                 getSpotinstAccountAdminRepo().deleteOrganization(organizationId, authToken);
@@ -412,7 +412,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Policy createAccessPolicy(Policy createRequest) {
 
-        Policy retVal = null;
+        Policy retVal;
 
         RepoGenericResponse<Policy> creationResponse =
                 getSpotinstAccountAdminRepo().createAccessPolicy(createRequest, authToken);
@@ -433,7 +433,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean updateAccessPolicy(String policyId, Policy updateRequest) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> updateResponse =
                 getSpotinstAccountAdminRepo().updateAccessPolicy(policyId, updateRequest, authToken);
@@ -454,7 +454,7 @@ public class SpotinstAdminOrganizationClient {
 
     public List<Policy> getAllAccessPolicies() {
 
-        List<Policy> retVal = null;
+        List<Policy> retVal;
 
         RepoGenericResponse<List<Policy>> creationResponse =
                 getSpotinstAccountAdminRepo().getAllAccessPolicies( authToken);
@@ -475,7 +475,7 @@ public class SpotinstAdminOrganizationClient {
 
     public Boolean deleteAccessPolicy(String policyId) {
 
-        Boolean retVal = false;
+        Boolean retVal;
 
         RepoGenericResponse<Boolean> deleteResponse =
                 getSpotinstAccountAdminRepo().deleteAccessPolicy(policyId, authToken);
