@@ -34,9 +34,6 @@ public enum AwsMetricAlarmUnit {
     NONE("none");
 
 
-
-
-
     private static final Logger LOGGER = LoggerFactory.getLogger(AwsMetricAlarmUnit.class);
     private String name;
 
