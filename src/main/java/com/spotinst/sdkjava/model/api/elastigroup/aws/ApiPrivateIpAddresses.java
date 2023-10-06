@@ -54,7 +54,7 @@ public class ApiPrivateIpAddresses implements IPartialUpdateEntity {
     }
 
     public void setPrivateIpAddress(String privateIpAddress) {
-        isSet.add("primary");
+        isSet.add("privateIpAddress");
         this.privateIpAddress = privateIpAddress;
     }
 

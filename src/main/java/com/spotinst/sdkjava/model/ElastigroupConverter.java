@@ -691,7 +691,7 @@ public class ElastigroupConverter {
                 retVal.setNetworkInterfaceId(networkInterface.getNetworkInterfaceId());
             }
 
-            if(networkInterface.isAssociateIpv6AddressSet()){
+            if(networkInterface.isAssociateIpv6AddressSet()) {
                 retVal.setAssociateIpv6Address(networkInterface.getAssociateIpv6Address());
             }
 
@@ -699,12 +699,14 @@ public class ElastigroupConverter {
                 retVal.setSubnetId(networkInterface.getSubnetId());
             }
 
-            if(networkInterface.isPrivateIpAddressesSet()){
-                List<ApiPrivateIpAddresses> ipAddress =
-                        networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toDal)
-                                .collect(Collectors.toList());
+            if(networkInterface.isPrivateIpAddressesSet()) {
+                if(networkInterface.getPrivateIpAddresses() != null) {
+                    List<ApiPrivateIpAddresses> ipAddress =
+                            networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toDal)
+                                    .collect(Collectors.toList());
 
-                retVal.setPrivateIpAddresses(ipAddress);
+                    retVal.setPrivateIpAddresses(ipAddress);
+                }
             }
         }
 
@@ -800,15 +802,12 @@ public class ElastigroupConverter {
 
     private static ApiLoadBalancersConfig toDal(LoadBalancersConfig loadBalancersConfig) {
         ApiLoadBalancersConfig retVal = new ApiLoadBalancersConfig();
-        List<ApiLoadBalancer> apiLoadBalancers = null;
 
-        List<LoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
-
-        if (loadBalancers != null) {
-            apiLoadBalancers = loadBalancers.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+        if (loadBalancersConfig.getLoadBalancers() != null) {
+            List<ApiLoadBalancer> apiLoadBalancers =
+                    loadBalancersConfig.getLoadBalancers().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+            retVal.setLoadBalancers(apiLoadBalancers);
         }
-
-        retVal.setLoadBalancers(apiLoadBalancers);
 
         return retVal;
     }
@@ -867,11 +866,12 @@ public class ElastigroupConverter {
             }
 
             if(loadBalancer.isDefaultStaticTargetGroupsSet()){
+                if(loadBalancer.getDefaultStaticTargetGroups() != null) {
+                    List<ApiDefaultStaticTargetGroups> apiDefaultStaticTargetGroups =
+                            loadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
 
-                List<ApiDefaultStaticTargetGroups> apiDefaultStaticTargetGroups =
-                        loadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-
-                retVal.setDefaultStaticTargetGroups(apiDefaultStaticTargetGroups);
+                    retVal.setDefaultStaticTargetGroups(apiDefaultStaticTargetGroups);
+                }
             }
         }
 
@@ -905,9 +905,12 @@ public class ElastigroupConverter {
             }
 
             if(listenerRule.isStaticTargetGroupsSet()){
-                List<ApiStaticTargetGroups> apiStaticTargetGroups =listenerRule.getStaticTargetGroups().stream().map(ElastigroupConverter::toDal)
-                        .collect(Collectors.toList());
-                retVal.setStaticTargetGroups(apiStaticTargetGroups);
+                if(listenerRule.getStaticTargetGroups() != null) {
+                    List<ApiStaticTargetGroups> apiStaticTargetGroups = listenerRule.getStaticTargetGroups().
+                            stream().map(ElastigroupConverter::toDal)
+                            .collect(Collectors.toList());
+                    retVal.setStaticTargetGroups(apiStaticTargetGroups);
+                }
             }
         }
 
@@ -1268,7 +1271,8 @@ public class ElastigroupConverter {
 
             if (instanceTypes.isWeightsSet()) {
                 if (instanceTypes.getWeights() != null) {
-                    List<ApiInstanceTypesWeights> optWeights = instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List<ApiInstanceTypesWeights> optWeights =
+                            instanceTypes.getWeights().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                     retVal.setWeights(optWeights);
                 }
             }
@@ -1407,7 +1411,7 @@ public class ElastigroupConverter {
             }
 
             if(strategy.isSignalsSet()) {
-                if(strategy.getSignals()!=null) {
+                if(strategy.getSignals() != null) {
                     List<ApiStrategySignal> signals =
                             strategy.getSignals().stream().map(ElastigroupConverter::toDal)
                                     .collect(Collectors.toList());
@@ -1535,38 +1539,27 @@ public class ElastigroupConverter {
             retVal = new ApiScaling();
 
             if (scaling.isUpSet()) {
-                List<ApiScalingPolicy> apiUpScalingPolicies = null;
-
                 if (scaling.getUp() != null) {
-                    List<ScalingPolicy> up = scaling.getUp();
-                    apiUpScalingPolicies = up.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List<ApiScalingPolicy> apiUpScalingPolicies =
+                            scaling.getUp().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setUp(apiUpScalingPolicies);
                 }
-
-                retVal.setUp(apiUpScalingPolicies);
             }
 
             if (scaling.isDownSet()) {
-                List<ApiScalingPolicy> apiDownScalingPolicies = null;
-
                 if (scaling.getDown() != null) {
-                    List<ScalingPolicy> down = scaling.getDown();
-                    apiDownScalingPolicies =
-                            down.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List<ApiScalingPolicy> apiDownScalingPolicies =
+                            scaling.getDown().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setDown(apiDownScalingPolicies);
                 }
-
-                retVal.setDown(apiDownScalingPolicies);
             }
 
             if (scaling.isTargetSet()) {
-                List<ApiScalingPolicy> apiTargetScalingPolicies = null;
-
                 if (scaling.getTarget() != null) {
-                    List<ScalingPolicy> target = scaling.getTarget();
-                    apiTargetScalingPolicies =
-                            target.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    List<ApiScalingPolicy> apiTargetScalingPolicies =
+                            scaling.getTarget().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setTarget(apiTargetScalingPolicies);
                 }
-
-                retVal.setTarget(apiTargetScalingPolicies);
             }
 
             if(scaling.isMultipleMetricsSet()){
@@ -1586,16 +1579,19 @@ public class ElastigroupConverter {
             retVal = new ApiMultipleMetrics();
 
             if(multipleMetrics.isExpressionsSet()){
-                List<Expressions> expressions = multipleMetrics.getExpressions();
-                List<ApiExpressions> apiExpressions =
-                        expressions.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-                retVal.setExpressions(apiExpressions);
+                if(multipleMetrics.getExpressions() != null) {
+                    List<ApiExpressions> apiExpressions =
+                            multipleMetrics.getExpressions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setExpressions(apiExpressions);
+                }
             }
 
             if(multipleMetrics.isMetricssSet()){
-                List<Metrics> Metrics = multipleMetrics.getMetrics();
-                List<ApiMetrics> apimetrics = Metrics.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-                retVal.setMetrics(apimetrics);
+                if(multipleMetrics.getMetrics() != null) {
+                    List<ApiMetrics> apimetrics =
+                            multipleMetrics.getMetrics().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setMetrics(apimetrics);
+                }
             }
         }
         return retVal;
@@ -1624,10 +1620,12 @@ public class ElastigroupConverter {
         if(metrics != null){
             retVal = new ApiMetrics();
 
-            if(metrics.isDimensionSet()){
-                List<ApiScalingDimension> apiStepAdjustments =
-                        metrics.getDimensions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-                retVal.setDimensions(apiStepAdjustments);
+            if(metrics.isDimensionSet()) {
+                if( metrics.getDimensions() != null) {
+                    List<ApiScalingDimension> apiStepAdjustments =
+                            metrics.getDimensions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setDimensions(apiStepAdjustments);
+                }
             }
 
             if(metrics.isExtendedStatisticSet()){
@@ -1685,9 +1683,11 @@ public class ElastigroupConverter {
             }
 
             if(scalingPolicy.isStepAdjustmentsSet()){
-                List<ApiStepAdjustments> apiStepAdjustments =
-                        scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
-                retVal.setStepAdjustments(apiStepAdjustments);
+                if(scalingPolicy.getStepAdjustments() != null) {
+                    List<ApiStepAdjustments> apiStepAdjustments =
+                            scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                    retVal.setStepAdjustments(apiStepAdjustments);
+                }
             }
 
             if (scalingPolicy.isPolicyNameSet()) {
@@ -1731,11 +1731,9 @@ public class ElastigroupConverter {
             }
 
             if (scalingPolicy.isDimensionsSet()) {
-                List<ScalingDimension> dimensions = scalingPolicy.getDimensions();
-
-                if (dimensions != null) {
+                if (scalingPolicy.getDimensions() != null) {
                     List<ApiScalingDimension> optimizerScalingDimensions =
-                            dimensions.stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                            scalingPolicy.getDimensions().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                     retVal.setDimensions(optimizerScalingDimensions);
                 }
             }
@@ -2204,6 +2202,7 @@ public class ElastigroupConverter {
         if (apiScheduling != null) {
             ElastigroupSchedulingConfiguration.Builder blSchedulingConfigurationBuilder =
                     ElastigroupSchedulingConfiguration.Builder.get();
+
             if (apiScheduling.isTasksSet()) {
                 if (apiScheduling.getTasks() != null) {
                     List<TasksConfiguration> tasksConfigurationList =
@@ -2222,48 +2221,63 @@ public class ElastigroupConverter {
 
         if (apiScheduledTask != null) {
             TasksConfiguration.Builder blTasksBuilder = TasksConfiguration.Builder.get();
+
             if (apiScheduledTask.isIsEnabledSet()) {
                 blTasksBuilder.setIsEnabled(apiScheduledTask.getIsEnabled());
             }
+
             if (apiScheduledTask.isFrequencySet()) {
                 blTasksBuilder.setFrequency(RecurrenceFrequencyEnum.fromName(apiScheduledTask.getFrequency()));
             }
+
             if (apiScheduledTask.isStartTimeSet()) {
                 blTasksBuilder.setStartTime(apiScheduledTask.getStartTime());
             }
+
             if (apiScheduledTask.isCronExpressionSet()) {
                 blTasksBuilder.setCronExpression(apiScheduledTask.getCronExpression());
             }
+
             if (apiScheduledTask.isTaskTypeSet()) {
                 blTasksBuilder.setTaskType(SchedulingTaskTypeEnum.fromName(apiScheduledTask.getTaskType()));
             }
+
             if (apiScheduledTask.isScaleTargetCapacitySet()) {
                 blTasksBuilder.setScaleTargetCapacity(apiScheduledTask.getScaleTargetCapacity());
             }
+
             if (apiScheduledTask.isScaleMinCapacitySet()) {
                 blTasksBuilder.setScaleMinCapacity(apiScheduledTask.getScaleMinCapacity());
             }
+
             if (apiScheduledTask.isScaleMaxCapacitySet()) {
                 blTasksBuilder.setScaleMaxCapacity(apiScheduledTask.getScaleMaxCapacity());
             }
+
             if (apiScheduledTask.isBatchSizePercentageSet()) {
                 blTasksBuilder.setBatchSizePercentage(apiScheduledTask.getBatchSizePercentage());
             }
+
             if (apiScheduledTask.isgracePeriodSet()) {
                 blTasksBuilder.setGracePeriod(apiScheduledTask.getGracePeriod());
             }
+
             if (apiScheduledTask.isAdjustmentSet()) {
                 blTasksBuilder.setAdjustment(apiScheduledTask.getAdjustment());
             }
+
             if (apiScheduledTask.isAdjustmentPercentageSet()) {
                 blTasksBuilder.setAdjustmentPercentage(apiScheduledTask.getAdjustmentPercentage());
             }
+
             if (apiScheduledTask.isTargetCapacitySet()) {
                 blTasksBuilder.setTargetCapacity(apiScheduledTask.getTargetCapacity());
             }
+
             if (apiScheduledTask.isMinCapacitySet()) {
                 blTasksBuilder.setMinCapacity(apiScheduledTask.getMinCapacity());
             }
+
             if (apiScheduledTask.isMaxCapacitySet()) {
                 blTasksBuilder.setMaxCapacity(apiScheduledTask.getMaxCapacity());
             }
@@ -2919,12 +2933,12 @@ public class ElastigroupConverter {
                 }
             }
 
-            if(itfLoadBalancer.isDefaultStaticTargetGroupsSet()){
-
-                List<DefaultStaticTargetGroups> defaultStaticTargetGroups =
-                        itfLoadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-
-                retValBuilder.setDefaultStaticTargetGroups(defaultStaticTargetGroups);
+            if(itfLoadBalancer.isDefaultStaticTargetGroupsSet()) {
+                if(itfLoadBalancer.getDefaultStaticTargetGroups() != null) {
+                    List<DefaultStaticTargetGroups> defaultStaticTargetGroups =
+                            itfLoadBalancer.getDefaultStaticTargetGroups().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setDefaultStaticTargetGroups(defaultStaticTargetGroups);
+                }
             }
             retVal = retValBuilder.build();
         }
@@ -2958,11 +2972,14 @@ public class ElastigroupConverter {
                 retValBuilder.setRuleArn(listenerRules.getRuleArn());
             }
 
-            if(listenerRules.isStaticTargetGroupsSet()){
-                List<StaticTargetGroups> staticTargetGroupsList =listenerRules.getStaticTargetGroups().stream().map(ElastigroupConverter::toBl)
-                        .collect(Collectors.toList());
-                retValBuilder.setStaticTargetGroups(staticTargetGroupsList);
+            if(listenerRules.isStaticTargetGroupsSet()) {
+                if(listenerRules.getStaticTargetGroups() != null) {
+                    List<StaticTargetGroups> staticTargetGroupsList =
+                            listenerRules.getStaticTargetGroups().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setStaticTargetGroups(staticTargetGroupsList);
+                }
             }
+
             retVal = retValBuilder.build();
         }
 
@@ -2981,6 +2998,7 @@ public class ElastigroupConverter {
             if(apiStaticTargetGroups.isPercentageSet()){
                 retVal.setPercentage(apiStaticTargetGroups.getPercentage());
             }
+
             retVal = retValBuilder.build();
         }
         return  retVal;
@@ -3155,11 +3173,13 @@ public class ElastigroupConverter {
 
             if(networkInterface.isPrivateIpAddressesSet()){
 
-                List<PrivateIpAddresses> ipAddress =
-                        networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toBl)
-                                .collect(Collectors.toList());
+                if(networkInterface.getPrivateIpAddresses() != null) {
+                    List<PrivateIpAddresses> ipAddress =
+                            networkInterface.getPrivateIpAddresses().stream().map(ElastigroupConverter::toBl)
+                                    .collect(Collectors.toList());
 
-                retValBuilder.setPrivateIpAddresses(ipAddress);
+                    retValBuilder.setPrivateIpAddresses(ipAddress);
+                }
             }
 
             if(networkInterface.isAssociateIpv6AddressSet()){
@@ -3796,17 +3816,20 @@ public class ElastigroupConverter {
         if(apiMultipleMetrics != null){
             MultipleMetrics.Builder retValBuilder = MultipleMetrics.Builder.get();
 
-            if(apiMultipleMetrics.isExpressionsSet()){
-                List<ApiExpressions> apiExpressions = apiMultipleMetrics.getExpressions();
-                List<Expressions> expressions =
-                        apiExpressions.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                retValBuilder.setExpressions(expressions);
+            if(apiMultipleMetrics.isExpressionsSet()) {
+
+                if(apiMultipleMetrics.getExpressions() != null) {
+                    List<Expressions> expressions =
+                            apiMultipleMetrics.getExpressions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setExpressions(expressions);
+                }
             }
 
-            if(apiMultipleMetrics.isMetricssSet()){
-                List<ApiMetrics> apiMetrics = apiMultipleMetrics.getMetrics();
-                List<Metrics> metrics = apiMetrics.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                retValBuilder.setMetrics(metrics);
+            if(apiMultipleMetrics.isMetricssSet()) {
+                if(apiMultipleMetrics.getMetrics() != null) {
+                    List<Metrics> metrics = apiMultipleMetrics.getMetrics().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setMetrics(metrics);
+                }
             }
             retVal = retValBuilder.build();
         }
@@ -3837,33 +3860,35 @@ public class ElastigroupConverter {
         if(apiMetrics != null){
             Metrics.Builder retValBuilder = Metrics.Builder.get();
 
-            if(apiMetrics.isDimensionSet()){
-                List<ScalingDimension> apiStepAdjustments =
-                        apiMetrics.getDimensions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                retValBuilder.setDimensions(apiStepAdjustments);
+            if(apiMetrics.isDimensionSet()) {
+                if(apiMetrics.getDimensions() != null) {
+                    List<ScalingDimension> apiDimension =
+                            apiMetrics.getDimensions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setDimensions(apiDimension);
+                }
             }
 
-            if(apiMetrics.isExtendedStatisticSet()){
+            if(apiMetrics.isExtendedStatisticSet()) {
                 retValBuilder.setExtendedStatistic(apiMetrics.getExtendedStatistic());
             }
 
-            if(apiMetrics.isMetricNameSet()){
+            if(apiMetrics.isMetricNameSet()) {
                 retValBuilder.setMetricName(apiMetrics.getMetricName());
             }
 
-            if(apiMetrics.isNameSet()){
+            if(apiMetrics.isNameSet()) {
                 retValBuilder.setName(apiMetrics.getName());
             }
 
-            if(apiMetrics.isNamespaceSet()){
+            if(apiMetrics.isNamespaceSet()) {
                 retValBuilder.setNamespace(apiMetrics.getNamespace());
             }
 
-            if(apiMetrics.isStatisticSet()){
+            if(apiMetrics.isStatisticSet()) {
                 retValBuilder.setStatistic(AwsMetricStatistics.fromName(apiMetrics.getStatistic()));
             }
 
-            if(apiMetrics.isUnitSet()){
+            if(apiMetrics.isUnitSet()) {
                 retValBuilder.setUnit(AwsMetricAlarmUnit.fromName(apiMetrics.getUnit()));
             }
 
@@ -3877,11 +3902,10 @@ public class ElastigroupConverter {
 
         if (loadBalancersConfig != null) {
             LoadBalancersConfig.Builder retValBuilder = LoadBalancersConfig.Builder.get();
-            List<ApiLoadBalancer> loadBalancers = loadBalancersConfig.getLoadBalancers();
 
-            if (loadBalancersConfig.isLoadBalancersSet() && loadBalancers != null) {
+            if (loadBalancersConfig.isLoadBalancersSet() && loadBalancersConfig.getLoadBalancers() != null) {
                 List<LoadBalancer> blLoadBalancers =
-                        loadBalancers.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                        loadBalancersConfig.getLoadBalancers().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
                 retValBuilder.setLoadBalancers(blLoadBalancers);
             }
 
@@ -3918,11 +3942,15 @@ public class ElastigroupConverter {
             if(scalingPolicy.isSourceSet()){
                 retValBuilder.setSource(AwsMetricSource.fromName(scalingPolicy.getSource()));
             }
-            if(scalingPolicy.isStepAdjustmentsSet()){
-                List<StepAdjustments> stepAdjustments =
-                        scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
-                retValBuilder.setStepAdjustments(stepAdjustments);
+
+            if(scalingPolicy.isStepAdjustmentsSet()) {
+                if(scalingPolicy.getStepAdjustments() != null) {
+                    List<StepAdjustments> stepAdjustments =
+                            scalingPolicy.getStepAdjustments().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                    retValBuilder.setStepAdjustments(stepAdjustments);
+                }
             }
+
             if (scalingPolicy.isPolicyNameSet()) {
                 retValBuilder.setPolicyName(scalingPolicy.getPolicyName());
             }
@@ -3965,9 +3993,8 @@ public class ElastigroupConverter {
 
             if (scalingPolicy.isDimensionsSet()) {
                 if (scalingPolicy.getDimensions() != null) {
-                    List<ApiScalingDimension> apiDimensions = scalingPolicy.getDimensions();
                     List<ScalingDimension> dimensions =
-                            apiDimensions.stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
+                            scalingPolicy.getDimensions().stream().map(ElastigroupConverter::toBl).collect(Collectors.toList());
                     retValBuilder.setDimensions(dimensions);
                 }
             }
@@ -4275,11 +4302,12 @@ public class ElastigroupConverter {
             }
 
             if (elastigroupGetDeploymentStatusResponse.isInstancesSet()) {
-
-                List<ElastigroupDeploymentStatusInstances> instancesList =
-                        elastigroupGetDeploymentStatusResponse.getInstances().stream().map(ElastigroupConverter::toBl)
-                                .collect(Collectors.toList());
-                retVal.setInstances(instancesList);
+                if(elastigroupGetDeploymentStatusResponse.getInstances() != null) {
+                    List<ElastigroupDeploymentStatusInstances> instancesList =
+                            elastigroupGetDeploymentStatusResponse.getInstances().stream().map(ElastigroupConverter::toBl)
+                                    .collect(Collectors.toList());
+                    retVal.setInstances(instancesList);
+                }
             }
 
         }
@@ -4294,15 +4322,16 @@ public class ElastigroupConverter {
         if (elastigroupGetDeploymentStatusInstances != null) {
             retVal = new ElastigroupDeploymentStatusInstances();
 
-            if (elastigroupGetDeploymentStatusInstances.isBlueSet()) {
+            if (elastigroupGetDeploymentStatusInstances.isBlueSet() && elastigroupGetDeploymentStatusInstances.getBlue() != null) {
                 List<ElastigroupDeploymentStatusInstancesBlue> blueInstancesList =
                         elastigroupGetDeploymentStatusInstances.getBlue().stream().map(ElastigroupConverter::toBl)
                                 .collect(Collectors.toList());
                 retVal.setBlue(blueInstancesList);
             }
 
-            if (elastigroupGetDeploymentStatusInstances.isGreenSet()) {
-                List<ElastigroupDeploymentStatusInstancesGreen> greenInstancesList = elastigroupGetDeploymentStatusInstances.getGreen().stream().map(ElastigroupConverter::toBl)
+            if (elastigroupGetDeploymentStatusInstances.isGreenSet() && elastigroupGetDeploymentStatusInstances.getGreen() != null) {
+                List<ElastigroupDeploymentStatusInstancesGreen> greenInstancesList =
+                        elastigroupGetDeploymentStatusInstances.getGreen().stream().map(ElastigroupConverter::toBl)
                         .collect(Collectors.toList());
                 retVal.setGreen(greenInstancesList);
             }
@@ -4485,8 +4514,7 @@ public class ElastigroupConverter {
         if (detailedStatus != null) {
             ElastigroupEcsInitiateRollDetailedStatus.Builder detailedStatusBuilder = ElastigroupEcsInitiateRollDetailedStatus.Builder.get();
 
-            if (detailedStatus.isOldInstancesSet()) {
-
+            if (detailedStatus.isOldInstancesSet() && detailedStatus.getOldInstances() != null) {
                 List<ElastigroupEcsInitiateRollResponseOldInstances> instancesList =
                         detailedStatus.getOldInstances().stream().map(ElastigroupConverter::toBl)
                                 .collect(Collectors.toList());
