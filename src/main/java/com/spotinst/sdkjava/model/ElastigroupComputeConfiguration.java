@@ -23,6 +23,7 @@ public class ElastigroupComputeConfiguration {
     private List<String> preferredAvailabilityZones;
     private List<String> privateIps;
     private List<String> subnetIds;
+    private ElastigroupVolumeAttachments volumeAttachments;
     //endregion
 
     //region Constructor
@@ -124,6 +125,15 @@ public class ElastigroupComputeConfiguration {
         this.subnetIds = subnetIds;
     }
 
+    public ElastigroupVolumeAttachments getVolumeAttachments() {
+        return volumeAttachments;
+    }
+
+    public void setVolumeAttachments(ElastigroupVolumeAttachments volumeAttachments) {
+        isSet.add("volumeAttachments");
+        this.volumeAttachments = volumeAttachments;
+    }
+
     //endregion
     //region Builder class
     public static class Builder {
@@ -179,6 +189,11 @@ public class ElastigroupComputeConfiguration {
 
         public Builder setSubnetIds(final List<String> subnetIds) {
             compute.setSubnetIds(subnetIds);
+            return this;
+        }
+
+        public Builder setVolumeAttachments(final ElastigroupVolumeAttachments volumeAttachments) {
+            compute.setVolumeAttachments(volumeAttachments);
             return this;
         }
 
@@ -247,6 +262,10 @@ public class ElastigroupComputeConfiguration {
         return isSet.contains("subnetIds");
     }
 
+    @JsonIgnore
+    public boolean isVolumeAttachmentsSet() {
+        return isSet.contains("volumeAttachments");
+    }
 
     //endregion
 

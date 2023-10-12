@@ -29,6 +29,7 @@ class ApiGroupCompute implements IPartialUpdateEntity {
     private List<String>        preferredAvailabilityZones;
     private List<String> privateIps;
     private List<String> subnetIds;
+    private ElastigroupVolumeAttachments volumeAttachments;
     //endregion
 
     //region Constructor
@@ -128,6 +129,15 @@ class ApiGroupCompute implements IPartialUpdateEntity {
         this.subnetIds = subnetIds;
     }
 
+    public ElastigroupVolumeAttachments getVolumeAttachments() {
+        return volumeAttachments;
+    }
+
+    public void setVolumeAttachments(ElastigroupVolumeAttachments volumeAttachments) {
+        isSet.add("volumeAttachments");
+        this.volumeAttachments = volumeAttachments;
+    }
+
     //region isset methods
 
     // Is privateIps Set boolean method
@@ -188,6 +198,9 @@ class ApiGroupCompute implements IPartialUpdateEntity {
         return isSet.contains("preferredAvailabilityZones");
     }
 
-
+    @JsonIgnore
+    public boolean isVolumeAttachmentsSet() {
+        return isSet.contains("volumeAttachments");
+    }
     //endregion
 }
