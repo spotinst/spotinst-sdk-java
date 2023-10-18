@@ -480,6 +480,9 @@ public class ElastigroupConverter {
                 optCompute.setSubnetIds(compute.getSubnetIds());
             }
 
+            if(compute.isVolumeAttachmentsSet()){
+                optCompute.setVolumeAttachments(toDal(compute.getVolumeAttachments()));
+            }
         }
 
         return optCompute;
@@ -1171,6 +1174,37 @@ public class ElastigroupConverter {
             }
         }
 
+        return retVal;
+    }
+
+    private static ApiElastigroupVolumes toDal(ElastigroupVolumes volume) {
+        ApiElastigroupVolumes retVal = null;
+
+        if (volume != null) {
+            retVal = new ApiElastigroupVolumes();
+
+            if(volume.isDeviceNameSet()){
+                retVal.setDeviceName(volume.getDeviceName());
+            }
+
+            if(volume.isVolumeIdSet()){
+                retVal.setVolumeId(volume.getVolumeId());
+            }
+        }
+        return retVal;
+    }
+
+    private static ApiElastigroupVolumeAttachments toDal(ElastigroupVolumeAttachments volumeAttachments) {
+        ApiElastigroupVolumeAttachments retVal = null;
+
+        if (volumeAttachments != null) {
+            retVal = new ApiElastigroupVolumeAttachments();
+
+            if(volumeAttachments.isVolumesSet()){
+                List<ApiElastigroupVolumes> apiVolumes = volumeAttachments.getVolumes().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                retVal.setVolumes(apiVolumes);
+            }
+        }
         return retVal;
     }
 
@@ -2664,6 +2698,10 @@ public class ElastigroupConverter {
                 blComputeBuilder.setSubnetIds(compute.getSubnetIds());
             }
 
+            if(compute.isVolumeAttachmentsSet()){
+                blComputeBuilder.setVolumeAttachments(toBl(compute.getVolumeAttachments()));
+            }
+
             blCompute = blComputeBuilder.build();
         }
 
@@ -2688,6 +2726,39 @@ public class ElastigroupConverter {
             retVal = retValBuilder.build();
         }
 
+        return retVal;
+    }
+
+    private static ElastigroupVolumes toBl(ApiElastigroupVolumes volume) {
+        ElastigroupVolumes retVal = null;
+
+        if (volume != null) {
+            ElastigroupVolumes.Builder retValBuilder = ElastigroupVolumes.Builder.get();
+            if (volume.isDeviceNameSet()) {
+                retValBuilder.setDeviceName(volume.getDeviceName());
+            }
+            if (volume.isVolumeIdSet()) {
+                retValBuilder.setVolumeId(volume.getVolumeId());
+            }
+            retVal = retValBuilder.build();
+        }
+
+        return retVal;
+    }
+
+    private static ElastigroupVolumeAttachments toBl(ApiElastigroupVolumeAttachments volumeAttachments) {
+        ElastigroupVolumeAttachments retVal = null;
+
+        if (volumeAttachments != null) {
+            ElastigroupVolumeAttachments.Builder retValBuilder = ElastigroupVolumeAttachments.Builder.get();
+            if (volumeAttachments.isVolumesSet()) {
+                List<ApiElastigroupVolumes> apiVolumes = volumeAttachments.getVolumes();
+                List<ElastigroupVolumes> volumes = apiVolumes.stream().map(ElastigroupConverter::toBl)
+                        .collect(Collectors.toList());
+                retValBuilder.setVolumes(volumes);
+            }
+            retVal = retValBuilder.build();
+        }
         return retVal;
     }
 
