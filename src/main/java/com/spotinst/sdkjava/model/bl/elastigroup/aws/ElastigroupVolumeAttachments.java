@@ -14,7 +14,7 @@ public class ElastigroupVolumeAttachments {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private List<ElastigroupVolume> volumes;
+    private List<ElastigroupVolumes> volumes;
 
 
     //endregion
@@ -37,11 +37,11 @@ public class ElastigroupVolumeAttachments {
         this.isSet = isSet;
     }
 
-    public List<ElastigroupVolume> getVolumes() {
+    public List<ElastigroupVolumes> getVolumes() {
         return volumes;
     }
 
-    public void setVolumes(List<ElastigroupVolume> volumes) {
+    public void setVolumes(List<ElastigroupVolumes> volumes) {
         isSet.add("volumes");
         this.volumes = volumes;
     }
@@ -61,7 +61,7 @@ public class ElastigroupVolumeAttachments {
             return new Builder();
         }
 
-        public Builder setVolumes(final List<ElastigroupVolume> volumes) {
+        public Builder setVolumes(final List<ElastigroupVolumes> volumes) {
             volumeAttachments.setVolumes(volumes);
             return this;
         }

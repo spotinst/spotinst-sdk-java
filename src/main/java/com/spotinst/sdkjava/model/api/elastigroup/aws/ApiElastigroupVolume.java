@@ -24,19 +24,15 @@ public class ApiElastigroupVolume implements IPartialUpdateEntity {
     private Set<String> isSet;
     private String deviceName;
     private String volumeId;
-
-
     //endregion
 
     //region Constructor
-
     public ApiElastigroupVolume() {
         isSet = new HashSet<>();
     }
     //endregion
 
     //region Getters & Setters
-
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -53,7 +49,6 @@ public class ApiElastigroupVolume implements IPartialUpdateEntity {
         isSet.add("deviceName");
         this.deviceName = deviceName;
     }
-
     public String getVolumeId() {
         return volumeId;
     }
@@ -62,12 +57,9 @@ public class ApiElastigroupVolume implements IPartialUpdateEntity {
         isSet.add("volumeId");
         this.volumeId = volumeId;
     }
-
-
     //endregion
 
     //region isSet methods
-
     // Is volumes Set boolean method
     @JsonIgnore
     public boolean isDeviceNameSet() {
@@ -78,6 +70,5 @@ public class ApiElastigroupVolume implements IPartialUpdateEntity {
     public boolean isVolumeIdSet() {
         return isSet.contains("volumeId");
     }
-
     //endregion
 }

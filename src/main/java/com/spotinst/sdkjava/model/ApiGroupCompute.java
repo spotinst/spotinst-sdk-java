@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupVolumeAttachments;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElastigroupVolumeAttachments;
 
 import java.util.HashSet;
@@ -30,7 +31,7 @@ class ApiGroupCompute implements IPartialUpdateEntity {
     private List<String>        preferredAvailabilityZones;
     private List<String> privateIps;
     private List<String> subnetIds;
-    private ElastigroupVolumeAttachments volumeAttachments;
+    private ApiElastigroupVolumeAttachments volumeAttachments;
     //endregion
 
     //region Constructor
@@ -130,11 +131,11 @@ class ApiGroupCompute implements IPartialUpdateEntity {
         this.subnetIds = subnetIds;
     }
 
-    public ElastigroupVolumeAttachments getVolumeAttachments() {
+    public ApiElastigroupVolumeAttachments getVolumeAttachments() {
         return volumeAttachments;
     }
 
-    public void setVolumeAttachments(ElastigroupVolumeAttachments volumeAttachments) {
+    public void setVolumeAttachments(ApiElastigroupVolumeAttachments volumeAttachments) {
         isSet.add("volumeAttachments");
         this.volumeAttachments = volumeAttachments;
     }

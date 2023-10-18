@@ -481,9 +481,8 @@ public class ElastigroupConverter {
             }
 
             if(compute.isVolumeAttachmentsSet()){
-                optCompute.setVolumeAttachments(compute.getVolumeAttachments());
+                optCompute.setVolumeAttachments(toDal(compute.getVolumeAttachments()));
             }
-
         }
 
         return optCompute;
@@ -1175,7 +1174,7 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupVolume toDal(ElastigroupVolume volume) {
+    private static ApiElastigroupVolume toDal(ElastigroupVolumes volume) {
         ApiElastigroupVolume retVal = null;
 
         if (volume != null) {
@@ -1201,8 +1200,6 @@ public class ElastigroupConverter {
             if(volumeAttachments.isVolumesSet()){
                 List<ApiElastigroupVolume> apiVolumes = volumeAttachments.getVolumes().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                 retVal.setVolumes(apiVolumes);
-
-
             }
         }
         return retVal;
@@ -2688,7 +2685,7 @@ public class ElastigroupConverter {
             }
 
             if(compute.isVolumeAttachmentsSet()){
-                blComputeBuilder.setVolumeAttachments(compute.getVolumeAttachments());
+                blComputeBuilder.setVolumeAttachments(toBl(compute.getVolumeAttachments()));
             }
 
             blCompute = blComputeBuilder.build();
@@ -2718,11 +2715,11 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupVolume toBl(ApiElastigroupVolume volume) {
-        ElastigroupVolume retVal = null;
+    private static ElastigroupVolumes toBl(ApiElastigroupVolume volume) {
+        ElastigroupVolumes retVal = null;
 
         if (volume != null) {
-            ElastigroupVolume.Builder retValBuilder = ElastigroupVolume.Builder.get();
+            ElastigroupVolumes.Builder retValBuilder = ElastigroupVolumes.Builder.get();
             if (volume.isDeviceNameSet()) {
                 retValBuilder.setDeviceName(volume.getDeviceName());
             }
@@ -2742,14 +2739,12 @@ public class ElastigroupConverter {
             ElastigroupVolumeAttachments.Builder retValBuilder = ElastigroupVolumeAttachments.Builder.get();
             if (volumeAttachments.isVolumesSet()) {
                 List<ApiElastigroupVolume> apiVolumes = volumeAttachments.getVolumes();
-                List<ElastigroupVolume> volumes = apiVolumes.stream().map(ElastigroupConverter::toBl)
+                List<ElastigroupVolumes> volumes = apiVolumes.stream().map(ElastigroupConverter::toBl)
                         .collect(Collectors.toList());
                 retValBuilder.setVolumes(volumes);
-
             }
             retVal = retValBuilder.build();
         }
-
         return retVal;
     }
 

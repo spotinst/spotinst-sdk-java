@@ -9,7 +9,7 @@ import java.util.Set;
  * Created by Aditya on 11/10/23.
  */
 
-public class ElastigroupVolume {
+public class ElastigroupVolumes {
 
     //region Members
     @JsonIgnore
@@ -22,7 +22,7 @@ public class ElastigroupVolume {
 
     //region Constructor
 
-    private ElastigroupVolume() {
+    private ElastigroupVolumes() {
         isSet = new HashSet<>();
     }
     //endregion
@@ -61,26 +61,26 @@ public class ElastigroupVolume {
     //region Builder class
     public static class Builder {
 
-        private ElastigroupVolume volume;
+        private ElastigroupVolumes volume;
 
         private Builder() {
-            this.volume = new ElastigroupVolume();
+            this.volume = new ElastigroupVolumes();
         }
 
-        public static ElastigroupVolume.Builder get() {
-            return new ElastigroupVolume.Builder();
+        public static ElastigroupVolumes.Builder get() {
+            return new ElastigroupVolumes.Builder();
         }
 
-        public ElastigroupVolume.Builder setDeviceName(final String deviceName) {
+        public ElastigroupVolumes.Builder setDeviceName(final String deviceName) {
             volume.setDeviceName(deviceName);
             return this;
         }
 
-        public ElastigroupVolume.Builder setVolumeId(final String volumeId) {
+        public ElastigroupVolumes.Builder setVolumeId(final String volumeId) {
             volume.setVolumeId(volumeId);
             return this;
         }
-        public ElastigroupVolume build() {
+        public ElastigroupVolumes build() {
             return volume;
         }
     }
