@@ -1174,11 +1174,11 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static ApiElastigroupVolume toDal(ElastigroupVolumes volume) {
-        ApiElastigroupVolume retVal = null;
+    private static ApiElastigroupVolumes toDal(ElastigroupVolumes volume) {
+        ApiElastigroupVolumes retVal = null;
 
         if (volume != null) {
-            retVal = new ApiElastigroupVolume();
+            retVal = new ApiElastigroupVolumes();
 
             if(volume.isDeviceNameSet()){
                 retVal.setDeviceName(volume.getDeviceName());
@@ -1198,7 +1198,7 @@ public class ElastigroupConverter {
             retVal = new ApiElastigroupVolumeAttachments();
 
             if(volumeAttachments.isVolumesSet()){
-                List<ApiElastigroupVolume> apiVolumes = volumeAttachments.getVolumes().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
+                List<ApiElastigroupVolumes> apiVolumes = volumeAttachments.getVolumes().stream().map(ElastigroupConverter::toDal).collect(Collectors.toList());
                 retVal.setVolumes(apiVolumes);
             }
         }
@@ -2715,7 +2715,7 @@ public class ElastigroupConverter {
         return retVal;
     }
 
-    private static ElastigroupVolumes toBl(ApiElastigroupVolume volume) {
+    private static ElastigroupVolumes toBl(ApiElastigroupVolumes volume) {
         ElastigroupVolumes retVal = null;
 
         if (volume != null) {
@@ -2738,7 +2738,7 @@ public class ElastigroupConverter {
         if (volumeAttachments != null) {
             ElastigroupVolumeAttachments.Builder retValBuilder = ElastigroupVolumeAttachments.Builder.get();
             if (volumeAttachments.isVolumesSet()) {
-                List<ApiElastigroupVolume> apiVolumes = volumeAttachments.getVolumes();
+                List<ApiElastigroupVolumes> apiVolumes = volumeAttachments.getVolumes();
                 List<ElastigroupVolumes> volumes = apiVolumes.stream().map(ElastigroupConverter::toBl)
                         .collect(Collectors.toList());
                 retValBuilder.setVolumes(volumes);

@@ -18,7 +18,7 @@ public class ApiElastigroupVolumeAttachments implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private List<ApiElastigroupVolume> volumes;
+    private List<ApiElastigroupVolumes> volumes;
 
 
     //endregion
@@ -41,11 +41,11 @@ public class ApiElastigroupVolumeAttachments implements IPartialUpdateEntity {
         this.isSet = isSet;
     }
 
-    public List<ApiElastigroupVolume> getVolumes() {
+    public List<ApiElastigroupVolumes> getVolumes() {
         return volumes;
     }
 
-    public void setVolumes(List<ApiElastigroupVolume> volumes) {
+    public void setVolumes(List<ApiElastigroupVolumes> volumes) {
         isSet.add("volumes");
         this.volumes = volumes;
     }
