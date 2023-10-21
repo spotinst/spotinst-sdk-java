@@ -1,24 +1,33 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsEbsBlockDeviceConfig {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsEbsBlockDeviceConfig implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private Integer volumesPerInstance;
-    private ApiMrScalerAwsVolumeSpecification volumeSpecification;
-    // endregion
+    private Set<String>                         isSet;
+    private Integer                             volumesPerInstance;
+    private ApiMrScalerAwsVolumeSpecification   volumeSpecification;
 
-    //region Constructor
     public ApiMrScalerAwsEbsBlockDeviceConfig() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region volumesPerInstance
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public Integer getVolumesPerInstance(){ return volumesPerInstance; }
 
     public void setVolumesPerInstance(Integer volumesPerInstance) {
@@ -26,10 +35,6 @@ public class ApiMrScalerAwsEbsBlockDeviceConfig {
         this.volumesPerInstance = volumesPerInstance;
     }
 
-    public Boolean isVolumesPerInstanceSet(){ return isSet.contains("volumesPerInstance"); }
-    // endregion
-
-    // region volumeSpecification
     public ApiMrScalerAwsVolumeSpecification getVolumeSpecification(){ return volumeSpecification; }
 
     public void setVolumeSpecification(ApiMrScalerAwsVolumeSpecification volumeSpecification) {
@@ -37,33 +42,10 @@ public class ApiMrScalerAwsEbsBlockDeviceConfig {
         this.volumeSpecification = volumeSpecification;
     }
 
+    @JsonIgnore
+    public Boolean isVolumesPerInstanceSet(){ return isSet.contains("volumesPerInstance"); }
+
+    @JsonIgnore
     public Boolean isVolumeSpecificationSet(){ return isSet.contains("volumeSpecification"); }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAwsEbsBlockDeviceConfig ebsConfig;
-
-        private Builder() { this.ebsConfig = new ApiMrScalerAwsEbsBlockDeviceConfig(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setVolumesPerInstance(final Integer volumesPerInstance){
-            ebsConfig.setVolumesPerInstance(volumesPerInstance);
-            return this;
-        }
-        public Builder setVolumeSpecification(final ApiMrScalerAwsVolumeSpecification volumeSpecification){
-            ebsConfig.setVolumeSpecification(volumeSpecification);
-            return this;
-        }
-
-        public ApiMrScalerAwsEbsBlockDeviceConfig build(){
-            return ebsConfig;
-        }
-
-        // endregion
-    }
 }

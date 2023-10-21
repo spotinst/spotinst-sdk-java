@@ -1,25 +1,34 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsInstancegroups {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsInstancegroups implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private ApiMrScalerAwsMasterGroup masterGroup;
-    private ApiMrScalerAwsCoreGroup coreGroup;
-    private ApiMrScalerAwsTaskGroup taskGroup;
-    // endregion
+    private Set<String>                 isSet;
+    private ApiMrScalerAwsMasterGroup   masterGroup;
+    private ApiMrScalerAwsCoreGroup     coreGroup;
+    private ApiMrScalerAwsTaskGroup     taskGroup;
 
-    //region Constructor
     public ApiMrScalerAwsInstancegroups() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region masterGroup
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public ApiMrScalerAwsMasterGroup getMasterGroup(){ return masterGroup; }
 
     public void setMasterGroup(ApiMrScalerAwsMasterGroup masterGroup) {
@@ -27,10 +36,6 @@ public class ApiMrScalerAwsInstancegroups {
         this.masterGroup = masterGroup;
     }
 
-    public Boolean isMasterGroupSet(){ return isSet.contains("masterGroup"); }
-    // endregion
-
-    // region coreGroup
     public ApiMrScalerAwsCoreGroup getCoreGroup(){ return coreGroup; }
 
     public void setCoreGroup(ApiMrScalerAwsCoreGroup coreGroup) {
@@ -38,10 +43,6 @@ public class ApiMrScalerAwsInstancegroups {
         this.coreGroup = coreGroup;
     }
 
-    public Boolean isCoreGroupSet(){ return isSet.contains("coreGroup"); }
-    // endregion
-
-    // region taskGroup
     public ApiMrScalerAwsTaskGroup getTaskGroup(){ return taskGroup; }
 
     public void setTaskGroup(ApiMrScalerAwsTaskGroup taskGroup) {
@@ -49,36 +50,14 @@ public class ApiMrScalerAwsInstancegroups {
         this.taskGroup = taskGroup;
     }
 
+    @JsonIgnore
+    public Boolean isMasterGroupSet(){ return isSet.contains("masterGroup"); }
+
+    @JsonIgnore
+    public Boolean isCoreGroupSet(){ return isSet.contains("coreGroup"); }
+
+    @JsonIgnore
     public Boolean isTaskGroupSet(){ return isSet.contains("taskGroup"); }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAwsInstancegroups instancegroups;
 
-        private Builder(){ this.instancegroups = new ApiMrScalerAwsInstancegroups(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region builder methods
-        public Builder setMasterGroup(final ApiMrScalerAwsMasterGroup masterGroup){
-            instancegroups.setMasterGroup(masterGroup);
-            return this;
-        }
-        public Builder setCoreGroup(final ApiMrScalerAwsCoreGroup coreGroup){
-            instancegroups.setCoreGroup(coreGroup);
-            return this;
-        }
-        public Builder setTaskGroup(final ApiMrScalerAwsTaskGroup taskGroup){
-            instancegroups.setTaskGroup(taskGroup);
-            return this;
-        }
-
-        public ApiMrScalerAwsInstancegroups build(){
-            return instancegroups;
-        }
-        // endregion
-    }
 }

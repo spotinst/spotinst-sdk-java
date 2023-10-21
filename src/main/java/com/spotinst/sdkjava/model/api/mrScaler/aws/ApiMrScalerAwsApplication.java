@@ -1,26 +1,34 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsApplication {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsApplication implements IPartialUpdateEntity {
+
     @JsonIgnore
     private Set<String> isSet;
-    private String name;
-    private String version;
+    private String      name;
+    private String      version;
 
-    // endregion
-
-    //region Constructor
     public ApiMrScalerAwsApplication() {  isSet = new HashSet<>(); }
-    // endregion
 
+    public Set<String> getIsSet() {
+        return isSet;
+    }
 
-    // region methods
-    // region name
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getName(){ return name; }
 
     public void setName(String name) {
@@ -28,10 +36,6 @@ public class ApiMrScalerAwsApplication {
         this.name = name;
     }
 
-    public Boolean isNameSet(){ return isSet.contains("name"); }
-    // endregion
-
-    // region version
     public String getVersion(){ return version; }
 
     public void setVersion(String version) {
@@ -39,32 +43,12 @@ public class ApiMrScalerAwsApplication {
         this.version = version;
     }
 
+    @JsonIgnore
+    public Boolean isNameSet(){ return isSet.contains("name"); }
+
+    @JsonIgnore
     public Boolean isVersionSet(){ return isSet.contains("version"); }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAwsApplication application;
 
-        private Builder(){ this.application = new ApiMrScalerAwsApplication(); }
 
-        public static  Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setName(final String name){
-            application.setName(name);
-            return this;
-        }
-        public Builder setVersion(final String version){
-            application.setVersion(version);
-            return this;
-        }
-
-        public ApiMrScalerAwsApplication build(){
-            return application;
-        }
-        // endregion
-    }
 }

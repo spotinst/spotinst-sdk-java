@@ -1,27 +1,35 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerOperatorAws {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerOperatorAws implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String>    isSet;
     private String         name;
     private ApiMrScalerAws mrScaler;
 
-    // endregion
-
-    //region Constructor
     public ApiMrScalerOperatorAws() {
         isSet = new HashSet<>();
     }
-    // endregion
 
-    //region getters and setters
-    // region Name
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,52 +39,23 @@ public class ApiMrScalerOperatorAws {
         this.name = name;
     }
 
-    public Boolean isNameSet() {
-        return isSet.contains("name");
-    }
-    // endregion
-
-    // region MrScaler
     public ApiMrScalerAws getMrScaler() {
         return mrScaler;
     }
 
-    public void setMrScaler(ApiMrScalerAws mrScalerAws) {
+    public void setMrScaler(ApiMrScalerAws mrScaler) {
 
         isSet.add("mrScaler");
-        this.mrScaler = mrScalerAws;
+        this.mrScaler = mrScaler;
     }
 
+    @JsonIgnore
+    public Boolean isNameSet() {
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
     public Boolean isMrScalerSet() {
         return isSet.contains("mrScaler");
-    }
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerOperatorAws apiMrScalerOperatorAws;
-
-        private Builder() {
-            this.apiMrScalerOperatorAws = new ApiMrScalerOperatorAws();
-        }
-
-        public static Builder get() {
-            return new Builder();
-        }
-
-        //region Build methods
-        public Builder setName(final String name) {
-            apiMrScalerOperatorAws.setName(name);
-            return this;
-        }
-
-        public Builder setMrScaler(final ApiMrScalerAws apiMrScalerAws) {
-            apiMrScalerOperatorAws.setMrScaler(apiMrScalerAws);
-            return this;
-        }
-
-        public ApiMrScalerOperatorAws build() {
-            return apiMrScalerOperatorAws;
-        }
-        // endregion
     }
 }

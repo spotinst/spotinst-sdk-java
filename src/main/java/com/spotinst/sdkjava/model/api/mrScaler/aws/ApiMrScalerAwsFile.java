@@ -1,23 +1,33 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsFile {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsFile implements IPartialUpdateEntity {
+
     @JsonIgnore
-    private Set<String> isSet;
+    private Set<String>              isSet;
     private ApiMrScalerAwsFileParams file;
-    // endregion
 
-    //region Constructor
     public ApiMrScalerAwsFile() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region file
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public ApiMrScalerAwsFileParams getFile(){ return file; }
 
     public void setFile(ApiMrScalerAwsFileParams file) {
@@ -25,28 +35,7 @@ public class ApiMrScalerAwsFile {
         this.file = file;
     }
 
+    @JsonIgnore
     public Boolean isFileSet(){ return isSet.contains("file"); }
-    // endregion
-    // endregion
 
-    public static class Builder {
-        private ApiMrScalerAwsFile file;
-
-        private Builder(){ this.file = new ApiMrScalerAwsFile(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region builder methods
-        public Builder setFile(ApiMrScalerAwsFileParams fileParams){
-            file.setFile(fileParams);
-            return this;
-        }
-
-        public ApiMrScalerAwsFile build(){
-            return file;
-        }
-        // endregion
-    }
 }

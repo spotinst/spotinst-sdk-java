@@ -1,25 +1,37 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsFileParams {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsFileParams implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
     private Set<String> isSet;
-    private String bucket;
-    private String key;
+    private String      bucket;
+    private String      key;
 
     // endregion
 
     //region Constructor
     public ApiMrScalerAwsFileParams() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region bucket
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getBucket(){ return bucket; }
 
     public void setBucket(String bucket) {
@@ -27,10 +39,6 @@ public class ApiMrScalerAwsFileParams {
         this.bucket = bucket;
     }
 
-    public Boolean isBucketSet(){ return isSet.contains("bucket"); }
-    // endregion
-
-    // region key
     public String getKey(){ return key; }
 
     public void setKey(String key) {
@@ -38,32 +46,9 @@ public class ApiMrScalerAwsFileParams {
         this.key = key;
     }
 
+    @JsonIgnore
+    public Boolean isBucketSet(){ return isSet.contains("bucket"); }
+
+    @JsonIgnore
     public Boolean isKeySet(){ return isSet.contains("key"); }
-    // endregion
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsFileParams fileParams;
-
-        private Builder(){ this.fileParams = new ApiMrScalerAwsFileParams(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region builder methods
-        public Builder setBucket(final String bucket){
-            fileParams.setBucket(bucket);
-            return this;
-        }
-        public Builder setKey(final String key){
-            fileParams.setKey(key);
-            return this;
-        }
-
-        public ApiMrScalerAwsFileParams build(){
-            return fileParams;
-        }
-        // endregion
-    }
 }

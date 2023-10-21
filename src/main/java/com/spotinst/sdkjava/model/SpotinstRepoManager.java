@@ -5,6 +5,7 @@ import com.spotinst.sdkjava.model.repo.admin.organization.SpotAdminOrganizationR
 import com.spotinst.sdkjava.model.repo.admin.account.SpotAccountAdminRepo;
 import com.spotinst.sdkjava.model.repo.ocean.aks.SpotOceanAzureAksClusterRepo;
 import com.spotinst.sdkjava.model.repo.elastigroup.azure.v3.SpotinstElastigroupRepoAzure;
+import com.spotinst.sdkjava.model.repo.mrScaler.aws.*;
 import com.spotinst.sdkjava.model.repo.ocean.aks.AzureAksVngRepo;
 import com.spotinst.sdkjava.model.repo.ocean.gke.SpotOceanGkeLaunchSpecRepo;
 import com.spotinst.sdkjava.model.repo.aws.managedInstance.SpotAwsManagedInstanceRepo;
@@ -43,7 +44,11 @@ class SpotinstRepoManager {
     private ISpotOceanEcsLaunchSpecRepo                 spotOceanEcsLaunchSpecRepo;
     private ISpotStorageAzureVolumeRepo                 spotStorageAzureVolumeRepo;
     private ISpotAwsManagedInstanceRepo                 spotAwsManagedInstanceRepo;
-    private ISpotK8sVngRepo       						          spotK8sVngRepo;
+    private ISpotK8sVngRepo                             spotK8sVngRepo;
+    private ISpotinstMrScalerListInstancesRepo          spotinstMrScalerListInstancesRepo;
+    private ISpotinstMrScalerListScalersRepo            spotinstMrScalerListScalersRepo;
+    private ISpotinstMrScalerScaleUpRepo                spotinstMrScalerScaleUpRepo;
+    private ISpotinstMrScalerScaleDownRepo              spotinstMrScalerScaleDownRepo;
     private ISpotAzureStatefulNodeRepo                  spotAzureStatefulNodeRepo;
     private ISpotAzureAksVngRepo    					          spotAksVngRepo;
     private ISpotAdminOrganizationRepo                  spotAdminOrganizationRepo;
@@ -75,6 +80,10 @@ class SpotinstRepoManager {
         this.spotStorageAzureVolumeRepo = new SpotStorageAzureVolumeRepo();
         this.spotAwsManagedInstanceRepo = new SpotAwsManagedInstanceRepo();
         this.spotK8sVngRepo = new K8sVngRepo();
+        this.spotinstMrScalerListInstancesRepo = new SpotinstMrScalerListInstancesRepo();
+        this.spotinstMrScalerListScalersRepo = new SpotinstMrScalerListScalersRepo();
+        this.spotinstMrScalerScaleUpRepo = new SpotinstMrScalerScaleUpRepo();
+        this.spotinstMrScalerScaleDownRepo = new SpotinstMrScalerScaleDownRepo();
         this.spotAzureStatefulNodeRepo = new SpotinstAzureStatefulNodeRepo();
         this.spotAksVngRepo = new AzureAksVngRepo();
         this.spotAdminOrganizationRepo = new SpotAdminOrganizationRepo();
@@ -235,6 +244,22 @@ class SpotinstRepoManager {
 
     public void setK8sVngRepo(ISpotK8sVngRepo k8sVngRepo) {
         this.spotK8sVngRepo = k8sVngRepo;
+    }
+
+    public ISpotinstMrScalerListInstancesRepo getSpotinstMrScalerListInstancesRepo() {
+        return spotinstMrScalerListInstancesRepo;
+    }
+
+    public ISpotinstMrScalerListScalersRepo getSpotinstMrScalerListScalersRepo(){
+        return spotinstMrScalerListScalersRepo;
+    }
+
+    public ISpotinstMrScalerScaleUpRepo getSpotinstMrScalerScaleUpRepo(){
+        return spotinstMrScalerScaleUpRepo;
+    }
+
+    public ISpotinstMrScalerScaleDownRepo getSpotinstMrScalerScaleDownRepo(){
+        return spotinstMrScalerScaleDownRepo;
     }
 
     public ISpotAzureStatefulNodeRepo getSpotAzureStatefulNodeRepo() { return spotAzureStatefulNodeRepo; }

@@ -1,6 +1,10 @@
 package com.spotinst.sdkjava.model;
 
 import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerAws;
+import com.spotinst.sdkjava.model.converters.mrScaler.aws.MrScalerAwsConverter;
+import com.spotinst.sdkjava.model.repo.mrScaler.aws.SpotinstMrScalerAwsRepo;
+import com.spotinst.sdkjava.model.service.mrScaler.aws.SpotinstMrScalerAwsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +34,7 @@ public class SpotinstMrScalerAwsRepoTest {
     @Test
     public void create() {
         System.out.println("SpotinstMrScalerAwsRepo.create()");
-        ApiMrScalerAws mrScaler = mock(ApiMrScalerAws.class);
+        MrScalerAws mrScaler = mock(MrScalerAws.class);
 
         RepoGenericResponse retVal = new RepoGenericResponse<>(mrScaler);
 
@@ -40,7 +44,7 @@ public class SpotinstMrScalerAwsRepoTest {
     @Test
     public void update() {
         System.out.println("SpotinstMrScalerAwsRepo.create()");
-        ApiMrScalerAws mrScaler = mock(ApiMrScalerAws.class);
+        MrScalerAws mrScaler = mock(MrScalerAws.class);
 
         RepoGenericResponse<Boolean> retVal = new RepoGenericResponse<>(true);
 
