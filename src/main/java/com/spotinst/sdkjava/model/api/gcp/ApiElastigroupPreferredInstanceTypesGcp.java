@@ -13,23 +13,17 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonFilter("PartialUpdateEntityFilter")
-public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
-    //region members
-    @JsonIgnore
-    private Set<String>                             isSet;
-    private List<String>                            preemptible;
-    private String                                  ondemand;
-    private ApiElastigroupCustomInstanceTypesGcp    custom;
-    private ApiElastigroupPreferredInstanceTypesGcp preferred;
-    //endregion
+public class ApiElastigroupPreferredInstanceTypesGcp implements IPartialUpdateEntity {
 
-    //region Constructor
-    public ApiInstanceTypesGcp() {
+    @JsonIgnore
+    private Set<String>                                 isSet;
+    private List<String>                                preemptible;
+    private ApiElastigroupCustomInstanceTypesGcp        custom;
+
+    public ApiElastigroupPreferredInstanceTypesGcp() {
         isSet = new HashSet<>();
     }
-    //endregion
 
-    //region Getters & Setters
     public Set<String> getIsSet() {
         return isSet;
     }
@@ -47,15 +41,6 @@ public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
         this.preemptible = preemptible;
     }
 
-    public String getOndemand() {
-        return ondemand;
-    }
-
-    public void setOndemand(String ondemand) {
-        isSet.add("ondemand");
-        this.ondemand = ondemand;
-    }
-
     public ApiElastigroupCustomInstanceTypesGcp getCustom() {
         return custom;
     }
@@ -65,33 +50,11 @@ public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
         this.custom = custom;
     }
 
-    public ApiElastigroupPreferredInstanceTypesGcp getPreferred() {
-        return preferred;
-    }
-
-    public void setPreferred(ApiElastigroupPreferredInstanceTypesGcp preferred) {
-        isSet.add("preferred");
-        this.preferred = preferred;
-    }
-    //endregion
-
-    //region isSet methods
-    // Is preemptible Set boolean method
     @JsonIgnore
     public boolean isPreemptibleSet() {
         return isSet.contains("preemptible");
     }
 
-    // Is ondemand Set boolean method
-    @JsonIgnore
-    public boolean isOndemandSet() {
-        return isSet.contains("ondemand");
-    }
-
     @JsonIgnore
     public boolean isCustomSet() { return isSet.contains("custom"); }
-
-    @JsonIgnore
-    public boolean isPreferredSet() { return isSet.contains("preferred"); }
-    //endregion
 }
