@@ -2,6 +2,8 @@ package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spotinst.sdkjava.model.bl.elastigroup.aws.ElasticBeanstalk;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.Nomad;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.Route53;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +16,8 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     private ElastigroupEcsSpecification ecs;
     private ElastigroupCodeDeploy       codeDeploy;
     private ElasticBeanstalk            elasticBeanstalk;
+    private Route53                     route53;
+    private Nomad                       nomad;
     //endregion
 
     //region Constructor
@@ -24,6 +28,25 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     //endregion
 
     //region Getters & Setters
+
+
+    public Nomad getNomad() {
+        return nomad;
+    }
+
+    public void setNomad(Nomad nomad) {
+        isSet.add("nomad");
+        this.nomad = nomad;
+    }
+
+    public Route53 getRoute53() {
+        return route53;
+    }
+
+    public void setRoute53(Route53 route53) {
+        isSet.add("route53");
+        this.route53 = route53;
+    }
 
     public ElastigroupEcsSpecification getEcs() {
         return ecs;
@@ -73,6 +96,11 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
             return new Builder();
         }
 
+        public Builder setNomad(final Nomad nomad) {
+            ThirdPartiesIntegration.setNomad(nomad);
+            return this;
+        }
+
         public Builder setEcs(final ElastigroupEcsSpecification ecs) {
             ThirdPartiesIntegration.setEcs(ecs);
             return this;
@@ -88,6 +116,11 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
             return this;
         }
 
+        public Builder setRoute53(final Route53 route53) {
+            ThirdPartiesIntegration.setRoute53(route53);
+            return this;
+        }
+
         public ElastigroupThirdPartiesIntegrationConfiguration build() {
             return ThirdPartiesIntegration;
         }
@@ -95,6 +128,11 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
     //endregion
 
     //region isSet methods
+    // Is nomad Set boolean method
+    @JsonIgnore
+    public boolean isNomadSet() {
+        return isSet.contains("nomad");
+    }
     // Is ecs Set boolean method
     @JsonIgnore
     public boolean isEcsSet() {
@@ -113,6 +151,10 @@ public class ElastigroupThirdPartiesIntegrationConfiguration {
         return isSet.contains("elasticBeanstalk");
     }
 
+    // Is route53 Set boolean method
+    @JsonIgnore
+    public boolean isRoute53Set() {
+        return isSet.contains("route53");
+    }
     //endregion
-
 }

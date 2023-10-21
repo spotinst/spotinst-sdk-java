@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.Constraints;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ public class ElastigroupAutoScaleSpecification {
     private Boolean                                  isAutoConfig;
     private Boolean                                  shouldScaleDownNonServiceTasks;
     private List<ElastigroupAttributesSpecification> attributes;
+    private List<Constraints>                              constraints;
     //endregion
 
     //region Constructor
@@ -33,6 +35,15 @@ public class ElastigroupAutoScaleSpecification {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public List<Constraints> getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(List<Constraints> constraints) {
+        isSet.add("constraints");
+        this.constraints = constraints;
     }
 
     public Boolean getEnabled() {
@@ -111,6 +122,11 @@ public class ElastigroupAutoScaleSpecification {
             return new Builder();
         }
 
+        public Builder setConstraints(final List<Constraints> constraints) {
+            AutoScale.setConstraints(constraints);
+            return this;
+        }
+
         public Builder setIsEnabled(final Boolean isEnabled) {
             AutoScale.setIsEnabled(isEnabled);
             return this;
@@ -153,6 +169,11 @@ public class ElastigroupAutoScaleSpecification {
     //endregion
 
     //region isSet methods
+    // Is constraints Set boolean method
+    @JsonIgnore
+    public boolean isConstraintsSet() {
+        return isSet.contains("constraints");
+    }
     // Is isEnabled Set boolean method
     @JsonIgnore
     public boolean isIsEnabledSet() {
