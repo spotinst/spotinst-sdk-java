@@ -168,7 +168,6 @@ public class AwsManagedInstanceUsageExample {
                 .setBalancerId("lb-1ee2e3q")
                 .setName("testing")
                 .setTargetSetId("ts-3eq")
-                .setType("MULTAI_TARGET_SET")
                 .build();
         List<LoadBalancers> loadBalancersList = Collections.singletonList(loadBalancers);
 
