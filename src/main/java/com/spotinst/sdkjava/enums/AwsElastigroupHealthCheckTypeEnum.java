@@ -12,7 +12,6 @@ public enum AwsElastigroupHealthCheckTypeEnum {
     TARGET_GROUP("target-group"),
     OPSWORKS("opsworks"),
     NOMAD_NODE("nomad-node"),
-    MULTAI_TARGET_SET("multai-target-set"),
     HCS("hcs"),
     EC2("ec2"),
     NONE("none");
