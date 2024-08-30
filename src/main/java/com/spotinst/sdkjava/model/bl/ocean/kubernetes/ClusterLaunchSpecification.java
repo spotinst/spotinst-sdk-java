@@ -25,6 +25,7 @@ public class ClusterLaunchSpecification {
     private Boolean                       monitoring;
     private Boolean                       ebsOptimized;
     private Integer                       rootVolumeSize;
+    private Boolean                       useAsTemplateOnly;
 
 
     private ClusterLaunchSpecification() {
@@ -133,6 +134,15 @@ public class ClusterLaunchSpecification {
         this.rootVolumeSize = rootVolumeSize;
     }
 
+    public Boolean getUseAsTemplateOnly() {
+        return useAsTemplateOnly;
+    }
+
+    public void setUseAsTemplateOnly(Boolean useAsTemplateOnly) {
+        isSet.add("useAsTemplateOnly");
+        this.useAsTemplateOnly = useAsTemplateOnly;
+    }
+
     public static class Builder {
         private ClusterLaunchSpecification launchSpecification;
 
@@ -194,6 +204,11 @@ public class ClusterLaunchSpecification {
             return this;
         }
 
+        public Builder setUseAsTemplateOnly(final Boolean useAsTemplateOnly) {
+            launchSpecification.setUseAsTemplateOnly(useAsTemplateOnly);
+            return this;
+        }
+
         public ClusterLaunchSpecification build() {
             return launchSpecification;
         }
@@ -246,5 +261,10 @@ public class ClusterLaunchSpecification {
     @JsonIgnore
     public boolean isRootVolumeSizeSet() {
         return isSet.contains("rootVolumeSize");
+    }
+
+    @JsonIgnore
+    public boolean isUseAsTemplateOnlySet() {
+        return isSet.contains("useAsTemplateOnly");
     }
 }

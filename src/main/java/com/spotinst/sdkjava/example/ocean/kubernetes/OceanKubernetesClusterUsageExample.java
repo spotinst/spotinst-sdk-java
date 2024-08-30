@@ -121,7 +121,7 @@ public class OceanKubernetesClusterUsageExample {
         ClusterLaunchSpecification launchSpecification =
                 launchSpecificationBuilder.setSecurityGroupIds(securityGroups).setAssociatePublicIpAddress(true)
                                          .setEbsOptimized(false).setMonitoring(false).setRootVolumeSize(73)
-                                         .setIamInstanceProfile(iamInstanceProfileSpec)
+                                         .setUseAsTemplateOnly(false).setIamInstanceProfile(iamInstanceProfileSpec)
                                          .setImageId(launchSpecificationImageId).setTags(tagsList).setKeyPair(keyPair)
                                          .build();
 

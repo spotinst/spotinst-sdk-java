@@ -298,6 +298,9 @@ public class OceanK8sConverter {
             if (launchSpecification.isRootVolumeSizeSet()) {
                 retVal.setRootVolumeSize(launchSpecification.getRootVolumeSize());
             }
+            if (launchSpecification.isUseAsTemplateOnlySet()) {
+                retVal.setUseAsTemplateOnly(launchSpecification.getUseAsTemplateOnly());
+            }
         }
 
         return retVal;
@@ -725,6 +728,9 @@ public class OceanK8sConverter {
             }
             if (apilaunchSpecification.isRootVolumeSizeSet()) {
                 launchSpecBuilder.setRootVolumeSize(apilaunchSpecification.getRootVolumeSize());
+            }
+            if (apilaunchSpecification.isUseAsTemplateOnlySet()) {
+                launchSpecBuilder.setUseAsTemplateOnly(apilaunchSpecification.getUseAsTemplateOnly());
             }
 
             retVal = launchSpecBuilder.build();

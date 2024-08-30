@@ -28,6 +28,7 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     private Boolean                          monitoring;
     private Boolean                          ebsOptimized;
     private Integer                          rootVolumeSize;
+    private Boolean                          useAsTemplateOnly;
 
 
     public ApiClusterLaunchSpecification() {
@@ -136,6 +137,15 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
         this.rootVolumeSize = rootVolumeSize;
     }
 
+    public Boolean getUseAsTemplateOnly() {
+        return useAsTemplateOnly;
+    }
+
+    public void setUseAsTemplateOnly(Boolean useAsTemplateOnly) {
+        isSet.add("useAsTemplateOnly");
+        this.useAsTemplateOnly = useAsTemplateOnly;
+    }
+
     @JsonIgnore
     public boolean isImageIdSet() {
         return isSet.contains("imageId");
@@ -184,6 +194,11 @@ public class ApiClusterLaunchSpecification implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isRootVolumeSizeSet() {
         return isSet.contains("rootVolumeSize");
+    }
+
+    @JsonIgnore
+    public boolean isUseAsTemplateOnlySet() {
+        return isSet.contains("useAsTemplateOnly");
     }
 
 
