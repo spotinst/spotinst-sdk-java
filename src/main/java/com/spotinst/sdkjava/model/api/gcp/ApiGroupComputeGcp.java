@@ -22,6 +22,9 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     private List<ApiSubnetsGcp>               subnets;
     private ApiLaunchSpecificationGcp         launchSpecification;
     private ApiInstanceTypesGcp               instanceTypes;
+    private ApiElastigroupHealthGcp           health;
+    private List<String>                      preferredAvailabilityZones;
+    private ApiElastigroupGpuGcp              gpu;
     //endregion
 
     //region Constructor
@@ -74,6 +77,33 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
         isSet.add("launchSpecification");
         this.launchSpecification = launchSpecification;
     }
+
+    public ApiElastigroupHealthGcp getHealth() {
+        return health;
+    }
+
+    public void setHealth(ApiElastigroupHealthGcp health) {
+        isSet.add("health");
+        this.health = health;
+    }
+
+    public ApiElastigroupGpuGcp getGpu() {
+        return gpu;
+    }
+
+    public void setGpu(ApiElastigroupGpuGcp gpu) {
+        isSet.add("gpu");
+        this.gpu = gpu;
+    }
+
+    public List<String> getPreferredAvailabilityZones() {
+        return preferredAvailabilityZones;
+    }
+
+    public void setPreferredAvailabilityZones(List<String> preferredAvailabilityZones) {
+        isSet.add("preferredAvailabilityZones");
+        this.preferredAvailabilityZones = preferredAvailabilityZones;
+    }
     //end region
 
     //region is set methods
@@ -100,5 +130,14 @@ public class ApiGroupComputeGcp implements IPartialUpdateEntity {
     public boolean isLaunchSpecificationSet() {
         return isSet.contains("launchSpecification");
     }
+
+    @JsonIgnore
+    public boolean isHealthSet() { return isSet.contains("health"); }
+
+    @JsonIgnore
+    public boolean isGpuSet() { return isSet.contains("gpu"); }
+
+    @JsonIgnore
+    public boolean isPreferredAvailabilityZonesSet() { return isSet.contains("preferredAvailabilityZones"); }
     //endregion
 }
