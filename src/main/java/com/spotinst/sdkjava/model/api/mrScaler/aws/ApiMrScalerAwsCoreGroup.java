@@ -1,31 +1,40 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.model.ElastigroupCapacityConfiguration;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElastigroupUpdateCapacityConfiguration;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
-public class ApiMrScalerAwsCoreGroup {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsCoreGroup implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private List<String> instanceTypes;
-    private ElastigroupCapacityConfiguration capacity;
-    private String lifeCycle;
-    private ApiMrScalerAwsEbsConfiguration ebsConfiguration;
-    private ApiMrScalerAwsFile configurations;
-    private Integer target;
+    private Set<String>                         isSet;
+    private List<String>                        instanceTypes;
+    private ElastigroupCapacityConfiguration    capacity;
+    private String                              lifeCycle;
+    private ApiMrScalerAwsEbsConfiguration      ebsConfiguration;
+    private ApiMrScalerAwsFile                  configurations;
+    private Integer                             target;
 
-    // endregion
-
-    //region Constructor
     public ApiMrScalerAwsCoreGroup() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region instanceTypes
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public List<String> getInstanceTypes(){ return instanceTypes; }
 
     public void setInstanceTypes(List<String> instanceTypes) {
@@ -33,10 +42,6 @@ public class ApiMrScalerAwsCoreGroup {
         this.instanceTypes = instanceTypes;
     }
 
-    public Boolean isInstanceTypesSet(){ return isSet.contains("instanceTypes"); }
-    // endregion
-
-    // region capacity
     public ElastigroupCapacityConfiguration getCapacity(){ return capacity; }
 
     public void setCapacity(ElastigroupCapacityConfiguration capacity) {
@@ -44,10 +49,6 @@ public class ApiMrScalerAwsCoreGroup {
         this.capacity = capacity;
     }
 
-    public Boolean isCapacitySet(){ return isSet.contains("capacity"); }
-    // endregion
-
-    // region lifeCycle
     public String getLifeCycle(){ return lifeCycle; }
 
     public void setLifeCycle(String lifeCycle) {
@@ -55,10 +56,6 @@ public class ApiMrScalerAwsCoreGroup {
         this.lifeCycle = lifeCycle;
     }
 
-    public Boolean isLifeCycle(){ return isSet.contains("lifeCycle"); }
-    // endregion
-
-    // region ebsConfiguration
     public ApiMrScalerAwsEbsConfiguration getEbsConfiguration(){ return ebsConfiguration; }
 
     public void setEbsConfiguration(ApiMrScalerAwsEbsConfiguration ebsConfiguration) {
@@ -66,10 +63,6 @@ public class ApiMrScalerAwsCoreGroup {
         this.ebsConfiguration = ebsConfiguration;
     }
 
-    public Boolean isEbsConfigurationSet(){ return isSet.contains("ebsConfiguration"); }
-    // endregion
-
-    // region configurations
     public ApiMrScalerAwsFile getConfigurations(){ return configurations; }
 
     public void setConfigurations(ApiMrScalerAwsFile configurations) {
@@ -77,10 +70,6 @@ public class ApiMrScalerAwsCoreGroup {
         this.configurations = configurations;
     }
 
-    public Boolean isConfigurations(){ return isSet.contains("configurations"); }
-    // endregion
-
-    // region target
     public Integer getTarget(){ return target; }
 
     public void setTarget(Integer target) {
@@ -88,49 +77,22 @@ public class ApiMrScalerAwsCoreGroup {
         this.target = target;
     }
 
+    @JsonIgnore
+    public Boolean isInstanceTypesSet(){ return isSet.contains("instanceTypes"); }
+
+    @JsonIgnore
+    public Boolean isCapacitySet(){ return isSet.contains("capacity"); }
+
+    @JsonIgnore
+    public Boolean isLifeCycleSet(){ return isSet.contains("lifeCycle"); }
+
+    @JsonIgnore
+    public Boolean isConfigurationsSet(){ return isSet.contains("configurations"); }
+
+    @JsonIgnore
+    public Boolean isEbsConfigurationSet(){ return isSet.contains("ebsConfiguration"); }
+
+    @JsonIgnore
     public Boolean isTargetSet(){ return isSet.contains("target"); }
-    // endregion
 
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsCoreGroup coreGroup;
-
-        private Builder(){this.coreGroup= new ApiMrScalerAwsCoreGroup();}
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setInstanceTypes(List<String> instanceTypes){
-            coreGroup.setInstanceTypes(instanceTypes);
-            return this;
-        }
-        public Builder setCapacity(ElastigroupCapacityConfiguration capacity){
-            coreGroup.setCapacity(capacity);
-            return this;
-        }
-        public Builder setLifeCycle(String lifeCycle){
-            coreGroup.setLifeCycle(lifeCycle);
-            return this;
-        }
-        public Builder setEbsConfiguration(ApiMrScalerAwsEbsConfiguration ebsConfiguration){
-            coreGroup.setEbsConfiguration(ebsConfiguration);
-            return this;
-        }
-        public Builder setConfigurations(ApiMrScalerAwsFile configurations){
-            coreGroup.setConfigurations(configurations);
-            return this;
-        }
-        public Builder setTarget(Integer target){
-            coreGroup.setTarget(target);
-            return this;
-        }
-
-        public ApiMrScalerAwsCoreGroup build(){
-            return coreGroup;
-        }
-        // endregion
-    }
 }
