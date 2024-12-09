@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.spotinst</groupId>
   <artifactId>spotinst-sdk-java</artifactId>
-  <version>1.0.122</version>
+  <version>1.0.122-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>spotinst-sdk-java</name>
   <description>A Spotinst Java SDK</description>
@@ -175,6 +175,9 @@
           <notree>true</notree>
           <nocomment>true</nocomment>
           <nohelp>true</nohelp>
+          <additionalOptions>
+		<option>-Xdoclint:none</option>
+	  </additionalOptions>
         </configuration>
         <executions>
           <execution>
