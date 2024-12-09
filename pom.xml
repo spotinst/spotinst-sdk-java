@@ -175,9 +175,6 @@
           <notree>true</notree>
           <nocomment>true</nocomment>
           <nohelp>true</nohelp>
-          <additionalOptions>
-		<option>-Xdoclint:none</option>
-	  </additionalOptions>
         </configuration>
         <executions>
           <execution>
