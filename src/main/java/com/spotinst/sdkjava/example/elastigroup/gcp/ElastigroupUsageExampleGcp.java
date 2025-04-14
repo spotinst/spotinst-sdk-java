@@ -3,6 +3,7 @@ package com.spotinst.sdkjava.example.elastigroup.gcp;
 import com.spotinst.sdkjava.SpotinstClient;
 import com.spotinst.sdkjava.enums.GroupActiveInstanceStatusEnumGcp;
 import com.spotinst.sdkjava.enums.PerformAtEnumGcp;
+import com.spotinst.sdkjava.enums.gcp.GcpElastigroupHealthCheckTypeEnum;
 import com.spotinst.sdkjava.model.*;
 import com.spotinst.sdkjava.model.bl.elastigroup.gcp.*;
 import com.spotinst.sdkjava.model.requests.elastigroup.gcp.ElastigroupCreationRequestGcp;
@@ -119,6 +120,11 @@ public class ElastigroupUsageExampleGcp {
         List<ElastigroupSubnetsGcp> subnetsGcpList = new ArrayList<>();
         subnetsGcpList.add(subnetsGcp);
 
+        //build health
+        ElastigroupHealthGcp.Builder elastigroupHealthBuilder = ElastigroupHealthGcp.Builder.get();
+        ElastigroupHealthGcp healthGcp = elastigroupHealthBuilder.setHealthCheckType(GcpElastigroupHealthCheckTypeEnum.BACKEND_SERVICE)
+                                        .setAutoHealing(false).setGracePeriod(300).setUnhealthyDuration(160).build();
+
         //build launch specification
         ElastigroupLaunchSpecificationGcp.Builder ElastigroupLaunchSpecificationGcpBuilder =
                 ElastigroupLaunchSpecificationGcp.Builder.get();
@@ -135,7 +141,8 @@ public class ElastigroupUsageExampleGcp {
 
         ElastigroupComputeGcp computeConfigurationGcp = ElastigroupComputeConfigurationGcpBuilder
                                            .setAvailabilityZones(AvailabilityZonesList).setInstanceTypes(instanceTypesGcp)
-                                           .setLaunchSpecification(launchSpecificationGcp).setSubnets(subnetsGcpList).build();
+                                           .setLaunchSpecification(launchSpecificationGcp).setSubnets(subnetsGcpList)
+                                            .setHealth(healthGcp).build();
 
         //Build group capacity
         ElastigroupCapacityGcp.Builder capacityBuilder =
@@ -166,6 +173,23 @@ public class ElastigroupUsageExampleGcp {
                                             .setPreemptiblePercentage(100)
                                             .setRevertToPreemptible(revertToPreemptibleGcp).build();
 
+        //build schedulingTasks
+        ElastigroupScheduleTasksConfigurationGcp.Builder taskBuilder = ElastigroupScheduleTasksConfigurationGcp.Builder.get();
+
+        ElastigroupScheduleTasksConfigurationGcp tasksGcp = taskBuilder.setCronExpression("8 10 * * *")
+                .setIsEnabled(true).setMaxCapacity(10).setMinCapacity(1).setTargetCapacity(5).setTaskType("setCapacity")
+                .build();
+
+        List<ElastigroupScheduleTasksConfigurationGcp> tasksGcpList = new ArrayList<>();
+        tasksGcpList.add(tasksGcp);
+
+        //build scheduling
+        ElastigroupSchedulingGcp.Builder schedulingBuilder =
+                ElastigroupSchedulingGcp.Builder.get();
+
+        ElastigroupSchedulingGcp schedulingGcp=
+                schedulingBuilder.setTasks(tasksGcpList).build();
+
         //build elastigroup gcp
         ElastigroupGcp.Builder ElastigroupGcpBuilder = ElastigroupGcp.Builder.get();
         ElastigroupGcp elastigroupGcp =
@@ -173,7 +197,8 @@ public class ElastigroupUsageExampleGcp {
                                      .setDescription("spotinst-automation")
                                      .setCapacity(capacity)
                                      .setCompute(computeConfigurationGcp)
-                                     .setStrategy(strategyConfigurationGcp).build();
+                                     .setStrategy(strategyConfigurationGcp)
+                                     .setScheduling(schedulingGcp).build();
 
         // Build gcp elastigroup creation request
         ElastigroupCreationRequestGcp.Builder ElastigroupCreationRequestGcpBuilder =

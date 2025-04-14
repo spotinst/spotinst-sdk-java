@@ -16,9 +16,11 @@ import java.util.Set;
 public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
     //region members
     @JsonIgnore
-    private Set<String>  isSet;
-    private List<String> preemptible;
-    private String       ondemand;
+    private Set<String>                             isSet;
+    private List<String>                            preemptible;
+    private String                                  ondemand;
+    private ApiElastigroupCustomInstanceTypesGcp    custom;
+    private ApiElastigroupPreferredInstanceTypesGcp preferred;
     //endregion
 
     //region Constructor
@@ -53,6 +55,24 @@ public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
         isSet.add("ondemand");
         this.ondemand = ondemand;
     }
+
+    public ApiElastigroupCustomInstanceTypesGcp getCustom() {
+        return custom;
+    }
+
+    public void setCustom(ApiElastigroupCustomInstanceTypesGcp custom) {
+        isSet.add("custom");
+        this.custom = custom;
+    }
+
+    public ApiElastigroupPreferredInstanceTypesGcp getPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(ApiElastigroupPreferredInstanceTypesGcp preferred) {
+        isSet.add("preferred");
+        this.preferred = preferred;
+    }
     //endregion
 
     //region isSet methods
@@ -67,5 +87,11 @@ public class ApiInstanceTypesGcp implements IPartialUpdateEntity {
     public boolean isOndemandSet() {
         return isSet.contains("ondemand");
     }
+
+    @JsonIgnore
+    public boolean isCustomSet() { return isSet.contains("custom"); }
+
+    @JsonIgnore
+    public boolean isPreferredSet() { return isSet.contains("preferred"); }
     //endregion
 }

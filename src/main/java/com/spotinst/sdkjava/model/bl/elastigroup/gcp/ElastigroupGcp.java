@@ -9,15 +9,18 @@ import java.util.Set;
 public class ElastigroupGcp {
     //region Members
     @JsonIgnore
-    private Set<String>            isSet;
-    private String                 id;
-    private String                 name;
-    private String                 description;
-    private ElastigroupCapacityGcp capacity;
-    private ElastigroupStrategyGcp strategy;
-    private ElastigroupComputeGcp  compute;
-    private Date                   createdAt;
-    private Date                   updatedAt;
+    private Set<String>                             isSet;
+    private String                                  id;
+    private String                                  name;
+    private String                                  description;
+    private ElastigroupCapacityGcp                  capacity;
+    private ElastigroupStrategyGcp                  strategy;
+    private ElastigroupComputeGcp                   compute;
+    private Date                                    createdAt;
+    private Date                                    updatedAt;
+    private ElastigroupScalingConfigurationGcp      scaling;
+    private ElastigroupSchedulingGcp                scheduling;
+    private ElastigroupThirdPartiesIntegrationGcp   thirdPartiesIntegration;
     //endregion
 
     //region Constructor
@@ -107,6 +110,33 @@ public class ElastigroupGcp {
         this.compute = compute;
     }
 
+    public ElastigroupScalingConfigurationGcp getScaling() {
+        return scaling;
+    }
+
+    public void setScaling(ElastigroupScalingConfigurationGcp scaling) {
+        isSet.add("scaling");
+        this.scaling = scaling;
+    }
+
+    public ElastigroupSchedulingGcp getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(ElastigroupSchedulingGcp scheduling) {
+        isSet.add("scheduling");
+        this.scheduling = scheduling;
+    }
+
+    public ElastigroupThirdPartiesIntegrationGcp getThirdPartiesIntegration() {
+        return thirdPartiesIntegration;
+    }
+
+    public void setThirdPartiesIntegration(ElastigroupThirdPartiesIntegrationGcp thirdPartiesIntegration) {
+        isSet.add("thirdPartiesIntegration");
+        this.thirdPartiesIntegration = thirdPartiesIntegration;
+    }
+
     //endregion
 
     //region Builder class
@@ -155,6 +185,21 @@ public class ElastigroupGcp {
             return this;
         }
 
+        public Builder setScaling(final ElastigroupScalingConfigurationGcp scaling) {
+            elastigroup.setScaling(scaling);
+            return this;
+        }
+
+        public Builder setScheduling(final ElastigroupSchedulingGcp scheduling) {
+            elastigroup.setScheduling(scheduling);
+            return this;
+        }
+
+        public Builder setThirdPartiesIntegration(final ElastigroupThirdPartiesIntegrationGcp thirdPartiesIntegration) {
+            elastigroup.setThirdPartiesIntegration(thirdPartiesIntegration);
+            return this;
+        }
+
         public ElastigroupGcp build() {
             // Validations
             return elastigroup;
@@ -195,5 +240,14 @@ public class ElastigroupGcp {
     // Is updatedAt Set boolean method
     @JsonIgnore
     public boolean isUpdatedAtSet() { return isSet.contains("updatedAt"); }
+
+    @JsonIgnore
+    public boolean isScalingSet() { return isSet.contains("scaling"); }
+
+    @JsonIgnore
+    public boolean isSchedulingSet() { return isSet.contains("scheduling"); }
+
+    @JsonIgnore
+    public boolean isThirdPartiesIntegrationSet() { return isSet.contains("thirdPartiesIntegration"); }
     //endregion
 }

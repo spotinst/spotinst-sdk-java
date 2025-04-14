@@ -17,15 +17,18 @@ import java.util.Set;
 public class ApiElastigroupGcp implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>                            isSet;
-    private String                                 id;
-    private String                                 name;
-    private String                                 description;
-    private ApiCapacityGcp                         capacity;
-    private ApiStrategyGcp                         strategy;
-    private ApiGroupComputeGcp                     compute;
-    private Date                                   createdAt;
-    private Date                                   updatedAt;
+    private Set<String>                                 isSet;
+    private String                                      id;
+    private String                                      name;
+    private String                                      description;
+    private ApiCapacityGcp                              capacity;
+    private ApiStrategyGcp                              strategy;
+    private ApiGroupComputeGcp                          compute;
+    private Date                                        createdAt;
+    private Date                                        updatedAt;
+    private ApiElastigroupScalingConfigurationGcp       scaling;
+    private ApiElastigroupSchedulingGcp                 scheduling;
+    private ApiElastigroupThirdPartiesIntegrationGcp    thirdPartiesIntegration;
     //endregion
 
     //region Constructor
@@ -113,6 +116,33 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
         isSet.add("updatedAt");
         this.updatedAt = updatedAt;
     }
+
+    public ApiElastigroupScalingConfigurationGcp getScaling() {
+        return scaling;
+    }
+
+    public void setScaling(ApiElastigroupScalingConfigurationGcp scaling) {
+        isSet.add("scaling");
+        this.scaling = scaling;
+    }
+
+    public ApiElastigroupSchedulingGcp getScheduling() {
+        return scheduling;
+    }
+
+    public void setScheduling(ApiElastigroupSchedulingGcp scheduling) {
+        isSet.add("scheduling");
+        this.scheduling = scheduling;
+    }
+
+    public ApiElastigroupThirdPartiesIntegrationGcp getThirdPartiesIntegration() {
+        return thirdPartiesIntegration;
+    }
+
+    public void setThirdPartiesIntegration(ApiElastigroupThirdPartiesIntegrationGcp thirdPartiesIntegration) {
+        isSet.add("thirdPartiesIntegration");
+        this.thirdPartiesIntegration = thirdPartiesIntegration;
+    }
     //endregion
 
     //region isSet methods
@@ -162,6 +192,19 @@ public class ApiElastigroupGcp implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isUpdatedAtSet() {
         return isSet.contains("updatedAt");
+    }
+
+    @JsonIgnore
+    public boolean isScalingSet() {
+        return isSet.contains("scaling");
+    }
+
+    @JsonIgnore
+    public boolean isSchedulingSet() { return isSet.contains("scheduling"); }
+
+    @JsonIgnore
+    public boolean isThirdPartiesIntegrationSet() {
+        return isSet.contains("thirdPartiesIntegration");
     }
     //endregion
 }

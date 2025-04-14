@@ -1,6 +1,7 @@
 package com.spotinst.sdkjava.model.bl.elastigroup.gcp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spotinst.sdkjava.enums.gcp.GcpElastigroupProvisioningModelEnum;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,13 +10,14 @@ import java.util.Set;
 public class ElastigroupStrategyGcp {
     //region Members
     @JsonIgnore
-    private Set<String>                       isSet;
-    private Integer                           preemptiblePercentage;
-    private Integer                           onDemandCount;
-    private Integer                           drainingTimeout;
-    private Boolean                           fallbackToOd;
-    private ElastigroupRevertToPreemptibleGcp revertToPreemptible;
-    private List<String>                      optimizationWindows;
+    private Set<String>                         isSet;
+    private Integer                             preemptiblePercentage;
+    private Integer                             onDemandCount;
+    private Integer                             drainingTimeout;
+    private Boolean                             fallbackToOd;
+    private ElastigroupRevertToPreemptibleGcp   revertToPreemptible;
+    private List<String>                        optimizationWindows;
+    private GcpElastigroupProvisioningModelEnum provisioningModel;
     //endregion
 
     //region Constructor
@@ -86,6 +88,15 @@ public class ElastigroupStrategyGcp {
         isSet.add("drainingTimeout");
         this.drainingTimeout = drainingTimeout;
     }
+
+    public GcpElastigroupProvisioningModelEnum getProvisioningModel() {
+        return provisioningModel;
+    }
+
+    public void setProvisioningModel(GcpElastigroupProvisioningModelEnum provisioningModel) {
+        isSet.add("provisioningModel");
+        this.provisioningModel = provisioningModel;
+    }
     //endregion
 
     //region Builder class
@@ -130,6 +141,11 @@ public class ElastigroupStrategyGcp {
             return this;
         }
 
+        public Builder setProvisioningModel(final GcpElastigroupProvisioningModelEnum provisioningModel) {
+            strategy.setProvisioningModel(provisioningModel);
+            return this;
+        }
+
         public ElastigroupStrategyGcp build() {
             return strategy;
         }
@@ -160,5 +176,8 @@ public class ElastigroupStrategyGcp {
     // Is optimizationWindows Set boolean method
     @JsonIgnore
     public boolean isOptimizationWindowsSet() { return isSet.contains("optimizationWindows"); }
+
+    @JsonIgnore
+    public boolean isProvisioningModelSet() { return isSet.contains("provisioningModel"); }
     //endregion
 }
