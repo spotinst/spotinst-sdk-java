@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiElasticBeanstalk;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiNomad;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiRoute53;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,10 +18,12 @@ import java.util.Set;
 class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     //region Members
     @JsonIgnore
-    private Set<String>   isSet;
-    private ApiEcs        ecs;
-    private ApiCodeDeploy codeDeploy;
-    private ApiElasticBeanstalk elasticBeanstalk;
+    private Set<String>          isSet;
+    private ApiEcs               ecs;
+    private ApiCodeDeploy        codeDeploy;
+    private ApiElasticBeanstalk  elasticBeanstalk;
+    private ApiRoute53           route53;
+    private ApiNomad             nomad;
     //endregion
 
     //region Constructor
@@ -37,6 +41,15 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public ApiNomad getNomad() {
+        return nomad;
+    }
+
+    public void setNomad(ApiNomad nomad) {
+        isSet.add("nomad");
+        this.nomad = nomad;
     }
 
     public ApiEcs getEcs() {
@@ -67,8 +80,21 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
         this.elasticBeanstalk = elasticBeanstalk;
     }
 
+    public ApiRoute53 getRoute53() {
+        return route53;
+    }
+
+    public void setRoute53(ApiRoute53 route53) {
+        this.route53 = route53;
+    }
+
     //endregion
     //region isSet methods
+    // Is nomad Set boolean method
+    @JsonIgnore
+    public boolean isNomadSet() {
+        return isSet.contains("nomad");
+    }
     // Is ecs Set boolean method
     @JsonIgnore
     public boolean isEcsSet() {
@@ -85,6 +111,12 @@ class ApiThirdPartiesIntegration implements IPartialUpdateEntity {
     @JsonIgnore
     public boolean isElasticBeanstalkSet() {
         return isSet.contains("elasticBeanstalk");
+    }
+
+    // Is route53 Set boolean method
+    @JsonIgnore
+    public boolean isRoute53Set() {
+        return isSet.contains("route53");
     }
     //endregion
 

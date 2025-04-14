@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
+import com.spotinst.sdkjava.model.api.elastigroup.aws.ApiConstraints;
+import com.spotinst.sdkjava.model.bl.elastigroup.aws.Constraints;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +26,7 @@ public class ApiAutoScale implements IPartialUpdateEntity {
     private Boolean             isAutoConfig;
     private Boolean             shouldScaleDownNonServiceTasks;
     private List<ApiAttributes> attributes;
+    private List<ApiConstraints>         constraints;
     //endregion
 
     //region Constructor
@@ -39,6 +42,15 @@ public class ApiAutoScale implements IPartialUpdateEntity {
 
     public void setIsSet(Set<String> isSet) {
         this.isSet = isSet;
+    }
+
+    public List<ApiConstraints> getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(List<ApiConstraints> constraints) {
+        isSet.add("constraints");
+        this.constraints = constraints;
     }
 
     public Boolean getIsEnabled() {
@@ -106,6 +118,11 @@ public class ApiAutoScale implements IPartialUpdateEntity {
 
     //endregion
     //region isSet methods
+    // Is constraints Set boolean method
+    @JsonIgnore
+    public boolean isConstraintsSet() {
+        return isSet.contains("constraints");
+    }
     // Is isEnabled Set boolean method
     @JsonIgnore
     public boolean isIsEnabledSet() {
