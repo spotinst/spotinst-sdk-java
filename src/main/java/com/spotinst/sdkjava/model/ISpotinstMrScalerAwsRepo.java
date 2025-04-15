@@ -1,6 +1,6 @@
 package com.spotinst.sdkjava.model;
 
-import com.spotinst.sdkjava.model.api.mrScaler.aws.ApiMrScalerAws;
+import com.spotinst.sdkjava.model.bl.mrScaler.aws.MrScalerAws;
 
-public interface ISpotinstMrScalerAwsRepo extends IRepository<ApiMrScalerAws, Void, String> {
+public interface ISpotinstMrScalerAwsRepo extends IRepository<MrScalerAws, Void, String> {
 }

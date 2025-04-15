@@ -1,26 +1,34 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spotinst.sdkjava.enums.AwsMrScalerStateEnum;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
 public class ApiMrScalerOperatorAwsResponse {
-    //region Members
     @JsonIgnore
     private Set<String>          isSet;
     private String               name;
     private String               mrScalerId;
     private AwsMrScalerStateEnum state;
-    //endregion
 
-    //region Constructor
     public ApiMrScalerOperatorAwsResponse() { isSet = new HashSet<>(); }
-    // endregion
 
-    //region getters and setters
-    //region Name
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,12 +38,6 @@ public class ApiMrScalerOperatorAwsResponse {
         this.name = name;
     }
 
-    public Boolean isNameSet(){
-        return isSet.contains("name");
-    }
-    //endregion
-
-    //region MrScalerId
     public String getMrScalerId() {
         return mrScalerId;
     }
@@ -45,12 +47,6 @@ public class ApiMrScalerOperatorAwsResponse {
         this.mrScalerId = mrScalerId;
     }
 
-    public Boolean isMrScalerIdSet(){
-        return isSet.contains("mrScalerId");
-    }
-    //endregion
-
-    //region State
     public AwsMrScalerStateEnum getState() {
         return state;
     }
@@ -60,9 +56,19 @@ public class ApiMrScalerOperatorAwsResponse {
         this.state = state;
     }
 
+    @JsonIgnore
+    public Boolean isNameSet(){
+        return isSet.contains("name");
+    }
+
+    @JsonIgnore
+    public Boolean isMrScalerIdSet(){
+        return isSet.contains("mrScalerId");
+    }
+
+    @JsonIgnore
     public Boolean isStateSet(){
         return isSet.contains("state");
     }
-    //endregion
-    //endregion
+
 }

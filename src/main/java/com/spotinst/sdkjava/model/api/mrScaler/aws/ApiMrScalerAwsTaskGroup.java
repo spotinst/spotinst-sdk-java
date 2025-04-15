@@ -1,30 +1,38 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 import com.spotinst.sdkjava.model.ElastigroupCapacityConfiguration;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ApiMrScalerAwsTaskGroup {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsTaskGroup implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private List<String> instanceTypes;
-    private ElastigroupCapacityConfiguration capacity;
-    private String lifeCycle;
-    private ApiMrScalerAwsEbsConfiguration ebsConfiguration;
-    private ApiMrScalerAwsFile configurations;
+    private Set<String>                         isSet;
+    private List<String>                        instanceTypes;
+    private ElastigroupCapacityConfiguration    capacity;
+    private String                              lifeCycle;
+    private ApiMrScalerAwsEbsConfiguration      ebsConfiguration;
+    private ApiMrScalerAwsFile                  configurations;
 
-    // endregion
-
-    //region Constructor
     public ApiMrScalerAwsTaskGroup() {  isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region instanceTypes
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public List<String> getInstanceTypes(){ return instanceTypes; }
 
     public void setInstanceTypes(List<String> instanceTypes) {
@@ -32,10 +40,6 @@ public class ApiMrScalerAwsTaskGroup {
         this.instanceTypes = instanceTypes;
     }
 
-    public Boolean isInstanceTypesSet(){ return isSet.contains("instanceTypes"); }
-    // endregion
-
-    // region capacity
     public ElastigroupCapacityConfiguration getCapacity(){ return capacity; }
 
     public void setCapacity(ElastigroupCapacityConfiguration capacity) {
@@ -43,10 +47,6 @@ public class ApiMrScalerAwsTaskGroup {
         this.capacity = capacity;
     }
 
-    public Boolean isCapacitySet(){ return isSet.contains("capacity"); }
-    // endregion
-
-    // region lifeCycle
     public String getLifeCycle(){ return lifeCycle; }
 
     public void setLifeCycle(String lifeCycle) {
@@ -54,10 +54,6 @@ public class ApiMrScalerAwsTaskGroup {
         this.lifeCycle = lifeCycle;
     }
 
-    public Boolean isLifeCycle(){ return isSet.contains("lifeCycle"); }
-    // endregion
-
-    // region ebsConfiguration
     public ApiMrScalerAwsEbsConfiguration getEbsConfiguration(){ return ebsConfiguration; }
 
     public void setEbsConfiguration(ApiMrScalerAwsEbsConfiguration ebsConfiguration) {
@@ -65,10 +61,6 @@ public class ApiMrScalerAwsTaskGroup {
         this.ebsConfiguration = ebsConfiguration;
     }
 
-    public Boolean isEbsConfigurationSet(){ return isSet.contains("ebsConfiguration"); }
-    // endregion
-
-    // region configurations
     public ApiMrScalerAwsFile getConfigurations(){ return configurations; }
 
     public void setConfigurations(ApiMrScalerAwsFile configurations) {
@@ -76,45 +68,18 @@ public class ApiMrScalerAwsTaskGroup {
         this.configurations = configurations;
     }
 
-    public Boolean isConfigurations(){ return isSet.contains("configurations"); }
-    // endregion
+    @JsonIgnore
+    public Boolean isInstanceTypesSet(){ return isSet.contains("instanceTypes"); }
 
-    // endregion
+    @JsonIgnore
+    public Boolean isCapacitySet(){ return isSet.contains("capacity"); }
 
-    public static class Builder {
-        private ApiMrScalerAwsTaskGroup taskGroup;
+    @JsonIgnore
+    public Boolean isLifeCycleSet(){ return isSet.contains("lifeCycle"); }
 
-        private Builder(){ this.taskGroup = new ApiMrScalerAwsTaskGroup(); }
+    @JsonIgnore
+    public Boolean isEbsConfigurationSet(){ return isSet.contains("ebsConfiguration"); }
 
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setInstanceTypes(List<String> instanceTypes){
-            taskGroup.setInstanceTypes(instanceTypes);
-            return this;
-        }
-        public Builder setCapacity(ElastigroupCapacityConfiguration capacity){
-            taskGroup.setCapacity(capacity);
-            return this;
-        }
-        public Builder setLifeCycle(String lifeCycle){
-            taskGroup.setLifeCycle(lifeCycle);
-            return this;
-        }
-        public Builder setEbsConfiguration(ApiMrScalerAwsEbsConfiguration ebsConfiguration){
-            taskGroup.setEbsConfiguration(ebsConfiguration);
-            return this;
-        }
-        public Builder setConfigurations(ApiMrScalerAwsFile configurations){
-            taskGroup.setConfigurations(configurations);
-            return this;
-        }
-
-        public ApiMrScalerAwsTaskGroup build(){
-            return taskGroup;
-        }
-        // endregion
-    }
+    @JsonIgnore
+    public Boolean isConfigurationsSet(){ return isSet.contains("configurations"); }
 }

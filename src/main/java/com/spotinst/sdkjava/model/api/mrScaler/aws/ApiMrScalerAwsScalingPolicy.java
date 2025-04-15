@@ -1,37 +1,46 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 
-public class ApiMrScalerAwsScalingPolicy {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsScalingPolicy implements IPartialUpdateEntity {
     @JsonIgnore
-    private Set<String> isSet;
-    private String policyName;
-    private String namespace;
-    private String metricName;
-    private List<ApiMrScalerAwsScalingDimenation> dimensions;
-    private String statistic;
-    private String unit;
-    private Integer threshold;
-    private Integer adjustment;
-    private Integer minTargetCapacity;
-    private Integer period;
-    private Integer evaluationPeriods;
-    private Integer cooldown;
-    private ApiMrScalerAwsScalingAction action;
-    private String operator;
-    // endregion
+    private Set<String>                             isSet;
+    private String                                  policyName;
+    private String                                  namespace;
+    private String                                  metricName;
+    private List<ApiMrScalerAwsScalingDimenation>   dimensions;
+    private String                                  statistic;
+    private String                                  unit;
+    private Integer                                 threshold;
+    private Integer                                 adjustment;
+    private Integer                                 minTargetCapacity;
+    private Integer                                 period;
+    private Integer                                 evaluationPeriods;
+    private Integer                                 cooldown;
+    private ApiMrScalerAwsScalingAction             action;
+    private String                                  operator;
 
-    //region Constructor
     public ApiMrScalerAwsScalingPolicy() { isSet = new HashSet<>(); }
-    // endregion
 
-    //region getters and setters
-    // region policyName
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getPolicyName(){
         return policyName;
     }
@@ -41,12 +50,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.policyName = policyName;
     }
 
-    public Boolean isPolicyNameSet(){
-        return isSet.contains("policyName");
-    }
-    // endregion
-
-    // region namespace
     public String getNamespace(){
         return namespace;
     }
@@ -56,12 +59,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.namespace = namespace;
     }
 
-    public Boolean isNamespaceSet(){
-        return isSet.contains("namespace");
-    }
-    // endregion
-
-    // region metricName
     public String getMetricName(){
         return metricName;
     }
@@ -71,12 +68,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.metricName = metricName;
     }
 
-    public Boolean isMetricNameSet(){
-        return isSet.contains("metricName");
-    }
-    // endregion
-
-    // region dimensions
     public List<ApiMrScalerAwsScalingDimenation> getDimensions(){
         return dimensions;
     }
@@ -86,12 +77,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.dimensions = dimensions;
     }
 
-    public Boolean isDimensionsSet(){
-        return isSet.contains("dimensions");
-    }
-    // endregion
-
-    // region statistic
     public String getStatistic(){
         return statistic;
     }
@@ -101,12 +86,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.statistic = statistic;
     }
 
-    public Boolean isStatisticSet(){
-        return isSet.contains("statistic");
-    }
-    // endregion
-
-    // region unit
     public String getUnit(){
         return unit;
     }
@@ -116,12 +95,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.unit = unit;
     }
 
-    public Boolean isUnitSet(){
-        return isSet.contains("unit");
-    }
-    // endregion
-
-    // region threshold
     public Integer getThreshold(){
         return threshold;
     }
@@ -131,12 +104,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.threshold = threshold;
     }
 
-    public Boolean isThresholdSet(){
-        return isSet.contains("threshold");
-    }
-    // endregion
-
-    // region adjustment
     public Integer getAdjustment(){
         return adjustment;
     }
@@ -146,12 +113,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.adjustment = adjustment;
     }
 
-    public Boolean isAdjustmentSet(){
-        return isSet.contains("adjustment");
-    }
-    // endregion
-
-    // region minTargetCapacity
     public Integer getMinTargetCapacity(){ return minTargetCapacity; }
 
     public void setMinTargetCapacity(Integer minTargetCapacity){
@@ -159,12 +120,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.minTargetCapacity = minTargetCapacity;
     }
 
-    public Boolean isMinTargetCapacitySet(){
-        return isSet.contains("minTargetCapacity");
-    }
-    // endregion
-
-    // region period
     public Integer getPeriod(){
         return period;
     }
@@ -174,12 +129,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.period = period;
     }
 
-    public Boolean isPeriodSet(){
-        return isSet.contains("period");
-    }
-    // endregion
-
-    // region evaluationPeriods
     public Integer getEvaluationPeriods(){
         return evaluationPeriods;
     }
@@ -189,12 +138,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.evaluationPeriods = evaluationPeriods;
     }
 
-    public Boolean isEvaluationPeriodsSet(){
-        return isSet.contains("evaluationPeriods");
-    }
-    // endregion
-
-    // region cooldown
     public Integer getCooldown(){
         return cooldown;
     }
@@ -204,12 +147,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.cooldown = cooldown;
     }
 
-    public Boolean isCooldownSet(){
-        return isSet.contains("cooldown");
-    }
-    // endregion
-
-    // region action
     public ApiMrScalerAwsScalingAction getAction(){
         return action;
     }
@@ -219,12 +156,6 @@ public class ApiMrScalerAwsScalingPolicy {
         this.action = action;
     }
 
-    public Boolean isActionSet(){
-        return isSet.contains("action");
-    }
-    // endregion
-
-    // region operator
     public String getOperator(){
         return operator;
     }
@@ -234,84 +165,73 @@ public class ApiMrScalerAwsScalingPolicy {
         this.operator = operator;
     }
 
+    @JsonIgnore
+    public Boolean isPolicyNameSet(){
+        return isSet.contains("policyName");
+    }
+
+    @JsonIgnore
+    public Boolean isNamespaceSet(){
+        return isSet.contains("namespace");
+    }
+
+    @JsonIgnore
+    public Boolean isMetricNameSet(){
+        return isSet.contains("metricName");
+    }
+
+    @JsonIgnore
+    public Boolean isDimensionsSet(){
+        return isSet.contains("dimensions");
+    }
+
+    @JsonIgnore
+    public Boolean isStatisticSet(){
+        return isSet.contains("statistic");
+    }
+
+    @JsonIgnore
+    public Boolean isUnitSet(){
+        return isSet.contains("unit");
+    }
+
+    @JsonIgnore
+    public Boolean isThresholdSet(){
+        return isSet.contains("threshold");
+    }
+
+    @JsonIgnore
+    public Boolean isAdjustmentSet(){
+        return isSet.contains("adjustment");
+    }
+
+    @JsonIgnore
+    public Boolean isMinTargetCapacitySet(){
+        return isSet.contains("minTargetCapacity");
+    }
+
+    @JsonIgnore
+    public Boolean isPeriodSet(){
+        return isSet.contains("period");
+    }
+
+    @JsonIgnore
+    public Boolean isEvaluationPeriodsSet(){
+        return isSet.contains("evaluationPeriods");
+    }
+
+    @JsonIgnore
+    public Boolean isCooldownSet(){
+        return isSet.contains("cooldown");
+    }
+
+    @JsonIgnore
+    public Boolean isActionSet(){
+        return isSet.contains("action");
+    }
+
+    @JsonIgnore
     public Boolean isOperatorSet(){
         return isSet.contains("operator");
-    }
-    // endregion
-
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsScalingPolicy scalingPolicy;
-
-        private Builder(){ this.scalingPolicy = new ApiMrScalerAwsScalingPolicy(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region build methods
-        public Builder setPolicyName(final String policyName){
-            scalingPolicy.setPolicyName(policyName);
-            return this;
-        }
-        public Builder setNamespace(final String namespace){
-            scalingPolicy.setNamespace(namespace);
-            return this;
-        }
-        public Builder setMetricName(final String metricName){
-            scalingPolicy.setMetricName(metricName);
-            return this;
-        }
-        public Builder setDimensions(final List<ApiMrScalerAwsScalingDimenation> dimensions){
-            scalingPolicy.setDimensions(dimensions);
-            return this;
-        }
-        public Builder setStatistic(final String statistic){
-            scalingPolicy.setStatistic(statistic);
-            return this;
-        }
-        public Builder setUnit(final String unit){
-            scalingPolicy.setUnit(unit);
-            return this;
-        }
-        public Builder setThreshold(final Integer threshold){
-            scalingPolicy.setThreshold(threshold);
-            return this;
-        }
-        public Builder setAdjustment(final Integer adjustment){
-            scalingPolicy.setAdjustment(adjustment);
-            return this;
-        }
-        public Builder setMinTargetCapacity(final Integer minTargetCapacity){
-            scalingPolicy.setMinTargetCapacity(minTargetCapacity);
-            return this;
-        }
-        public Builder setPeriod(final Integer period){
-            scalingPolicy.setPeriod(period);
-            return this;
-        }
-        public Builder setEvaluationPeriods(final Integer evaluationPeriods){
-            scalingPolicy.setEvaluationPeriods(evaluationPeriods);
-            return this;
-        }
-        public Builder setCooldown(final Integer cooldown){
-            scalingPolicy.setCooldown(cooldown);
-            return this;
-        }
-        public Builder setAction(final ApiMrScalerAwsScalingAction action){
-            scalingPolicy.setAction(action);
-            return this;
-        }
-        public Builder setOperator(final String operator){
-            scalingPolicy.setOperator(operator);
-            return this;
-        }
-
-        public ApiMrScalerAwsScalingPolicy build(){
-            return scalingPolicy;
-        }
-
-        // endregion
     }
 }

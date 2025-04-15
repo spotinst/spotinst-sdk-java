@@ -1,23 +1,32 @@
 package com.spotinst.sdkjava.model.api.mrScaler.aws;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.spotinst.sdkjava.client.rest.IPartialUpdateEntity;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ApiMrScalerAwsWrapStrategy {
-    //region Members
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonFilter("PartialUpdateEntityFilter")
+public class ApiMrScalerAwsWrapStrategy implements IPartialUpdateEntity {
     @JsonIgnore
     private Set<String> isSet;
-    private String sourceClusterId;
-    // endregion
+    private String      sourceClusterId;
 
-    //region Constructor
     public ApiMrScalerAwsWrapStrategy() { isSet = new HashSet<>(); }
-    // endregion
 
-    // region methods
-    // region sourceClusterId
+    public Set<String> getIsSet() {
+        return isSet;
+    }
+
+    public void setIsSet(Set<String> isSet) {
+        this.isSet = isSet;
+    }
+
     public String getSourceClusterId(){ return sourceClusterId; }
 
     public void setSourceClusterId(String sourceClusterId){
@@ -25,28 +34,6 @@ public class ApiMrScalerAwsWrapStrategy {
         this.sourceClusterId = sourceClusterId;
     }
 
+    @JsonIgnore
     public Boolean isSourceClusterIdSet(){ return isSet.contains("sourceClusterId"); }
-    // endregion
-    // endregion
-
-    public static class Builder {
-        private ApiMrScalerAwsWrapStrategy wrapStrategy;
-
-        private Builder(){ this.wrapStrategy = new ApiMrScalerAwsWrapStrategy(); }
-
-        public static Builder get(){
-            return new Builder();
-        }
-
-        // region builder methods
-        public Builder setSourceClusterId(final String sourceClusterId){
-            wrapStrategy.setSourceClusterId(sourceClusterId);
-            return this;
-        }
-
-        public ApiMrScalerAwsWrapStrategy build(){
-            return wrapStrategy;
-        }
-        // endregion
-    }
 }
